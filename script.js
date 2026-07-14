@@ -106,33 +106,72 @@
   }
 
   function makePentagonalTrapezohedron() {
-    const vertices = [];
-    const faces = [];
+    // A proper d10 is the dual of a regular pentagonal antiprism.
+    // This produces ten clean kite faces with the familiar d10 silhouette.
     const sides = 5;
-    const ringRadius = 1;
-    const ringHeight = 0.34;
-    const apexHeight = 1.42;
-
-    vertices.push([0, 0, apexHeight]);
-    vertices.push([0, 0, -apexHeight]);
+    const radius = 1;
+    const halfHeight = 0.5;
+    const antiprismVertices = [];
+    const antiprismFaces = [];
 
     for (let i = 0; i < sides; i += 1) {
-      const upperAngle = (Math.PI * 2 * i) / sides;
-      const lowerAngle = (Math.PI * 2 * (i + 0.5)) / sides;
-      vertices.push([Math.cos(upperAngle) * ringRadius, Math.sin(upperAngle) * ringRadius, ringHeight]);
-      vertices.push([Math.cos(lowerAngle) * ringRadius, Math.sin(lowerAngle) * ringRadius, -ringHeight]);
+      const topAngle = (Math.PI * 2 * i) / sides;
+      const bottomAngle = topAngle + Math.PI / sides;
+
+      antiprismVertices.push([
+        Math.cos(topAngle) * radius,
+        Math.sin(topAngle) * radius,
+        halfHeight
+      ]);
+      antiprismVertices.push([
+        Math.cos(bottomAngle) * radius,
+        Math.sin(bottomAngle) * radius,
+        -halfHeight
+      ]);
     }
+
+    antiprismFaces.push([0, 2, 4, 6, 8]);
+    antiprismFaces.push([9, 7, 5, 3, 1]);
 
     for (let i = 0; i < sides; i += 1) {
       const next = (i + 1) % sides;
-      const upper = 2 + i * 2;
-      const lower = upper + 1;
-      const nextUpper = 2 + next * 2;
-      const nextLower = nextUpper + 1;
+      const top = i * 2;
+      const bottom = top + 1;
+      const nextTop = next * 2;
+      const nextBottom = nextTop + 1;
 
-      faces.push([0, upper, lower, nextUpper]);
-      faces.push([1, nextLower, nextUpper, lower]);
+      antiprismFaces.push([top, bottom, nextTop]);
+      antiprismFaces.push([bottom, nextBottom, nextTop]);
     }
+
+    const vertices = antiprismFaces.map((face) => {
+      const center = face.reduce(
+        (sum, index) => add(sum, antiprismVertices[index]),
+        [0, 0, 0]
+      );
+      return normalizeVertex(scale(center, 1 / face.length));
+    });
+
+    const faces = antiprismVertices.map((axis, vertexIndex) => {
+      const incident = [];
+
+      antiprismFaces.forEach((face, faceIndex) => {
+        if (face.includes(vertexIndex)) incident.push(faceIndex);
+      });
+
+      const normalizedAxis = normalizeVertex(axis);
+      const reference = Math.abs(normalizedAxis[2]) < 0.9 ? [0, 0, 1] : [0, 1, 0];
+      const tangentX = normalizeVertex(cross(reference, normalizedAxis));
+      const tangentY = normalizeVertex(cross(normalizedAxis, tangentX));
+
+      return incident.sort((left, right) => {
+        const leftPoint = vertices[left];
+        const rightPoint = vertices[right];
+        const leftAngle = Math.atan2(dot(leftPoint, tangentY), dot(leftPoint, tangentX));
+        const rightAngle = Math.atan2(dot(rightPoint, tangentY), dot(rightPoint, tangentX));
+        return leftAngle - rightAngle;
+      });
+    });
 
     return { vertices: normalizeShape(vertices), faces };
   }
