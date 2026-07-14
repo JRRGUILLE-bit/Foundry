@@ -8,7 +8,7 @@
 }
 
 .background-texture {
-  z-index: 2;
+  z-index: 6;
   opacity: 0.52;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px),
