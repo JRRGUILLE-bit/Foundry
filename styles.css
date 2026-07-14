@@ -168,6 +168,7 @@ body {
 .dos-kicker {
   margin: 0 0 0.7rem;
   color: var(--dos-amber);
+  transform: translateY(-14px);
 }
 
 .dos-subtitle::after {
@@ -332,6 +333,10 @@ body {
     margin-top: 0.85rem;
     font-size: 1.08rem;
     letter-spacing: 0.14em;
+  }
+
+  .dos-kicker {
+    transform: translateY(-8px);
   }
 
   .server-panel {
