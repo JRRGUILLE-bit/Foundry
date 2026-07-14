@@ -1,11 +1,15 @@
 :root {
   color-scheme: dark;
-  background: #000;
-  --dos-bg: #020503;
-  --dos-green: #38ff7a;
-  --dos-green-dim: #16a94e;
-  --dos-amber: #ffbf3d;
-  --dos-shadow: rgba(56, 255, 122, 0.42);
+  background: #020805;
+  --dos-bg: #020805;
+  --dos-green: #38d96b;
+  --dos-green-bright: #62f58b;
+  --dos-green-dim: #126530;
+  --dos-amber: #d9a62e;
+  --dos-amber-bright: #f1c453;
+  --dos-muted: #8a988c;
+  --dos-red: #e24b4b;
+  --dos-shadow: rgba(56, 217, 107, 0.16);
   --dos-font: "Share Tech Mono", "VT323", "Fixedsys", "Lucida Console", "Courier New", monospace;
 }
 
@@ -19,7 +23,7 @@ body {
   min-height: 100%;
   margin: 0;
   overflow: hidden;
-  background: #000;
+  background: var(--dos-bg);
 }
 
 body {
@@ -27,6 +31,7 @@ body {
   font-family: var(--dos-font);
   color: var(--dos-green);
   text-rendering: geometricPrecision;
+  image-rendering: pixelated;
 }
 
 #site-background {
@@ -39,7 +44,7 @@ body {
   object-fit: cover;
   object-position: center center;
   background: #000;
-  filter: brightness(0.72) contrast(1.12) saturate(0.82);
+  filter: brightness(0.68) contrast(1.08) saturate(0.72);
   transform: scale(1.018);
   transform-origin: center;
   pointer-events: none;
@@ -95,11 +100,11 @@ body {
 
 .viewport-frame {
   z-index: 7;
-  border: 2px solid rgba(56, 255, 122, 0.24);
+  border: 2px solid rgba(18, 101, 48, 0.72);
   box-shadow:
-    inset 0 0 0 6px rgba(0, 0, 0, 0.64),
-    inset 0 0 0 8px rgba(56, 255, 122, 0.08),
-    inset 0 0 90px 18px rgba(0, 0, 0, 0.82);
+    inset 0 0 0 6px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 8px rgba(56, 217, 107, 0.05),
+    inset 0 0 64px 14px rgba(0, 0, 0, 0.86);
 }
 
 .hero {
@@ -131,12 +136,12 @@ body {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   text-shadow:
-    2px 0 0 #001c08,
-    -2px 0 0 #001c08,
-    0 2px 0 #001c08,
-    0 -2px 0 #001c08,
-    0 0 9px var(--dos-shadow),
-    0 0 22px rgba(56, 255, 122, 0.28);
+    2px 0 0 #020805,
+    -2px 0 0 #020805,
+    0 2px 0 #020805,
+    0 -2px 0 #020805,
+    3px 3px 0 #020805,
+    0 0 5px var(--dos-shadow);
 }
 
 .title-block h1 span {
@@ -157,12 +162,12 @@ body {
   text-shadow:
     1px 0 0 #000,
     0 1px 0 #000,
-    0 0 10px rgba(255, 191, 61, 0.36);
+    0 0 4px rgba(217, 166, 46, 0.18);
 }
 
 .dos-kicker {
   margin: 0 0 0.7rem;
-  color: var(--dos-green);
+  color: var(--dos-amber);
 }
 
 .dos-subtitle::after {
@@ -183,18 +188,17 @@ body {
   justify-items: center;
   padding: 1rem 1.2rem 1.25rem;
   border: 2px solid var(--dos-green-dim);
-  outline: 4px double rgba(56, 255, 122, 0.28);
-  background:
-    linear-gradient(rgba(0, 18, 7, 0.82), rgba(0, 0, 0, 0.86));
+  outline: 4px double rgba(56, 217, 107, 0.28);
+  background: rgba(2, 8, 5, 0.9);
   box-shadow:
-    inset 0 0 0 1px rgba(56, 255, 122, 0.18),
-    inset 0 0 28px rgba(56, 255, 122, 0.07),
-    0 12px 36px rgba(0, 0, 0, 0.56);
+    inset 0 0 0 1px rgba(98, 245, 139, 0.14),
+    3px 3px 0 rgba(0, 0, 0, 0.92);
   transform: translateX(-50%);
   text-transform: uppercase;
   text-shadow:
-    0 0 9px rgba(56, 255, 122, 0.36);
-  backdrop-filter: blur(3px);
+    1px 1px 0 #000,
+    0 0 4px rgba(56, 217, 107, 0.14);
+  backdrop-filter: none;
 }
 
 .server-panel::before {
@@ -224,24 +228,24 @@ body {
   flex: 0 0 auto;
   border: 2px solid #111;
   border-radius: 0;
-  background: #d1a900;
+  background: var(--dos-amber);
   box-shadow:
     0 0 0 2px #000,
-    0 0 12px #d1a900;
+    2px 2px 0 #000;
 }
 
 .server-panel[data-state="online"] .status-light {
-  background: #39e75f;
+  background: var(--dos-green-bright);
   box-shadow:
     0 0 0 2px #000,
-    0 0 14px #39e75f;
+    2px 2px 0 #000;
 }
 
 .server-panel[data-state="offline"] .status-light {
-  background: #e44545;
+  background: var(--dos-red);
   box-shadow:
     0 0 0 2px #000,
-    0 0 12px #e44545;
+    2px 2px 0 #000;
 }
 
 .foundry-link {
@@ -258,7 +262,7 @@ body {
   pointer-events: auto;
   cursor: pointer;
   box-shadow:
-    4px 4px 0 rgba(22, 169, 78, 0.72),
+    4px 4px 0 rgba(18, 101, 48, 0.88),
     7px 7px 0 rgba(0, 0, 0, 0.9);
 }
 
@@ -268,19 +272,19 @@ body {
 
 .foundry-link:hover,
 .foundry-link:focus-visible {
-  color: #001c08;
+  color: #020805;
   background: var(--dos-green);
   outline: none;
   text-shadow: none;
   transform: translate(2px, 2px);
   box-shadow:
-    2px 2px 0 rgba(255, 191, 61, 0.92),
+    2px 2px 0 rgba(217, 166, 46, 0.88),
     4px 4px 0 rgba(0, 0, 0, 0.9);
 }
 
 .foundry-link[aria-disabled="true"] {
-  border-color: #555;
-  color: #777;
+  border-color: #4f5b52;
+  color: var(--dos-muted);
   background: rgba(0, 0, 0, 0.64);
   cursor: default;
   pointer-events: none;
