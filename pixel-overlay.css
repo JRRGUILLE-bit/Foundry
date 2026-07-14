@@ -1,10 +1,25 @@
 #site-background {
+  opacity: 0;
+}
+
+#pixelated-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100vw;
+  height: 100svh;
+  background: #000;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
   filter:
     brightness(0.7)
     contrast(1.18)
     saturate(0.78)
     blur(1.55px);
   transform: scale(1.03);
+  transform-origin: center;
+  pointer-events: none;
 }
 
 .background-texture {
@@ -46,7 +61,7 @@
 }
 
 @media (max-width: 720px) {
-  #site-background {
+  #pixelated-background {
     filter:
       brightness(0.72)
       contrast(1.15)
@@ -62,5 +77,11 @@
       100% 5px,
       6px 100%,
       5px 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #pixelated-background {
+    transform: none;
   }
 }
