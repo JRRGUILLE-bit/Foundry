@@ -23,10 +23,77 @@ body {
 #dice-background {
   position: fixed;
   inset: 0;
+  z-index: 0;
   display: block;
   width: 100vw;
   height: 100svh;
   background: #000;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  pointer-events: none;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 100svh;
+  place-content: center;
+  padding: 2rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero h1 {
+  display: grid;
+  gap: 0.08em;
+  margin: 0;
+  color: #fff;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: clamp(2.8rem, 9vw, 8rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  text-shadow:
+    3px 0 0 #000,
+    -3px 0 0 #000,
+    0 3px 0 #000,
+    0 -3px 0 #000;
+}
+
+.hero h1 span {
+  display: block;
+}
+
+.hero p {
+  margin: 1.35rem 0 0;
+  color: #aaa;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: clamp(0.78rem, 1.6vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-shadow:
+    2px 0 0 #000,
+    -2px 0 0 #000,
+    0 2px 0 #000,
+    0 -2px 0 #000;
+}
+
+@media (max-width: 520px) {
+  .hero {
+    padding: 1.25rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.25rem, 15vw, 4.5rem);
+    letter-spacing: 0.02em;
+  }
+
+  .hero p {
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+  }
 }
