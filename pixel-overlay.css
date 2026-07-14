@@ -1,42 +1,66 @@
+#site-background {
+  filter:
+    brightness(0.7)
+    contrast(1.18)
+    saturate(0.78)
+    blur(1.15px);
+  transform: scale(1.025);
+}
+
 .background-texture {
   z-index: 2;
-  opacity: 0.38;
+  opacity: 0.52;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.24) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.3) 1px, transparent 1px),
     repeating-linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.28) 0,
-      rgba(0, 0, 0, 0.28) 1px,
+      rgba(0, 0, 0, 0.34) 0,
+      rgba(0, 0, 0, 0.34) 1px,
       transparent 1px,
-      transparent 5px
+      transparent 6px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(255, 80, 80, 0.055) 0,
-      rgba(255, 80, 80, 0.055) 1px,
-      rgba(90, 255, 140, 0.04) 1px,
-      rgba(90, 255, 140, 0.04) 2px,
-      rgba(80, 120, 255, 0.055) 2px,
-      rgba(80, 120, 255, 0.055) 3px,
+      rgba(255, 80, 80, 0.07) 0,
+      rgba(255, 80, 80, 0.07) 1px,
+      rgba(90, 255, 140, 0.05) 1px,
+      rgba(90, 255, 140, 0.05) 2px,
+      rgba(80, 120, 255, 0.07) 2px,
+      rgba(80, 120, 255, 0.07) 3px,
       transparent 3px,
       transparent 6px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.08) 0 18%,
+      transparent 22% 100%
     );
   background-size:
-    5px 5px,
-    5px 5px,
-    100% 5px,
-    6px 100%;
+    6px 6px,
+    6px 6px,
+    100% 6px,
+    6px 100%,
+    6px 6px;
   mix-blend-mode: overlay;
 }
 
 @media (max-width: 720px) {
+  #site-background {
+    filter:
+      brightness(0.72)
+      contrast(1.15)
+      saturate(0.8)
+      blur(0.9px);
+  }
+
   .background-texture {
-    opacity: 0.31;
+    opacity: 0.44;
     background-size:
-      4px 4px,
-      4px 4px,
-      100% 4px,
-      6px 100%;
+      5px 5px,
+      5px 5px,
+      100% 5px,
+      6px 100%,
+      5px 5px;
   }
 }
