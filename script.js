@@ -5,120 +5,185 @@
   const ctx = canvas.getContext("2d", { alpha: false });
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // The scene is deliberately rendered at low resolution and enlarged by CSS.
-  // This creates hard DOS-style pixels without image assets.
   const PIXEL_SCALE = 4;
   const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
-
-  const RAW_VERTICES = [
-    [-1, GOLDEN_RATIO, 0], [1, GOLDEN_RATIO, 0],
-    [-1, -GOLDEN_RATIO, 0], [1, -GOLDEN_RATIO, 0],
-    [0, -1, GOLDEN_RATIO], [0, 1, GOLDEN_RATIO],
-    [0, -1, -GOLDEN_RATIO], [0, 1, -GOLDEN_RATIO],
-    [GOLDEN_RATIO, 0, -1], [GOLDEN_RATIO, 0, 1],
-    [-GOLDEN_RATIO, 0, -1], [-GOLDEN_RATIO, 0, 1]
-  ];
-
-  const VERTICES = RAW_VERTICES.map(normalize);
-  const EDGES = buildEdges(VERTICES);
   const dice = [];
   let sceneWidth = 1;
   let sceneHeight = 1;
   let previousTime = performance.now();
 
-  function normalize([x, y, z]) {
+  const SHAPES = {
+    d4: makeTetrahedron(),
+    d6: makeCube(),
+    d8: makeOctahedron(),
+    d10: makePentagonalTrapezohedron(),
+    d12: makeDodecahedron(),
+    d20: makeIcosahedron()
+  };
+
+  const STANDARD_SET = ["d4", "d6", "d8", "d10", "d10", "d12", "d20"];
+
+  function normalizeVertex([x, y, z]) {
     const length = Math.hypot(x, y, z) || 1;
     return [x / length, y / length, z / length];
   }
 
-  function squaredDistance(a, b) {
-    const dx = a[0] - b[0];
-    const dy = a[1] - b[1];
-    const dz = a[2] - b[2];
-    return dx * dx + dy * dy + dz * dz;
+  function normalizeShape(vertices) {
+    const largest = Math.max(...vertices.map(([x, y, z]) => Math.hypot(x, y, z))) || 1;
+    return vertices.map(([x, y, z]) => [x / largest, y / largest, z / largest]);
   }
 
-  function buildEdges(vertices) {
-    let shortest = Infinity;
+  function add(a, b) {
+    return [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+  }
 
-    for (let i = 0; i < vertices.length; i += 1) {
-      for (let j = i + 1; j < vertices.length; j += 1) {
-        const distance = squaredDistance(vertices[i], vertices[j]);
-        if (distance > 0.0001 && distance < shortest) shortest = distance;
-      }
+  function scale(v, amount) {
+    return [v[0] * amount, v[1] * amount, v[2] * amount];
+  }
+
+  function dot(a, b) {
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  }
+
+  function cross(a, b) {
+    return [
+      a[1] * b[2] - a[2] * b[1],
+      a[2] * b[0] - a[0] * b[2],
+      a[0] * b[1] - a[1] * b[0]
+    ];
+  }
+
+  function makeTetrahedron() {
+    return {
+      vertices: normalizeShape([
+        [1, 1, 1],
+        [-1, -1, 1],
+        [-1, 1, -1],
+        [1, -1, -1]
+      ]),
+      faces: [
+        [0, 1, 2],
+        [0, 3, 1],
+        [0, 2, 3],
+        [1, 3, 2]
+      ]
+    };
+  }
+
+  function makeCube() {
+    return {
+      vertices: normalizeShape([
+        [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+        [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]
+      ]),
+      faces: [
+        [0, 1, 2, 3],
+        [4, 7, 6, 5],
+        [0, 4, 5, 1],
+        [1, 5, 6, 2],
+        [2, 6, 7, 3],
+        [3, 7, 4, 0]
+      ]
+    };
+  }
+
+  function makeOctahedron() {
+    return {
+      vertices: [
+        [1, 0, 0], [-1, 0, 0],
+        [0, 1, 0], [0, -1, 0],
+        [0, 0, 1], [0, 0, -1]
+      ],
+      faces: [
+        [0, 2, 4], [2, 1, 4], [1, 3, 4], [3, 0, 4],
+        [2, 0, 5], [1, 2, 5], [3, 1, 5], [0, 3, 5]
+      ]
+    };
+  }
+
+  function makePentagonalTrapezohedron() {
+    const vertices = [];
+    const faces = [];
+    const sides = 5;
+    const ringRadius = 1;
+    const ringHeight = 0.34;
+    const apexHeight = 1.42;
+
+    vertices.push([0, 0, apexHeight]);
+    vertices.push([0, 0, -apexHeight]);
+
+    for (let i = 0; i < sides; i += 1) {
+      const upperAngle = (Math.PI * 2 * i) / sides;
+      const lowerAngle = (Math.PI * 2 * (i + 0.5)) / sides;
+      vertices.push([Math.cos(upperAngle) * ringRadius, Math.sin(upperAngle) * ringRadius, ringHeight]);
+      vertices.push([Math.cos(lowerAngle) * ringRadius, Math.sin(lowerAngle) * ringRadius, -ringHeight]);
     }
 
-    const tolerance = shortest * 0.06;
-    const edges = [];
+    for (let i = 0; i < sides; i += 1) {
+      const next = (i + 1) % sides;
+      const upper = 2 + i * 2;
+      const lower = upper + 1;
+      const nextUpper = 2 + next * 2;
+      const nextLower = nextUpper + 1;
 
-    for (let i = 0; i < vertices.length; i += 1) {
-      for (let j = i + 1; j < vertices.length; j += 1) {
-        if (Math.abs(squaredDistance(vertices[i], vertices[j]) - shortest) <= tolerance) {
-          edges.push([i, j]);
-        }
-      }
+      faces.push([0, upper, lower, nextUpper]);
+      faces.push([1, nextLower, nextUpper, lower]);
     }
 
-    return edges;
+    return { vertices: normalizeShape(vertices), faces };
+  }
+
+  function makeIcosahedron() {
+    return {
+      vertices: normalizeShape([
+        [-1, GOLDEN_RATIO, 0], [1, GOLDEN_RATIO, 0],
+        [-1, -GOLDEN_RATIO, 0], [1, -GOLDEN_RATIO, 0],
+        [0, -1, GOLDEN_RATIO], [0, 1, GOLDEN_RATIO],
+        [0, -1, -GOLDEN_RATIO], [0, 1, -GOLDEN_RATIO],
+        [GOLDEN_RATIO, 0, -1], [GOLDEN_RATIO, 0, 1],
+        [-GOLDEN_RATIO, 0, -1], [-GOLDEN_RATIO, 0, 1]
+      ]),
+      faces: [
+        [0, 11, 5], [0, 5, 1], [0, 1, 7], [0, 7, 10], [0, 10, 11],
+        [1, 5, 9], [5, 11, 4], [11, 10, 2], [10, 7, 6], [7, 1, 8],
+        [3, 9, 4], [3, 4, 2], [3, 2, 6], [3, 6, 8], [3, 8, 9],
+        [4, 9, 5], [2, 4, 11], [6, 2, 10], [8, 6, 7], [9, 8, 1]
+      ]
+    };
+  }
+
+  function makeDodecahedron() {
+    const ico = makeIcosahedron();
+    const vertices = ico.faces.map((face) => {
+      const center = face.reduce((sum, index) => add(sum, ico.vertices[index]), [0, 0, 0]);
+      return normalizeVertex(scale(center, 1 / face.length));
+    });
+
+    const faces = ico.vertices.map((axis, vertexIndex) => {
+      const incident = [];
+
+      ico.faces.forEach((face, faceIndex) => {
+        if (face.includes(vertexIndex)) incident.push(faceIndex);
+      });
+
+      const reference = Math.abs(axis[2]) < 0.9 ? [0, 0, 1] : [0, 1, 0];
+      const tangentX = normalizeVertex(cross(reference, axis));
+      const tangentY = normalizeVertex(cross(axis, tangentX));
+
+      return incident.sort((left, right) => {
+        const leftPoint = vertices[left];
+        const rightPoint = vertices[right];
+        const leftAngle = Math.atan2(dot(leftPoint, tangentY), dot(leftPoint, tangentX));
+        const rightAngle = Math.atan2(dot(rightPoint, tangentY), dot(rightPoint, tangentX));
+        return leftAngle - rightAngle;
+      });
+    });
+
+    return { vertices: normalizeShape(vertices), faces };
   }
 
   function randomBetween(min, max) {
     return min + Math.random() * (max - min);
-  }
-
-  function randomResult() {
-    return Math.floor(Math.random() * 20) + 1;
-  }
-
-  function createDie(index, total) {
-    const lane = (index + 0.5) / total;
-    const phase = Math.random() * Math.PI * 2;
-
-    return {
-      xRatio: Math.min(0.9, Math.max(0.1, lane + randomBetween(-0.08, 0.08))),
-      yRatio: randomBetween(0.13, 0.87),
-      baseYRatio: 0,
-      radiusRatio: randomBetween(0.055, 0.12),
-      opacity: randomBetween(0.2, 0.62),
-      angleX: randomBetween(-1, 1),
-      angleY: randomBetween(-1, 1),
-      angleZ: randomBetween(-0.35, 0.35),
-      velocityX: 0,
-      velocityY: 0,
-      velocityZ: 0,
-      phase,
-      floatSpeed: randomBetween(0.18, 0.42),
-      floatAmount: randomBetween(1.5, 5),
-      result: randomResult(),
-      state: "idle",
-      stateTime: randomBetween(0.3, 4.5),
-      idleDuration: randomBetween(3, 8),
-      spinDuration: randomBetween(0.9, 2.2)
-    };
-  }
-
-  function rebuildDice() {
-    dice.length = 0;
-    const total = sceneWidth < 170 ? 4 : sceneWidth < 300 ? 6 : 8;
-
-    for (let i = 0; i < total; i += 1) {
-      const die = createDie(i, total);
-      die.baseYRatio = die.yRatio;
-      dice.push(die);
-    }
-  }
-
-  function resize() {
-    const cssWidth = Math.max(1, window.innerWidth);
-    const cssHeight = Math.max(1, window.innerHeight);
-
-    sceneWidth = Math.max(160, Math.ceil(cssWidth / PIXEL_SCALE));
-    sceneHeight = Math.max(100, Math.ceil(cssHeight / PIXEL_SCALE));
-
-    canvas.width = sceneWidth;
-    canvas.height = sceneHeight;
-    ctx.imageSmoothingEnabled = false;
-    rebuildDice();
   }
 
   function rotateVertex([x, y, z], angleX, angleY, angleZ) {
@@ -140,7 +205,7 @@
   }
 
   function projectVertex(vertex, centerX, centerY, radius) {
-    const cameraDistance = 3.5;
+    const cameraDistance = 4.2;
     const perspective = cameraDistance / (cameraDistance - vertex[2]);
 
     return {
@@ -150,55 +215,78 @@
     };
   }
 
-  function easeOutCubic(value) {
-    return 1 - Math.pow(1 - value, 3);
+  function getLayout() {
+    const portrait = sceneHeight > sceneWidth * 1.05;
+
+    if (portrait) {
+      return [
+        [0.24, 0.13, 0.105],
+        [0.74, 0.14, 0.1],
+        [0.5, 0.32, 0.12],
+        [0.23, 0.52, 0.105],
+        [0.76, 0.52, 0.105],
+        [0.29, 0.78, 0.115],
+        [0.72, 0.8, 0.13]
+      ];
+    }
+
+    return [
+      [0.11, 0.26, 0.09],
+      [0.29, 0.38, 0.105],
+      [0.49, 0.22, 0.095],
+      [0.69, 0.37, 0.105],
+      [0.88, 0.25, 0.09],
+      [0.31, 0.75, 0.115],
+      [0.7, 0.74, 0.135]
+    ];
   }
 
-  function startSpin(die) {
-    die.state = "spinning";
-    die.stateTime = 0;
-    die.spinDuration = randomBetween(0.95, 2.25);
-    die.velocityX = randomBetween(5, 9) * (Math.random() < 0.5 ? -1 : 1);
-    die.velocityY = randomBetween(6, 11) * (Math.random() < 0.5 ? -1 : 1);
-    die.velocityZ = randomBetween(1, 3) * (Math.random() < 0.5 ? -1 : 1);
+  function rebuildDice() {
+    dice.length = 0;
+    const layout = getLayout();
+
+    STANDARD_SET.forEach((type, index) => {
+      const [xRatio, yRatio, radiusRatio] = layout[index];
+      dice.push({
+        type,
+        shape: SHAPES[type],
+        xRatio,
+        yRatio,
+        baseYRatio: yRatio,
+        radiusRatio,
+        opacity: randomBetween(0.54, 0.9),
+        angleX: randomBetween(-Math.PI, Math.PI),
+        angleY: randomBetween(-Math.PI, Math.PI),
+        angleZ: randomBetween(-Math.PI, Math.PI),
+        velocityX: randomBetween(0.32, 0.78) * (Math.random() < 0.5 ? -1 : 1),
+        velocityY: randomBetween(0.38, 0.9) * (Math.random() < 0.5 ? -1 : 1),
+        velocityZ: randomBetween(0.12, 0.42) * (Math.random() < 0.5 ? -1 : 1),
+        phase: randomBetween(0, Math.PI * 2),
+        floatSpeed: randomBetween(0.22, 0.5),
+        floatAmount: randomBetween(1, 3.2)
+      });
+    });
   }
 
-  function stopSpin(die) {
-    die.state = "idle";
-    die.stateTime = 0;
-    die.idleDuration = randomBetween(3.2, 8.5);
-    die.result = randomResult();
-    die.velocityX = 0;
-    die.velocityY = 0;
-    die.velocityZ = 0;
+  function resize() {
+    const cssWidth = Math.max(1, window.innerWidth);
+    const cssHeight = Math.max(1, window.innerHeight);
 
-    // Snap to the low-resolution grid so the resting pose feels deliberately pixel-made.
-    const snap = Math.PI / 10;
-    die.angleX = Math.round(die.angleX / snap) * snap;
-    die.angleY = Math.round(die.angleY / snap) * snap;
-    die.angleZ = Math.round(die.angleZ / snap) * snap;
+    sceneWidth = Math.max(150, Math.ceil(cssWidth / PIXEL_SCALE));
+    sceneHeight = Math.max(100, Math.ceil(cssHeight / PIXEL_SCALE));
+
+    canvas.width = sceneWidth;
+    canvas.height = sceneHeight;
+    ctx.imageSmoothingEnabled = false;
+    rebuildDice();
   }
 
   function updateDie(die, delta, time) {
-    die.stateTime += delta;
+    const speed = reducedMotion.matches ? 0 : 1;
+    die.angleX += die.velocityX * delta * speed;
+    die.angleY += die.velocityY * delta * speed;
+    die.angleZ += die.velocityZ * delta * speed;
     die.yRatio = die.baseYRatio + Math.sin(time * die.floatSpeed + die.phase) * die.floatAmount / sceneHeight;
-
-    if (reducedMotion.matches) return;
-
-    if (die.state === "idle") {
-      if (die.stateTime >= die.idleDuration) startSpin(die);
-      return;
-    }
-
-    const progress = Math.min(1, die.stateTime / die.spinDuration);
-    const slowdown = 1 - easeOutCubic(progress);
-    const motion = 0.16 + slowdown * 0.84;
-
-    die.angleX += die.velocityX * delta * motion;
-    die.angleY += die.velocityY * delta * motion;
-    die.angleZ += die.velocityZ * delta * motion;
-
-    if (progress >= 1) stopSpin(die);
   }
 
   function drawDie(die) {
@@ -206,43 +294,38 @@
     const centerY = Math.round(die.yRatio * sceneHeight);
     const radius = Math.max(9, Math.round(Math.min(sceneWidth, sceneHeight) * die.radiusRatio));
 
-    const projected = VERTICES.map((vertex) => {
+    const projected = die.shape.vertices.map((vertex) => {
       const rotated = rotateVertex(vertex, die.angleX, die.angleY, die.angleZ);
       return projectVertex(rotated, centerX, centerY, radius);
     });
 
+    const faces = die.shape.faces.map((face) => ({
+      indices: face,
+      depth: face.reduce((sum, index) => sum + projected[index].z, 0) / face.length
+    })).sort((left, right) => left.depth - right.depth);
+
     ctx.save();
-    ctx.globalAlpha = die.opacity;
-    ctx.strokeStyle = "#ffffff";
-    ctx.fillStyle = "#ffffff";
     ctx.lineWidth = 1;
     ctx.lineCap = "butt";
     ctx.lineJoin = "miter";
 
-    // Rear edges are dimmer, giving depth while retaining the monochrome wireframe.
-    const sortedEdges = EDGES.map(([a, b]) => ({
-      a,
-      b,
-      depth: (projected[a].z + projected[b].z) / 2
-    })).sort((left, right) => left.depth - right.depth);
-
-    for (const edge of sortedEdges) {
-      const start = projected[edge.a];
-      const end = projected[edge.b];
-      ctx.globalAlpha = die.opacity * (edge.depth < 0 ? 0.32 : 0.9);
+    for (const face of faces) {
+      const first = projected[face.indices[0]];
       ctx.beginPath();
-      ctx.moveTo(start.x + 0.5, start.y + 0.5);
-      ctx.lineTo(end.x + 0.5, end.y + 0.5);
-      ctx.stroke();
-    }
+      ctx.moveTo(first.x + 0.5, first.y + 0.5);
 
-    if (die.state === "idle" || reducedMotion.matches) {
-      const fontSize = Math.max(5, Math.round(radius * 0.43));
-      ctx.globalAlpha = Math.min(0.92, die.opacity + 0.18);
-      ctx.font = `bold ${fontSize}px monospace`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(String(die.result), centerX, centerY);
+      for (let i = 1; i < face.indices.length; i += 1) {
+        const point = projected[face.indices[i]];
+        ctx.lineTo(point.x + 0.5, point.y + 0.5);
+      }
+
+      ctx.closePath();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "#000000";
+      ctx.fill();
+      ctx.globalAlpha = die.opacity;
+      ctx.strokeStyle = "#ffffff";
+      ctx.stroke();
     }
 
     ctx.restore();
@@ -265,10 +348,7 @@
   }
 
   reducedMotion.addEventListener?.("change", () => {
-    for (const die of dice) {
-      die.state = "idle";
-      die.stateTime = 0;
-    }
+    previousTime = performance.now();
   });
 
   window.addEventListener("resize", resize, { passive: true });
