@@ -1,0 +1,32 @@
+:root {
+  color-scheme: dark;
+  background: #000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+body {
+  min-height: 100svh;
+}
+
+#dice-background {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100vw;
+  height: 100svh;
+  background: #000;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
