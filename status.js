@@ -15,7 +15,7 @@
     panel.dataset.state = state;
 
     if (state === "online") {
-      statusText.textContent = "En línea";
+      statusText.textContent = "ONLINE // LISTO";
       foundryLink.href = url;
       foundryLink.setAttribute("aria-disabled", "false");
       foundryLink.removeAttribute("tabindex");
@@ -27,9 +27,9 @@
     foundryLink.setAttribute("tabindex", "-1");
 
     if (state === "checking") {
-      statusText.textContent = "Verificando servidor...";
+      statusText.textContent = "RUN CHECK_SERVER.BAT...";
     } else {
-      statusText.textContent = "Servidor caído";
+      statusText.textContent = "OFFLINE // REINTENTAR";
     }
   }
 
