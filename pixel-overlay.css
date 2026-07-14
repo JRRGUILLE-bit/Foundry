@@ -1,0 +1,25 @@
+.background-texture {
+  z-index: 2;
+  opacity: 0.2;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.16) 0,
+      rgba(0, 0, 0, 0.16) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  background-size:
+    3px 3px,
+    3px 3px,
+    100% 4px;
+  mix-blend-mode: overlay;
+}
+
+@media (max-width: 720px) {
+  .background-texture {
+    opacity: 0.17;
+  }
+}
