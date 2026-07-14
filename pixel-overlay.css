@@ -3,8 +3,8 @@
     brightness(0.7)
     contrast(1.18)
     saturate(0.78)
-    blur(1.15px);
-  transform: scale(1.025);
+    blur(1.55px);
+  transform: scale(1.03);
 }
 
 .background-texture {
@@ -51,7 +51,7 @@
       brightness(0.72)
       contrast(1.15)
       saturate(0.8)
-      blur(0.9px);
+      blur(1.2px);
   }
 
   .background-texture {
