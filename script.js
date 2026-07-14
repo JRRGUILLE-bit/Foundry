@@ -7,18 +7,19 @@
 
   const PIXEL_SCALE = 4;
   const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
-  const BASE_RESTITUTION = 0.9;
-  const WALL_RESTITUTION = 0.84;
+  const BASE_RESTITUTION = 0.93;
+  const WALL_RESTITUTION = 0.89;
   const MIN_SPEED = 7;
   const MAX_SPEED = 19;
-  const COLLISION_FRICTION = 0.18;
-  const WALL_FRICTION = 0.08;
+  const COLLISION_FRICTION = 0.08;
+  const WALL_FRICTION = 0.035;
+  const ANGULAR_DAMPING = 0.82;
   const PENETRATION_SLOP = 0.8;
   const POSITION_CORRECTION = 0.74;
   const SOFT_SPEED_DAMPING = 0.035;
   const SLEEPY_SPEED_BOOST = 0.018;
-  const MAX_SPIN = 2.85;
-  const MAX_Z_SPIN = 2.05;
+  const MAX_SPIN = 1.35;
+  const MAX_Z_SPIN = 0.9;
   const COLLISION_ITERATIONS = 2;
   const dice = [];
   let sceneWidth = 1;
@@ -295,16 +296,16 @@
         mass: Math.max(1, radius ** 2.18),
         bounciness: randomBetween(0.94, 1.06),
         surfaceFriction: randomBetween(0.88, 1.12),
-        spinResponse: randomBetween(0.9, 1.16),
+        spinResponse: randomBetween(0.55, 0.82),
         opacity: randomBetween(0.58, 0.92),
         vx,
         vy,
         angleX: randomBetween(-Math.PI, Math.PI),
         angleY: randomBetween(-Math.PI, Math.PI),
         angleZ: randomBetween(-Math.PI, Math.PI),
-        velocityX: randomBetween(0.32, 0.78) * randomSign(),
-        velocityY: randomBetween(0.38, 0.9) * randomSign(),
-        velocityZ: randomBetween(0.12, 0.42) * randomSign()
+        velocityX: randomBetween(0.26, 0.58) * randomSign(),
+        velocityY: randomBetween(0.3, 0.66) * randomSign(),
+        velocityZ: randomBetween(0.08, 0.28) * randomSign()
       });
     });
 
@@ -390,9 +391,9 @@
 
     die.vx -= tangentX * tangentialSpeed * WALL_FRICTION * die.surfaceFriction;
     die.vy -= tangentY * tangentialSpeed * WALL_FRICTION * die.surfaceFriction;
-    die.velocityX += normalY * spinKick * 0.28;
-    die.velocityY -= normalX * spinKick * 0.28;
-    die.velocityZ += (normalX * tangentY - normalY * tangentX) * spinKick * 0.22;
+    die.velocityX += normalY * spinKick * 0.12;
+    die.velocityY -= normalX * spinKick * 0.12;
+    die.velocityZ += (normalX * tangentY - normalY * tangentX) * spinKick * 0.08;
     clampSpin(die);
   }
 
@@ -404,6 +405,10 @@
   function updateDie(die, delta) {
     if (reducedMotion.matches) return;
 
+    const angularDamping = Math.exp(-ANGULAR_DAMPING * delta);
+    die.velocityX *= angularDamping;
+    die.velocityY *= angularDamping;
+    die.velocityZ *= angularDamping;
     die.x += die.vx * delta;
     die.y += die.vy * delta;
     die.angleX += die.velocityX * delta;
@@ -412,25 +417,25 @@
 
     if (die.x - die.radius <= 0 && die.vx < 0) {
       die.x = die.radius;
-      die.vx = Math.abs(die.vx) * clamp(WALL_RESTITUTION * die.bounciness, 0.78, 0.92);
-      die.vy += die.velocityZ * 0.035 * die.spinResponse;
+      die.vx = Math.abs(die.vx) * clamp(WALL_RESTITUTION * die.bounciness, 0.8, 0.95);
+      die.vy += die.velocityZ * 0.012 * die.spinResponse;
       wallImpact(die, 1, 0);
     } else if (die.x + die.radius >= sceneWidth && die.vx > 0) {
       die.x = sceneWidth - die.radius;
-      die.vx = -Math.abs(die.vx) * clamp(WALL_RESTITUTION * die.bounciness, 0.78, 0.92);
-      die.vy -= die.velocityZ * 0.035 * die.spinResponse;
+      die.vx = -Math.abs(die.vx) * clamp(WALL_RESTITUTION * die.bounciness, 0.8, 0.95);
+      die.vy -= die.velocityZ * 0.012 * die.spinResponse;
       wallImpact(die, -1, 0);
     }
 
     if (die.y - die.radius <= 0 && die.vy < 0) {
       die.y = die.radius;
-      die.vy = Math.abs(die.vy) * clamp(WALL_RESTITUTION * die.bounciness, 0.78, 0.92);
-      die.vx -= die.velocityZ * 0.035 * die.spinResponse;
+      die.vy = Math.abs(die.vy) * clamp(WALL_RESTITUTION * die.bounciness, 0.8, 0.95);
+      die.vx -= die.velocityZ * 0.012 * die.spinResponse;
       wallImpact(die, 0, 1);
     } else if (die.y + die.radius >= sceneHeight && die.vy > 0) {
       die.y = sceneHeight - die.radius;
-      die.vy = -Math.abs(die.vy) * clamp(WALL_RESTITUTION * die.bounciness, 0.78, 0.92);
-      die.vx += die.velocityZ * 0.035 * die.spinResponse;
+      die.vy = -Math.abs(die.vy) * clamp(WALL_RESTITUTION * die.bounciness, 0.8, 0.95);
+      die.vx += die.velocityZ * 0.012 * die.spinResponse;
       wallImpact(die, 0, -1);
     }
 
@@ -476,7 +481,7 @@
     const impactSpeed = Math.abs(velocityAlongNormal);
     const bounceMix = (a.bounciness + b.bounciness) * 0.5;
     const speedBounce = clamp(impactSpeed / MAX_SPEED, 0, 1) * 0.08 - 0.04;
-    const restitution = clamp(BASE_RESTITUTION * bounceMix + speedBounce, 0.78, 0.96);
+    const restitution = clamp(BASE_RESTITUTION * bounceMix + speedBounce, 0.82, 0.98);
     const impulse = -(1 + restitution) * velocityAlongNormal / inverseMassTotal;
     const impulseX = impulse * nx;
     const impulseY = impulse * ny;
@@ -506,15 +511,15 @@
     const sizeBiasA = clamp(b.mass / a.mass, 0.45, 2.35);
     const sizeBiasB = clamp(a.mass / b.mass, 0.45, 2.35);
     const obliqueFactor = clamp(Math.abs(tangentialVelocity) / (impactSpeed + 1), 0, 1.35);
-    const normalKick = impactSpeed * 0.012;
-    const tangentKick = tangentImpulse * 0.018;
+    const normalKick = impactSpeed * 0.004;
+    const tangentKick = tangentImpulse * 0.006;
 
     a.velocityX -= (tangentY * tangentKick * sizeBiasA + nx * normalKick * obliqueFactor) * a.spinResponse;
     a.velocityY += (tangentX * tangentKick * sizeBiasA - ny * normalKick * obliqueFactor) * a.spinResponse;
-    a.velocityZ -= (tangentKick * 1.35 + normalKick * 0.35) * a.spinResponse;
+    a.velocityZ -= (tangentKick * 0.75 + normalKick * 0.18) * a.spinResponse;
     b.velocityX += (tangentY * tangentKick * sizeBiasB + nx * normalKick * obliqueFactor) * b.spinResponse;
     b.velocityY -= (tangentX * tangentKick * sizeBiasB - ny * normalKick * obliqueFactor) * b.spinResponse;
-    b.velocityZ += (tangentKick * 1.35 + normalKick * 0.35) * b.spinResponse;
+    b.velocityZ += (tangentKick * 0.75 + normalKick * 0.18) * b.spinResponse;
 
     clampSpin(a);
     clampSpin(b);
