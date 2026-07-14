@@ -7,6 +7,10 @@
 
   const PIXEL_SCALE = 4;
   const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
+  const RESTITUTION = 0.94;
+  const WALL_RESTITUTION = 0.96;
+  const MIN_SPEED = 7;
+  const MAX_SPEED = 19;
   const dice = [];
   let sceneWidth = 1;
   let sceneHeight = 1;
@@ -186,6 +190,10 @@
     return min + Math.random() * (max - min);
   }
 
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
   function rotateVertex([x, y, z], angleX, angleY, angleZ) {
     const cosX = Math.cos(angleX);
     const sinX = Math.sin(angleX);
@@ -241,31 +249,74 @@
     ];
   }
 
+  function randomVelocity() {
+    const angle = randomBetween(0, Math.PI * 2);
+    const speed = randomBetween(MIN_SPEED, MAX_SPEED);
+    return [Math.cos(angle) * speed, Math.sin(angle) * speed];
+  }
+
   function rebuildDice() {
     dice.length = 0;
     const layout = getLayout();
+    const minDimension = Math.min(sceneWidth, sceneHeight);
 
     STANDARD_SET.forEach((type, index) => {
       const [xRatio, yRatio, radiusRatio] = layout[index];
+      const radius = Math.max(9, Math.round(minDimension * radiusRatio));
+      const [vx, vy] = randomVelocity();
+
       dice.push({
         type,
         shape: SHAPES[type],
-        xRatio,
-        yRatio,
-        baseYRatio: yRatio,
-        radiusRatio,
-        opacity: randomBetween(0.54, 0.9),
+        x: clamp(Math.round(xRatio * sceneWidth), radius, sceneWidth - radius),
+        y: clamp(Math.round(yRatio * sceneHeight), radius, sceneHeight - radius),
+        radius,
+        mass: Math.max(1, radius * radius),
+        opacity: randomBetween(0.58, 0.92),
+        vx,
+        vy,
         angleX: randomBetween(-Math.PI, Math.PI),
         angleY: randomBetween(-Math.PI, Math.PI),
         angleZ: randomBetween(-Math.PI, Math.PI),
         velocityX: randomBetween(0.32, 0.78) * (Math.random() < 0.5 ? -1 : 1),
         velocityY: randomBetween(0.38, 0.9) * (Math.random() < 0.5 ? -1 : 1),
-        velocityZ: randomBetween(0.12, 0.42) * (Math.random() < 0.5 ? -1 : 1),
-        phase: randomBetween(0, Math.PI * 2),
-        floatSpeed: randomBetween(0.22, 0.5),
-        floatAmount: randomBetween(1, 3.2)
+        velocityZ: randomBetween(0.12, 0.42) * (Math.random() < 0.5 ? -1 : 1)
       });
     });
+
+    separateInitialOverlaps();
+  }
+
+  function separateInitialOverlaps() {
+    for (let pass = 0; pass < 20; pass += 1) {
+      let moved = false;
+
+      for (let i = 0; i < dice.length; i += 1) {
+        for (let j = i + 1; j < dice.length; j += 1) {
+          const a = dice[i];
+          const b = dice[j];
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const distance = Math.hypot(dx, dy) || 0.0001;
+          const minimum = a.radius + b.radius + 2;
+
+          if (distance >= minimum) continue;
+
+          const nx = dx / distance;
+          const ny = dy / distance;
+          const overlap = minimum - distance;
+          a.x -= nx * overlap * 0.5;
+          a.y -= ny * overlap * 0.5;
+          b.x += nx * overlap * 0.5;
+          b.y += ny * overlap * 0.5;
+          clampToBounds(a);
+          clampToBounds(b);
+          moved = true;
+        }
+      }
+
+      if (!moved) break;
+    }
   }
 
   function resize() {
@@ -281,22 +332,149 @@
     rebuildDice();
   }
 
-  function updateDie(die, delta, time) {
-    const speed = reducedMotion.matches ? 0 : 1;
-    die.angleX += die.velocityX * delta * speed;
-    die.angleY += die.velocityY * delta * speed;
-    die.angleZ += die.velocityZ * delta * speed;
-    die.yRatio = die.baseYRatio + Math.sin(time * die.floatSpeed + die.phase) * die.floatAmount / sceneHeight;
+  function clampSpin(die) {
+    die.velocityX = clamp(die.velocityX, -2.2, 2.2);
+    die.velocityY = clamp(die.velocityY, -2.2, 2.2);
+    die.velocityZ = clamp(die.velocityZ, -1.5, 1.5);
+  }
+
+  function keepMoving(die) {
+    const speed = Math.hypot(die.vx, die.vy);
+
+    if (speed < MIN_SPEED) {
+      const multiplier = MIN_SPEED / (speed || 1);
+      die.vx *= multiplier;
+      die.vy *= multiplier;
+    } else if (speed > MAX_SPEED) {
+      const multiplier = MAX_SPEED / speed;
+      die.vx *= multiplier;
+      die.vy *= multiplier;
+    }
+  }
+
+  function wallImpact(die, normalX, normalY) {
+    const tangentialSpeed = die.vx * -normalY + die.vy * normalX;
+    die.velocityX += normalY * tangentialSpeed * 0.025;
+    die.velocityY -= normalX * tangentialSpeed * 0.025;
+    die.velocityZ += (normalX - normalY) * 0.08;
+    clampSpin(die);
+  }
+
+  function clampToBounds(die) {
+    die.x = clamp(die.x, die.radius, sceneWidth - die.radius);
+    die.y = clamp(die.y, die.radius, sceneHeight - die.radius);
+  }
+
+  function updateDie(die, delta) {
+    if (reducedMotion.matches) return;
+
+    die.x += die.vx * delta;
+    die.y += die.vy * delta;
+    die.angleX += die.velocityX * delta;
+    die.angleY += die.velocityY * delta;
+    die.angleZ += die.velocityZ * delta;
+
+    if (die.x - die.radius <= 0 && die.vx < 0) {
+      die.x = die.radius;
+      die.vx = Math.abs(die.vx) * WALL_RESTITUTION;
+      wallImpact(die, 1, 0);
+    } else if (die.x + die.radius >= sceneWidth && die.vx > 0) {
+      die.x = sceneWidth - die.radius;
+      die.vx = -Math.abs(die.vx) * WALL_RESTITUTION;
+      wallImpact(die, -1, 0);
+    }
+
+    if (die.y - die.radius <= 0 && die.vy < 0) {
+      die.y = die.radius;
+      die.vy = Math.abs(die.vy) * WALL_RESTITUTION;
+      wallImpact(die, 0, 1);
+    } else if (die.y + die.radius >= sceneHeight && die.vy > 0) {
+      die.y = sceneHeight - die.radius;
+      die.vy = -Math.abs(die.vy) * WALL_RESTITUTION;
+      wallImpact(die, 0, -1);
+    }
+
+    keepMoving(die);
+  }
+
+  function resolveCollision(a, b) {
+    let dx = b.x - a.x;
+    let dy = b.y - a.y;
+    let distance = Math.hypot(dx, dy);
+    const minimumDistance = a.radius + b.radius;
+
+    if (distance >= minimumDistance) return;
+
+    if (distance < 0.0001) {
+      const angle = randomBetween(0, Math.PI * 2);
+      dx = Math.cos(angle);
+      dy = Math.sin(angle);
+      distance = 1;
+    }
+
+    const nx = dx / distance;
+    const ny = dy / distance;
+    const overlap = minimumDistance - distance;
+    const inverseMassA = 1 / a.mass;
+    const inverseMassB = 1 / b.mass;
+    const inverseMassTotal = inverseMassA + inverseMassB;
+
+    a.x -= nx * overlap * (inverseMassA / inverseMassTotal);
+    a.y -= ny * overlap * (inverseMassA / inverseMassTotal);
+    b.x += nx * overlap * (inverseMassB / inverseMassTotal);
+    b.y += ny * overlap * (inverseMassB / inverseMassTotal);
+    clampToBounds(a);
+    clampToBounds(b);
+
+    const relativeVelocityX = b.vx - a.vx;
+    const relativeVelocityY = b.vy - a.vy;
+    const velocityAlongNormal = relativeVelocityX * nx + relativeVelocityY * ny;
+
+    if (velocityAlongNormal >= 0) return;
+
+    const impulse = -(1 + RESTITUTION) * velocityAlongNormal / inverseMassTotal;
+    const impulseX = impulse * nx;
+    const impulseY = impulse * ny;
+
+    a.vx -= impulseX * inverseMassA;
+    a.vy -= impulseY * inverseMassA;
+    b.vx += impulseX * inverseMassB;
+    b.vy += impulseY * inverseMassB;
+
+    const tangentX = -ny;
+    const tangentY = nx;
+    const tangentialVelocity = relativeVelocityX * tangentX + relativeVelocityY * tangentY;
+    const spinKick = tangentialVelocity * 0.028;
+    const normalKick = velocityAlongNormal * 0.018;
+
+    a.velocityX -= tangentY * spinKick;
+    a.velocityY += tangentX * spinKick;
+    a.velocityZ -= normalKick;
+    b.velocityX += tangentY * spinKick;
+    b.velocityY -= tangentX * spinKick;
+    b.velocityZ += normalKick;
+
+    clampSpin(a);
+    clampSpin(b);
+    keepMoving(a);
+    keepMoving(b);
+  }
+
+  function resolveAllCollisions() {
+    for (let i = 0; i < dice.length; i += 1) {
+      for (let j = i + 1; j < dice.length; j += 1) {
+        resolveCollision(dice[i], dice[j]);
+      }
+    }
   }
 
   function drawDie(die) {
-    const centerX = Math.round(die.xRatio * sceneWidth);
-    const centerY = Math.round(die.yRatio * sceneHeight);
-    const radius = Math.max(9, Math.round(Math.min(sceneWidth, sceneHeight) * die.radiusRatio));
+    const centerX = Math.round(die.x);
+    const centerY = Math.round(die.y);
 
     const projected = die.shape.vertices.map((vertex) => {
       const rotated = rotateVertex(vertex, die.angleX, die.angleY, die.angleZ);
-      return projectVertex(rotated, centerX, centerY, radius);
+      return projectVertex(rotated, centerX, centerY, die.radius);
     });
 
     const faces = die.shape.faces.map((face) => ({
@@ -332,17 +510,15 @@
   }
 
   function frame(now) {
-    const delta = Math.min(0.05, Math.max(0, (now - previousTime) / 1000));
+    const delta = Math.min(0.033, Math.max(0, (now - previousTime) / 1000));
     previousTime = now;
 
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, sceneWidth, sceneHeight);
 
-    const time = now / 1000;
-    for (const die of dice) {
-      updateDie(die, delta, time);
-      drawDie(die);
-    }
+    for (const die of dice) updateDie(die, delta);
+    if (!reducedMotion.matches) resolveAllCollisions();
+    for (const die of dice) drawDie(die);
 
     requestAnimationFrame(frame);
   }
