@@ -13,6 +13,8 @@
   const MAX_SPEED = 19;
   const TRANSLATION_SPEED_MULTIPLIER = 1.1;
   const BASE_ROTATION_SPEED_MULTIPLIER = 1.1;
+  const MIN_TRANSLATION_SPEED = MIN_SPEED * TRANSLATION_SPEED_MULTIPLIER;
+  const MAX_TRANSLATION_SPEED = MAX_SPEED * TRANSLATION_SPEED_MULTIPLIER;
   const COLLISION_FRICTION = 0.08;
   const WALL_FRICTION = 0.035;
   const ANGULAR_DAMPING = 0.82;
@@ -372,17 +374,17 @@
     const speed = Math.hypot(die.vx, die.vy);
 
     if (speed < 0.001) {
-      die.vx += Math.cos(die.angleZ) * MIN_SPEED * SLEEPY_SPEED_BOOST;
-      die.vy += Math.sin(die.angleZ) * MIN_SPEED * SLEEPY_SPEED_BOOST;
+      die.vx += Math.cos(die.angleZ) * MIN_TRANSLATION_SPEED * SLEEPY_SPEED_BOOST;
+      die.vy += Math.sin(die.angleZ) * MIN_TRANSLATION_SPEED * SLEEPY_SPEED_BOOST;
       return;
     }
 
-    if (speed < MIN_SPEED) {
-      const boost = (MIN_SPEED - speed) * SLEEPY_SPEED_BOOST;
+    if (speed < MIN_TRANSLATION_SPEED) {
+      const boost = (MIN_TRANSLATION_SPEED - speed) * SLEEPY_SPEED_BOOST;
       die.vx += (die.vx / speed) * boost;
       die.vy += (die.vy / speed) * boost;
-    } else if (speed > MAX_SPEED) {
-      const damping = 1 - SOFT_SPEED_DAMPING * (speed - MAX_SPEED) / speed;
+    } else if (speed > MAX_TRANSLATION_SPEED) {
+      const damping = 1 - SOFT_SPEED_DAMPING * (speed - MAX_TRANSLATION_SPEED) / speed;
       die.vx *= damping;
       die.vy *= damping;
     }
