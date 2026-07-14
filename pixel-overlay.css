@@ -1,25 +1,42 @@
 .background-texture {
   z-index: 2;
-  opacity: 0.2;
+  opacity: 0.38;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.065) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.24) 1px, transparent 1px),
     repeating-linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.16) 0,
-      rgba(0, 0, 0, 0.16) 1px,
+      rgba(0, 0, 0, 0.28) 0,
+      rgba(0, 0, 0, 0.28) 1px,
       transparent 1px,
-      transparent 4px
+      transparent 5px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 80, 80, 0.055) 0,
+      rgba(255, 80, 80, 0.055) 1px,
+      rgba(90, 255, 140, 0.04) 1px,
+      rgba(90, 255, 140, 0.04) 2px,
+      rgba(80, 120, 255, 0.055) 2px,
+      rgba(80, 120, 255, 0.055) 3px,
+      transparent 3px,
+      transparent 6px
     );
   background-size:
-    3px 3px,
-    3px 3px,
-    100% 4px;
+    5px 5px,
+    5px 5px,
+    100% 5px,
+    6px 100%;
   mix-blend-mode: overlay;
 }
 
 @media (max-width: 720px) {
   .background-texture {
-    opacity: 0.17;
+    opacity: 0.31;
+    background-size:
+      4px 4px,
+      4px 4px,
+      100% 4px,
+      6px 100%;
   }
 }
