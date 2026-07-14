@@ -1,6 +1,12 @@
 :root {
   color-scheme: dark;
   background: #000;
+  --dos-bg: #020503;
+  --dos-green: #38ff7a;
+  --dos-green-dim: #16a94e;
+  --dos-amber: #ffbf3d;
+  --dos-shadow: rgba(56, 255, 122, 0.42);
+  --dos-font: "Share Tech Mono", "VT323", "Fixedsys", "Lucida Console", "Courier New", monospace;
 }
 
 * {
@@ -18,7 +24,9 @@ body {
 
 body {
   min-height: 100svh;
-  font-family: "VT323", "Lucida Console", "Courier New", monospace;
+  font-family: var(--dos-font);
+  color: var(--dos-green);
+  text-rendering: geometricPrecision;
 }
 
 #site-background {
@@ -62,6 +70,7 @@ body {
       rgba(0, 0, 0, 0.1) 42%,
       rgba(0, 0, 0, 0.58) 100%
     );
+  box-shadow: inset 0 0 9rem 2rem #000;
 }
 
 .background-texture {
@@ -86,10 +95,11 @@ body {
 
 .viewport-frame {
   z-index: 7;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(56, 255, 122, 0.24);
   box-shadow:
-    inset 0 0 0 5px rgba(0, 0, 0, 0.34),
-    inset 0 0 90px 18px rgba(0, 0, 0, 0.76);
+    inset 0 0 0 6px rgba(0, 0, 0, 0.64),
+    inset 0 0 0 8px rgba(56, 255, 122, 0.08),
+    inset 0 0 90px 18px rgba(0, 0, 0, 0.82);
 }
 
 .hero {
@@ -111,42 +121,55 @@ body {
 
 .title-block h1 {
   display: grid;
-  gap: 0;
-  margin: 0;
-  color: #f7f7f3;
-  font-family: "VT323", "Lucida Console", "Courier New", monospace;
-  font-size: clamp(3.7rem, 7.6vw, 7.3rem);
+  gap: 0.12em;
+  margin: 0.1rem 0 0;
+  color: var(--dos-green);
+  font-family: var(--dos-font);
+  font-size: clamp(3.3rem, 7.2vw, 7rem);
   font-weight: 400;
-  line-height: 0.72;
-  letter-spacing: 0.055em;
+  line-height: 0.78;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-shadow:
-    4px 0 0 #000,
-    -4px 0 0 #000,
-    0 4px 0 #000,
-    0 -4px 0 #000,
-    0 0 22px rgba(0, 0, 0, 0.95);
+    2px 0 0 #001c08,
+    -2px 0 0 #001c08,
+    0 2px 0 #001c08,
+    0 -2px 0 #001c08,
+    0 0 9px var(--dos-shadow),
+    0 0 22px rgba(56, 255, 122, 0.28);
 }
 
 .title-block h1 span {
   display: block;
 }
 
-.title-block p {
-  margin: 1.15rem 0 0;
-  color: #c9c9c3;
-  font-family: "VT323", "Lucida Console", "Courier New", monospace;
-  font-size: clamp(1.2rem, 2vw, 1.85rem);
+.title-block p,
+.dos-kicker,
+.dos-subtitle {
+  margin: 0.95rem 0 0;
+  color: var(--dos-amber);
+  font-family: var(--dos-font);
+  font-size: clamp(1rem, 1.65vw, 1.45rem);
   font-weight: 400;
   line-height: 1;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   text-shadow:
-    2px 0 0 #000,
-    -2px 0 0 #000,
-    0 2px 0 #000,
-    0 -2px 0 #000,
-    0 0 12px #000;
+    1px 0 0 #000,
+    0 1px 0 #000,
+    0 0 10px rgba(255, 191, 61, 0.36);
+}
+
+.dos-kicker {
+  margin: 0 0 0.7rem;
+  color: var(--dos-green);
+}
+
+.dos-subtitle::after {
+  content: "_";
+  display: inline-block;
+  margin-left: 0.2em;
+  animation: dos-cursor 1.05s steps(2, jump-none) infinite;
 }
 
 .server-panel {
@@ -155,34 +178,33 @@ body {
   bottom: clamp(1.5rem, 5vh, 4rem);
   left: 50%;
   display: grid;
-  width: min(88vw, 34rem);
-  gap: 1.15rem;
+  width: min(90vw, 38rem);
+  gap: 1rem;
   justify-items: center;
   padding: 1rem 1.2rem 1.25rem;
-  border: 1px solid rgba(232, 232, 224, 0.42);
-  outline: 3px solid rgba(0, 0, 0, 0.68);
+  border: 2px solid var(--dos-green-dim);
+  outline: 4px double rgba(56, 255, 122, 0.28);
   background:
-    linear-gradient(rgba(4, 6, 8, 0.76), rgba(0, 0, 0, 0.72));
+    linear-gradient(rgba(0, 18, 7, 0.82), rgba(0, 0, 0, 0.86));
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px rgba(56, 255, 122, 0.18),
+    inset 0 0 28px rgba(56, 255, 122, 0.07),
     0 12px 36px rgba(0, 0, 0, 0.56);
   transform: translateX(-50%);
   text-transform: uppercase;
   text-shadow:
-    2px 0 0 #000,
-    -2px 0 0 #000,
-    0 2px 0 #000,
-    0 -2px 0 #000;
+    0 0 9px rgba(56, 255, 122, 0.36);
   backdrop-filter: blur(3px);
 }
 
 .server-panel::before {
-  content: "";
-  width: 5.5rem;
-  height: 2px;
+  content: "STATUS.SYS";
+  width: auto;
+  height: auto;
   margin-bottom: -0.3rem;
-  background: rgba(232, 232, 224, 0.52);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+  color: var(--dos-amber);
+  font-size: clamp(0.95rem, 1.55vw, 1.2rem);
+  letter-spacing: 0.16em;
 }
 
 .status-row {
@@ -190,8 +212,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.7rem;
-  color: #efefe9;
-  font-size: clamp(1.7rem, 3.5vw, 2.65rem);
+  color: var(--dos-green);
+  font-size: clamp(1.25rem, 2.65vw, 1.85rem);
   line-height: 1;
   letter-spacing: 0.12em;
 }
@@ -201,7 +223,7 @@ body {
   height: 0.66em;
   flex: 0 0 auto;
   border: 2px solid #111;
-  border-radius: 50%;
+  border-radius: 0;
   background: #d1a900;
   box-shadow:
     0 0 0 2px #000,
@@ -226,29 +248,33 @@ body {
   display: inline-block;
   min-width: min(82vw, 28rem);
   padding: 0.72rem 1.1rem 0.78rem;
-  border: 2px solid #ededE7;
-  color: #f5f5ef;
+  border: 2px solid var(--dos-green);
+  color: var(--dos-green);
   background: rgba(0, 0, 0, 0.76);
-  font-size: clamp(1.3rem, 2.45vw, 1.85rem);
+  font-size: clamp(1.1rem, 2.1vw, 1.55rem);
   line-height: 1;
   letter-spacing: 0.085em;
   text-decoration: none;
   pointer-events: auto;
   cursor: pointer;
   box-shadow:
-    4px 4px 0 rgba(133, 133, 126, 0.92),
+    4px 4px 0 rgba(22, 169, 78, 0.72),
     7px 7px 0 rgba(0, 0, 0, 0.9);
+}
+
+.prompt-prefix {
+  color: var(--dos-amber);
 }
 
 .foundry-link:hover,
 .foundry-link:focus-visible {
-  color: #050505;
-  background: #f3f3ed;
+  color: #001c08;
+  background: var(--dos-green);
   outline: none;
   text-shadow: none;
   transform: translate(2px, 2px);
   box-shadow:
-    2px 2px 0 rgba(133, 133, 126, 0.92),
+    2px 2px 0 rgba(255, 191, 61, 0.92),
     4px 4px 0 rgba(0, 0, 0, 0.9);
 }
 
@@ -261,6 +287,18 @@ body {
   box-shadow:
     4px 4px 0 #333,
     7px 7px 0 #000;
+}
+
+@keyframes dos-cursor {
+  0%,
+  46% {
+    opacity: 1;
+  }
+
+  47%,
+  100% {
+    opacity: 0;
+  }
 }
 
 @media (max-width: 720px) {
