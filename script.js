@@ -11,6 +11,8 @@
   const WALL_RESTITUTION = 0.89;
   const MIN_SPEED = 7;
   const MAX_SPEED = 19;
+  const TRANSLATION_SPEED_MULTIPLIER = 1.1;
+  const BASE_ROTATION_SPEED_MULTIPLIER = 1.1;
   const COLLISION_FRICTION = 0.08;
   const WALL_FRICTION = 0.035;
   const ANGULAR_DAMPING = 0.82;
@@ -270,7 +272,10 @@
   function randomVelocity() {
     const angle = randomBetween(0, Math.PI * 2);
     const speed = randomBetween(MIN_SPEED, MAX_SPEED);
-    return [Math.cos(angle) * speed, Math.sin(angle) * speed];
+    return [
+      Math.cos(angle) * speed * TRANSLATION_SPEED_MULTIPLIER,
+      Math.sin(angle) * speed * TRANSLATION_SPEED_MULTIPLIER
+    ];
   }
 
   function randomSign() {
@@ -303,9 +308,9 @@
         angleX: randomBetween(-Math.PI, Math.PI),
         angleY: randomBetween(-Math.PI, Math.PI),
         angleZ: randomBetween(-Math.PI, Math.PI),
-        velocityX: randomBetween(0.26, 0.58) * randomSign(),
-        velocityY: randomBetween(0.3, 0.66) * randomSign(),
-        velocityZ: randomBetween(0.08, 0.28) * randomSign()
+        velocityX: randomBetween(0.26, 0.58) * randomSign() * BASE_ROTATION_SPEED_MULTIPLIER,
+        velocityY: randomBetween(0.3, 0.66) * randomSign() * BASE_ROTATION_SPEED_MULTIPLIER,
+        velocityZ: randomBetween(0.08, 0.28) * randomSign() * BASE_ROTATION_SPEED_MULTIPLIER
       });
     });
 
