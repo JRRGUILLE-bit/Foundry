@@ -14,13 +14,34 @@
   <canvas id="dice-background" aria-hidden="true"></canvas>
 
   <main class="hero">
-    <h1>
-      <span>El Foundry</span>
-      <span>de la Banda</span>
-    </h1>
-    <p>Portal de campañas</p>
+    <header class="title-block">
+      <h1>
+        <span>El Foundry</span>
+        <span>de la Banda</span>
+      </h1>
+      <p>Portal de campañas</p>
+    </header>
+
+    <section class="server-panel" id="server-panel" data-state="checking" aria-live="polite">
+      <div class="status-row">
+        <span class="status-light" aria-hidden="true"></span>
+        <span id="status-text">Verificando servidor...</span>
+      </div>
+
+      <a
+        class="foundry-link"
+        id="foundry-link"
+        aria-disabled="true"
+        tabindex="-1"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Clic aquí para entrar al Foundry
+      </a>
+    </section>
   </main>
 
   <script src="script.js"></script>
+  <script src="status.js"></script>
 </body>
 </html>
