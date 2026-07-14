@@ -106,74 +106,43 @@
   }
 
   function makePentagonalTrapezohedron() {
-    // A proper d10 is the dual of a regular pentagonal antiprism.
-    // This produces ten clean kite faces with the familiar d10 silhouette.
-    const sides = 5;
-    const radius = 1;
-    const halfHeight = 0.5;
-    const antiprismVertices = [];
-    const antiprismFaces = [];
+    const c0 = (Math.sqrt(5) - 1) / 4;
+    const c1 = (1 + Math.sqrt(5)) / 4;
+    const c2 = (3 + Math.sqrt(5)) / 4;
+    const theta = Math.acos((c0 - c2) / Math.hypot(c0 - c2, 2 * c1));
+    const cosTheta = Math.cos(theta);
+    const sinTheta = Math.sin(theta);
 
-    for (let i = 0; i < sides; i += 1) {
-      const topAngle = (Math.PI * 2 * i) / sides;
-      const bottomAngle = topAngle + Math.PI / sides;
+    const rotateZ = ([x, y, z]) => [
+      x * cosTheta - y * sinTheta,
+      x * sinTheta + y * cosTheta,
+      z
+    ];
 
-      antiprismVertices.push([
-        Math.cos(topAngle) * radius,
-        Math.sin(topAngle) * radius,
-        halfHeight
-      ]);
-      antiprismVertices.push([
-        Math.cos(bottomAngle) * radius,
-        Math.sin(bottomAngle) * radius,
-        -halfHeight
-      ]);
-    }
+    const vertices = normalizeShape([
+      [0, c0, c1],
+      [0, c0, -c1],
+      [0, -c0, c1],
+      [0, -c0, -c1],
+      [0.5, 0.5, 0.5],
+      [0.5, 0.5, -0.5],
+      [-0.5, -0.5, 0.5],
+      [-0.5, -0.5, -0.5],
+      [c2, -c1, 0],
+      [-c2, c1, 0],
+      [c0, c1, 0],
+      [-c0, -c1, 0]
+    ].map(rotateZ));
 
-    antiprismFaces.push([0, 2, 4, 6, 8]);
-    antiprismFaces.push([9, 7, 5, 3, 1]);
+    const faces = [
+      [8, 6, 11], [8, 2, 6], [8, 7, 3], [8, 11, 7],
+      [8, 1, 5], [8, 3, 1], [8, 10, 4], [8, 5, 10],
+      [8, 0, 2], [8, 4, 0], [9, 4, 10], [9, 0, 4],
+      [9, 5, 1], [9, 10, 5], [9, 3, 7], [9, 1, 3],
+      [9, 11, 6], [9, 7, 11], [9, 2, 0], [9, 6, 2]
+    ];
 
-    for (let i = 0; i < sides; i += 1) {
-      const next = (i + 1) % sides;
-      const top = i * 2;
-      const bottom = top + 1;
-      const nextTop = next * 2;
-      const nextBottom = nextTop + 1;
-
-      antiprismFaces.push([top, bottom, nextTop]);
-      antiprismFaces.push([bottom, nextBottom, nextTop]);
-    }
-
-    const vertices = antiprismFaces.map((face) => {
-      const center = face.reduce(
-        (sum, index) => add(sum, antiprismVertices[index]),
-        [0, 0, 0]
-      );
-      return normalizeVertex(scale(center, 1 / face.length));
-    });
-
-    const faces = antiprismVertices.map((axis, vertexIndex) => {
-      const incident = [];
-
-      antiprismFaces.forEach((face, faceIndex) => {
-        if (face.includes(vertexIndex)) incident.push(faceIndex);
-      });
-
-      const normalizedAxis = normalizeVertex(axis);
-      const reference = Math.abs(normalizedAxis[2]) < 0.9 ? [0, 0, 1] : [0, 1, 0];
-      const tangentX = normalizeVertex(cross(reference, normalizedAxis));
-      const tangentY = normalizeVertex(cross(normalizedAxis, tangentX));
-
-      return incident.sort((left, right) => {
-        const leftPoint = vertices[left];
-        const rightPoint = vertices[right];
-        const leftAngle = Math.atan2(dot(leftPoint, tangentY), dot(leftPoint, tangentX));
-        const rightAngle = Math.atan2(dot(rightPoint, tangentY), dot(rightPoint, tangentX));
-        return leftAngle - rightAngle;
-      });
-    });
-
-    return { vertices: normalizeShape(vertices), faces };
+    return { vertices, faces };
   }
 
   function makeIcosahedron() {
