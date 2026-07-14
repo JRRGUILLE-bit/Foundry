@@ -9,32 +9,36 @@
   image-rendering: pixelated;
 }
 
+.background-shade {
+  z-index: 1;
+}
+
 .fog-layer {
   mix-blend-mode: screen;
   transform: translate3d(0, 0, 0) scale(1.18);
 }
 
 .fog-back {
-  z-index: 1;
-  opacity: 0.11;
+  z-index: 2;
+  opacity: 0.32;
   animation: fog-drift-back 104s linear infinite alternate;
 }
 
 .fog-mid {
-  z-index: 2;
-  opacity: 0.14;
+  z-index: 3;
+  opacity: 0.44;
   animation: fog-drift-mid 72s linear infinite alternate;
 }
 
 .fog-low {
-  z-index: 3;
-  opacity: 0.19;
+  z-index: 4;
+  opacity: 0.58;
   animation: fog-drift-low 56s linear infinite alternate;
 }
 
 .lightning-layer,
 .lightning-flash {
-  z-index: 4;
+  z-index: 5;
 }
 
 .lightning-layer {
@@ -67,6 +71,21 @@
 @keyframes fog-drift-low {
   from { transform: translate3d(-4vw, 3vh, 0) scale(1.16); }
   to { transform: translate3d(6vw, -1vh, 0) scale(1.16); }
+}
+
+
+@media (max-width: 720px) {
+  .fog-back {
+    opacity: 0.28;
+  }
+
+  .fog-mid {
+    opacity: 0.38;
+  }
+
+  .fog-low {
+    opacity: 0.50;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

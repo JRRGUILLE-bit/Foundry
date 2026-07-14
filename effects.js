@@ -6,7 +6,7 @@
   const lightningCanvas = document.querySelector("#lightning-canvas");
   const lightningFlash = document.querySelector("#lightning-flash");
 
-  const FOG_SCALE = 6;
+  const FOG_SCALE = 8;
   const LIGHTNING_SCALE = 4;
   const MIN_LIGHTNING_DELAY = 30000;
   const MAX_LIGHTNING_DELAY = 120000;
@@ -14,9 +14,24 @@
   let activeFrame = 0;
 
   const fogProfiles = {
-    "fog-back": { seed: 19, coverage: 0.58, levels: [0, 34, 58, 82], vertical: (y) => 0.78 - Math.abs(y - 0.42) * 0.85 },
-    "fog-mid": { seed: 47, coverage: 0.52, levels: [0, 42, 72, 106], vertical: (y) => 0.9 - Math.abs(y - 0.52) * 1.25 },
-    "fog-low": { seed: 83, coverage: 0.5, levels: [0, 52, 88, 128], vertical: (y) => Math.max(0, (y - 0.42) * 1.55) + (y > 0.72 ? 0.28 : 0) }
+    "fog-back": {
+      seed: 19,
+      coverage: 0.50,
+      levels: [0, 96, 144, 188],
+      vertical: (y) => 0.78 - Math.abs(y - 0.42) * 0.85
+    },
+    "fog-mid": {
+      seed: 47,
+      coverage: 0.46,
+      levels: [0, 118, 170, 214],
+      vertical: (y) => 0.9 - Math.abs(y - 0.52) * 1.25
+    },
+    "fog-low": {
+      seed: 83,
+      coverage: 0.41,
+      levels: [0, 138, 194, 236],
+      vertical: (y) => Math.max(0, (y - 0.42) * 1.55) + (y > 0.72 ? 0.28 : 0)
+    }
   };
 
   function hash(x, y, seed) {
@@ -50,17 +65,18 @@
 
     for (let y = 0; y < height; y += 1) {
       for (let x = 0; x < width; x += 1) {
-        const coarse = valueNoise(x, y, profile.seed, 10);
-        const broad = valueNoise(x, y, profile.seed + 7, 24);
+        const coarse = valueNoise(x, y, profile.seed, 12);
+        const broad = valueNoise(x, y, profile.seed + 7, 34);
+        const bank = valueNoise(x, y, profile.seed + 17, 58);
         const dither = hash(x, y, profile.seed + 101) > 0.55 ? 0.06 : -0.04;
         const vertical = Math.max(0, profile.vertical(y / height));
-        const mass = broad * 0.68 + coarse * 0.32 + vertical * 0.38 + dither;
+        const mass = bank * 0.48 + broad * 0.34 + coarse * 0.18 + vertical * 0.42 + dither;
         const levelIndex = Math.max(0, Math.min(profile.levels.length - 1, Math.floor((mass - profile.coverage) * 8)));
         const alpha = mass > profile.coverage ? profile.levels[levelIndex] : 0;
         const i = (y * width + x) * 4;
-        data[i] = 118;
-        data[i + 1] = 133;
-        data[i + 2] = 146;
+        data[i] = 170;
+        data[i + 1] = 182;
+        data[i + 2] = 194;
         data[i + 3] = alpha;
       }
     }

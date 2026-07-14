@@ -4,7 +4,7 @@
   const video = document.querySelector("#site-background");
   if (!video) return;
 
-  const PLAYBACK_RATE = 0.6;
+  const PLAYBACK_RATE = 0.54;
 
   const applyPlaybackRate = () => {
     video.defaultPlaybackRate = PLAYBACK_RATE;
