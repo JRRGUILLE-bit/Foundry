@@ -66,23 +66,22 @@ body {
 
 .background-texture {
   z-index: 2;
-  opacity: 0.16;
-  background:
+  opacity: 0.09;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     repeating-linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.045) 0,
-      rgba(255, 255, 255, 0.045) 1px,
+      rgba(0, 0, 0, 0.075) 0,
+      rgba(0, 0, 0, 0.075) 1px,
       transparent 1px,
       transparent 4px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.012) 0,
-      rgba(255, 255, 255, 0.012) 1px,
-      transparent 1px,
-      transparent 6px
     );
-  mix-blend-mode: screen;
+  background-size:
+    4px 4px,
+    4px 4px,
+    100% 4px;
+  mix-blend-mode: soft-light;
 }
 
 .viewport-frame {
@@ -269,7 +268,7 @@ body {
   }
 
   .background-texture {
-    opacity: 0.12;
+    opacity: 0.085;
   }
 
   .hero {
