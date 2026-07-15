@@ -32,3 +32,78 @@
     display: none;
   }
 }
+
+body.crt-glitch #pixelated-background {
+  transform: translateX(var(--glitch-x, 3px)) scale(1.03, var(--glitch-scale-y, 0.998));
+  filter:
+    brightness(0.8)
+    contrast(1.24)
+    saturate(0.88)
+    blur(1.55px)
+    drop-shadow(2px 0 0 rgba(226, 75, 75, 0.18))
+    drop-shadow(-2px 0 0 rgba(80, 120, 255, 0.14));
+}
+
+body.crt-glitch .background-texture {
+  opacity: 0.54;
+  transform: translateY(1px);
+}
+
+body.crt-glitch .viewport-frame {
+  filter: contrast(1.12);
+}
+
+body.crt-glitch .background-texture::before,
+body.crt-glitch .background-texture::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 7vh;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(98, 245, 139, 0.16) 0,
+      rgba(98, 245, 139, 0.16) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+  mix-blend-mode: screen;
+  transform: translateX(var(--glitch-band-x, 4px));
+}
+
+body.crt-glitch .background-texture::before {
+  top: 34vh;
+  clip-path: inset(0 0 46% 0);
+}
+
+body.crt-glitch .background-texture::after {
+  top: 58vh;
+  height: 2px;
+  background: rgba(217, 166, 46, 0.38);
+}
+
+body.crt-glitch-sync-b .background-texture::before {
+  top: 46vh;
+  height: 4vh;
+}
+
+body.crt-glitch-sync-c .background-texture::after {
+  top: 42vh;
+  background: rgba(98, 245, 139, 0.34);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.crt-glitch #pixelated-background,
+  body.crt-glitch .background-texture,
+  body.crt-glitch .viewport-frame {
+    transform: none;
+    filter: none;
+  }
+
+  body.crt-glitch .background-texture::before,
+  body.crt-glitch .background-texture::after {
+    content: none;
+  }
+}
