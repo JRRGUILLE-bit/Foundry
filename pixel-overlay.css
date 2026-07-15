@@ -13,39 +13,23 @@
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   filter:
-    brightness(0.83)
-    contrast(1.08)
-    saturate(0.88)
-    blur(1.35px);
+    brightness(1)
+    contrast(1.06)
+    saturate(0.92)
+    blur(1.2px);
   transform: scale(1.03);
   transform-origin: center;
   pointer-events: none;
 }
 
 .background-shade {
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.16) 0%,
-      rgba(0, 0, 0, 0.08) 20%,
-      rgba(0, 0, 0, 0.055) 38%,
-      rgba(0, 0, 0, 0.055) 66%,
-      rgba(0, 0, 0, 0.09) 84%,
-      rgba(0, 0, 0, 0.18) 100%
-    ),
-    radial-gradient(
-      ellipse at 50% 55%,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.015) 60%,
-      rgba(0, 0, 0, 0.05) 84%,
-      rgba(0, 0, 0, 0.11) 100%
-    );
-  box-shadow: inset 0 0 1.5rem 0.2rem rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: none;
 }
 
 .background-texture {
   z-index: 6;
-  opacity: 0.22;
+  opacity: 0.2;
   background-image:
     repeating-linear-gradient(
       to bottom,
@@ -64,35 +48,19 @@
 @media (max-width: 720px) {
   #pixelated-background {
     filter:
-      brightness(0.84)
-      contrast(1.07)
-      saturate(0.88)
-      blur(1.1px);
+      brightness(1)
+      contrast(1.05)
+      saturate(0.92)
+      blur(1px);
   }
 
   .background-shade {
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.14) 0%,
-        rgba(0, 0, 0, 0.07) 20%,
-        rgba(0, 0, 0, 0.045) 38%,
-        rgba(0, 0, 0, 0.045) 68%,
-        rgba(0, 0, 0, 0.08) 84%,
-        rgba(0, 0, 0, 0.16) 100%
-      ),
-      radial-gradient(
-        ellipse at 50% 56%,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.012) 62%,
-        rgba(0, 0, 0, 0.045) 86%,
-        rgba(0, 0, 0, 0.1) 100%
-      );
-    box-shadow: inset 0 0 1.2rem 0.15rem rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: none;
   }
 
   .background-texture {
-    opacity: 0.2;
+    opacity: 0.18;
     background-size:
       100% 4px,
       100% 100%;
