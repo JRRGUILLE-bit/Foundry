@@ -1,0 +1,271 @@
+:root {
+  --matrix-green: rgba(98, 255, 139, 0.18);
+  --matrix-green-bright: rgba(160, 255, 183, 0.34);
+}
+
+.code-rain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(1, 5, 3, 0.28), rgba(1, 5, 3, 0.8)),
+    radial-gradient(circle at 50% 45%, rgba(29, 143, 67, 0.05), transparent 58%);
+}
+
+.code-column {
+  position: absolute;
+  top: -120%;
+  width: min(19rem, 34vw);
+  color: var(--matrix-green);
+  font-size: clamp(0.85rem, 1vw, 1.05rem);
+  line-height: 1.32;
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+  text-shadow: 0 0 4px rgba(98, 255, 139, 0.08);
+  animation: code-fall var(--fall-duration, 24s) linear infinite;
+  animation-delay: var(--fall-delay, 0s);
+}
+
+.code-column:nth-child(3n + 1) {
+  color: var(--matrix-green-bright);
+}
+
+.code-column:nth-child(even) {
+  opacity: 0.72;
+}
+
+.terminal-shell {
+  z-index: 2;
+  backdrop-filter: none;
+}
+
+.terminal-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-bar::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 2px;
+  margin-left: 1rem;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(1, 5, 3, 0.78) 0 5px,
+    transparent 5px 11px
+  );
+  background-size: 22px 2px;
+  animation: data-flow 1.15s linear infinite;
+}
+
+.panel-heading > span {
+  animation: signal-pulse 1.6s steps(2, end) infinite;
+}
+
+.system-label::before {
+  content: "> ";
+  color: var(--green);
+}
+
+.system-readout div {
+  grid-template-columns: auto minmax(2.5rem, 1fr) auto;
+  align-items: center;
+}
+
+.system-readout dd::before {
+  content: none;
+}
+
+.dot-leader {
+  height: 2px;
+  min-width: 2.5rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--green-dim) 0 3px,
+    transparent 3px 8px
+  );
+  background-size: 16px 2px;
+  opacity: 0.9;
+  animation: data-flow 1s linear infinite;
+}
+
+.runtime-log {
+  min-height: 8.5rem;
+  padding: 0.75rem;
+  border: 2px solid var(--green-dim);
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.runtime-log h2 {
+  margin: 0 0 0.55rem;
+  color: var(--amber-bright);
+  font: inherit;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  letter-spacing: 0.1em;
+}
+
+.runtime-log p {
+  margin: 0.18rem 0;
+  color: var(--muted);
+  font-size: clamp(0.98rem, 1.15vw, 1.12rem);
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+}
+
+.runtime-log p::before {
+  content: "> ";
+  color: var(--green-dim);
+}
+
+.runtime-log .log-ok {
+  color: var(--green);
+}
+
+.runtime-log .log-idle {
+  color: var(--amber);
+}
+
+.runtime-log .log-active::after {
+  content: "_";
+  margin-left: 0.2em;
+  color: var(--amber);
+  animation: cursor-blink 0.9s steps(2, jump-none) infinite;
+}
+
+.feed-meta span {
+  position: relative;
+  padding-left: 0.95rem;
+}
+
+.feed-meta span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0.45rem;
+  height: 0.45rem;
+  border: 1px solid var(--green-dim);
+  background: var(--green);
+  transform: translateY(-50%);
+  animation: signal-pulse 1.4s steps(2, end) infinite;
+}
+
+.feed-meta span:nth-child(2)::before {
+  animation-delay: 0.25s;
+}
+
+.feed-meta span:nth-child(3)::before {
+  animation-delay: 0.5s;
+}
+
+.status-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.status-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  transform: translateX(-100%);
+  animation: status-scan 2.6s linear infinite;
+}
+
+.status-light {
+  animation: status-light-pulse 1.35s steps(2, end) infinite;
+}
+
+.terminal-footer {
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-footer::after {
+  content: "";
+  width: min(18rem, 45%);
+  height: 2px;
+  margin-left: auto;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--green-dim) 0 4px,
+    transparent 4px 9px
+  );
+  animation: data-flow 0.95s linear infinite;
+}
+
+@keyframes code-fall {
+  from { transform: translateY(0); }
+  to { transform: translateY(235vh); }
+}
+
+@keyframes data-flow {
+  from { background-position-x: 0; }
+  to { background-position-x: 16px; }
+}
+
+@keyframes signal-pulse {
+  0%, 60% { opacity: 1; }
+  61%, 100% { opacity: 0.42; }
+}
+
+@keyframes status-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes status-light-pulse {
+  0%, 64% { opacity: 1; }
+  65%, 100% { opacity: 0.55; }
+}
+
+@media (max-width: 900px) {
+  .code-column {
+    width: 17rem;
+    font-size: 0.86rem;
+  }
+
+  .runtime-log {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .system-readout div {
+    grid-template-columns: auto minmax(1.5rem, 1fr) auto;
+  }
+
+  .runtime-log p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .terminal-bar::after,
+  .terminal-footer::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-column,
+  .terminal-bar::after,
+  .dot-leader,
+  .panel-heading > span,
+  .feed-meta span::before,
+  .status-header::after,
+  .status-light,
+  .runtime-log .log-active::after,
+  .terminal-footer::after {
+    animation: none;
+  }
+
+  .code-column {
+    opacity: 0.28;
+  }
+}
