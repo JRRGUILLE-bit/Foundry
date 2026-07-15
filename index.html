@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="pixel-overlay.css">
   <link rel="stylesheet" href="effects.css">
 </head>
-<body>
+<body class="is-booting">
   <video
     id="site-background"
     aria-hidden="true"
@@ -36,7 +36,7 @@
 
   <main class="hero">
     <header class="title-block">
-      <p class="dos-kicker">C:\BANDA\FOUNDRY&gt; BOOT PORTAL.EXE</p>
+      <p class="dos-kicker" data-boot-line="C:\BANDA\FOUNDRY&gt; BOOT PORTAL.EXE">C:\BANDA\FOUNDRY&gt; BOOT PORTAL.EXE</p>
       <h1>
         <span>EL FOUNDRY</span>
         <span>DE LA BANDA</span>
@@ -64,6 +64,7 @@
   </main>
 
   <script src="background.js"></script>
+  <script src="boot.js"></script>
   <script src="effects.js"></script>
   <script src="status.js"></script>
 </body>

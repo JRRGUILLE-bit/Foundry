@@ -61,13 +61,15 @@ body {
 .background-shade {
   z-index: 5;
   background:
+    radial-gradient(ellipse at 50% 14%, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.54) 30%, transparent 66%),
+    radial-gradient(ellipse at 50% 92%, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.52) 32%, transparent 68%),
     linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.38) 23%,
-      rgba(0, 0, 0, 0.12) 49%,
-      rgba(0, 0, 0, 0.32) 76%,
-      rgba(0, 0, 0, 0.72) 100%
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.28) 23%,
+      rgba(0, 0, 0, 0.06) 49%,
+      rgba(0, 0, 0, 0.24) 76%,
+      rgba(0, 0, 0, 0.66) 100%
     ),
     radial-gradient(
       ellipse at 50% 57%,
@@ -75,7 +77,7 @@ body {
       rgba(0, 0, 0, 0.1) 42%,
       rgba(0, 0, 0, 0.58) 100%
     );
-  box-shadow: inset 0 0 9rem 2rem #000;
+  box-shadow: inset 0 0 8rem 1.6rem #000;
 }
 
 .background-texture {
@@ -249,6 +251,59 @@ body {
     2px 2px 0 #000;
 }
 
+.server-panel[data-state="checking"] {
+  border-color: rgba(217, 166, 46, 0.62);
+  outline-color: rgba(217, 166, 46, 0.2);
+  color: var(--dos-amber);
+}
+
+.server-panel[data-state="checking"] .status-row,
+.server-panel[data-state="checking"]::before {
+  color: var(--dos-amber);
+}
+
+.server-panel[data-state="checking"] .status-light {
+  background: var(--dos-amber);
+  animation: status-cursor 0.9s steps(2, jump-none) infinite;
+}
+
+.server-panel[data-state="online"] {
+  border-color: var(--dos-green);
+  outline-color: rgba(56, 217, 107, 0.34);
+  color: var(--dos-green);
+  animation: status-flash 140ms steps(2, end) 1;
+}
+
+.server-panel[data-state="online"] .status-row,
+.server-panel[data-state="online"]::before {
+  color: var(--dos-green-bright);
+}
+
+.server-panel[data-state="offline"] {
+  border-color: rgba(120, 28, 28, 0.9);
+  outline-color: rgba(226, 75, 75, 0.18);
+  background: rgba(9, 2, 2, 0.9);
+  color: #c87575;
+  animation: status-flash 140ms steps(2, end) 1;
+}
+
+.server-panel[data-state="offline"] .status-row,
+.server-panel[data-state="offline"]::before {
+  color: #c87575;
+}
+
+.server-panel[data-state="offline"] .prompt-prefix {
+  color: #9e3535;
+}
+
+.server-panel[data-state="offline"] .foundry-link[aria-disabled="true"] {
+  border-color: #5f2424;
+  color: #8f6868;
+  box-shadow:
+    4px 4px 0 #281616,
+    7px 7px 0 #000;
+}
+
 .foundry-link {
   display: inline-block;
   min-width: min(82vw, 28rem);
@@ -292,6 +347,62 @@ body {
   box-shadow:
     4px 4px 0 #333,
     7px 7px 0 #000;
+}
+
+
+body.is-booting::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.68);
+}
+
+body.is-booting .title-block h1,
+body.is-booting .dos-subtitle,
+body.is-booting .server-panel {
+  opacity: 0;
+}
+
+body.is-booting .dos-kicker::after {
+  content: "_";
+  display: inline-block;
+  margin-left: 0.15em;
+  animation: dos-cursor 0.42s steps(2, jump-none) infinite;
+}
+
+body.is-booting .title-block h1 {
+  animation: boot-step-in 90ms steps(1, end) 640ms forwards;
+}
+
+body.is-booting .dos-subtitle {
+  animation: boot-step-in 90ms steps(1, end) 900ms forwards;
+}
+
+body.is-booting .server-panel {
+  animation: boot-panel-in 120ms steps(2, end) 1120ms forwards;
+}
+
+@keyframes boot-step-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes boot-panel-in {
+  from { opacity: 0; transform: translate(-50%, 2px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes status-cursor {
+  0%, 52% { opacity: 1; }
+  53%, 100% { opacity: 0.42; }
+}
+
+@keyframes status-flash {
+  0% { filter: invert(0); }
+  50% { filter: invert(0.16); }
+  100% { filter: invert(0); }
 }
 
 @keyframes dos-cursor {
@@ -401,5 +512,24 @@ body {
 @media (prefers-reduced-motion: reduce) {
   #site-background {
     transform: none;
+  }
+
+  body.is-booting::after {
+    content: none;
+  }
+
+  body.is-booting .title-block h1,
+  body.is-booting .dos-subtitle,
+  body.is-booting .server-panel {
+    opacity: 1;
+    animation: none;
+  }
+
+  .dos-subtitle::after,
+  body.is-booting .dos-kicker::after,
+  .server-panel[data-state="checking"] .status-light,
+  .server-panel[data-state="online"],
+  .server-panel[data-state="offline"] {
+    animation: none;
   }
 }
