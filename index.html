@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>El Foundry de la Banda</title>
+  <title>The Banda Foundry</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,20 +17,21 @@
 
   <main class="terminal-shell">
     <header class="terminal-bar">
-      <span class="terminal-path">C:\BANDA\FOUNDRY&gt; SUMMON CAMPAIGN.EXE --NO_REFUNDS</span>
+      <span class="terminal-path" data-i18n="terminal.command">C:\BANDA\FOUNDRY&gt; SUMMON ADVENTURE.EXE --NO_REFUNDS</span>
     </header>
 
     <div class="terminal-grid">
       <section class="feed-panel" aria-labelledby="feed-title">
         <header class="panel-heading">
-          <h2 id="feed-title">SCRYING_ORB_FEED_01</h2>
-          <span>DO_NOT_SHAKE</span>
+          <h2 id="feed-title" data-i18n="feed.title">SCRYING_ORB_FEED_01</h2>
+          <span data-i18n="feed.mode">DO_NOT_SHAKE</span>
         </header>
 
         <div class="video-frame">
           <video
             id="site-background"
-            aria-label="Transmisión visual de la campaña"
+            aria-label="Live feed from an orb with no warranty"
+            data-i18n-aria-label="feed.videoAria"
             autoplay
             muted
             loop
@@ -43,15 +44,15 @@
         </div>
 
         <div class="feed-meta" aria-hidden="true">
-          <span>DUNGEON: MOSTLY LEGAL</span>
-          <span>HEROES: UNSUPERVISED</span>
-          <span>TRAPS: UNIONIZED</span>
+          <span data-i18n="feed.dungeon">DUNGEON: MOSTLY LEGAL</span>
+          <span data-i18n="feed.heroes">HEROES: UNSUPERVISED</span>
+          <span data-i18n="feed.traps">TRAPS: UNIONIZED</span>
         </div>
       </section>
 
       <aside class="control-panel">
         <section class="identity-block">
-          <p class="system-label">DEPARTMENT OF BAD DECISIONS</p>
+          <p class="system-label" data-i18n="identity.label">DEPARTMENT OF BAD DECISIONS</p>
           <h1>
             <span>EL FOUNDRY</span>
             <span>DE LA BANDA</span>
@@ -60,36 +61,36 @@
 
         <dl class="system-readout">
           <div>
-            <dt>RULE LAWYER</dt>
+            <dt data-i18n="readout.rulesLabel">RULE LAWYER</dt>
             <span class="dot-leader" aria-hidden="true"></span>
-            <dd>D&amp;D 5E // OBJECTING</dd>
+            <dd data-i18n="readout.rulesValue">D&amp;D 5E // OBJECTING</dd>
           </div>
           <div>
-            <dt>BOOK HOARD</dt>
+            <dt data-i18n="readout.booksLabel">DM MANUALS</dt>
             <span class="dot-leader" aria-hidden="true"></span>
-            <dd>DUSTY // ARMED</dd>
+            <dd data-i18n="readout.booksValue">DUST // +2</dd>
           </div>
           <div>
-            <dt>MONSTERS</dt>
+            <dt data-i18n="readout.monstersLabel">MONSTERS</dt>
             <span class="dot-leader" aria-hidden="true"></span>
-            <dd>PLOTTING</dd>
+            <dd data-i18n="readout.monstersValue">WAITING FOR A SPLIT PARTY</dd>
           </div>
         </dl>
 
-        <section class="runtime-log" aria-label="Registro de la campaña">
-          <h2>BAD_DECISIONS.LOG</h2>
-          <p class="log-ok">LOAD WORLD ........ PROBABLY</p>
-          <p class="log-ok">COUNT MIMICS ....... TOO MANY</p>
-          <p class="log-idle">WAKE DRAGON ........ BAD IDEA</p>
-          <p class="log-active">DM IMPROVISATION BUFFERING</p>
+        <section class="runtime-log" aria-label="Campaign incident report" data-i18n-aria-label="log.aria">
+          <h2 data-i18n="log.title">BAD_DECISIONS.LOG</h2>
+          <p class="log-ok" data-i18n="log.world">LOAD WORLD ........ PROBABLY</p>
+          <p class="log-ok" data-i18n="log.mimics">COUNT MIMICS ....... STILL COUNTING</p>
+          <p class="log-idle" data-i18n="log.dragon">WAKE DRAGON ........ GREAT IDEA</p>
+          <p class="log-active" data-i18n="log.dm">DM IMPROVISATION BUFFERING</p>
         </section>
 
         <section class="server-panel" id="server-panel" data-state="checking" aria-live="polite">
-          <header class="status-header">MYSTICAL_BROADBAND.SYS</header>
+          <header class="status-header" data-i18n="status.header">MYSTICAL_BROADBAND.SYS</header>
 
           <div class="status-row">
             <span class="status-light" aria-hidden="true"></span>
-            <span id="status-text">ASKING WIZARD TO REBOOT...</span>
+            <span id="status-text" data-i18n="status.checking">ASKING WIZARD TO REBOOT...</span>
           </div>
 
           <a
@@ -100,18 +101,20 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span class="prompt-prefix">&gt;</span> ENTRAR A FOUNDRY
+            <span class="prompt-prefix">&gt;</span>
+            <span data-i18n="button.enter">ENTER FOUNDRY</span>
           </a>
         </section>
       </aside>
     </div>
 
     <footer class="terminal-footer">
-      <span>DM READY // PLAN MISSING</span>
+      <span data-i18n="footer.ready">DM READY // PLAN NOT FOUND</span>
       <span class="terminal-cursor" aria-hidden="true">_</span>
     </footer>
   </main>
 
+  <script src="i18n.js"></script>
   <script src="interface.js"></script>
   <script src="status.js"></script>
 </body>

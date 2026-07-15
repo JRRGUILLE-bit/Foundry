@@ -11,11 +11,19 @@
 
   if (!panel || !statusText || !foundryLink) return;
 
+  function translatedStatus(key, fallback) {
+    const value = window.FoundryI18n?.t(`status.${key}`);
+    return typeof value === "string" ? value : fallback;
+  }
+
   function setState(state, url = "") {
     panel.dataset.state = state;
 
     if (state === "online") {
-      statusText.textContent = "ONLINE // BAD IDEAS WELCOME";
+      statusText.textContent = translatedStatus(
+        "online",
+        "ONLINE // BAD IDEAS WELCOME"
+      );
       foundryLink.href = url;
       foundryLink.setAttribute("aria-disabled", "false");
       foundryLink.removeAttribute("tabindex");
@@ -27,9 +35,15 @@
     foundryLink.setAttribute("tabindex", "-1");
 
     if (state === "checking") {
-      statusText.textContent = "ASKING WIZARD TO REBOOT...";
+      statusText.textContent = translatedStatus(
+        "checking",
+        "ASKING WIZARD TO REBOOT..."
+      );
     } else {
-      statusText.textContent = "OFFLINE // PORTAL ON BREAK";
+      statusText.textContent = translatedStatus(
+        "offline",
+        "OFFLINE // PORTAL ON BREAK"
+      );
     }
   }
 

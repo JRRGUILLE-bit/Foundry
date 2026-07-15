@@ -4,68 +4,10 @@
   const container = document.querySelector("#code-rain");
   if (!container) return;
 
-  const snippets = [
-    'npc.create("innkeeper", { secrets: 7, accent: "temporary" });',
-    'shop.price *= hero.looksRich ? 3 : 1;',
-    'mimic.disguise("treasure_chest").overact();',
-    'dragon.sleepUntil(party.says("we got this"));',
-    'bard.volume = "legally_actionable";',
-    'goblin.unionize({ demands: ["snacks", "dental"] });',
-    'quest.reward = dm.forgotMath ? "double" : "exposure";',
-    'trap.place("middle_of_obvious_hallway");',
-    'cleric.prepare("revivify").sigh();',
-    'dice.roll("1d20 + misplaced_confidence");',
-    'merchant.detectWealth().raisePrices();',
-    'wizard.cast("fireball", { location: "indoors" });',
-    'tavern.brawl.startBefore("first_round");',
-    'skeleton.queue.add(12).forgetWhy();',
-    'gelatinousCube.clean("entire_dungeon");',
-    'portal.open("somewhere_with_paperwork");',
-    'paladin.beginMoralCrisis("again");',
-    'rogue.steal("plot_relevant_object");',
-    'warlock.patron.fileComplaint("insufficient_brooding");',
-    'questgiver.hide("one_crucial_detail");',
-    'torch.extinguishAt("worst_possible_moment");',
-    'necromancer.schedule("light_maintenance");',
-    'kobold.confidence = Infinity;',
-    'barbarian.solve("puzzle", "structural_damage");',
-    'chest.mimicProbability = 0.87;',
-    'healer.sigh({ volume: "audible" });',
-    'map.mark("DEFINITELY_NOT_A_TRAP");',
-    'villager.panic({ certification: "professional" });',
-    'king.delayReward("budget_review");',
-    'ranger.track("something_regrettable");',
-    'owlbear.requestPermission().deny();',
-    'cultist.explainPlan({ timing: "too_early" });',
-    'tavern.stool.break("dramatically");',
-    'orc.guard.pauseLunch("reluctantly");',
-    'potion.identifyAs("probably_fine");',
-    'thief.generateApology("unconvincing");',
-    'beholder.paranoia.expandToFit();',
-    'loot.assign("cursed_boots_of_confidence");',
-    'shopkeeper.smile = "contractually_untrustworthy";',
-    'quest.log.append("things_are_worse_now");',
-    'bard.flirt({ outcome: "catastrophic" });',
-    'dragon.taxAudit.begin();',
-    'stairs.creak("ominously", { nobodyMoving: true });',
-    'guard.suspicion.raise("for_no_reason");',
-    'ratSwarm.clockIn("early");',
-    'altar.glow({ reason: null });',
-    'prophecy.wording = "needlessly_confusing";',
-    'dungeon.exit.moveTo("other_side_of_map");',
-    'wizard.readManualAfter("explosion");',
-    'hero.plan.confidence = 100;',
-    'hero.plan.quality = 3;',
-    'monster.waitUntil("dramatic_pause_complete");',
-    'dm.notes.search("name_of_that_npc");',
-    'cleric.requestDonation("suggested_mandatory");',
-    'rogue.checkTrapAfter("opening_chest");',
-    'paladin.detectEvil("everywhere");',
-    'barbarian.whisper({ volume: "battle_cry" });',
-    'bard.song.duration = "longer_than_combat";',
-    'shopkeeper.returnPolicy = "quest_required";',
-    'dragon.hoard.add("receipts");'
-  ];
+  const snippets =
+    window.FoundryI18n?.strings?.backgroundSnippets || [];
+
+  if (!Array.isArray(snippets) || snippets.length === 0) return;
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
