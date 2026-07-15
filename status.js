@@ -15,7 +15,7 @@
     panel.dataset.state = state;
 
     if (state === "online") {
-      statusText.textContent = "ONLINE // GATE OPEN";
+      statusText.textContent = "ONLINE // BAD IDEAS WELCOME";
       foundryLink.href = url;
       foundryLink.setAttribute("aria-disabled", "false");
       foundryLink.removeAttribute("tabindex");
@@ -27,9 +27,9 @@
     foundryLink.setAttribute("tabindex", "-1");
 
     if (state === "checking") {
-      statusText.textContent = "CHECKING FOUNDRY LINK...";
+      statusText.textContent = "ASKING WIZARD TO REBOOT...";
     } else {
-      statusText.textContent = "OFFLINE";
+      statusText.textContent = "OFFLINE // PORTAL ON BREAK";
     }
   }
 
