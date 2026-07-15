@@ -9,10 +9,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="pixel-overlay.css">
-  <link rel="stylesheet" href="effects.css">
+  <style>
+    #site-background {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      image-rendering: auto;
+    }
+  </style>
 </head>
-<body class="is-booting">
+<body>
   <video
     id="site-background"
     aria-hidden="true"
@@ -25,18 +31,10 @@
   >
     <source src="112e7d4c-eb6e-4cc4-8c8a-f1991f07d040.mp4" type="video/mp4">
   </video>
-  <canvas id="pixelated-background" aria-hidden="true"></canvas>
-
-  <canvas id="lightning-canvas" class="lightning-layer" aria-hidden="true"></canvas>
-  <div id="lightning-flash" class="lightning-flash" aria-hidden="true"></div>
-
-  <div class="background-shade" aria-hidden="true"></div>
-  <div class="background-texture" aria-hidden="true"></div>
-  <div class="viewport-frame" aria-hidden="true"></div>
 
   <main class="hero">
     <header class="title-block">
-      <p class="dos-kicker" data-boot-line="C:\BANDA\FOUNDRY&gt; BOOT PORTAL.EXE">C:\BANDA\FOUNDRY&gt; BOOT PORTAL.EXE</p>
+      <p class="dos-kicker">C:\BANDA\FOUNDRY&gt; BOOT PORTAL.EXE</p>
       <h1>
         <span>EL FOUNDRY</span>
         <span>DE LA BANDA</span>
@@ -63,10 +61,6 @@
     </section>
   </main>
 
-  <script src="background.js"></script>
-  <script src="boot.js"></script>
-  <script src="glitch.js"></script>
-  <script src="effects.js"></script>
   <script src="status.js"></script>
 </body>
 </html>
