@@ -63,12 +63,22 @@
     column.className = "code-column";
     column.style.left = `${index * laneWidth}%`;
     column.style.width = `${laneWidth}%`;
+    column.style.overflow = "hidden";
+    column.style.paddingInline = "0.7rem";
+    column.style.opacity = `${0.42 + (index % 3) * 0.1}`;
     column.style.setProperty("--fall-duration", `${52 + (index % 4) * 9}s`);
     column.style.setProperty("--fall-delay", `${-index * 8.5}s`);
-    column.style.setProperty("--column-opacity", `${0.42 + (index % 3) * 0.1}`);
-    column.innerHTML = shuffledLines(index)
-      .map((line) => `<span>${line}</span>`)
-      .join("");
+
+    shuffledLines(index).forEach((line) => {
+      const row = document.createElement("span");
+      row.textContent = line;
+      row.style.display = "block";
+      row.style.overflow = "hidden";
+      row.style.textOverflow = "clip";
+      row.style.whiteSpace = "nowrap";
+      row.style.marginBottom = "0.72rem";
+      column.appendChild(row);
+    });
 
     if (prefersReducedMotion) {
       column.style.top = `${(index % 4) * 18 - 15}%`;
