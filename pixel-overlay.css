@@ -13,9 +13,9 @@
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   filter:
-    brightness(0.7)
+    brightness(0.78)
     contrast(1.18)
-    saturate(0.78)
+    saturate(0.9)
     blur(1.55px);
   transform: scale(1.03);
   transform-origin: center;
@@ -24,7 +24,7 @@
 
 .background-texture {
   z-index: 6;
-  opacity: 0.52;
+  opacity: 0.45;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.3) 1px, transparent 1px),
@@ -63,14 +63,14 @@
 @media (max-width: 720px) {
   #pixelated-background {
     filter:
-      brightness(0.72)
+      brightness(0.8)
       contrast(1.15)
-      saturate(0.8)
+      saturate(0.9)
       blur(1.2px);
   }
 
   .background-texture {
-    opacity: 0.44;
+    opacity: 0.39;
     background-size:
       5px 5px,
       5px 5px,

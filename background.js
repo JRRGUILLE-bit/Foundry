@@ -13,6 +13,16 @@
   const PLAYBACK_RATE = 0.4;
   const PIXEL_DIVISOR = 3;
   const FALLBACK_FRAME_INTERVAL = 1000 / 30;
+  const BAYER_4X4 = [
+    0, 8, 2, 10,
+    12, 4, 14, 6,
+    3, 11, 1, 9,
+    15, 7, 13, 5
+  ];
+  const RED_LEVELS = 5;
+  const GREEN_LEVELS = 6;
+  const BLUE_LEVELS = 5;
+  const DITHER_STRENGTH = 18;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const supportsVideoFrames = typeof video.requestVideoFrameCallback === "function";
 
@@ -23,6 +33,32 @@
   const applyPlaybackRate = () => {
     video.defaultPlaybackRate = PLAYBACK_RATE;
     video.playbackRate = PLAYBACK_RATE;
+  };
+
+  const quantizeChannel = (value, levels) => {
+    const maxLevel = levels - 1;
+    return Math.round(Math.max(0, Math.min(255, value)) / 255 * maxLevel) * (255 / maxLevel);
+  };
+
+  const applyVgaPalette = (targetWidth, targetHeight) => {
+    const frame = context.getImageData(0, 0, targetWidth, targetHeight);
+    const { data } = frame;
+
+    for (let y = 0; y < targetHeight; y += 1) {
+      const rowOffset = y * targetWidth * 4;
+      const bayerRow = (y & 3) * 4;
+
+      for (let x = 0; x < targetWidth; x += 1) {
+        const index = rowOffset + x * 4;
+        const threshold = ((BAYER_4X4[bayerRow + (x & 3)] + 0.5) / 16 - 0.5) * DITHER_STRENGTH;
+
+        data[index] = quantizeChannel(data[index] + threshold, RED_LEVELS);
+        data[index + 1] = quantizeChannel(data[index + 1] + threshold, GREEN_LEVELS);
+        data[index + 2] = quantizeChannel(data[index + 2] + threshold, BLUE_LEVELS);
+      }
+    }
+
+    context.putImageData(frame, 0, 0);
   };
 
   const drawFrame = () => {
@@ -61,6 +97,7 @@
       targetWidth,
       targetHeight
     );
+    applyVgaPalette(targetWidth, targetHeight);
   };
 
   const resizeCanvas = () => {
