@@ -19,10 +19,10 @@
     3, 11, 1, 9,
     15, 7, 13, 5
   ];
-  const RED_LEVELS = 5;
-  const GREEN_LEVELS = 6;
-  const BLUE_LEVELS = 5;
-  const DITHER_STRENGTH = 18;
+  const RED_LEVELS = 7;
+  const GREEN_LEVELS = 8;
+  const BLUE_LEVELS = 7;
+  const DITHER_STRENGTH = 6;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const supportsVideoFrames = typeof video.requestVideoFrameCallback === "function";
 
