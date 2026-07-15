@@ -15,7 +15,7 @@
     panel.dataset.state = state;
 
     if (state === "online") {
-      statusText.textContent = "ONLINE // LISTO";
+      statusText.textContent = "ONLINE // GATE OPEN";
       foundryLink.href = url;
       foundryLink.setAttribute("aria-disabled", "false");
       foundryLink.removeAttribute("tabindex");
@@ -27,9 +27,9 @@
     foundryLink.setAttribute("tabindex", "-1");
 
     if (state === "checking") {
-      statusText.textContent = "RUN CHECK_SERVER.BAT...";
+      statusText.textContent = "CHECKING FOUNDRY LINK...";
     } else {
-      statusText.textContent = "OFFLINE // REINTENTAR";
+      statusText.textContent = "OFFLINE";
     }
   }
 
