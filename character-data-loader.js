@@ -3,7 +3,7 @@
 
   const nativeFetch = window.fetch.bind(window);
   const cache = new Map();
-  const version = "20260721-5";
+  const version = "20260721-6";
 
   const sources = {
     sathar: [
@@ -36,6 +36,71 @@
     magna: { spells: 20, inventory: 5, features: 12 },
     sathar: { spells: 17, inventory: 11, features: 21 }
   };
+
+  const canonical = {
+    artionketh: { hp: [154, 154, 14], ac: 25, initiative: 2, walk: 40, subclasses: ["Oath of Glory", "Rune Knight"], spellAttack: 8, spellDc: 16 },
+    balder: { hp: [139, 139, 0], ac: 20, initiative: 6, walk: 25, subclasses: ["Oath of Vengeance"], spellAttack: 10, spellDc: 18 },
+    ingwe: { hp: [123, 123, 0], ac: 14, initiative: 2, walk: 30, subclasses: ["College of Lore"], spellAttack: 10, spellDc: 18 },
+    melkor: { hp: [129, 129, 14], ac: 23, initiative: 10, walk: 50, subclasses: ["Way of Shadow", "Assassin", "Battle Master"], spellAttack: 6, spellDc: 14 },
+    magna: { hp: [89, 89, 0], ac: 14, initiative: 2, walk: 30, subclasses: ["Divine Soul"], spellAttack: 10, spellDc: 18 },
+    sathar: { hp: [132, 132, 25], ac: 18, initiative: 0, walk: 30, subclasses: ["Hexblade"], spellAttack: 10, spellDc: 18 }
+  };
+
+  function ensureNamedEntry(array, name, factory) {
+    if (!array.some((entry) => entry?.name === name)) array.push(factory());
+  }
+
+  function applyCanonicalCorrections(data, id) {
+    const fix = canonical[id];
+    if (!fix) return data;
+
+    data.hp.value = fix.hp[0];
+    data.hp.max = fix.hp[1];
+    data.hp.temp = fix.hp[2];
+    data.ac.value = fix.ac;
+    data.initiative = fix.initiative;
+    data.movement.modes.walk = fix.walk;
+    data.subclasses = [...fix.subclasses];
+    if (data.spellcasting.ability) {
+      data.spellcasting.attack = fix.spellAttack;
+      data.spellcasting.dc = fix.spellDc;
+    }
+
+    if (id === "ingwe") {
+      data.inventory = data.inventory.filter((item) => !/leather armor|armadura de cuero/i.test(item.name));
+      ensureNamedEntry(data.inventory, "Brazaletes de Defensa +2", () => normalizeInventoryItem({
+        name: "Brazaletes de Defensa +2", category: "Equipo", equipped: true, properties: ["Mágico"],
+        description: "Mientras estén equipados, otorgan +2 a la Clase de Armadura y no cuentan como armadura."
+      }));
+    }
+
+    if (id === "melkor") {
+      ensureNamedEntry(data.inventory, "Brazaletes de Defensa +3", () => normalizeInventoryItem({
+        name: "Brazaletes de Defensa +3", category: "Equipo", equipped: true, properties: ["Mágico"],
+        description: "Mientras estén equipados, otorgan +3 a la Clase de Armadura y no cuentan como armadura."
+      }));
+    }
+
+    if (id === "balder") {
+      const replacements = new Map([
+        ["Oath of the Watchers", "Oath of Vengeance"],
+        ["Aura of the Sentinel", "Relentless Avenger"],
+        ["Vigilant Rebuke", "Soul of Vengeance"]
+      ]);
+      data.features.forEach((feature) => { if (replacements.has(feature.name)) feature.name = replacements.get(feature.name); });
+      data.features = data.features.filter((feature) => !/watchers/i.test(feature.name));
+      [
+        ["Oath of Vengeance", "Paladin 3"],
+        ["Channel Divinity: Oath of Vengeance", "Oath of Vengeance 3"],
+        ["Relentless Avenger", "Oath of Vengeance 7"],
+        ["Soul of Vengeance", "Oath of Vengeance 15"]
+      ].forEach(([name, requirements]) => ensureNamedEntry(data.features, name, () => normalizeFeature({ name, requirements })));
+      [["Bane",1],["Hunter's Mark",1],["Hold Person",2],["Misty Step",2],["Haste",3],["Protection from Energy",3],["Banishment",4],["Dimension Door",4]]
+        .forEach(([name, level]) => ensureNamedEntry(data.spells, name, () => normalizeSpell({ name, level })));
+    }
+
+    return data;
+  }
 
   const asArray = (value) => {
     if (Array.isArray(value)) return value;
@@ -213,6 +278,8 @@
     data.features = asArray(data.features).map(normalizeFeature);
     data.spells = asArray(data.spells).map(normalizeSpell).sort((a, b) => a.level - b.level || a.name.localeCompare(b.name, "es"));
     data.notes = normalizeNotes(data.notes);
+
+    applyCanonicalCorrections(data, id);
 
     data.actions = [...data.inventory, ...data.features]
       .filter((entry) => entry.activities.length)
