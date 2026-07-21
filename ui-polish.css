@@ -1,0 +1,241 @@
+:root {
+  --ui-panel: rgba(0, 9, 5, 0.94);
+  --ui-green-glow: rgba(98, 255, 139, 0.08);
+  --ui-amber-line: rgba(255, 209, 92, 0.72);
+}
+
+/* Remove the large empty band above the interface and tighten the full composition. */
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  padding-top: 0;
+}
+
+.terminal-shell {
+  min-height: 0;
+  margin: clamp(0.45rem, 1.4svh, 0.9rem) auto clamp(0.75rem, 2svh, 1.4rem);
+  background: rgba(1, 7, 4, 0.975);
+  box-shadow:
+    7px 7px 0 #000,
+    0 20px 55px rgba(0, 0, 0, 0.42),
+    inset 0 0 0 2px rgba(0, 0, 0, 0.86);
+}
+
+.terminal-grid {
+  align-items: start;
+  gap: 0.8rem;
+  padding: 0.8rem;
+}
+
+.feed-panel,
+.control-panel,
+.system-readout,
+.runtime-log,
+.server-panel {
+  background: var(--ui-panel);
+  box-shadow: inset 0 0 0 1px rgba(98, 255, 139, 0.045);
+}
+
+/* Keep the feed compact instead of stretching it to the height of the side panel. */
+.feed-panel {
+  align-self: start;
+  grid-template-rows: auto auto auto;
+  padding: 0.65rem;
+}
+
+.panel-heading {
+  margin-bottom: 0.42rem;
+}
+
+.video-frame {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  place-items: stretch;
+  background:
+    radial-gradient(circle at 50% 115%, rgba(98, 255, 139, 0.065), transparent 46%),
+    #000;
+  box-shadow:
+    inset 0 0 0 3px #020805,
+    inset 0 0 0 5px rgba(255, 209, 92, 0.19),
+    0 0 18px rgba(98, 255, 139, 0.035);
+}
+
+/* Crop the black band baked into the video while keeping hotspots aligned with sprites. */
+#site-background,
+.character-overlay {
+  transform: translateY(-5.2%) scale(1.12);
+  transform-origin: 50% 50%;
+}
+
+#site-background {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.97) contrast(1.035) saturate(0.92);
+}
+
+.video-frame::before,
+.video-frame::after {
+  width: 34px;
+  height: 34px;
+  opacity: 0.78;
+}
+
+.video-frame::before {
+  top: 7px;
+  left: 7px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.video-frame::after {
+  right: 7px;
+  bottom: 7px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+}
+
+.feed-meta {
+  gap: 0.35rem 0.95rem;
+  padding-top: 0.45rem;
+  opacity: 0.92;
+}
+
+/* More balanced side panel and subtler visual weight. */
+.control-panel {
+  align-self: stretch;
+  gap: 0.72rem;
+  padding: 0.8rem;
+}
+
+.identity-block {
+  padding-bottom: 0.55rem;
+}
+
+.identity-block h1 {
+  line-height: 0.78;
+  text-shadow:
+    2px 0 0 #000,
+    -2px 0 0 #000,
+    0 2px 0 #000,
+    0 -2px 0 #000,
+    0 0 12px rgba(98, 255, 139, 0.08);
+}
+
+.system-readout,
+.runtime-log,
+.server-panel {
+  border-width: 1px;
+}
+
+.server-panel {
+  box-shadow:
+    3px 3px 0 #000,
+    inset 0 0 0 1px rgba(98, 255, 139, 0.035);
+}
+
+.server-panel[data-state="online"] {
+  box-shadow:
+    3px 3px 0 #000,
+    0 0 17px rgba(98, 255, 139, 0.055);
+}
+
+.server-panel[data-state="offline"] {
+  background: rgba(11, 3, 3, 0.88);
+  box-shadow:
+    3px 3px 0 #000,
+    0 0 15px rgba(255, 104, 104, 0.035);
+}
+
+/* Invisible hit areas; only the name appears on hover/focus. */
+.cv-hotspot {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.cv-hotspot::before,
+.cv-hotspot::after {
+  display: none !important;
+  content: none !important;
+}
+
+.cv-hotspot:hover,
+.cv-hotspot:focus-visible {
+  background: radial-gradient(circle at 50% 64%, rgba(98, 255, 139, 0.07), transparent 46%) !important;
+}
+
+.cv-hotspot span {
+  bottom: 4%;
+  padding: 0.12rem 0.38rem;
+  border: 1px solid rgba(98, 255, 139, 0.32);
+  background: rgba(0, 0, 0, 0.88);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 0 10px rgba(98, 255, 139, 0.055);
+  text-shadow: none;
+}
+
+/* Modal polish: still DOS, but cleaner and easier to read. */
+.cv-backdrop {
+  background: rgba(0, 3, 1, 0.82);
+  backdrop-filter: blur(2px);
+}
+
+.cv-window {
+  box-shadow:
+    7px 7px 0 #000,
+    0 22px 60px rgba(0, 0, 0, 0.6);
+}
+
+.cv-sidebar,
+.cv-content {
+  background-color: rgba(0, 7, 4, 0.96);
+}
+
+.cv-stat,
+.cv-panel,
+.cv-card,
+.cv-resource-list > div,
+.cv-slot-list > div {
+  box-shadow: inset 0 0 0 1px rgba(98, 255, 139, 0.025);
+}
+
+@media (max-width: 900px) {
+  .terminal-shell {
+    margin-top: 0.35rem;
+  }
+
+  #site-background,
+  .character-overlay {
+    transform: translateY(-4.5%) scale(1.1);
+  }
+}
+
+@media (max-width: 560px) {
+  .terminal-shell {
+    margin: 0.25rem auto 0.75rem;
+  }
+
+  .terminal-grid {
+    padding: 0.55rem;
+  }
+
+  #site-background,
+  .character-overlay {
+    transform: translateY(-3.5%) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-hotspot span,
+  .foundry-link {
+    transition: none;
+  }
+}
