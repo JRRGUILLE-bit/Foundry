@@ -4,11 +4,26 @@
   const nativeFetch = window.fetch.bind(window);
   const cache = new Map();
   const files = {
-    sathar: ["data/characters/sathar.json.gz.b64"],
-    artionketh: ["data/characters/artionketh.json.gz.b64.part1", "data/characters/artionketh.json.gz.b64.part2"],
-    magna: ["data/characters/magna.json.gz.b64"],
-    melkor: ["data/characters/melkor.json.gz.b64"],
-    balder: ["data/characters/balder.json.gz.b64"],
+    sathar: [
+      "data/characters/sathar.json.gz.b64.part1",
+      "data/characters/sathar.json.gz.b64.part2"
+    ],
+    artionketh: [
+      "data/characters/artionketh.json.gz.b64.part1",
+      "data/characters/artionketh.json.gz.b64.part2"
+    ],
+    magna: [
+      "data/characters/magna.json.gz.b64.part1",
+      "data/characters/magna.json.gz.b64.part2"
+    ],
+    melkor: [
+      "data/characters/melkor.json.gz.b64.part1",
+      "data/characters/melkor.json.gz.b64.part2"
+    ],
+    balder: [
+      "data/characters/balder.json.gz.b64.part1",
+      "data/characters/balder.json.gz.b64.part2"
+    ],
     ingwe: ["data/characters/ingwe.json.gz.b64"]
   };
 
