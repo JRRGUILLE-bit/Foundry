@@ -1,22 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="D20 pixelado de Foundry" shape-rendering="crispEdges">
-  <rect width="16" height="16" fill="#020805"/>
-
-  <path
-    d="M8 1 14 5 12 13 8 15 4 13 2 5Z"
-    fill="#020805"
-    stroke="#62ff8b"
-    stroke-width="1.5"
-    stroke-linejoin="miter"
-  />
-
-  <path d="M8 1 8 6 2 5Z" fill="#ffd15c"/>
-
-  <path
-    d="M8 1V6M2 5 8 6 14 5M8 6 4 13M8 6 12 13M4 13 8 15 12 13"
-    fill="none"
-    stroke="#62ff8b"
-    stroke-width="1"
-    stroke-linecap="square"
-    stroke-linejoin="miter"
-  />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="D20 DOS de El Foundry de la Banda" shape-rendering="crispEdges">
+  <rect width="32" height="32" rx="2" fill="#010503"/>
+  <path d="M2 8V2H8M24 2H30V8M30 24V30H24M8 30H2V24" fill="none" stroke="#62ff8b" stroke-width="2"/>
+  <path d="M16 4 27 10 24 24 16 29 8 24 5 10Z" fill="#020a05" stroke="#ffd15c" stroke-width="2" stroke-linejoin="miter"/>
+  <path d="M16 4V12M5 10 16 12 27 10M16 12 8 24M16 12 24 24M8 24 16 29 24 24" fill="none" stroke="#62ff8b" stroke-width="1.5"/>
+  <rect x="12" y="13" width="8" height="8" fill="#010503"/>
+  <path d="M12 14h6v2h-4v1h4v4h-6v-2h4v-1h-4z" fill="#ffe494"/>
+  <rect x="20" y="19" width="2" height="2" fill="#62ff8b"/>
 </svg>
