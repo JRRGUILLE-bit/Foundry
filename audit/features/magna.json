@@ -1,0 +1,2865 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T07:49:08.497Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "magna",
+    "name": "Magna",
+    "featureCount": 12,
+    "normalizedActionCount": 7
+  },
+  "featureCount": 12,
+  "countsBySourceType": {
+    "class": 1,
+    "feat": 10,
+    "race": 1
+  },
+  "countsByActionCategory": {
+    "PASSIVE_OR_SPECIAL": 12
+  },
+  "statusCounts": {
+    "COMPLETE_FROM_JSON": 12
+  },
+  "featuresWithUses": 1,
+  "featuresWithActivities": 4,
+  "featureActionReferenceCount": 4,
+  "externalActionReferenceCount": 3,
+  "resourceCount": 1,
+  "validation": {
+    "expectedFeatureCount": 12,
+    "countMatchesExpected": true,
+    "uniqueFeatureIds": true,
+    "allFeaturesHaveNames": true,
+    "allFeaturesHaveRawItem": true,
+    "allRawItemsAreFeatureTypes": true,
+    "normalizedActionCountMatches": true,
+    "resourceIdsUnique": true,
+    "allFeatureActionsLinked": true,
+    "allNormalizedActionsAccountedFor": true
+  },
+  "reviewFeatures": [],
+  "unresolvedActions": [],
+  "resources": [
+    {
+      "resourceId": "dru0sZWhKXsF11Tz",
+      "name": "Fuente de magia",
+      "source": "featureUses",
+      "current": null,
+      "max": "@classes.sorcerer.levels",
+      "spent": 0,
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "actionCategory": "PASSIVE_OR_SPECIAL"
+    }
+  ],
+  "featureActions": [
+    {
+      "order": 4,
+      "id": null,
+      "name": "Fuente de magia",
+      "source": "Fuente de magia",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": "@classes.sorcerer.levels",
+        "spent": 0,
+        "rawMax": "@classes.sorcerer.levels",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Fuente de magia",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "dru0sZWhKXsF11Tz",
+      "linkedFeatureName": "Fuente de magia",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Fuente de magia",
+        "sourceType": "feat",
+        "description": "En el 2º nivel, accedes a una profunda fuente de magia dentro de ti. Este manantial está representado por puntos de hechicería, que te permiten crear una variedad de efectos mágicos.\nPuntos de hechicería\nTienes 2 puntos de conjuro y ganas más a medida que alcanzas niveles más altos. Tu nivel de hechicero es igual al número de puntos de hechicería que tienes, por lo que un hechicero de 4º nivel tiene 4 puntos de hechicería, un hechicero de 16º nivel tiene 16. Nunca puedes tener más puntos de conjuro de los que dicta tu nivel.  Recuperas todos los puntos de conjuro gastados cuando terminas un largo descanso.\nFundición flexible\nPuedes usar tus puntos de conjuro para ganar ranuras de hechizo adicionales, o sacrificar ranuras de hechizos para ganar puntos de conjuro adicionales. Aprendes otras formas de usar tus puntos de conjuro a medida que alcanzas niveles más altos.\nCreación de ranuras de hechizos.Puedes transformar los puntos de conjuro no gastados en una ranura de conjuros como acción de bonificación en tu turno. La tabla Creando Ranuras de Hechizos muestra el coste de crear una ranura de hechizos de un nivel determinado. Puedes crear ranuras de hechizos no más altas en el nivel 5. Cualquier ranura de hechizo que crees con esta función desaparece cuando terminas un largo descanso.\nCreación de ranuras de hechizos.Puedes transformar los puntos de conjuro no gastados en una ranura de conjuros como acción de bonificación en tu turno. La tabla Creando Ranuras de Hechizos muestra el coste de crear una ranura de hechizos de un nivel determinado. Puedes crear ranuras de hechizos no más altas en el nivel 5.\nCualquier ranura de hechizo que crees con esta función desaparece cuando terminas un largo descanso. Creación de ranuras de hechizos Spell Slot Level Sorcery Point Cost 1st 2 2nd 3 3rd 5 4th 6 5th 7\nConvertir una ranura de hechizo en puntos de conjuro. Como acción de bonificación en tu turno, puedes gastar una ranura de hechizo y ganar una cantidad de puntos de conjuro igual al nivel de la ranura.\nNota de fundición\nÚsalo para rastrear todos los usos de los puntos de conjuro para el hechicero.",
+        "activities": [
+          {
+            "name": "Fuente de magia",
+            "type": "utility",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": null,
+          "max": "@classes.sorcerer.levels",
+          "spent": 0,
+          "rawMax": "@classes.sorcerer.levels",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "order": 5,
+      "id": null,
+      "name": "Hechizo lejano",
+      "source": "Hechizo lejano",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hechizo lejano",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "Mlxwf6vujrmDSsNy",
+      "linkedFeatureName": "Hechizo lejano",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Hechizo lejano",
+        "sourceType": "feat",
+        "description": "Cuando lanzas un hechizo que tiene un alcance de 5 pies o más, puedes gastar 1 punto de conjuro para duplicar el alcance del hechizo.\nCuando lanzas un hechizo que tiene un rango de toque, puedes gastar 1 punto de conjuro para hacer que el alcance del hechizo sea de 30 pies.",
+        "activities": [
+          {
+            "name": "Hechizo lejano",
+            "type": "utility",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 6,
+      "id": null,
+      "name": "Hechizo sutil",
+      "source": "Hechizo sutil",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hechizo sutil",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "FKO8SAD35ofVhYtQ",
+      "linkedFeatureName": "Hechizo sutil",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Hechizo sutil",
+        "sourceType": "feat",
+        "description": "Cuando lanzas un hechizo, puedes gastar 1 punto de conjuro para lanzarlo sin ningún componente somático o verbal.",
+        "activities": [
+          {
+            "name": "Hechizo sutil",
+            "type": "utility",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 7,
+      "id": null,
+      "name": "Hechizo Acelerado",
+      "source": "Hechizo Acelerado",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hechizo Acelerado",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "w3pFXO5VpbQuEDCb",
+      "linkedFeatureName": "Hechizo Acelerado",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Hechizo Acelerado",
+        "sourceType": "feat",
+        "description": "Cuando lanzas un hechizo que tiene un tiempo de lanzamiento de 1 acción, puedes gastar 2 puntos de hechicería para cambiar el tiempo de lanzamiento a 1 acción adicional para este lanzamiento.",
+        "activities": [
+          {
+            "name": "Hechizo Acelerado",
+            "type": "utility",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    }
+  ],
+  "externalActions": [
+    {
+      "order": 1,
+      "id": null,
+      "name": "Botas de levitación",
+      "source": "Botas de levitación",
+      "sourceType": "Equipo",
+      "type": "utility",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Botas de levitación",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "self",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "self"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "10",
+            "units": "minute",
+            "special": "",
+            "override": false,
+            "label": "10 Minutos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Botas de levitación",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Botas de levitación",
+        "sourceType": "Equipo",
+        "description": "Objeto maravilloso, (requiere sintonización)\nMientras usas estas botas, puedes usar una acción para lanzar el hechizo @UUID[Compendium.dnd5e.spells.Item.MRxldJd6C4bsBo3O]{Levitar} sobre ti mismo a voluntad.",
+        "activities": [
+          {
+            "name": "Botas de levitación",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "self",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "self"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "10",
+              "units": "minute",
+              "special": "",
+              "override": false,
+              "label": "10 Minutos"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 2,
+      "id": null,
+      "name": "Verdadera varita de bolas de fuego",
+      "source": "Verdadera varita de bolas de fuego",
+      "sourceType": "Consumible",
+      "type": "save",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": 15,
+        "max": 15,
+        "spent": 0,
+        "rawMax": 15,
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "formula",
+            "formula": "1d6 + 1",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Verdadera varita de bolas de fuego",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "150",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "150 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "sphere",
+              "size": "20",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "sphere 20 ft"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "DES"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Verdadera varita de bolas de fuego",
+          "type": "damage",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "150",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "150 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "sphere",
+              "size": "20",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "sphere 20 ft"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d6"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Verdadera varita de bolas de fuego",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "150",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "150 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "sphere",
+              "size": "20",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "sphere 20 ft"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Verdadera varita de bolas de fuego",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Verdadera varita de bolas de fuego",
+        "sourceType": "Consumible",
+        "description": "(Requiere la sintonía de un lanzador de hechizos)\nEsta varita tiene 15 cargas. Mientras lo sostienes, puedes usar una acción para gastar 1 o más de sus cargas para lanzar el hechizo Bola de Fuego (salva DC 17) desde él. Por 1 carga, lanzas la versión de nivel 3 del hechizo. Puedes aumentar el nivel de la ranura de hechizo en uno por cada carga adicional que gastes.\nLa varita recupera 1d6 + 3 cargas gastadas diariamente al amanecer.",
+        "activities": [
+          {
+            "name": "Verdadera varita de bolas de fuego",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "150",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "150 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "sphere",
+                "size": "20",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "sphere 20 ft"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "save": {
+              "dc": 18,
+              "labels": [
+                "DES"
+              ]
+            }
+          },
+          {
+            "name": "Verdadera varita de bolas de fuego",
+            "type": "damage",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "150",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "150 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "sphere",
+                "size": "20",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "sphere 20 ft"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "damage": {
+              "parts": [
+                "1d6"
+              ]
+            }
+          },
+          {
+            "name": "Verdadera varita de bolas de fuego",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "150",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "150 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "sphere",
+                "size": "20",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "sphere 20 ft"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": 15,
+          "max": 15,
+          "spent": 0,
+          "rawMax": "15",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "formula",
+              "formula": "1d6 + 1",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "order": 3,
+      "id": null,
+      "name": "Medallion of Thoughts",
+      "source": "Medallion of Thoughts",
+      "sourceType": "Equipo",
+      "type": "cast",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": null,
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": 3,
+        "max": 3,
+        "spent": 0,
+        "rawMax": 3,
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "formula",
+            "formula": "1d3",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Medallion of Thoughts",
+          "type": "cast",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "prompt": true,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Medallion of Thoughts",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Medallion of Thoughts",
+        "sourceType": "Equipo",
+        "description": "Wondrous item, (requires attunement)\nThe medallion has 3 charges. While wearing it, you can use an action and expend 1 charge to cast the @UUID[Compendium.dnd5e.spells.Item.ppWAAEul0QHtm4er]{Detect Thoughts} spell (save DC 13) from it. The medallion regains 1d3 expended charges daily at dawn.",
+        "activities": [
+          {
+            "name": "Medallion of Thoughts",
+            "type": "cast",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "override": false,
+              "units": "self",
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true,
+              "label": "—"
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": 3,
+          "max": 3,
+          "spent": 0,
+          "rawMax": "3",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "formula",
+              "formula": "1d3",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "features": [
+    {
+      "order": 1,
+      "id": "MMyp4vQVMJ89jJNs",
+      "name": "Sorcerer",
+      "type": "class",
+      "sourceType": "class",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "As a sorcerer, you gain the following class features.\nHit Points\nHit Dice: 1d6 per sorcerer level\nHit Points at 1st Level: 6 + your Constitution modifier\nHit Points at Higher Levels: 1d6 (or 4) + your Constitution modifier per sorcerer level after 1st\nProficiencies\nArmor: None\nWeapons: Daggers, darts, slings, quarterstaffs, light crossbows\nTools: None\nSaving Throws: Constitution, Charisma\nSkills: Choose two from Arcana, Deception, Insight, Intimidation, Persuasion, and Religion\nSorcerer Advancement Level Proficiency Bonus Sorcery Points Features 1st +2 ̶ @UUID[Compendium.dnd5e.classfeatures.Item.oygRF3ZjTv2T7z0Y]{Spellcasting}, @UUID[Compendium.dnd5e.classfeatures.Item.cmRCL9T9UgRYOj1c]{Sorcerous Origins} 2nd +2 2 @UUID[Compendium.dnd5e.classfeatures.Item.LBKChJY5n02Afhnq]{Font of Magic} 3rd +2 3 2nd Level Spell Slot, @UUID[Compendium.dnd5e.classfeatures.Item.9Uh7uTDNZ04oTJsL]{Metamagic} 4th +2 4 @UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 5th +3 5 3rd Level Spell Slot 6th +3 6 Sorcerous Origin feature 7th +3 7 4th Level Spell Slot 8th +3 8 @UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 9th +4 9 5th Level Spell Slot 10th +4 10 @UUID[Compendium.dnd5e.classfeatures.Item.9Uh7uTDNZ04oTJsL]{Metamagic improvement} 11th +4 11 6th Level Spell Slot 12th +4 12 @UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 13th +5 13 7th Level Spell Slot 14th +5 14 Sorcerous Origin feature 15th +5 15 8th Level Spell Slot 16th +5 16 @UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 17th +6 17 9th Level Spell Slot, @UUID[Compendium.dnd5e.classfeatures.Item.9Uh7uTDNZ04oTJsL]{Metamagic improvement} 18th +6 18 Sorcerous Origin feature 19th +6 19 @UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 20th +6 20 @UUID[Compendium.dnd5e.classfeatures.Item.F2lEKSmOY0NUruzY]{Sorcerous Restoration}\nSorcerous Origins\nDifferent sorcerers claim different origins for their innate magic, such as a draconic bloodline.\n@UUID[Compendium.dnd5e.subclasses.Item.2nadB2MBSHTQ0kcl]{Draconic Bloodline}",
+      "descriptionLength": 2175,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "class",
+      "advancement": {
+        "XFeJBDjRoDLHPuR5": {
+          "type": "HitPoints",
+          "configuration": {},
+          "value": {
+            "1": "max",
+            "2": "avg",
+            "3": "avg",
+            "4": "avg",
+            "5": "avg",
+            "6": "avg",
+            "7": "avg",
+            "8": "avg",
+            "9": "avg",
+            "10": "avg",
+            "11": "avg",
+            "12": "avg",
+            "13": "avg",
+            "14": "avg",
+            "15": "avg"
+          },
+          "title": "Hit Points",
+          "icon": "systems/dnd5e/icons/svg/hit-points.svg",
+          "_id": "XFeJBDjRoDLHPuR5",
+          "flags": {},
+          "hint": ""
+        },
+        "BfjnJtYtVOv4PVHu": {
+          "_id": "BfjnJtYtVOv4PVHu",
+          "type": "Trait",
+          "configuration": {
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": [
+              "weapon:sim:dagger",
+              "weapon:sim:dart",
+              "weapon:sim:lightcrossbow",
+              "weapon:sim:quarterstaff",
+              "weapon:sim:sling"
+            ],
+            "choices": []
+          },
+          "level": 1,
+          "title": "",
+          "classRestriction": "primary",
+          "value": {
+            "chosen": [
+              "weapon:sim:dagger",
+              "weapon:sim:dart",
+              "weapon:sim:lightcrossbow",
+              "weapon:sim:quarterstaff",
+              "weapon:sim:sling"
+            ]
+          },
+          "flags": {},
+          "hint": ""
+        },
+        "KO7dxe4FlwlKXFIq": {
+          "_id": "KO7dxe4FlwlKXFIq",
+          "type": "Trait",
+          "configuration": {
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": [
+              "saves:con",
+              "saves:cha"
+            ],
+            "choices": []
+          },
+          "level": 1,
+          "title": "",
+          "classRestriction": "primary",
+          "value": {
+            "chosen": [
+              "saves:con",
+              "saves:cha"
+            ]
+          },
+          "flags": {},
+          "hint": ""
+        },
+        "PAAGQYrkhVdGqg59": {
+          "_id": "PAAGQYrkhVdGqg59",
+          "type": "Trait",
+          "configuration": {
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": [],
+            "choices": [
+              {
+                "count": 2,
+                "pool": [
+                  "skills:arc",
+                  "skills:dec",
+                  "skills:ins",
+                  "skills:itm",
+                  "skills:per",
+                  "skills:rel"
+                ]
+              }
+            ]
+          },
+          "level": 1,
+          "title": "",
+          "classRestriction": "primary",
+          "value": {
+            "chosen": [
+              "skills:arc",
+              "skills:per"
+            ]
+          },
+          "flags": {},
+          "hint": ""
+        },
+        "tHGuZb6Cezr0Yda6": {
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.oygRF3ZjTv2T7z0Y",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.cmRCL9T9UgRYOj1c",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "GTSXn207HXRw4G28": "Compendium.dnd5e.classfeatures.Item.oygRF3ZjTv2T7z0Y",
+              "hI645ElcRBlkWGER": "Compendium.dnd5e.classfeatures.Item.cmRCL9T9UgRYOj1c"
+            }
+          },
+          "level": 1,
+          "title": "Features",
+          "icon": "systems/dnd5e/icons/svg/item-grant.svg",
+          "_id": "tHGuZb6Cezr0Yda6",
+          "flags": {},
+          "hint": ""
+        },
+        "vEbnPhd3OW2Z5RH8": {
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.LBKChJY5n02Afhnq",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "dru0sZWhKXsF11Tz": "Compendium.dnd5e.classfeatures.Item.LBKChJY5n02Afhnq"
+            }
+          },
+          "level": 2,
+          "title": "Features",
+          "icon": "systems/dnd5e/icons/svg/item-grant.svg",
+          "_id": "vEbnPhd3OW2Z5RH8",
+          "flags": {},
+          "hint": ""
+        },
+        "7MYEF9Ci5OaEWaQ7": {
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.9Uh7uTDNZ04oTJsL",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "CWUPLAmfcZKQucbb": "Compendium.dnd5e.classfeatures.Item.9Uh7uTDNZ04oTJsL"
+            }
+          },
+          "level": 3,
+          "title": "Features",
+          "icon": "systems/dnd5e/icons/svg/item-grant.svg",
+          "_id": "7MYEF9Ci5OaEWaQ7",
+          "flags": {},
+          "hint": ""
+        },
+        "7FUhVIQtDqVQxUCJ": {
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.F2lEKSmOY0NUruzY",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 20,
+          "title": "Features",
+          "icon": "systems/dnd5e/icons/svg/item-grant.svg",
+          "_id": "7FUhVIQtDqVQxUCJ",
+          "flags": {},
+          "hint": ""
+        },
+        "JvnMksZAolGhHMVS": {
+          "type": "ItemChoice",
+          "configuration": {
+            "choices": {
+              "3": {
+                "count": 2,
+                "replacement": false
+              },
+              "10": {
+                "count": 1,
+                "replacement": false
+              },
+              "17": {
+                "count": 1,
+                "replacement": false
+              }
+            },
+            "allowDrops": true,
+            "type": "feat",
+            "pool": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.zElYrOcCFFMhB6Xl"
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.DZpAa3LzMNBexbmX"
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.IWpe0Y9uAStHGiH1"
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.tQxlKyAx9sgPrbgj"
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.tNG2qi9zhmXEkecA"
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.nViGf6bZ6DQAJhkw"
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.fXa0DMhoVLtbBu9l"
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.Qb391hakCfmH4w8p"
+              }
+            ],
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            },
+            "restriction": {
+              "type": "class",
+              "subtype": "metamagic",
+              "level": "",
+              "list": []
+            }
+          },
+          "value": {
+            "added": {
+              "3": {
+                "Mlxwf6vujrmDSsNy": "Compendium.dnd5e.classfeatures.Item.DZpAa3LzMNBexbmX",
+                "FKO8SAD35ofVhYtQ": "Compendium.dnd5e.classfeatures.Item.fXa0DMhoVLtbBu9l"
+              },
+              "10": {
+                "w3pFXO5VpbQuEDCb": "Compendium.dnd5e.classfeatures.Item.nViGf6bZ6DQAJhkw"
+              }
+            },
+            "replaced": {}
+          },
+          "title": "Metamagic",
+          "icon": "systems/dnd5e/icons/svg/item-choice.svg",
+          "_id": "JvnMksZAolGhHMVS",
+          "flags": {},
+          "hint": ""
+        },
+        "rSUZv6eYOPRtikhv": {
+          "type": "ScaleValue",
+          "configuration": {
+            "identifier": "cantrips-known",
+            "type": "number",
+            "distance": {
+              "units": ""
+            },
+            "scale": {
+              "1": {
+                "value": 4
+              },
+              "4": {
+                "value": 5
+              },
+              "10": {
+                "value": 6
+              }
+            }
+          },
+          "value": {},
+          "title": "Cantrips Known",
+          "icon": "systems/dnd5e/icons/svg/scale-value.svg",
+          "_id": "rSUZv6eYOPRtikhv",
+          "flags": {},
+          "hint": ""
+        },
+        "Wr4j8nEA7gZxzW5Z": {
+          "type": "ScaleValue",
+          "configuration": {
+            "identifier": "spells-known",
+            "type": "number",
+            "distance": {
+              "units": ""
+            },
+            "scale": {
+              "1": {
+                "value": 2
+              },
+              "2": {
+                "value": 3
+              },
+              "3": {
+                "value": 4
+              },
+              "4": {
+                "value": 5
+              },
+              "5": {
+                "value": 6
+              },
+              "6": {
+                "value": 7
+              },
+              "7": {
+                "value": 8
+              },
+              "8": {
+                "value": 9
+              },
+              "9": {
+                "value": 10
+              },
+              "10": {
+                "value": 11
+              },
+              "11": {
+                "value": 12
+              },
+              "13": {
+                "value": 13
+              },
+              "15": {
+                "value": 14
+              },
+              "17": {
+                "value": 15
+              }
+            }
+          },
+          "value": {},
+          "title": "Spells Known",
+          "icon": "systems/dnd5e/icons/svg/scale-value.svg",
+          "_id": "Wr4j8nEA7gZxzW5Z",
+          "flags": {},
+          "hint": ""
+        },
+        "zSlKyZ0rzKcd78Cq": {
+          "type": "AbilityScoreImprovement",
+          "configuration": {
+            "points": 2,
+            "fixed": {
+              "str": 0,
+              "dex": 0,
+              "con": 0,
+              "int": 0,
+              "wis": 0,
+              "cha": 0
+            },
+            "cap": 2,
+            "locked": [],
+            "recommendation": null
+          },
+          "value": {
+            "type": "asi",
+            "assignments": {
+              "cha": 2
+            }
+          },
+          "level": 4,
+          "title": "Ability Score Improvement",
+          "icon": "systems/dnd5e/icons/svg/ability-score-improvement.svg",
+          "_id": "zSlKyZ0rzKcd78Cq",
+          "flags": {},
+          "hint": ""
+        },
+        "Psp6dqmMqww0D44O": {
+          "type": "AbilityScoreImprovement",
+          "configuration": {
+            "points": 2,
+            "fixed": {
+              "str": 0,
+              "dex": 0,
+              "con": 0,
+              "int": 0,
+              "wis": 0,
+              "cha": 0
+            },
+            "cap": 2,
+            "locked": [],
+            "recommendation": null
+          },
+          "value": {
+            "type": "asi",
+            "assignments": {
+              "con": 2
+            }
+          },
+          "level": 8,
+          "title": "Ability Score Improvement",
+          "icon": "systems/dnd5e/icons/svg/ability-score-improvement.svg",
+          "_id": "Psp6dqmMqww0D44O",
+          "flags": {},
+          "hint": ""
+        },
+        "9qahHg5ZfS8bWkjD": {
+          "type": "AbilityScoreImprovement",
+          "configuration": {
+            "points": 2,
+            "fixed": {
+              "str": 0,
+              "dex": 0,
+              "con": 0,
+              "int": 0,
+              "wis": 0,
+              "cha": 0
+            },
+            "cap": 2,
+            "locked": [],
+            "recommendation": null
+          },
+          "value": {
+            "type": "asi",
+            "assignments": {}
+          },
+          "level": 12,
+          "title": "Ability Score Improvement",
+          "icon": "systems/dnd5e/icons/svg/ability-score-improvement.svg",
+          "_id": "9qahHg5ZfS8bWkjD",
+          "flags": {},
+          "hint": ""
+        },
+        "QYpSCG2AmMi8taC1": {
+          "type": "AbilityScoreImprovement",
+          "configuration": {
+            "points": 2,
+            "fixed": {
+              "str": 0,
+              "dex": 0,
+              "con": 0,
+              "int": 0,
+              "wis": 0,
+              "cha": 0
+            },
+            "cap": 2,
+            "locked": [],
+            "recommendation": null
+          },
+          "value": {
+            "type": "asi"
+          },
+          "level": 16,
+          "title": "Ability Score Improvement",
+          "icon": "systems/dnd5e/icons/svg/ability-score-improvement.svg",
+          "_id": "QYpSCG2AmMi8taC1",
+          "flags": {},
+          "hint": ""
+        },
+        "puDaUsYrlks0z5gm": {
+          "_id": "puDaUsYrlks0z5gm",
+          "type": "AbilityScoreImprovement",
+          "configuration": {
+            "points": 2,
+            "fixed": {
+              "str": 0,
+              "dex": 0,
+              "con": 0,
+              "int": 0,
+              "wis": 0,
+              "cha": 0
+            },
+            "cap": 2,
+            "locked": [],
+            "recommendation": null
+          },
+          "value": {
+            "type": "asi"
+          },
+          "level": 19,
+          "title": "",
+          "flags": {},
+          "hint": ""
+        }
+      },
+      "rawItemId": "MMyp4vQVMJ89jJNs",
+      "rawItemType": "class",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 2,
+      "id": "GTSXn207HXRw4G28",
+      "name": "Lanzamiento de hechizos",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Un evento en tu pasado, o en la vida de un padre o antepasado, dejó una marca indeleble en ti, infundiéndote magia arcana. Esta fuente de magia, sea cual sea su origen, alimenta tus hechizos.\nCantrips\nEn el nivel 1, conoces cuatro cantrips de tu elección de la lista de hechizos de hechicero. Aprendes cantrips de hechicero adicionales de tu elección en niveles más altos, como se muestra en la columna Cantrips conocidos de la tabla de hechiceros.\nRanuras de hechizos\nLa tabla de Hechicero muestra cuántas ranuras de hechizos tienes para lanzar tus hechizos de nivel 1 y superior. Para lanzar uno de estos hechizos de hechicero, debes gastar una ranura del nivel del hechizo o superior. Recuperas todas las ranuras de hechizos gastadas cuando terminas un largo descanso.\nPor ejemplo, si conoces las manos ardientes de hechizos de nivel 1 y tienes una ranura de hechizos de nivel 1 y otra de nivel 2 disponibles, puedes lanzar manos ardientes usando cualquiera de las ranuras.\nHechizos conocidos de nivel 1 y superior\nConoces dos hechizos de nivel 1 de tu elección de la lista de hechizos de hechicero.\nLa columna de Hechizos Conocidos de la Hechicería\nLa tabla de hechicero muestra cuándo aprendes más hechizos de hechicero de tu elección. Cada uno de estos hechizos debe ser de un nivel para el que tengas ranuras de hechizos. Por ejemplo, cuando alcanzas el 3er nivel en esta clase, puedes aprender un nuevo hechizo del 1er o 2do nivel. Además, cuando subes de nivel en esta clase, puedes elegir uno de los hechizos de hechicero que conoces y reemplazarlo con otro hechizo de la lista de hechizos de hechicero, que también debe ser de un nivel para el que tengas ranuras de hechizos. El carisma es tu habilidad de lanzamiento de hechizos para tus hechizos de hechicero, ya que el poder de tu magia depende de tu capacidad para proyectar tu voluntad en el mundo. Usas tu Carisma siempre que un hechizo se refiera a tu habilidad de lanzamiento de hechizos. Además, usas tu modificador de Carisma cuando estableces la CD de la tirada de salvación para un hechizo de hechicero que lanzas y cuando haces una tirada de ataque con uno. Salvación de hechizo CD = 8 + tu bonificación de competencia + tu modificador de Carisma Modificador de ataque de hechizo = tu bonificación de habilidad + tu modificador de Carisma Enfoque de lanzamiento de hechizos Puedes usar un enfoque arcano como foco de lanzamiento de hechizos para tus hechizos de hechicero.",
+      "descriptionLength": 2446,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Sorcerer 1",
+      "advancement": {},
+      "rawItemId": "GTSXn207HXRw4G28",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 3,
+      "id": "hI645ElcRBlkWGER",
+      "name": "Orígenes hechiceros",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Elige un origen hechicero, que describa la fuente de tu poder mágico innato, como el linaje dracónico.\nSu elección le otorga características cuando lo elige en el nivel 1 y nuevamente en el nivel 6, 14 y 18.",
+      "descriptionLength": 207,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Sorcerer 1",
+      "advancement": {},
+      "rawItemId": "hI645ElcRBlkWGER",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 4,
+      "id": "dru0sZWhKXsF11Tz",
+      "name": "Fuente de magia",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": "@classes.sorcerer.levels",
+        "spent": 0,
+        "rawMax": "@classes.sorcerer.levels",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Fuente de magia",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "En el 2º nivel, accedes a una profunda fuente de magia dentro de ti. Este manantial está representado por puntos de hechicería, que te permiten crear una variedad de efectos mágicos.\nPuntos de hechicería\nTienes 2 puntos de conjuro y ganas más a medida que alcanzas niveles más altos. Tu nivel de hechicero es igual al número de puntos de hechicería que tienes, por lo que un hechicero de 4º nivel tiene 4 puntos de hechicería, un hechicero de 16º nivel tiene 16. Nunca puedes tener más puntos de conjuro de los que dicta tu nivel.  Recuperas todos los puntos de conjuro gastados cuando terminas un largo descanso.\nFundición flexible\nPuedes usar tus puntos de conjuro para ganar ranuras de hechizo adicionales, o sacrificar ranuras de hechizos para ganar puntos de conjuro adicionales. Aprendes otras formas de usar tus puntos de conjuro a medida que alcanzas niveles más altos.\nCreación de ranuras de hechizos.Puedes transformar los puntos de conjuro no gastados en una ranura de conjuros como acción de bonificación en tu turno. La tabla Creando Ranuras de Hechizos muestra el coste de crear una ranura de hechizos de un nivel determinado. Puedes crear ranuras de hechizos no más altas en el nivel 5. Cualquier ranura de hechizo que crees con esta función desaparece cuando terminas un largo descanso.\nCreación de ranuras de hechizos.Puedes transformar los puntos de conjuro no gastados en una ranura de conjuros como acción de bonificación en tu turno. La tabla Creando Ranuras de Hechizos muestra el coste de crear una ranura de hechizos de un nivel determinado. Puedes crear ranuras de hechizos no más altas en el nivel 5.\nCualquier ranura de hechizo que crees con esta función desaparece cuando terminas un largo descanso. Creación de ranuras de hechizos Spell Slot Level Sorcery Point Cost 1st 2 2nd 3 3rd 5 4th 6 5th 7\nConvertir una ranura de hechizo en puntos de conjuro. Como acción de bonificación en tu turno, puedes gastar una ranura de hechizo y ganar una cantidad de puntos de conjuro igual al nivel de la ranura.\nNota de fundición\nÚsalo para rastrear todos los usos de los puntos de conjuro para el hechicero.",
+      "descriptionLength": 2124,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Sorcerer 2",
+      "advancement": {},
+      "rawItemId": "dru0sZWhKXsF11Tz",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 5,
+      "id": "CWUPLAmfcZKQucbb",
+      "name": "Metamagia",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "En el nivel 3, obtienes la capacidad de retorcer tus hechizos para adaptarlos a tus necesidades. Obtienes dos de las siguientes opciones de Metamagia de tu elección. Ganas otro en el nivel 10 y 17. Solo puedes usar una opción de Metamagia en un hechizo cuando lo lanzas, a menos que se indique lo contrario.\n@UUID[Compendium.dnd5e.classfeatures.Item.zElYrOcCFFMhB6Xl]{Careful Spell}\n@UUID[Compendium.dnd5e.classfeatures.Item.DZpAa3LzMNBexbmX]{Distant Spell}\n@UUID[Compendium.dnd5e.classfeatures.Item.IWpe0Y9uAStHGiH1]{Empowered Spell}\n@UUID[Compendium.dnd5e.classfeatures.Item.tQxlKyAx9sgPrbgj]{Extended Spell}\n@UUID[Compendium.dnd5e.classfeatures.Item.tNG2qi9zhmXEkecA]{Heightened Spell}\n@UUID[Compendium.dnd5e.classfeatures.Item.nViGf6bZ6DQAJhkw]{Quickened Spell}\n@UUID[Compendium.dnd5e.classfeatures.Item.fXa0DMhoVLtbBu9l]{Subtle Spell}\n@UUID[Compendium.dnd5e.classfeatures.Item.Qb391hakCfmH4w8p]{Twinned Spell}\nNota de fundición\nPuedes arrastrar tus elecciones de lo anterior a tu hoja de personaje y se actualizará automáticamente.",
+      "descriptionLength": 1036,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Sorcerer 3",
+      "advancement": {},
+      "rawItemId": "CWUPLAmfcZKQucbb",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 6,
+      "id": "Mlxwf6vujrmDSsNy",
+      "name": "Hechizo lejano",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hechizo lejano",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Cuando lanzas un hechizo que tiene un alcance de 5 pies o más, puedes gastar 1 punto de conjuro para duplicar el alcance del hechizo.\nCuando lanzas un hechizo que tiene un rango de toque, puedes gastar 1 punto de conjuro para hacer que el alcance del hechizo sea de 30 pies.",
+      "descriptionLength": 274,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Sorcerer 3",
+      "advancement": {},
+      "rawItemId": "Mlxwf6vujrmDSsNy",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 7,
+      "id": "FKO8SAD35ofVhYtQ",
+      "name": "Hechizo sutil",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hechizo sutil",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Cuando lanzas un hechizo, puedes gastar 1 punto de conjuro para lanzarlo sin ningún componente somático o verbal.",
+      "descriptionLength": 113,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Sorcerer 3",
+      "advancement": {},
+      "rawItemId": "FKO8SAD35ofVhYtQ",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 8,
+      "id": "ooC1ZZGQaF3fuBg2",
+      "name": "Semielfo",
+      "type": "race",
+      "sourceType": "race",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Tu personaje semielfo tiene algunas cualidades en común con los elfos y algunas que son exclusivas de los semielfos.\nAumento de la puntuación de habilidad. Tu puntuación de Carisma aumenta en 2 y otras dos puntuaciones de habilidad de tu elección aumentan en 1.\nEdad. Los semielfos maduran al mismo ritmo que los humanos y alcanzan la edad adulta alrededor de los 20 años. Sin embargo, viven mucho más que los humanos, a menudo superando los 180 años.\nAlineación. Los semielfos comparten la inclinación caótica de su herencia élfica. Valoran tanto la libertad personal como la expresión creativa, sin demostrar amor por los líderes ni deseo por los seguidores. Les irritan las reglas, les molestan las demandas de los demás y, a veces, resultan poco confiables, o al menos impredecibles.\nTamaño. Los semielfos son aproximadamente del mismo tamaño que los humanos, y miden entre 5 y 6 pies de altura. Su talla es mediana.\nVelocidad. Su velocidad base al caminar es de 30 pies.\nVisión oscura. Gracias a tu sangre de elfo, tienes una visión superior en condiciones oscuras y tenues. Puedes ver con luz tenue a menos de 60 pies de ti como si fuera luz brillante, y en oscuridad como si fuera luz tenue. No se puede discernir el color en la oscuridad, solo los tonos de gris.\nAscendencia feérica. Tienes ventaja en las tiradas de salvación contra ser encantado, y la magia no puede dormirte.\nVersatilidad de habilidades. Obtienes competencia en dos habilidades de tu elección.\nIdiomas. Puede hablar, leer y escribir en común, élfico y un idioma adicional de su elección.",
+      "descriptionLength": 1565,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "race",
+      "advancement": {
+        "rXyxzoqxdxlspMi5": {
+          "_id": "rXyxzoqxdxlspMi5",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.races.cnTbpPPeGW7vGjOV",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "BYMunY8AEF9duos8": "Compendium.dnd5e.races.Item.cnTbpPPeGW7vGjOV"
+            }
+          },
+          "level": 0,
+          "title": "",
+          "flags": {},
+          "hint": ""
+        },
+        "Z9hvZFkWUNvowbQX": {
+          "_id": "Z9hvZFkWUNvowbQX",
+          "type": "AbilityScoreImprovement",
+          "configuration": {
+            "points": 2,
+            "fixed": {
+              "str": 0,
+              "dex": 0,
+              "con": 0,
+              "int": 0,
+              "wis": 0,
+              "cha": 2
+            },
+            "cap": 1,
+            "locked": [],
+            "recommendation": null
+          },
+          "value": {
+            "type": "asi",
+            "assignments": {}
+          },
+          "level": 0,
+          "title": "",
+          "flags": {},
+          "hint": ""
+        },
+        "r3PSgtQO6Eim49LU": {
+          "_id": "r3PSgtQO6Eim49LU",
+          "type": "Size",
+          "configuration": {
+            "sizes": [
+              "med"
+            ]
+          },
+          "value": {
+            "size": "med"
+          },
+          "level": 1,
+          "title": "",
+          "hint": "Half-elves are about the same size as humans, ranging from 5 to 6 feet tall. Your size is Medium.",
+          "flags": {}
+        },
+        "CormRQZ5momyvS2I": {
+          "_id": "CormRQZ5momyvS2I",
+          "type": "Trait",
+          "configuration": {
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": [],
+            "choices": [
+              {
+                "count": 2,
+                "pool": [
+                  "skills:*"
+                ]
+              }
+            ]
+          },
+          "level": 0,
+          "title": "Skill Versatility",
+          "value": {
+            "chosen": [
+              "skills:rel",
+              "skills:ins"
+            ]
+          },
+          "flags": {},
+          "hint": ""
+        },
+        "U3OO7jLU0nm0Z7zw": {
+          "_id": "U3OO7jLU0nm0Z7zw",
+          "type": "Trait",
+          "configuration": {
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": [
+              "languages:standard:common",
+              "languages:standard:elvish"
+            ],
+            "choices": [
+              {
+                "count": 1,
+                "pool": [
+                  "languages:*"
+                ]
+              }
+            ]
+          },
+          "level": 0,
+          "title": "",
+          "value": {
+            "chosen": [
+              "languages:standard:common",
+              "languages:standard:elvish",
+              "languages:exotic:celestial"
+            ]
+          },
+          "flags": {},
+          "hint": ""
+        }
+      },
+      "rawItemId": "ooC1ZZGQaF3fuBg2",
+      "rawItemType": "race",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 9,
+      "id": "BYMunY8AEF9duos8",
+      "name": "Ascendencia feérica",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Tienes ventaja en las tiradas de salvación contra ser encantado, y la magia no puede dormirte.",
+      "descriptionLength": 94,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Elf, Half-Elf",
+      "advancement": {},
+      "rawItemId": "BYMunY8AEF9duos8",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 10,
+      "id": "UmCJ2iTuD0FbxKCZ",
+      "name": "Favorecido por los dioses",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "A partir del nivel 1, el poder divino protege tu destino. Si fallas un tiro de salvación o fallas un ataque, puedes lanzar 2d4 y agregarlo al total, cambiando posiblemente el resultado.Una vez que uses esta capacidad, no podrás usarla de nuevo hasta que termines un descanso corto o largo.",
+      "descriptionLength": 289,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "UmCJ2iTuD0FbxKCZ",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 11,
+      "id": "OhNs7uLM1P2a3thS",
+      "name": "Sanación empoderada",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Sanación empoderada\nA partir del nivel 6, la energía divina que te recorre puede potenciar hechizos de sanación. Siempre que tú o un aliado a menos de 1,5 metros de ti tire dados para determinar la cantidad de puntos de golpe que restaura un hechizo, puedes gastar 1 punto de conjuro para repetir cualquier cantidad de esos dados una vez, siempre que no estés incapacitado. Puedes usar esta habilidad solo una vez por turno.",
+      "descriptionLength": 424,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "OhNs7uLM1P2a3thS",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 12,
+      "id": "w3pFXO5VpbQuEDCb",
+      "name": "Hechizo Acelerado",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hechizo Acelerado",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Cuando lanzas un hechizo que tiene un tiempo de lanzamiento de 1 acción, puedes gastar 2 puntos de hechicería para cambiar el tiempo de lanzamiento a 1 acción adicional para este lanzamiento.",
+      "descriptionLength": 191,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Sorcerer 3",
+      "advancement": {},
+      "rawItemId": "w3pFXO5VpbQuEDCb",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A5_6_ARTIONKETH_FEATURES_AND_RESOURCES_AUDIT"
+}
