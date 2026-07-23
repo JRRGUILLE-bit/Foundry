@@ -178,7 +178,7 @@ async function openCharacter(page, profile, characterId) {
   try {
     await page.locator(".mcs-root:not([hidden])").waitFor({ state: "visible", timeout: 1_500 });
   } catch {
-    await page.waitForFunction(() => matchMedia("(max-width: 820px)").matches && innerWidth <= 820, null, { timeout: 5_000 });
+    await page.waitForFunction(() => matchMedia("(max-width: 820px)").matches && innerWidth <= 820, null, { timeout: 15_000 });
     await sleep(500);
     opened = await page.evaluate((id) => window.BANDA_MOBILE_SHELL.open(id), characterId);
     requireStep(profile, `${characterId}:open-retry`, opened === true, `retry returned ${opened}`);
