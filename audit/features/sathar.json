@@ -1,0 +1,3256 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T07:12:25.382Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "sathar",
+    "name": "Sathar Heranti",
+    "featureCount": 21,
+    "normalizedActionCount": 12
+  },
+  "featureCount": 21,
+  "countsBySourceType": {
+    "class": 2,
+    "feat": 19
+  },
+  "countsByActionCategory": {
+    "PASSIVE_OR_SPECIAL": 14,
+    "ACTION": 4,
+    "BONUS_ACTION": 2,
+    "REACTION": 1
+  },
+  "statusCounts": {
+    "COMPLETE_FROM_JSON": 21
+  },
+  "featuresWithUses": 2,
+  "featuresWithActivities": 8,
+  "featureActionReferenceCount": 0,
+  "resourceCount": 8,
+  "validation": {
+    "expectedFeatureCount": 21,
+    "countMatchesExpected": true,
+    "uniqueFeatureIds": true,
+    "allFeaturesHaveNames": true,
+    "allFeaturesHaveRawItem": true,
+    "allRawItemsAreFeatureTypes": true
+  },
+  "reviewFeatures": [],
+  "resources": [
+    {
+      "resourceId": "KJclu8muQslI6P4e",
+      "name": "Divine Sense",
+      "source": "featureUses",
+      "current": null,
+      "max": "1 + @abilities.cha.mod",
+      "spent": 0,
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "actionCategory": "ACTION"
+    },
+    {
+      "resourceId": "Dd7lgIHJQVm4R62c",
+      "name": "Lay on Hands",
+      "source": "featureUses",
+      "current": null,
+      "max": "5 * @classes.paladin.levels",
+      "spent": 0,
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "actionCategory": "ACTION"
+    },
+    {
+      "resourceId": "0",
+      "name": "Silver",
+      "source": "normalizedCharacter",
+      "current": 0,
+      "max": 50,
+      "spent": null,
+      "recovery": null,
+      "shortRest": null,
+      "longRest": null,
+      "raw": {
+        "name": "Silver",
+        "current": 0,
+        "max": 50,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": null,
+          "max": 50,
+          "sr": false,
+          "lr": false,
+          "label": "Silver"
+        }
+      }
+    },
+    {
+      "resourceId": "1",
+      "name": "Gold",
+      "source": "normalizedCharacter",
+      "current": 0,
+      "max": 1,
+      "spent": null,
+      "recovery": null,
+      "shortRest": null,
+      "longRest": null,
+      "raw": {
+        "name": "Gold",
+        "current": 0,
+        "max": 1,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": null,
+          "max": 1,
+          "sr": false,
+          "lr": false,
+          "label": "Gold"
+        }
+      }
+    },
+    {
+      "resourceId": "2",
+      "name": "platinum",
+      "source": "normalizedCharacter",
+      "current": 0,
+      "max": 0,
+      "spent": null,
+      "recovery": null,
+      "shortRest": null,
+      "longRest": null,
+      "raw": {
+        "name": "platinum",
+        "current": 0,
+        "max": 0,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": null,
+          "max": null,
+          "sr": false,
+          "lr": false,
+          "label": "platinum"
+        }
+      }
+    },
+    {
+      "resourceId": "primary",
+      "name": "Silver",
+      "source": "rawActorSystem",
+      "current": null,
+      "max": 50,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "value": null,
+        "max": 50,
+        "sr": false,
+        "lr": false,
+        "label": "Silver"
+      }
+    },
+    {
+      "resourceId": "secondary",
+      "name": "Gold",
+      "source": "rawActorSystem",
+      "current": null,
+      "max": 1,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "value": null,
+        "max": 1,
+        "sr": false,
+        "lr": false,
+        "label": "Gold"
+      }
+    },
+    {
+      "resourceId": "tertiary",
+      "name": "platinum",
+      "source": "rawActorSystem",
+      "current": null,
+      "max": null,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "value": null,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": "platinum"
+      }
+    }
+  ],
+  "featureActions": [],
+  "features": [
+    {
+      "order": 1,
+      "id": "vYqcJyGs5BjWvc8P",
+      "name": "Paladin",
+      "type": "class",
+      "sourceType": "class",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "As a paladin, you gain the following class features.\nHit Points\nHit Dice: 1d10 per paladin level\nHit Points at 1st Level: 10 + your Constitution modifier\nHit Points at Higher Levels: 1d10 (or 6) + your Constitution modifier per paladin level after 1st\nProficiencies\nArmor: All armor, shields\nWeapons: Simple weapons, martial weapons\nTools: None\nSaving Throws: Wisdom, Charisma\nSkills: Choose two from Athletics, Insight, Intimidation, Medicine, Persuasion, and Religion\nEquipment\nYou start with the following equipment, in addition to the equipment granted by your background:\n(a) a martial weapon and a shield or (b) two martial weapons\n(a) five javelins or (b) any simple melee weapon\n(a) a priest's pack or (b) an explorer's pack\nChain mail and a holy symbol\nPaladin Advancement Level Proficiency Bonus Features 1st +2 @Compendium[dnd5e.classfeatures.E8ozg8avUVOX9N7u]{Divine Sense}, @Compendium[dnd5e.classfeatures.OdrvL3afwLOPeuYZ]{Lay on Hands} 2nd +2 @Compendium[dnd5e.classfeatures.fbExzwNwEAl2kW9c]{Fighting Style}, @Compendium[dnd5e.classfeatures.ihoQHsmVZlyDbPhX]{Spellcasting}, @Compendium[dnd5e.classfeatures.ySMPQ6zNSlvkrl2f]{Divine Smite} 3rd +2 @Compendium[dnd5e.classfeatures.dY9yrqkyEDuF0CG2]{Divine Health}, @Compendium[dnd5e.classfeatures.olAqNsUTIef9x8xC]{Sacred Oath} 4th +2 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 5th +3 2nd Level Spell Slot, @Compendium[dnd5e.classfeatures.XogoBnFWmCAHXppo]{Extra Attack} 6th +3 @Compendium[dnd5e.classfeatures.carGDhkIdoduTC0I]{Aura of Protection} 7th +3 Sacred Oath feature 8th +3 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 9th +4 3rd Level Spell Slot 10th +4 @Compendium[dnd5e.classfeatures.nahSkBO6LH4HkpaT]{Aura of Courage} 11th +4 @Compendium[dnd5e.classfeatures.FAk41RPCTcvCk6KI]{Improved Divine Smite} 12th +4 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 13th +5 4th Level Spell Slot 14th +5 @Compendium[dnd5e.classfeatures.U7BIPVPsptBmwsnV]{Cleansing Touch} 15th +5 Sacred Oath feature 16th +5 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 17th +6 5th Level Spell Slot 18th +6 Aura improvements 19th +6 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 20th +6 Sacred Oath feature\nSacred Oaths\nBecoming a paladin involves taking vows that commit the paladin to the cause of righteousness, an active path of fighting wickedness. The final oath, taken when he or she reaches 3rd level, is the culmination of all the paladin's training. Some characters with this class don't consider themselves true paladins until they have reached 3rd level and made this oath. For others, the actual swearing of the oath is a formality, an official stamp on what has always been true in the paladin's heart.\n@Compendium[dnd5e.subclasses.sZ86mbX8D5PfYuhl]{Oath of Devotion}\nBreaking Your Oath\nA paladin tries to hold to the highest standards of conduct, but even the most virtuous paladin is fallible. Sometimes the right path proves too demanding, sometimes a situation calls for the lesser of two evils, and sometimes the heat of emotion causes a paladin to transgress his or her oath.\nA paladin who has broken a vow typically seeks absolution from a cleric who shares his or her faith or from another paladin of the same order. The paladin might spend an allnight vigil in prayer as a sign of penitence, or undertake a fast or similar act of self-denial. After a rite of confession and forgiveness, the paladin starts fresh.\nIf a paladin willfully violates his or her oath and shows no sign of repentance, the consequences can be more serious. At the GM's discretion, an impenitent paladin might be forced to abandon this class and adopt another.",
+      "descriptionLength": 3759,
+      "source": {
+        "custom": "",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "class",
+      "advancement": {
+        "z2d0fxi8e24gradq": {
+          "_id": "z2d0fxi8e24gradq",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.E8ozg8avUVOX9N7u",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.OdrvL3afwLOPeuYZ",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "KJclu8muQslI6P4e": "Compendium.dnd5e.classfeatures.E8ozg8avUVOX9N7u",
+              "Dd7lgIHJQVm4R62c": "Compendium.dnd5e.classfeatures.OdrvL3afwLOPeuYZ"
+            }
+          },
+          "level": 1,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "xy3wlxtiwbplsms7": {
+          "_id": "xy3wlxtiwbplsms7",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.fbExzwNwEAl2kW9c",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.ihoQHsmVZlyDbPhX",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.ySMPQ6zNSlvkrl2f",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 2,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "v26vmuy5lpsu5g4c": {
+          "_id": "v26vmuy5lpsu5g4c",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.dY9yrqkyEDuF0CG2",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.olAqNsUTIef9x8xC",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 3,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "m3ytemj4ygib8c5m": {
+          "_id": "m3ytemj4ygib8c5m",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 5,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "w3n62vbfeo3c7a90": {
+          "_id": "w3n62vbfeo3c7a90",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.carGDhkIdoduTC0I",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 6,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "ers71klsl2dcjpfa": {
+          "_id": "ers71klsl2dcjpfa",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.nahSkBO6LH4HkpaT",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 10,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "kxodggik4e56u85t": {
+          "_id": "kxodggik4e56u85t",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.FAk41RPCTcvCk6KI",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 11,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "3x1u7nnxv8ftkt0d": {
+          "_id": "3x1u7nnxv8ftkt0d",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.U7BIPVPsptBmwsnV",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 14,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "ebo3padd7vg4jg3g": {
+          "_id": "ebo3padd7vg4jg3g",
+          "type": "HitPoints",
+          "configuration": {},
+          "value": {
+            "1": "max"
+          },
+          "title": "",
+          "flags": {},
+          "hint": ""
+        },
+        "0ktEcB7fOXKiUdl0": {
+          "type": "Trait",
+          "level": 1,
+          "configuration": {
+            "grants": [
+              "saves:wis",
+              "saves:cha"
+            ],
+            "mode": "default",
+            "allowReplacements": false,
+            "choices": []
+          },
+          "value": {
+            "chosen": [
+              "saves:wis",
+              "saves:cha"
+            ]
+          },
+          "_id": "0ktEcB7fOXKiUdl0",
+          "flags": {},
+          "hint": ""
+        },
+        "V9NygdEbyUx9LVgN": {
+          "type": "Trait",
+          "level": 1,
+          "configuration": {
+            "choices": [
+              {
+                "count": 2,
+                "pool": [
+                  "skills:ath",
+                  "skills:ins",
+                  "skills:itm",
+                  "skills:med",
+                  "skills:per",
+                  "skills:rel"
+                ]
+              }
+            ],
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": []
+          },
+          "_id": "V9NygdEbyUx9LVgN",
+          "value": {
+            "chosen": []
+          },
+          "flags": {},
+          "hint": ""
+        }
+      },
+      "rawItemId": "vYqcJyGs5BjWvc8P",
+      "rawItemType": "class",
+      "rawSystem": {
+        "activation": null,
+        "uses": null,
+        "recharge": null,
+        "type": null,
+        "properties": [],
+        "source": {
+          "custom": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": null,
+        "requirements": null
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 2,
+      "id": "KJclu8muQslI6P4e",
+      "name": "Divine Sense",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "1 + @abilities.cha.mod",
+        "spent": 0,
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ],
+        "per": null,
+        "raw": {
+          "current": null,
+          "max": "1 + @abilities.cha.mod",
+          "spent": 0,
+          "rawMax": "1 + @abilities.cha.mod",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      },
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll"
+        }
+      ],
+      "consumption": null,
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "override": false,
+        "label": "60 ft"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "1",
+        "units": "round",
+        "special": "",
+        "override": false,
+        "label": "1 Asaltos"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Divine Sense",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "60",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "60 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "1",
+            "units": "round",
+            "special": "",
+            "override": false,
+            "label": "1 Asaltos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strahd von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the @Compendium[dnd5e.spells.SLxA9QhrggTz0taU]{Hallow} spell.\nYou can use this feature a number of times equal to 1 + your Charisma modifier. When you finish a long rest, you regain all expended uses.",
+      "descriptionLength": 829,
+      "source": {
+        "custom": "PHB pg. 84",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Paladin 1",
+      "advancement": {},
+      "rawItemId": "KJclu8muQslI6P4e",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "1 + @abilities.cha.mod",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll"
+            }
+          ],
+          "spent": 0
+        },
+        "recharge": null,
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "PHB pg. 84",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Paladin 1"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 3,
+      "id": "Dd7lgIHJQVm4R62c",
+      "name": "Lay on Hands",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "Target cannot be Undead or a Construct.",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "5 * @classes.paladin.levels",
+        "spent": 0,
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ],
+        "per": null,
+        "raw": {
+          "current": null,
+          "max": "5 * @classes.paladin.levels",
+          "spent": 0,
+          "rawMax": "5 * @classes.paladin.levels",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      },
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll"
+        }
+      ],
+      "consumption": null,
+      "range": {
+        "units": "touch",
+        "special": "",
+        "override": false,
+        "label": "Toque"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "1",
+          "type": "creature",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "1 creature"
+      },
+      "duration": {
+        "concentration": false,
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Lay on Hands",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "Target cannot be Undead or a Construct.",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level × 5.\nAs an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool.\nAlternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.\nThis feature has no effect on undead and constructs.",
+      "descriptionLength": 714,
+      "source": {
+        "custom": "PHB pg. 84",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Paladin 1",
+      "advancement": {},
+      "rawItemId": "Dd7lgIHJQVm4R62c",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "5 * @classes.paladin.levels",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll"
+            }
+          ],
+          "spent": 0
+        },
+        "recharge": null,
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "PHB pg. 84",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Paladin 1"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 4,
+      "id": "MUlqTqc2vk0LCPrG",
+      "name": "Lux el sol",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "El sol te bendijo en tú, nacimiento con resistencia el fuego",
+      "descriptionLength": 60,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "MUlqTqc2vk0LCPrG",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": ""
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 5,
+      "id": "2ewQNHFy4HH64KmH",
+      "name": "Necrotic Smite",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "1",
+          "type": "creature",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "1 creature"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": {
+        "parts": [
+          "2d8 necrotic"
+        ]
+      },
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Necrotic Smite",
+          "type": "damage",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "2d8 necrotic"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Necrotic Smite",
+          "type": "damage",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 2,
+      "effectCount": 0,
+      "description": "when you hit a creature with a melee weapon attack, you can expend one spell slot to deal necrotic damage to the target, in addition to the weapon's damage.\nThe extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8.",
+      "descriptionLength": 276,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Paladin 2",
+      "advancement": {},
+      "rawItemId": "2ewQNHFy4HH64KmH",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Paladin 2"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 6,
+      "id": "UQhJH5s0ruwLURI4",
+      "name": "Warlock",
+      "type": "class",
+      "sourceType": "class",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "As a warlock, you gain the following class features.\nHit Points\nHit Dice: 1d8 per warlock level\nHit Points at 1st Level: 8 + your Constitution modifier\nHit Points at Higher Levels: 1d8 (or 5) + your Constitution modifier per warlock level after 1st\nProficiencies\nArmor: Light armor\nWeapons: Simple weapons\nTools: None\nSaving Throws: Wisdom, Charisma\nSkills: Choose two skills from Arcana, Deception, History, Intimidation, Investigation, Nature, and Religion\nEquipment\nYou start with the following equipment, in addition to the equipment granted by your background:\n(a) a light crossbow and 20 bolts or (b) any simple weapon\n(a) a component pouch or (b) an arcane focus\n(a) a scholar's pack or (b) a dungeoneer's pack\nLeather armor, any simple weapon, and two daggers\nWarlock Advancement Level Proficiency Bonus Features Invocations Known 1st +2 @Compendium[dnd5e.classfeatures.jTXHaK0vvT5DV3uO]{Otherworldly Patron}, @Compendium[dnd5e.classfeatures.x6IJZwr6f0SGral7]{Pact Magic} ̶ 2nd +2 @Compendium[dnd5e.classfeatures.8MlxM2nEfE3Q0EVk]{Eldritch Invocations} 2 3rd +2 @Compendium[dnd5e.classfeatures.QwgfIpCN8VWfoUtX]{Pact Boon} 2 4th +2 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 2 5th +3 3rd Level Spells, +1 Invocation 3 6th +3 Otherworldly Patron feature 3 7th +3 4th Level Spells, +1 Invocation 4 8th +3 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 4 9th +4 5th Level Spells, +1 Invocation 5 10th +4 Otherworldly Patron feature 5 11th +4 @Compendium[dnd5e.classfeatures.zB77V8BcCJvWVxck]{Mystic Arcanum (6th-Level Spell)} 5 12th +4 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement}, +1 Invocation 6 13th +5 @Compendium[dnd5e.classfeatures.HBn6FXLz7Eiudz0V]{Mystic Arcanum (7th-Level Spell)} 6 14th +5 Otherworldly Patron feature 6 15th +5 @Compendium[dnd5e.classfeatures.knDZR4l4QfLTKinm]{Mystic Arcanum (8th-Level Spell)}, +1 Invocation 7 16th +5 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 7 17th +6 @Compendium[dnd5e.classfeatures.vMxJQEKeK6WwZFaF]{Mystic Arcanum (9th-Level Spell)} 7 18th +6 +1 Invocation 8 19th +6 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 8 20th +6 @Compendium[dnd5e.classfeatures.0C04rwyvoknvFYiy]{Eldritch Master} 8\nYour Pact Boon\nEach Pact Boon option produces a special creature or an object that reflects your patron's nature.\nPact of the Chain. Your familiar is more cunning than a typical familiar. Its default form can be a reflection of your patron, with imps and quasits tied to the Fiend.\nPact of the Blade. If you serve the Fiend, your weapon could be an axe made of black metal and adorned with decorative flames.\nPact of the Tome. Your Book of Shadows could be a weighty tome bound in demon hide studded with iron, holding spells of conjuration and a wealth of forbidden lore about the sinister regions of the cosmos, a gift of the Fiend.\nOtherworldly Patrons\nThe beings that serve as patrons for warlocks are mighty inhabitants of other planes of existence—not gods, but almost godlike in their power. Various patrons give their warlocks access to different powers and invocations, and expect significant favors in return.\nSome patrons collect warlocks, doling out mystic knowledge relatively freely or boasting of their ability to bind mortals to their will. Other patrons bestow their power only grudgingly, and might make a pact with only one warlock. Warlocks who serve the same patron might view each other as allies, siblings, or rivals.\n@Compendium[dnd5e.subclasses.WPFVBg589uI8iOMH]{The Fiend}",
+      "descriptionLength": 3607,
+      "source": {
+        "custom": "SRD 5.1",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "class",
+      "advancement": {
+        "s35gtvg38bkm24iq": {
+          "_id": "s35gtvg38bkm24iq",
+          "type": "HitPoints",
+          "configuration": {},
+          "value": {
+            "1": "avg",
+            "2": "avg",
+            "3": "avg",
+            "4": "avg",
+            "5": "avg",
+            "6": "avg",
+            "7": "avg",
+            "8": "avg",
+            "9": "avg",
+            "10": "avg",
+            "11": "avg",
+            "12": "avg",
+            "13": "avg",
+            "14": "avg"
+          },
+          "title": "",
+          "flags": {},
+          "hint": ""
+        },
+        "6wykf1qry5o7swn1": {
+          "_id": "6wykf1qry5o7swn1",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.jTXHaK0vvT5DV3uO",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.x6IJZwr6f0SGral7",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "UimNDqqkiWH5OKWH": "Compendium.dnd5e.classfeatures.jTXHaK0vvT5DV3uO",
+              "H8QhDhdDGozCNwbv": "Compendium.dnd5e.classfeatures.x6IJZwr6f0SGral7"
+            }
+          },
+          "level": 1,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "rhw4wpt4eqn0mg7e": {
+          "_id": "rhw4wpt4eqn0mg7e",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.8MlxM2nEfE3Q0EVk",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "UNdV3fQyeAT1qOUs": "Compendium.dnd5e.classfeatures.8MlxM2nEfE3Q0EVk"
+            }
+          },
+          "level": 2,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "uh49ihpbnqvy8jdu": {
+          "_id": "uh49ihpbnqvy8jdu",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.QwgfIpCN8VWfoUtX",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "nRyQYrzvAwFlvGnW": "Compendium.dnd5e.classfeatures.QwgfIpCN8VWfoUtX"
+            }
+          },
+          "level": 3,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "j2llrpqzdjszdqcr": {
+          "_id": "j2llrpqzdjszdqcr",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.zB77V8BcCJvWVxck",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "T1EJpHwjc40njI2x": "Compendium.dnd5e.classfeatures.Item.zB77V8BcCJvWVxck"
+            }
+          },
+          "level": 11,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "4rqq43u7wtq9vn1k": {
+          "_id": "4rqq43u7wtq9vn1k",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.HBn6FXLz7Eiudz0V",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 13,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "05ek6hg9mar50thz": {
+          "_id": "05ek6hg9mar50thz",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.knDZR4l4QfLTKinm",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 15,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "85feykdd4eyor8d1": {
+          "_id": "85feykdd4eyor8d1",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.vMxJQEKeK6WwZFaF",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 17,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "fd0c4m55mgtb5t8u": {
+          "_id": "fd0c4m55mgtb5t8u",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.0C04rwyvoknvFYiy",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 20,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "fMO3Z9wZmb6EZPN1": {
+          "_id": "fMO3Z9wZmb6EZPN1",
+          "type": "ScaleValue",
+          "configuration": {
+            "identifier": "cantrips-known",
+            "type": "number",
+            "distance": {
+              "units": ""
+            },
+            "scale": {
+              "1": {
+                "value": 2
+              },
+              "4": {
+                "value": 3
+              },
+              "10": {
+                "value": 4
+              }
+            }
+          },
+          "value": {},
+          "title": "Cantrips Known",
+          "flags": {},
+          "hint": ""
+        },
+        "7owUaZki6MyoFEuL": {
+          "_id": "7owUaZki6MyoFEuL",
+          "type": "ScaleValue",
+          "configuration": {
+            "identifier": "spells-known",
+            "type": "number",
+            "distance": {
+              "units": ""
+            },
+            "scale": {
+              "1": {
+                "value": 2
+              },
+              "2": {
+                "value": 3
+              },
+              "3": {
+                "value": 4
+              },
+              "4": {
+                "value": 5
+              },
+              "5": {
+                "value": 6
+              },
+              "6": {
+                "value": 7
+              },
+              "7": {
+                "value": 8
+              },
+              "8": {
+                "value": 9
+              },
+              "9": {
+                "value": 10
+              },
+              "11": {
+                "value": 11
+              },
+              "13": {
+                "value": 12
+              },
+              "15": {
+                "value": 13
+              },
+              "17": {
+                "value": 14
+              },
+              "19": {
+                "value": 15
+              }
+            }
+          },
+          "value": {},
+          "title": "Spells Known",
+          "flags": {},
+          "hint": ""
+        },
+        "gz46aUH7jAUUU0q7": {
+          "type": "Trait",
+          "level": 1,
+          "configuration": {
+            "grants": [
+              "saves:wis",
+              "saves:cha"
+            ],
+            "mode": "default",
+            "allowReplacements": false,
+            "choices": []
+          },
+          "value": {
+            "chosen": [
+              "saves:wis",
+              "saves:cha"
+            ]
+          },
+          "_id": "gz46aUH7jAUUU0q7",
+          "flags": {},
+          "hint": ""
+        },
+        "fXySEZV9sSA2xzae": {
+          "type": "Trait",
+          "level": 1,
+          "configuration": {
+            "choices": [
+              {
+                "count": 2,
+                "pool": [
+                  "skills:arc",
+                  "skills:dec",
+                  "skills:his",
+                  "skills:itm",
+                  "skills:inv",
+                  "skills:nat",
+                  "skills:rel"
+                ]
+              }
+            ],
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": []
+          },
+          "_id": "fXySEZV9sSA2xzae",
+          "value": {
+            "chosen": []
+          },
+          "flags": {},
+          "hint": ""
+        }
+      },
+      "rawItemId": "UQhJH5s0ruwLURI4",
+      "rawItemType": "class",
+      "rawSystem": {
+        "activation": null,
+        "uses": null,
+        "recharge": null,
+        "type": null,
+        "properties": [],
+        "source": {
+          "custom": "SRD 5.1",
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": null,
+        "requirements": null
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 7,
+      "id": "UimNDqqkiWH5OKWH",
+      "name": "Otherworldly Patron",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "At 1st level, you have struck a bargain with an otherworldly being, such as the Fiend. Your choice grants you features at 1st level and again at 6th, 10th, and 14th level.",
+      "descriptionLength": 171,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Warlock 1",
+      "advancement": {},
+      "rawItemId": "UimNDqqkiWH5OKWH",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Warlock 1"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 8,
+      "id": "H8QhDhdDGozCNwbv",
+      "name": "Pact Magic",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Your arcane research and the magic bestowed on you by your patron have given you facility with spells.\nCantrips\nYou know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table.\nSpell Slots\nThe Warlock table shows how many spell slots you have. The table also shows what the level of those slots is; all of your spell slots are the same level. To cast one of your warlock spells of 1st level or higher, you must expend a spell slot. You regain all expended spell slots when you finish a short or long rest.\nFor example, when you are 5th level, you have two 3rd-level spell slots. To cast the 1st-level spell thunderwave, you must spend one of those slots, and you cast it as a 3rd-level spell.\nSpells Known of 1st Level and Higher\nAt 1st level, you know two 1st-level spells of your choice from the warlock spell list.\nThe Spells Known column of the Warlock table shows when you learn more warlock spells of your choice of 1st level and higher. A spell you choose must be of a level no higher than what's shown in the table's Slot Level column for your level. When you reach 6th level, for example, you learn a new warlock spell, which can be 1st, 2nd, or 3rd level.\nAdditionally, when you gain a level in this class, you can choose one of the warlock spells you know and replace it with another spell from the warlock spell list, which also must be of a level for which you have spell slots.\nSpellcasting Ability\nCharisma is your spellcasting ability for your warlock spells, so you use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a warlock spell you cast and when making an attack roll with one.\nSpell save DC = 8 + your proficiency bonus + your Charisma modifier\nSpell attack modifier = your proficiency bonus + your Charisma modifier\nSpellcasting Focus\nYou can use an arcane focus as a spellcasting focus for your warlock spells.",
+      "descriptionLength": 2069,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Warlock 1",
+      "advancement": {},
+      "rawItemId": "H8QhDhdDGozCNwbv",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Warlock 1"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 9,
+      "id": "UNdV3fQyeAT1qOUs",
+      "name": "Eldritch Invocations",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "In your study of occult lore, you have unearthed eldritch invocations, fragments of forbidden knowledge that imbue you with an abiding magical ability.\nAt 2nd level, you gain two eldritch invocations of your choice. When you gain certain warlock levels, you gain additional invocations of your choice, as shown in the Invocations Known column in the class table.\nAdditionally, when you gain a level in this class, you can choose one of the invocations you know and replace it with another invocation that you could learn at that level.\nEldritch Invocations\nIf an eldritch invocation has prerequisites, you must meet them to learn it. You can learn the invocation at the same time that you meet its prerequisites. A level prerequisite refers to your level in this class. Eldritch Invocations Prerequisites Invocation Class Level Other 2nd @Compendium[dnd5e.spells.Z9p1vezIn95jw1Yw]{Eldritch Blast} @Compendium[dnd5e.classfeatures.2fyuw7MiCnocDeAU]{Agonizing Blast} @Compendium[dnd5e.classfeatures.alUqO6c6OEKFQJdb]{Armor of Shadows} @Compendium[dnd5e.classfeatures.61kXR1sniXHjvN17]{Beast Speech} @Compendium[dnd5e.classfeatures.eNvpIaSnJUdF8fHl]{Beguiling Influence} @Compendium[dnd5e.classfeatures.MYM908WLZ1lVvA1u]{Pact of the Tome} @Compendium[dnd5e.classfeatures.CFIYXDmbmSP8BXjN]{Book of Ancient Secrets} @Compendium[dnd5e.classfeatures.3sN91lT1R3oxcDKd]{Devil's Sight} @Compendium[dnd5e.classfeatures.bbUEsCPTLzbbwK6o]{Eldritch Sight} @Compendium[dnd5e.spells.Z9p1vezIn95jw1Yw]{Eldritch Blast} @Compendium[dnd5e.classfeatures.r01WtcxTg4yTHm9m]{Eldritch Spear} @Compendium[dnd5e.classfeatures.lEZKbWaVrSljRa9n]{Eyes of the Rune Keeper} @Compendium[dnd5e.classfeatures.id0gmGvzNZBEdzbx]{Fiendish Vigor} @Compendium[dnd5e.classfeatures.65ReXU4ZWqcSs3Cm]{Gaze of Two Minds} @Compendium[dnd5e.classfeatures.MhJfdBl1B7PdU4oZ]{Mask of Many Faces} @Compendium[dnd5e.classfeatures.k5DU0mMuYVHejiqz]{Misty Visions} @Compendium[dnd5e.spells.Z9p1vezIn95jw1Yw]{Eldritch Blast} @Compendium[dnd5e.classfeatures.rdBPd6CwqXT64iJM]{Repelling Blast} @Compendium[dnd5e.classfeatures.rhbwDZ9XNTmdkX2u]{Thief of Five Fates} @Compendium[dnd5e.classfeatures.Ic1CSjvbWKudVUv9]{Pact of the Chain} @Compendium[dnd5e.classfeatures.k5M8gsl7MMcdjOjs]{Voice of the Chain Master} 5th @Compendium[dnd5e.classfeatures.DjXi0IkCTbJx1gsp]{Mire the Mind} @Compendium[dnd5e.classfeatures.KfnUyjUWAk0bAAus]{One With Shadows} @Compendium[dnd5e.classfeatures.dTSV0xZMpY5CxkRk]{Sign of Ill Omen} @Compendium[dnd5e.classfeatures.9dSSa68mIPoX2ezA]{Pact of the Blade} @Compendium[dnd5e.classfeatures.pJADgAxxefgcATWr]{Thirsting Blade} 7th @Compendium[dnd5e.classfeatures.KygHql3cTj4IRrvZ]{Bewitching Whispers} @Compendium[dnd5e.classfeatures.QBk1RsuTIEF4GEBC]{Dreadful Word} @Compendium[dnd5e.classfeatures.Xa2MLUJGCReJ28B7]{Sculptor of Flesh} 9th @Compendium[dnd5e.classfeatures.QEuH5TeBN4PPYT2g]{Ascendant Step} @Compendium[dnd5e.classfeatures.QnRKYXb2bXpnNd2k]{Minions of Chaos} @Compendium[dnd5e.classfeatures.8zciiglzEOZo7DDN]{Otherwordly Leap} @Compendium[dnd5e.classfeatures.gFjxo01hAN4c9hDG]{Whispers of the Grave} 12th @Compendium[dnd5e.classfeatures.9dSSa68mIPoX2ezA]{Pact of the Blade} @Compendium[dnd5e.classfeatures.zUIAzBnyt0NDvVXb]{Life Drinker} 15th @Compendium[dnd5e.classfeatures.Ic1CSjvbWKudVUv9]{Pact of the Chain} @Compendium[dnd5e.classfeatures.Phy02H5x0TKHd7T3]{Chains of Carceri} @Compendium[dnd5e.classfeatures.lxfdjLer3uKjyZqU]{Master of Myriad Forms} @Compendium[dnd5e.classfeatures.zYIdNAjqRyhS6qWs]{Visions of Distant Realms} @Compendium[dnd5e.classfeatures.snsjxGfmzWfZR5Nh]{Witch Sight}\nFoundry Note\nYou can drag your choices onto your character sheet and it will automatically update.",
+      "descriptionLength": 3676,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Warlock 2",
+      "advancement": {},
+      "rawItemId": "UNdV3fQyeAT1qOUs",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Warlock 2"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 10,
+      "id": "3C4jqWcAfg6XATTh",
+      "name": "Hexblade's Curse",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "BONUS_ACTION",
+      "activation": {
+        "type": "bonus",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción adicional"
+      },
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hexblade's Curse",
+          "type": "utility",
+          "activation": {
+            "type": "bonus",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción adicional"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Starting at 1st level, you gain the ability to place a baleful curse on someone. As a bonus action, choose one creature you can see within 30 feet of you. The target is cursed for 1 minute. The curse ends early if the target dies, you die, or you are incapacitated. Until the curse ends, you gain the following benefits:\nYou gain a bonus to damage rolls against the cursed target. The bonus equals your proficiency bonus.\nAny attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\nIf the cursed target dies, you regain hit points equal to your warlock level + your Charisma modifier (minimum of 1 hit point).\nYou can’t use this feature again until you finish a short or long rest.",
+      "descriptionLength": 724,
+      "source": {
+        "custom": "",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "3C4jqWcAfg6XATTh",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": ""
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 11,
+      "id": "coGA7xtMAM2y0Aat",
+      "name": "Hex Warrior",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "At 1st level, you acquire the training necessary to effectively arm yourself for battle. You gain proficiency with medium armor, shields, and martial weapons.\nThe influence of your patron also allows you to mystically channel your will through a particular weapon. Whenever you finish a long rest, you can touch one weapon that you are proficient with and that lacks the two-handed property. When you attack with that weapon, you can use your Charisma modifier, instead of Strength or Dexterity, for the attack and damage rolls. This benefit lasts until you finish a long rest. If you later gain the Pact of the Blade feature, this benefit extends to every pact weapon you conjure with that feature, no matter the weapon's type.",
+      "descriptionLength": 728,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "coGA7xtMAM2y0Aat",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": ""
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 12,
+      "id": "W3NOCPRlpHgm2svN",
+      "name": "Invocation: Devil's Sight",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 1,
+      "description": "You can see normally in darkness, both magical and nonmagical, to a distance of 120 feet.",
+      "descriptionLength": 89,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Warlock 2",
+      "advancement": {},
+      "rawItemId": "W3NOCPRlpHgm2svN",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": "eldritchInvocation"
+        },
+        "properties": [],
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Warlock 2"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 13,
+      "id": "YbGXRjTVuveCIAus",
+      "name": "Invocation: Agonizing Blast",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "When you cast @Compendium[dnd5e.spells.Z9p1vezIn95jw1Yw]{Eldritch Blast}, add your Charisma modifier to the damage it deals on a hit.",
+      "descriptionLength": 133,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Warlock 2, Eldritch Blast",
+      "advancement": {},
+      "rawItemId": "YbGXRjTVuveCIAus",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": "eldritchInvocation"
+        },
+        "properties": [],
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Warlock 2, Eldritch Blast"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 14,
+      "id": "nRyQYrzvAwFlvGnW",
+      "name": "Pact Boon",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "At 3rd level, your otherworldly patron bestows a gift upon you for your loyal service. You gain one of the following features of your choice.\n@UUID[Compendium.dnd5e.classfeatures.9dSSa68mIPoX2ezA]{Pact of the Blade}\n@UUID[Compendium.dnd5e.classfeatures.Ic1CSjvbWKudVUv9]{Pact of the Chain}\n@UUID[Compendium.dnd5e.classfeatures.MYM908WLZ1lVvA1u]{Pact of the Tome}\nYou can drag your choice from the above onto your character sheet and it will automatically update.",
+      "descriptionLength": 462,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Warlock 3",
+      "advancement": {},
+      "rawItemId": "nRyQYrzvAwFlvGnW",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Warlock 3"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 15,
+      "id": "69KliJErrrtP8sYE",
+      "name": "Hex Warrior",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hex Warrior",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "At 1st level, you acquire the training necessary to effectively arm yourself for battle. You gain proficiency with medium armor, shields, and martial weapons.\nThe influence of your patron also allows you to mystically channel your will through a particular weapon. Whenever you finish a long rest, you can touch one weapon that you are proficient with and that lacks the two-handed property. When you attack with that weapon, you can use your Charisma modifier, instead of Strength or Dexterity, for the attack and damage rolls. This benefit lasts until you finish a long rest. If you later gain the Pact of the Blade feature, this benefit extends to every pact weapon you conjure with that feature, no matter the weapon's type.",
+      "descriptionLength": 728,
+      "source": {
+        "custom": "",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "69KliJErrrtP8sYE",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": ""
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 16,
+      "id": "CRUM590KxseBiJuG",
+      "name": "A mother's love.",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "BONUS_ACTION",
+      "activation": {
+        "type": "bonus",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción adicional"
+      },
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "A mother's love.",
+          "type": "utility",
+          "activation": {
+            "type": "bonus",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción adicional"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "A mother's love. the undead soul of your mother helps you and give you the help action",
+      "descriptionLength": 86,
+      "source": {
+        "custom": "",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "CRUM590KxseBiJuG",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": ""
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 17,
+      "id": "J1V5CyBKvdjRyKXd",
+      "name": "a mother's sacrifice",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "REACTION",
+      "activation": {
+        "type": "reaction",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 reacción"
+      },
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "a mother's sacrifice",
+          "type": "utility",
+          "activation": {
+            "type": "reaction",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 reacción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "The spirit of your mother takes a mortal blow instead of you. As a reaction you can use this ability and you take no damage from a single melee or ranged attack. This ability cancels other bonuses that you gain from your mother.",
+      "descriptionLength": 228,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "J1V5CyBKvdjRyKXd",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": ""
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 18,
+      "id": "X58QR2zAKVlX4jJ3",
+      "name": "Multiattack",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "At 11th level, you gain one of the following features of your choice.\n@UUID[Compendium.dnd5e.classfeatures.l7W6JB9yWLLLtQKP]{Volley}\n@UUID[Compendium.dnd5e.classfeatures.1DY8w3CXeD7PHDXF]{Whirlwind Attack}",
+      "descriptionLength": 205,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Hunter 11",
+      "advancement": {},
+      "rawItemId": "X58QR2zAKVlX4jJ3",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": "Hunter 11"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 19,
+      "id": "NMxge4I8eKRkgpvb",
+      "name": "Accursed Specter",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Accursed Specter",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Starting at 6th level, you can curse the soul of a person you slay, temporarily binding it in your service. When you slay a humanoid, you can cause its spirit to rise from its corpse as a specter. When the specter appears, it gains temporary hit points equal to half your warlock level. Roll initiative for the specter, which has its own turns. It obeys your verbal commands, and it gains a special bonus to its attack rolls equal to your Charisma modifier (minimum of +0).\nThe specter remains in your service until the end of your next long rest, at which point it vanishes to the afterlife.\nOnce you bind a specter with this feature, you can't use the feature again until you finish a long rest.",
+      "descriptionLength": 697,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "NMxge4I8eKRkgpvb",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": ""
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 20,
+      "id": "wVlb2qpt3SnRd3jn",
+      "name": "Keen Senses",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "the [[lookup @name lowercase]] has advantage on Wisdom (Perception) checks that rely on sight, hearing, or smell.",
+      "descriptionLength": 113,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "wVlb2qpt3SnRd3jn",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "requirements": ""
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 21,
+      "id": "T1EJpHwjc40njI2x",
+      "name": "Mystic Arcanum",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": null,
+        "spent": 0,
+        "recovery": [],
+        "per": null,
+        "raw": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "At 11th level, your patron bestows upon you a magical secret called an arcanum. Choose one 6th-level spell from the warlock spell list as this arcanum.\nYou can cast your arcanum spell once without expending a spell slot. You must finish a long rest before you can do so again.\nAt higher levels, you gain more warlock spells of your choice that can be cast in this way: one 7th-level spell at 13th level, one 8th-level spell at 15th level, and one 9th-level spell at 17th level. You regain all uses of your Mystic Arcanum when you finish a long rest.",
+      "descriptionLength": 549,
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Warlock 11",
+      "advancement": {},
+      "rawItemId": "T1EJpHwjc40njI2x",
+      "rawItemType": "feat",
+      "rawSystem": {
+        "activation": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "properties": [],
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "prerequisites": {
+          "level": null,
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": "Warlock 11"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A5_2_BALDER_FEATURES_RESOURCES_AUDIT"
+}
