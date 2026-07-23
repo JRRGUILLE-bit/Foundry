@@ -1,0 +1,4019 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T07:38:04.629Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "ingwe",
+    "name": "Ingwë Amarië",
+    "featureCount": 21,
+    "normalizedActionCount": 12
+  },
+  "featureCount": 21,
+  "countsBySourceType": {
+    "class": 1,
+    "feat": 18,
+    "subclass": 1,
+    "race": 1
+  },
+  "countsByActionCategory": {
+    "PASSIVE_OR_SPECIAL": 17,
+    "BONUS_ACTION": 1,
+    "REACTION": 1,
+    "ACTION": 2
+  },
+  "statusCounts": {
+    "COMPLETE_FROM_JSON": 21
+  },
+  "featuresWithUses": 1,
+  "featuresWithActivities": 6,
+  "featureActionReferenceCount": 6,
+  "externalActionReferenceCount": 6,
+  "resourceCount": 4,
+  "validation": {
+    "expectedFeatureCount": 21,
+    "countMatchesExpected": true,
+    "uniqueFeatureIds": true,
+    "allFeaturesHaveNames": true,
+    "allFeaturesHaveRawItem": true,
+    "allRawItemsAreFeatureTypes": true,
+    "normalizedActionCountMatches": true,
+    "resourceIdsUnique": true,
+    "allFeatureActionsLinked": true,
+    "allNormalizedActionsAccountedFor": true
+  },
+  "reviewFeatures": [],
+  "unresolvedActions": [],
+  "resources": [
+    {
+      "resourceId": "q7vobkQUrfAYVGGZ",
+      "name": "Bardic Inspiration",
+      "source": "featureUses",
+      "current": null,
+      "max": "max(1, @abilities.cha.mod)",
+      "spent": 0,
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "actionCategory": "BONUS_ACTION"
+    },
+    {
+      "resourceId": "0",
+      "name": "Silver",
+      "source": "normalizedCharacter",
+      "current": 0,
+      "max": 200,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "name": "Silver",
+        "current": 0,
+        "max": 200,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": null,
+          "max": 200,
+          "sr": false,
+          "lr": false,
+          "label": "Silver"
+        }
+      }
+    },
+    {
+      "resourceId": "1",
+      "name": "Gold",
+      "source": "normalizedCharacter",
+      "current": 2000,
+      "max": 0,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "name": "Gold",
+        "current": 2000,
+        "max": 0,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": 2000,
+          "max": null,
+          "sr": false,
+          "lr": false,
+          "label": "Gold"
+        }
+      }
+    },
+    {
+      "resourceId": "2",
+      "name": "Platinum",
+      "source": "normalizedCharacter",
+      "current": 0,
+      "max": 0,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "name": "Platinum",
+        "current": 0,
+        "max": 0,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": null,
+          "max": null,
+          "sr": false,
+          "lr": false,
+          "label": "Platinum"
+        }
+      }
+    }
+  ],
+  "featureActions": [
+    {
+      "order": 7,
+      "id": null,
+      "name": "Bardic Inspiration",
+      "source": "Bardic Inspiration",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "BONUS_ACTION",
+      "activation": {
+        "type": "bonus",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción adicional"
+      },
+      "uses": {
+        "current": null,
+        "max": "max(1, @abilities.cha.mod)",
+        "spent": 0,
+        "rawMax": "max(1, @abilities.cha.mod)",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Bardic Inspiration",
+          "type": "utility",
+          "activation": {
+            "type": "bonus",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción adicional"
+          },
+          "consumption": null,
+          "range": {
+            "value": "60",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "60 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "10",
+            "units": "minute",
+            "special": "",
+            "override": false,
+            "label": "10 Minutos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "q7vobkQUrfAYVGGZ",
+      "linkedFeatureName": "Bardic Inspiration",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Bardic Inspiration",
+        "sourceType": "feat",
+        "description": "You can inspire others through stirring words or music. To do so, you use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Bardic Inspiration die, but must decide before the GM says whether the roll succeeds or fails. Once the Bardic Inspiration die is rolled, it is lost. A creature can have only one Bardic Inspiration die at a time.\nYou can use this feature a number of times equal to your Charisma modifier (a minimum of once).\nYou regain any expended uses when you finish a long rest.\nYour Bardic Inspiration die changes when you reach certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level.\n**Foundry note: Recovery is set to long rest (for levels before @Compendium[dnd5e.classfeatures.3VDZGs5Ug3hIE322]{Font of Inspiration} is gained). Please manually adjust as required.",
+        "activities": [
+          {
+            "name": "Bardic Inspiration",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción adicional"
+            },
+            "range": {
+              "value": "60",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "60 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "10",
+              "units": "minute",
+              "special": "",
+              "override": false,
+              "label": "10 Minutos"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": null,
+          "max": "max(1, @abilities.cha.mod)",
+          "spent": 0,
+          "rawMax": "max(1, @abilities.cha.mod)",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "order": 8,
+      "id": null,
+      "name": "Song of Rest",
+      "source": "Song of Rest",
+      "sourceType": "feat",
+      "type": "heal",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Song of Rest",
+          "type": "heal",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "qRah4iGJTKb8MHt7",
+      "linkedFeatureName": "Song of Rest",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Song of Rest",
+        "sourceType": "feat",
+        "description": "Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest.\nIf you or any friendly creatures who can hear your performance regain hit points at the end of the short rest by spending one or more Hit Dice, each of those creatures regains an extra 1d6 hit points.\nThe extra hit points increase when you reach certain levels in this class: to 1d8 at 9th level, to 1d10 at 13th level, and to 1d12 at 17th level.",
+        "activities": [
+          {
+            "name": "Song of Rest",
+            "type": "heal",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 9,
+      "id": null,
+      "name": "Cutting Words",
+      "source": "Cutting Words",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "REACTION",
+      "activation": {
+        "type": "reaction",
+        "value": 1,
+        "condition": "Target must be able to hear you and not be immune to being Charmed.",
+        "override": false,
+        "label": "1 reacción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Cutting Words",
+          "type": "utility",
+          "activation": {
+            "type": "reaction",
+            "value": 1,
+            "condition": "Target must be able to hear you and not be immune to being Charmed.",
+            "override": false,
+            "label": "1 reacción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "60",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "60 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "kVsbERnOkl3KBYed",
+      "linkedFeatureName": "Cutting Words",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Cutting Words",
+        "sourceType": "feat",
+        "description": "Also at 3rd level, you learn how to use your wit to distract, confuse, and otherwise sap the confidence and competence of others.\nWhen a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of @Compendium[dnd5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiraton}, rolling a Bardic Inspiration die and subtracting the number rolled from the creature's roll.\nYou can choose to use this feature after the creature makes its roll, but before the GM determines whether the attack roll or ability check succeeds or fails, or before the creature deals its damage. The creature is immune if it can't hear you or if it's immune to being charmed.",
+        "activities": [
+          {
+            "name": "Cutting Words",
+            "type": "utility",
+            "activation": {
+              "type": "reaction",
+              "value": 1,
+              "condition": "Target must be able to hear you and not be immune to being Charmed.",
+              "override": false,
+              "label": "1 reacción"
+            },
+            "range": {
+              "value": "60",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "60 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 10,
+      "id": null,
+      "name": "Angelic Wings",
+      "source": "Angelic Wings",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Angelic Wings",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "foWwB6sae9sDJNYm",
+      "linkedFeatureName": "Angelic Wings",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Angelic Wings",
+        "sourceType": "feat",
+        "description": "You create angelic wings that sprout from you back. They last 6 hours.",
+        "activities": [
+          {
+            "name": "Angelic Wings",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 11,
+      "id": null,
+      "name": "Countercharm",
+      "source": "Countercharm",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "Creatures must be able to hear you to benefit.",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Countercharm",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "Creatures must be able to hear you to benefit.",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "30",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "30 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "1",
+            "units": "round",
+            "special": "",
+            "override": false,
+            "label": "1 Asaltos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "THRTEWqcGndMIfvb",
+      "linkedFeatureName": "Countercharm",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Countercharm",
+        "sourceType": "feat",
+        "description": "At 6th level, you gain the ability to use musical notes or words of power to disrupt mind-influencing effects. As an action, you can start a performance that lasts until the end of your next turn. During that time, you and any friendly creatures within 30 feet of you have advantage on saving throws against being frightened or charmed. A creature must be able to hear you to gain this benefit. The performance ends early if you are incapacitated or silenced or if you voluntarily end it (no action required).",
+        "activities": [
+          {
+            "name": "Countercharm",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Creatures must be able to hear you to benefit.",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "30",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "30 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "1",
+              "units": "round",
+              "special": "",
+              "override": false,
+              "label": "1 Asaltos"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 12,
+      "id": null,
+      "name": "Peerless Skill",
+      "source": "Peerless Skill",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Peerless Skill",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "qfJl476kPiFgMNqK",
+      "linkedFeatureName": "Peerless Skill",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Peerless Skill",
+        "sourceType": "feat",
+        "description": "Starting at 14th level, when you make an ability check, you can expend one use of @UUID[Compendium.dnd5e.classfeatures.Item.hpLNiGq7y67d2EHA]{Bardic Inspiraton}.\nRoll a Bardic Inspiration die and add the number rolled to your ability check.\nYou can choose to do so after you roll the die for the ability check, but before the GM tells you whether you succeed or fail.",
+        "activities": [
+          {
+            "name": "Peerless Skill",
+            "type": "utility",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    }
+  ],
+  "externalActions": [
+    {
+      "order": 1,
+      "id": null,
+      "name": "Rapier",
+      "source": "Rapier",
+      "sourceType": "Arma",
+      "type": "attack",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Rapier",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 7,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8+2 piercing"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Rapier",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Rapier",
+        "sourceType": "Arma",
+        "description": "A thin tensile metal blade, light in weight but long in reach designed for quick darting attacks to target weak points in enemy defenses with lightning swiftness.",
+        "activities": [
+          {
+            "name": "Rapier",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "attack": {
+              "bonus": 7,
+              "ability": "dex",
+              "derived": true
+            },
+            "damage": {
+              "parts": [
+                "1d8+2 piercing"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 2,
+      "id": null,
+      "name": "The Flying V Mandolin",
+      "source": "The Flying V Mandolin",
+      "sourceType": "Herramienta",
+      "type": "check",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "—"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "The Flying V Mandolin",
+          "type": "check",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "The Flying V Mandolin",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "The Flying V Mandolin",
+        "sourceType": "Herramienta",
+        "description": "The Flying V Mandolin is a legendary instrument crafted by the divine hands of the Sun God Lux. This magical mandolin is made of shining golden wood with intricate carvings of sun rays and a golden inlay of a soaring phoenix at the center.As soon as a bard touches the Flying V Mandolin, they can feel the power of Lux coursing through their veins.\nThe mandolin glows with a bright golden light, and the user gains advantage on all performance checks made while playing it.The Flying V Mandolin also serves as a potent spell focus for bards, allowing them to cast spells with increased potency and range. When the user plays a spellcasting melody on the mandolin, the notes take flight, soaring towards their intended targets with incredible speed and accuracy.",
+        "activities": [
+          {
+            "name": "The Flying V Mandolin",
+            "type": "check",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "—"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "The music of the sun god"
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 3,
+      "id": null,
+      "name": "Hempen Rope (50 ft.)",
+      "source": "Hempen Rope (50 ft.)",
+      "sourceType": "Consumible",
+      "type": "check",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": 1,
+        "max": 1,
+        "spent": 0,
+        "rawMax": 1,
+        "recovery": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Hempen Rope (50 ft.)",
+          "type": "check",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Hempen Rope (50 ft.)",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "FUE"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Hempen Rope (50 ft.)",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Hempen Rope (50 ft.)",
+        "sourceType": "Consumible",
+        "description": "Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.",
+        "activities": [
+          {
+            "name": "Hempen Rope (50 ft.)",
+            "type": "check",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          },
+          {
+            "name": "Hempen Rope (50 ft.)",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "save": {
+              "dc": 18,
+              "labels": [
+                "FUE"
+              ]
+            }
+          }
+        ],
+        "uses": {
+          "current": 1,
+          "max": 1,
+          "spent": 0,
+          "rawMax": "1",
+          "recovery": []
+        }
+      }
+    },
+    {
+      "order": 4,
+      "id": null,
+      "name": "Cook's Utensils",
+      "source": "Cook's Utensils",
+      "sourceType": "Herramienta",
+      "type": "check",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "—"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Cook's Utensils",
+          "type": "check",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Cook's Utensils",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Cook's Utensils",
+        "sourceType": "Herramienta",
+        "description": "These special tools include the items needed to pursue a craft or trade in cookery.\nProficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency.",
+        "activities": [
+          {
+            "name": "Cook's Utensils",
+            "type": "check",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "—"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 5,
+      "id": null,
+      "name": "Handaxe",
+      "source": "Handaxe",
+      "sourceType": "Arma",
+      "type": "attack",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Handaxe",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "20",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "20 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 4,
+            "ability": "str",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d6-1 slashing"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Handaxe",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Handaxe",
+        "sourceType": "Arma",
+        "description": "This one-handed axe is light and balanced for throwing while remaining useful in hand combat.",
+        "activities": [
+          {
+            "name": "Handaxe",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "20",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "20 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "attack": {
+              "bonus": 4,
+              "ability": "str",
+              "derived": true
+            },
+            "damage": {
+              "parts": [
+                "1d6-1 slashing"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 6,
+      "id": null,
+      "name": "Gauner's Arcane Chumbo",
+      "source": "Gauner's Arcane Chumbo",
+      "sourceType": "Arma",
+      "type": "attack",
+      "actionCategory": "BONUS_ACTION",
+      "activation": {
+        "type": "bonus",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción adicional"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Gauner's Arcane Chumbo",
+          "type": "attack",
+          "activation": {
+            "type": "bonus",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción adicional"
+          },
+          "consumption": null,
+          "range": {
+            "value": "120",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "120 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 9,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "3d8+2 force"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Gauner's Arcane Chumbo",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Gauner's Arcane Chumbo",
+        "sourceType": "Arma",
+        "description": "Gauner's Arcane Chumbo is an arcane firearm designed for the quick draw.\nAs a bonus action you can fire Gauner's Arcane Chumbo. If it hits it does 3d8 force damage, pushes the target 5 feet. If the attack is a critical one it is considered a headshot and it adds 2d8 to the critical.",
+        "activities": [
+          {
+            "name": "Gauner's Arcane Chumbo",
+            "type": "attack",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción adicional"
+            },
+            "range": {
+              "value": "120",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "120 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "attack": {
+              "bonus": 9,
+              "ability": "dex",
+              "derived": true
+            },
+            "damage": {
+              "parts": [
+                "3d8+2 force"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    }
+  ],
+  "features": [
+    {
+      "order": 1,
+      "id": "DLC5Y52Nq8AMvb80",
+      "name": "Bard",
+      "type": "class",
+      "sourceType": "class",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "As a bard, you gain the following class features.\nHit Points\nHit Dice: 1d8 per bard level\nHit Points at 1st Level: 8 + your Constitution modifier\nHit Points at Higher Levels: 1d8 (or 5) + your Constitution modifier per bard level after 1st\nProficiencies\nArmor: Light armor\nWeapons: Simple weapons, hand crossbows, longswords, rapiers, shortswords\nTools: Three musical instruments of your choice\nSaving Throws: Dexterity, Charisma\nSkills: Choose any three\nEquipment\nYou start with the following equipment, in addition to the equipment granted by your background:\n(a) a rapier, (b) a longsword, or (c) any simple weapon\n(a) a diplomat's pack or (b) an entertainer's pack\n(a) a lute or (b) any other musical instrument\nLeather armor and a dagger\nBard Advancement Level Proficiency Bonus Features 1st +2 @Compendium[dnd5e.classfeatures.u4NLajXETJhJU31v]{Spellcasting}, @Compendium[dnd5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiration (d6)} 2nd +2 @Compendium[dnd5e.classfeatures.ezWijmCnlnQ9ZRX2]{Jack of All Trades}, @Compendium[dnd5e.classfeatures.he8RpPXwSl2lVSIk]{Song of Rest (d6)} 3rd +2 @Compendium[dnd5e.classfeatures.ILhzFHiRrqgQ9dFJ]{Bard College} @Compendium[dnd5e.classfeatures.aQLg7BWdRnm4Hr9S]{Expertise} 4th +2 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 5th +3 @Compendium[dnd5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiration (d8)}, @Compendium[dnd5e.classfeatures.3VDZGs5Ug3hIE322]{Font of Inspiration} 6th +3 @Compendium[dnd5e.classfeatures.SEJmsjkEhdAZ90ki]{Countercharm}, Bard College feature 7th +3 4th Level Spell Slot 8th +3 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 9th +4 5th Level Spell Slot @Compendium[dnd5e.classfeatures.he8RpPXwSl2lVSIk]{Song of Rest (d8)} 10th +4 @Compendium[dnd5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiration (d10)}, @Compendium[dnd5e.classfeatures.aQLg7BWdRnm4Hr9S]{Expertise}, @Compendium[dnd5e.classfeatures.aonJ2YjkqkYB9WYB]{Magical Secrets} 11th +4 6th Level Spell Slot 12th +4 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 13th +5 7th Level Spell, Slot@Compendium[dnd5e.classfeatures.he8RpPXwSl2lVSIk]{Song of Rest (d10)} 14th +5 @Compendium[dnd5e.classfeatures.aonJ2YjkqkYB9WYB]{Magical Secrets}, Bard College feature 15th +5 8th Level Spell Slot, @Compendium[dnd5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiration (d12)} 16th +5 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 17th +6 9th Level Spell Slot, @Compendium[dnd5e.classfeatures.he8RpPXwSl2lVSIk]{Song of Rest (d12)} 18th +6 @Compendium[dnd5e.classfeatures.aonJ2YjkqkYB9WYB]{Magical Secrets} 19th +6 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 20th +6 @Compendium[dnd5e.classfeatures.GBYN5rH4nh1ocRlY]{Superior Inspiration}\nBard Colleges\n@Compendium[dnd5e.subclasses.MNvsEc4D2ccX7dQT]{College of Lore}",
+      "descriptionLength": 2891,
+      "source": {
+        "custom": "",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "class",
+      "advancement": {
+        "rpmaepj0rdbnnrzd": {
+          "_id": "rpmaepj0rdbnnrzd",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.u4NLajXETJhJU31v",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.hpLNiGq7y67d2EHA",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "0xQdAjYWmY2dO4Tc": "Compendium.dnd5e.classfeatures.u4NLajXETJhJU31v",
+              "q7vobkQUrfAYVGGZ": "Compendium.dnd5e.classfeatures.hpLNiGq7y67d2EHA"
+            }
+          },
+          "level": 1,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "77jeukqxu384wt2s": {
+          "_id": "77jeukqxu384wt2s",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.ezWijmCnlnQ9ZRX2",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.he8RpPXwSl2lVSIk",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "tLp4zQHzNEAqzqAg": "Compendium.dnd5e.classfeatures.ezWijmCnlnQ9ZRX2",
+              "qRah4iGJTKb8MHt7": "Compendium.dnd5e.classfeatures.he8RpPXwSl2lVSIk"
+            }
+          },
+          "level": 2,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "gsusowuu88npa5l0": {
+          "_id": "gsusowuu88npa5l0",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.ILhzFHiRrqgQ9dFJ",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.aQLg7BWdRnm4Hr9S",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "Kxz4J7NGrea3fgau": "Compendium.dnd5e.classfeatures.ILhzFHiRrqgQ9dFJ",
+              "SW6qdXjGrkmEM0sm": "Compendium.dnd5e.classfeatures.aQLg7BWdRnm4Hr9S"
+            }
+          },
+          "level": 3,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "qg5x53gnsdjd4a0l": {
+          "_id": "qg5x53gnsdjd4a0l",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.3VDZGs5Ug3hIE322",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "uNnAwt0YJHT5Pyo5": "Compendium.dnd5e.classfeatures.Item.3VDZGs5Ug3hIE322"
+            }
+          },
+          "level": 5,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "ldtolype17rp6e63": {
+          "_id": "ldtolype17rp6e63",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.SEJmsjkEhdAZ90ki",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "THRTEWqcGndMIfvb": "Compendium.dnd5e.classfeatures.Item.SEJmsjkEhdAZ90ki"
+            }
+          },
+          "level": 6,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "6ekuqdrpfvjx7zfl": {
+          "_id": "6ekuqdrpfvjx7zfl",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.aonJ2YjkqkYB9WYB",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "qxwbOH53vKbfCOMG": "Compendium.dnd5e.classfeatures.Item.aonJ2YjkqkYB9WYB"
+            }
+          },
+          "level": 10,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "idix0tts0uroxn4h": {
+          "_id": "idix0tts0uroxn4h",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.GBYN5rH4nh1ocRlY",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {},
+          "level": 20,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "9oz3k13fa953sdiq": {
+          "_id": "9oz3k13fa953sdiq",
+          "type": "HitPoints",
+          "configuration": {},
+          "value": {
+            "1": "max",
+            "2": "avg",
+            "3": "avg",
+            "4": "avg",
+            "5": "avg",
+            "6": "avg",
+            "7": "avg",
+            "8": "avg",
+            "9": "avg",
+            "10": "avg",
+            "11": "avg",
+            "12": "avg",
+            "13": "avg",
+            "14": "avg",
+            "15": "avg"
+          },
+          "title": "",
+          "flags": {},
+          "hint": ""
+        },
+        "vc31v6423jmiex1p": {
+          "_id": "vc31v6423jmiex1p",
+          "type": "ScaleValue",
+          "configuration": {
+            "identifier": "inspiration",
+            "type": "dice",
+            "scale": {
+              "1": {
+                "faces": 6,
+                "number": null,
+                "modifiers": []
+              },
+              "5": {
+                "faces": 8,
+                "number": null,
+                "modifiers": []
+              },
+              "10": {
+                "faces": 10,
+                "number": null,
+                "modifiers": []
+              },
+              "15": {
+                "faces": 12,
+                "number": null,
+                "modifiers": []
+              }
+            },
+            "distance": {
+              "units": ""
+            }
+          },
+          "value": {},
+          "title": "Bardic Inspiration Die",
+          "flags": {},
+          "hint": ""
+        },
+        "kf9gpqhy2mdx6hes": {
+          "_id": "kf9gpqhy2mdx6hes",
+          "type": "ScaleValue",
+          "configuration": {
+            "identifier": "song-of-rest",
+            "type": "dice",
+            "scale": {
+              "2": {
+                "faces": 6,
+                "number": null,
+                "modifiers": []
+              },
+              "9": {
+                "faces": 8,
+                "number": null,
+                "modifiers": []
+              },
+              "13": {
+                "faces": 10,
+                "number": null,
+                "modifiers": []
+              },
+              "17": {
+                "faces": 12,
+                "number": null,
+                "modifiers": []
+              }
+            },
+            "distance": {
+              "units": ""
+            }
+          },
+          "value": {},
+          "title": "Song of Rest Die",
+          "flags": {},
+          "hint": ""
+        },
+        "ArTggHgrYDf7Mm8J": {
+          "type": "Trait",
+          "level": 1,
+          "configuration": {
+            "grants": [
+              "saves:dex",
+              "saves:cha"
+            ],
+            "mode": "default",
+            "allowReplacements": false,
+            "choices": []
+          },
+          "value": {
+            "chosen": [
+              "saves:dex",
+              "saves:cha"
+            ]
+          },
+          "_id": "ArTggHgrYDf7Mm8J",
+          "flags": {},
+          "hint": ""
+        },
+        "M9K1TnHZYYSnGJMj": {
+          "type": "Trait",
+          "level": 1,
+          "configuration": {
+            "choices": [
+              {
+                "count": 3,
+                "pool": [
+                  "skills:acr",
+                  "skills:ani",
+                  "skills:arc",
+                  "skills:ath",
+                  "skills:dec",
+                  "skills:his",
+                  "skills:ins",
+                  "skills:itm",
+                  "skills:inv",
+                  "skills:med",
+                  "skills:nat",
+                  "skills:prc",
+                  "skills:per",
+                  "skills:prf",
+                  "skills:rel",
+                  "skills:slt",
+                  "skills:ste",
+                  "skills:sur"
+                ]
+              }
+            ],
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": []
+          },
+          "_id": "M9K1TnHZYYSnGJMj",
+          "value": {
+            "chosen": []
+          },
+          "flags": {},
+          "hint": ""
+        }
+      },
+      "rawItemId": "DLC5Y52Nq8AMvb80",
+      "rawItemType": "class",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 2,
+      "id": "0xQdAjYWmY2dO4Tc",
+      "name": "Spellcasting (Bard)",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You have learned to untangle and reshape the fabric of reality in harmony with your wishes and music. Your spells are part of your vast repertoire, magic that you can tune to different situations.\nCantrips\nYou know two cantrips of your choice from the bard spell list. You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table.\nSpell Slots\nThe Bard table shows how many spell slots you have to cast your spells of 1st level and higher. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.\nFor example, if you know the 1st-level spell cure wounds and have a 1st-level and a 2nd-level spell slot available, you can cast cure wounds using either slot.\nSpells Known of 1st Level and Higher\nYou know four 1st-level spells of your choice from the bard spell list.\nThe Spells Known column of the Bard table shows when you learn more bard spells of your choice. Each of these spells must be of a level for which you have spell slots, as shown on the table. For instance, when you reach 3rd level in this class, you can learn one new spell of 1st or 2nd level.\nAdditionally, when you gain a level in this class, you can choose one of the bard spells you know and replace it with another spell from the bard spell list, which also must be of a level for which you have spell slots. Level Cantrips Known Spells Known —Spell Slots per Spell Level— 1st 2nd 3rd 4th 5th 6th 7th 8th 9th 1st 2 4 2 - - - - - - - - 2nd 2 5 3 - - - - - - - - 3rd 2 6 4 2 - - - - - - - 4th 3 7 4 3 - - - - - - - 5th 3 8 4 3 2 - - - - - - 6th 3 9 4 3 3 - - - - - - 7th 3 10 4 3 3 1 - - - - - 8th 3 11 4 3 3 2 - - - - - 9th 3 12 4 3 3 3 1 - - - - 10th 4 14 4 3 3 3 2 - - - - 11th 4 15 4 3 3 3 2 1 - - - 12th 4 15 4 3 3 3 2 1 - - - 13th 4 16 4 3 3 3 2 1 1 - - 14th 4 18 4 3 3 3 2 1 1 - - 15th 4 19 4 3 3 3 2 1 1 1 - 16th 4 19 4 3 3 3 2 1 1 1 - 17th 4 20 4 3 3 3 2 1 1 1 1 18th 4 22 4 3 3 3 3 1 1 1 1 19th 4 22 4 3 3 3 3 2 1 1 1 20th 4 22 4 3 3 3 3 2 2 1 1\nSpellcasting Ability\nCharisma is your spellcasting ability for your bard spells. Your magic comes from the heart and soul you pour into the performance of your music or oration. You use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a bard spell you cast and when making an attack roll with one.\nSpell save DC = 8 + your proficiency bonus + your Charisma modifier\nSpell attack modifier = your proficiency bonus + your Charisma modifier\nRitual Casting\nYou can cast any bard spell you know as a ritual if that spell has the ritual tag.\nSpellcasting Focus\nYou can use a musical instrument (see @UUID[Compendium.dnd5e.rules.BYFd9hiJGo9L5aOM.JournalEntryPage.AjavRU4yPfI9hfaI]{Adventuring Gear}) as a spellcasting focus for your bard spells.",
+      "descriptionLength": 2917,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Bard 1",
+      "advancement": {},
+      "rawItemId": "0xQdAjYWmY2dO4Tc",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 3,
+      "id": "q7vobkQUrfAYVGGZ",
+      "name": "Bardic Inspiration",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "BONUS_ACTION",
+      "activation": {
+        "type": "bonus",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción adicional"
+      },
+      "uses": {
+        "current": null,
+        "max": "max(1, @abilities.cha.mod)",
+        "spent": 0,
+        "rawMax": "max(1, @abilities.cha.mod)",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "consumption": null,
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "override": false,
+        "label": "60 ft"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "1",
+          "type": "creature",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "1 creature"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "10",
+        "units": "minute",
+        "special": "",
+        "override": false,
+        "label": "10 Minutos"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Bardic Inspiration",
+          "type": "utility",
+          "activation": {
+            "type": "bonus",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción adicional"
+          },
+          "consumption": null,
+          "range": {
+            "value": "60",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "60 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "10",
+            "units": "minute",
+            "special": "",
+            "override": false,
+            "label": "10 Minutos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "You can inspire others through stirring words or music. To do so, you use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Bardic Inspiration die, but must decide before the GM says whether the roll succeeds or fails. Once the Bardic Inspiration die is rolled, it is lost. A creature can have only one Bardic Inspiration die at a time.\nYou can use this feature a number of times equal to your Charisma modifier (a minimum of once).\nYou regain any expended uses when you finish a long rest.\nYour Bardic Inspiration die changes when you reach certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level.\n**Foundry note: Recovery is set to long rest (for levels before @Compendium[dnd5e.classfeatures.3VDZGs5Ug3hIE322]{Font of Inspiration} is gained). Please manually adjust as required.",
+      "descriptionLength": 1178,
+      "source": {
+        "custom": "PHB pg. 53",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Bard 1",
+      "advancement": {},
+      "rawItemId": "q7vobkQUrfAYVGGZ",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 4,
+      "id": "Tt4Q6NjSRV4xvGoJ",
+      "name": "Fey Ancestry",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You have advantage on saving throws against being charmed, and magic can't put you to sleep.",
+      "descriptionLength": 92,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Elf, Half-Elf",
+      "advancement": {},
+      "rawItemId": "Tt4Q6NjSRV4xvGoJ",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 5,
+      "id": "OtNqt3OHuEzIsBLe",
+      "name": "Santo de LUX.",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "El dios del sol te elegido al nacer como uno de sus santos. Hay un halo de luz que te identifica como santo. Tienes una resistencia mayor de lo normal, además posees una mascota que te acompaña en tu viaje de santo.",
+      "descriptionLength": 215,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "OtNqt3OHuEzIsBLe",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 6,
+      "id": "habzIb4meLnNetdb",
+      "name": "Le Chon",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Your familiar acts independently of you, but it always obeys your commands. In combat, it rolls its own initiative and acts on its own turn. A familiar can’t attack, but it can take other actions as normal. When the familiar drops to 0 hit points, it disappears, leaving behind no physical form. It reappears after you cast this spell again. As an action, you can temporarily dismiss your familiar to a pocket dimension. Alternatively, you can dismiss it forever. As an action while it is temporarily dismissed, you can cause it to reappear in any unoccupied space within 30 feet of you. Whenever the familiar drops to 0 hit points or disappears into the pocket dimension, it leaves behind in its space anything it was wearing or carrying. While your familiar is within 100 feet of you, you can communicate with it telepathically. Additionally, as an action, you can see through your familiar’s eyes and hear what it hears until the start of your next turn, gaining the benefits of any special senses that the familiar has. During this time, you are deaf and blind with regard to your own senses. You can’t have more than one familiar at a time. If you cast this spell while you already have a familiar, you instead cause it to adopt a new form. Choose one of the forms from the above list. Your familiar transforms into the chosen creature. Finally, when you cast a spell with a range of touch, your familiar can deliver the spell as if it had cast the spell. Your familiar must be within 100 feet of you, and it must use its reaction to deliver the spell when you cast it. If the spell requires an attack roll, you use your attack modifier for the roll.",
+      "descriptionLength": 1655,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "habzIb4meLnNetdb",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 7,
+      "id": "tLp4zQHzNEAqzqAg",
+      "name": "Jack of All Trades",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 1,
+      "description": "Starting at 2nd level, you can add half your proficiency bonus, rounded down, to any ability check you make that doesn't already include your proficiency bonus.",
+      "descriptionLength": 160,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Bard 2",
+      "advancement": {},
+      "rawItemId": "tLp4zQHzNEAqzqAg",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 8,
+      "id": "qRah4iGJTKb8MHt7",
+      "name": "Song of Rest",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Song of Rest",
+          "type": "heal",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest.\nIf you or any friendly creatures who can hear your performance regain hit points at the end of the short rest by spending one or more Hit Dice, each of those creatures regains an extra 1d6 hit points.\nThe extra hit points increase when you reach certain levels in this class: to 1d8 at 9th level, to 1d10 at 13th level, and to 1d12 at 17th level.",
+      "descriptionLength": 468,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Bard 2",
+      "advancement": {},
+      "rawItemId": "qRah4iGJTKb8MHt7",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 9,
+      "id": "Kxz4J7NGrea3fgau",
+      "name": "Bard College",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "At 3rd level, you delve into the advanced techniques of a bard college of your choice, such as the College of Lore. Your choice grants you features at 3rd level and again at 6th and 14th level.",
+      "descriptionLength": 193,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Bard 3",
+      "advancement": {},
+      "rawItemId": "Kxz4J7NGrea3fgau",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 10,
+      "id": "SW6qdXjGrkmEM0sm",
+      "name": "Expertise (Bard)",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "At 3rd level, choose two of your skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 10th level, you can choose another two skill proficiencies to gain this benefit.",
+      "descriptionLength": 248,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Bard 3",
+      "advancement": {},
+      "rawItemId": "SW6qdXjGrkmEM0sm",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 11,
+      "id": "Mh6cl4bXoVn1C07o",
+      "name": "College of Lore",
+      "type": "subclass",
+      "sourceType": "subclass",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Bards of the College of Lore know something about most things, collecting bits of knowledge from sources as diverse as scholarly tomes and peasant tales. Whether singing folk ballads in taverns or elaborate compositions in royal courts, these bards use their gifts to hold audiences spellbound. When the applause dies down, the audience members might find themselves questioning everything they held to be true, from their faith in the priesthood of the local temple to their loyalty to the king.\nThe loyalty of these bards lies in the pursuit of beauty and truth, not in fealty to a monarch or following the tenets of a deity. A noble who keeps such a bard as a herald or advisor knows that the bard would rather be honest than politic.\nThe college's members gather in libraries and sometimes in actual colleges, complete with classrooms and dormitories, to share their lore with one another. They also meet at festivals or affairs of state, where they can expose corruption, unravel lies, and poke fun at self-important figures of authority.",
+      "descriptionLength": 1043,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "subclass",
+      "advancement": {
+        "pxolz5oyrvbez6aj": {
+          "_id": "pxolz5oyrvbez6aj",
+          "type": "ItemGrant",
+          "level": 3,
+          "title": "Features",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.e9ytGikyLFgwZ5wi",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.5zPmHPQUne7RDfaU",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "DYYdO93dGDiHYPMu": "Compendium.dnd5e.classfeatures.e9ytGikyLFgwZ5wi",
+              "kVsbERnOkl3KBYed": "Compendium.dnd5e.classfeatures.5zPmHPQUne7RDfaU"
+            }
+          },
+          "flags": {},
+          "hint": ""
+        },
+        "pfjv7s5yjgoi3i1w": {
+          "_id": "pfjv7s5yjgoi3i1w",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.myBu3zi5eYvQIcuy",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "A38cq4TzgNLNCk8B": "Compendium.dnd5e.classfeatures.Item.myBu3zi5eYvQIcuy"
+            }
+          },
+          "level": 6,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "6seg1bfvuexp0gh9": {
+          "_id": "6seg1bfvuexp0gh9",
+          "type": "ItemGrant",
+          "level": 14,
+          "title": "Features",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.pquwueEMweRhiWaq",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "qfJl476kPiFgMNqK": "Compendium.dnd5e.classfeatures.Item.pquwueEMweRhiWaq"
+            }
+          },
+          "flags": {},
+          "hint": ""
+        }
+      },
+      "rawItemId": "Mh6cl4bXoVn1C07o",
+      "rawItemType": "subclass",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 12,
+      "id": "DYYdO93dGDiHYPMu",
+      "name": "Bonus Proficiencies (College of Lore)",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "When you join the College of Lore at 3rd level, you gain proficiency with three skills of your choice.",
+      "descriptionLength": 102,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "College of Lore 3",
+      "advancement": {},
+      "rawItemId": "DYYdO93dGDiHYPMu",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 13,
+      "id": "kVsbERnOkl3KBYed",
+      "name": "Cutting Words",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "REACTION",
+      "activation": {
+        "type": "reaction",
+        "value": 1,
+        "condition": "Target must be able to hear you and not be immune to being Charmed.",
+        "override": false,
+        "label": "1 reacción"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "override": false,
+        "label": "60 ft"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "1",
+          "type": "creature",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "1 creature"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Cutting Words",
+          "type": "utility",
+          "activation": {
+            "type": "reaction",
+            "value": 1,
+            "condition": "Target must be able to hear you and not be immune to being Charmed.",
+            "override": false,
+            "label": "1 reacción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "60",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "60 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Also at 3rd level, you learn how to use your wit to distract, confuse, and otherwise sap the confidence and competence of others.\nWhen a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of @Compendium[dnd5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiraton}, rolling a Bardic Inspiration die and subtracting the number rolled from the creature's roll.\nYou can choose to use this feature after the creature makes its roll, but before the GM determines whether the attack roll or ability check succeeds or fails, or before the creature deals its damage. The creature is immune if it can't hear you or if it's immune to being charmed.",
+      "descriptionLength": 741,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "College of Lore 3",
+      "advancement": {},
+      "rawItemId": "kVsbERnOkl3KBYed",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 14,
+      "id": "YSWNHZyxRPIIN8B1",
+      "name": "Fey tocuched",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Your exposure to the Feywild's magic has changed you, granting you the following benefits:\nIncrease your Intelligence, Wisdom, or Charisma score by 1, to a maximum of 20.\nYou learn the Misty Step spell and one 1st-level spell of your choice. The 1st-level spell must be from the Divination or Enchantment school of magic. You can cast each of these spells without expending a spell slot. Once you cast either of these spells in this way, you can't cast that spell in this way again until you finish a long rest. You can also cast these spells using spell slots you have of the appropriate level. The spells' spellcasting ability is the ability increased by this feat.",
+      "descriptionLength": 667,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "YSWNHZyxRPIIN8B1",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 15,
+      "id": "foWwB6sae9sDJNYm",
+      "name": "Angelic Wings",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Angelic Wings",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "You create angelic wings that sprout from you back. They last 6 hours.",
+      "descriptionLength": 70,
+      "source": {
+        "custom": "",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "foWwB6sae9sDJNYm",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 16,
+      "id": "THRTEWqcGndMIfvb",
+      "name": "Countercharm",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "Creatures must be able to hear you to benefit.",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "special": "",
+        "override": false,
+        "label": "30 ft"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "1",
+        "units": "round",
+        "special": "",
+        "override": false,
+        "label": "1 Asaltos"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Countercharm",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "Creatures must be able to hear you to benefit.",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "30",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "30 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "1",
+            "units": "round",
+            "special": "",
+            "override": false,
+            "label": "1 Asaltos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "At 6th level, you gain the ability to use musical notes or words of power to disrupt mind-influencing effects. As an action, you can start a performance that lasts until the end of your next turn. During that time, you and any friendly creatures within 30 feet of you have advantage on saving throws against being frightened or charmed. A creature must be able to hear you to gain this benefit. The performance ends early if you are incapacitated or silenced or if you voluntarily end it (no action required).",
+      "descriptionLength": 509,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Bard 6",
+      "advancement": {},
+      "rawItemId": "THRTEWqcGndMIfvb",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 17,
+      "id": "A38cq4TzgNLNCk8B",
+      "name": "Additional Magical Secrets",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "At 6th level, you learn two spells of your choice from any class. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you but don't count against the number of bard spells you know.",
+      "descriptionLength": 266,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "College of Lore 6",
+      "advancement": {},
+      "rawItemId": "A38cq4TzgNLNCk8B",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 18,
+      "id": "KtzHGrT4V45ktqg4",
+      "name": "Half-Elf",
+      "type": "race",
+      "sourceType": "race",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Your half‑elf character has some qualities in common with elves and some that are unique to half-­elves.\nAbility Score Increase. Your Charisma score increases by 2, and two other ability scores of your choice increase by 1.\nAge. Half-­elves mature at the same rate humans do and reach adulthood around the age of 20. They live much longer than humans, however, often exceeding 180 years.\nAlignment. Half-­elves share the chaotic bent of their elven heritage. They value both personal freedom and creative expression, demonstrating neither love of leaders nor desire for followers. They chafe at rules, resent others' demands, and sometimes prove unreliable, or at least unpredictable.\nSize. Half-­elves are about the same size as humans, ranging from 5 to 6 feet tall. Your size is Medium.\nSpeed. Your base walking speed is 30 feet.\nDarkvision. Thanks to your elf blood, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.\nFey Ancestry. You have advantage on saving throws against being charmed, and magic can't put you to sleep.\nSkill Versatility. You gain proficiency in two skills of your choice.\nLanguages. You can speak, read, and write Common, Elvish, and one extra language of your choice.",
+      "descriptionLength": 1371,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "race",
+      "advancement": {
+        "rXyxzoqxdxlspMi5": {
+          "_id": "rXyxzoqxdxlspMi5",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.races.cnTbpPPeGW7vGjOV",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "PIBgQWhablQBMavk": "Compendium.dnd5e.races.Item.cnTbpPPeGW7vGjOV"
+            }
+          },
+          "level": 0,
+          "title": "",
+          "flags": {},
+          "hint": ""
+        },
+        "Z9hvZFkWUNvowbQX": {
+          "_id": "Z9hvZFkWUNvowbQX",
+          "type": "AbilityScoreImprovement",
+          "configuration": {
+            "points": 2,
+            "fixed": {
+              "str": 0,
+              "dex": 0,
+              "con": 0,
+              "int": 0,
+              "wis": 0,
+              "cha": 2
+            },
+            "cap": 1,
+            "locked": [],
+            "recommendation": null
+          },
+          "value": {
+            "type": "asi",
+            "assignments": {}
+          },
+          "level": 0,
+          "title": "",
+          "flags": {},
+          "hint": ""
+        },
+        "r3PSgtQO6Eim49LU": {
+          "_id": "r3PSgtQO6Eim49LU",
+          "type": "Size",
+          "configuration": {
+            "sizes": [
+              "med"
+            ]
+          },
+          "value": {
+            "size": "med"
+          },
+          "level": 1,
+          "title": "",
+          "hint": "Half-elves are about the same size as humans, ranging from 5 to 6 feet tall. Your size is Medium.",
+          "flags": {}
+        },
+        "CormRQZ5momyvS2I": {
+          "_id": "CormRQZ5momyvS2I",
+          "type": "Trait",
+          "configuration": {
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": [],
+            "choices": [
+              {
+                "count": 2,
+                "pool": [
+                  "skills:*"
+                ]
+              }
+            ]
+          },
+          "level": 0,
+          "title": "Skill Versatility",
+          "value": {
+            "chosen": []
+          },
+          "flags": {},
+          "hint": ""
+        },
+        "U3OO7jLU0nm0Z7zw": {
+          "_id": "U3OO7jLU0nm0Z7zw",
+          "type": "Trait",
+          "configuration": {
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": [
+              "languages:standard:common",
+              "languages:standard:elvish"
+            ],
+            "choices": [
+              {
+                "count": 1,
+                "pool": [
+                  "languages:*"
+                ]
+              }
+            ]
+          },
+          "level": 0,
+          "title": "",
+          "value": {
+            "chosen": []
+          },
+          "flags": {},
+          "hint": ""
+        }
+      },
+      "rawItemId": "KtzHGrT4V45ktqg4",
+      "rawItemType": "race",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 19,
+      "id": "PIBgQWhablQBMavk",
+      "name": "Fey Ancestry",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You have advantage on saving throws against being charmed, and magic can't put you to sleep.",
+      "descriptionLength": 92,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Elf, Half-Elf",
+      "advancement": {},
+      "rawItemId": "PIBgQWhablQBMavk",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 20,
+      "id": "qxwbOH53vKbfCOMG",
+      "name": "Magical Secrets",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "By 10th level, you have plundered magical knowledge from a wide spectrum of disciplines.\nChoose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip.\nThe chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table.\nYou learn two additional spells from any class at 14th level and again at 18th level.",
+      "descriptionLength": 446,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Bard 10",
+      "advancement": {},
+      "rawItemId": "qxwbOH53vKbfCOMG",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 21,
+      "id": "qfJl476kPiFgMNqK",
+      "name": "Peerless Skill",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Peerless Skill",
+          "type": "utility",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Starting at 14th level, when you make an ability check, you can expend one use of @UUID[Compendium.dnd5e.classfeatures.Item.hpLNiGq7y67d2EHA]{Bardic Inspiraton}.\nRoll a Bardic Inspiration die and add the number rolled to your ability check.\nYou can choose to do so after you roll the die for the ability check, but before the GM tells you whether you succeed or fail.",
+      "descriptionLength": 367,
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "College of Lore 14",
+      "advancement": {},
+      "rawItemId": "qfJl476kPiFgMNqK",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A5_5_MAGNA_FEATURES_AND_RESOURCES_AUDIT"
+}
