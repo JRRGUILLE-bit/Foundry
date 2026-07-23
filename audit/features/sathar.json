@@ -26,14 +26,16 @@
   "featuresWithUses": 2,
   "featuresWithActivities": 8,
   "featureActionReferenceCount": 0,
-  "resourceCount": 8,
+  "resourceCount": 5,
   "validation": {
     "expectedFeatureCount": 21,
     "countMatchesExpected": true,
     "uniqueFeatureIds": true,
     "allFeaturesHaveNames": true,
     "allFeaturesHaveRawItem": true,
-    "allRawItemsAreFeatureTypes": true
+    "allRawItemsAreFeatureTypes": true,
+    "normalizedActionCountMatches": true,
+    "resourceIdsUnique": true
   },
   "reviewFeatures": [],
   "resources": [
@@ -142,60 +144,6 @@
           "lr": false,
           "label": "platinum"
         }
-      }
-    },
-    {
-      "resourceId": "primary",
-      "name": "Silver",
-      "source": "rawActorSystem",
-      "current": null,
-      "max": 50,
-      "spent": null,
-      "recovery": null,
-      "shortRest": false,
-      "longRest": false,
-      "raw": {
-        "value": null,
-        "max": 50,
-        "sr": false,
-        "lr": false,
-        "label": "Silver"
-      }
-    },
-    {
-      "resourceId": "secondary",
-      "name": "Gold",
-      "source": "rawActorSystem",
-      "current": null,
-      "max": 1,
-      "spent": null,
-      "recovery": null,
-      "shortRest": false,
-      "longRest": false,
-      "raw": {
-        "value": null,
-        "max": 1,
-        "sr": false,
-        "lr": false,
-        "label": "Gold"
-      }
-    },
-    {
-      "resourceId": "tertiary",
-      "name": "platinum",
-      "source": "rawActorSystem",
-      "current": null,
-      "max": null,
-      "spent": null,
-      "recovery": null,
-      "shortRest": false,
-      "longRest": false,
-      "raw": {
-        "value": null,
-        "max": null,
-        "sr": false,
-        "lr": false,
-        "label": "platinum"
       }
     }
   ],
@@ -3252,5 +3200,1010 @@
       "status": "COMPLETE_FROM_JSON"
     }
   ],
-  "nextTask": "A5_2_BALDER_FEATURES_RESOURCES_AUDIT"
+  "nextTask": "A5_2_BALDER_FEATURES_RESOURCES_AUDIT",
+  "actions": [
+    {
+      "order": 1,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Frostbrand of Titania",
+        "sourceType": "Arma",
+        "description": "Frostbrand of Titania This elegant, icy blade glistens with a frost that never melts, exuding an aura of fey majesty. The blade reflects Titania’s cold beauty and dominion over the winter. The hilt is adorned with intricate carvings of snowflakes and frozen blossoms, pulsating with a faint, otherworldly blue light.\nDivine Smite (Cold): When used to perform a Divine Smite, the Frostbrand deals cold damage instead of necrotic. Upon striking, shards of ice explode from the blade, chilling the target to the bone and leaving an ethereal frost lingering in the air.\nFey Winter's Grace: On a natural 20, the blade does not simply heal—it envelops the wielder in a burst of frosty energy, restoring 15 HP and coating them in protective ice that grants temporary resistance to cold damage until the end of their next turn. This healing power is a manifestation of Titania’s favor, drawing strength from her eternal winter.\nVeldora’s Stolen Power\nOnce per long rest, as an Action:\nYou unleash a devastating bolt of lightning in a 100-foot line that is 5 feet wide, emanating from you in a direction you choose.\nEach creature in the line must make a Dexterity saving throw (DC 17) .\nA creature takes 10d6 lightning damage on a failed save, or half as much on a success.\nAfter resolving the damage, you instantly teleport to the far end of the lightning bolt’s line , appearing in an unoccupied space of your choice nearest to that endpoint.",
+        "activities": [
+          {
+            "name": "Frostbrand of Titania",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "attack": {
+              "bonus": 11,
+              "ability": "cha",
+              "derived": true
+            },
+            "damage": {
+              "parts": [
+                "2d6+6 slashing"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 2,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": {
+        "current": 1,
+        "max": 1,
+        "spent": 0,
+        "rawMax": "1",
+        "recovery": []
+      },
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Rations",
+        "sourceType": "Consumible",
+        "description": "Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.",
+        "activities": [
+          {
+            "name": "Rations",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false,
+              "label": "Toque"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": 1,
+          "max": 1,
+          "spent": 0,
+          "rawMax": "1",
+          "recovery": []
+        }
+      }
+    },
+    {
+      "order": 3,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Cook's Utensils",
+        "sourceType": "Herramienta",
+        "description": "These special tools include the items needed to pursue a craft or trade in cookery.\nProficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency.",
+        "activities": [
+          {
+            "name": "Cook's Utensils",
+            "type": "check",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "—"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 4,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Winged Boots",
+        "sourceType": "Equipo",
+        "description": "Wondrous item, (requires attunement)\nWhile you wear these boots, you have a flying speed equal to your walking speed. You can use the boots to fly for up to 4 hours, all at once or in several shorter flights, each one using a minimum of 1 minute from the duration. If you are flying when the duration expires, you descend at a rate of 30 feet per round until you land.\nThe boots regain 2 hours of flying capability for every 12 hours they aren't in use.",
+        "activities": [
+          {
+            "name": "Winged Boots",
+            "type": "utility",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "—"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "self",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "self"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "4",
+              "units": "hour",
+              "special": "",
+              "override": false,
+              "label": "4 Horas"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 5,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": {
+        "current": null,
+        "max": "1 + @abilities.cha.mod",
+        "spent": 0,
+        "rawMax": "1 + @abilities.cha.mod",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Divine Sense",
+        "sourceType": "feat",
+        "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strahd von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the @Compendium[dnd5e.spells.SLxA9QhrggTz0taU]{Hallow} spell.\nYou can use this feature a number of times equal to 1 + your Charisma modifier. When you finish a long rest, you regain all expended uses.",
+        "activities": [
+          {
+            "name": "Divine Sense",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "60",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "60 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "1",
+              "units": "round",
+              "special": "",
+              "override": false,
+              "label": "1 Asaltos"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": null,
+          "max": "1 + @abilities.cha.mod",
+          "spent": 0,
+          "rawMax": "1 + @abilities.cha.mod",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "order": 6,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": {
+        "current": null,
+        "max": "5 * @classes.paladin.levels",
+        "spent": 0,
+        "rawMax": "5 * @classes.paladin.levels",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Lay on Hands",
+        "sourceType": "feat",
+        "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level × 5.\nAs an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool.\nAlternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.\nThis feature has no effect on undead and constructs.",
+        "activities": [
+          {
+            "name": "Lay on Hands",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Target cannot be Undead or a Construct.",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false,
+              "label": "Toque"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": null,
+          "max": "5 * @classes.paladin.levels",
+          "spent": 0,
+          "rawMax": "5 * @classes.paladin.levels",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "order": 7,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Necrotic Smite",
+        "sourceType": "feat",
+        "description": "when you hit a creature with a melee weapon attack, you can expend one spell slot to deal necrotic damage to the target, in addition to the weapon's damage.\nThe extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8.",
+        "activities": [
+          {
+            "name": "Necrotic Smite",
+            "type": "damage",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "damage": {
+              "parts": [
+                "2d8 necrotic"
+              ]
+            }
+          },
+          {
+            "name": "Necrotic Smite",
+            "type": "damage",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "damage": {
+              "parts": [
+                "1d8"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 8,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Hexblade's Curse",
+        "sourceType": "feat",
+        "description": "Starting at 1st level, you gain the ability to place a baleful curse on someone. As a bonus action, choose one creature you can see within 30 feet of you. The target is cursed for 1 minute. The curse ends early if the target dies, you die, or you are incapacitated. Until the curse ends, you gain the following benefits:\nYou gain a bonus to damage rolls against the cursed target. The bonus equals your proficiency bonus.\nAny attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\nIf the cursed target dies, you regain hit points equal to your warlock level + your Charisma modifier (minimum of 1 hit point).\nYou can’t use this feature again until you finish a short or long rest.",
+        "activities": [
+          {
+            "name": "Hexblade's Curse",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción adicional"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 9,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Hex Warrior",
+        "sourceType": "feat",
+        "description": "At 1st level, you acquire the training necessary to effectively arm yourself for battle. You gain proficiency with medium armor, shields, and martial weapons.\nThe influence of your patron also allows you to mystically channel your will through a particular weapon. Whenever you finish a long rest, you can touch one weapon that you are proficient with and that lacks the two-handed property. When you attack with that weapon, you can use your Charisma modifier, instead of Strength or Dexterity, for the attack and damage rolls. This benefit lasts until you finish a long rest. If you later gain the Pact of the Blade feature, this benefit extends to every pact weapon you conjure with that feature, no matter the weapon's type.",
+        "activities": [
+          {
+            "name": "Hex Warrior",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 10,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "A mother's love.",
+        "sourceType": "feat",
+        "description": "A mother's love. the undead soul of your mother helps you and give you the help action",
+        "activities": [
+          {
+            "name": "A mother's love.",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción adicional"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 11,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "a mother's sacrifice",
+        "sourceType": "feat",
+        "description": "The spirit of your mother takes a mortal blow instead of you. As a reaction you can use this ability and you take no damage from a single melee or ranged attack. This ability cancels other bonuses that you gain from your mother.",
+        "activities": [
+          {
+            "name": "a mother's sacrifice",
+            "type": "utility",
+            "activation": {
+              "type": "reaction",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 reacción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 12,
+      "id": null,
+      "name": null,
+      "type": null,
+      "activation": null,
+      "actionType": null,
+      "uses": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "damage": null,
+      "save": null,
+      "attack": null,
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "raw": {
+        "source": "Accursed Specter",
+        "sourceType": "feat",
+        "description": "Starting at 6th level, you can curse the soul of a person you slay, temporarily binding it in your service. When you slay a humanoid, you can cause its spirit to rise from its corpse as a specter. When the specter appears, it gains temporary hit points equal to half your warlock level. Roll initiative for the specter, which has its own turns. It obeys your verbal commands, and it gains a special bonus to its attack rolls equal to your Charisma modifier (minimum of +0).\nThe specter remains in your service until the end of your next long rest, at which point it vanishes to the afterlife.\nOnce you bind a specter with this feature, you can't use the feature again until you finish a long rest.",
+        "activities": [
+          {
+            "name": "Accursed Specter",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    }
+  ],
+  "unresolvedActionReferenceCount": 12
 }
