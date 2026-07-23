@@ -1,0 +1,75 @@
+name: A5.1 Link Sathar Feature Actions
+
+on:
+  push:
+    branches:
+      - agent/a5-1-sathar-features
+    paths:
+      - .github/workflows/a5-1-link-sathar-actions.yml
+
+permissions:
+  contents: write
+
+jobs:
+  link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Link normalized actions to audited features
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const vm = require('vm');
+          const auditPath = path.join('audit', 'features', 'sathar.json');
+          const audit = JSON.parse(fs.readFileSync(auditPath, 'utf8'));
+          const bundlePath = path.join('foundry_characters_static', 'characters.bundle.js');
+          const context = { window: {}, console };
+          vm.createContext(context);
+          vm.runInContext(fs.readFileSync(bundlePath, 'utf8'), context, { filename: bundlePath });
+          const root = context.window.BANDA_CHARACTER_DATA || {};
+          const character = (context.window.BANDA_CHARACTERS || root.characters || {}).sathar;
+          const actions = Array.isArray(character?.actions) ? character.actions : [];
+          const clone = (value) => value === undefined ? null : JSON.parse(JSON.stringify(value));
+          const key = (value) => typeof value === 'string' ? value.trim().toLocaleLowerCase('en') : '';
+          const featureByName = new Map((audit.features || []).map((feature) => [key(feature.name), feature]));
+
+          audit.actions = actions.map((action, index) => {
+            const sourceName = action.source || action.name || action.activities?.[0]?.name || null;
+            const linked = featureByName.get(key(sourceName)) || null;
+            const primaryActivity = Array.isArray(action.activities) ? action.activities[0] : null;
+            return {
+              order: index + 1,
+              id: action.id || action._id || null,
+              name: action.name || primaryActivity?.name || sourceName,
+              source: sourceName,
+              sourceType: action.sourceType || null,
+              type: action.type || primaryActivity?.type || null,
+              activation: clone(action.activation || primaryActivity?.activation),
+              uses: clone(action.uses),
+              activities: clone(action.activities),
+              linkedFeatureId: linked?.id || null,
+              linkedFeatureName: linked?.name || null,
+              linkStatus: linked ? 'LINKED_TO_FEATURE' : 'UNRESOLVED_ACTION_SOURCE',
+              raw: clone(action)
+            };
+          });
+          audit.featureActionReferenceCount = audit.actions.filter((action) => action.linkedFeatureId).length;
+          audit.unresolvedActionReferenceCount = audit.actions.filter((action) => !action.linkedFeatureId).length;
+          audit.validation.allNormalizedActionsLinked = audit.unresolvedActionReferenceCount === 0;
+          delete audit.featureActions;
+          fs.writeFileSync(auditPath, JSON.stringify(audit, null, 2) + '\n');
+          NODE
+      - name: Commit linked audit file
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/features/sathar.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "A5.1: link Sathar actions to features"
+            git push
+          fi
