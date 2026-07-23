@@ -1,0 +1,3343 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T08:08:15.153Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "sourceBranch": "main",
+  "canonicalBundle": {
+    "path": "foundry_characters_static/characters.bundle.js",
+    "version": "392e22f826c432c1",
+    "generated": "2026-07-23",
+    "declaredSource": "Six original Foundry VTT actor JSON exports",
+    "rawActorPreservedForEveryCharacter": true
+  },
+  "sourceAudits": {
+    "sourceSummary": "audit/source-summary.json",
+    "characterSummary": "audit/characters-summary.json",
+    "perCharacter": {
+      "sathar": {
+        "spells": "audit/spells/sathar.json",
+        "inventory": "audit/items/sathar.json",
+        "features": "audit/features/sathar.json"
+      },
+      "artionketh": {
+        "spells": "audit/spells/artionketh.json",
+        "inventory": "audit/items/artionketh.json",
+        "features": "audit/features/artionketh.json"
+      },
+      "magna": {
+        "spells": "audit/spells/magna.json",
+        "inventory": "audit/items/magna.json",
+        "features": "audit/features/magna.json"
+      },
+      "melkor": {
+        "spells": "audit/spells/melkor.json",
+        "inventory": "audit/items/melkor.json",
+        "features": "audit/features/melkor.json"
+      },
+      "balder": {
+        "spells": "audit/spells/balder.json",
+        "inventory": "audit/items/balder.json",
+        "features": "audit/features/balder.json"
+      },
+      "ingwe": {
+        "spells": "audit/spells/ingwe.json",
+        "inventory": "audit/items/ingwe.json",
+        "features": "audit/features/ingwe.json"
+      }
+    }
+  },
+  "reviewPolicy": {
+    "blockingDefinition": "A blocking issue is a failed count, source-link, ID, type, or action-accounting validation.",
+    "nonBlockingDefinition": "NEEDS_REVIEW records remain linked to their raw Foundry item but lack one or more structured or descriptive fields in the export.",
+    "reviewQueueMayProceedToDataModel": true
+  },
+  "totals": {
+    "characters": 6,
+    "rawItems": 361,
+    "spells": 126,
+    "inventory": 80,
+    "features": 155,
+    "actions": 89,
+    "linkedFeatureActions": 52,
+    "externalActions": 37,
+    "unresolvedActions": 0,
+    "auditedResources": 37,
+    "normalizedCharacterResources": 15,
+    "completeEntities": 308,
+    "reviewEntities": 53,
+    "auditedEntities": 361
+  },
+  "reviewCountsByDomain": {
+    "spell": 49,
+    "inventory": 4,
+    "feature": 0
+  },
+  "blockingCharacters": [],
+  "validation": {
+    "allSixCharactersPresent": true,
+    "characterOrderMatchesSourceAudit": true,
+    "oneBundleVersionAcrossAudits": true,
+    "bundleVersionMatchesCanonicalManifest": true,
+    "rawItemTotalMatchesManifest": true,
+    "spellTotalMatchesManifest": true,
+    "inventoryTotalMatchesManifest": true,
+    "featureTotalMatchesManifest": true,
+    "actionTotalMatchesManifest": true,
+    "auditedEntityAccountingMatchesRawItems": true,
+    "allPerCharacterCountsMatchManifest": true,
+    "allAuditValidationChecksPassed": true,
+    "allNormalizedActionsAccountedFor": true,
+    "noBlockingCharacters": true,
+    "reviewQueueAccountingMatches": true,
+    "completePlusReviewMatchesAuditedEntities": true
+  },
+  "status": "CONSOLIDATED_READY_WITH_NON_BLOCKING_REVIEW_QUEUE",
+  "globalReviewQueue": [
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "239DZiGrJmwi9fDa",
+      "name": "Booming Blade",
+      "level": 0,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "FXhOoHTE90dsLccm",
+      "name": "Eldritch Blast",
+      "level": 0,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "LoSOKg6estPn6yMe",
+      "name": "Green-Flame Blade",
+      "level": 0,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "ib9XMQV9cofnzv4l",
+      "name": "Armor of Agathys",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "qeInSij5jZQ6LRCT",
+      "name": "Comprehend Languages",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "3Dwo07vXoRldNj2y",
+      "name": "Find Familiar",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "4rS89jWdgaMB8bcP",
+      "name": "Hex",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "1jbTg2lIADbF1S0t",
+      "name": "Letter",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "wimLnNyJhXU86s1X",
+      "name": "Shield",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "sbkb4nJJVUuB6jBQ",
+      "name": "Wrathful Smite",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "hskfKjdwV9OeUzaM",
+      "name": "Blur",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "KvzV3mFQqQmr5EBY",
+      "name": "Branding Smite",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "gXCFbT8rzTL07mLY",
+      "name": "Magic Weapon",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "69aSdUlukvHyUTnp",
+      "name": "Mirror Image",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "PE97qKa3vPcHMEXv",
+      "name": "Animate Dead",
+      "level": 3,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "y2mzD36Y0jF93X2j",
+      "name": "Blight",
+      "level": 4,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "550glgsE1PKHKPPd",
+      "name": "Hold Monster",
+      "level": 5,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "inventory",
+      "characterId": "sathar",
+      "characterName": "Sathar Heranti",
+      "id": "bT6jOGEPbQumkIKU",
+      "name": "Magic Coin",
+      "itemType": "loot",
+      "category": "GENERAL_OR_LOOT",
+      "missingFields": [
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "artionketh",
+      "characterName": "Artionketh Heranti",
+      "id": "aW91ewoQz0IsKmqE",
+      "name": "Spirit Shroud",
+      "level": 3,
+      "missingFields": [
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "magna",
+      "characterName": "Magna",
+      "id": "Kpscg5jIjl4lC0P8",
+      "name": "circulo de teletransportacion",
+      "level": 5,
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "magna",
+      "characterName": "Magna",
+      "id": "PrbKLNvodK3mUXjg",
+      "name": "Telekinesis",
+      "level": 6,
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "melkor",
+      "characterName": "Melkor Amarië",
+      "id": "dWzFWbADUsv0DIon",
+      "name": "Minor Illusion",
+      "level": 0,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "melkor",
+      "characterName": "Melkor Amarië",
+      "id": "SCuq0QpsICcM8TlR",
+      "name": "Imagen especular",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "melkor",
+      "characterName": "Melkor Amarië",
+      "id": "5LY2PfFqPIuYMpQ7",
+      "name": "vicion en la oscuridad",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "inventory",
+      "characterId": "melkor",
+      "characterName": "Melkor Amarië",
+      "id": "ixkShv3jZfxA9eBz",
+      "name": "Unarmed Strike (Monk)",
+      "itemType": "weapon",
+      "category": "WEAPON",
+      "missingFields": [
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "inventory",
+      "characterId": "melkor",
+      "characterName": "Melkor Amarië",
+      "id": "dIYGKTl2A8JpUQkx",
+      "name": "espadas cortas 2 draw",
+      "itemType": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "missingFields": [
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "inventory",
+      "characterId": "melkor",
+      "characterName": "Melkor Amarië",
+      "id": "jtMMYkyx1563XVPq",
+      "name": "capa de veldora",
+      "itemType": "equipment",
+      "category": "EQUIPMENT",
+      "missingFields": [
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "Gxnbifwc5AgZaFFv",
+      "name": "Bane",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "10JZaKTIsLOpPnVL",
+      "name": "Divine Favor",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "5H4qIX3L4C1yKZaS",
+      "name": "Hunter's Mark",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "ju1l9LL8nN3GwoC3",
+      "name": "New Spell",
+      "level": 1,
+      "missingFields": [
+        "components",
+        "description",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "QhRkTAWdq0IJaOfs",
+      "name": "Protection from Evil and Good",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "JrYy1NRFgnf9Msye",
+      "name": "Shield of Faith",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "UWbONBliOjXJOKV0",
+      "name": "Find Steed",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "wuxW0myouWPS3pbz",
+      "name": "Hold Person",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "25dmknSL8r9dibDD",
+      "name": "Misty Step",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "zrlQ3avJPANwJIuq",
+      "name": "Warding Bond",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "ka2x21HEVAhY4MYZ",
+      "name": "Zone of Truth",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "Vm4ev9EMjqdXPzmm",
+      "name": "Crusader's Mantle",
+      "level": 3,
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "dz4hXA8D3cSn48Jl",
+      "name": "Haste",
+      "level": 3,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "3U70nDMbDfqk3ETZ",
+      "name": "Protection from Energy",
+      "level": 3,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "balder",
+      "characterName": "Balder",
+      "id": "dmlDqg3HQNWpmM79",
+      "name": "Revivify",
+      "level": 3,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "o6WJv3JYtdkATcsT",
+      "name": "Vicious Mockery",
+      "level": 0,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "TMmnT6dLoGXzg3Gq",
+      "name": "Healing Word",
+      "level": 1,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "b7hkp5pytC6hQz3I",
+      "name": "New Spell",
+      "level": 1,
+      "missingFields": [
+        "components",
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "8yTYnq1HTCqSOJRD",
+      "name": "New Spell",
+      "level": 1,
+      "missingFields": [
+        "components",
+        "description",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "yqaWyOGMAYasgPCC",
+      "name": "Silvery Barbs",
+      "level": 1,
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "SUVoPkU4aFcUs3ax",
+      "name": "Blindness/Deafness",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "9oDLSan4CjO0UM7h",
+      "name": "Misty Step",
+      "level": 2,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "it1kcYd0EmKwal2R",
+      "name": "Mass Healing Word",
+      "level": 3,
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "9xRHbcveagBeYZpA",
+      "name": "Banishing Smite",
+      "level": 5,
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "HTJXWISIrG8JJgaz",
+      "name": "Circle of Power",
+      "level": 5,
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "domain": "spell",
+      "characterId": "ingwe",
+      "characterName": "Ingwë Amarië",
+      "id": "3hy8YIdCIn3Y0BB3",
+      "name": "Curar heridas en masa",
+      "level": 5,
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    }
+  ],
+  "characters": [
+    {
+      "id": "sathar",
+      "name": "Sathar Heranti",
+      "profile": {
+        "race": "No registrado",
+        "level": 15,
+        "classes": [
+          {
+            "name": "Paladin",
+            "levels": 1,
+            "identifier": "paladin"
+          },
+          {
+            "name": "Warlock",
+            "levels": 14,
+            "identifier": "warlock"
+          }
+        ],
+        "subclasses": [
+          "Hexblade"
+        ],
+        "hp": {
+          "current": 132,
+          "max": 132,
+          "temporary": 25
+        },
+        "armorClass": {
+          "value": 18,
+          "formula": "Derivada del export; base calculada 18"
+        },
+        "initiative": 0,
+        "proficiencyBonus": 5,
+        "spellcasting": {
+          "ability": "cha",
+          "abilityLabel": "CAR",
+          "attackBonus": 10,
+          "saveDc": 18,
+          "slots": [],
+          "pact": {
+            "level": 5,
+            "current": 1,
+            "max": 3
+          }
+        },
+        "source": {
+          "systemId": null,
+          "systemVersion": "5.3.3",
+          "coreVersion": "14.364",
+          "hasRawActor": true
+        }
+      },
+      "manifest": {
+        "rawItems": 49,
+        "spells": 17,
+        "inventory": 11,
+        "features": 21,
+        "actions": 12,
+        "allRawItemsPreserved": true
+      },
+      "audits": {
+        "spells": {
+          "file": "audit/spells/sathar.json",
+          "count": 17,
+          "countsByLevel": {
+            "0": 3,
+            "1": 7,
+            "2": 4,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          },
+          "statusCounts": {
+            "NEEDS_REVIEW": 17
+          },
+          "completeCount": 0,
+          "reviewCount": 17,
+          "reviewItems": [
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "239DZiGrJmwi9fDa",
+              "name": "Booming Blade",
+              "level": 0,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "FXhOoHTE90dsLccm",
+              "name": "Eldritch Blast",
+              "level": 0,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "LoSOKg6estPn6yMe",
+              "name": "Green-Flame Blade",
+              "level": 0,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "ib9XMQV9cofnzv4l",
+              "name": "Armor of Agathys",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "qeInSij5jZQ6LRCT",
+              "name": "Comprehend Languages",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "3Dwo07vXoRldNj2y",
+              "name": "Find Familiar",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "4rS89jWdgaMB8bcP",
+              "name": "Hex",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "1jbTg2lIADbF1S0t",
+              "name": "Letter",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "wimLnNyJhXU86s1X",
+              "name": "Shield",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "sbkb4nJJVUuB6jBQ",
+              "name": "Wrathful Smite",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "hskfKjdwV9OeUzaM",
+              "name": "Blur",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "KvzV3mFQqQmr5EBY",
+              "name": "Branding Smite",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "gXCFbT8rzTL07mLY",
+              "name": "Magic Weapon",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "69aSdUlukvHyUTnp",
+              "name": "Mirror Image",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "PE97qKa3vPcHMEXv",
+              "name": "Animate Dead",
+              "level": 3,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "y2mzD36Y0jF93X2j",
+              "name": "Blight",
+              "level": 4,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "550glgsE1PKHKPPd",
+              "name": "Hold Monster",
+              "level": 5,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            }
+          ],
+          "validation": {
+            "expectedSpellCount": 17,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "allRawItemsAreSpells": true
+          },
+          "failedChecks": []
+        },
+        "inventory": {
+          "file": "audit/items/sathar.json",
+          "count": 11,
+          "countsByType": {
+            "weapon": 2,
+            "loot": 3,
+            "container": 2,
+            "consumable": 1,
+            "tool": 1,
+            "equipment": 2
+          },
+          "countsByCategory": {
+            "WEAPON": 2,
+            "GENERAL_OR_LOOT": 3,
+            "CONTAINER": 2,
+            "CONSUMABLE": 1,
+            "TOOL": 1,
+            "ARMOR_OR_SHIELD": 2
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 10,
+            "NEEDS_REVIEW": 1
+          },
+          "completeCount": 10,
+          "reviewCount": 1,
+          "reviewItems": [
+            {
+              "domain": "inventory",
+              "characterId": "sathar",
+              "characterName": "Sathar Heranti",
+              "id": "bT6jOGEPbQumkIKU",
+              "name": "Magic Coin",
+              "itemType": "loot",
+              "category": "GENERAL_OR_LOOT",
+              "missingFields": [
+                "description"
+              ],
+              "status": "NEEDS_REVIEW"
+            }
+          ],
+          "equippedCount": 2,
+          "attunedCount": 3,
+          "itemsWithUses": 1,
+          "itemsWithActivities": 4,
+          "validation": {
+            "expectedInventoryCount": 11,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "noSpellsOrFeaturesIncluded": true
+          },
+          "failedChecks": []
+        },
+        "features": {
+          "file": "audit/features/sathar.json",
+          "count": 21,
+          "countsBySourceType": {
+            "class": 2,
+            "feat": 19
+          },
+          "countsByActionCategory": {
+            "PASSIVE_OR_SPECIAL": 14,
+            "ACTION": 4,
+            "BONUS_ACTION": 2,
+            "REACTION": 1
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 21
+          },
+          "completeCount": 21,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "featuresWithUses": 2,
+          "featuresWithActivities": 8,
+          "resourceCount": 5,
+          "resources": [
+            {
+              "resourceId": "KJclu8muQslI6P4e",
+              "name": "Divine Sense",
+              "source": "featureUses",
+              "current": null,
+              "max": "1 + @abilities.cha.mod",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "ACTION"
+            },
+            {
+              "resourceId": "Dd7lgIHJQVm4R62c",
+              "name": "Lay on Hands",
+              "source": "featureUses",
+              "current": null,
+              "max": "5 * @classes.paladin.levels",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "ACTION"
+            },
+            {
+              "resourceId": "0",
+              "name": "Silver",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 50,
+              "spent": null,
+              "recovery": null,
+              "shortRest": null,
+              "longRest": null,
+              "raw": {
+                "name": "Silver",
+                "current": 0,
+                "max": 50,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": 50,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Silver"
+                }
+              }
+            },
+            {
+              "resourceId": "1",
+              "name": "Gold",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 1,
+              "spent": null,
+              "recovery": null,
+              "shortRest": null,
+              "longRest": null,
+              "raw": {
+                "name": "Gold",
+                "current": 0,
+                "max": 1,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": 1,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Gold"
+                }
+              }
+            },
+            {
+              "resourceId": "2",
+              "name": "platinum",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": null,
+              "longRest": null,
+              "raw": {
+                "name": "platinum",
+                "current": 0,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "platinum"
+                }
+              }
+            }
+          ],
+          "validation": {
+            "expectedFeatureCount": 21,
+            "countMatchesExpected": true,
+            "uniqueFeatureIds": true,
+            "allFeaturesHaveNames": true,
+            "allFeaturesHaveRawItem": true,
+            "allRawItemsAreFeatureTypes": true,
+            "normalizedActionCountMatches": true,
+            "resourceIdsUnique": true,
+            "allFeatureActionsLinked": true,
+            "allNormalizedActionsAccountedFor": true
+          },
+          "failedChecks": []
+        },
+        "actions": {
+          "normalizedCount": 12,
+          "linkedToFeatures": 8,
+          "external": 4,
+          "unresolvedCount": 0,
+          "unresolvedActions": []
+        }
+      },
+      "countChecks": {
+        "spellsMatchManifest": true,
+        "inventoryMatchesManifest": true,
+        "featuresMatchManifest": true,
+        "actionsMatchManifest": true,
+        "rawItemAccountingMatchesManifest": true
+      },
+      "validation": {
+        "allAuditChecksPassed": true,
+        "allCountsMatchManifest": true,
+        "allNormalizedActionsAccountedFor": true,
+        "blockingIssueCount": 0
+      },
+      "reviewCount": 18,
+      "readiness": "AUDITED_WITH_NON_BLOCKING_REVIEW_QUEUE"
+    },
+    {
+      "id": "artionketh",
+      "name": "Artionketh Heranti",
+      "profile": {
+        "race": "Human",
+        "level": 15,
+        "classes": [
+          {
+            "name": "Paladin",
+            "levels": 9,
+            "identifier": "paladin"
+          },
+          {
+            "name": "Fighter",
+            "levels": 6,
+            "identifier": "fighter"
+          }
+        ],
+        "subclasses": [
+          "Oath of Glory",
+          "Rune Knight"
+        ],
+        "hp": {
+          "current": 154,
+          "max": 154,
+          "temporary": 14
+        },
+        "armorClass": {
+          "value": 25,
+          "formula": "Derivada del export; base calculada 25"
+        },
+        "initiative": 2,
+        "proficiencyBonus": 5,
+        "spellcasting": {
+          "ability": "cha",
+          "abilityLabel": "CAR",
+          "attackBonus": 8,
+          "saveDc": 16,
+          "slots": [
+            {
+              "level": 1,
+              "current": 4,
+              "max": 4
+            },
+            {
+              "level": 2,
+              "current": 3,
+              "max": 3
+            },
+            {
+              "level": 3,
+              "current": 2,
+              "max": 2
+            }
+          ],
+          "pact": null
+        },
+        "source": {
+          "systemId": null,
+          "systemVersion": "5.3.3",
+          "coreVersion": "14.364",
+          "hasRawActor": true
+        }
+      },
+      "manifest": {
+        "rawItems": 97,
+        "spells": 38,
+        "inventory": 23,
+        "features": 36,
+        "actions": 24,
+        "allRawItemsPreserved": true
+      },
+      "audits": {
+        "spells": {
+          "file": "audit/spells/artionketh.json",
+          "count": 38,
+          "countsByLevel": {
+            "1": 17,
+            "2": 12,
+            "3": 9
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 37,
+            "NEEDS_REVIEW": 1
+          },
+          "completeCount": 37,
+          "reviewCount": 1,
+          "reviewItems": [
+            {
+              "domain": "spell",
+              "characterId": "artionketh",
+              "characterName": "Artionketh Heranti",
+              "id": "aW91ewoQz0IsKmqE",
+              "name": "Spirit Shroud",
+              "level": 3,
+              "missingFields": [
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            }
+          ],
+          "validation": {
+            "expectedSpellCount": 38,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "allRawItemsAreSpells": true
+          },
+          "failedChecks": []
+        },
+        "inventory": {
+          "file": "audit/items/artionketh.json",
+          "count": 23,
+          "countsByType": {
+            "weapon": 4,
+            "consumable": 7,
+            "container": 2,
+            "loot": 3,
+            "equipment": 7
+          },
+          "countsByCategory": {
+            "WEAPON": 4,
+            "CONSUMABLE": 7,
+            "CONTAINER": 2,
+            "GENERAL_OR_LOOT": 3,
+            "ARMOR_OR_SHIELD": 3,
+            "EQUIPMENT": 4
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 23
+          },
+          "completeCount": 23,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "equippedCount": 5,
+          "attunedCount": 4,
+          "itemsWithUses": 6,
+          "itemsWithActivities": 9,
+          "validation": {
+            "expectedInventoryCount": 23,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "noSpellsOrFeaturesIncluded": true
+          },
+          "failedChecks": []
+        },
+        "features": {
+          "file": "audit/features/artionketh.json",
+          "count": 36,
+          "countsBySourceType": {
+            "feat": 33,
+            "class": 2,
+            "subclass": 1
+          },
+          "countsByActionCategory": {
+            "PASSIVE_OR_SPECIAL": 26,
+            "ACTION": 3,
+            "BONUS_ACTION": 5,
+            "REACTION": 2
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 36
+          },
+          "completeCount": 36,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "featuresWithUses": 10,
+          "featuresWithActivities": 15,
+          "resourceCount": 13,
+          "resources": [
+            {
+              "resourceId": "5mS8XJqkp9Uy0Eqn",
+              "name": "See Invisibility",
+              "source": "featureUses",
+              "current": 1,
+              "max": 1,
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "day",
+                  "type": "recoverAll",
+                  "label": "Diario"
+                }
+              ],
+              "actionCategory": "ACTION"
+            },
+            {
+              "resourceId": "kdJQL1Mw0lIuwvmu",
+              "name": "Divine Sense",
+              "source": "featureUses",
+              "current": null,
+              "max": "1 + @abilities.cha.mod",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "ACTION"
+            },
+            {
+              "resourceId": "GyykZqOSF1k3PVJG",
+              "name": "Lay on Hands",
+              "source": "featureUses",
+              "current": null,
+              "max": "5 * @classes.paladin.levels",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "ACTION"
+            },
+            {
+              "resourceId": "Yvn8TDQjTcrVo0Bz",
+              "name": "Channel Divinity (Paladin)",
+              "source": "featureUses",
+              "current": 1,
+              "max": 1,
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "PASSIVE_OR_SPECIAL"
+            },
+            {
+              "resourceId": "778KRQ0Ky7QlUuzU",
+              "name": "Channel Divinity (Paladin) Peerless Athlete",
+              "source": "featureUses",
+              "current": 1,
+              "max": 1,
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "BONUS_ACTION"
+            },
+            {
+              "resourceId": "xVs93PSM8DeuPLSn",
+              "name": "Channel Divinity (Paladin)Inspiring Smite",
+              "source": "featureUses",
+              "current": 1,
+              "max": 1,
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "BONUS_ACTION"
+            },
+            {
+              "resourceId": "v50t4oSDWSKZUJIy",
+              "name": "Déjà vu",
+              "source": "featureUses",
+              "current": 1,
+              "max": 3,
+              "spent": 2,
+              "recovery": [],
+              "actionCategory": "PASSIVE_OR_SPECIAL"
+            },
+            {
+              "resourceId": "THxqaOq5Y699KS1e",
+              "name": "Second Wind",
+              "source": "featureUses",
+              "current": 1,
+              "max": 1,
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "BONUS_ACTION"
+            },
+            {
+              "resourceId": "kgCzaXm9ROpK9wyU",
+              "name": "Action Surge",
+              "source": "featureUses",
+              "current": null,
+              "max": "@scale.fighter.action-surge",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "PASSIVE_OR_SPECIAL"
+            },
+            {
+              "resourceId": "Xn6rkpdDuea4ujVm",
+              "name": "Rage",
+              "source": "featureUses",
+              "current": 1,
+              "max": 1,
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "BONUS_ACTION"
+            },
+            {
+              "resourceId": "0",
+              "name": "Silver",
+              "source": "normalizedCharacter",
+              "current": 50,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Silver",
+                "current": 50,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": 50,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Silver"
+                }
+              }
+            },
+            {
+              "resourceId": "1",
+              "name": "Gold",
+              "source": "normalizedCharacter",
+              "current": 1,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Gold",
+                "current": 1,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": 1,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Gold"
+                }
+              }
+            },
+            {
+              "resourceId": "2",
+              "name": "Platinum",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Platinum",
+                "current": 0,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Platinum"
+                }
+              }
+            }
+          ],
+          "validation": {
+            "expectedFeatureCount": 36,
+            "countMatchesExpected": true,
+            "uniqueFeatureIds": true,
+            "allFeaturesHaveNames": true,
+            "allFeaturesHaveRawItem": true,
+            "allRawItemsAreFeatureTypes": true,
+            "normalizedActionCountMatches": true,
+            "resourceIdsUnique": true,
+            "allFeatureActionsLinked": true,
+            "allNormalizedActionsAccountedFor": true
+          },
+          "failedChecks": []
+        },
+        "actions": {
+          "normalizedCount": 24,
+          "linkedToFeatures": 15,
+          "external": 9,
+          "unresolvedCount": 0,
+          "unresolvedActions": []
+        }
+      },
+      "countChecks": {
+        "spellsMatchManifest": true,
+        "inventoryMatchesManifest": true,
+        "featuresMatchManifest": true,
+        "actionsMatchManifest": true,
+        "rawItemAccountingMatchesManifest": true
+      },
+      "validation": {
+        "allAuditChecksPassed": true,
+        "allCountsMatchManifest": true,
+        "allNormalizedActionsAccountedFor": true,
+        "blockingIssueCount": 0
+      },
+      "reviewCount": 1,
+      "readiness": "AUDITED_WITH_NON_BLOCKING_REVIEW_QUEUE"
+    },
+    {
+      "id": "magna",
+      "name": "Magna",
+      "profile": {
+        "race": "Semielfo",
+        "level": 15,
+        "classes": [
+          {
+            "name": "Sorcerer",
+            "levels": 15,
+            "identifier": "sorcerer"
+          }
+        ],
+        "subclasses": [
+          "Divine Soul"
+        ],
+        "hp": {
+          "current": 89,
+          "max": 89,
+          "temporary": 0
+        },
+        "armorClass": {
+          "value": 14,
+          "formula": "Derivada del export; base calculada 14"
+        },
+        "initiative": 2,
+        "proficiencyBonus": 5,
+        "spellcasting": {
+          "ability": "cha",
+          "abilityLabel": "CAR",
+          "attackBonus": 10,
+          "saveDc": 18,
+          "slots": [
+            {
+              "level": 1,
+              "current": 4,
+              "max": 4
+            },
+            {
+              "level": 2,
+              "current": 3,
+              "max": 3
+            },
+            {
+              "level": 3,
+              "current": 3,
+              "max": 3
+            },
+            {
+              "level": 4,
+              "current": 3,
+              "max": 3
+            },
+            {
+              "level": 5,
+              "current": 2,
+              "max": 2
+            },
+            {
+              "level": 6,
+              "current": 1,
+              "max": 1
+            },
+            {
+              "level": 7,
+              "current": 1,
+              "max": 1
+            },
+            {
+              "level": 8,
+              "current": 0,
+              "max": 1
+            }
+          ],
+          "pact": null
+        },
+        "source": {
+          "systemId": null,
+          "systemVersion": "5.3.3",
+          "coreVersion": "14.364",
+          "hasRawActor": true
+        }
+      },
+      "manifest": {
+        "rawItems": 37,
+        "spells": 20,
+        "inventory": 5,
+        "features": 12,
+        "actions": 7,
+        "allRawItemsPreserved": true
+      },
+      "audits": {
+        "spells": {
+          "file": "audit/spells/magna.json",
+          "count": 20,
+          "countsByLevel": {
+            "0": 3,
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1,
+            "5": 2,
+            "6": 2,
+            "7": 1,
+            "8": 1
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 18,
+            "NEEDS_REVIEW": 2
+          },
+          "completeCount": 18,
+          "reviewCount": 2,
+          "reviewItems": [
+            {
+              "domain": "spell",
+              "characterId": "magna",
+              "characterName": "Magna",
+              "id": "Kpscg5jIjl4lC0P8",
+              "name": "circulo de teletransportacion",
+              "level": 5,
+              "missingFields": [
+                "components",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "magna",
+              "characterName": "Magna",
+              "id": "PrbKLNvodK3mUXjg",
+              "name": "Telekinesis",
+              "level": 6,
+              "missingFields": [
+                "components",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            }
+          ],
+          "validation": {
+            "expectedSpellCount": 20,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "allRawItemsAreSpells": true
+          },
+          "failedChecks": []
+        },
+        "inventory": {
+          "file": "audit/items/magna.json",
+          "count": 5,
+          "countsByType": {
+            "equipment": 4,
+            "consumable": 1
+          },
+          "countsByCategory": {
+            "EQUIPMENT": 3,
+            "ARMOR_OR_SHIELD": 1,
+            "CONSUMABLE": 1
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 5
+          },
+          "completeCount": 5,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "equippedCount": 4,
+          "attunedCount": 3,
+          "itemsWithUses": 2,
+          "itemsWithActivities": 3,
+          "validation": {
+            "expectedInventoryCount": 5,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "noSpellsOrFeaturesIncluded": true
+          },
+          "failedChecks": []
+        },
+        "features": {
+          "file": "audit/features/magna.json",
+          "count": 12,
+          "countsBySourceType": {
+            "class": 1,
+            "feat": 10,
+            "race": 1
+          },
+          "countsByActionCategory": {
+            "PASSIVE_OR_SPECIAL": 12
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 12
+          },
+          "completeCount": 12,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "featuresWithUses": 1,
+          "featuresWithActivities": 4,
+          "resourceCount": 1,
+          "resources": [
+            {
+              "resourceId": "dru0sZWhKXsF11Tz",
+              "name": "Fuente de magia",
+              "source": "featureUses",
+              "current": null,
+              "max": "@classes.sorcerer.levels",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "PASSIVE_OR_SPECIAL"
+            }
+          ],
+          "validation": {
+            "expectedFeatureCount": 12,
+            "countMatchesExpected": true,
+            "uniqueFeatureIds": true,
+            "allFeaturesHaveNames": true,
+            "allFeaturesHaveRawItem": true,
+            "allRawItemsAreFeatureTypes": true,
+            "normalizedActionCountMatches": true,
+            "resourceIdsUnique": true,
+            "allFeatureActionsLinked": true,
+            "allNormalizedActionsAccountedFor": true
+          },
+          "failedChecks": []
+        },
+        "actions": {
+          "normalizedCount": 7,
+          "linkedToFeatures": 4,
+          "external": 3,
+          "unresolvedCount": 0,
+          "unresolvedActions": []
+        }
+      },
+      "countChecks": {
+        "spellsMatchManifest": true,
+        "inventoryMatchesManifest": true,
+        "featuresMatchManifest": true,
+        "actionsMatchManifest": true,
+        "rawItemAccountingMatchesManifest": true
+      },
+      "validation": {
+        "allAuditChecksPassed": true,
+        "allCountsMatchManifest": true,
+        "allNormalizedActionsAccountedFor": true,
+        "blockingIssueCount": 0
+      },
+      "reviewCount": 2,
+      "readiness": "AUDITED_WITH_NON_BLOCKING_REVIEW_QUEUE"
+    },
+    {
+      "id": "melkor",
+      "name": "Melkor Amarië",
+      "profile": {
+        "race": "No registrado",
+        "level": 15,
+        "classes": [
+          {
+            "name": "Monk",
+            "levels": 8,
+            "identifier": "monk"
+          },
+          {
+            "name": "Rogue",
+            "levels": 4,
+            "identifier": "rogue"
+          },
+          {
+            "name": "Fighter",
+            "levels": 3,
+            "identifier": "fighter"
+          }
+        ],
+        "subclasses": [
+          "Way of Shadow",
+          "Assassin",
+          "Battle Master"
+        ],
+        "hp": {
+          "current": 129,
+          "max": 129,
+          "temporary": 14
+        },
+        "armorClass": {
+          "value": 23,
+          "formula": "Derivada del export; base calculada 20"
+        },
+        "initiative": 10,
+        "proficiencyBonus": 5,
+        "spellcasting": {
+          "ability": "int",
+          "abilityLabel": "INT",
+          "attackBonus": 6,
+          "saveDc": 14,
+          "slots": [
+            {
+              "level": 3,
+              "current": 0,
+              "max": 1
+            }
+          ],
+          "pact": null
+        },
+        "source": {
+          "systemId": null,
+          "systemVersion": "5.3.3",
+          "coreVersion": "14.364",
+          "hasRawActor": true
+        }
+      },
+      "manifest": {
+        "rawItems": 62,
+        "spells": 7,
+        "inventory": 17,
+        "features": 38,
+        "actions": 19,
+        "allRawItemsPreserved": true
+      },
+      "audits": {
+        "spells": {
+          "file": "audit/spells/melkor.json",
+          "count": 7,
+          "countsByLevel": {
+            "0": 1,
+            "2": 5,
+            "3": 1
+          },
+          "statusCounts": {
+            "NEEDS_REVIEW": 3,
+            "COMPLETE_FROM_JSON": 4
+          },
+          "completeCount": 4,
+          "reviewCount": 3,
+          "reviewItems": [
+            {
+              "domain": "spell",
+              "characterId": "melkor",
+              "characterName": "Melkor Amarië",
+              "id": "dWzFWbADUsv0DIon",
+              "name": "Minor Illusion",
+              "level": 0,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "melkor",
+              "characterName": "Melkor Amarië",
+              "id": "SCuq0QpsICcM8TlR",
+              "name": "Imagen especular",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "melkor",
+              "characterName": "Melkor Amarië",
+              "id": "5LY2PfFqPIuYMpQ7",
+              "name": "vicion en la oscuridad",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            }
+          ],
+          "validation": {
+            "expectedSpellCount": 7,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "allRawItemsAreSpells": true
+          },
+          "failedChecks": []
+        },
+        "inventory": {
+          "file": "audit/items/melkor.json",
+          "count": 17,
+          "countsByType": {
+            "weapon": 3,
+            "consumable": 4,
+            "loot": 3,
+            "tool": 1,
+            "container": 1,
+            "equipment": 5
+          },
+          "countsByCategory": {
+            "WEAPON": 3,
+            "CONSUMABLE": 4,
+            "GENERAL_OR_LOOT": 3,
+            "TOOL": 1,
+            "CONTAINER": 1,
+            "ARMOR_OR_SHIELD": 3,
+            "EQUIPMENT": 2
+          },
+          "statusCounts": {
+            "NEEDS_REVIEW": 3,
+            "COMPLETE_FROM_JSON": 14
+          },
+          "completeCount": 14,
+          "reviewCount": 3,
+          "reviewItems": [
+            {
+              "domain": "inventory",
+              "characterId": "melkor",
+              "characterName": "Melkor Amarië",
+              "id": "ixkShv3jZfxA9eBz",
+              "name": "Unarmed Strike (Monk)",
+              "itemType": "weapon",
+              "category": "WEAPON",
+              "missingFields": [
+                "description"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "inventory",
+              "characterId": "melkor",
+              "characterName": "Melkor Amarië",
+              "id": "dIYGKTl2A8JpUQkx",
+              "name": "espadas cortas 2 draw",
+              "itemType": "equipment",
+              "category": "ARMOR_OR_SHIELD",
+              "missingFields": [
+                "description"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "inventory",
+              "characterId": "melkor",
+              "characterName": "Melkor Amarië",
+              "id": "jtMMYkyx1563XVPq",
+              "name": "capa de veldora",
+              "itemType": "equipment",
+              "category": "EQUIPMENT",
+              "missingFields": [
+                "description"
+              ],
+              "status": "NEEDS_REVIEW"
+            }
+          ],
+          "equippedCount": 5,
+          "attunedCount": 3,
+          "itemsWithUses": 2,
+          "itemsWithActivities": 7,
+          "validation": {
+            "expectedInventoryCount": 17,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "noSpellsOrFeaturesIncluded": true
+          },
+          "failedChecks": []
+        },
+        "features": {
+          "file": "audit/features/melkor.json",
+          "count": 38,
+          "countsBySourceType": {
+            "class": 3,
+            "feat": 34,
+            "subclass": 1
+          },
+          "countsByActionCategory": {
+            "PASSIVE_OR_SPECIAL": 29,
+            "BONUS_ACTION": 5,
+            "REACTION": 2,
+            "ACTION": 2
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 38
+          },
+          "completeCount": 38,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "featuresWithUses": 5,
+          "featuresWithActivities": 12,
+          "resourceCount": 8,
+          "resources": [
+            {
+              "resourceId": "u8r25pdiTgK8f6l5",
+              "name": "Ki",
+              "source": "featureUses",
+              "current": null,
+              "max": "@classes.monk.levels",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "PASSIVE_OR_SPECIAL"
+            },
+            {
+              "resourceId": "p8myYGsQQqV709HT",
+              "name": "Second Wind",
+              "source": "featureUses",
+              "current": 1,
+              "max": 1,
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "BONUS_ACTION"
+            },
+            {
+              "resourceId": "ixMGdUOtp4JqzyAm",
+              "name": "Action Surge",
+              "source": "featureUses",
+              "current": null,
+              "max": "@scale.fighter.action-surge",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "PASSIVE_OR_SPECIAL"
+            },
+            {
+              "resourceId": "jctv8d19LAoCw1nz",
+              "name": "Dados de Superioridad",
+              "source": "featureUses",
+              "current": 4,
+              "max": 4,
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "sr",
+                  "type": "recoverAll",
+                  "label": "Descanso corto"
+                }
+              ],
+              "actionCategory": "PASSIVE_OR_SPECIAL"
+            },
+            {
+              "resourceId": "QTWy5OqANK8z5vnq",
+              "name": "ATAQUE PRECISO",
+              "source": "featureUses",
+              "current": 0,
+              "max": 0,
+              "spent": 0,
+              "recovery": [],
+              "actionCategory": "PASSIVE_OR_SPECIAL"
+            },
+            {
+              "resourceId": "0",
+              "name": "Silver",
+              "source": "normalizedCharacter",
+              "current": 10,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Silver",
+                "current": 10,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": 10,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Silver"
+                }
+              }
+            },
+            {
+              "resourceId": "1",
+              "name": "Gold",
+              "source": "normalizedCharacter",
+              "current": 1,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Gold",
+                "current": 1,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": 1,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Gold"
+                }
+              }
+            },
+            {
+              "resourceId": "2",
+              "name": "Platinum",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Platinum",
+                "current": 0,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Platinum"
+                }
+              }
+            }
+          ],
+          "validation": {
+            "expectedFeatureCount": 38,
+            "countMatchesExpected": true,
+            "uniqueFeatureIds": true,
+            "allFeaturesHaveNames": true,
+            "allFeaturesHaveRawItem": true,
+            "allRawItemsAreFeatureTypes": true,
+            "normalizedActionCountMatches": true,
+            "resourceIdsUnique": true,
+            "allFeatureActionsLinked": true,
+            "allNormalizedActionsAccountedFor": true
+          },
+          "failedChecks": []
+        },
+        "actions": {
+          "normalizedCount": 19,
+          "linkedToFeatures": 12,
+          "external": 7,
+          "unresolvedCount": 0,
+          "unresolvedActions": []
+        }
+      },
+      "countChecks": {
+        "spellsMatchManifest": true,
+        "inventoryMatchesManifest": true,
+        "featuresMatchManifest": true,
+        "actionsMatchManifest": true,
+        "rawItemAccountingMatchesManifest": true
+      },
+      "validation": {
+        "allAuditChecksPassed": true,
+        "allCountsMatchManifest": true,
+        "allNormalizedActionsAccountedFor": true,
+        "blockingIssueCount": 0
+      },
+      "reviewCount": 6,
+      "readiness": "AUDITED_WITH_NON_BLOCKING_REVIEW_QUEUE"
+    },
+    {
+      "id": "balder",
+      "name": "Balder",
+      "profile": {
+        "race": "Halfling",
+        "level": 15,
+        "classes": [
+          {
+            "name": "Paladin",
+            "levels": 15,
+            "identifier": "paladin"
+          }
+        ],
+        "subclasses": [
+          "Oath of Vengeance"
+        ],
+        "hp": {
+          "current": 139,
+          "max": 139,
+          "temporary": 0
+        },
+        "armorClass": {
+          "value": 20,
+          "formula": "Derivada del export; base calculada 20"
+        },
+        "initiative": 6,
+        "proficiencyBonus": 5,
+        "spellcasting": {
+          "ability": "cha",
+          "abilityLabel": "CAR",
+          "attackBonus": 10,
+          "saveDc": 18,
+          "slots": [
+            {
+              "level": 1,
+              "current": 4,
+              "max": 4
+            },
+            {
+              "level": 2,
+              "current": 3,
+              "max": 3
+            },
+            {
+              "level": 3,
+              "current": 3,
+              "max": 3
+            },
+            {
+              "level": 4,
+              "current": 2,
+              "max": 2
+            }
+          ],
+          "pact": null
+        },
+        "source": {
+          "systemId": null,
+          "systemVersion": "5.3.3",
+          "coreVersion": "14.364",
+          "hasRawActor": true
+        }
+      },
+      "manifest": {
+        "rawItems": 54,
+        "spells": 15,
+        "inventory": 12,
+        "features": 27,
+        "actions": 15,
+        "allRawItemsPreserved": true
+      },
+      "audits": {
+        "spells": {
+          "file": "audit/spells/balder.json",
+          "count": 15,
+          "countsByLevel": {
+            "1": 6,
+            "2": 5,
+            "3": 4
+          },
+          "statusCounts": {
+            "NEEDS_REVIEW": 15
+          },
+          "completeCount": 0,
+          "reviewCount": 15,
+          "reviewItems": [
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "Gxnbifwc5AgZaFFv",
+              "name": "Bane",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "10JZaKTIsLOpPnVL",
+              "name": "Divine Favor",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "5H4qIX3L4C1yKZaS",
+              "name": "Hunter's Mark",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "ju1l9LL8nN3GwoC3",
+              "name": "New Spell",
+              "level": 1,
+              "missingFields": [
+                "components",
+                "description",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "QhRkTAWdq0IJaOfs",
+              "name": "Protection from Evil and Good",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "JrYy1NRFgnf9Msye",
+              "name": "Shield of Faith",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "UWbONBliOjXJOKV0",
+              "name": "Find Steed",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "wuxW0myouWPS3pbz",
+              "name": "Hold Person",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "25dmknSL8r9dibDD",
+              "name": "Misty Step",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "zrlQ3avJPANwJIuq",
+              "name": "Warding Bond",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "ka2x21HEVAhY4MYZ",
+              "name": "Zone of Truth",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "Vm4ev9EMjqdXPzmm",
+              "name": "Crusader's Mantle",
+              "level": 3,
+              "missingFields": [
+                "components",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "dz4hXA8D3cSn48Jl",
+              "name": "Haste",
+              "level": 3,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "3U70nDMbDfqk3ETZ",
+              "name": "Protection from Energy",
+              "level": 3,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "balder",
+              "characterName": "Balder",
+              "id": "dmlDqg3HQNWpmM79",
+              "name": "Revivify",
+              "level": 3,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            }
+          ],
+          "validation": {
+            "expectedSpellCount": 15,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "allRawItemsAreSpells": true
+          },
+          "failedChecks": []
+        },
+        "inventory": {
+          "file": "audit/items/balder.json",
+          "count": 12,
+          "countsByType": {
+            "equipment": 5,
+            "weapon": 3,
+            "loot": 1,
+            "consumable": 3
+          },
+          "countsByCategory": {
+            "ARMOR_OR_SHIELD": 5,
+            "WEAPON": 3,
+            "GENERAL_OR_LOOT": 1,
+            "CONSUMABLE": 3
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 12
+          },
+          "completeCount": 12,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "equippedCount": 5,
+          "attunedCount": 2,
+          "itemsWithUses": 2,
+          "itemsWithActivities": 8,
+          "validation": {
+            "expectedInventoryCount": 12,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "noSpellsOrFeaturesIncluded": true
+          },
+          "failedChecks": []
+        },
+        "features": {
+          "file": "audit/features/balder.json",
+          "count": 27,
+          "countsBySourceType": {
+            "class": 1,
+            "feat": 25,
+            "subclass": 1
+          },
+          "countsByActionCategory": {
+            "PASSIVE_OR_SPECIAL": 22,
+            "ACTION": 5
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 27
+          },
+          "completeCount": 27,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "featuresWithUses": 3,
+          "featuresWithActivities": 7,
+          "resourceCount": 6,
+          "resources": [
+            {
+              "resourceId": "hSRco8MliVcQF04H",
+              "name": "Divine Sense",
+              "source": "featureUses",
+              "current": null,
+              "max": "1 + @abilities.cha.mod",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "ACTION"
+            },
+            {
+              "resourceId": "HnbsfiLTWA19KQ0c",
+              "name": "Lay on Hands",
+              "source": "featureUses",
+              "current": null,
+              "max": "5 * @classes.paladin.levels",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "ACTION"
+            },
+            {
+              "resourceId": "XtJfaypGIExhcpdl",
+              "name": "Cleansing Touch",
+              "source": "featureUses",
+              "current": null,
+              "max": "max(1, @abilities.cha.mod)",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "ACTION"
+            },
+            {
+              "resourceId": "0",
+              "name": "Silver",
+              "source": "normalizedCharacter",
+              "current": 22,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Silver",
+                "current": 22,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": 22,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Silver"
+                }
+              }
+            },
+            {
+              "resourceId": "1",
+              "name": "Gold",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Gold",
+                "current": 0,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Gold"
+                }
+              }
+            },
+            {
+              "resourceId": "2",
+              "name": "Platinum",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Platinum",
+                "current": 0,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Platinum"
+                }
+              }
+            }
+          ],
+          "validation": {
+            "expectedFeatureCount": 27,
+            "countMatchesExpected": true,
+            "uniqueFeatureIds": true,
+            "allFeaturesHaveNames": true,
+            "allFeaturesHaveRawItem": true,
+            "allRawItemsAreFeatureTypes": true,
+            "normalizedActionCountMatches": true,
+            "resourceIdsUnique": true,
+            "allFeatureActionsLinked": true,
+            "allNormalizedActionsAccountedFor": true
+          },
+          "failedChecks": []
+        },
+        "actions": {
+          "normalizedCount": 15,
+          "linkedToFeatures": 7,
+          "external": 8,
+          "unresolvedCount": 0,
+          "unresolvedActions": []
+        }
+      },
+      "countChecks": {
+        "spellsMatchManifest": true,
+        "inventoryMatchesManifest": true,
+        "featuresMatchManifest": true,
+        "actionsMatchManifest": true,
+        "rawItemAccountingMatchesManifest": true
+      },
+      "validation": {
+        "allAuditChecksPassed": true,
+        "allCountsMatchManifest": true,
+        "allNormalizedActionsAccountedFor": true,
+        "blockingIssueCount": 0
+      },
+      "reviewCount": 15,
+      "readiness": "AUDITED_WITH_NON_BLOCKING_REVIEW_QUEUE"
+    },
+    {
+      "id": "ingwe",
+      "name": "Ingwë Amarië",
+      "profile": {
+        "race": "Half-Elf",
+        "level": 15,
+        "classes": [
+          {
+            "name": "Bard",
+            "levels": 15,
+            "identifier": "bard"
+          }
+        ],
+        "subclasses": [
+          "College of Lore"
+        ],
+        "hp": {
+          "current": 123,
+          "max": 123,
+          "temporary": 0
+        },
+        "armorClass": {
+          "value": 14,
+          "formula": "Derivada del export; base calculada 13"
+        },
+        "initiative": 2,
+        "proficiencyBonus": 5,
+        "spellcasting": {
+          "ability": "cha",
+          "abilityLabel": "CAR",
+          "attackBonus": 10,
+          "saveDc": 18,
+          "slots": [
+            {
+              "level": 1,
+              "current": 4,
+              "max": 4
+            },
+            {
+              "level": 2,
+              "current": 3,
+              "max": 3
+            },
+            {
+              "level": 3,
+              "current": 1,
+              "max": 3
+            },
+            {
+              "level": 4,
+              "current": 3,
+              "max": 3
+            },
+            {
+              "level": 5,
+              "current": 1,
+              "max": 2
+            },
+            {
+              "level": 6,
+              "current": 1,
+              "max": 1
+            },
+            {
+              "level": 7,
+              "current": 1,
+              "max": 1
+            },
+            {
+              "level": 8,
+              "current": 0,
+              "max": 1
+            }
+          ],
+          "pact": null
+        },
+        "source": {
+          "systemId": null,
+          "systemVersion": "5.3.3",
+          "coreVersion": "14.364",
+          "hasRawActor": true
+        }
+      },
+      "manifest": {
+        "rawItems": 62,
+        "spells": 29,
+        "inventory": 12,
+        "features": 21,
+        "actions": 12,
+        "allRawItemsPreserved": true
+      },
+      "audits": {
+        "spells": {
+          "file": "audit/spells/ingwe.json",
+          "count": 29,
+          "countsByLevel": {
+            "0": 4,
+            "1": 7,
+            "2": 2,
+            "3": 4,
+            "4": 2,
+            "5": 4,
+            "6": 5,
+            "8": 1
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 18,
+            "NEEDS_REVIEW": 11
+          },
+          "completeCount": 18,
+          "reviewCount": 11,
+          "reviewItems": [
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "o6WJv3JYtdkATcsT",
+              "name": "Vicious Mockery",
+              "level": 0,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "TMmnT6dLoGXzg3Gq",
+              "name": "Healing Word",
+              "level": 1,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "b7hkp5pytC6hQz3I",
+              "name": "New Spell",
+              "level": 1,
+              "missingFields": [
+                "components",
+                "description"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "8yTYnq1HTCqSOJRD",
+              "name": "New Spell",
+              "level": 1,
+              "missingFields": [
+                "components",
+                "description",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "yqaWyOGMAYasgPCC",
+              "name": "Silvery Barbs",
+              "level": 1,
+              "missingFields": [
+                "components",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "SUVoPkU4aFcUs3ax",
+              "name": "Blindness/Deafness",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "9oDLSan4CjO0UM7h",
+              "name": "Misty Step",
+              "level": 2,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "it1kcYd0EmKwal2R",
+              "name": "Mass Healing Word",
+              "level": 3,
+              "missingFields": [
+                "components"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "9xRHbcveagBeYZpA",
+              "name": "Banishing Smite",
+              "level": 5,
+              "missingFields": [
+                "components",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "HTJXWISIrG8JJgaz",
+              "name": "Circle of Power",
+              "level": 5,
+              "missingFields": [
+                "components",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            },
+            {
+              "domain": "spell",
+              "characterId": "ingwe",
+              "characterName": "Ingwë Amarië",
+              "id": "3hy8YIdCIn3Y0BB3",
+              "name": "Curar heridas en masa",
+              "level": 5,
+              "missingFields": [
+                "components",
+                "activities"
+              ],
+              "status": "NEEDS_REVIEW"
+            }
+          ],
+          "validation": {
+            "expectedSpellCount": 29,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "allRawItemsAreSpells": true
+          },
+          "failedChecks": []
+        },
+        "inventory": {
+          "file": "audit/items/ingwe.json",
+          "count": 12,
+          "countsByType": {
+            "equipment": 1,
+            "weapon": 3,
+            "tool": 2,
+            "loot": 4,
+            "consumable": 2
+          },
+          "countsByCategory": {
+            "ARMOR_OR_SHIELD": 1,
+            "WEAPON": 3,
+            "TOOL": 2,
+            "GENERAL_OR_LOOT": 4,
+            "CONSUMABLE": 2
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 12
+          },
+          "completeCount": 12,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "equippedCount": 4,
+          "attunedCount": 2,
+          "itemsWithUses": 1,
+          "itemsWithActivities": 6,
+          "validation": {
+            "expectedInventoryCount": 12,
+            "countMatchesExpected": true,
+            "uniqueIds": true,
+            "allHaveNames": true,
+            "allHaveRawItem": true,
+            "noSpellsOrFeaturesIncluded": true
+          },
+          "failedChecks": []
+        },
+        "features": {
+          "file": "audit/features/ingwe.json",
+          "count": 21,
+          "countsBySourceType": {
+            "class": 1,
+            "feat": 18,
+            "subclass": 1,
+            "race": 1
+          },
+          "countsByActionCategory": {
+            "PASSIVE_OR_SPECIAL": 17,
+            "BONUS_ACTION": 1,
+            "REACTION": 1,
+            "ACTION": 2
+          },
+          "statusCounts": {
+            "COMPLETE_FROM_JSON": 21
+          },
+          "completeCount": 21,
+          "reviewCount": 0,
+          "reviewItems": [],
+          "featuresWithUses": 1,
+          "featuresWithActivities": 6,
+          "resourceCount": 4,
+          "resources": [
+            {
+              "resourceId": "q7vobkQUrfAYVGGZ",
+              "name": "Bardic Inspiration",
+              "source": "featureUses",
+              "current": null,
+              "max": "max(1, @abilities.cha.mod)",
+              "spent": 0,
+              "recovery": [
+                {
+                  "period": "lr",
+                  "type": "recoverAll",
+                  "label": "Descanso largo"
+                }
+              ],
+              "actionCategory": "BONUS_ACTION"
+            },
+            {
+              "resourceId": "0",
+              "name": "Silver",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 200,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Silver",
+                "current": 0,
+                "max": 200,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": 200,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Silver"
+                }
+              }
+            },
+            {
+              "resourceId": "1",
+              "name": "Gold",
+              "source": "normalizedCharacter",
+              "current": 2000,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Gold",
+                "current": 2000,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": 2000,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Gold"
+                }
+              }
+            },
+            {
+              "resourceId": "2",
+              "name": "Platinum",
+              "source": "normalizedCharacter",
+              "current": 0,
+              "max": 0,
+              "spent": null,
+              "recovery": null,
+              "shortRest": false,
+              "longRest": false,
+              "raw": {
+                "name": "Platinum",
+                "current": 0,
+                "max": 0,
+                "shortRest": false,
+                "longRest": false,
+                "raw": {
+                  "value": null,
+                  "max": null,
+                  "sr": false,
+                  "lr": false,
+                  "label": "Platinum"
+                }
+              }
+            }
+          ],
+          "validation": {
+            "expectedFeatureCount": 21,
+            "countMatchesExpected": true,
+            "uniqueFeatureIds": true,
+            "allFeaturesHaveNames": true,
+            "allFeaturesHaveRawItem": true,
+            "allRawItemsAreFeatureTypes": true,
+            "normalizedActionCountMatches": true,
+            "resourceIdsUnique": true,
+            "allFeatureActionsLinked": true,
+            "allNormalizedActionsAccountedFor": true
+          },
+          "failedChecks": []
+        },
+        "actions": {
+          "normalizedCount": 12,
+          "linkedToFeatures": 6,
+          "external": 6,
+          "unresolvedCount": 0,
+          "unresolvedActions": []
+        }
+      },
+      "countChecks": {
+        "spellsMatchManifest": true,
+        "inventoryMatchesManifest": true,
+        "featuresMatchManifest": true,
+        "actionsMatchManifest": true,
+        "rawItemAccountingMatchesManifest": true
+      },
+      "validation": {
+        "allAuditChecksPassed": true,
+        "allCountsMatchManifest": true,
+        "allNormalizedActionsAccountedFor": true,
+        "blockingIssueCount": 0
+      },
+      "reviewCount": 11,
+      "readiness": "AUDITED_WITH_NON_BLOCKING_REVIEW_QUEUE"
+    }
+  ],
+  "nextTask": "A7_MOBILE_CHARACTER_DATA_CONTRACT"
+}
