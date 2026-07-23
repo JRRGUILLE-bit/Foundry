@@ -1,0 +1,214 @@
+name: A3.1 Generate Sathar Spell Audit
+
+on:
+  push:
+    branches:
+      - agent/a3-1-sathar-spell-audit
+    paths:
+      - .github/workflows/a3-1-generate-sathar-spells.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Generate Sathar spell audit from active bundle
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const vm = require('vm');
+
+          const bundlePath = path.join('foundry_characters_static', 'characters.bundle.js');
+          const code = fs.readFileSync(bundlePath, 'utf8');
+          const context = { window: {}, console };
+          vm.createContext(context);
+          vm.runInContext(code, context, { filename: bundlePath });
+
+          const root = context.window.BANDA_CHARACTER_DATA || {};
+          const characters = context.window.BANDA_CHARACTERS || root.characters || {};
+          const character = characters.sathar;
+          if (!character) throw new Error('Sathar is missing from the active bundle');
+
+          const rawActor = character.rawActor || {};
+          const rawSpells = (rawActor.items || []).filter((item) => item.type === 'spell');
+          const cleanText = (value) => String(value || '')
+            .replace(/<br\s*\/?\s*>/gi, '\n')
+            .replace(/<\/p>/gi, '\n')
+            .replace(/<\/li>/gi, '\n')
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, "'")
+            .replace(/[ \t]+/g, ' ')
+            .replace(/\n\s+/g, '\n')
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+
+          const rawById = new Map(rawSpells.map((item) => [item._id, item]));
+          const findRaw = (spell) => {
+            const candidates = [spell.id, spell._id, spell.rawId, spell.sourceId].filter(Boolean);
+            for (const id of candidates) if (rawById.has(id)) return rawById.get(id);
+            const sameName = rawSpells.filter((item) => item.name === spell.name);
+            if (sameName.length === 1) return sameName[0];
+            return sameName.find((item) => Number(item.system?.level) === Number(spell.level)) || null;
+          };
+
+          const activityAudit = (activity) => ({
+            id: activity.id || activity._id || null,
+            name: activity.name || null,
+            type: activity.type || null,
+            activation: activity.activation || null,
+            range: activity.range || null,
+            target: activity.target || null,
+            duration: activity.duration || null,
+            attack: activity.attack || null,
+            save: activity.save || null,
+            damage: activity.damage || null,
+            healing: activity.healing || null,
+            roll: activity.roll || null,
+            chatFlavor: cleanText(activity.chatFlavor)
+          });
+
+          const spells = (character.spells || []).map((spell) => {
+            const raw = findRaw(spell);
+            const rawSystem = raw?.system || {};
+            const description = cleanText(spell.description || rawSystem.description?.value);
+            const components = Array.isArray(spell.components)
+              ? spell.components
+              : Object.entries(rawSystem.components || {}).filter(([, value]) => value === true).map(([key]) => key.toUpperCase());
+            const materials = cleanText(spell.materials || rawSystem.materials?.value);
+            const activities = (spell.activities || []).map(activityAudit);
+            const sourceBook = spell.source?.book || spell.source?.custom || rawSystem.source?.book || rawSystem.source?.custom || null;
+            const sourceRules = spell.source?.rules || rawSystem.source?.rules || null;
+            const missingFields = [];
+            if (!spell.id && !spell._id && !raw?._id) missingFields.push('id');
+            if (!spell.name) missingFields.push('name');
+            if (spell.level === undefined || spell.level === null) missingFields.push('level');
+            if (!spell.school && !spell.schoolLabel && !rawSystem.school) missingFields.push('school');
+            if (!spell.activation?.label && !rawSystem.activation?.type) missingFields.push('activation');
+            if (!spell.range?.label && !rawSystem.range) missingFields.push('range');
+            if (!spell.duration?.label && !rawSystem.duration) missingFields.push('duration');
+            if (!components.length) missingFields.push('components');
+            if (components.some((entry) => String(entry).toUpperCase() === 'M') && !materials) missingFields.push('materialDetails');
+            if (!description) missingFields.push('description');
+            if (!activities.length) missingFields.push('activities');
+            if (!sourceBook) missingFields.push('sourceBook');
+
+            const statuses = [];
+            if (!description || description.length < 80) statuses.push('NEEDS_RULE_TEXT');
+            if (!sourceBook) statuses.push('NEEDS_SOURCE_CHECK');
+            if (missingFields.some((field) => ['id', 'name', 'level', 'activation', 'range', 'duration'].includes(field))) statuses.push('NEEDS_MANUAL_REVIEW');
+            if (!statuses.length) statuses.push('COMPLETE_FROM_JSON');
+
+            return {
+              id: spell.id || spell._id || raw?._id || null,
+              rawActorItemId: raw?._id || null,
+              name: spell.name,
+              level: spell.level,
+              school: spell.school || rawSystem.school || null,
+              schoolLabel: spell.schoolLabel || null,
+              preparation: {
+                prepared: Boolean(spell.prepared),
+                method: spell.method || null,
+                mode: rawSystem.preparation?.mode || null
+              },
+              activation: spell.activation || null,
+              range: spell.range || null,
+              duration: spell.duration || null,
+              components,
+              materials,
+              concentration: Boolean(spell.concentration ?? rawSystem.duration?.concentration),
+              ritual: Boolean(spell.ritual ?? rawSystem.properties?.includes?.('ritual')),
+              activities,
+              description,
+              descriptionLength: description.length,
+              source: {
+                book: sourceBook,
+                rules: sourceRules,
+                rawIdentifier: rawSystem.identifier || null
+              },
+              rawMatchFound: Boolean(raw),
+              missingFields,
+              auditStatus: statuses
+            };
+          });
+
+          const byLevel = spells.reduce((acc, spell) => {
+            const key = String(spell.level);
+            acc[key] = (acc[key] || 0) + 1;
+            return acc;
+          }, {});
+          const statusCounts = spells.flatMap((spell) => spell.auditStatus).reduce((acc, status) => {
+            acc[status] = (acc[status] || 0) + 1;
+            return acc;
+          }, {});
+
+          const output = {
+            auditVersion: 1,
+            generatedAt: new Date().toISOString(),
+            repository: 'JRRGUILLE-bit/Foundry',
+            bundleVersion: root.version || null,
+            character: {
+              id: character.id,
+              name: character.name,
+              level: character.level,
+              classes: (character.classes || []).map((entry) => ({ name: entry.name, levels: entry.levels })),
+              subclasses: character.subclasses || [],
+              spellcasting: {
+                ability: character.spellcasting?.ability || null,
+                attackBonus: character.spellcasting?.attack ?? null,
+                saveDc: character.spellcasting?.dc ?? null,
+                slots: character.spellcasting?.slots || [],
+                pact: character.spellcasting?.pact || null
+              }
+            },
+            summary: {
+              normalizedSpellCount: spells.length,
+              rawSpellItemCount: rawSpells.length,
+              byLevel,
+              prepared: spells.filter((spell) => spell.preparation.prepared).length,
+              concentration: spells.filter((spell) => spell.concentration).length,
+              ritual: spells.filter((spell) => spell.ritual).length,
+              pactMethod: spells.filter((spell) => spell.preparation.method === 'pact').length,
+              withDescription: spells.filter((spell) => spell.descriptionLength > 0).length,
+              withActivities: spells.filter((spell) => spell.activities.length > 0).length,
+              rawMatches: spells.filter((spell) => spell.rawMatchFound).length,
+              auditStatusCounts: statusCounts
+            },
+            spells,
+            validation: {
+              expectedSpellCount: 17,
+              spellCountMatchesManifest: spells.length === 17,
+              rawSpellCountMatchesNormalized: rawSpells.length === spells.length,
+              everySpellHasName: spells.every((spell) => Boolean(spell.name)),
+              everySpellHasLevel: spells.every((spell) => Number.isInteger(Number(spell.level))),
+              everySpellMatchedToRawActorItem: spells.every((spell) => spell.rawMatchFound),
+              uniqueIds: new Set(spells.map((spell) => spell.id).filter(Boolean)).size === spells.filter((spell) => spell.id).length
+            },
+            nextTask: 'REVIEW_A3_1_FORMAT_THEN_A3_2_BALDER'
+          };
+
+          fs.mkdirSync(path.join('audit', 'spells'), { recursive: true });
+          fs.writeFileSync(path.join('audit', 'spells', 'sathar.json'), JSON.stringify(output, null, 2) + '\n');
+          NODE
+
+      - name: Commit generated audit file
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/spells/sathar.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "A3.1: generate Sathar spell audit"
+            git push
+          fi
