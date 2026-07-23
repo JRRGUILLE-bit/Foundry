@@ -1,0 +1,67 @@
+name: Spell Localization QA
+
+on:
+  pull_request:
+    paths:
+      - "audit/spells/**"
+      - "audit/build-spell-localizations.mjs"
+      - "audit/spell-localization-qa.mjs"
+      - "spell-localizations.es.generated.js"
+      - "spell-localization-runtime.js"
+      - "index.html"
+      - "mobile-character-view-model.js"
+      - "characters.js"
+      - ".github/workflows/spell-localization-qa.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "audit/spells/**"
+      - "audit/build-spell-localizations.mjs"
+      - "audit/spell-localization-qa.mjs"
+      - "spell-localizations.es.generated.js"
+      - "spell-localization-runtime.js"
+      - "index.html"
+      - "mobile-character-view-model.js"
+      - "characters.js"
+      - ".github/workflows/spell-localization-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  spell-localization-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Check source syntax
+        run: |
+          node --check audit/build-spell-localizations.mjs
+          node --check spell-localization-runtime.js
+
+      - name: Generate deterministic localization bundle
+        run: node audit/build-spell-localizations.mjs /tmp/spell-localizations.es.generated.js
+
+      - name: Upload generated localization bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spell-localizations-es-${{ github.sha }}
+          path: /tmp/spell-localizations.es.generated.js
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Verify committed bundle is current
+        run: cmp /tmp/spell-localizations.es.generated.js spell-localizations.es.generated.js
+
+      - name: Run localization QA
+        run: node audit/spell-localization-qa.mjs
