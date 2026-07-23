@@ -31,8 +31,7 @@
     },
     "balder": {
       "candidates": [
-        ["data/characters/balder.json.gz.b64"],
-        ["data/characters/balder.json.gz.b64.part1", "data/characters/balder.json.gz.b64.part2"]
+        ["data/characters/repaired/balder.part01.b64", "data/characters/repaired/balder.part02.b64", "data/characters/repaired/balder.part03.b64", "data/characters/repaired/balder.part04.b64"]
       ]
     },
     "ingwe": {
