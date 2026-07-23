@@ -9,8 +9,8 @@ file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:97
 Error: No se pudo construir artionketh. data/characters/artionketh.json.gz.b64.part1 + data/characters/artionketh.json.gz.b64.part2: artionketh incompleto: esperado {"spells":38,"inventory":23,"features":36}, obtenido {"spells":38,"inventory":23,"features":33}
     at loadCharacter (file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:97:9)
     at file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:112:18
-    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
-    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
-    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
 
-Node.js v20.20.2
+Node.js v24.18.0
