@@ -123,13 +123,17 @@
 
   function applyToCanonical(characterId, map = cache.get(characterId)) {
     if (!map) return false;
-    const collections = [window.BANDA_CHARACTERS, window.BANDA_CHARACTER_DATA?.characters];
+    const collections = new Set([window.BANDA_CHARACTERS, window.BANDA_CHARACTER_DATA?.characters].filter(Boolean));
     let changed = false;
     collections.forEach((collection) => {
       const character = collection?.[characterId];
       if (!character || !Array.isArray(character.spells)) return;
-      character.spells = character.spells.map((spell) => mergeSpell(spell, map.get(String(spell.id))));
-      changed = true;
+      try {
+        character.spells = character.spells.map((spell) => mergeSpell(spell, map.get(String(spell.id))));
+        changed = true;
+      } catch (error) {
+        console.warn(`Unable to apply Spanish spell localization to ${characterId}`, error);
+      }
     });
     return changed;
   }
@@ -146,10 +150,14 @@
       const characterId = match[1].toLowerCase();
       const character = await response.clone().json();
       const localized = await localizeCharacter(character);
+      const headers = new Headers(response.headers);
+      headers.delete?.("content-length");
+      headers.delete?.("content-encoding");
+      headers.set?.("content-type", "application/json; charset=utf-8");
       return new Response(JSON.stringify(localized), {
         status: response.status,
         statusText: response.statusText,
-        headers: response.headers
+        headers
       });
     } catch (error) {
       console.warn("Unable to localize desktop spell response", error);
@@ -169,5 +177,16 @@
     localizeCharacterSync
   });
 
-  TARGETS.forEach((id) => load(id));
+  // Avoid startup work for the four untouched characters. The Spanish payload is
+  // fetched only when Magna or Melkor is actually opened on mobile.
+  window.addEventListener("banda:mobile-character-open", (event) => {
+    const characterId = String(event.detail?.characterId || "").toLowerCase();
+    if (!TARGET_SET.has(characterId)) return;
+    load(characterId).then(() => {
+      const shell = window.BANDA_MOBILE_SHELL;
+      if (shell?.activeCharacterId?.() !== characterId) return;
+      const selected = document.querySelector('.mcs-nav [data-tab="spells"]')?.getAttribute("aria-selected") === "true";
+      if (selected) shell.selectTab("spells");
+    });
+  });
 })();
