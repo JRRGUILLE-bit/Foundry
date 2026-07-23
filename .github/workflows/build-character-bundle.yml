@@ -61,7 +61,7 @@ jobs:
         env:
           TARGET_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
         run: |
-          git add generated/characters.bundle.js generated/characters.manifest.json generated/characters-build-error.txt 2>/dev/null || true
+          git add -A generated
           if git diff --cached --quiet; then
             echo "Character bundle already current."
             exit 0
