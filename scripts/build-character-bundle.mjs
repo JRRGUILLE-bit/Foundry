@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { gunzipSync } from "node:zlib";
+import { gunzipSync, inflateRawSync } from "node:zlib";
 import { normalizeCharacter } from "./character-normalizer.mjs";
 
 const root = resolve(import.meta.dirname, "..");
@@ -14,17 +14,64 @@ function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
 }
 
+function skipZeroTerminated(buffer, offset, label) {
+  while (offset < buffer.length && buffer[offset] !== 0) offset += 1;
+  if (offset >= buffer.length) throw new Error(`Cabecera gzip truncada en ${label}`);
+  return offset + 1;
+}
+
+function inflateGzipIgnoringChecksum(buffer, label) {
+  if (buffer.length < 18 || buffer[0] !== 0x1f || buffer[1] !== 0x8b || buffer[2] !== 8) {
+    throw new Error(`Cabecera gzip inválida en ${label}`);
+  }
+
+  const flags = buffer[3];
+  let offset = 10;
+
+  if (flags & 0x04) {
+    if (offset + 2 > buffer.length) throw new Error(`Campo extra gzip truncado en ${label}`);
+    const extraLength = buffer.readUInt16LE(offset);
+    offset += 2 + extraLength;
+  }
+  if (flags & 0x08) offset = skipZeroTerminated(buffer, offset, label);
+  if (flags & 0x10) offset = skipZeroTerminated(buffer, offset, label);
+  if (flags & 0x02) offset += 2;
+
+  const trailerOffset = buffer.length - 8;
+  if (offset >= trailerOffset) throw new Error(`Bloque deflate vacío o truncado en ${label}`);
+  return inflateRawSync(buffer.subarray(offset, trailerOffset));
+}
+
+function decodeGzip(buffer, label) {
+  try {
+    return { bytes: gunzipSync(buffer), checksumRecovered: false };
+  } catch (error) {
+    if (!/incorrect data check|incorrect length check/i.test(error.message)) throw error;
+    return {
+      bytes: inflateGzipIgnoringChecksum(buffer, label),
+      checksumRecovered: true,
+      checksumError: error.message
+    };
+  }
+}
+
 function decodeCandidate(paths) {
   const chunks = paths.map((path) => readFileSync(resolve(root, path), "utf8"));
   const encoded = chunks.join("").replace(/^\uFEFF/, "").replace(/\s+/g, "");
   if (!encoded.startsWith("H4sI")) {
     throw new Error(`El contenido no parece gzip en base64: ${paths[0]}`);
   }
-  const jsonText = gunzipSync(Buffer.from(encoded, "base64")).toString("utf8");
+
+  const compressed = Buffer.from(encoded, "base64");
+  const decoded = decodeGzip(compressed, paths.join(" + "));
+  const jsonText = decoded.bytes.toString("utf8");
+
   return {
     raw: JSON.parse(jsonText),
     sourceFiles: paths,
-    sourceDigest: sha256(encoded)
+    sourceDigest: sha256(encoded),
+    checksumRecovered: decoded.checksumRecovered,
+    checksumError: decoded.checksumError || null
   };
 }
 
@@ -39,7 +86,9 @@ function loadCharacter(id, candidates) {
       return {
         character: normalizeCharacter(decoded.raw, id),
         sourceFiles: decoded.sourceFiles,
-        sourceDigest: decoded.sourceDigest
+        sourceDigest: decoded.sourceDigest,
+        checksumRecovered: decoded.checksumRecovered,
+        checksumError: decoded.checksumError
       };
     } catch (error) {
       errors.push(`${paths.join(" + ")}: ${error.message}`);
@@ -65,6 +114,8 @@ for (const [id, definition] of Object.entries(config.characters)) {
   sources[id] = {
     files: result.sourceFiles,
     digest: result.sourceDigest,
+    checksumRecovered: result.checksumRecovered,
+    checksumError: result.checksumError,
     counts: result.character.audit.actual
   };
 }
@@ -114,6 +165,7 @@ if (checkOnly) {
 
 for (const [id, source] of Object.entries(sources)) {
   const { spells, inventory, features } = source.counts;
-  console.log(`${id}: ${spells} hechizos, ${inventory} inventario, ${features} rasgos`);
+  const checksumNote = source.checksumRecovered ? " · checksum gzip recuperado" : "";
+  console.log(`${id}: ${spells} hechizos, ${inventory} inventario, ${features} rasgos${checksumNote}`);
 }
 console.log(`Bundle ${payload.version}: ${Object.keys(characters).length} personajes`);
