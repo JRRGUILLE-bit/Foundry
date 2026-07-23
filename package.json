@@ -1,0 +1,9 @@
+{
+  "name": "foundry-banda-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:characters": "node scripts/build-character-bundle.mjs",
+    "check:characters": "node scripts/build-character-bundle.mjs --check"
+  }
+}

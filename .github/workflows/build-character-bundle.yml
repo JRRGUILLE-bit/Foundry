@@ -1,0 +1,85 @@
+name: Build static character bundle
+
+on:
+  push:
+    branches:
+      - main
+      - "agent/**"
+    paths:
+      - "data/characters/**"
+      - "scripts/character-normalizer.mjs"
+      - "scripts/build-character-bundle.mjs"
+      - "package.json"
+      - ".github/workflows/build-character-bundle.yml"
+  pull_request:
+    paths:
+      - "data/characters/**"
+      - "scripts/character-normalizer.mjs"
+      - "scripts/build-character-bundle.mjs"
+      - "package.json"
+      - "generated/characters.bundle.js"
+      - "generated/characters.manifest.json"
+      - ".github/workflows/build-character-bundle.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Build complete static character bundle
+        id: character-build
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p generated
+          rm -f generated/characters-build-error.txt
+          set +e
+          npm run build:characters > /tmp/character-build.log 2>&1
+          status=$?
+          cat /tmp/character-build.log
+          if [ "$status" -ne 0 ]; then
+            cp /tmp/character-build.log generated/characters-build-error.txt
+          fi
+          exit "$status"
+
+      - name: Commit generated bundle or diagnostic
+        if: always()
+        shell: bash
+        env:
+          TARGET_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+        run: |
+          for file in generated/characters.bundle.js generated/characters.manifest.json generated/characters-build-error.txt; do
+            if [ -e "$file" ]; then git add -f "$file"; fi
+          done
+          if [ "${{ steps.character-build.outcome }}" = "success" ] && git ls-files --error-unmatch generated/characters-build-error.txt >/dev/null 2>&1; then
+            git rm -f generated/characters-build-error.txt
+          fi
+          if git diff --cached --quiet; then
+            echo "Generated character files already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Build static character bundle"
+          git push origin "HEAD:${TARGET_BRANCH}"
+
+      - name: Verify generated files
+        if: steps.character-build.outcome == 'success'
+        run: git diff --exit-code -- generated/characters.bundle.js generated/characters.manifest.json
+
+      - name: Fail workflow when character build failed
+        if: steps.character-build.outcome == 'failure'
+        run: exit 1

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-23",
+  "index": "data/characters/index.json",
+  "output": {
+    "bundle": "generated/characters.bundle.js",
+    "manifest": "generated/characters.manifest.json"
+  },
+  "characters": {
+    "sathar": {
+      "candidates": [
+        ["data/characters/sathar.json.gz.b64.part1", "data/characters/sathar.json.gz.b64.part2"]
+      ]
+    },
+    "artionketh": {
+      "candidates": [
+        ["data/characters/artionketh.json.gz.b64.part1", "data/characters/artionketh.json.gz.b64.part2"]
+      ]
+    },
+    "magna": {
+      "candidates": [
+        ["data/characters/magna.json.gz.b64"],
+        ["data/characters/magna.json.gz.b64.part1", "data/characters/magna.json.gz.b64.part2"]
+      ]
+    },
+    "melkor": {
+      "candidates": [
+        ["data/characters/melkor.json.gz.b64"],
+        ["data/characters/melkor.json.gz.b64.part1", "data/characters/melkor.json.gz.b64.part2"]
+      ]
+    },
+    "balder": {
+      "candidates": [
+        ["data/characters/repaired/balder.part01.b64", "data/characters/repaired/balder.part02.b64", "data/characters/repaired/balder.part03.b64", "data/characters/repaired/balder.part04.b64"]
+      ]
+    },
+    "ingwe": {
+      "candidates": [
+        ["data/characters/ingwe.json.gz.b64"]
+      ]
+    }
+  }
+}
