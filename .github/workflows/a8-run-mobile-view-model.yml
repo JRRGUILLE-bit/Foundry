@@ -6,16 +6,27 @@ on:
       - agent/a8-mobile-view-model-adapter
     paths:
       - .github/workflows/a8-run-mobile-view-model.yml
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
 
 jobs:
   generate:
-    if: github.event.head_commit.message == 'A8: add temporary adapter runner'
+    if: >-
+      (github.event_name == 'push' && github.event.head_commit.message == 'A8: enable PR adapter validation') ||
+      (github.event_name == 'pull_request' && github.head_ref == 'agent/a8-mobile-view-model-adapter')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: agent/a8-mobile-view-model-adapter
       - name: Extract adapter and validation script
         shell: bash
         run: |
@@ -39,5 +50,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add mobile-character-view-model.js audit/mobile-view-model-adapter-summary.json
-          git commit -m "A8: add mobile character view model adapter"
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "A8: add mobile character view model adapter"
+            git push
+          fi
