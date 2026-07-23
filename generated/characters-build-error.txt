@@ -1,0 +1,16 @@
+
+> build:characters
+> node scripts/build-character-bundle.mjs
+
+file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:48
+  throw new Error(`No se pudo construir ${id}. ${errors.join(" | ")}`);
+        ^
+
+Error: No se pudo construir sathar. data/characters/sathar.json.gz.b64: incorrect data check | data/characters/sathar.json.gz.b64.part1 + data/characters/sathar.json.gz.b64.part2: incorrect data check
+    at loadCharacter (file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:48:9)
+    at file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:63:18
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v20.20.2
