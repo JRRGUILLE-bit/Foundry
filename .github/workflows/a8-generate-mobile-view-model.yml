@@ -1,0 +1,115 @@
+name: A8 Generate Mobile View Model Adapter
+
+on:
+  push:
+    branches:
+      - agent/a8-mobile-view-model-adapter
+    paths:
+      - .github/workflows/a8-generate-mobile-view-model.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: github.event.head_commit.message == 'A8: add temporary adapter generator'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Write adapter and validate all characters
+        shell: bash
+        run: |
+          python3 - <<'PYCODE'
+          from pathlib import Path
+          import base64, gzip
+          payload = "H4sIABTQYWoC/8U97W4bOZL/8xSdRjBQYxVNBgcccAqygmIrO7rxR85yMlh4fXZbTVu9aXVrult2Ml4B9xD3JvcI9yb3JMcqfhU/WlI8mdk/iZosFotksapYLJZ7t+ty3uZVGaVtm84Xx9VNXrCDRVqn85bVH3P2cFxlrOjdFdVNWiTR47MoitcNi5q2zudt/PoZL5hXZdNG4/fTq4+Ts9n09CR6E/3wWle8m4zPP5xNrs7/+n4y41Ule4hmrO1dxLcsbeN+FM+LtGngR7O+0b85CQz+v0nnn+7qal1m8WVisB6eHo+nJxopEBZFzYoVxZD0gAW8XR+r8/KelW1Vf+Eg66IQhUDEumZDm05Rl+LkCGhesCHDbdnnlvfbu0+LNUuiN3+O2i8rVt1GWBC9efOGD4dPUnkXRyNROOCfy14SDaM4NgNJ6zr9YmMaQ9Egb/B/VS6R8NYXl6Z1dfN3Nm8/Qk1jIxHQ330XoEs0ArpO8dcA6xrV2O5hXlQlC6HmmGBeCGH/Pjs9GazSumE9/CnGn9+qMZDlK9fLG1af1ieAwUJ+gjV89O/yMm9ZT3wrDLw3qyASi0MQV/UyLfJf2U/MmVVYMfmJiztoq6NqnhbsqHpg9UHKqY5ZGctKjacXn7w7VKU1WxWcL3vfX/xt/epfXr16Cf/96+3l93ecU32g/0xf/vrq5b9d/gnrIwUg+MDQ3BTrO5tWOgpZbND+rRH4XsZJ9I9/8P1YlumSZYSn5tVyxXkXcPIpXDaIExlNfg9u84Jv8B5+Yi38iJ6rNeVsowv4zmO3eckyq5SPlgygTW8KNqtq02VfEFEzr28xB8t0JXrv822Zsc8I1nuMSFG0SSRwwzH3emk/ukEwibmXDgT0zUAMg08GL8KmL6EQ8ZLu+OavvyAG/CVa4Z7WcvCOtW/5gAt2VlVtL5FypWZcRPBKlIKDt+OTw/HVwY/js/HB+eTs6nB8Poa+HzcwIxsXnxanzX74ZoDLoWMw10j26amXl6t1q3rLbyNRQKSB+KbSIFFUYdVrbCm5SaHli+uM5wKBL1/rfp5r4CRqF3X1gMJ4UtdV3bv+UH4qq4fSIBxGLx5nKCQkxZvr5DWdIQ3pj3eZfmIz1jT8N2wSDTnN+lFWLdO87MMy5+2XaUZn4jmBhLl8LoDxp4GX/SvZogm6fvFI2m+GLx5Fc/ilWm+ufWqFJjlIW3bH9U8PPu9TKFKkSa3CV4fPsqkeDbAItnlsZlmAweIJvGbxYs5CXAMHYW+qct0Q0LenJx9mV1sa1MxDfzax4FXx+/FsNv04uTo9u5q9nxxMx0exPwc367zIztKHKezLHmEUOgN1+jCecx3NZ0FDDHSh5n0CPgWpApOGMkaBDoSwobA3fG2k/XHMxYFTd8JlqF0rRig7GNxW9YSbSERkCrIVhhxwQ91ocJUjZ4mPPHst4XAfct4COgYNt09yzqpSBlFMn1BzWSpAoAIxn1BszzmoWhurXAxnsEibHoAkcnzYKy/ocw2vEcmqO1GVDFbrZtEjZG3UVEh7BWb3jDXVup6jzRGcTz5tFEavSvOlwaHUupIsqbRGQDjn3ByhOBIz/xeq7U8wEPVxGViSUiypAhkNivSGFdCjKUIYUsKRqomxR4pzZy0KLkc/eoyCBOG8WfMnN8ujno2+5q4+MkVfrkXfneSAuE+LgpstuJ04AqlJhSyypJ3gVtn1bVo0jC6TxMInidrTFwIPEesSTiOS38hg0ANKqcTAS5mKUkRb3UTFqCbClBBWOmin55YRHkQvUbT1mnWImPE6y1shZFL42dgSpklvUcZilS9R0GpAplXMRE4VyOd9tdPIccKt06cKr0aI1NM6A/WnawWnSEYRkgzoHGDfzUj+T3ZBzeZVnXXJIVE7EHJIfkhemwbKUGS5YkpOhOhayyvZr2Fth2A9KaOBMjX/eJI1EXuTLdeLz7T69U8hXHa+neyLwWCwjfQxcljDRVMXID8JsbpMi92Q6xLkWXHPMgV7KUnfOj1iZPooNy253cPNUjkTFTB/YkZNtgSOnII5c+CLU4nElwXztMzyjFtc06zpCdusL3b9mSTYMsblmal3ofapgRyZ9exvqcWVDQIUefmJZe/ErBokgqhwe1IXLA8U+SVCf0wzLBYav2OOQO08ZZZUT6ALw72HS08C8Kidg/NHsVsVdhfdc37ShUBATZW8ALjOyZI7QancWlqy6phhjh2B6eObJeppocEPYDu5M3FkDe9OGFLY6QCNyDsUE5ZJ6NgFHF6bBVr98kIpUZ65xKE5RMnrZgyXwGXazhfMssQVqdrA9O2nJOCL2GbbWIOVXQ4KVt61CzQ3ftCjlJUXry6twTonO3uJb7k0GZsx9nJ7geVGte2JPIMx641BdqO1WSNrl5uvPFOmuMcjHLOZZHGKh/lEqyhLEksC2ryw2T1UXMpj1qZaflsb/ZHullnLd1EzlKKYbzv8xlPpyen51dHp+HByGKsNtsz5qby8e5ezIuONJDfIplalNopKxrLmjN3n7MHrBY3Ik8nkcHZ1Nvk4nfwcK2PJHZKQBmJMYnq3iTI1Qi3bh9YSoeY2i4TOpaBKgBrjTtb4zrnJSjCqY3wIx7mso1iEYBpGb6uqYGmpBtRNhp5LUOV6benwu6ZNb8oPDd/qa/5PP2qEZ2UiPGbkPAHVQIT0I+Hn85AbybhOpBcpLasyn6fFcfqZ7xdoOFjyn6OR+M0Hciw+O1vOVnxDqbYNfljgBSPAB+u6JuBz+am6Ez5rqzmMz29uPKJyyPZAYOjCmR2HYCTJBIqITZ/U47RdwKz0XvXtfl46KEP7vAtv3y3nCL0yxKpK5erL9kOLG0Z0Kru6kg0QqdtcL1y4b9j99wwOVXjz0KM3HD3BKRIi0Sz/UOfogR7isbCLz5fpCozYey6ShQMOZTp4kssWDt/SD/1oOzukIw5EPNKjWo4G1Iknd691kMyUJ0/qA9y7+luKmOsXj4qCzVDVDl88Cjf2n6IfhDfRW2Rj7IEaHRLEyqMRi8FmaaYlc4syyYC2AcFjeyqHWzyXtIUo6hODYL1cicszd9pIZWJkZnnHfFAs1kBtWnMl50OJcg2Wres03LOqMZTDrecnH1CUa7AmvQ8QB6Wm03SZhkYgyjXYgnFBW975cLLCTEgFLgcyE/zbXan5Im3fFel9VVNIU+rCZ6yZ17lcFUKiKVYttuygGToijPe2Hxk7ONWOF0fVmvuhnrAGjGtXOTbwggY/AufsFT/UAm6+oVwLzfQpUPUj+R+Mw3GsKh36ptuUl42lS6qve3YwEbXKsWny+PTtTZ+yJV/7HgXhcRHyQfx27ZGrfQwSh2Sx4Dmx0AVuUyFXwchGczMXlp1ShAkH2YtHuMeUSNG231wrFHqUjhSjckxrDX42GALqUecdDxrXeo3AgTK0OF0JRUOLNXtaQs5ysH6WNzWLTdOC3TNw95EbajkorElAdb0iRM8X3ERTfYkvd+cpqCM44dqgR8ol7baP/++//ptQxXkM9ASxCEUDVZ4Y0CVrF1WmuhFfPkWcK+bgaZey0sZqVRLUXM+u08KFFqUEzGgEJekIq3k4qeyXCC2570p+AeNIfV/uCzBP5kd4VOMAZasPJ2rQqpxOJld8dZ4WjZ5PVeBPqSVgZfe2cEWOk2Xz/H//p+RHxIivP/u8gsvzjEXvINKl/jKIndnEDUq3SlrPF+fsM58V61B9YXi+7zNa3yfrcvD3Ki97EJ1Ahi2OUsOdRyrllFMeyn5krulTsWHwLl78wgt6IG1QYOTFgbzIvxHyIglqHO2c2aV09KkFjqtsfxWkvcWJiUp4shLSyPoylOFpeki0JXcn31YVeVRu0UZ4AWNuNL+FLqIHAugBZD1du5EhEM6ko8FFnl2SUJ+tWg2J/O1KDdAonYYo/wiVRte7W61pcr5CqwnT31y80ZahYwAcDdURAFupT80HOjDhL5OTydn4CC7/j05Pz0mnv6xT9IC5R0BVDqoUcdGCHygJ8oT4HxrRNvAHlt8ttJpASFGUUD2az5kFgiWWPqpNT+LDnxxu1QNdRhMitCwlyNgv63y1omobAVUx1Zltuy49QFnqwS3xYE1AoMAnc1VXK1bDNhjS3WGKEzp76cpoTzl7UEQ7r5dw2iAgWEIg4IQ+dFxKCBjwK21XcZY2RRTfQpl2K069q/o2w/c7Zs7ozb5H3u+nVGX0441hIa5fZWFKClHVqiF46lZVJE9TyfJWpfm9NLK5g0XZLT+frJNl+36kfzxNKevmsfz1jbWyT+cWtayuioW6Ul9/iHLWwTu7FLPtOVM0On6zQCVKAo781eUWL9sWE8BH9lQrQMVxSENAIf4jbAHDY92WAKXnq40B1XhPe6AG4VKjomlMY1rqt/l6Z2LInRjWKoqC36ZYFJbfV7fQdeoH564fouT3PJvZS+FJf7v6iXpCxoz8JjXh6oZUxqGYDc0ZhWznxy1ymMhaGnOCV6fK394hZfZQD4oWFZRrr0ZAhAs4cjPAP0IC2wkfCQl456byW0h18El9qzOZHNwWeax+TfeTy/JljnVP4iJJdmokSparkAytu9TQ1wj9775TC403p7t0gOakkAoQyzWRUedDq1tzKcS7UspAfsr4VHMbpcZIbo5Q5sVuXycUq42GdBOi8lzfPOmW6tZbFu6phX5PjUJW5ukKRSJx9cleasKanz6d174/d/1AV9sVhuFQjBLYpT/6BBxEkIoC8WTTTIeD6DCFURQfTU9+mhxenY1/vpqdfjg7mMTw8u3Dydlkdnr0kdeIlwSqMtG9bVzFFdYtN3mB6+C/JOjSHKqFEj74/UW+PJKdfoKNKmsGECqv4jGE617V6EhyAspZtvrAT1/iLVniOfEbPmPMuVhQzbFOz/iyyvLbHAOEQ8CqOjE3gQyuMYPAWOdcZYZJoPeZ8PG+rm7zeY6eBuWUoMCmXoaWhKwAK5J9mhF1qfRN8OIdeP4n/x1Ed9y+DB90HyEcQxAYjZtzgvoxKE30RcLXVUMdzHKNzV6qzrjeUSADEvyvruoRhaaLS33vGZ1Xq2JMvIo43kaE/MmBnTABHxbPLzvnD5WrKntpqdck9K5JvOlR0xk29NRpPmzmyaUij0UuLukiNoyV5NVwYsXIkydCgZciHoeFA7j3Z9GtJtVWa8puyWST3SbDdvNAdSIMBFf7a+5w15osNRfj67qpItuQCipveFp2enYF4hsFdsBNqwOGdE8kVkiXWaFXASzH6WeCYWmCwrwp2h2g9BRC9gpe0kisODSCZMHPiZypiOw0TVSdjYi6UbkJetfRWlVZjQva2A2h0lA6cop4ff3QKa15I7Mtxasw8YD2tQ7yYtx2zjISdqp2p9ryZi+GfHgYUGj7sZ7TU737tE3GGfPZyMu723VBvGAixo9GzGmpSrxjVviYihr+c/TKejtH8OMRiA8SIm4NnYlLlzNLdFcPiZ/uN+5wQsA2N1DH5lUPqz7MJrOtWzc8o058n7tbO5ehe8taTezKrq0YamLFDlrbLrzoTbVk3kvw0YBbbXmVybQNdRzciU9GWFgI3d0ZRLtzh/q7kPBH+OGhZtMONY6hXfO0aeE9NtHk3Vq7KarWHPKdoC6JictMgFIRXvx3QA+LJ6/XUIumStWKiAFl1eylcrHXGXTGdS7HeNl5QCd2fUe8j6Yg2bZX/DZSzVgBJJ9DgLw4eYI+26fH/aULzthLQMPlCzz+9U9eZLVlSomuZcbqUdTrBdZXT11ne2weegd9DRWcKTSKfy5nOGTszx6m4T48YqC/BaNs6/sbckvPpGMJPiURZ8dhJwdJAC8iWRTL4LkdjXU8nYVBxvnak9KFyA7+zeZ7tsvm5vQMrKY+gH+7AmpR7h5Uy5u03XV20t6LbQI58KSgg/bFaiTs36TrkUa+XC+3twfWDLY+Z8tVVae4E7e0bzmYCKcMhrgvVtRltZ8pAkQHajRBO3eSlBhA3h7vHDQa3UEIUaung6LqpmmPvThHnoH8WItVvNNY0PsAgjUOIMMWnVlkg04mT+eKUUwv3KpfrouUbkYAk8UBpy30OxPGxzBwozMaUAgqnBbwTmxrSwskcUcMOaTytM3vuwdoQHTHK+XZmn/pbEZgiN/uXkbmCNPOQKsa9Ao+goMPxvO46Udr3j3/Gd+2sSGbSpbhV1hnffdEMvwtHhr9aiFvD0nUlLsKsjqhzkNO5Dmk/2mGRnBt8boS5RDwvYa9r32Xgalv0gqB0l7MsPdSm9TJVjE9zcRzzq7MNZi5joXMYVmTuFmo9PDFKU4kpdKXMLBPzaU9WhuNw42ihaiy49JzJFb4kGWyK11iv/JIkqDwFSSZMWwLKIBUfUMrXY+4F4pPKo72Lm/aOs0qeyid+8o2q+TUac6SCQJDwsDUmX3MD4N1mreUuHx5h5d8XnKhkaqy3tgAxqO8ROZH5O4iXmPiJ7lwm0h9iUXZXOswse9V+rcu/jquarbr2OUsUvMpL4ApwvtS1JJtyUqcOFc2iXIpmTD03hdNGDg+zyHiMSZyKmO3EqnZyeLJE5c4fN3TMii3cVEa9TqKgNJwfqybLpdARb4bi4H0kHxcFyWrtRzahckBt14OlFkOK7YPWQFgTz0ZJZLbkygDLbtwY/V72tgL5NxCmQDoat5WVRFqDMVShMFvkVOR/9CiAUvdERacn9bp3baJ0iBm16OVNf/i86qqEdxK1HyzytXzDzdqQVeBhFTuVKr/NYAmgH1epOsmhM7U+KcsjdIAJeRJpOAG8+jEwmvqzcmDa+XFjKsqvWftJqY+ccVWWbWhnY7FztRJnCeihXNuJnXiFnurBBNGGJVhofxL5PoYb3vIs3URK4JtRm7qo34XnJdxqBMykORHJPuwLg0xC8FBtcbTEyVWJ6ogCW9kqprOVAWJ9DIHdaxIhvaR1Y14tmQksrySswC6tNYVdN4EgC09xpXLlo5I9a5uHFDayQ1mrNTduDks78OtFmlzJnsZBranoiDphzJSyCxeI7hwNes2wkSFh3+9+nl6/uPVyenJ1duj04Ofpid/UesCoQgHp8fvjybnkxhT8o4/HE7PZ1eBfBYEM8nxIAkOJync9oiWW6uYWUVkVoaTQGFvEAbZMv2L0Ie0hnsJv0KGEWYwzVgb5xmcDHNpsMbWeVHrtVjHF4ncy7jNYucRiopCxQquczAls7ySuFRMTbonFz5wLPOue3C4F1h3idtFXdF4Ffq+PJETIi5XrmUCkajm3UUID1lE8YfOHrohd/nPETN4xS08scJjspvyWQu1oymOOnAoILSaLSRuNmMXqbB2HbR8AYBHCGkItgdisczSfeG4Rbp6+fE9+B8B4is6MJ4E5R3owI6AwnaO9e2gSXQjEwVWt5xrv4IZL73sSFqfCJEv2EnmMfRiLxudtk2a875E5/yi5L2USYmdtE1nHYKLRoVMFDkca3LEqtQ48u0DUHJtoVVRDpD5Z9Dkv4oEifkemLP1qsjhWYeNVBG2O1nbc6XKVDgIBp12d3hTV58Y5pKSF40YI4ZrC4EpiMsEHpAUefFapAGON4ZMFTNjUUCSAiVa+vmEWL1tRCohKbOjnq5U0QQ0/ZA8mnHGSjaJS4yiRiW86UppCVkrVR/aXbcHBwhYvOTYPmdkmnRKUXot46Xo48wtNqvcUNpuEd8i/ptGE1pRfDjA7ig9IyG8fsM8KomAdepqsSFjkMzUa/SCUMFjwmr8KB8/tICER2FsgQm16FooHS8VKfkldypdJhJV42kci1jrfgvvBAzV3kUoUow3ep3UIT68XOjmI/HQ2r5DDWjFbjrxGg+YejtIJ5UxIugkMk7Cl0M420OFiSR00y4tUaVT/kh5YAzcNb5LeXQihXmRvRkEauJiRlWjoMSXB0RSvUoNrjOMuqBKRylIHQrjAhIfbQeLuy3UmIdGGgqQZzRwtut0JlKs96NqpaTE48bxYHYkepfJ2e2oPHNO5NAS58AqtsLkgemcEy/Jw875jVZadaAB6e2HUf1egnl5XwKblvd/wyB2o4laCG/rQr/pw2E5ImndqcjdOKnGMUbuTWcm89fuMddqQPISq/mS52OrnbLPQYyHw5ythUCGFbB75uaxsx1LPhYYnpprgaJUDC8wPvGp6GsnCZdUa099UkTR4WYjwZe8tAVU+txK/pKNcadbLuTMdrPDtUXXFYGRT7C5h9/ixte+FycvEeREWZdIjZet2klR3ZjLK4hO3+2K1uilpuxw/Tgs/oxECghxJ8/B4j1O6FBsBIfChRv+tJxK3QySAVOaE31lsIqfW6SFQrPEv3oUocEomENoeksigP3i9SC1lTAjX4MZeR1KzIftAsl3a74C6o4X5/abiuivlFeSHXAB9tq7O2Sa9cjaD/JWSde/4npSkCbx7rD/dFcXxAi8tEKu536wcvct/8qGpMGHodcqlnSeySg5a8hd17licLuMRYP3Ag09iGmCHsygRGyYGw4SJFLGde1BlonRgl0JXwklBe1CnxQs7iLFUUMfGos7tqTq2fX3OGS+5K9IsBNICrAjAY6Xy/25qBJ/dkEcHblo6vlJSxKZrDgc4rwWs9CZRcOi1Jq7i04uX+OjTW8Z/MD1VQh8Fo5y/2VLXpbwvnBd4PMFW6Za9f7g3ErAs0bHtpzKnHPi6+WLx0Ow6MrqoZeYlwvEwAsr7vUKtE02bsXfYAAcvWTQVtPZqfyDRCb6wQ5DCgf3BeKqyI2aCQ7aKxrKvUPTwqzvbf9+iAlCd04Xl6FrpceoWc85YrzCfcUlbZoX4vDyKgpfrn39/dn+d2T2VdSOy6YxxxbSk5LB5N+S4dKo6Tl/tEpeYhIeCUWsqtqxuGF44xg0b79olKPBBcF1ufX99bYDU7MDkRyZOMxZf++KHHqRuKFLvh9RDx0SDrUMK7Pn7HLXC2We+1l/yez49O30aHIF9yz89+HkiI9XLsdtzdivTMa93Hca3DhE8nOsZI5vMolyZT4ObUNSVNqRdM8E4ZukJ3M1P+Rlxg1DfGynLx3gjyPKiqEc3fkih5Pa/wNmbsdwNHMAAA=="
+          Path('mobile-character-view-model.js').write_bytes(gzip.decompress(base64.b64decode(payload)))
+          PYCODE
+          node <<'NODE'
+          const fs = require('fs');
+          const vm = require('vm');
+          const path = require('path');
+          const context = { window: {}, console, setTimeout, clearTimeout };
+          vm.createContext(context);
+          vm.runInContext(fs.readFileSync('foundry_characters_static/characters.bundle.js', 'utf8'), context, { filename: 'characters.bundle.js' });
+          vm.runInContext(fs.readFileSync('mobile-character-view-model.js', 'utf8'), context, { filename: 'mobile-character-view-model.js' });
+          const api = context.window.BANDA_MOBILE_VIEW_MODEL;
+          if (!api) throw new Error('Adapter API not attached');
+          const ids = ['sathar', 'artionketh', 'magna', 'melkor', 'balder', 'ingwe'];
+          const read = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
+          const characters = [];
+          const totals = { characters: 0, actions: 0, spells: 0, inventory: 0, features: 0, resources: 0, warnings: 0 };
+          for (const id of ids) {
+            const audits = {
+              spells: read(path.join('audit', 'spells', `${id}.json`)),
+              inventory: read(path.join('audit', 'items', `${id}.json`)),
+              features: read(path.join('audit', 'features', `${id}.json`))
+            };
+            const session = api.createSessionState(id, { sessionId: `a8-test-${id}`, audits });
+            const canonical = context.window.BANDA_CHARACTERS[id];
+            const expectedHp = Math.max(0, Number(canonical.hp.max) - 1);
+            session.hp.current = expectedHp;
+            session.hp.temporary = 7;
+            const firstResourceId = Object.keys(session.resources)[0] || null;
+            if (firstResourceId) session.resources[firstResourceId].current = 0;
+            const firstSlotKey = Object.keys(session.spellSlots)[0] || null;
+            if (firstSlotKey) session.spellSlots[firstSlotKey].current = 0;
+            const model = api.build(id, { audits, sessionState: session, throwOnInvalid: false });
+            const overlayTests = {
+              hpCurrentApplied: model.combat.hp.sessionCurrent === expectedHp,
+              temporaryHpApplied: model.combat.hp.sessionTemporary === 7,
+              firstResourceApplied: !firstResourceId || model.combat.resources.some((resource) => resource.id === firstResourceId && resource.sessionCurrent === 0),
+              firstSlotApplied: !firstSlotKey || [...model.combat.spellcasting.slots, model.combat.spellcasting.pact].filter(Boolean).some((slot) => slot.key === firstSlotKey && slot.sessionCurrent === 0)
+            };
+            const overlayValid = Object.values(overlayTests).every(Boolean);
+            characters.push({
+              id,
+              name: model.identity.name,
+              valid: model.validation.valid && overlayValid,
+              errors: model.validation.errors,
+              warningCount: model.validation.warnings.length,
+              counts: model.validation.counts,
+              overlayTests,
+              sourceStatus: model.source.auditStatus
+            });
+            totals.characters += 1;
+            totals.actions += model.actions.length;
+            totals.spells += model.spells.length;
+            totals.inventory += model.inventory.length;
+            totals.features += model.features.length;
+            totals.resources += model.combat.resources.length;
+            totals.warnings += model.validation.warnings.length;
+          }
+          const expected = { characters: 6, actions: 89, spells: 126, inventory: 80, features: 155 };
+          const countValidation = Object.fromEntries(Object.entries(expected).map(([key, value]) => [key, totals[key] === value]));
+          const output = {
+            auditVersion: 1,
+            generatedAt: new Date().toISOString(),
+            repository: 'JRRGUILLE-bit/Foundry',
+            adapter: { path: 'mobile-character-view-model.js', apiVersion: api.version, global: 'window.BANDA_MOBILE_VIEW_MODEL', productionLoaded: false },
+            totals,
+            expected,
+            validation: {
+              allCharactersValid: characters.every((character) => character.valid),
+              allExpectedCountsMatch: Object.values(countValidation).every(Boolean),
+              countValidation,
+              zeroModelErrors: characters.every((character) => character.errors.length === 0),
+              sessionOverlayWorksForEveryCharacter: characters.every((character) => Object.values(character.overlayTests).every(Boolean))
+            },
+            status: characters.every((character) => character.valid) && Object.values(countValidation).every(Boolean)
+              ? 'ADAPTER_READY_FOR_MOBILE_RENDERER'
+              : 'ADAPTER_NEEDS_REVIEW',
+            characters,
+            nextTask: 'A9_MOBILE_SHEET_SHELL'
+          };
+          fs.mkdirSync('audit', { recursive: true });
+          fs.writeFileSync('audit/mobile-view-model-adapter-summary.json', JSON.stringify(output, null, 2) + '\n');
+          console.log(JSON.stringify(output, null, 2));
+          NODE
+      - name: Commit adapter and validation summary
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mobile-character-view-model.js audit/mobile-view-model-adapter-summary.json
+          git commit -m "A8: add mobile character view model adapter"
+          git push
