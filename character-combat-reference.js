@@ -8,6 +8,14 @@
     artionketh: {
       spellcasting: { ability: "cha", abilityLabel: "CAR", attack: 8, dc: 16, slots: [[1, 4], [2, 3], [3, 2]] },
       attacks: [
+        {
+          name: "Luciferia",
+          attack: 15,
+          damage: ["1d8+10 slashing", "2d6 fire"],
+          kind: "weapon",
+          range: "5 ft",
+          inferred: "El JSON registra battleaxe, STR +7, competencia +5, magicalBonus +3, daño base 1d8 y bonus 2d6 de fuego."
+        },
         { name: "Sharpen Axe", attack: 12, damage: ["1d8+7 slashing"], kind: "weapon", range: "5 ft", inferred: "STR +7 + competencia +5; daño base 1d8 del JSON." },
         { name: "Handaxe", attack: 12, damage: ["1d6+7 slashing"], kind: "weapon", range: "5 ft / 20/60 ft", inferred: "STR +7 + competencia +5." },
         { name: "Javelin", attack: 12, damage: ["1d6+7 piercing"], kind: "weapon", range: "5 ft / 30/120 ft", inferred: "STR +7 + competencia +5." }
@@ -57,7 +65,7 @@
   };
 
   const asArray = (value) => Array.isArray(value) ? value : [];
-  const normalizeName = (value) => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const normalizeName = (value) => String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "");
 
   function makeActivity(entry) {
     return {
@@ -92,29 +100,37 @@
 
     character.inventory = asArray(character.inventory);
     const inventoryByName = new Map(character.inventory.map((item) => [normalizeName(item?.name), item]));
+    const actionMap = new Map(asArray(character.actions).map((action) => [normalizeName(action?.source), action]));
 
-    const actions = asArray(reference.attacks).map((entry) => {
+    asArray(reference.attacks).forEach((entry) => {
       const activity = makeActivity(entry);
-      const existing = inventoryByName.get(normalizeName(entry.name));
-      if (existing) {
-        existing.activities = [activity];
-        existing.weapon = {
+      const key = normalizeName(entry.name);
+      const inventoryItem = inventoryByName.get(key);
+
+      if (inventoryItem) {
+        const nonAttackActivities = asArray(inventoryItem.activities).filter((candidate) => candidate?.type !== "attack");
+        inventoryItem.activities = [activity, ...nonAttackActivities];
+        inventoryItem.weapon = {
+          ...(inventoryItem.weapon || {}),
           damage: asArray(entry.damage).join(" + "),
-          range: { label: entry.range || "—" },
-          type: entry.kind || "attack",
-          magicalBonus: null
+          range: { ...(inventoryItem.weapon?.range || {}), label: entry.range || "—" },
+          type: entry.kind || inventoryItem.weapon?.type || "attack",
+          magicalBonus: inventoryItem.weapon?.magicalBonus ?? null
         };
       }
-      return {
+
+      const previous = actionMap.get(key);
+      actionMap.set(key, {
+        ...(previous || {}),
         source: entry.name,
-        sourceType: entry.kind || "attack",
-        description: entry.inferred ? `Valor inferido: ${entry.inferred}` : (entry.note || ""),
+        sourceType: entry.kind || previous?.sourceType || "attack",
+        description: previous?.description || (entry.inferred ? `Valor inferido: ${entry.inferred}` : (entry.note || "")),
         activities: [activity],
-        uses: null
-      };
+        uses: previous?.uses || null
+      });
     });
 
-    character.actions = actions;
+    character.actions = [...actionMap.values()];
     character.combatReference = {
       source: "JSON DE FOUNDRY + INFERENCIAS MARCADAS",
       updatedAt: "2026-07-22"
