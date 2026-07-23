@@ -25,7 +25,7 @@
   },
   "featuresWithUses": 2,
   "featuresWithActivities": 8,
-  "featureActionReferenceCount": 0,
+  "featureActionReferenceCount": 8,
   "resourceCount": 5,
   "validation": {
     "expectedFeatureCount": 21,
@@ -35,7 +35,8 @@
     "allFeaturesHaveRawItem": true,
     "allRawItemsAreFeatureTypes": true,
     "normalizedActionCountMatches": true,
-    "resourceIdsUnique": true
+    "resourceIdsUnique": true,
+    "allNormalizedActionsLinked": false
   },
   "reviewFeatures": [],
   "resources": [
@@ -147,7 +148,6 @@
       }
     }
   ],
-  "featureActions": [],
   "features": [
     {
       "order": 1,
@@ -3205,17 +3205,77 @@
     {
       "order": 1,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Frostbrand of Titania",
+      "source": "Frostbrand of Titania",
+      "sourceType": "Arma",
+      "type": "attack",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
+      "activities": [
+        {
+          "name": "Frostbrand of Titania",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": "",
+          "attack": {
+            "bonus": 11,
+            "ability": "cha",
+            "derived": true
+          },
+          "damage": {
+            "parts": [
+              "2d6+6 slashing"
+            ]
+          }
+        }
+      ],
       "linkedFeatureId": null,
       "linkedFeatureName": null,
       "linkStatus": "UNRESOLVED_ACTION_SOURCE",
@@ -3288,10 +3348,17 @@
     {
       "order": 2,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Rations",
+      "source": "Rations",
+      "sourceType": "Consumible",
+      "type": "utility",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
       "uses": {
         "current": 1,
         "max": 1,
@@ -3299,12 +3366,55 @@
         "rawMax": "1",
         "recovery": []
       },
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
+      "activities": [
+        {
+          "name": "Rations",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": ""
+        }
+      ],
       "linkedFeatureId": null,
       "linkedFeatureName": null,
       "linkStatus": "UNRESOLVED_ACTION_SOURCE",
@@ -3373,17 +3483,66 @@
     {
       "order": 3,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Cook's Utensils",
+      "source": "Cook's Utensils",
+      "sourceType": "Herramienta",
+      "type": "check",
+      "activation": {
+        "type": "",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "—"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
+      "activities": [
+        {
+          "name": "Cook's Utensils",
+          "type": "check",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": ""
+        }
+      ],
       "linkedFeatureId": null,
       "linkedFeatureName": null,
       "linkStatus": "UNRESOLVED_ACTION_SOURCE",
@@ -3445,17 +3604,67 @@
     {
       "order": 4,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Winged Boots",
+      "source": "Winged Boots",
+      "sourceType": "Equipo",
+      "type": "utility",
+      "activation": {
+        "type": "",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "—"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
+      "activities": [
+        {
+          "name": "Winged Boots",
+          "type": "utility",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "self",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "self"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "4",
+            "units": "hour",
+            "special": "",
+            "override": false,
+            "label": "4 Horas"
+          },
+          "chatFlavor": ""
+        }
+      ],
       "linkedFeatureId": null,
       "linkedFeatureName": null,
       "linkStatus": "UNRESOLVED_ACTION_SOURCE",
@@ -3518,10 +3727,17 @@
     {
       "order": 5,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Divine Sense",
+      "source": "Divine Sense",
+      "sourceType": "feat",
+      "type": "utility",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
       "uses": {
         "current": null,
         "max": "1 + @abilities.cha.mod",
@@ -3535,15 +3751,59 @@
           }
         ]
       },
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
-      "linkedFeatureId": null,
-      "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "activities": [
+        {
+          "name": "Divine Sense",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "value": "60",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "60 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "1",
+            "units": "round",
+            "special": "",
+            "override": false,
+            "label": "1 Asaltos"
+          },
+          "chatFlavor": ""
+        }
+      ],
+      "linkedFeatureId": "KJclu8muQslI6P4e",
+      "linkedFeatureName": "Divine Sense",
+      "linkStatus": "LINKED_TO_FEATURE",
       "raw": {
         "source": "Divine Sense",
         "sourceType": "feat",
@@ -3616,10 +3876,17 @@
     {
       "order": 6,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Lay on Hands",
+      "source": "Lay on Hands",
+      "sourceType": "feat",
+      "type": "heal",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "Target cannot be Undead or a Construct.",
+        "override": false,
+        "label": "1 acción"
+      },
       "uses": {
         "current": null,
         "max": "5 * @classes.paladin.levels",
@@ -3633,15 +3900,57 @@
           }
         ]
       },
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
-      "linkedFeatureId": null,
-      "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "activities": [
+        {
+          "name": "Lay on Hands",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "Target cannot be Undead or a Construct.",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": ""
+        }
+      ],
+      "linkedFeatureId": "Dd7lgIHJQVm4R62c",
+      "linkedFeatureName": "Lay on Hands",
+      "linkStatus": "LINKED_TO_FEATURE",
       "raw": {
         "source": "Lay on Hands",
         "sourceType": "feat",
@@ -3712,20 +4021,127 @@
     {
       "order": 7,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Necrotic Smite",
+      "source": "Necrotic Smite",
+      "sourceType": "feat",
+      "type": "damage",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
-      "linkedFeatureId": null,
-      "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "activities": [
+        {
+          "name": "Necrotic Smite",
+          "type": "damage",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": "",
+          "damage": {
+            "parts": [
+              "2d8 necrotic"
+            ]
+          }
+        },
+        {
+          "name": "Necrotic Smite",
+          "type": "damage",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": "",
+          "damage": {
+            "parts": [
+              "1d8"
+            ]
+          }
+        }
+      ],
+      "linkedFeatureId": "2ewQNHFy4HH64KmH",
+      "linkedFeatureName": "Necrotic Smite",
+      "linkStatus": "LINKED_TO_FEATURE",
       "raw": {
         "source": "Necrotic Smite",
         "sourceType": "feat",
@@ -3842,20 +4258,70 @@
     {
       "order": 8,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Hexblade's Curse",
+      "source": "Hexblade's Curse",
+      "sourceType": "feat",
+      "type": "utility",
+      "activation": {
+        "type": "bonus",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción adicional"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
-      "linkedFeatureId": null,
-      "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "activities": [
+        {
+          "name": "Hexblade's Curse",
+          "type": "utility",
+          "activation": {
+            "type": "bonus",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción adicional"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": ""
+        }
+      ],
+      "linkedFeatureId": "3C4jqWcAfg6XATTh",
+      "linkedFeatureName": "Hexblade's Curse",
+      "linkStatus": "LINKED_TO_FEATURE",
       "raw": {
         "source": "Hexblade's Curse",
         "sourceType": "feat",
@@ -3915,20 +4381,70 @@
     {
       "order": 9,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Hex Warrior",
+      "source": "Hex Warrior",
+      "sourceType": "feat",
+      "type": "utility",
+      "activation": {
+        "type": "action",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
-      "linkedFeatureId": null,
-      "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "activities": [
+        {
+          "name": "Hex Warrior",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": ""
+        }
+      ],
+      "linkedFeatureId": "69KliJErrrtP8sYE",
+      "linkedFeatureName": "Hex Warrior",
+      "linkStatus": "LINKED_TO_FEATURE",
       "raw": {
         "source": "Hex Warrior",
         "sourceType": "feat",
@@ -3988,20 +4504,70 @@
     {
       "order": 10,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "A mother's love.",
+      "source": "A mother's love.",
+      "sourceType": "feat",
+      "type": "utility",
+      "activation": {
+        "type": "bonus",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción adicional"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
-      "linkedFeatureId": null,
-      "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "activities": [
+        {
+          "name": "A mother's love.",
+          "type": "utility",
+          "activation": {
+            "type": "bonus",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción adicional"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": ""
+        }
+      ],
+      "linkedFeatureId": "CRUM590KxseBiJuG",
+      "linkedFeatureName": "A mother's love.",
+      "linkStatus": "LINKED_TO_FEATURE",
       "raw": {
         "source": "A mother's love.",
         "sourceType": "feat",
@@ -4061,20 +4627,70 @@
     {
       "order": 11,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "a mother's sacrifice",
+      "source": "a mother's sacrifice",
+      "sourceType": "feat",
+      "type": "utility",
+      "activation": {
+        "type": "reaction",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 reacción"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
-      "linkedFeatureId": null,
-      "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "activities": [
+        {
+          "name": "a mother's sacrifice",
+          "type": "utility",
+          "activation": {
+            "type": "reaction",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 reacción"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": ""
+        }
+      ],
+      "linkedFeatureId": "J1V5CyBKvdjRyKXd",
+      "linkedFeatureName": "a mother's sacrifice",
+      "linkStatus": "LINKED_TO_FEATURE",
       "raw": {
         "source": "a mother's sacrifice",
         "sourceType": "feat",
@@ -4134,20 +4750,70 @@
     {
       "order": 12,
       "id": null,
-      "name": null,
-      "type": null,
-      "activation": null,
-      "actionType": null,
+      "name": "Accursed Specter",
+      "source": "Accursed Specter",
+      "sourceType": "feat",
+      "type": "utility",
+      "activation": {
+        "type": "action",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
       "uses": null,
-      "consumption": null,
-      "range": null,
-      "target": null,
-      "damage": null,
-      "save": null,
-      "attack": null,
-      "linkedFeatureId": null,
-      "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "activities": [
+        {
+          "name": "Accursed Specter",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "chatFlavor": ""
+        }
+      ],
+      "linkedFeatureId": "NMxge4I8eKRkgpvb",
+      "linkedFeatureName": "Accursed Specter",
+      "linkStatus": "LINKED_TO_FEATURE",
       "raw": {
         "source": "Accursed Specter",
         "sourceType": "feat",
@@ -4205,5 +4871,5 @@
       }
     }
   ],
-  "unresolvedActionReferenceCount": 12
+  "unresolvedActionReferenceCount": 4
 }
