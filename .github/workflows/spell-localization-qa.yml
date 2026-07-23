@@ -41,4 +41,16 @@ jobs:
           node --check audit/spell-localization-qa.mjs
 
       - name: Run localization QA
-        run: node audit/spell-localization-qa.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          node audit/spell-localization-qa.mjs | tee audit/spell-localization-report.json
+
+      - name: Upload localization report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spell-localization-report-${{ github.sha }}
+          path: audit/spell-localization-report.json
+          if-no-files-found: warn
+          retention-days: 14
