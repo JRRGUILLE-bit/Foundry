@@ -35,6 +35,7 @@ jobs:
           const character = (context.window.BANDA_CHARACTERS || root.characters || {}).sathar;
           if (!character) throw new Error('Sathar not found');
 
+          const rawItems = new Map((character.rawActor?.items || []).map((item) => [item._id, item]));
           const text = (value) => typeof value === 'string' ? value.trim() : '';
           const activityAudit = (activity) => ({
             id: activity.id || null,
@@ -53,42 +54,65 @@ jobs:
           });
 
           const spells = (character.spells || []).map((spell) => {
-            const description = text(spell.description);
-            const materials = text(spell.materials);
+            const raw = rawItems.get(spell.id) || null;
+            const rawSystem = raw?.system || {};
+            const rawProperties = Array.isArray(rawSystem.properties)
+              ? rawSystem.properties
+              : rawSystem.properties instanceof Set
+                ? [...rawSystem.properties]
+                : [];
+            const description = text(spell.description) || text(rawSystem.description?.value);
+            const materials = text(spell.materials) || text(rawSystem.materials?.value);
             const activities = (spell.activities || []).map(activityAudit);
+            const components = (spell.components || []).length
+              ? spell.components
+              : rawProperties.filter((value) => ['v', 's', 'm'].includes(value));
             const missing = [];
             if (!spell.name) missing.push('name');
             if (spell.level === undefined || spell.level === null) missing.push('level');
-            if (!spell.school && !spell.schoolLabel) missing.push('school');
-            if (!spell.activation?.label) missing.push('activation');
-            if (!spell.range?.label) missing.push('range');
-            if (!spell.duration?.label) missing.push('duration');
-            if (!Array.isArray(spell.components) || spell.components.length === 0) missing.push('components');
+            if (!spell.school && !spell.schoolLabel && !rawSystem.school) missing.push('school');
+            if (!spell.activation?.label && !rawSystem.activation?.type) missing.push('activation');
+            if (!spell.range?.label && !rawSystem.range?.units) missing.push('range');
+            if (!spell.duration?.label && !rawSystem.duration?.units) missing.push('duration');
+            if (components.length === 0) missing.push('components');
             if (!description) missing.push('description');
-            if (activities.length === 0) missing.push('activities');
+            if (activities.length === 0 && !rawSystem.activities) missing.push('activities');
 
             return {
               id: spell.id || null,
               name: spell.name || null,
-              level: spell.level ?? null,
-              school: spell.school || null,
+              level: spell.level ?? rawSystem.level ?? null,
+              school: spell.school || rawSystem.school || null,
               schoolLabel: spell.schoolLabel || null,
               prepared: Boolean(spell.prepared),
               method: spell.method || null,
-              concentration: Boolean(spell.concentration),
-              ritual: Boolean(spell.ritual),
-              activation: spell.activation || null,
-              range: spell.range || null,
-              duration: spell.duration || null,
-              target: spell.target || null,
-              components: spell.components || [],
+              concentration: Boolean(spell.concentration || rawProperties.includes('concentration')),
+              ritual: Boolean(spell.ritual || rawProperties.includes('ritual')),
+              activation: spell.activation || rawSystem.activation || null,
+              range: spell.range || rawSystem.range || null,
+              duration: spell.duration || rawSystem.duration || null,
+              target: spell.target || rawSystem.target || null,
+              components,
               materials: materials || null,
               description: description || null,
               descriptionLength: description.length,
               activities,
-              source: spell.source || null,
-              rawItemId: spell.rawItem?._id || spell.raw?._id || null,
-              rawItemType: spell.rawItem?.type || spell.raw?.type || null,
+              source: spell.source || rawSystem.source || null,
+              raw: raw ? {
+                itemId: raw._id,
+                itemType: raw.type,
+                name: raw.name,
+                level: rawSystem.level ?? null,
+                school: rawSystem.school || null,
+                preparation: rawSystem.preparation || null,
+                properties: rawProperties,
+                activation: rawSystem.activation || null,
+                range: rawSystem.range || null,
+                target: rawSystem.target || null,
+                duration: rawSystem.duration || null,
+                materials: rawSystem.materials || null,
+                source: rawSystem.source || null
+              } : null,
               missingFields: missing,
               status: missing.length === 0 ? 'COMPLETE_FROM_JSON' : 'NEEDS_REVIEW'
             };
@@ -110,12 +134,17 @@ jobs:
             },
             spellCount: spells.length,
             countsByLevel: byLevel,
+            statusCounts: spells.reduce((counts, spell) => {
+              counts[spell.status] = (counts[spell.status] || 0) + 1;
+              return counts;
+            }, {}),
             validation: {
               expectedSpellCount: 17,
               countMatchesExpected: spells.length === 17,
               uniqueIds: new Set(spells.map((spell) => spell.id).filter(Boolean)).size === spells.filter((spell) => spell.id).length,
               allHaveNames: spells.every((spell) => Boolean(spell.name)),
-              allHaveRawItemId: spells.every((spell) => Boolean(spell.rawItemId))
+              allHaveRawItem: spells.every((spell) => Boolean(spell.raw)),
+              allRawItemsAreSpells: spells.every((spell) => spell.raw?.itemType === 'spell')
             },
             spells,
             nextTask: 'A3_2_BALDER_SPELL_AUDIT'
