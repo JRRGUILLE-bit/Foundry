@@ -64,14 +64,7 @@ const report = {
   status: "RUNNING",
   generatedAt: new Date().toISOString(),
   baseUrl: BASE_URL,
-  knownGaps: [
-    {
-      issue: 64,
-      title: "Localización de hechizos por personaje",
-      blocking: false,
-      requirement: "Magna y Melkor en español; resto y fallback global en inglés."
-    }
-  ],
+  knownGaps: [],
   profiles: [],
   totals: { checks: 0, failures: 0, warnings: 0, screenshots: 0 },
   failures: [],
