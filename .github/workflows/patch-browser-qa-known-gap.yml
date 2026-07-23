@@ -23,20 +23,19 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
           path = Path("audit/browser-mobile-qa-runner.mjs")
           source = path.read_text()
-          old = '''  knownGaps: [
-            {
-              issue: 64,
-              title: "Localización de hechizos por personaje",
-              blocking: false,
-              requirement: "Magna y Melkor en español; resto y fallback global en inglés."
-            }
-          ],'''
-          new = '''  knownGaps: [],'''
-          if old not in source:
-              raise SystemExit("Expected known-gap block not found")
-          path.write_text(source.replace(old, new, 1))
+          updated, count = re.subn(
+              r'  knownGaps: \[.*?\],\n  profiles:',
+              '  knownGaps: [],\n  profiles:',
+              source,
+              count=1,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit(f"Expected one known-gap block, changed {count}")
+          path.write_text(updated)
           PY
 
       - name: Commit runner metadata update
