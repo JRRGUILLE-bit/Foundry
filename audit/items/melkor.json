@@ -1,0 +1,2399 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T06:47:34.340Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "melkor",
+    "name": "Melkor Amarië",
+    "inventoryCount": 17
+  },
+  "inventoryCount": 17,
+  "countsByType": {
+    "weapon": 3,
+    "consumable": 4,
+    "loot": 3,
+    "tool": 1,
+    "container": 1,
+    "equipment": 5
+  },
+  "countsByCategory": {
+    "WEAPON": 3,
+    "CONSUMABLE": 4,
+    "GENERAL_OR_LOOT": 3,
+    "TOOL": 1,
+    "CONTAINER": 1,
+    "ARMOR_OR_SHIELD": 3,
+    "EQUIPMENT": 2
+  },
+  "statusCounts": {
+    "NEEDS_REVIEW": 3,
+    "COMPLETE_FROM_JSON": 14
+  },
+  "equippedCount": 5,
+  "attunedCount": 3,
+  "itemsWithUses": 2,
+  "itemsWithActivities": 7,
+  "validation": {
+    "expectedInventoryCount": 17,
+    "countMatchesExpected": true,
+    "uniqueIds": true,
+    "allHaveNames": true,
+    "allHaveRawItem": true,
+    "noSpellsOrFeaturesIncluded": true
+  },
+  "reviewItems": [
+    {
+      "id": "ixkShv3jZfxA9eBz",
+      "name": "Unarmed Strike (Monk)",
+      "missingFields": [
+        "description"
+      ]
+    },
+    {
+      "id": "dIYGKTl2A8JpUQkx",
+      "name": "espadas cortas 2 draw",
+      "missingFields": [
+        "description"
+      ]
+    },
+    {
+      "id": "jtMMYkyx1563XVPq",
+      "name": "capa de veldora",
+      "missingFields": [
+        "description"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "order": 1,
+      "id": "ixkShv3jZfxA9eBz",
+      "name": "Unarmed Strike (Monk)",
+      "type": "weapon",
+      "category": "WEAPON",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "natural",
+      "armor": {
+        "value": 10
+      },
+      "weapon": {
+        "weaponType": "natural",
+        "mastery": null,
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": true,
+              "formula": "1@scale.monk.die + @mod"
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "fin"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Unarmed Strike (Monk)",
+          "type": "attack",
+          "activation": {
+            "type": "",
+            "value": 0,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 11,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": null,
+      "descriptionLength": 0,
+      "source": {
+        "custom": "",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "ixkShv3jZfxA9eBz",
+      "rawItemType": "weapon",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 10
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": true,
+              "formula": "1@scale.monk.die + @mod"
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "fin"
+        ],
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "source": {
+          "custom": "",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "order": 2,
+      "id": "p6VopmazVzYY8zjJ",
+      "name": "Dagger of Veldora",
+      "type": "weapon",
+      "category": "WEAPON",
+      "quantity": 1,
+      "weight": {
+        "value": 1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 2,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": true,
+      "equipped": true,
+      "attunement": "required",
+      "attuned": true,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "simpleM",
+      "armor": {
+        "value": 10
+      },
+      "weapon": {
+        "weaponType": "simpleM",
+        "mastery": "",
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 3,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 20,
+          "long": 60,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "fin",
+          "Armadura ligera",
+          "mgc",
+          "thr"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Dagger of Veldora",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "20",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "20 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 11,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "3d6+5 piercing"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "The Dagger of Veldora the Storm Dragon is a weapon of immense power, feared and revered by warriors and mages alike. The dagger is small, almost unassuming, but it holds a power that is greater than any sword or axe.\nThe blade of the Dagger of Veldora is crafted from a rare metal that seems to shimmer and crackle with electricity. When the dagger strikes its target, it crackles with lightning, adding an additional 1d6 lightning damage to the attack. This lightning damage is potent, and can cause even the most heavily armored foe to tremble in fear.\nDespite its incredible power, the Dagger of Veldora does not add any bonus to attack or damage. However, it is a magical weapon, capable of cutting through even the most powerful defenses. It is said that the Dagger of Veldora was forged in the heart of a raging thunderstorm, infused with the power of Veldora the Storm Dragon himself.",
+      "descriptionLength": 891,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "p6VopmazVzYY8zjJ",
+      "rawItemType": "weapon",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "required",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 10
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 3,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 20,
+          "long": 60,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "fin",
+          "lgt",
+          "mgc",
+          "thr"
+        ],
+        "type": {
+          "value": "simpleM",
+          "baseItem": "dagger"
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 3,
+      "id": "og25OeJ2CQKBZvGa",
+      "name": "Hempen Rope (50 ft.)",
+      "type": "consumable",
+      "category": "CONSUMABLE",
+      "quantity": 2,
+      "weight": {
+        "value": 10,
+        "units": "lb"
+      },
+      "price": {
+        "value": 1,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "current": 0,
+        "max": 1,
+        "spent": 1,
+        "rawMax": "1",
+        "recovery": []
+      },
+      "consumableType": "trinket",
+      "armor": null,
+      "weapon": {
+        "weaponType": "trinket",
+        "mastery": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Hempen Rope (50 ft.)",
+          "type": "check",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Hempen Rope (50 ft.)",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 14,
+            "labels": [
+              "FUE"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 2,
+      "description": "Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.",
+      "descriptionLength": 98,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "og25OeJ2CQKBZvGa",
+      "rawItemType": "consumable",
+      "rawSystem": {
+        "quantity": 2,
+        "weight": {
+          "value": 10,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "1",
+          "recovery": [],
+          "autoDestroy": false,
+          "spent": 1
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 4,
+      "id": "5hCL5l46yldI8R9o",
+      "name": "Oil Flask",
+      "type": "consumable",
+      "category": "CONSUMABLE",
+      "quantity": 1,
+      "weight": {
+        "value": 1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 1,
+        "denomination": "sp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "current": 1,
+        "max": 1,
+        "spent": 0,
+        "rawMax": "1",
+        "recovery": []
+      },
+      "consumableType": "trinket",
+      "armor": null,
+      "weapon": {
+        "weaponType": "trinket",
+        "mastery": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [
+              "fire"
+            ],
+            "custom": {
+              "enabled": true,
+              "formula": "5"
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Oil Flask",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "5",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "5 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "1",
+            "units": "minute",
+            "special": "",
+            "override": false,
+            "label": "1 Minutos"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "Oil usually comes in a clay flask that holds 1 pint. As an action, you can splash the oil in this flask onto a creature within 5 feet of you or throw it up to 20 feet, shattering it on impact. Make a ranged attack against a target creature or object, treating the oil as an improvised weapon.\nOn a hit, the target is covered in oil. If the target takes any fire damage before the oil dries (after 1 minute), the target takes an additional 5 fire damage from the burning oil. You can also pour a flask of oil on the ground to cover a 5-foot-square area, provided that the surface is level.\nIf lit, the oil burns for 2 rounds and deals 5 fire damage to any creature that enters the area or ends its turn in the area. A creature can take this damage only once per turn.",
+      "descriptionLength": 766,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "5hCL5l46yldI8R9o",
+      "rawItemType": "consumable",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "sp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "1",
+          "recovery": [],
+          "autoDestroy": true,
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [
+              "fire"
+            ],
+            "custom": {
+              "enabled": true,
+              "formula": "5"
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 5,
+      "id": "9M2EOPK2wrTkoa9N",
+      "name": "Two-Person Tent",
+      "type": "loot",
+      "category": "GENERAL_OR_LOOT",
+      "quantity": 1,
+      "weight": {
+        "value": 20,
+        "units": "lb"
+      },
+      "price": {
+        "value": 2,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": null,
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": null,
+      "consumableType": "",
+      "armor": null,
+      "weapon": {
+        "weaponType": "",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "A simple and portable canvas shelter, a tent sleeps two.",
+      "descriptionLength": 56,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "9M2EOPK2wrTkoa9N",
+      "rawItemType": "loot",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 20,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": null,
+        "equipped": null,
+        "identified": true,
+        "uses": null,
+        "recharge": null,
+        "armor": null,
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 6,
+      "id": "NxYwWHcQeyb6HPjp",
+      "name": "Bedroll",
+      "type": "loot",
+      "category": "GENERAL_OR_LOOT",
+      "quantity": 1,
+      "weight": {
+        "value": 7,
+        "units": "lb"
+      },
+      "price": {
+        "value": 1,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": null,
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": null,
+      "consumableType": "",
+      "armor": null,
+      "weapon": {
+        "weaponType": "",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Roll of cloth used by traveller to sleep in.",
+      "descriptionLength": 44,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "NxYwWHcQeyb6HPjp",
+      "rawItemType": "loot",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 7,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": null,
+        "equipped": null,
+        "identified": true,
+        "uses": null,
+        "recharge": null,
+        "armor": null,
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 7,
+      "id": "zIQLLMq6SbPRRLI6",
+      "name": "Cook's Utensils",
+      "type": "tool",
+      "category": "TOOL",
+      "quantity": 1,
+      "weight": {
+        "value": 8,
+        "units": "lb"
+      },
+      "price": {
+        "value": 1,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "spent": 0,
+        "recovery": []
+      },
+      "consumableType": "art",
+      "armor": null,
+      "weapon": {
+        "weaponType": "art",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Cook's Utensils",
+          "type": "check",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "These special tools include the items needed to pursue a craft or trade in cookery.\nProficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency.",
+      "descriptionLength": 285,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "zIQLLMq6SbPRRLI6",
+      "rawItemType": "tool",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 8,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "art",
+          "baseItem": "cook"
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 8,
+      "id": "4FIPtXvYM9PXixf0",
+      "name": "Arrow",
+      "type": "consumable",
+      "category": "CONSUMABLE",
+      "quantity": 0,
+      "weight": {
+        "value": 0.05,
+        "units": "lb"
+      },
+      "price": {
+        "value": 5,
+        "denomination": "cp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "autoDestroy": false,
+        "spent": 0
+      },
+      "consumableType": "ammo",
+      "armor": null,
+      "weapon": {
+        "weaponType": "ammo",
+        "mastery": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Arrow",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "5",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "5 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 6,
+            "ability": "int",
+            "derived": true
+          },
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "Standard ammunition used for bows of all varieties. These mundane arrows are made of smooth wooden shafts with goose feather fletching and hammer metal bodkins.",
+      "descriptionLength": 160,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "4FIPtXvYM9PXixf0",
+      "rawItemType": "consumable",
+      "rawSystem": {
+        "quantity": 0,
+        "weight": {
+          "value": 0.05,
+          "units": "lb"
+        },
+        "price": {
+          "value": 5,
+          "denomination": "cp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "autoDestroy": false,
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "ammo",
+          "subtype": ""
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 9,
+      "id": "5WDatQaMeBMg1okj",
+      "name": "Shortbow",
+      "type": "weapon",
+      "category": "WEAPON",
+      "quantity": 1,
+      "weight": {
+        "value": 2,
+        "units": "lb"
+      },
+      "price": {
+        "value": 25,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": true,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "simpleR",
+      "armor": {
+        "value": 10
+      },
+      "weapon": {
+        "weaponType": "simpleR",
+        "mastery": "",
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 80,
+          "long": 320,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "amm",
+          "two"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Shortbow",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "80",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "80 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d6+5 piercing"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "This two handed bow is somewhat smaller than the traditional longbow variant, making it well suited for rapid attacks while on the move or mounted from horseback.\n60 a 80 piez",
+      "descriptionLength": 175,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "5WDatQaMeBMg1okj",
+      "rawItemType": "weapon",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "price": {
+          "value": 25,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 10
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 80,
+          "long": 320,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "amm",
+          "two"
+        ],
+        "type": {
+          "value": "simpleR",
+          "baseItem": "shortbow"
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 10,
+      "id": "waiGDb9Y9CmIB7GG",
+      "name": "Flask",
+      "type": "container",
+      "category": "CONTAINER",
+      "quantity": 1,
+      "weight": {
+        "value": 1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 2,
+        "denomination": "cp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": null,
+      "consumableType": null,
+      "armor": null,
+      "weapon": {
+        "weaponType": null,
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": [
+          "weightlessContents"
+        ]
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "A flask holds 1 pint of liquid.",
+      "descriptionLength": 31,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "waiGDb9Y9CmIB7GG",
+      "rawItemType": "container",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "cp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": null,
+        "recharge": null,
+        "armor": null,
+        "damage": null,
+        "range": null,
+        "properties": [
+          "weightlessContents"
+        ],
+        "type": null,
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 11,
+      "id": "dIYGKTl2A8JpUQkx",
+      "name": "espadas cortas 2 draw",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "spent": 0,
+        "recovery": []
+      },
+      "consumableType": "light",
+      "armor": {
+        "value": null,
+        "dex": null
+      },
+      "weapon": {
+        "weaponType": "light",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": null,
+      "descriptionLength": 0,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "dIYGKTl2A8JpUQkx",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "light",
+          "baseItem": ""
+        },
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "order": 12,
+      "id": "YLbNfMPx3jEDtn6G",
+      "name": "escamas de dragon de TRES dragones",
+      "type": "consumable",
+      "category": "CONSUMABLE",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "autoDestroy": false,
+        "spent": 0,
+        "recovery": []
+      },
+      "consumableType": "potion",
+      "armor": null,
+      "weapon": {
+        "weaponType": "potion",
+        "mastery": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "VERDE, NEGRO , AZUL y rojo.",
+      "descriptionLength": 27,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "YLbNfMPx3jEDtn6G",
+      "rawItemType": "consumable",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "autoDestroy": false,
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "potion",
+          "subtype": ""
+        },
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 13,
+      "id": "jtMMYkyx1563XVPq",
+      "name": "capa de veldora",
+      "type": "equipment",
+      "category": "EQUIPMENT",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": true,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "spent": 0,
+        "recovery": [],
+        "max": ""
+      },
+      "consumableType": "",
+      "armor": {
+        "value": null,
+        "dex": null
+      },
+      "weapon": {
+        "weaponType": "",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": null,
+      "descriptionLength": 0,
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "container": null,
+      "rawItemId": "jtMMYkyx1563XVPq",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "recharge": null,
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "",
+          "baseItem": ""
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "missingFields": [
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "order": 14,
+      "id": "unZwCpFNHYIWMlJF",
+      "name": "bola de alarma",
+      "type": "loot",
+      "category": "GENERAL_OR_LOOT",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": false,
+      "attunement": null,
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": null,
+      "consumableType": "",
+      "armor": null,
+      "weapon": {
+        "weaponType": "",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "se utiliza en el campamento para alertar a los aventureros. a 30 pies de diwstancia. me suena una campana en la caveza y me despierta.",
+      "descriptionLength": 134,
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "container": null,
+      "rawItemId": "unZwCpFNHYIWMlJF",
+      "rawItemType": "loot",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": null,
+        "equipped": null,
+        "identified": true,
+        "uses": null,
+        "recharge": null,
+        "armor": null,
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 15,
+      "id": "YbaCpUHQuh3WZyLp",
+      "name": "Cinturon de amistad enanica",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 6000,
+        "denomination": "gp"
+      },
+      "rarity": "rare",
+      "magical": true,
+      "equipped": true,
+      "attunement": "required",
+      "attuned": true,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "spent": 0,
+        "recovery": [],
+        "max": ""
+      },
+      "consumableType": "clothing",
+      "armor": {
+        "value": null,
+        "dex": null,
+        "magicalBonus": ""
+      },
+      "weapon": {
+        "weaponType": "clothing",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ]
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Objeto maravilloso, (requiere sintonización)\nMientras uses este cinturón, obtienes los siguientes beneficios:Tu puntuación de Constitución aumenta en 2, hasta un máximo de 20.\nTienes ventaja en las tiradas de Carisma (Persuasión) hechas para interactuar con enanos.\nAdemás, mientras estés sintonizado con el cinturón, tienes un 50 por ciento de probabilidad cada día al amanecer de crecer una barba completa si eres capaz de hacerlo, o una barba visiblemente más gruesa si ya tienes una. Si no eres un enano,\nobtienes los siguientes beneficios adicionales mientras uses el cinturón:Tienes ventaja en las tiradas de salvación contra el veneno, y tienes resistencia al daño por veneno.\nTienes visión en la oscuridad hasta un alcance de 60 pies.Puedes hablar, leer y escribir en enano.",
+      "descriptionLength": 782,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "YbaCpUHQuh3WZyLp",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 6000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "required",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "recharge": null,
+        "armor": {
+          "value": null,
+          "dex": null,
+          "magicalBonus": ""
+        },
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ],
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 16,
+      "id": "EV2UCWROdmOV1zDC",
+      "name": "ANILLO GUARDA HECHISOS",
+      "type": "equipment",
+      "category": "EQUIPMENT",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "spent": 0,
+        "recovery": [],
+        "max": ""
+      },
+      "consumableType": "",
+      "armor": {
+        "value": null,
+        "dex": null
+      },
+      "weapon": {
+        "weaponType": "",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Este anillo almacena los hechizos lanzados en él, reteniéndolos hasta que el portador sintonizado los usa. El anillo puede almacenar hasta 3 niveles de conjuros a la vez. Cuando se encuentra, contiene 1d6 - 1 niveles de conjuros almacenados elegidos por el DM.Cualquier criatura puede lanzar un hechizo de nivel 1 a 3 en el anillo tocándole mientras se lanza el hechizo. El hechizo no tiene efecto, salvo almacenarse en el anillo. Si el anillo no puede contener el hechizo, el hechizo se gasta sin efecto. El nivel de la ranura utilizada para lanzar el hechizo determina cuánto espacio ocupa.Mientras llevas este anillo, puedes lanzar cualquier hechizo que esté almacenado en él. El hechizo utiliza el nivel de ranura, la CD de salvación de conjuro, el bono de ataque de conjuro y la habilidad de lanzamiento de conjuros del lanzador original, pero por lo demás se trata como si hubieras lanzado el hechizo. El hechizo lanzado desde el anillo ya no se almacena en él, liberando espacio.",
+      "descriptionLength": 986,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "EV2UCWROdmOV1zDC",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "recharge": null,
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "",
+          "baseItem": ""
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 17,
+      "id": "TNKA2krco2riVydx",
+      "name": "botas de veldora",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "rare",
+      "magical": true,
+      "equipped": true,
+      "attunement": "required",
+      "attuned": true,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "spent": 0,
+        "recovery": [],
+        "max": ""
+      },
+      "consumableType": "clothing",
+      "armor": {
+        "value": null,
+        "dex": null
+      },
+      "weapon": {
+        "weaponType": "clothing",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ]
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Puedo caminar 15 pies mas y nunca puedo tener menos de 15 pies de caminata.",
+      "descriptionLength": 75,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "TNKA2krco2riVydx",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "required",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "recharge": null,
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ],
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A4_4_INGWE_INVENTORY_AUDIT"
+}
