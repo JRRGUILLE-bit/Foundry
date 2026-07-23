@@ -1,0 +1,4675 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T07:22:35.059Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "balder",
+    "name": "Balder",
+    "featureCount": 27,
+    "normalizedActionCount": 15
+  },
+  "featureCount": 27,
+  "countsBySourceType": {
+    "class": 1,
+    "feat": 25,
+    "subclass": 1
+  },
+  "countsByActionCategory": {
+    "PASSIVE_OR_SPECIAL": 22,
+    "ACTION": 5
+  },
+  "statusCounts": {
+    "COMPLETE_FROM_JSON": 27
+  },
+  "featuresWithUses": 3,
+  "featuresWithActivities": 7,
+  "featureActionReferenceCount": 7,
+  "externalActionReferenceCount": 8,
+  "resourceCount": 6,
+  "validation": {
+    "expectedFeatureCount": 27,
+    "countMatchesExpected": true,
+    "uniqueFeatureIds": true,
+    "allFeaturesHaveNames": true,
+    "allFeaturesHaveRawItem": true,
+    "allRawItemsAreFeatureTypes": true,
+    "normalizedActionCountMatches": true,
+    "resourceIdsUnique": true,
+    "allFeatureActionsLinked": true,
+    "allNormalizedActionsAccountedFor": true
+  },
+  "reviewFeatures": [],
+  "unresolvedActions": [],
+  "resources": [
+    {
+      "resourceId": "hSRco8MliVcQF04H",
+      "name": "Divine Sense",
+      "source": "featureUses",
+      "current": null,
+      "max": "1 + @abilities.cha.mod",
+      "spent": 0,
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "actionCategory": "ACTION"
+    },
+    {
+      "resourceId": "HnbsfiLTWA19KQ0c",
+      "name": "Lay on Hands",
+      "source": "featureUses",
+      "current": null,
+      "max": "5 * @classes.paladin.levels",
+      "spent": 0,
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "actionCategory": "ACTION"
+    },
+    {
+      "resourceId": "XtJfaypGIExhcpdl",
+      "name": "Cleansing Touch",
+      "source": "featureUses",
+      "current": null,
+      "max": "max(1, @abilities.cha.mod)",
+      "spent": 0,
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "actionCategory": "ACTION"
+    },
+    {
+      "resourceId": "0",
+      "name": "Silver",
+      "source": "normalizedCharacter",
+      "current": 22,
+      "max": 0,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "name": "Silver",
+        "current": 22,
+        "max": 0,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": 22,
+          "max": null,
+          "sr": false,
+          "lr": false,
+          "label": "Silver"
+        }
+      }
+    },
+    {
+      "resourceId": "1",
+      "name": "Gold",
+      "source": "normalizedCharacter",
+      "current": 0,
+      "max": 0,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "name": "Gold",
+        "current": 0,
+        "max": 0,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": null,
+          "max": null,
+          "sr": false,
+          "lr": false,
+          "label": "Gold"
+        }
+      }
+    },
+    {
+      "resourceId": "2",
+      "name": "Platinum",
+      "source": "normalizedCharacter",
+      "current": 0,
+      "max": 0,
+      "spent": null,
+      "recovery": null,
+      "shortRest": false,
+      "longRest": false,
+      "raw": {
+        "name": "Platinum",
+        "current": 0,
+        "max": 0,
+        "shortRest": false,
+        "longRest": false,
+        "raw": {
+          "value": null,
+          "max": null,
+          "sr": false,
+          "lr": false,
+          "label": "Platinum"
+        }
+      }
+    }
+  ],
+  "featureActions": [
+    {
+      "order": 9,
+      "id": null,
+      "name": "Divine Sense",
+      "source": "Divine Sense",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "1 + @abilities.cha.mod",
+        "spent": 0,
+        "rawMax": "1 + @abilities.cha.mod",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Divine Sense",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "60",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "60 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "1",
+            "units": "round",
+            "special": "",
+            "override": false,
+            "label": "1 Asaltos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "hSRco8MliVcQF04H",
+      "linkedFeatureName": "Divine Sense",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Divine Sense",
+        "sourceType": "feat",
+        "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strahd von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the @Compendium[dnd5e.spells.SLxA9QhrggTz0taU]{Hallow} spell.\nYou can use this feature a number of times equal to 1 + your Charisma modifier. When you finish a long rest, you regain all expended uses.",
+        "activities": [
+          {
+            "name": "Divine Sense",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "60",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "60 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "1",
+              "units": "round",
+              "special": "",
+              "override": false,
+              "label": "1 Asaltos"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": null,
+          "max": "1 + @abilities.cha.mod",
+          "spent": 0,
+          "rawMax": "1 + @abilities.cha.mod",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "order": 10,
+      "id": null,
+      "name": "Lay on Hands",
+      "source": "Lay on Hands",
+      "sourceType": "feat",
+      "type": "heal",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "Target cannot be Undead or a Construct.",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "5 * @classes.paladin.levels",
+        "spent": 0,
+        "rawMax": "5 * @classes.paladin.levels",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Lay on Hands",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "Target cannot be Undead or a Construct.",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "HnbsfiLTWA19KQ0c",
+      "linkedFeatureName": "Lay on Hands",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Lay on Hands",
+        "sourceType": "feat",
+        "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level × 5.\nAs an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool.\nAlternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.\nThis feature has no effect on undead and constructs.",
+        "activities": [
+          {
+            "name": "Lay on Hands",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Target cannot be Undead or a Construct.",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false,
+              "label": "Toque"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": null,
+          "max": "5 * @classes.paladin.levels",
+          "spent": 0,
+          "rawMax": "5 * @classes.paladin.levels",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "order": 11,
+      "id": null,
+      "name": "Divine Smite",
+      "source": "Divine Smite",
+      "sourceType": "feat",
+      "type": "damage",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Divine Smite",
+          "type": "damage",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "2d8 radiant"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Divine Smite",
+          "type": "damage",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "cba6SeAXULBt8kaQ",
+      "linkedFeatureName": "Divine Smite",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Divine Smite",
+        "sourceType": "feat",
+        "description": "Starting at 2nd level, when you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage to the target, in addition to the weapon's damage.\nThe extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend.",
+        "activities": [
+          {
+            "name": "Divine Smite",
+            "type": "damage",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "damage": {
+              "parts": [
+                "2d8 radiant"
+              ]
+            }
+          },
+          {
+            "name": "Divine Smite",
+            "type": "damage",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "Especial"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "damage": {
+              "parts": [
+                "1d8"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 12,
+      "id": null,
+      "name": "Shapechanger",
+      "source": "Shapechanger",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Shapechanger",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "CNxnc1kcralCPFd8",
+      "linkedFeatureName": "Shapechanger",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Shapechanger",
+        "sourceType": "feat",
+        "description": "The {creature} can use its action to polymorph into a Small or Medium humanoid it has seen, or back into its true form.\nIts statistics, other than its size, are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies.\nThe {creature} can use its action to polymorph into a Small or Medium humanoid it has seen, or back into its true form.",
+        "activities": [
+          {
+            "name": "Shapechanger",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 13,
+      "id": null,
+      "name": "Change Shape",
+      "source": "Change Shape",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Change Shape",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "9b3uXthx3AAuXc8l",
+      "linkedFeatureName": "Change Shape",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Change Shape",
+        "sourceType": "feat",
+        "description": "The {type} magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the {type}'s choice).\nIn a new form, the {type} retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+        "activities": [
+          {
+            "name": "Change Shape",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 14,
+      "id": null,
+      "name": "Improved Divine Smite",
+      "source": "Improved Divine Smite",
+      "sourceType": "feat",
+      "type": "damage",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "—"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Improved Divine Smite",
+          "type": "damage",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8 radiant"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "lsriIdRCzOgZVKy1",
+      "linkedFeatureName": "Improved Divine Smite",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Improved Divine Smite",
+        "sourceType": "feat",
+        "description": "By 11th level, you are so suffused with righteous might that all your melee weapon strikes carry divine power with them.\nWhenever you hit a creature with a melee weapon, the creature takes an extra 1d8 radiant damage. If you also use your @UUID[Compendium.dnd5e.classfeatures.Item.ySMPQ6zNSlvkrl2f]{Divine Smite} with an attack, you add this damage to the extra damage of your Divine Smite.",
+        "activities": [
+          {
+            "name": "Improved Divine Smite",
+            "type": "damage",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "—"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "damage": {
+              "parts": [
+                "1d8 radiant"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 15,
+      "id": null,
+      "name": "Cleansing Touch",
+      "source": "Cleansing Touch",
+      "sourceType": "feat",
+      "type": "utility",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "Target must be willing.",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "max(1, @abilities.cha.mod)",
+        "spent": 0,
+        "rawMax": "max(1, @abilities.cha.mod)",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Cleansing Touch",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "Target must be willing.",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": "XtJfaypGIExhcpdl",
+      "linkedFeatureName": "Cleansing Touch",
+      "linkedInventoryName": null,
+      "linkStatus": "LINKED_FEATURE",
+      "raw": {
+        "source": "Cleansing Touch",
+        "sourceType": "feat",
+        "description": "Beginning at 14th level, you can use your action to end one spell on yourself or on one willing creature that you touch.\nYou can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain expended uses when you finish a long rest.",
+        "activities": [
+          {
+            "name": "Cleansing Touch",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Target must be willing.",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false,
+              "label": "Toque"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": null,
+          "max": "max(1, @abilities.cha.mod)",
+          "spent": 0,
+          "rawMax": "max(1, @abilities.cha.mod)",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll",
+              "label": "Descanso largo"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "externalActions": [
+    {
+      "order": 1,
+      "id": null,
+      "name": "Golden axe of Luck",
+      "source": "Golden axe of Luck",
+      "sourceType": "Arma",
+      "type": "attack",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Golden axe of Luck",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 13,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8+8 slashing"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Golden axe of Luck",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Golden axe of Luck",
+        "sourceType": "Arma",
+        "description": "This radiant golden hammer was forged in the temples of fortune and justice. Its surface shimmers with soft celestial light, and a lucky charm dangles from its hilt. The hammer blesses its wielder with divine strength—and occasional bursts of miraculous luck.\nWeapon Stats:\nType: Maul (2d6, heavy, two-handed) or Mace (1d6, one-handed)\nRarity: Very Rare\nRequires Attunement: Yes (Paladin or Cleric, good alignment)\nMagic Features:\n1. Divine Blessing\nYou gain a +3 bonus to attack and damage rolls made with this weapon.\n2. Fortune's Favor (1/long rest)\nWhen you miss an attack roll, fail an ability check, or fail a saving throw, you can choose to reroll the result. You must take the new roll.\n3. Radiant Smite (2/long rest)\nWhen you hit a creature with this weapon, you can choose to deal an extra 2d6 radiant damage. If the target is a fiend or undead, the radiant damage increases to 2d8.\n4. Glimmer of Luck (passive)\nWhile attuned, you gain a +1 bonus to initiative rolls and can’t be surprised while conscious.",
+        "activities": [
+          {
+            "name": "Golden axe of Luck",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "attack": {
+              "bonus": 13,
+              "ability": "dex",
+              "derived": true
+            },
+            "damage": {
+              "parts": [
+                "1d8+8 slashing"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 2,
+      "id": null,
+      "name": "Shortbow",
+      "source": "Shortbow",
+      "sourceType": "Arma",
+      "type": "attack",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Shortbow",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "80",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "80 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d6+5 piercing"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Shortbow",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Shortbow",
+        "sourceType": "Arma",
+        "description": "This two handed bow is somewhat smaller than the traditional longbow variant, making it well suited for rapid attacks while on the move or mounted from horseback.",
+        "activities": [
+          {
+            "name": "Shortbow",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "80",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "80 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "attack": {
+              "bonus": 10,
+              "ability": "dex",
+              "derived": true
+            },
+            "damage": {
+              "parts": [
+                "1d6+5 piercing"
+              ]
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 3,
+      "id": null,
+      "name": "Arrow",
+      "source": "Arrow",
+      "sourceType": "Consumible",
+      "type": "attack",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Arrow",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "5",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "5 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "cha",
+            "derived": true
+          },
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Arrow",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Arrow",
+        "sourceType": "Consumible",
+        "description": "Standard ammunition used for bows of all varieties. These mundane arrows are made of smooth wooden shafts with goose feather fletching and hammer metal bodkins.",
+        "activities": [
+          {
+            "name": "Arrow",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "value": "5",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "5 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "—"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "attack": {
+              "bonus": 10,
+              "ability": "cha",
+              "derived": true
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 4,
+      "id": null,
+      "name": "Shield +1*",
+      "source": "Shield +1*",
+      "sourceType": "Equipo",
+      "type": "utility",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "—"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Shield +1*",
+          "type": "utility",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "self",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "self"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Shield +1*",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Shield +1*",
+        "sourceType": "Equipo",
+        "description": "While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.",
+        "activities": [
+          {
+            "name": "Shield +1*",
+            "type": "utility",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "—"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "self",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "self"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 5,
+      "id": null,
+      "name": "Force crossbow",
+      "source": "Force crossbow",
+      "sourceType": "Arma",
+      "type": "attack",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "—"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Force crossbow",
+          "type": "attack",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "value": "80",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "80 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creatureOrObject",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creatureOrObject"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Force crossbow",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Force crossbow",
+        "sourceType": "Arma",
+        "description": "The Force Crossbow: This ethereal weapon channels spectral energy to propel ghostly force bolts, eliminating the need for traditional ammunition. With each shot, it harnesses otherworldly power to strike foes with spectral precision.",
+        "activities": [
+          {
+            "name": "Force crossbow",
+            "type": "attack",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false,
+              "label": "—"
+            },
+            "range": {
+              "value": "80",
+              "units": "ft",
+              "special": "",
+              "override": false,
+              "label": "80 ft"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creatureOrObject",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creatureOrObject"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": "",
+            "attack": {
+              "bonus": 10,
+              "ability": "dex",
+              "derived": true
+            }
+          }
+        ],
+        "uses": null
+      }
+    },
+    {
+      "order": 6,
+      "id": null,
+      "name": "Potion of Healing*",
+      "source": "Potion of Healing*",
+      "sourceType": "Consumible",
+      "type": "heal",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": 1,
+        "max": 1,
+        "spent": 0,
+        "rawMax": 1,
+        "recovery": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Potion of Healing*",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Potion of Healing*",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Potion of Healing*",
+        "sourceType": "Consumible",
+        "description": "The potion's red liquid glimmers when agitated.\nYou regain 2d4+2 hit points when you drink this potion.",
+        "activities": [
+          {
+            "name": "Potion of Healing*",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false,
+              "label": "Toque"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": 1,
+          "max": 1,
+          "spent": 0,
+          "rawMax": "1",
+          "recovery": []
+        }
+      }
+    },
+    {
+      "order": 7,
+      "id": null,
+      "name": "Potion of Healing*",
+      "source": "Potion of Healing*",
+      "sourceType": "Consumible",
+      "type": "heal",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": 1,
+        "max": 1,
+        "spent": 0,
+        "rawMax": 1,
+        "recovery": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Potion of Healing*",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Potion of Healing*",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Potion of Healing*",
+        "sourceType": "Consumible",
+        "description": "The potion's red liquid glimmers when agitated.\nYou regain 2d4+2 hit points when you drink this potion.",
+        "activities": [
+          {
+            "name": "Potion of Healing*",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false,
+              "label": "Toque"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "1 creature"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": {
+          "current": 1,
+          "max": 1,
+          "spent": 0,
+          "rawMax": "1",
+          "recovery": []
+        }
+      }
+    },
+    {
+      "order": 8,
+      "id": null,
+      "name": "Robe of Useful Items",
+      "source": "Robe of Useful Items",
+      "sourceType": "Equipo",
+      "type": "utility",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Robe of Useful Items",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "self",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "self"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "linkedFeatureId": null,
+      "linkedFeatureName": null,
+      "linkedInventoryName": "Robe of Useful Items",
+      "linkStatus": "EXTERNAL_INVENTORY",
+      "raw": {
+        "source": "Robe of Useful Items",
+        "sourceType": "Equipo",
+        "description": "Wondrous item\nThis robe has cloth patches of various shapes and colors covering it. While wearing the robe, you can use an action to detach one of the patches, causing it to become the object or creature it represents. Once the last patch is removed, the robe becomes an ordinary garment.\nThe robe has the following patches:\nx2 Dagger patches\nx2 Bullseye lantern (filled and lit) patches\nx2 Steel mirror patches\nx2 10-foot pole patches\nx2 Hempen rope (50 feet, coiled) patches\nx2 Sack patches\nIn addition, the robe has [[/r 4d4]] other patches. The GM chooses the patches or determines them randomly from the @UUID[Compendium.dnd5e.tables.RollTable.CTGxcd51szehUGBn]{Robe of Useful Items} table.\nFoundry Note\nIt is recommended to delete items here as necessary to track patches left.\nThe price guide has been calculated at 5 x item for the maximum number of items possible. Please adjust as necessary to reflect the number of patches and the DM's world economy.",
+        "activities": [
+          {
+            "name": "Robe of Useful Items",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false,
+              "label": "1 acción"
+            },
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false,
+              "label": "Personal"
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "self",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false,
+              "label": "self"
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false,
+              "label": "Instantánea"
+            },
+            "chatFlavor": ""
+          }
+        ],
+        "uses": null
+      }
+    }
+  ],
+  "features": [
+    {
+      "order": 1,
+      "id": "F3wHa3EG26q7ejhw",
+      "name": "Paladin",
+      "type": "class",
+      "sourceType": "class",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "As a paladin, you gain the following class features.\nHit Points\nHit Dice: 1d10 per paladin level\nHit Points at 1st Level: 10 + your Constitution modifier\nHit Points at Higher Levels: 1d10 (or 6) + your Constitution modifier per paladin level after 1st\nProficiencies\nArmor: All armor, shields\nWeapons: Simple weapons, martial weapons\nTools: None\nSaving Throws: Wisdom, Charisma\nSkills: Choose two from Athletics, Insight, Intimidation, Medicine, Persuasion, and Religion\nEquipment\nYou start with the following equipment, in addition to the equipment granted by your background:\n(a) a martial weapon and a shield or (b) two martial weapons\n(a) five javelins or (b) any simple melee weapon\n(a) a priest's pack or (b) an explorer's pack\nChain mail and a holy symbol\nPaladin Advancement Level Proficiency Bonus Features 1st +2 @Compendium[dnd5e.classfeatures.E8ozg8avUVOX9N7u]{Divine Sense}, @Compendium[dnd5e.classfeatures.OdrvL3afwLOPeuYZ]{Lay on Hands} 2nd +2 @Compendium[dnd5e.classfeatures.fbExzwNwEAl2kW9c]{Fighting Style}, @Compendium[dnd5e.classfeatures.ihoQHsmVZlyDbPhX]{Spellcasting}, @Compendium[dnd5e.classfeatures.ySMPQ6zNSlvkrl2f]{Divine Smite} 3rd +2 @Compendium[dnd5e.classfeatures.dY9yrqkyEDuF0CG2]{Divine Health}, @Compendium[dnd5e.classfeatures.olAqNsUTIef9x8xC]{Sacred Oath} 4th +2 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 5th +3 2nd Level Spell Slot, @Compendium[dnd5e.classfeatures.XogoBnFWmCAHXppo]{Extra Attack} 6th +3 @Compendium[dnd5e.classfeatures.carGDhkIdoduTC0I]{Aura of Protection} 7th +3 Sacred Oath feature 8th +3 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 9th +4 3rd Level Spell Slot 10th +4 @Compendium[dnd5e.classfeatures.nahSkBO6LH4HkpaT]{Aura of Courage} 11th +4 @Compendium[dnd5e.classfeatures.FAk41RPCTcvCk6KI]{Improved Divine Smite} 12th +4 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 13th +5 4th Level Spell Slot 14th +5 @Compendium[dnd5e.classfeatures.U7BIPVPsptBmwsnV]{Cleansing Touch} 15th +5 Sacred Oath feature 16th +5 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 17th +6 5th Level Spell Slot 18th +6 Aura improvements 19th +6 @Compendium[dnd5e.classfeatures.s0Cc2zcX0JzIgam5]{Ability Score Improvement} 20th +6 Sacred Oath feature\nSacred Oaths\nBecoming a paladin involves taking vows that commit the paladin to the cause of righteousness, an active path of fighting wickedness. The final oath, taken when he or she reaches 3rd level, is the culmination of all the paladin's training. Some characters with this class don't consider themselves true paladins until they have reached 3rd level and made this oath. For others, the actual swearing of the oath is a formality, an official stamp on what has always been true in the paladin's heart.\n@Compendium[dnd5e.subclasses.sZ86mbX8D5PfYuhl]{Oath of Devotion}\nBreaking Your Oath\nA paladin tries to hold to the highest standards of conduct, but even the most virtuous paladin is fallible. Sometimes the right path proves too demanding, sometimes a situation calls for the lesser of two evils, and sometimes the heat of emotion causes a paladin to transgress his or her oath.\nA paladin who has broken a vow typically seeks absolution from a cleric who shares his or her faith or from another paladin of the same order. The paladin might spend an allnight vigil in prayer as a sign of penitence, or undertake a fast or similar act of self-denial. After a rite of confession and forgiveness, the paladin starts fresh.\nIf a paladin willfully violates his or her oath and shows no sign of repentance, the consequences can be more serious. At the GM's discretion, an impenitent paladin might be forced to abandon this class and adopt another.",
+      "descriptionLength": 3759,
+      "source": {
+        "custom": "",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "class",
+      "advancement": {
+        "z2d0fxi8e24gradq": {
+          "_id": "z2d0fxi8e24gradq",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.E8ozg8avUVOX9N7u",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.OdrvL3afwLOPeuYZ",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "hSRco8MliVcQF04H": "Compendium.dnd5e.classfeatures.E8ozg8avUVOX9N7u",
+              "HnbsfiLTWA19KQ0c": "Compendium.dnd5e.classfeatures.OdrvL3afwLOPeuYZ"
+            }
+          },
+          "level": 1,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "xy3wlxtiwbplsms7": {
+          "_id": "xy3wlxtiwbplsms7",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.fbExzwNwEAl2kW9c",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.ihoQHsmVZlyDbPhX",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.ySMPQ6zNSlvkrl2f",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "3IX9fx7PFlGGrRZk": "Compendium.dnd5e.classfeatures.fbExzwNwEAl2kW9c",
+              "FdpRvYM4Zj10hJPq": "Compendium.dnd5e.classfeatures.ihoQHsmVZlyDbPhX",
+              "cba6SeAXULBt8kaQ": "Compendium.dnd5e.classfeatures.ySMPQ6zNSlvkrl2f"
+            }
+          },
+          "level": 2,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "v26vmuy5lpsu5g4c": {
+          "_id": "v26vmuy5lpsu5g4c",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.dY9yrqkyEDuF0CG2",
+                "optional": false
+              },
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.olAqNsUTIef9x8xC",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "xXxes8CH4wwCIkU7": "Compendium.dnd5e.classfeatures.dY9yrqkyEDuF0CG2",
+              "U8zYsDKbVStSYpm2": "Compendium.dnd5e.classfeatures.olAqNsUTIef9x8xC"
+            }
+          },
+          "level": 3,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "m3ytemj4ygib8c5m": {
+          "_id": "m3ytemj4ygib8c5m",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "tKFlpry46tBQ1haw": "Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo"
+            }
+          },
+          "level": 5,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "w3n62vbfeo3c7a90": {
+          "_id": "w3n62vbfeo3c7a90",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.carGDhkIdoduTC0I",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "8QwF9lkrPj878GwY": "Compendium.dnd5e.classfeatures.Item.carGDhkIdoduTC0I"
+            }
+          },
+          "level": 6,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "ers71klsl2dcjpfa": {
+          "_id": "ers71klsl2dcjpfa",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.nahSkBO6LH4HkpaT",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "S0MsO3pfZxXXwzKJ": "Compendium.dnd5e.classfeatures.Item.nahSkBO6LH4HkpaT"
+            }
+          },
+          "level": 10,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "kxodggik4e56u85t": {
+          "_id": "kxodggik4e56u85t",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.FAk41RPCTcvCk6KI",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "lsriIdRCzOgZVKy1": "Compendium.dnd5e.classfeatures.Item.FAk41RPCTcvCk6KI"
+            }
+          },
+          "level": 11,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "3x1u7nnxv8ftkt0d": {
+          "_id": "3x1u7nnxv8ftkt0d",
+          "type": "ItemGrant",
+          "configuration": {
+            "items": [
+              {
+                "uuid": "Compendium.dnd5e.classfeatures.U7BIPVPsptBmwsnV",
+                "optional": false
+              }
+            ],
+            "optional": false,
+            "spell": {
+              "ability": [
+                ""
+              ],
+              "uses": {
+                "max": "",
+                "per": "",
+                "requireSlot": false
+              },
+              "prepared": 0
+            }
+          },
+          "value": {
+            "added": {
+              "XtJfaypGIExhcpdl": "Compendium.dnd5e.classfeatures.Item.U7BIPVPsptBmwsnV"
+            }
+          },
+          "level": 14,
+          "title": "Features",
+          "flags": {},
+          "hint": ""
+        },
+        "ebo3padd7vg4jg3g": {
+          "_id": "ebo3padd7vg4jg3g",
+          "type": "HitPoints",
+          "configuration": {},
+          "value": {
+            "1": "max",
+            "2": "avg",
+            "3": "avg",
+            "4": "avg",
+            "5": "avg",
+            "6": "avg",
+            "7": "avg",
+            "8": "avg",
+            "9": "avg",
+            "10": "avg",
+            "11": "avg",
+            "12": "avg",
+            "13": "avg",
+            "14": "avg",
+            "15": "avg"
+          },
+          "title": "",
+          "flags": {},
+          "hint": ""
+        },
+        "6MZvspcFYzzfmwbB": {
+          "type": "Trait",
+          "level": 1,
+          "configuration": {
+            "grants": [
+              "saves:wis",
+              "saves:cha"
+            ],
+            "mode": "default",
+            "allowReplacements": false,
+            "choices": []
+          },
+          "value": {
+            "chosen": [
+              "saves:wis",
+              "saves:cha"
+            ]
+          },
+          "_id": "6MZvspcFYzzfmwbB",
+          "flags": {},
+          "hint": ""
+        },
+        "Q1pkd3VqkzYDS4kz": {
+          "type": "Trait",
+          "level": 1,
+          "configuration": {
+            "choices": [
+              {
+                "count": 2,
+                "pool": [
+                  "skills:ath",
+                  "skills:ins",
+                  "skills:itm",
+                  "skills:med",
+                  "skills:per",
+                  "skills:rel"
+                ]
+              }
+            ],
+            "mode": "default",
+            "allowReplacements": false,
+            "grants": []
+          },
+          "_id": "Q1pkd3VqkzYDS4kz",
+          "value": {
+            "chosen": []
+          },
+          "flags": {},
+          "hint": ""
+        }
+      },
+      "rawItemId": "F3wHa3EG26q7ejhw",
+      "rawItemType": "class",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 2,
+      "id": "hSRco8MliVcQF04H",
+      "name": "Divine Sense",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "1 + @abilities.cha.mod",
+        "spent": 0,
+        "rawMax": "1 + @abilities.cha.mod",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "consumption": null,
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "override": false,
+        "label": "60 ft"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "1",
+        "units": "round",
+        "special": "",
+        "override": false,
+        "label": "1 Asaltos"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Divine Sense",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "60",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "60 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "1",
+            "units": "round",
+            "special": "",
+            "override": false,
+            "label": "1 Asaltos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strahd von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the @Compendium[dnd5e.spells.SLxA9QhrggTz0taU]{Hallow} spell.\nYou can use this feature a number of times equal to 1 + your Charisma modifier. When you finish a long rest, you regain all expended uses.",
+      "descriptionLength": 829,
+      "source": {
+        "custom": "PHB pg. 84",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Paladin 1",
+      "advancement": {},
+      "rawItemId": "hSRco8MliVcQF04H",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 3,
+      "id": "HnbsfiLTWA19KQ0c",
+      "name": "Lay on Hands",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "Target cannot be Undead or a Construct.",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "5 * @classes.paladin.levels",
+        "spent": 0,
+        "rawMax": "5 * @classes.paladin.levels",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "consumption": null,
+      "range": {
+        "units": "touch",
+        "special": "",
+        "override": false,
+        "label": "Toque"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "1",
+          "type": "creature",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "1 creature"
+      },
+      "duration": {
+        "concentration": false,
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Lay on Hands",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "Target cannot be Undead or a Construct.",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level × 5.\nAs an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool.\nAlternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.\nThis feature has no effect on undead and constructs.",
+      "descriptionLength": 714,
+      "source": {
+        "custom": "PHB pg. 84",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Paladin 1",
+      "advancement": {},
+      "rawItemId": "HnbsfiLTWA19KQ0c",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 4,
+      "id": "nTpNeQPzR38BZQyT",
+      "name": "Brave",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You have advantage on saving throws against being frightened.",
+      "descriptionLength": 61,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Halfling",
+      "advancement": {},
+      "rawItemId": "nTpNeQPzR38BZQyT",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 5,
+      "id": "xpzg4Mg9T05bWqzY",
+      "name": "Lucky",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 1,
+      "description": "When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.",
+      "descriptionLength": 130,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Halfling",
+      "advancement": {},
+      "rawItemId": "xpzg4Mg9T05bWqzY",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 6,
+      "id": "C2AQkbWoc0kaJ0n3",
+      "name": "Halfling Nimbleness",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You can move through the space of any creature that is of a size larger than yours.",
+      "descriptionLength": 83,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Halfling",
+      "advancement": {},
+      "rawItemId": "C2AQkbWoc0kaJ0n3",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 7,
+      "id": "dE4FmCo2fjvYSiWs",
+      "name": "Naturally Stealthy",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.",
+      "descriptionLength": 112,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Lightfoot Halfling",
+      "advancement": {},
+      "rawItemId": "dE4FmCo2fjvYSiWs",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 8,
+      "id": "NMTNCaAjeFA9rxGC",
+      "name": "La luna",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "La luna te bendice en la noche, una capa de luz ilusoria de la luna que te ayuda a esconderte. En las horas de la noche tienes ventaja para esconderte.",
+      "descriptionLength": 151,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "NMTNCaAjeFA9rxGC",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 9,
+      "id": "3IX9fx7PFlGGrRZk",
+      "name": "Fighting Style (Fighter)",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You adopt a particular style of fighting as your specialty. Choose one of the following options from the appropriate class list. You can't take a Fighting Style option more than once, even if you later get to choose again.\n@Compendium[dnd5e.classfeatures.8YwPFv3UAPjWVDNf]{Archery}\n@Compendium[dnd5e.classfeatures.zSlV0O2rQMdoq6pB]{Defense}\n@Compendium[dnd5e.classfeatures.hCop9uJrWhF1QPb4]{Dueling}\n@Compendium[dnd5e.classfeatures.3Nc6u9pyStByuJsm]{Great Weapon Fighting}\n@Compendium[dnd5e.classfeatures.06NVMYf58Z76O85O]{Protection}\n@Compendium[dnd5e.classfeatures.mHcSjcHJ8oZu3hkb]{Two Weapon Fighting}",
+      "descriptionLength": 605,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Fighter 1",
+      "advancement": {},
+      "rawItemId": "3IX9fx7PFlGGrRZk",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 10,
+      "id": "FdpRvYM4Zj10hJPq",
+      "name": "Spellcasting (Paladin)",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "By 2nd level, you have learned to draw on divine magic through meditation and prayer to cast spells as a cleric does.\nPreparing and Casting Spells\nThe Paladin table shows how many spell slots you have to cast your spells. To cast one of your paladin spells of 1st level or higher, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.\nYou prepare the list of paladin spells that are available for you to cast, choosing from the paladin spell list. When you do so, choose a number of paladin spells equal to your Charisma modifier + half your paladin level, rounded down (minimum of one spell). The spells must be of a level for which you have spell slots.\nFor example, if you are a 5th-level paladin, you have four 1st-level and two 2nd-level spell slots. With a Charisma of 14, your list of prepared spells can include four spells of 1st or 2nd level, in any combination. If you prepare the 1st-level spell cure wounds, you can cast it using a 1st-level or a 2ndlevel slot. Casting the spell doesn't remove it from your list of prepared spells.\nYou can change your list of prepared spells when you finish a long rest. Preparing a new list of paladin spells requires time spent in prayer and meditation: at least 1 minute per spell level for each spell on your list.\nSpellcasting Ability\nCharisma is your spellcasting ability for your paladin spells, since their power derives from the strength of your convictions. You use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a paladin spell you cast and when making an attack roll with one.\nSpell save DC = 8 + your proficiency bonus + your Charisma modifier\nSpell attack modifier = your proficiency bonus + your Charisma modifier\nSpellcasting Focus\nYou can use a holy symbol as a spellcasting focus for your paladin spells.",
+      "descriptionLength": 1938,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Paladin 2",
+      "advancement": {},
+      "rawItemId": "FdpRvYM4Zj10hJPq",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 11,
+      "id": "cba6SeAXULBt8kaQ",
+      "name": "Divine Smite",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "special",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "Especial"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "1",
+          "type": "creature",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "1 creature"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": {
+        "parts": [
+          "2d8 radiant"
+        ]
+      },
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Divine Smite",
+          "type": "damage",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "2d8 radiant"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Divine Smite",
+          "type": "damage",
+          "activation": {
+            "type": "special",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "Especial"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 2,
+      "effectCount": 0,
+      "description": "Starting at 2nd level, when you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage to the target, in addition to the weapon's damage.\nThe extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend.",
+      "descriptionLength": 365,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "Paladin 2",
+      "advancement": {},
+      "rawItemId": "cba6SeAXULBt8kaQ",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 12,
+      "id": "xXxes8CH4wwCIkU7",
+      "name": "Divine Health",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 1,
+      "description": "By 3rd level, the divine magic flowing through you makes you immune to disease.",
+      "descriptionLength": 79,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Paladin 3",
+      "advancement": {},
+      "rawItemId": "xXxes8CH4wwCIkU7",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 13,
+      "id": "U8zYsDKbVStSYpm2",
+      "name": "Sacred Oath",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "When you reach 3rd level, you swear the oath that binds you as a paladin forever. Up to this time you have been in a preparatory stage, committed to the path but not yet sworn to it. Now you choose an oath, such as the Oath of Devotion.\nYour choice grants you features at 3rd level and again at 7th, 15th, and 20th level. Those features include oath spells and the Channel Divinity feature.\nOath Spells\nEach oath has a list of associated spells. You gain access to these spells at the levels specified in the oath description. Once you gain access to an oath spell, you always have it prepared. Oath spells don't count against the number of spells you can prepare each day.\nIf you gain an oath spell that doesn't appear on the paladin spell list, the spell is nonetheless a paladin spell for you.\nChannel Divinity\nSee @Compendium[dnd5e.classfeatures.8M7uOPhbTxoxxJSo]{Channel Divinity}.",
+      "descriptionLength": 886,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Paladin 3",
+      "advancement": {},
+      "rawItemId": "U8zYsDKbVStSYpm2",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 14,
+      "id": "k0DxhmJmHiLOpGD4",
+      "name": "Fighting Style:Blind Fighting.",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You have blindsight with a range of 10 feet. Within that range, you can effectively see anything that isn't behind total cover, even if you're blinded or in darkness. Moreover, you can see an invisible creature within that range, unless the creature successfully hides from you.",
+      "descriptionLength": 278,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "k0DxhmJmHiLOpGD4",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 15,
+      "id": "Olif8hFoBS6SMGVc",
+      "name": "Hevn",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Winter wolf pup",
+      "descriptionLength": 15,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "Olif8hFoBS6SMGVc",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 16,
+      "id": "tKFlpry46tBQ1haw",
+      "name": "Extra Attack",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      "descriptionLength": 88,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Barbarian 5, Monk 5, Paladin 5, Ranger 5",
+      "advancement": {},
+      "rawItemId": "tKFlpry46tBQ1haw",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 17,
+      "id": "CNxnc1kcralCPFd8",
+      "name": "Shapechanger",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Shapechanger",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "The {creature} can use its action to polymorph into a Small or Medium humanoid it has seen, or back into its true form.\nIts statistics, other than its size, are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies.\nThe {creature} can use its action to polymorph into a Small or Medium humanoid it has seen, or back into its true form.",
+      "descriptionLength": 402,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "CNxnc1kcralCPFd8",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 18,
+      "id": "9b3uXthx3AAuXc8l",
+      "name": "Change Shape",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Change Shape",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "The {type} magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the {type}'s choice).\nIn a new form, the {type} retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+      "descriptionLength": 629,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "9b3uXthx3AAuXc8l",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 19,
+      "id": "8QwF9lkrPj878GwY",
+      "name": "Aura of Protection",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Starting at 6th level, whenever you or a friendly creature within 10 feet of you must make a saving throw, the creature gains a bonus to the saving throw equal to your Charisma modifier (with a minimum bonus of +1). You must be conscious to grant this bonus.\nAt 18th level, the range of this aura increases to 30 feet.",
+      "descriptionLength": 318,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Paladin 6",
+      "advancement": {},
+      "rawItemId": "8QwF9lkrPj878GwY",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 20,
+      "id": "P8QVvwMxjpGFW0xR",
+      "name": "Lucky",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "You have inexplicable luck that seems to kick in at just the right moment.\nYou have 3 luck points. Whenever you make an attack roll, an ability check, or a saving throw, you can spend one luck point to roll an additional d20. You can choose to spend one of your luck points after you roll the die, but before the outcome is determined. You choose which of the d20s is used for the attack roll, ability check, or saving throw.\nYou can also spend one luck point when an attack roll is made against you. Roll a d20 and then choose whether the attack uses the attacker's roll or yours.\nIf more than one creature spends a luck point to influence the outcome of a roll, the points cancel each other out; no additional dice are rolled.\nYou regain your expended luck points when you finish a long rest.",
+      "descriptionLength": 794,
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "P8QVvwMxjpGFW0xR",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 21,
+      "id": "S0MsO3pfZxXXwzKJ",
+      "name": "Aura of Courage",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Starting at 10th level, you and friendly creatures within 10 feet of you can't be frightened while you are conscious.\nAt 18th level, the range of this aura increases to 30 feet.",
+      "descriptionLength": 177,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Paladin 10",
+      "advancement": {},
+      "rawItemId": "S0MsO3pfZxXXwzKJ",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 22,
+      "id": "lsriIdRCzOgZVKy1",
+      "name": "Improved Divine Smite",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": {
+        "type": "",
+        "value": null,
+        "condition": "",
+        "override": false,
+        "label": "—"
+      },
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": {
+        "units": "self",
+        "special": "",
+        "override": false,
+        "label": "Personal"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "",
+          "type": "",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "—"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": {
+        "parts": [
+          "1d8 radiant"
+        ]
+      },
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Improved Divine Smite",
+          "type": "damage",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8 radiant"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 1,
+      "description": "By 11th level, you are so suffused with righteous might that all your melee weapon strikes carry divine power with them.\nWhenever you hit a creature with a melee weapon, the creature takes an extra 1d8 radiant damage. If you also use your @UUID[Compendium.dnd5e.classfeatures.Item.ySMPQ6zNSlvkrl2f]{Divine Smite} with an attack, you add this damage to the extra damage of your Divine Smite.",
+      "descriptionLength": 390,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Paladin 11",
+      "advancement": {},
+      "rawItemId": "lsriIdRCzOgZVKy1",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 23,
+      "id": "XtJfaypGIExhcpdl",
+      "name": "Cleansing Touch",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "ACTION",
+      "activation": {
+        "type": "action",
+        "value": 1,
+        "condition": "Target must be willing.",
+        "override": false,
+        "label": "1 acción"
+      },
+      "uses": {
+        "current": null,
+        "max": "max(1, @abilities.cha.mod)",
+        "spent": 0,
+        "rawMax": "max(1, @abilities.cha.mod)",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "recoverAll",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "recovery": [
+        {
+          "period": "lr",
+          "type": "recoverAll",
+          "label": "Descanso largo"
+        }
+      ],
+      "consumption": null,
+      "range": {
+        "units": "touch",
+        "special": "",
+        "override": false,
+        "label": "Toque"
+      },
+      "target": {
+        "template": {
+          "count": "",
+          "contiguous": false,
+          "type": "",
+          "size": "",
+          "width": "",
+          "height": "",
+          "units": "ft",
+          "stationary": false
+        },
+        "affects": {
+          "count": "1",
+          "type": "creature",
+          "choice": false,
+          "special": ""
+        },
+        "prompt": true,
+        "override": false,
+        "label": "1 creature"
+      },
+      "duration": {
+        "concentration": false,
+        "value": "",
+        "units": "inst",
+        "special": "",
+        "override": false,
+        "label": "Instantánea"
+      },
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [
+        {
+          "id": null,
+          "name": "Cleansing Touch",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "Target must be willing.",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "effectCount": 0,
+      "description": "Beginning at 14th level, you can use your action to end one spell on yourself or on one willing creature that you touch.\nYou can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain expended uses when you finish a long rest.",
+      "descriptionLength": 270,
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "requirements": "Paladin 14",
+      "advancement": {},
+      "rawItemId": "XtJfaypGIExhcpdl",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 24,
+      "id": "HuHBdX7TkIow8O1d",
+      "name": "Oath of the Watchers",
+      "type": "subclass",
+      "sourceType": "subclass",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": null,
+      "recovery": null,
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "The Oath of the Watchers binds paladins to protect mortal realms from the predations of extraplanar creatures, many of which can lay waste to mortal soldiers. Thus, the Watchers hone their minds, spirits, and bodies to be the ultimate weapons against such threats.\nPaladins who follow the Watchers' oath are ever vigilant in spotting the influence of extraplanar forces, often establishing a network of spies and informants to gather information on suspected cults. To a Watcher, keeping a healthy suspicion and awareness about one's surroundings is as natural as wearing armor in battle.",
+      "descriptionLength": 588,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "subclass",
+      "advancement": {},
+      "rawItemId": "HuHBdX7TkIow8O1d",
+      "rawItemType": "subclass",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 25,
+      "id": "rlBE2qtaMuShguIp",
+      "name": "Channel Divinity",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Channel Divinity\nWhen you take this oath at 3rd level, you gain the following two Channel Divinity options. See the Sacred Oath class feature for how Channel Divinity works.\nWatcher's Will. You can use your Channel Divinity to invest your presence with the warding power of your faith. As an action, you can choose a number of creatures you can see within 30 feet of you, up to a number equal to your Charisma modifier (minimum of one creature). For 1 minute, you and the chosen creatures have advantage on Intelligence, Wisdom, and Charisma saving throws.\nAbjure the Extraplanar. You can use your Channel Divinity to castigate unworldly beings. As an action, you present your holy symbol and each aberration, celestial, elemental, fey, or fiend within 30 feet of you that can hear you must make a Wisdom saving throw. On a failed save, the creature is turned for 1 minute or until it takes damage.\nA turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly end its move in a space within 30 feet of you. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can take the Dodge action.",
+      "descriptionLength": 1232,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "rlBE2qtaMuShguIp",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 26,
+      "id": "51klR1cQfkedwSg1",
+      "name": "Aura of the Sentinel",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Aura of the Sentinel\nAt 7th level, you emit an aura of alertness while you aren't incapacitated. When you and any creatures of your choice within 10 feet of you roll initiative, you all gain a bonus to initiative equal to your proficiency bonus.\nAt 18th level, the range of this aura increases to 30 feet.",
+      "descriptionLength": 305,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "51klR1cQfkedwSg1",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 27,
+      "id": "XartHaO46DAp1KMJ",
+      "name": "Vigilant Rebuke",
+      "type": "feat",
+      "sourceType": "feat",
+      "actionCategory": "PASSIVE_OR_SPECIAL",
+      "activation": null,
+      "uses": {
+        "current": null,
+        "max": "",
+        "spent": 0,
+        "rawMax": "",
+        "recovery": []
+      },
+      "recovery": [],
+      "consumption": null,
+      "range": null,
+      "target": null,
+      "duration": null,
+      "attack": null,
+      "save": null,
+      "damage": null,
+      "healing": null,
+      "activities": [],
+      "activityCount": 0,
+      "effectCount": 0,
+      "description": "Vigilant Rebuke\nAt 15th level, you've learned how to chastise anyone who dares wield beguilements against you and your wards. Whenever you or a creature you can see within 30 feet of you succeeds on an Intelligence, a Wisdom, or a Charisma saving throw, you can use your reaction to deal 2d8 + your Charisma modifier force damage to the creature that forced the saving throw.",
+      "descriptionLength": 375,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "requirements": "feat",
+      "advancement": {},
+      "rawItemId": "XartHaO46DAp1KMJ",
+      "rawItemType": "feat",
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A5_3_MELKOR_FEATURES_AND_RESOURCES_AUDIT"
+}
