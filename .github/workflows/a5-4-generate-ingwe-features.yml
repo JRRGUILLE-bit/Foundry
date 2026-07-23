@@ -1,0 +1,295 @@
+name: A5.4 Generate Ingwe Features Audit
+
+on:
+  push:
+    branches:
+      - agent/a5-4-ingwe-features
+    paths:
+      - .github/workflows/a5-4-generate-ingwe-features.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate Ingwe features and resources audit
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const vm = require('vm');
+
+          const bundlePath = path.join('foundry_characters_static', 'characters.bundle.js');
+          const context = { window: {}, console };
+          vm.createContext(context);
+          vm.runInContext(fs.readFileSync(bundlePath, 'utf8'), context, { filename: bundlePath });
+
+          const root = context.window.BANDA_CHARACTER_DATA || {};
+          const character = (context.window.BANDA_CHARACTERS || root.characters || {}).ingwe;
+          if (!character) throw new Error('Ingwe not found');
+
+          const rawActor = character.rawActor || {};
+          const rawItems = Array.isArray(rawActor.items) ? rawActor.items : [];
+          const features = Array.isArray(character.features) ? character.features : [];
+          const normalizedActions = Array.isArray(character.actions) ? character.actions : [];
+          const inventory = Array.isArray(character.inventory) ? character.inventory : [];
+          const featureTypes = new Set(['feat', 'class', 'subclass', 'race', 'background']);
+          const text = (value) => typeof value === 'string' ? value.trim() : '';
+          const clone = (value) => value === undefined ? null : JSON.parse(JSON.stringify(value));
+          const values = (value) => Array.isArray(value) ? value : value && typeof value === 'object' ? Object.values(value) : [];
+          const key = (value) => text(value).toLocaleLowerCase('en').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+
+          const rawById = new Map(rawItems.map((item) => [item._id || item.id, item]));
+          const rawByName = new Map();
+          for (const item of rawItems) {
+            const k = key(item.name);
+            if (!rawByName.has(k)) rawByName.set(k, []);
+            rawByName.get(k).push(item);
+          }
+
+          const findRawFeature = (feature) => {
+            for (const id of [feature.rawItem?._id, feature.raw?._id, feature._id, feature.id, feature.sourceId].filter(Boolean)) {
+              const raw = rawById.get(id);
+              if (raw && featureTypes.has(raw.type)) return raw;
+            }
+            const matches = (rawByName.get(key(feature.name)) || []).filter((item) => featureTypes.has(item.type));
+            return matches.length === 1 ? matches[0] : null;
+          };
+
+          const normalizeUses = (uses) => {
+            if (!uses || typeof uses !== 'object') return null;
+            const max = uses.max ?? uses.value ?? null;
+            const spent = uses.spent ?? null;
+            let current = uses.current ?? null;
+            if (current == null && typeof max === 'number' && typeof spent === 'number') current = Math.max(0, max - spent);
+            return {
+              current,
+              max,
+              spent,
+              rawMax: uses.max ?? null,
+              recovery: clone(values(uses.recovery))
+            };
+          };
+
+          const activityAudit = (activity) => ({
+            id: activity?._id || activity?.id || null,
+            name: activity?.name || null,
+            type: activity?.type || null,
+            activation: clone(activity?.activation),
+            consumption: clone(activity?.consumption),
+            range: clone(activity?.range),
+            target: clone(activity?.target),
+            duration: clone(activity?.duration),
+            attack: clone(activity?.attack),
+            save: clone(activity?.save),
+            damage: clone(activity?.damage),
+            healing: clone(activity?.healing),
+            uses: normalizeUses(activity?.uses),
+            effectCount: values(activity?.effects).length,
+            description: text(activity?.description) || null
+          });
+
+          const actionCategory = (activation) => {
+            const type = activation?.type || '';
+            if (type === 'action') return 'ACTION';
+            if (type === 'bonus') return 'BONUS_ACTION';
+            if (type === 'reaction') return 'REACTION';
+            return 'PASSIVE_OR_SPECIAL';
+          };
+
+          const auditedFeatures = features.map((feature, index) => {
+            const raw = findRawFeature(feature);
+            const system = raw?.system || {};
+            const normalizedActivities = values(feature.activities);
+            const rawActivities = values(system.activities);
+            const activities = (normalizedActivities.length ? normalizedActivities : rawActivities).map(activityAudit);
+            const activation = clone(feature.activation ?? activities[0]?.activation ?? system.activation ?? null);
+            const uses = normalizeUses(feature.uses ?? system.uses);
+            const description = text(feature.description) || text(system.description?.value) || text(system.description) || null;
+            const missingFields = [];
+            if (!(feature.name || raw?.name)) missingFields.push('name');
+            if (!raw) missingFields.push('rawItem');
+            if (!description) missingFields.push('description');
+            return {
+              order: index + 1,
+              id: feature.id || feature._id || raw?._id || null,
+              name: feature.name || raw?.name || null,
+              type: feature.type || raw?.type || null,
+              sourceType: raw?.type || feature.type || null,
+              actionCategory: actionCategory(activation),
+              activation,
+              uses,
+              recovery: clone(uses?.recovery),
+              consumption: clone(feature.consumption ?? system.consumption),
+              range: clone(feature.range ?? activities[0]?.range ?? system.range),
+              target: clone(feature.target ?? activities[0]?.target ?? system.target),
+              duration: clone(feature.duration ?? activities[0]?.duration ?? system.duration),
+              attack: clone(feature.attack ?? activities.find((a) => a.attack)?.attack ?? null),
+              save: clone(feature.save ?? activities.find((a) => a.save)?.save ?? null),
+              damage: clone(feature.damage ?? activities.find((a) => a.damage)?.damage ?? null),
+              healing: clone(feature.healing ?? activities.find((a) => a.healing)?.healing ?? null),
+              activities,
+              activityCount: activities.length,
+              effectCount: values(raw?.effects).length,
+              description,
+              descriptionLength: description?.length || 0,
+              source: clone(feature.source ?? system.source),
+              requirements: clone(feature.requirements ?? system.requirements),
+              advancement: clone(feature.advancement ?? system.advancement),
+              rawItemId: raw?._id || null,
+              rawItemType: raw?.type || null,
+              missingFields,
+              status: missingFields.length ? 'NEEDS_REVIEW' : 'COMPLETE_FROM_JSON'
+            };
+          });
+
+          const featureNameMap = new Map();
+          for (const feature of auditedFeatures) {
+            for (const name of [feature.name, ...(feature.activities || []).map((a) => a.name)]) {
+              const k = key(name);
+              if (k && !featureNameMap.has(k)) featureNameMap.set(k, feature);
+            }
+          }
+          const inventoryNameMap = new Map();
+          for (const item of inventory) {
+            const k = key(item.name);
+            if (k && !inventoryNameMap.has(k)) inventoryNameMap.set(k, item);
+          }
+
+          const auditedActions = normalizedActions.map((action, index) => {
+            const sourceName = action.source || action.sourceName || action.name || action.label || '';
+            const candidates = [sourceName, action.name, action.label].map(key).filter(Boolean);
+            let linkedFeature = null;
+            let linkedInventory = null;
+            for (const candidate of candidates) {
+              if (!linkedFeature && featureNameMap.has(candidate)) linkedFeature = featureNameMap.get(candidate);
+              if (!linkedInventory && inventoryNameMap.has(candidate)) linkedInventory = inventoryNameMap.get(candidate);
+            }
+            const sourceType = text(action.sourceType || action.type || '');
+            const featureLikeSource = /feat|feature|class|subclass|race|background|rasgo/i.test(sourceType);
+            const inventoryLikeSource = /weapon|equipment|consum|tool|loot|container|arma|equipo|herramienta|objeto/i.test(sourceType);
+            let linkStatus = 'UNRESOLVED_ACTION_SOURCE';
+            if (linkedFeature) linkStatus = 'LINKED_FEATURE';
+            else if (linkedInventory || inventoryLikeSource) linkStatus = 'EXTERNAL_INVENTORY';
+            else if (!featureLikeSource && sourceName) linkStatus = 'EXTERNAL_OTHER';
+            const activities = values(action.activities).map(activityAudit);
+            const activation = clone(action.activation ?? activities[0]?.activation ?? null);
+            return {
+              order: index + 1,
+              id: action.id || action._id || null,
+              name: action.name || sourceName || null,
+              source: sourceName || null,
+              sourceType: sourceType || null,
+              type: action.type || activities[0]?.type || null,
+              actionCategory: actionCategory(activation),
+              activation,
+              uses: normalizeUses(action.uses),
+              activities,
+              linkedFeatureId: linkedFeature?.id || null,
+              linkedFeatureName: linkedFeature?.name || null,
+              linkedInventoryName: linkedInventory?.name || null,
+              linkStatus,
+              raw: clone(action)
+            };
+          });
+
+          const resources = [];
+          for (const feature of auditedFeatures) {
+            const uses = feature.uses;
+            const meaningful = uses && (uses.max !== null && uses.max !== '' || uses.recovery?.length);
+            if (!meaningful) continue;
+            resources.push({
+              resourceId: feature.id,
+              name: feature.name,
+              source: 'featureUses',
+              current: uses.current,
+              max: uses.max,
+              spent: uses.spent,
+              recovery: clone(uses.recovery),
+              actionCategory: feature.actionCategory
+            });
+          }
+          const normalizedResources = values(character.resources);
+          normalizedResources.forEach((resource, index) => {
+            resources.push({
+              resourceId: String(resource.id ?? index),
+              name: resource.name || resource.label || `Resource ${index + 1}`,
+              source: 'normalizedCharacter',
+              current: resource.current ?? resource.value ?? null,
+              max: resource.max ?? null,
+              spent: resource.spent ?? null,
+              recovery: clone(resource.recovery),
+              shortRest: resource.shortRest ?? resource.sr ?? null,
+              longRest: resource.longRest ?? resource.lr ?? null,
+              raw: clone(resource)
+            });
+          });
+
+          const countBy = (items, field) => items.reduce((acc, item) => {
+            const value = item[field] ?? 'null';
+            acc[value] = (acc[value] || 0) + 1;
+            return acc;
+          }, {});
+          const featureActions = auditedActions.filter((action) => action.linkStatus === 'LINKED_FEATURE');
+          const externalActions = auditedActions.filter((action) => action.linkStatus !== 'LINKED_FEATURE');
+          const unresolvedActions = auditedActions.filter((action) => action.linkStatus === 'UNRESOLVED_ACTION_SOURCE');
+
+          const output = {
+            auditVersion: 1,
+            generatedAt: new Date().toISOString(),
+            repository: 'JRRGUILLE-bit/Foundry',
+            bundleVersion: root.version || null,
+            character: {
+              id: character.id,
+              name: character.name,
+              featureCount: features.length,
+              normalizedActionCount: normalizedActions.length
+            },
+            featureCount: auditedFeatures.length,
+            countsBySourceType: countBy(auditedFeatures, 'sourceType'),
+            countsByActionCategory: countBy(auditedFeatures, 'actionCategory'),
+            statusCounts: countBy(auditedFeatures, 'status'),
+            featuresWithUses: auditedFeatures.filter((feature) => feature.uses && (feature.uses.max !== null && feature.uses.max !== '' || feature.uses.recovery?.length)).length,
+            featuresWithActivities: auditedFeatures.filter((feature) => feature.activityCount > 0).length,
+            featureActionReferenceCount: featureActions.length,
+            externalActionReferenceCount: externalActions.length,
+            resourceCount: resources.length,
+            validation: {
+              expectedFeatureCount: 21,
+              countMatchesExpected: auditedFeatures.length === 21,
+              uniqueFeatureIds: new Set(auditedFeatures.map((feature) => feature.id).filter(Boolean)).size === auditedFeatures.filter((feature) => feature.id).length,
+              allFeaturesHaveNames: auditedFeatures.every((feature) => Boolean(feature.name)),
+              allFeaturesHaveRawItem: auditedFeatures.every((feature) => Boolean(feature.rawItemId)),
+              allRawItemsAreFeatureTypes: auditedFeatures.every((feature) => featureTypes.has(feature.rawItemType)),
+              normalizedActionCountMatches: auditedActions.length === 12,
+              resourceIdsUnique: new Set(resources.map((resource) => resource.resourceId)).size === resources.length,
+              allFeatureActionsLinked: !auditedActions.some((action) => /feat|feature|class|subclass|race|background|rasgo/i.test(action.sourceType || '') && action.linkStatus !== 'LINKED_FEATURE'),
+              allNormalizedActionsAccountedFor: unresolvedActions.length === 0
+            },
+            reviewFeatures: auditedFeatures.filter((feature) => feature.status !== 'COMPLETE_FROM_JSON').map(({ id, name, missingFields }) => ({ id, name, missingFields })),
+            unresolvedActions,
+            resources,
+            featureActions,
+            externalActions,
+            features: auditedFeatures,
+            nextTask: 'A5_5_MAGNA_FEATURES_AND_RESOURCES_AUDIT'
+          };
+
+          fs.mkdirSync(path.join('audit', 'features'), { recursive: true });
+          fs.writeFileSync(path.join('audit', 'features', 'ingwe.json'), JSON.stringify(output, null, 2) + '\n');
+          NODE
+      - name: Commit generated audit file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/features/ingwe.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "A5.4: generate Ingwe features and resources audit"
+            git push
+          fi
