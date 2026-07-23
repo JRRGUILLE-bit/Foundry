@@ -1,0 +1,186 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T08:37:18.411Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "adapter": {
+    "path": "mobile-character-view-model.js",
+    "apiVersion": 1,
+    "global": "window.BANDA_MOBILE_VIEW_MODEL",
+    "productionLoaded": false
+  },
+  "totals": {
+    "characters": 6,
+    "actions": 89,
+    "spells": 126,
+    "inventory": 80,
+    "features": 155,
+    "resources": 37,
+    "warnings": 53
+  },
+  "expected": {
+    "characters": 6,
+    "actions": 89,
+    "spells": 126,
+    "inventory": 80,
+    "features": 155
+  },
+  "validation": {
+    "allCharactersValid": false,
+    "allExpectedCountsMatch": true,
+    "countValidation": {
+      "characters": true,
+      "actions": true,
+      "spells": true,
+      "inventory": true,
+      "features": true
+    },
+    "zeroModelErrors": false,
+    "sessionOverlayWorksForEveryCharacter": true
+  },
+  "status": "ADAPTER_NEEDS_REVIEW",
+  "characters": [
+    {
+      "id": "sathar",
+      "name": "Sathar Heranti",
+      "valid": false,
+      "errors": [
+        "actions: missing stable ids",
+        "actions: broken raw source link for Hex Warrior",
+        "actions: 1 unresolved source(s)"
+      ],
+      "warningCount": 18,
+      "counts": {
+        "actions": 12,
+        "spells": 17,
+        "inventory": 11,
+        "features": 21,
+        "resources": 5,
+        "warnings": 18
+      },
+      "overlayTests": {
+        "hpCurrentApplied": true,
+        "temporaryHpApplied": true,
+        "firstResourceApplied": true,
+        "firstSlotApplied": true
+      },
+      "sourceStatus": "READY_WITH_NON_BLOCKING_REVIEW"
+    },
+    {
+      "id": "artionketh",
+      "name": "Artionketh Heranti",
+      "valid": true,
+      "errors": [],
+      "warningCount": 1,
+      "counts": {
+        "actions": 24,
+        "spells": 38,
+        "inventory": 23,
+        "features": 36,
+        "resources": 13,
+        "warnings": 1
+      },
+      "overlayTests": {
+        "hpCurrentApplied": true,
+        "temporaryHpApplied": true,
+        "firstResourceApplied": true,
+        "firstSlotApplied": true
+      },
+      "sourceStatus": "READY_WITH_NON_BLOCKING_REVIEW"
+    },
+    {
+      "id": "magna",
+      "name": "Magna",
+      "valid": true,
+      "errors": [],
+      "warningCount": 2,
+      "counts": {
+        "actions": 7,
+        "spells": 20,
+        "inventory": 5,
+        "features": 12,
+        "resources": 1,
+        "warnings": 2
+      },
+      "overlayTests": {
+        "hpCurrentApplied": true,
+        "temporaryHpApplied": true,
+        "firstResourceApplied": true,
+        "firstSlotApplied": true
+      },
+      "sourceStatus": "READY_WITH_NON_BLOCKING_REVIEW"
+    },
+    {
+      "id": "melkor",
+      "name": "Melkor Amarië",
+      "valid": true,
+      "errors": [],
+      "warningCount": 6,
+      "counts": {
+        "actions": 19,
+        "spells": 7,
+        "inventory": 17,
+        "features": 38,
+        "resources": 8,
+        "warnings": 6
+      },
+      "overlayTests": {
+        "hpCurrentApplied": true,
+        "temporaryHpApplied": true,
+        "firstResourceApplied": true,
+        "firstSlotApplied": true
+      },
+      "sourceStatus": "READY_WITH_NON_BLOCKING_REVIEW"
+    },
+    {
+      "id": "balder",
+      "name": "Balder",
+      "valid": false,
+      "errors": [
+        "actions: missing stable ids",
+        "actions: broken raw source link for Potion of Healing*",
+        "actions: missing session key for Potion of Healing*",
+        "actions: broken raw source link for Potion of Healing*",
+        "actions: missing session key for Potion of Healing*"
+      ],
+      "warningCount": 15,
+      "counts": {
+        "actions": 15,
+        "spells": 15,
+        "inventory": 12,
+        "features": 27,
+        "resources": 6,
+        "warnings": 15
+      },
+      "overlayTests": {
+        "hpCurrentApplied": true,
+        "temporaryHpApplied": true,
+        "firstResourceApplied": true,
+        "firstSlotApplied": true
+      },
+      "sourceStatus": "READY_WITH_NON_BLOCKING_REVIEW"
+    },
+    {
+      "id": "ingwe",
+      "name": "Ingwë Amarië",
+      "valid": true,
+      "errors": [],
+      "warningCount": 11,
+      "counts": {
+        "actions": 12,
+        "spells": 29,
+        "inventory": 12,
+        "features": 21,
+        "resources": 4,
+        "warnings": 11
+      },
+      "overlayTests": {
+        "hpCurrentApplied": true,
+        "temporaryHpApplied": true,
+        "firstResourceApplied": true,
+        "firstSlotApplied": true
+      },
+      "sourceStatus": "READY_WITH_NON_BLOCKING_REVIEW"
+    }
+  ],
+  "nextTask": "A9_MOBILE_SHEET_SHELL"
+}
