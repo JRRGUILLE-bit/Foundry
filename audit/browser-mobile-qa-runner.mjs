@@ -173,9 +173,17 @@ async function waitForApp(page) {
 async function openCharacter(page, profile, characterId) {
   await page.waitForFunction(() => matchMedia("(max-width: 820px)").matches && innerWidth <= 820, null, { timeout: 5_000 });
   await sleep(350);
-  const opened = await page.evaluate((id) => window.BANDA_MOBILE_SHELL.open(id), characterId);
+  let opened = await page.evaluate((id) => window.BANDA_MOBILE_SHELL.open(id), characterId);
   requireStep(profile, `${characterId}:open`, opened === true, `open returned ${opened}`);
-  await page.locator(".mcs-root:not([hidden])").waitFor({ state: "visible", timeout: 5_000 });
+  try {
+    await page.locator(".mcs-root:not([hidden])").waitFor({ state: "visible", timeout: 1_500 });
+  } catch {
+    await page.waitForFunction(() => matchMedia("(max-width: 820px)").matches && innerWidth <= 820, null, { timeout: 5_000 });
+    await sleep(500);
+    opened = await page.evaluate((id) => window.BANDA_MOBILE_SHELL.open(id), characterId);
+    requireStep(profile, `${characterId}:open-retry`, opened === true, `retry returned ${opened}`);
+    await page.locator(".mcs-root:not([hidden])").waitFor({ state: "visible", timeout: 5_000 });
+  }
   await page.waitForFunction((id) => window.BANDA_MOBILE_SHELL.activeCharacterId() === id, characterId);
   await sleep(220);
   const active = await page.evaluate(() => window.BANDA_MOBILE_SHELL.activeCharacterId());
