@@ -1,0 +1,5967 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T06:20:51.634Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "ingwe",
+    "name": "Ingwë Amarië",
+    "classes": [
+      {
+        "name": "Bard",
+        "levels": 15,
+        "identifier": "bard"
+      }
+    ],
+    "subclasses": [
+      "College of Lore"
+    ],
+    "spellcasting": {
+      "ability": "cha",
+      "abilityLabel": "CAR",
+      "attack": 10,
+      "dc": 18,
+      "slots": [
+        {
+          "level": 1,
+          "current": 4,
+          "max": 4,
+          "raw": {
+            "value": 4,
+            "override": null
+          }
+        },
+        {
+          "level": 2,
+          "current": 3,
+          "max": 3,
+          "raw": {
+            "value": 3,
+            "override": null
+          }
+        },
+        {
+          "level": 3,
+          "current": 1,
+          "max": 3,
+          "raw": {
+            "value": 1,
+            "override": null
+          }
+        },
+        {
+          "level": 4,
+          "current": 3,
+          "max": 3,
+          "raw": {
+            "value": 3,
+            "override": null
+          }
+        },
+        {
+          "level": 5,
+          "current": 1,
+          "max": 2,
+          "raw": {
+            "value": 1,
+            "override": null
+          }
+        },
+        {
+          "level": 6,
+          "current": 1,
+          "max": 1,
+          "raw": {
+            "value": 1,
+            "override": 1
+          }
+        },
+        {
+          "level": 7,
+          "current": 1,
+          "max": 1,
+          "raw": {
+            "value": 1,
+            "override": null
+          }
+        },
+        {
+          "level": 8,
+          "current": 0,
+          "max": 1,
+          "raw": {
+            "value": 0,
+            "override": null
+          }
+        }
+      ],
+      "pact": null
+    }
+  },
+  "spellCount": 29,
+  "countsByLevel": {
+    "0": 4,
+    "1": 7,
+    "2": 2,
+    "3": 4,
+    "4": 2,
+    "5": 4,
+    "6": 5,
+    "8": 1
+  },
+  "statusCounts": {
+    "COMPLETE_FROM_JSON": 18,
+    "NEEDS_REVIEW": 11
+  },
+  "validation": {
+    "expectedSpellCount": 29,
+    "countMatchesExpected": true,
+    "uniqueIds": true,
+    "allHaveNames": true,
+    "allHaveRawItem": true,
+    "allRawItemsAreSpells": true
+  },
+  "spells": [
+    {
+      "id": "GaJjOH5WQ8Zjkzj9",
+      "name": "Dancing Lights",
+      "level": 0,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "120",
+        "units": "ft",
+        "label": "120 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "A bit of phosphorus or wychwood, or a glowworm",
+      "description": "You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. You can also combine the four lights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius.\nAs a bonus action on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell's range.",
+      "descriptionLength": 542,
+      "activities": [
+        {
+          "id": null,
+          "name": "Dancing Lights",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "GaJjOH5WQ8Zjkzj9",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "GaJjOH5WQ8Zjkzj9",
+        "name": "Dancing Lights",
+        "type": "spell",
+        "img": "icons/magic/fire/projectile-meteor-salvo-strong-blue.webp",
+        "level": 0,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "120",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "space",
+            "choice": false
+          },
+          "template": {
+            "units": "any",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "A bit of phosphorus or wychwood, or a glowworm",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "Xw3X0JXfmzLrrU4j",
+      "name": "Fire Bolt",
+      "level": 0,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "120",
+        "units": "ft",
+        "label": "120 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "somatic"
+      ],
+      "materials": null,
+      "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.\nThis spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
+      "descriptionLength": 346,
+      "activities": [
+        {
+          "id": null,
+          "name": "Fire Bolt",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "cha",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d10 fire"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "Xw3X0JXfmzLrrU4j",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "Xw3X0JXfmzLrrU4j",
+        "name": "Fire Bolt",
+        "type": "spell",
+        "img": "icons/magic/fire/projectile-fireball-smoke-orange.webp",
+        "level": 0,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "120",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "ranged",
+                "classification": "spell"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 10,
+                  "bonus": "",
+                  "types": [
+                    "fire"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "uAK4WUO6nZycGoER",
+      "name": "Mage Hand",
+      "level": 0,
+      "school": "con",
+      "schoolLabel": "Conjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "somatic"
+      ],
+      "materials": null,
+      "description": "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.\nYou can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.\nThe hand can't attack, activate magic items, or carry more than 10 pounds.",
+      "descriptionLength": 581,
+      "activities": [
+        {
+          "id": null,
+          "name": "Mage Hand",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "PHB pg. 256",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "uAK4WUO6nZycGoER",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "uAK4WUO6nZycGoER",
+        "name": "Mage Hand",
+        "type": "spell",
+        "img": "icons/magic/water/water-hand.webp",
+        "level": 0,
+        "school": "con",
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "space",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "PHB pg. 256",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "o6WJv3JYtdkATcsT",
+      "name": "Vicious Mockery",
+      "level": 0,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "You unleash a string of insults laced with subtle enchantments at a creature you can see within range. If the target can hear you (though it need not understand you), it must succeed on a Wisdom saving throw or take 1d4 psychic damage and have disadvantage on the next attack roll it makes before the end of its next turn.\nThis spell's damage increases by 1d4 when you reach 5th level (2d4), 11th level (3d4), and 17th level (4d4).",
+      "descriptionLength": 431,
+      "activities": [
+        {
+          "id": null,
+          "name": "Vicious Mockery",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "SAB"
+            ]
+          },
+          "damage": {
+            "parts": [
+              "1d4 psychic"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "PHB pg. 285",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "o6WJv3JYtdkATcsT",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "o6WJv3JYtdkATcsT",
+        "name": "Vicious Mockery",
+        "type": "spell",
+        "img": "icons/skills/toxins/cup-goblet-poisoned-spilled.webp",
+        "level": 0,
+        "school": "enc",
+        "properties": [
+          "vocal"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "none",
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "psychic"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": "0"
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "PHB pg. 285",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "Ba1GlDQrm4mBmMFc",
+      "name": "Charm Person",
+      "level": 1,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [
+        "somatic"
+      ],
+      "materials": null,
+      "description": "You attempt to charm a humanoid you can see within range. It must make a Wisdom saving throw, and does so with advantage if you or your companions are fighting it. If it fails the saving throw, it is charmed by you until the spell ends or until you or your companions do anything harmful to it. The charmed creature regards you as a friendly acquaintance. When the spell ends, the creature knows it was charmed by you.\nAt Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st. The creatures must be within 30 feet of each other when you target them.",
+      "descriptionLength": 647,
+      "activities": [
+        {
+          "id": null,
+          "name": "Charm Person",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "SAB"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "PHB pg. 221",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "Ba1GlDQrm4mBmMFc",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "Ba1GlDQrm4mBmMFc",
+        "name": "Charm Person",
+        "type": "spell",
+        "img": "icons/magic/fire/explosion-fireball-medium-purple-pink.webp",
+        "level": 1,
+        "school": "enc",
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": "0"
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "PHB pg. 221",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "EqWx64YINiKsglCq",
+      "name": "Detect Magic",
+      "level": 1,
+      "school": "div",
+      "schoolLabel": "Adivinación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": true,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "10",
+        "units": "minute",
+        "label": "10 Minutos"
+      },
+      "target": null,
+      "components": [
+        "somatic"
+      ],
+      "materials": null,
+      "description": "For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any.\nThe spell can penetrate most barriers, but it is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt.",
+      "descriptionLength": 409,
+      "activities": [
+        {
+          "id": null,
+          "name": "Detect Magic",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "PHB pg. 231",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "EqWx64YINiKsglCq",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "EqWx64YINiKsglCq",
+        "name": "Detect Magic",
+        "type": "spell",
+        "img": "icons/magic/light/explosion-star-blue.webp",
+        "level": 1,
+        "school": "div",
+        "properties": [
+          "vocal",
+          "somatic",
+          "concentration",
+          "ritual"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "type": "radius",
+            "size": "30",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "10",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "PHB pg. 231",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "TMmnT6dLoGXzg3Gq",
+      "name": "Healing Word",
+      "level": 1,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "bonus",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción adicional"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "A creature of your choice that you can see within range regains hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs.\nHigher Levels. When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d4 for each slot level above 1st.",
+      "descriptionLength": 318,
+      "activities": [
+        {
+          "id": null,
+          "name": "Healing Word",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "PHB pg. 250",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "TMmnT6dLoGXzg3Gq",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "TMmnT6dLoGXzg3Gq",
+        "name": "Healing Word",
+        "type": "spell",
+        "img": "icons/magic/life/heart-cross-green.webp",
+        "level": 1,
+        "school": "evo",
+        "properties": [
+          "vocal"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "bonus",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "healing": {
+              "number": 1,
+              "denomination": 4,
+              "bonus": "@mod",
+              "types": [
+                "healing"
+              ],
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "scaling": {
+                "mode": "whole",
+                "number": 1,
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "PHB pg. 250",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "3CqlOmmNRRNYMtCU",
+      "name": "Hideous Laughter",
+      "level": 1,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "Tiny tarts and a feather that is waved in the air",
+      "description": "A creature of your choice that you can see within range perceives everything as hilariously funny and falls into fits of laughter if this spell affects it. The target must succeed on a Wisdom saving throw or fall prone, becoming Incapacitated and unable to stand up for the Duration. A creature with an Intelligence score of 4 or less isn't affected.\nAt the end of each of its turns, and each time it takes damage, the target can make another Wisdom saving throw. The target has advantage on the saving throw if it's triggered by damage. On a success, the spell ends.",
+      "descriptionLength": 567,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hideous Laughter",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "SAB"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "3CqlOmmNRRNYMtCU",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "3CqlOmmNRRNYMtCU",
+        "name": "Hideous Laughter",
+        "type": "spell",
+        "img": "icons/magic/fire/explosion-fireball-medium-purple-pink.webp",
+        "level": 1,
+        "school": "enc",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "Tiny tarts and a feather that is waved in the air",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "b7hkp5pytC6hQz3I",
+      "name": "New Spell",
+      "level": 1,
+      "school": null,
+      "schoolLabel": "—",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": null,
+      "descriptionLength": 0,
+      "activities": [
+        {
+          "id": null,
+          "name": "New Spell",
+          "type": "cast",
+          "activation": {
+            "type": "action",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "units": "self",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "prompt": true,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        },
+        {
+          "id": null,
+          "name": "New Spell",
+          "type": "cast",
+          "activation": {
+            "type": "action",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "units": "self",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "prompt": true,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        },
+        {
+          "id": null,
+          "name": "New Spell",
+          "type": "cast",
+          "activation": {
+            "type": "action",
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "units": "self",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "prompt": true,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "b7hkp5pytC6hQz3I",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "b7hkp5pytC6hQz3I",
+        "name": "New Spell",
+        "type": "spell",
+        "img": "systems/dnd5e/icons/svg/items/spell.svg",
+        "level": 1,
+        "school": null,
+        "properties": [],
+        "preparation": null,
+        "activation": {
+          "type": "action"
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false
+          }
+        },
+        "duration": {
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "oSqv7rT9l69dNxIf": {
+            "type": "cast",
+            "spell": {
+              "uuid": "Compendium.dnd5e.spells.Item.mgFqi0ev8f7Ut19y",
+              "challenge": {
+                "override": false
+              },
+              "properties": [
+                "vocal",
+                "somatic",
+                "material"
+              ],
+              "spellbook": true,
+              "ability": "",
+              "level": 6
+            },
+            "_id": "oSqv7rT9l69dNxIf",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "name": "",
+            "img": "",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          },
+          "UGwdNERnlROIQ98z": {
+            "type": "cast",
+            "spell": {
+              "uuid": "Compendium.dnd5e.spells.Item.mgFqi0ev8f7Ut19y",
+              "challenge": {
+                "override": false
+              },
+              "properties": [
+                "vocal",
+                "somatic",
+                "material"
+              ],
+              "spellbook": true
+            },
+            "_id": "UGwdNERnlROIQ98z",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          },
+          "uQfq60ZKk0uwMk6o": {
+            "type": "cast",
+            "spell": {
+              "uuid": "Compendium.dnd5e.spells.Item.mgFqi0ev8f7Ut19y",
+              "challenge": {
+                "override": false
+              },
+              "properties": [
+                "vocal",
+                "somatic",
+                "material"
+              ],
+              "spellbook": true
+            },
+            "_id": "uQfq60ZKk0uwMk6o",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components",
+        "description"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "8yTYnq1HTCqSOJRD",
+      "name": "New Spell",
+      "level": 1,
+      "school": null,
+      "schoolLabel": "—",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": null,
+      "descriptionLength": 0,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "8yTYnq1HTCqSOJRD",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "8yTYnq1HTCqSOJRD",
+        "name": "New Spell",
+        "type": "spell",
+        "img": "systems/dnd5e/icons/svg/items/spell.svg",
+        "level": 1,
+        "school": null,
+        "properties": [],
+        "preparation": null,
+        "activation": {
+          "type": "action"
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false
+          }
+        },
+        "duration": {
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {},
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components",
+        "description",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "yqaWyOGMAYasgPCC",
+      "name": "Silvery Barbs",
+      "level": 1,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "",
+        "condition": "",
+        "value": null,
+        "label": "—"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "You magically distract the triggering creature and turn its momentary uncertainty into encouragement for another creature. The triggering creature must reroll the d20 and use the lower roll.\nYou can then choose a different creature you can see within range (you can choose yourself). The chosen creature has advantage on the next attack roll, ability check, or saving throw it makes within 1 minute. A creature can be empowered by only one use of this spell at a time.\nCasting Time: 1 reaction, which you take when a creature you can see within 60 feet of yourself succeeds on an attack roll, an ability check, or a saving throw\nRange: 60 feet\nComponents: V\nDuration: Instantaneous",
+      "descriptionLength": 681,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "yqaWyOGMAYasgPCC",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "yqaWyOGMAYasgPCC",
+        "name": "Silvery Barbs",
+        "type": "spell",
+        "img": "ddb-images/other/equipment-Gemstone.jpg",
+        "level": 1,
+        "school": "enc",
+        "properties": [
+          "vocal"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "",
+          "condition": "",
+          "value": null
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {},
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "SUVoPkU4aFcUs3ax",
+      "name": "Blindness/Deafness",
+      "level": 2,
+      "school": "nec",
+      "schoolLabel": "Nigromancia",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "You can blind or deafen a foe. Choose one creature that you can see within range to make a Constitution saving throw. If it fails, the target is either blinded or deafened (your choice) for the duration. At the end of each of its turns, the target can make a Constitution saving throw. On a success, the spell ends.\nAt Higher Levels. When you cast this spell using a spell slot of 3rd level or higher, you can target one additional creature for each slot level above 2nd.",
+      "descriptionLength": 471,
+      "activities": [
+        {
+          "id": null,
+          "name": "Blindness/Deafness",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "CON"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "SUVoPkU4aFcUs3ax",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "SUVoPkU4aFcUs3ax",
+        "name": "Blindness/Deafness",
+        "type": "spell",
+        "img": "icons/magic/perception/eye-ringed-glow-angry-red.webp",
+        "level": 2,
+        "school": "nec",
+        "properties": [
+          "vocal"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "9oDLSan4CjO0UM7h",
+      "name": "Misty Step",
+      "level": 2,
+      "school": "con",
+      "schoolLabel": "Conjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "bonus",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción adicional"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see.",
+      "descriptionLength": 103,
+      "activities": [
+        {
+          "id": null,
+          "name": "Misty Step",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "9oDLSan4CjO0UM7h",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "9oDLSan4CjO0UM7h",
+        "name": "Misty Step",
+        "type": "spell",
+        "img": "icons/magic/control/debuff-energy-snare-brown.webp",
+        "level": 2,
+        "school": "con",
+        "properties": [
+          "vocal"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "bonus",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "affects": {
+            "type": "space",
+            "count": "30",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "nppayiK9jQ6VYVUk",
+      "name": "Counterspell",
+      "level": 3,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "reaction",
+        "condition": "which you take when you see a creature within 60 feet of you casting a spell",
+        "value": 1,
+        "label": "1 reacción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "somatic"
+      ],
+      "materials": null,
+      "description": "You attempt to interrupt a creature in the process of casting a spell. If the creature is casting a spell of 3rd level or lower, its spell fails and has no effect. If it is casting a spell of 4th level or higher, make an ability check using your spellcasting ability. The DC equals 10 + the spell's level. On a success, the creature's spell fails and has no effect.\nHigher Levels. When you cast this spell using a spell slot of 4th level or higher, the interrupted spell has no effect if its level is less than or equal to the level of the spell slot you used.",
+      "descriptionLength": 560,
+      "activities": [
+        {
+          "id": null,
+          "name": "Counterspell",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "nppayiK9jQ6VYVUk",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "nppayiK9jQ6VYVUk",
+        "name": "Counterspell",
+        "type": "spell",
+        "img": "icons/skills/melee/strike-blade-hooked-orange-blue.webp",
+        "level": 3,
+        "school": "abj",
+        "properties": [
+          "somatic"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "reaction",
+          "condition": "which you take when you see a creature within 60 feet of you casting a spell",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "1d20 + @mod",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "it1kcYd0EmKwal2R",
+      "name": "Mass Healing Word",
+      "level": 3,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "bonus",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción adicional"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "As you call out words of restoration, up to six creatures of your choice that you can see within range regain hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs.\nAt Higher Levels. When you cast this spell using a spell slot of 4th level or higher, the healing increases by 1d4 for each slot level above 3rd.",
+      "descriptionLength": 367,
+      "activities": [
+        {
+          "id": null,
+          "name": "Mass Healing Word",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "it1kcYd0EmKwal2R",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "it1kcYd0EmKwal2R",
+        "name": "Mass Healing Word",
+        "type": "spell",
+        "img": "icons/magic/life/heart-cross-strong-flame-green.webp",
+        "level": 3,
+        "school": "evo",
+        "properties": [
+          "vocal"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "bonus",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "6",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "healing": {
+              "number": 1,
+              "denomination": 4,
+              "bonus": "@mod",
+              "types": [
+                "healing"
+              ],
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "scaling": {
+                "mode": "whole",
+                "number": 1,
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "1o9FONlYdqaHWzic",
+      "name": "Revivify",
+      "level": 3,
+      "school": "nec",
+      "schoolLabel": "Nigromancia",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "Diamonds worth 300gp, which the spell consumes.",
+      "description": "You touch a creature that has died within the last minute. That creature returns to life with 1 hit point. This spell can't return to life a creature that has died of old age, nor can it restore any missing body parts.",
+      "descriptionLength": 218,
+      "activities": [
+        {
+          "id": null,
+          "name": "Revivify",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "1o9FONlYdqaHWzic",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "1o9FONlYdqaHWzic",
+        "name": "Revivify",
+        "type": "spell",
+        "img": "icons/magic/life/heart-cross-strong-blue.webp",
+        "level": 3,
+        "school": "nec",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "touch"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "Diamonds worth 300gp, which the spell consumes.",
+          "consumed": true,
+          "cost": 100,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "healing": {
+              "number": null,
+              "denomination": null,
+              "bonus": "",
+              "types": [
+                "healing"
+              ],
+              "custom": {
+                "enabled": true,
+                "formula": "1"
+              },
+              "scaling": {
+                "mode": "",
+                "number": null,
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "dZdHqFbmViJrU2UF",
+      "name": "Sending",
+      "level": 3,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "any",
+        "label": "Cualquiera"
+      },
+      "duration": {
+        "value": "1",
+        "units": "round",
+        "label": "1 Asaltos"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "A short piece of fine copper wire",
+      "description": "You send a short message of twenty-five words or less to a creature with which you are familiar. The creature hears the message in its mind, recognizes you as the sender if it knows you, and can answer in a like manner immediately. The spell enables creatures with Intelligence scores of at least 1 to understand the meaning of your message.\nYou can send the message across any distance and even to other planes of existence, but if the target is on a different plane than you, there is a 5 percent chance that the message doesn't arrive.",
+      "descriptionLength": 538,
+      "activities": [
+        {
+          "id": null,
+          "name": "Sending",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "dZdHqFbmViJrU2UF",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "dZdHqFbmViJrU2UF",
+        "name": "Sending",
+        "type": "spell",
+        "img": "icons/magic/air/wind-vortex-swirl-purple.webp",
+        "level": 3,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "any"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "round"
+        },
+        "materials": {
+          "value": "A short piece of fine copper wire",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "NbiUlGbmXZJdTP8M",
+      "name": "Greater Invisibility",
+      "level": 4,
+      "school": "ill",
+      "schoolLabel": "Ilusión",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "somatic"
+      ],
+      "materials": null,
+      "description": "You or a creature you touch becomes Invisible until the spell ends. Anything the target is wearing or carrying is Invisible as long as it is on the target's person.",
+      "descriptionLength": 164,
+      "activities": [
+        {
+          "id": null,
+          "name": "Greater Invisibility",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "NbiUlGbmXZJdTP8M",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "NbiUlGbmXZJdTP8M",
+        "name": "Greater Invisibility",
+        "type": "spell",
+        "img": "icons/magic/air/fog-gas-smoke-swirling-gray.webp",
+        "level": 4,
+        "school": "ill",
+        "properties": [
+          "vocal",
+          "somatic",
+          "concentration"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "touch"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "lhYVl4DD9jyS5gcn",
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "BzaBmTZx6wjFQJhI",
+      "name": "Polymorph",
+      "level": 4,
+      "school": "trs",
+      "schoolLabel": "Transmutación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "A caterpillar cocoon",
+      "description": "This spell transforms a creature that you can see within range into a new form. An unwilling creature must make a Wisdom saving throw to avoid the effect. The spell has no effect on a Shapechanger or a creature with 0 Hit Points.\nThe transformation lasts for the Duration, or until the target drops to 0 Hit Points or dies. The new form can be any beast whose Challenge rating is equal to or less than the target's (or the target's level, if it doesn't have a challenge rating). The target's game statistics, including mental Ability Scores, are replaced by the Statistics of the chosen beast. It retains its Alignment and personality.\nThe target assumes the Hit Points of its new form. When it reverts to its normal form, the creature returns to the number of hit points it had before it transformed. If it reverts as a result of dropping to 0 hit points, any excess damage carries over to its normal form. As long as the excess damage doesn't reduce the creature's normal form to 0 hit points, it isn't knocked Unconscious.\nThe creature is limited in the Actions it can perform by the Nature of its new form, and it can't speak, cast Spells, or take any other action that requires hands or speech.\nThe target's gear melds into the new form. The creature can't activate, use, wield, or otherwise benefit from any of its Equipment.",
+      "descriptionLength": 1331,
+      "activities": [
+        {
+          "id": null,
+          "name": "Polymorph",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "SAB"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "BzaBmTZx6wjFQJhI",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "BzaBmTZx6wjFQJhI",
+        "name": "Polymorph",
+        "type": "spell",
+        "img": "icons/magic/control/energy-stream-link-large-teal.webp",
+        "level": 4,
+        "school": "trs",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "materials": {
+          "value": "A caterpillar cocoon",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "tM8Yj0dw52paxVc4",
+                "onSave": false,
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "9xRHbcveagBeYZpA",
+      "name": "Banishing Smite",
+      "level": 5,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "bonus",
+        "condition": "",
+        "label": "1 acción adicional"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "minute",
+        "value": "1",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "The next time you hit a creature with a weapon attack before this spell ends, your weapon crackles with force, and the attack deals an extra 5d10 force damage to the target. Additionally, if this attack reduces the target to 50 hit points of fewer, you banish it. If the target is native to a different plane of existence than the one you’re on, the target disappears, returning to its home plane. If the target is native to the plane you’re on, the creature vanishes into a harmless demiplane. While there, the target is incapacitated. It remains there until the spell ends, at which point the target reappears in the space it left or in the nearest unoccupied space if that space is occupied.",
+      "descriptionLength": 694,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "rawItemId": "9xRHbcveagBeYZpA",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "9xRHbcveagBeYZpA",
+        "name": "Banishing Smite",
+        "type": "spell",
+        "img": "Fotos/Banishing%20Smite%2C%20a%20spell%20from%20Dungeons%20and%20Dragons%2C%20depicted%20in%20a%20magical%20and%20dynamic%20scene.png",
+        "level": 5,
+        "school": "abj",
+        "properties": [
+          "concentration"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "bonus",
+          "condition": ""
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "type": "",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false,
+            "type": ""
+          }
+        },
+        "duration": {
+          "units": "minute",
+          "value": "1"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {},
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "HTJXWISIrG8JJgaz",
+      "name": "Circle of Power",
+      "level": 5,
+      "school": null,
+      "schoolLabel": "—",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "Divine energy radiates from you, distorting and diffusing magical energy within 30 feet of you. Until the spell ends, the sphere moves with you, centered on you. For the duration, each friendly creature in the area (including you) has advantage on saving throws against spells and other magical effects.\nAdditionally, when an affected creature succeeds on a saving throw made against a spell or magical effect that allows it to make a saving throw to take only half damage, it instead takes no damage if it succeeds on the saving throws.",
+      "descriptionLength": 537,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "rawItemId": "HTJXWISIrG8JJgaz",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "HTJXWISIrG8JJgaz",
+        "name": "Circle of Power",
+        "type": "spell",
+        "img": "Fotos/Circle%20of%20Power%20creame%20un%20dibujo%20relacionado%20en%20dnd.png",
+        "level": 5,
+        "school": null,
+        "properties": [],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": ""
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "type": "",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false,
+            "type": ""
+          }
+        },
+        "duration": {
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {},
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "3hy8YIdCIn3Y0BB3",
+      "name": "Curar heridas en masa",
+      "level": 5,
+      "school": null,
+      "schoolLabel": "—",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "value": null,
+        "condition": "",
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "Nivel 5, evocación\nOrigen : Reglas básicas\nComponentes : V, S\nTiempo de lanzamiento : 1 acción\nAlcance : 60 pies ( 30 pies)\nDuración : Instantáneo\nListas de conjuros : Conjuros de bardo, Conjuros de clérigo y Conjuros de druida\nUna ola de energía curativa emana de un punto de tu elección dentro del alcance. Elige hasta seis criaturas en una esfera de 30 pies de radio cuyo centro sea ese punto. Cada objetivo recupera una cantidad de puntos de golpe igual a 3d8 + tu modificador por característica para lanzar conjuros. Este conjuro no tiene efecto sobre no muertos ni constructos.\nEn niveles superiores. Cuando lanzas este conjuro usando un espacio de conjuro de nivel 6 o superior, la curación aumenta 1d8 por cada nivel por encima de 5",
+      "descriptionLength": 740,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "rawItemId": "3hy8YIdCIn3Y0BB3",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "3hy8YIdCIn3Y0BB3",
+        "name": "Curar heridas en masa",
+        "type": "spell",
+        "img": "Fotos/Curar%20heridas%20en%20masa%20creame%20el%20dibujo%20de%20esto%20relacionado%20en%20dnd.png",
+        "level": 5,
+        "school": null,
+        "properties": [],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "value": null,
+          "condition": ""
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "type": "",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": ""
+          }
+        },
+        "duration": {
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {},
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "LbbbzWBZdAoeF1pe",
+      "name": "Legend Lore",
+      "level": 5,
+      "school": "div",
+      "schoolLabel": "Adivinación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "minute",
+        "condition": "",
+        "value": 10,
+        "label": "10 minutos"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "Incense worth at least 250gp, which the spell consumes, and four ivory strips worth at least 50gp each.",
+      "description": "Name or describe a person, place, or object. The spell brings to your mind a brief summary of the significant lore about the thing you named. The lore might consist of current tales, forgotten stories, or even secret lore that has never been widely known. If the thing you named isn't of legendary importance, you gain no information. The more information you already have about the thing, the more precise and detailed the information you receive is.\nThe information you learn is accurate but might be couched in figurative language. For example, if you have a mysterious magic axe on hand, the spell might yield this information: \"Woe to the evildoer whose hand touches the axe, for even the haft slices the hand of the evil ones. Only a true Child of Stone, lover and beloved of Moradin, may awaken the true powers of the axe, and only with the sacred word Rudnogg on the lips.\"",
+      "descriptionLength": 881,
+      "activities": [
+        {
+          "id": null,
+          "name": "Legend Lore",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "LbbbzWBZdAoeF1pe",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "LbbbzWBZdAoeF1pe",
+        "name": "Legend Lore",
+        "type": "spell",
+        "img": "icons/magic/symbols/runes-star-orange-purple.webp",
+        "level": 5,
+        "school": "div",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "minute",
+          "condition": "",
+          "value": 10
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "affects": {
+            "type": "self",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "Incense worth at least 250gp, which the spell consumes, and four ivory strips worth at least 50gp each.",
+          "consumed": true,
+          "cost": 450,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "NfSW5dTtxFqMysS4",
+      "name": "Heal",
+      "level": 6,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "somatic"
+      ],
+      "materials": null,
+      "description": "Choose a creature that you can see within range. A surge of positive energy washes through the creature, causing it to regain 70 Hit Points. This spell also ends blindness, deafness, and any Diseases affecting the target. This spell has no effect on constructs or Undead.\nAt Higher Levels. When you cast this spell using a spell slot of 7th level or higher, the amount of Healing increases by 10 for each slot level above 6th.",
+      "descriptionLength": 426,
+      "activities": [
+        {
+          "id": null,
+          "name": "Heal",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "NfSW5dTtxFqMysS4",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "NfSW5dTtxFqMysS4",
+        "name": "Heal",
+        "type": "spell",
+        "img": "icons/magic/life/heart-cross-strong-flame-green.webp",
+        "level": 6,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "healing": {
+              "number": null,
+              "denomination": null,
+              "bonus": "",
+              "types": [
+                "healing"
+              ],
+              "custom": {
+                "enabled": true,
+                "formula": "70"
+              },
+              "scaling": {
+                "mode": "whole",
+                "number": null,
+                "formula": "10"
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "KCSuX0SyGhWqXuUu",
+      "name": "Heroes' Feast",
+      "level": 6,
+      "school": "con",
+      "schoolLabel": "Conjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "minute",
+        "condition": "",
+        "value": 10,
+        "label": "10 minutos"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "A gem-encrusted bowl worth at least 1000gp, which the spell consumes",
+      "description": "You bring forth a great feast, including magnificent food and drink. The feast takes 1 Hour to consume and disappears at the end of that time, and the beneficial Effects don't set in until this hour is over. Up to twelve creatures can partake of the feast.\nA creature that partakes of the feast gains several benefits. The creature is cured of all Diseases and poison, becomes immune to poison and being Frightened, and makes all Wisdom Saving Throws with advantage. Its hit point maximum also increases by 2d10, and it gains the same number of Hit Points. These benefits last for 24 hours.",
+      "descriptionLength": 590,
+      "activities": [
+        {
+          "id": null,
+          "name": "Heroes' Feast",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "KCSuX0SyGhWqXuUu",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "KCSuX0SyGhWqXuUu",
+        "name": "Heroes' Feast",
+        "type": "spell",
+        "img": "icons/magic/life/heart-cross-strong-flame-purple-orange.webp",
+        "level": 6,
+        "school": "con",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "minute",
+          "condition": "",
+          "value": 10
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "A gem-encrusted bowl worth at least 1000gp, which the spell consumes",
+          "consumed": true,
+          "cost": 1000,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "RY4byZPJu4TkIxyz",
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "5llWkPowF9QloIAi",
+      "name": "Heroes' Feast",
+      "level": 6,
+      "school": "con",
+      "schoolLabel": "Conjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "minute",
+        "condition": "",
+        "value": 10,
+        "label": "10 minutos"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "A gem-encrusted bowl worth at least 1000gp, which the spell consumes",
+      "description": "You bring forth a great feast, including magnificent food and drink. The feast takes 1 Hour to consume and disappears at the end of that time, and the beneficial Effects don't set in until this hour is over. Up to twelve creatures can partake of the feast.\nA creature that partakes of the feast gains several benefits. The creature is cured of all Diseases and poison, becomes immune to poison and being Frightened, and makes all Wisdom Saving Throws with advantage. Its hit point maximum also increases by 2d10, and it gains the same number of Hit Points. These benefits last for 24 hours.",
+      "descriptionLength": 590,
+      "activities": [
+        {
+          "id": null,
+          "name": "Heroes' Feast",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "5llWkPowF9QloIAi",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "5llWkPowF9QloIAi",
+        "name": "Heroes' Feast",
+        "type": "spell",
+        "img": "icons/magic/life/heart-cross-strong-flame-purple-orange.webp",
+        "level": 6,
+        "school": "con",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "minute",
+          "condition": "",
+          "value": 10
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "A gem-encrusted bowl worth at least 1000gp, which the spell consumes",
+          "consumed": true,
+          "cost": 1000,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "RY4byZPJu4TkIxyz",
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "Zu7YcfxDHinCvdzg",
+      "name": "Heroes' Feast",
+      "level": 6,
+      "school": "con",
+      "schoolLabel": "Conjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "minute",
+        "condition": "",
+        "value": 10,
+        "label": "10 minutos"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "A gem-encrusted bowl worth at least 1000gp, which the spell consumes",
+      "description": "You bring forth a great feast, including magnificent food and drink. The feast takes 1 Hour to consume and disappears at the end of that time, and the beneficial Effects don't set in until this hour is over. Up to twelve creatures can partake of the feast.\nA creature that partakes of the feast gains several benefits. The creature is cured of all Diseases and poison, becomes immune to poison and being Frightened, and makes all Wisdom Saving Throws with advantage. Its hit point maximum also increases by 2d10, and it gains the same number of Hit Points. These benefits last for 24 hours.",
+      "descriptionLength": 590,
+      "activities": [
+        {
+          "id": null,
+          "name": "Heroes' Feast",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "Zu7YcfxDHinCvdzg",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "Zu7YcfxDHinCvdzg",
+        "name": "Heroes' Feast",
+        "type": "spell",
+        "img": "icons/magic/life/heart-cross-strong-flame-purple-orange.webp",
+        "level": 6,
+        "school": "con",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "minute",
+          "condition": "",
+          "value": 10
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "materials": {
+          "value": "A gem-encrusted bowl worth at least 1000gp, which the spell consumes",
+          "consumed": true,
+          "cost": 1000,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "RY4byZPJu4TkIxyz",
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "tfaqjxpG7XGasjmE",
+      "name": "True Seeing",
+      "level": 6,
+      "school": "div",
+      "schoolLabel": "Adivinación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "An ointment for the eyes that costs 25gp; is made from mushroom powder, saffron, and fat; and is consumed by the spell",
+      "description": "This spell gives the willing creature you touch the ability to see things as they actually are. For the duration, the creature has truesight, notices secret doors hidden by magic, and can see into the Ethereal Plane, all out to a range of 120 feet.",
+      "descriptionLength": 248,
+      "activities": [
+        {
+          "id": null,
+          "name": "True Seeing",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "tfaqjxpG7XGasjmE",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "tfaqjxpG7XGasjmE",
+        "name": "True Seeing",
+        "type": "spell",
+        "img": "icons/magic/perception/eye-ringed-glow-angry-large-teal.webp",
+        "level": 6,
+        "school": "div",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "touch"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "materials": {
+          "value": "An ointment for the eyes that costs 25gp; is made from mushroom powder, saffron, and fat; and is consumed by the spell",
+          "consumed": true,
+          "cost": 25,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "7nxPv4ZBQawhjAMc",
+      "name": "Holy Aura",
+      "level": 8,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "somatic",
+        "material"
+      ],
+      "materials": "A tiny reliquary worth at least 1,000 gp containing a sacred relic, such as a scrap of cloth from a saint's robe or a piece of parchment from a religious text",
+      "description": "Divine light washes out from you and coalesces in a soft radiance in a 30-foot radius around you. Creatures of your choice in that radius when you cast this spell shed dim light in a 5-foot radius and have advantage on all Saving Throws, and other creatures have disadvantage on Attack rolls against them until the spell ends. In addition, when a fiend or an Undead hits an affected creature with a melee attack, the aura flashes with brilliant light. The attacker must succeed on a Constitution saving throw or be Blinded until the spell ends.",
+      "descriptionLength": 544,
+      "activities": [
+        {
+          "id": null,
+          "name": "Holy Aura",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        },
+        {
+          "id": null,
+          "name": "Holy Aura",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "CON"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "uses": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "7nxPv4ZBQawhjAMc",
+      "rawItemType": "spell",
+      "rawItem": {
+        "id": "7nxPv4ZBQawhjAMc",
+        "name": "Holy Aura",
+        "type": "spell",
+        "img": "icons/magic/control/buff-flight-wings-runes-blue-white.webp",
+        "level": 8,
+        "school": "abj",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "type": "radius",
+            "size": "30",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "A tiny reliquary worth at least 1,000 gp containing a sacred relic, such as a scrap of cloth from a saint's robe or a piece of parchment from a religious text",
+          "consumed": false,
+          "cost": 1000,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          },
+          "dnd5eactivity100": {
+            "_id": "dnd5eactivity100",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A3_5_MAGNA_SPELL_AUDIT"
+}
