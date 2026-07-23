@@ -37,31 +37,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Build complete static character bundle
-        id: character-build
-        continue-on-error: true
-        shell: bash
-        run: |
-          rm -f generated/characters-build-error.txt
-          mkdir -p generated
-          set +e
-          npm run build:characters > /tmp/character-build.log 2>&1
-          status=$?
-          cat /tmp/character-build.log
-          if [ "$status" -ne 0 ]; then
-            cp /tmp/character-build.log generated/characters-build-error.txt
-          fi
-          exit "$status"
+        run: npm run build:characters
 
-      - name: Commit generated files or diagnostics
-        if: always()
+      - name: Verify generated files in pull requests
+        if: github.event_name == 'pull_request'
+        run: git diff --exit-code -- generated/characters.bundle.js generated/characters.manifest.json
+
+      - name: Commit generated files
+        if: github.event_name == 'push'
         shell: bash
-        env:
-          TARGET_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
         run: |
-          git add -A generated
+          git add generated/characters.bundle.js generated/characters.manifest.json
           if git diff --cached --quiet; then
             echo "Character bundle already current."
             exit 0
@@ -69,12 +58,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Build static character bundle"
-          git push origin "HEAD:${TARGET_BRANCH}"
-
-      - name: Verify generated files
-        if: steps.character-build.outcome == 'success'
-        run: git diff --exit-code -- generated/characters.bundle.js generated/characters.manifest.json
-
-      - name: Fail workflow when character build failed
-        if: steps.character-build.outcome == 'failure'
-        run: exit 1
+          git push origin "HEAD:${GITHUB_REF_NAME}"
