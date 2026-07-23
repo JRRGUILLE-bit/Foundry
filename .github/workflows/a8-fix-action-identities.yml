@@ -1,21 +1,25 @@
 name: A8 Fix Action Identities
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/a8-mobile-view-model-adapter
-    paths:
-      - .github/workflows/a8-fix-action-identities.yml
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
 
 jobs:
   repair:
-    if: github.event.head_commit.message == 'A8: add action identity repair'
+    if: github.head_ref == 'agent/a8-mobile-view-model-adapter'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: agent/a8-mobile-view-model-adapter
       - name: Repair action identity and source resolution
         shell: bash
         run: |
