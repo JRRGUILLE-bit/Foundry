@@ -1,0 +1,37 @@
+name: Session Store QA
+
+on:
+  pull_request:
+    paths:
+      - "mobile-session-store.js"
+      - "audit/session-store-qa.js"
+      - "index.html"
+      - ".github/workflows/session-store-qa.yml"
+  push:
+    branches: [main]
+    paths:
+      - "mobile-session-store.js"
+      - "audit/session-store-qa.js"
+      - "index.html"
+      - ".github/workflows/session-store-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  session-store-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Validate syntax
+        run: |
+          node --check mobile-session-store.js
+          node --check audit/session-store-qa.js
+      - name: Run session store QA
+        run: node audit/session-store-qa.js mobile-session-store.js
