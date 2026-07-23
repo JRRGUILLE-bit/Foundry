@@ -104,6 +104,8 @@ const sandbox = {
   Error,
   TypeError,
   Intl,
+  Headers: class Headers { constructor(init = {}) { this.values = init; } },
+  fetch: async () => ({ ok: true, status: 200, json: async () => ({}), text: async () => "" }),
   structuredClone: global.structuredClone
 };
 sandbox.window = sandbox;
