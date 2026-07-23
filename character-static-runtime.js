@@ -10,11 +10,21 @@
     return;
   }
 
-  const jsonResponse = (data, status = 200) => new Response(JSON.stringify(data), {
+  const memoryResponse = (data, status = 200) => ({
+    ok: status >= 200 && status < 300,
     status,
-    headers: {
+    headers: new Headers({
       "Content-Type": "application/json; charset=utf-8",
       "X-Character-Data-Source": "static-memory-bundle"
+    }),
+    async json() {
+      return data;
+    },
+    async text() {
+      return JSON.stringify(data);
+    },
+    clone() {
+      return memoryResponse(data, status);
     }
   });
 
@@ -23,14 +33,14 @@
     const cleanUrl = url.split("?")[0];
 
     if (cleanUrl === "data/characters/index.json" || cleanUrl.endsWith("/data/characters/index.json")) {
-      return jsonResponse(index);
+      return memoryResponse(index);
     }
 
     if (url.startsWith("character-data:")) {
       const id = url.slice("character-data:".length).trim().toLowerCase();
       const character = characters[id];
-      if (!character) return jsonResponse({ error: `No existe el personaje ${id}` }, 404);
-      return jsonResponse(character);
+      if (!character) return memoryResponse({ error: `No existe el personaje ${id}` }, 404);
+      return memoryResponse(character);
     }
 
     return nativeFetch(input, init);
