@@ -53,6 +53,8 @@ const sandbox = {
   Headers: class Headers extends Map {},
   CustomEvent: class CustomEvent { constructor(type, options = {}) { this.type = type; this.detail = options.detail; } },
   location: { href: "https://example.test/index.html" },
+  document: { querySelector() { return null; } },
+  addEventListener() {},
   dispatchEvent(event) { events.push(event); },
   fetch: async (input) => {
     const url = new URL(typeof input === "string" ? input : input.url, "https://example.test/");
