@@ -20,7 +20,7 @@
   "countsByCategory": {
     "WEAPON": 2,
     "GENERAL_OR_LOOT": 3,
-    "OTHER": 2,
+    "CONTAINER": 2,
     "CONSUMABLE": 1,
     "TOOL": 1,
     "ARMOR_OR_SHIELD": 2
@@ -360,7 +360,7 @@
       "id": "4W7SZlNFMUvrUKhZ",
       "name": "Iron Pot",
       "type": "container",
-      "category": "OTHER",
+      "category": "CONTAINER",
       "quantity": 1,
       "weight": {
         "value": 10,
@@ -680,7 +680,7 @@
       "id": "GBXhASNwRLjxRfKF",
       "name": "Flask",
       "type": "container",
-      "category": "OTHER",
+      "category": "CONTAINER",
       "quantity": 1,
       "weight": {
         "value": 1,
@@ -1381,5 +1381,14 @@
       "status": "COMPLETE_FROM_JSON"
     }
   ],
-  "nextTask": "A4_2_BALDER_INVENTORY_AUDIT"
+  "nextTask": "A4_2_BALDER_INVENTORY_AUDIT",
+  "reviewItems": [
+    {
+      "id": "bT6jOGEPbQumkIKU",
+      "name": "Magic Coin",
+      "missingFields": [
+        "description"
+      ]
+    }
+  ]
 }
