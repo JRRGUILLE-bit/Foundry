@@ -1,0 +1,881 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T07:00:37.783Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "magna",
+    "name": "Magna",
+    "inventoryCount": 5
+  },
+  "inventoryCount": 5,
+  "countsByType": {
+    "equipment": 4,
+    "consumable": 1
+  },
+  "countsByCategory": {
+    "ARMOR_OR_SHIELD": 3,
+    "CONSUMABLE": 1,
+    "EQUIPMENT": 1
+  },
+  "statusCounts": {
+    "COMPLETE_FROM_JSON": 5
+  },
+  "equippedCount": 4,
+  "attunedCount": 3,
+  "itemsWithUses": 2,
+  "itemsWithActivities": 3,
+  "validation": {
+    "expectedInventoryCount": 5,
+    "countMatchesExpected": true,
+    "uniqueIds": true,
+    "allHaveNames": true,
+    "allHaveRawItem": true,
+    "noSpellsOrFeaturesIncluded": true
+  },
+  "reviewItems": [],
+  "items": [
+    {
+      "order": 1,
+      "id": "PE6T4xyyGDFVH9bu",
+      "name": "Botas de levitación",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 4000,
+        "denomination": "gp"
+      },
+      "rarity": "rare",
+      "magical": true,
+      "equipped": true,
+      "attunement": "required",
+      "attuned": true,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "clothing",
+      "armor": {
+        "type": "clothing",
+        "value": 0,
+        "dex": 0,
+        "magicalBonus": 0
+      },
+      "weapon": {
+        "weaponType": "clothing",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Botas de levitación",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "self",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "self"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "10",
+            "units": "minute",
+            "special": "",
+            "override": false,
+            "label": "10 Minutos"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "Objeto maravilloso, (requiere sintonización)\nMientras usas estas botas, puedes usar una acción para lanzar el hechizo @UUID[Compendium.dnd5e.spells.Item.MRxldJd6C4bsBo3O]{Levitar} sobre ti mismo a voluntad.",
+      "descriptionLength": 206,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "PE6T4xyyGDFVH9bu",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 4000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "required",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 0,
+          "dex": 0
+        },
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ],
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 2,
+      "id": "ENITx198IqlVDr82",
+      "name": "Armadura de cuero con tachuelas",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 13,
+        "units": "lb"
+      },
+      "price": {
+        "value": 45,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": true,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "spent": 0,
+        "recovery": []
+      },
+      "consumableType": "light",
+      "armor": {
+        "type": "light",
+        "value": 12,
+        "dex": null,
+        "magicalBonus": 0
+      },
+      "weapon": {
+        "weaponType": "light",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Hecho de cuero resistente pero flexible, el cuero con tachuelas está reforzado con remaches o picos muy juntos.",
+      "descriptionLength": 111,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "ENITx198IqlVDr82",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 13,
+          "units": "lb"
+        },
+        "price": {
+          "value": 45,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "armor": {
+          "value": 12,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "light",
+          "baseItem": "studded"
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 3,
+      "id": "6ZmCvHhRnLACK9hx",
+      "name": "Verdadera varita de bolas de fuego",
+      "type": "consumable",
+      "category": "CONSUMABLE",
+      "quantity": 7,
+      "weight": {
+        "value": 1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 32000,
+        "denomination": "gp"
+      },
+      "rarity": "rare",
+      "magical": true,
+      "equipped": true,
+      "attunement": "required",
+      "attuned": true,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "current": 15,
+        "max": 15,
+        "spent": 0,
+        "rawMax": "15",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "formula",
+            "formula": "1d6 + 1",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "consumableType": "wand",
+      "armor": null,
+      "weapon": {
+        "weaponType": "wand",
+        "mastery": null,
+        "damage": {
+          "base": {
+            "number": 8,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "fire"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [
+          "mgc"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Verdadera varita de bolas de fuego",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "150",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "150 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "sphere",
+              "size": "20",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "sphere 20 ft"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "DES"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Verdadera varita de bolas de fuego",
+          "type": "damage",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "150",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "150 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "sphere",
+              "size": "20",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "sphere 20 ft"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d6"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        },
+        {
+          "id": null,
+          "name": "Verdadera varita de bolas de fuego",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "150",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "150 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "sphere",
+              "size": "20",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "sphere 20 ft"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 3,
+      "description": "(Requiere la sintonía de un lanzador de hechizos)\nEsta varita tiene 15 cargas. Mientras lo sostienes, puedes usar una acción para gastar 1 o más de sus cargas para lanzar el hechizo Bola de Fuego (salva DC 17) desde él. Por 1 carga, lanzas la versión de nivel 3 del hechizo. Puedes aumentar el nivel de la ranura de hechizo en uno por cada carga adicional que gastes.\nLa varita recupera 1d6 + 3 cargas gastadas diariamente al amanecer.",
+      "descriptionLength": 435,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "6ZmCvHhRnLACK9hx",
+      "rawItemType": "consumable",
+      "rawSystem": {
+        "quantity": 7,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 32000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "required",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "15",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "formula",
+              "formula": "1d6 + 1"
+            }
+          ],
+          "autoDestroy": false,
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": {
+          "base": {
+            "number": 8,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "fire"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [
+          "mgc"
+        ],
+        "type": {
+          "value": "wand",
+          "subtype": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 4,
+      "id": "P11wjLVxqEpXr4vl",
+      "name": "Medallion of Thoughts",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 0.01,
+        "units": "lb"
+      },
+      "price": {
+        "value": 400,
+        "denomination": "gp"
+      },
+      "rarity": "uncommon",
+      "magical": true,
+      "equipped": true,
+      "attunement": "required",
+      "attuned": true,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "current": 3,
+        "max": 3,
+        "spent": 0,
+        "rawMax": "3",
+        "recovery": [
+          {
+            "period": "lr",
+            "type": "formula",
+            "formula": "1d3",
+            "label": "Descanso largo"
+          }
+        ]
+      },
+      "consumableType": "trinket",
+      "armor": {
+        "type": "trinket",
+        "value": 0,
+        "dex": 0,
+        "magicalBonus": 0
+      },
+      "weapon": {
+        "weaponType": "trinket",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Medallion of Thoughts",
+          "type": "cast",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "prompt": true,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "Wondrous item, (requires attunement)\nThe medallion has 3 charges. While wearing it, you can use an action and expend 1 charge to cast the @UUID[Compendium.dnd5e.spells.Item.ppWAAEul0QHtm4er]{Detect Thoughts} spell (save DC 13) from it. The medallion regains 1d3 expended charges daily at dawn.",
+      "descriptionLength": 293,
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "P11wjLVxqEpXr4vl",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0.01,
+          "units": "lb"
+        },
+        "price": {
+          "value": 400,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "attunement": "required",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "3",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "formula",
+              "formula": "1d3"
+            }
+          ],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 0,
+          "dex": 0
+        },
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ],
+        "type": {
+          "value": "trinket",
+          "baseItem": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 5,
+      "id": "orrMsIYbtMTTlgkR",
+      "name": "Spaceship gloves",
+      "type": "equipment",
+      "category": "EQUIPMENT",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "spent": 0,
+        "recovery": [],
+        "max": ""
+      },
+      "consumableType": "",
+      "armor": {
+        "value": null,
+        "dex": null
+      },
+      "weapon": {
+        "weaponType": "",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Proficiency drive starships\nAction:1/day at command word activate shield mode: Damage inmunity for 2 rounds",
+      "descriptionLength": 107,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "orrMsIYbtMTTlgkR",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "recharge": null,
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "",
+          "baseItem": ""
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A4_6_ARTIONKETH_INVENTORY_AUDIT"
+}
