@@ -1,0 +1,176 @@
+name: A3.3 Generate Melkor Spell Audit
+
+on:
+  push:
+    branches:
+      - agent/a3-3-melkor-spells
+    paths:
+      - .github/workflows/a3-3-generate-melkor-spells.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Generate Melkor spell audit
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const vm = require('vm');
+
+          const bundlePath = path.join('foundry_characters_static', 'characters.bundle.js');
+          const code = fs.readFileSync(bundlePath, 'utf8');
+          const context = { window: {}, console };
+          vm.createContext(context);
+          vm.runInContext(code, context, { filename: bundlePath });
+
+          const root = context.window.BANDA_CHARACTER_DATA || {};
+          const character = (context.window.BANDA_CHARACTERS || root.characters || {}).melkor;
+          if (!character) throw new Error('Melkor not found');
+
+          const rawItems = Array.isArray(character.rawActor?.items) ? character.rawActor.items : [];
+          const rawById = new Map(rawItems.map((item) => [item._id, item]));
+          const text = (value) => typeof value === 'string' ? value.trim() : '';
+          const clone = (value) => value == null ? null : JSON.parse(JSON.stringify(value));
+
+          const rawProperties = (raw) => {
+            const properties = raw?.system?.properties;
+            if (Array.isArray(properties)) return properties;
+            if (properties && typeof properties === 'object') {
+              return Object.entries(properties).filter(([, enabled]) => Boolean(enabled)).map(([key]) => key);
+            }
+            return [];
+          };
+
+          const activityAudit = (activity) => ({
+            id: activity.id || null,
+            name: activity.name || null,
+            type: activity.type || null,
+            activation: clone(activity.activation),
+            range: clone(activity.range),
+            target: clone(activity.target),
+            duration: clone(activity.duration),
+            attack: clone(activity.attack),
+            save: clone(activity.save),
+            damage: clone(activity.damage),
+            healing: clone(activity.healing),
+            roll: clone(activity.roll),
+            hasChatFlavor: Boolean(text(activity.chatFlavor))
+          });
+
+          const spells = (character.spells || []).map((spell) => {
+            const raw = rawById.get(spell.id) || null;
+            const description = text(spell.description) || text(raw?.system?.description?.value);
+            const materials = text(spell.materials) || text(raw?.system?.materials?.value);
+            const components = Array.isArray(spell.components) && spell.components.length
+              ? spell.components
+              : rawProperties(raw).filter((value) => ['v', 's', 'm', 'ritual', 'concentration'].includes(value));
+            const activities = (spell.activities || []).map(activityAudit);
+            const missing = [];
+            if (!spell.name) missing.push('name');
+            if (spell.level === undefined || spell.level === null) missing.push('level');
+            if (!spell.school && !spell.schoolLabel) missing.push('school');
+            if (!spell.activation?.label) missing.push('activation');
+            if (!spell.range?.label) missing.push('range');
+            if (!spell.duration?.label) missing.push('duration');
+            if (!components.length) missing.push('components');
+            if (!description) missing.push('description');
+            if (!activities.length) missing.push('activities');
+
+            return {
+              id: spell.id || null,
+              name: spell.name || null,
+              level: spell.level ?? null,
+              school: spell.school || null,
+              schoolLabel: spell.schoolLabel || null,
+              prepared: Boolean(spell.prepared),
+              method: spell.method || null,
+              concentration: Boolean(spell.concentration),
+              ritual: Boolean(spell.ritual),
+              activation: clone(spell.activation),
+              range: clone(spell.range),
+              duration: clone(spell.duration),
+              target: clone(spell.target),
+              components,
+              materials: materials || null,
+              description: description || null,
+              descriptionLength: description.length,
+              activities,
+              source: clone(spell.source),
+              rawItemId: raw?._id || null,
+              rawItemType: raw?.type || null,
+              rawSystem: raw ? {
+                level: raw.system?.level ?? null,
+                school: raw.system?.school ?? null,
+                preparation: clone(raw.system?.preparation),
+                properties: clone(raw.system?.properties),
+                activation: clone(raw.system?.activation),
+                range: clone(raw.system?.range),
+                target: clone(raw.system?.target),
+                duration: clone(raw.system?.duration),
+                materials: clone(raw.system?.materials),
+                activities: clone(raw.system?.activities),
+                source: clone(raw.system?.source)
+              } : null,
+              missingFields: missing,
+              status: missing.length === 0 ? 'COMPLETE_FROM_JSON' : 'NEEDS_REVIEW'
+            };
+          });
+
+          const byLevel = {};
+          const statusCounts = {};
+          for (const spell of spells) {
+            byLevel[spell.level] = (byLevel[spell.level] || 0) + 1;
+            statusCounts[spell.status] = (statusCounts[spell.status] || 0) + 1;
+          }
+
+          const output = {
+            auditVersion: 1,
+            generatedAt: new Date().toISOString(),
+            repository: 'JRRGUILLE-bit/Foundry',
+            bundleVersion: root.version || null,
+            character: {
+              id: character.id,
+              name: character.name,
+              classes: character.classes?.map(({ name, levels, identifier }) => ({ name, levels, identifier })) || [],
+              subclasses: character.subclasses || [],
+              spellcasting: clone(character.spellcasting)
+            },
+            spellCount: spells.length,
+            countsByLevel: byLevel,
+            statusCounts,
+            validation: {
+              expectedSpellCount: 7,
+              countMatchesExpected: spells.length === 7,
+              uniqueIds: new Set(spells.map((spell) => spell.id).filter(Boolean)).size === spells.filter((spell) => spell.id).length,
+              allHaveNames: spells.every((spell) => Boolean(spell.name)),
+              allHaveRawItem: spells.every((spell) => Boolean(spell.rawItemId)),
+              allRawItemsAreSpells: spells.every((spell) => spell.rawItemType === 'spell')
+            },
+            spells,
+            nextTask: 'A3_4_INGWE_SPELL_AUDIT'
+          };
+
+          fs.mkdirSync(path.join('audit', 'spells'), { recursive: true });
+          fs.writeFileSync(path.join('audit', 'spells', 'melkor.json'), JSON.stringify(output, null, 2) + '\n');
+          NODE
+
+      - name: Commit generated audit file
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/spells/melkor.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "A3.3: generate Melkor spell audit"
+            git push
+          fi
