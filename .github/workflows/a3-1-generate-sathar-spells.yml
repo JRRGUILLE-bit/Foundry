@@ -1,0 +1,139 @@
+name: A3.1 Generate Sathar Spell Audit
+
+on:
+  push:
+    branches:
+      - agent/a3-1-sathar-spells
+    paths:
+      - .github/workflows/a3-1-generate-sathar-spells.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Generate Sathar spell audit
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const vm = require('vm');
+
+          const bundlePath = path.join('foundry_characters_static', 'characters.bundle.js');
+          const code = fs.readFileSync(bundlePath, 'utf8');
+          const context = { window: {}, console };
+          vm.createContext(context);
+          vm.runInContext(code, context, { filename: bundlePath });
+
+          const root = context.window.BANDA_CHARACTER_DATA || {};
+          const character = (context.window.BANDA_CHARACTERS || root.characters || {}).sathar;
+          if (!character) throw new Error('Sathar not found');
+
+          const text = (value) => typeof value === 'string' ? value.trim() : '';
+          const activityAudit = (activity) => ({
+            id: activity.id || null,
+            name: activity.name || null,
+            type: activity.type || null,
+            activation: activity.activation || null,
+            range: activity.range || null,
+            target: activity.target || null,
+            duration: activity.duration || null,
+            attack: activity.attack || null,
+            save: activity.save || null,
+            damage: activity.damage || null,
+            healing: activity.healing || null,
+            roll: activity.roll || null,
+            hasChatFlavor: Boolean(text(activity.chatFlavor))
+          });
+
+          const spells = (character.spells || []).map((spell) => {
+            const description = text(spell.description);
+            const materials = text(spell.materials);
+            const activities = (spell.activities || []).map(activityAudit);
+            const missing = [];
+            if (!spell.name) missing.push('name');
+            if (spell.level === undefined || spell.level === null) missing.push('level');
+            if (!spell.school && !spell.schoolLabel) missing.push('school');
+            if (!spell.activation?.label) missing.push('activation');
+            if (!spell.range?.label) missing.push('range');
+            if (!spell.duration?.label) missing.push('duration');
+            if (!Array.isArray(spell.components) || spell.components.length === 0) missing.push('components');
+            if (!description) missing.push('description');
+            if (activities.length === 0) missing.push('activities');
+
+            return {
+              id: spell.id || null,
+              name: spell.name || null,
+              level: spell.level ?? null,
+              school: spell.school || null,
+              schoolLabel: spell.schoolLabel || null,
+              prepared: Boolean(spell.prepared),
+              method: spell.method || null,
+              concentration: Boolean(spell.concentration),
+              ritual: Boolean(spell.ritual),
+              activation: spell.activation || null,
+              range: spell.range || null,
+              duration: spell.duration || null,
+              target: spell.target || null,
+              components: spell.components || [],
+              materials: materials || null,
+              description: description || null,
+              descriptionLength: description.length,
+              activities,
+              source: spell.source || null,
+              rawItemId: spell.rawItem?._id || spell.raw?._id || null,
+              rawItemType: spell.rawItem?.type || spell.raw?.type || null,
+              missingFields: missing,
+              status: missing.length === 0 ? 'COMPLETE_FROM_JSON' : 'NEEDS_REVIEW'
+            };
+          });
+
+          const byLevel = {};
+          for (const spell of spells) byLevel[spell.level] = (byLevel[spell.level] || 0) + 1;
+          const output = {
+            auditVersion: 1,
+            generatedAt: new Date().toISOString(),
+            repository: 'JRRGUILLE-bit/Foundry',
+            bundleVersion: root.version || null,
+            character: {
+              id: character.id,
+              name: character.name,
+              classes: character.classes?.map(({ name, levels, identifier }) => ({ name, levels, identifier })) || [],
+              subclasses: character.subclasses || [],
+              spellcasting: character.spellcasting || null
+            },
+            spellCount: spells.length,
+            countsByLevel: byLevel,
+            validation: {
+              expectedSpellCount: 17,
+              countMatchesExpected: spells.length === 17,
+              uniqueIds: new Set(spells.map((spell) => spell.id).filter(Boolean)).size === spells.filter((spell) => spell.id).length,
+              allHaveNames: spells.every((spell) => Boolean(spell.name)),
+              allHaveRawItemId: spells.every((spell) => Boolean(spell.rawItemId))
+            },
+            spells,
+            nextTask: 'A3_2_BALDER_SPELL_AUDIT'
+          };
+
+          fs.mkdirSync(path.join('audit', 'spells'), { recursive: true });
+          fs.writeFileSync(path.join('audit', 'spells', 'sathar.json'), JSON.stringify(output, null, 2) + '\n');
+          NODE
+
+      - name: Commit generated audit file
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/spells/sathar.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "A3.1: generate Sathar spell audit"
+            git push
+          fi
