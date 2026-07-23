@@ -1,0 +1,41 @@
+name: A5.5 Run Magna Features Audit
+
+on:
+  push:
+    branches:
+      - agent/a5-5-magna-features
+    paths:
+      - .github/workflows/a5-5-run-magna-features.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: github.event.head_commit.message == 'A5.5: add temporary Magna audit runner'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run generator embedded in temporary workflow
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          source = Path('.github/workflows/a5-5-generate-magna-features.yml').read_text()
+          start = source.index("          node <<'NODE'\n") + len("          node <<'NODE'\n")
+          end = source.index("          NODE\n", start)
+          lines = source[start:end].splitlines()
+          Path('/tmp/a5-5-generate.js').write_text('\n'.join(line[10:] if line.startswith('          ') else line for line in lines) + '\n')
+          PY
+          node /tmp/a5-5-generate.js
+      - name: Commit generated audit file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/features/magna.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "A5.5: generate Magna features and resources audit"
+            git push
+          fi
