@@ -6,7 +6,7 @@ file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:97
   throw new Error(`No se pudo construir ${id}. ${errors.join(" | ")}`);
         ^
 
-Error: No se pudo construir sathar. data/characters/sathar.json.gz.b64: Expected double-quoted property name in JSON at position 25849 | data/characters/sathar.json.gz.b64.part1 + data/characters/sathar.json.gz.b64.part2: Expected ',' or '}' after property value in JSON at position 36041
+Error: No se pudo construir sathar. data/characters/sathar.json.gz.b64: Expected double-quoted property name in JSON at position 25849 | data/characters/sathar.json.gz.b64.part1 + data/characters/sathar.json.gz.b64.part2: unexpected end of file
     at loadCharacter (file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:97:9)
     at file:///home/runner/work/Foundry/Foundry/scripts/build-character-bundle.mjs:112:18
     at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
