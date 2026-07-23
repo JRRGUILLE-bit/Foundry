@@ -1,0 +1,39 @@
+name: Apps Script Backend QA
+
+on:
+  pull_request:
+    paths:
+      - "apps-script/**"
+      - "mobile-session-remote-config.js"
+      - "mobile-session-remote-sync.js"
+      - "docs/session-live-apps-script-deployment.md"
+      - "audit/apps-script-backend-qa.js"
+      - "index.html"
+      - ".github/workflows/apps-script-backend-qa.yml"
+  push:
+    branches: [main]
+    paths:
+      - "apps-script/**"
+      - "mobile-session-remote-config.js"
+      - "mobile-session-remote-sync.js"
+      - "docs/session-live-apps-script-deployment.md"
+      - "audit/apps-script-backend-qa.js"
+      - "index.html"
+      - ".github/workflows/apps-script-backend-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  apps-script-backend-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Run Apps Script backend QA
+        run: node audit/apps-script-backend-qa.js
