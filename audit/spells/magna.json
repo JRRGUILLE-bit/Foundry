@@ -1,0 +1,4652 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T06:24:16.123Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "magna",
+    "name": "Magna",
+    "classes": [
+      {
+        "name": "Sorcerer",
+        "levels": 15,
+        "identifier": "sorcerer"
+      }
+    ],
+    "subclasses": [
+      "Divine Soul"
+    ],
+    "spellcasting": {
+      "ability": "cha",
+      "abilityLabel": "CAR",
+      "attack": 10,
+      "dc": 18,
+      "slots": [
+        {
+          "level": 1,
+          "current": 4,
+          "max": 4,
+          "raw": {
+            "value": 4,
+            "override": null
+          }
+        },
+        {
+          "level": 2,
+          "current": 3,
+          "max": 3,
+          "raw": {
+            "value": 3,
+            "override": null
+          }
+        },
+        {
+          "level": 3,
+          "current": 3,
+          "max": 3,
+          "raw": {
+            "value": 3,
+            "override": null
+          }
+        },
+        {
+          "level": 4,
+          "current": 3,
+          "max": 3,
+          "raw": {
+            "value": 3,
+            "override": null
+          }
+        },
+        {
+          "level": 5,
+          "current": 2,
+          "max": 2,
+          "raw": {
+            "value": 2,
+            "override": null
+          }
+        },
+        {
+          "level": 6,
+          "current": 1,
+          "max": 1,
+          "raw": {
+            "value": 1,
+            "override": null
+          }
+        },
+        {
+          "level": 7,
+          "current": 1,
+          "max": 1,
+          "raw": {
+            "value": 1,
+            "override": null
+          }
+        },
+        {
+          "level": 8,
+          "current": 0,
+          "max": 1,
+          "raw": {
+            "value": 0,
+            "override": null
+          }
+        }
+      ],
+      "pact": null
+    }
+  },
+  "spellCount": 20,
+  "countsByLevel": {
+    "0": 3,
+    "1": 4,
+    "2": 3,
+    "3": 3,
+    "4": 1,
+    "5": 2,
+    "6": 2,
+    "7": 1,
+    "8": 1
+  },
+  "statusCounts": {
+    "COMPLETE_FROM_JSON": 18,
+    "NEEDS_REVIEW": 2
+  },
+  "validation": {
+    "expectedSpellCount": 20,
+    "countMatchesExpected": true,
+    "uniqueIds": true,
+    "allHaveNames": true,
+    "allHaveRawItem": true,
+    "allRawItemsAreSpells": true
+  },
+  "spells": [
+    {
+      "id": "UQyNolXpS2tTno4W",
+      "name": "Prestidigitación",
+      "level": 0,
+      "school": "trs",
+      "schoolLabel": "Transmutación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "10",
+        "units": "ft",
+        "special": "",
+        "label": "10 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S"
+      ],
+      "materials": null,
+      "description": "Este hechizo es un truco mágico menor que los hechiceros novatos usan para practicar. Creas uno de los siguientes efectos mágicos dentro del alcance:\nCreas un efecto sensorial instantáneo e inofensivo, como una lluvia de chispas, una ráfaga de viento, notas musicales tenues o un olor extraño.\nInstantáneamente enciendes o apagas una vela, una antorcha o una pequeña fogata.\nUsted limpia o ensucia instantáneamente un objeto que no mide más de 1 pie cúbico.\nEnfría, calienta o aromatiza hasta 1 pie cúbico de material no vivo durante 1 hora.\nHace que aparezca un color, una pequeña marca o un símbolo en un objeto o una superficie durante 1 hora.\nCreas una baratija no mágica o una imagen ilusoria que puede caber en tu mano y que dura hasta el final de tu próximo turno.\nSi lanzas este hechizo varias veces, puedes tener hasta tres de sus efectos no instantáneos activos a la vez, y puedes descartar dicho efecto como una acción.",
+      "descriptionLength": 930,
+      "activities": [
+        {
+          "id": null,
+          "name": "Prestidigitación",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "UQyNolXpS2tTno4W",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Este hechizo es un truco mágico menor que los hechiceros novatos usan para practicar. Creas uno de los siguientes efectos mágicos dentro del alcance:<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Creas un efecto sensorial instantáneo e inofensivo, como una lluvia de chispas, una ráfaga de viento, notas musicales tenues o un olor extraño.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Instantáneamente enciendes o apagas una vela, una antorcha o una pequeña fogata.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Usted limpia o ensucia instantáneamente un objeto que no mide más de 1 pie cúbico.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Enfría, calienta o aromatiza hasta 1 pie cúbico de material no vivo durante 1 hora.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Hace que aparezca un color, una pequeña marca o un símbolo en un objeto o una superficie durante 1 hora.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Creas una baratija no mágica o una imagen ilusoria que puede caber en tu mano y que dura hasta el final de tu próximo turno.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Si lanzas este hechizo varias veces, puedes tener hasta tres de sus efectos no instantáneos activos a la vez, y puedes descartar dicho efecto como una acción.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "10",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 0,
+        "school": "trs",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "prestidigitation",
+        "method": "spell",
+        "prepared": 1
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "AKzVK0M2rvGswx4L",
+      "name": "Rayo de escarcha",
+      "level": 0,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S"
+      ],
+      "materials": null,
+      "description": "Un gélido rayo de luz azul-blanca se dirige hacia una criatura que se encuentra a su alcance. Realiza un ataque de hechizo a distancia contra el objetivo. En un golpe, recibe 1d8 de daño de hielo y su velocidad se reduce en 10 pies hasta el comienzo de tu próximo turno.\nEl daño del hechizo aumenta en 1d8 cuando alcanzas el 5º nivel (2d8), el 11º nivel (3d8) y el 17º nivel (4d8).",
+      "descriptionLength": 381,
+      "activities": [
+        {
+          "id": null,
+          "name": "Rayo de escarcha",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "cha",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8 cold"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "AKzVK0M2rvGswx4L",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Un gélido rayo de luz azul-blanca se dirige hacia una criatura que se encuentra a su alcance. Realiza un ataque de hechizo a distancia contra el objetivo. En un golpe, recibe 1d8 de daño de hielo y su velocidad se reduce en 10 pies hasta el comienzo de tu próximo turno.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />El daño del hechizo aumenta en 1d8 cuando alcanzas el 5º nivel (2d8), el 11º nivel (3d8) y el 17º nivel (4d8).</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "60",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 0,
+        "school": "evo",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "ranged",
+                "classification": "spell"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 8,
+                  "bonus": "",
+                  "types": [
+                    "cold"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "ray-of-frost",
+        "method": "spell",
+        "prepared": 1
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "FwIOYu6VGcu5Xw7X",
+      "name": "Toque Chill",
+      "level": 0,
+      "school": "nec",
+      "schoolLabel": "Nigromancia",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "120",
+        "units": "ft",
+        "special": "",
+        "label": "120 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "round",
+        "label": "1 Asaltos"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S"
+      ],
+      "materials": null,
+      "description": "Creas una mano fantasmal y esquelética en el espacio de una criatura dentro de tu alcance. Realiza un ataque de hechizo a distancia contra la criatura para asaltarla con el escalofrío de la tumba. Al golpear, el objetivo recibe 1d8 p. de daño necrótico y no puede recuperar puntos de golpe hasta el comienzo de tu próximo turno. Hasta entonces, la mano se aferra al objetivo.\nSi golpeas a un objetivo no muerto, también tiene desventaja en las tiradas de ataque contra ti hasta el final de tu próximo turno.\nEl daño de este hechizo aumenta en 1d8 cuando alcanzas el 5º nivel (2d8), el 11º nivel (3d8) y el 17º nivel (4d8).",
+      "descriptionLength": 622,
+      "activities": [
+        {
+          "id": null,
+          "name": "Toque Chill",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "cha",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8 necrotic"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "FwIOYu6VGcu5Xw7X",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Creas una mano fantasmal y esquelética en el espacio de una criatura dentro de tu alcance. Realiza un ataque de hechizo a distancia contra la criatura para asaltarla con el escalofrío de la tumba. Al golpear, el objetivo recibe 1d8 p. de daño necrótico y no puede recuperar puntos de golpe hasta el comienzo de tu próximo turno. Hasta entonces, la mano se aferra al objetivo.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Si golpeas a un objetivo no muerto, también tiene desventaja en las tiradas de ataque contra ti hasta el final de tu próximo turno.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />El daño de este hechizo aumenta en 1d8 cuando alcanzas el 5º nivel (2d8), el 11º nivel (3d8) y el 17º nivel (4d8).</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "round"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "120",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 0,
+        "school": "nec",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "ranged",
+                "classification": "spell"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 8,
+                  "bonus": "",
+                  "types": [
+                    "necrotic"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "chill-touch",
+        "method": "spell",
+        "prepared": 1
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "QflsM41BgH91BaC5",
+      "name": "Caída de plumas",
+      "level": 1,
+      "school": "trs",
+      "schoolLabel": "Transmutación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "reaction",
+        "condition": "which you take when you or a creature within 60 feet of you falls",
+        "value": 1,
+        "label": "1 reacción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "M"
+      ],
+      "materials": "A small feather or piece of down",
+      "description": "Elige hasta cinco criaturas que caigan dentro del alcance. La velocidad de descenso de una criatura que cae se ralentiza a 60 pies por ronda hasta que termina el hechizo. Si la criatura aterriza antes de que termine el hechizo, no recibe daño por caída y puede aterrizar de pie, y el hechizo termina para esa criatura.",
+      "descriptionLength": 318,
+      "activities": [
+        {
+          "id": null,
+          "name": "Caída de plumas",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "QflsM41BgH91BaC5",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Elige hasta cinco criaturas que caigan dentro del alcance. La velocidad de descenso de una criatura que cae se ralentiza a 60 pies por ronda hasta que termina el hechizo. Si la criatura aterriza antes de que termine el hechizo, no recibe daño por caída y puede aterrizar de pie, y el hechizo termina para esa criatura.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "reaction",
+          "condition": "which you take when you or a creature within 60 feet of you falls",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "5",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "60",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 1,
+        "school": "trs",
+        "materials": {
+          "value": "A small feather or piece of down",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "material"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "feather-fall",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "rVkx50mFl1HtThRl",
+      "name": "Curar heridas",
+      "level": 1,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "special": "",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S"
+      ],
+      "materials": null,
+      "description": "Una criatura que tocas recupera un número de puntos de golpe igual a 1d8 + tu modificador de habilidad de lanzamiento de hechizos. Este hechizo no tiene ningún efecto sobre los muertos vivientes o los constructos.\nNiveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 2 o superior, la curación aumenta en 1d8 por cada nivel de ranura por encima de 1er.",
+      "descriptionLength": 383,
+      "activities": [
+        {
+          "id": null,
+          "name": "Curar heridas",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "rVkx50mFl1HtThRl",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Una criatura que tocas recupera un número de puntos de golpe igual a 1d8 + tu modificador de habilidad de lanzamiento de hechizos. Este hechizo no tiene ningún efecto sobre los muertos vivientes o los constructos.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 2 o superior, la curación aumenta en 1d8 por cada nivel de ranura por encima de 1er.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "units": "touch",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 1,
+        "school": "evo",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "healing": {
+              "number": 1,
+              "denomination": 8,
+              "bonus": "@mod",
+              "types": [
+                "healing"
+              ],
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "scaling": {
+                "mode": "whole",
+                "number": 1,
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "cure-wounds",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "LYbgbgZ6LINZplsT",
+      "name": "Escudo",
+      "level": 1,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "reaction",
+        "condition": "Which you take when you are hit by an attack or targeted by the magic missile spell",
+        "value": 1,
+        "label": "1 reacción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "1",
+        "units": "round",
+        "label": "1 Asaltos"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S"
+      ],
+      "materials": null,
+      "description": "Una barrera invisible de fuerza mágica aparece y te protege. Hasta el comienzo de tu próximo turno, tienes una bonificación de +5 a AC, incluso contra el ataque desencadenante, y no recibes daño del misil mágico.",
+      "descriptionLength": 212,
+      "activities": [
+        {
+          "id": null,
+          "name": "Escudo",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "LYbgbgZ6LINZplsT",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Una barrera invisible de fuerza mágica aparece y te protege. Hasta el comienzo de tu próximo turno, tienes una bonificación de +5 a AC, incluso contra el ataque desencadenante, y no recibes daño del misil mágico.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "reaction",
+          "condition": "Which you take when you are hit by an attack or targeted by the magic missile spell",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "round"
+        },
+        "target": {
+          "affects": {
+            "type": "self",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 1,
+        "school": "abj",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "6pbotGIvqQkraPva",
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "shield",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "AjoRBbyrShYt3KPq",
+      "name": "Misil mágico",
+      "level": 1,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "120",
+        "units": "ft",
+        "special": "",
+        "label": "120 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S",
+        "mgc"
+      ],
+      "materials": null,
+      "description": "Creas tres dardos brillantes de fuerza mágica. Cada dardo golpea a una criatura de tu elección que puedas ver dentro de tu alcance. Un dardo inflige 1d4 + 1 de daño de fuerza a su objetivo. Todos los dardos golpean simultáneamente, y puedes dirigirlos para que golpeen a una criatura o a varias.\nNiveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 2 o superior, el conjuro crea un dardo más por cada ranura de nivel superior al 1.",
+      "descriptionLength": 463,
+      "activities": [
+        {
+          "id": null,
+          "name": "Misil mágico",
+          "type": "damage",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d4+1 force"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "AjoRBbyrShYt3KPq",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Creas tres dardos brillantes de fuerza mágica. Cada dardo golpea a una criatura de tu elección que puedas ver dentro de tu alcance. Un dardo inflige 1d4 + 1 de daño de fuerza a su objetivo. Todos los dardos golpean simultáneamente, y puedes dirigirlos para que golpeen a una criatura o a varias.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 2 o superior, el conjuro crea un dardo más por cada ranura de nivel superior al 1.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "120",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 1,
+        "school": "evo",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "mgc"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "damage",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "critical": {
+                "allow": false,
+                "bonus": ""
+              },
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 4,
+                  "bonus": "1",
+                  "types": [
+                    "force"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "magic-missile",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "jJ2K8U3uGGNGbezi",
+      "name": "Detect Thoughts",
+      "level": 2,
+      "school": "div",
+      "schoolLabel": "Adivinación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "special": "",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S",
+        "M",
+        "concentration"
+      ],
+      "materials": "A copper piece",
+      "description": "Durante la duración del conjuro, puedes leer los pensamientos de ciertas criaturas. Al lanzar el conjuro y como acción en cada turno hasta que termine, puedes concentrarte en cualquier criatura que veas a menos de 9 metros de ti. Si la criatura elegida tiene una Inteligencia de 3 o inferior, o no habla ningún idioma, no se ve afectada.\nInicialmente, descubres los pensamientos superficiales de la criatura: lo que más le preocupa en ese momento. Como acción, puedes cambiar tu atención a los pensamientos de otra criatura o intentar profundizar en la mente de la misma. Si profundizas, el objetivo debe realizar una tirada de salvación de Sabiduría. Si falla, obtienes información sobre su razonamiento (si lo tiene), su estado emocional y algo que le preocupa profundamente (como algo que le inquieta, ama u odia). Si tiene éxito, el conjuro termina. De cualquier forma, el objetivo sabe que estás indagando en su mente, y a menos que cambies tu atención a los pensamientos de otra criatura, esta puede usar su acción en su turno para realizar una tirada de Inteligencia enfrentada a tu tirada de Inteligencia; si tiene éxito, el conjuro termina.\nLas preguntas dirigidas verbalmente a la criatura objetivo influyen naturalmente en el curso de sus pensamientos, por lo que este conjuro es particularmente efectivo como parte de un interrogatorio.\nTambién puedes usar este conjuro para detectar la presencia de criaturas pensantes que no puedes ver. Al lanzar el conjuro o como tu acción durante su duración, puedes buscar pensamientos en un radio de 9 metros (30 pies) a tu alrededor. El conjuro puede atravesar barreras, pero 60 cm (2 pies) de roca, 5 cm (2 pulgadas) de cualquier metal que no sea plomo, o una lámina delgada de plomo te bloquean. No puedes detectar una criatura con una Inteligencia de 3 o inferior, ni una que no hable ningún idioma.\nUna vez que detectas la presencia de una criatura de esta manera, puedes leer sus pensamientos durante el resto de la duración como se describe anteriormente, incluso si no puedes verla, pero debe permanecer dentro del alcance.",
+      "descriptionLength": 2083,
+      "activities": [
+        {
+          "id": null,
+          "name": "Detect Thoughts",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "SAB"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "jJ2K8U3uGGNGbezi",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-size:10pt;font-family:Arial, sans-serif;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap\"><strong style=\"font-weight:normal\" id=\"docs-internal-guid-a05c9f17-7fff-e1d9-7b8c-fc786ada969b\">Durante la duración del conjuro, puedes leer los pensamientos de ciertas criaturas. Al lanzar el conjuro y como acción en cada turno hasta que termine, puedes concentrarte en cualquier criatura que veas a menos de 9 metros de ti. Si la criatura elegida tiene una Inteligencia de 3 o inferior, o no habla ningún idioma, no se ve afectada.</strong></span></p><p><strong style=\"font-weight:normal\" id=\"docs-internal-guid-a05c9f17-7fff-e1d9-7b8c-fc786ada969b\"><br /></strong></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt\"><span style=\"font-size:10pt;font-family:Arial, sans-serif;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap\"><strong style=\"font-weight:normal\" id=\"docs-internal-guid-a05c9f17-7fff-e1d9-7b8c-fc786ada969b\">Inicialmente, descubres los pensamientos superficiales de la criatura: lo que más le preocupa en ese momento. Como acción, puedes cambiar tu atención a los pensamientos de otra criatura o intentar profundizar en la mente de la misma. Si profundizas, el objetivo debe realizar una tirada de salvación de Sabiduría. Si falla, obtienes información sobre su razonamiento (si lo tiene), su estado emocional y algo que le preocupa profundamente (como algo que le inquieta, ama u odia). Si tiene éxito, el conjuro termina. De cualquier forma, el objetivo sabe que estás indagando en su mente, y a menos que cambies tu atención a los pensamientos de otra criatura, esta puede usar su acción en su turno para realizar una tirada de Inteligencia enfrentada a tu tirada de Inteligencia; si tiene éxito, el conjuro termina.</strong></span></p><p><strong style=\"font-weight:normal\" id=\"docs-internal-guid-a05c9f17-7fff-e1d9-7b8c-fc786ada969b\"><br /></strong></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt\"><span style=\"font-size:10pt;font-family:Arial, sans-serif;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap\"><strong style=\"font-weight:normal\" id=\"docs-internal-guid-a05c9f17-7fff-e1d9-7b8c-fc786ada969b\">Las preguntas dirigidas verbalmente a la criatura objetivo influyen naturalmente en el curso de sus pensamientos, por lo que este conjuro es particularmente efectivo como parte de un interrogatorio.</strong></span></p><p></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt\"><span style=\"font-size:10pt;font-family:Arial, sans-serif;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap\"><strong style=\"font-weight:normal\" id=\"docs-internal-guid-a05c9f17-7fff-e1d9-7b8c-fc786ada969b\">También puedes usar este conjuro para detectar la presencia de criaturas pensantes que no puedes ver. Al lanzar el conjuro o como tu acción durante su duración, puedes buscar pensamientos en un radio de 9 metros (30 pies) a tu alrededor. El conjuro puede atravesar barreras, pero 60 cm (2 pies) de roca, 5 cm (2 pulgadas) de cualquier metal que no sea plomo, o una lámina delgada de plomo te bloquean. No puedes detectar una criatura con una Inteligencia de 3 o inferior, ni una que no hable ningún idioma.</strong></span></p><p><strong style=\"font-weight:normal\" id=\"docs-internal-guid-a05c9f17-7fff-e1d9-7b8c-fc786ada969b\"><br /></strong></p><p dir=\"ltr\" style=\"line-height:1.542857142857143;margin-top:-1pt;margin-bottom:-1pt\"><span style=\"font-size:10pt;font-family:Arial, sans-serif;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap\"><strong style=\"font-weight:normal\" id=\"docs-internal-guid-a05c9f17-7fff-e1d9-7b8c-fc786ada969b\">Una vez que detectas la presencia de una criatura de esta manera, puedes leer sus pensamientos durante el resto de la duración como se describe anteriormente, incluso si no puedes verla, pero debe permanecer dentro del alcance.</strong></span></p><p><br class=\"Apple-interchange-newline\" /></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "30",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 2,
+        "school": "div",
+        "materials": {
+          "value": "A copper piece",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "detect-thoughts",
+        "method": "spell",
+        "prepared": 0,
+        "ability": "",
+        "sourceItem": "class:sorcerer"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "h3zmXPhHRtO3wWIf",
+      "name": "Rayo abrasador",
+      "level": 2,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "120",
+        "units": "ft",
+        "special": "",
+        "label": "120 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S"
+      ],
+      "materials": null,
+      "description": "Creas tres rayos de fuego y los lanzas a objetivos dentro del alcance. Puedes lanzarlos a un objetivo o a varios.\nHaz un ataque de hechizo a distancia para cada rayo. Al impactar, el objetivo recibe 2d6 de daño de fuego.\nNiveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 3 o superior, creas un rayo adicional por cada nivel de ranura por encima de 2do.",
+      "descriptionLength": 387,
+      "activities": [
+        {
+          "id": null,
+          "name": "Rayo abrasador",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "cha",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "2d6 fire"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "h3zmXPhHRtO3wWIf",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Creas tres rayos de fuego y los lanzas a objetivos dentro del alcance. Puedes lanzarlos a un objetivo o a varios.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Haz un ataque de hechizo a distancia para cada rayo. Al impactar, el objetivo recibe 2d6 de daño de fuego.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 3 o superior, creas un rayo adicional por cada nivel de ranura por encima de 2do.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "3",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "120",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 2,
+        "school": "evo",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "ranged",
+                "classification": "spell"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "fire"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "scorching-ray",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "56n4A0O9QuFUH2xC",
+      "name": "Sujetar persona",
+      "level": 2,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S",
+        "M",
+        "concentration"
+      ],
+      "materials": "A small, straight piece of iron",
+      "description": "Elige un humanoide que puedas ver dentro del alcance. El objetivo debe tener éxito en una tirada de salvación de Sabiduría o estar &Referencia[paralizado] mientras dure. Al final de cada uno de sus turnos, el objetivo puede hacer otra tirada de salvación de Sabiduría. En caso de éxito, el hechizo termina en el objetivo.\nNiveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 3 o superior, puedes seleccionar un humanoide adicional por cada ranura de nivel superior a la 2. Los humanoides deben estar a menos de 30 pies de distancia entre sí cuando los apuntes.",
+      "descriptionLength": 592,
+      "activities": [
+        {
+          "id": null,
+          "name": "Sujetar persona",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "SAB"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "56n4A0O9QuFUH2xC",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Elige un humanoide que puedas ver dentro del alcance. El objetivo debe tener éxito en una tirada de salvación de Sabiduría o estar &amp;Referencia[paralizado] mientras dure. Al final de cada uno de sus turnos, el objetivo puede hacer otra tirada de salvación de Sabiduría. En caso de éxito, el hechizo termina en el objetivo.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 3 o superior, puedes seleccionar un humanoide adicional por cada ranura de nivel superior a la 2. Los humanoides deben estar a menos de 30 pies de distancia entre sí cuando los apuntes.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "60",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 2,
+        "school": "enc",
+        "materials": {
+          "value": "A small, straight piece of iron",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "HH5YVjzxkwXpDZS0",
+                "onSave": false,
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "hold-person",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "7G73KSissqcUwnuL",
+      "name": "Bola de fuego",
+      "level": 3,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "150",
+        "units": "ft",
+        "special": "",
+        "label": "150 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S",
+        "M"
+      ],
+      "materials": "A tiny ball of bat guano and sulfur",
+      "description": "Un rayo brillante destella desde tu dedo índice hasta un punto que elijas dentro del alcance y luego florece con un rugido bajo en una explosión de llamas. Cada criatura en una esfera de 20 pies de radio centrada en ese punto debe hacer una tirada de salvación de Destreza. Un objetivo recibe 8d6 de daño de fuego en una salvación fallida, o la mitad de daño en una exitosa salvación.\nEl fuego se propaga por las esquinas. Enciende objetos inflamables en el área que no se usan ni se transportan.\nNiveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 4 o superior, el daño aumenta en 1d6 por cada nivel de ranura por encima de 3.",
+      "descriptionLength": 660,
+      "activities": [
+        {
+          "id": null,
+          "name": "Bola de fuego",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "DES"
+            ]
+          },
+          "damage": {
+            "parts": [
+              "8d6 fire"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "7G73KSissqcUwnuL",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Un rayo brillante destella desde tu dedo índice hasta un punto que elijas dentro del alcance y luego florece con un rugido bajo en una explosión de llamas. Cada criatura en una esfera de 20 pies de radio centrada en ese punto debe hacer una tirada de salvación de Destreza. Un objetivo recibe 8d6 de daño de fuego en una salvación fallida, o la mitad de daño en una exitosa salvación.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />El fuego se propaga por las esquinas. Enciende objetos inflamables en el área que no se usan ni se transportan.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 4 o superior, el daño aumenta en 1d6 por cada nivel de ranura por encima de 3.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "sphere",
+            "size": "20",
+            "contiguous": false,
+            "count": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "150",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 3,
+        "school": "evo",
+        "materials": {
+          "value": "A tiny ball of bat guano and sulfur",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "number": 8,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "fire"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "fireball",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "jG9xL7OOWJJxlPbO",
+      "name": "Luz del día",
+      "level": 3,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S"
+      ],
+      "materials": null,
+      "description": "Una esfera de luz de 60 pies de radio se extiende desde un punto que elijas dentro del alcance. La esfera es de luz brillante y arroja luz tenue por 60 pies adicionales.\nSi elegiste un punto en un objeto que estás sosteniendo o uno que no se está usando o llevando, la luz brilla desde el objeto y se mueve con él. Cubrir completamente el objeto afectado con un objeto opaco, como un cuenco o un yelmo, bloquea la luz.\nSi alguna de las áreas de este conjuro se superpone con una zona de oscuridad creada por un conjuro de nivel 3 o inferior, el conjuro que creó la oscuridad se disipa.",
+      "descriptionLength": 585,
+      "activities": [
+        {
+          "id": null,
+          "name": "Luz del día",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "jG9xL7OOWJJxlPbO",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Una esfera de luz de 60 pies de radio se extiende desde un punto que elijas dentro del alcance. La esfera es de luz brillante y arroja luz tenue por 60 pies adicionales.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Si elegiste un punto en un objeto que estás sosteniendo o uno que no se está usando o llevando, la luz brilla desde el objeto y se mueve con él. Cubrir completamente el objeto afectado con un objeto opaco, como un cuenco o un yelmo, bloquea la luz.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Si alguna de las áreas de este conjuro se superpone con una zona de oscuridad creada por un conjuro de nivel 3 o inferior, el conjuro que creó la oscuridad se disipa.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "sphere",
+            "size": "60",
+            "contiguous": false,
+            "count": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "60",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 3,
+        "school": "evo",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "daylight",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "fxoCqiiSaea9DwTM",
+      "name": "Rayo",
+      "level": 3,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S",
+        "M"
+      ],
+      "materials": "A bit of fur and a rod of amber, crystal, or glass",
+      "description": "Un rayo que forma una línea de 100 pies de largo y 5 pies de ancho sale disparado de ti en la dirección que elijas. Cada criatura en la línea debe hacer una tirada de salvación de Destreza. Una criatura recibe 8d6 de daño de rayo en una salvación fallida, o la mitad de daño en una exitosa.\nEl rayo enciende objetos inflamables en el área que no se usan ni se transportan.\nEn niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 4 o superior, el daño aumenta en 1d6 por cada nivel de ranura por encima de 3.",
+      "descriptionLength": 539,
+      "activities": [
+        {
+          "id": null,
+          "name": "Rayo",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "DES"
+            ]
+          },
+          "damage": {
+            "parts": [
+              "8d6 lightning"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "fxoCqiiSaea9DwTM",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Un rayo que forma una línea de 100 pies de largo y 5 pies de ancho sale disparado de ti en la dirección que elijas. Cada criatura en la línea debe hacer una tirada de salvación de Destreza. Una criatura recibe 8d6 de daño de rayo en una salvación fallida, o la mitad de daño en una exitosa.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />El rayo enciende objetos inflamables en el área que no se usan ni se transportan.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />En niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 4 o superior, el daño aumenta en 1d6 por cada nivel de ranura por encima de 3.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "line",
+            "size": "100",
+            "contiguous": false,
+            "count": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 3,
+        "school": "evo",
+        "materials": {
+          "value": "A bit of fur and a rod of amber, crystal, or glass",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "number": 8,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "lightning"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "lightning-bolt",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "qCJlbEGeJm04khaT",
+      "name": "Puerta de dimensión",
+      "level": 4,
+      "school": "con",
+      "schoolLabel": "Conjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "500",
+        "units": "ft",
+        "special": "",
+        "label": "500 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V"
+      ],
+      "materials": null,
+      "description": "Te teletransportas desde tu ubicación actual a cualquier otro lugar dentro del alcance. Llegas exactamente al lugar deseado. Puede ser un lugar que puedas ver, uno que puedas visualizar o uno que puedas describir indicando la distancia y la dirección, como \"200 pies en línea recta hacia abajo\" o \"hacia arriba hacia el noroeste en un ángulo de 45 grados, 300 pies\".\nPuedes llevar objetos siempre y cuando su peso no supere lo que puedes llevar. También puedes llevar una criatura dispuesta de tu tamaño o más pequeña que lleve equipo hasta su capacidad de carga. La criatura debe estar a menos de 5 pies de ti cuando lances este hechizo.\nSi llegaras a un lugar ya ocupado por un objeto o una criatura, tú y cualquier criatura que viaje contigo reciben cada uno 4d6 puntos de daño de fuerza, y el hechizo no logra teletransportarte.",
+      "descriptionLength": 832,
+      "activities": [
+        {
+          "id": null,
+          "name": "Puerta de dimensión",
+          "type": "damage",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "4d6 force"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "qCJlbEGeJm04khaT",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Te teletransportas desde tu ubicación actual a cualquier otro lugar dentro del alcance. Llegas exactamente al lugar deseado. Puede ser un lugar que puedas ver, uno que puedas visualizar o uno que puedas describir indicando la distancia y la dirección, como \"200 pies en línea recta hacia abajo\" o \"hacia arriba hacia el noroeste en un ángulo de 45 grados, 300 pies\".<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Puedes llevar objetos siempre y cuando su peso no supere lo que puedes llevar. También puedes llevar una criatura dispuesta de tu tamaño o más pequeña que lleve equipo hasta su capacidad de carga. La criatura debe estar a menos de 5 pies de ti cuando lances este hechizo.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Si llegaras a un lugar ya ocupado por un objeto o una criatura, tú y cualquier criatura que viaje contigo reciben cada uno 4d6 puntos de daño de fuerza, y el hechizo no logra teletransportarte.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "type": "self",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "500",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "ability": "",
+        "level": 4,
+        "school": "con",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "damage",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "critical": {
+                "allow": false,
+                "bonus": ""
+              },
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "dimension-door",
+        "method": "spell",
+        "prepared": 0
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "Kpscg5jIjl4lC0P8",
+      "name": "circulo de teletransportacion",
+      "level": 5,
+      "school": null,
+      "schoolLabel": "—",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "Nivel 5, conjuración\nOrigen : Reglas básicas\nComponentes : V, S, M (gemas preciosas de 50 po de valor bañadas en polvos y tintas raros, las cuales consume el conjuro)\nTiempo de lanzamiento : 1 minuto\nAlcance : 10 pies\nDuración : 1 asalto\nListas de conjuros : Conjuros de bardo, Conjuros de hechicero y Conjuros de mago\nCuando lanzas el conjuro, dibujas un círculo de 10 pies de diámetro en el suelo con símbolos que conectan tu localización con un círculo de teletransporte permanente de tu elección cuya secuencia de símbolos conoces y que está en tu mismo plano de existencia. Un portal reluciente se abre dentro del círculo y permanece abierto hasta el final de tu siguiente turno. Cualquier criatura que entra en el portal aparece instantáneamente a 5 pies del círculo de destino o en el espacio sin ocupar más cercano si ese está ocupado.\nMuchos templos grandes, gremios y otros lugares importantes tienen círculos de teletransporte permanentes inscritos en algún lugar de sus confines. Cada uno de estos círculos tiene una secuencia de símbolos única, una sucesión de runas mágicas colocadas siguiendo un patrón particular. Cuando consigues la capacidad para lanzar este conjuro por primera vez, aprendes la secuencia de símbolos de dos destinos del Plano Material determinados por el director de juego. Puedes aprender otras secuencias de símbolos durante tus aventuras. Puedes memorizar una nueva secuencia de símbolos después de estudiar durante 1 minuto.\nPuedes crear un círculo de teletransporte permanente lanzando este conjuro en el mismo lugar todos los días durante un año. No necesitas usar el círculo para teleportarte cuando lanzas el conjuro de este modo.",
+      "descriptionLength": 1674,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "rawItemId": "Kpscg5jIjl4lC0P8",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p><span style=\"font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif\">Nivel 5, conjuración</span></p><div class=\"float-right\" style=\"box-sizing:border-box;float:right !important;color:rgb(85, 89, 92);font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:left;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;background-color:rgb(255, 255, 255);text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><div class=\"icon-rounded inline icon-bg icon-md\" style=\"box-sizing:border-box;background-image:url('/assets/actionbar/bg_grey-28091babef5aa5f9e03c5b0be4d170ade89186ae871204d79bc08bc9b5ee2455.png');background-position:center center;background-size:cover;background-repeat:no-repeat;width:64px;height:64px;border-radius:10px;overflow:hidden;display:inline-block;margin-top:-10px;margin-bottom:-10px;margin-right:4px\"><img src=\"https://s3-eu-west-2.amazonaws.com/dungeon20/images/4447/small-c6776b7989acb124a018ee52d12c7d3f9a14682a.png?1698314297\" alt=\"Small\" style=\"box-sizing:border-box;vertical-align:middle;border-style:none;width:64px;height:64px\" /></div></div><p style=\"box-sizing:border-box;margin-top:0px;margin-bottom:1rem;color:rgb(85, 89, 92);font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;background-color:rgb(255, 255, 255);text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><span style=\"font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif\"><strong style=\"box-sizing:border-box;font-weight:bolder\">Origen</strong>: <a href=\"https://nivel20.com/games/dnd-5/rulebooks/4-reglas-basicas\" style=\"box-sizing:border-box;color:rgb(218, 132, 102);text-decoration:none;background-color:transparent\">Reglas básicas</a><br style=\"box-sizing:border-box\" /><strong style=\"box-sizing:border-box;font-weight:bolder\">Componentes</strong>: V, S, M (gemas preciosas de 50 po de valor bañadas en polvos y tintas raros, las cuales consume el conjuro)<br style=\"box-sizing:border-box\" /><strong style=\"box-sizing:border-box;font-weight:bolder\">Tiempo de lanzamiento</strong>: 1 minuto<br style=\"box-sizing:border-box\" /><strong style=\"box-sizing:border-box;font-weight:bolder\">Alcance</strong>: </span><span style=\"box-sizing:border-box\"><span style=\"font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif\">10 pies</span></span><span style=\"font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif\"><br style=\"box-sizing:border-box\" /><strong style=\"box-sizing:border-box;font-weight:bolder\">Duración</strong>: 1 asalto<br style=\"box-sizing:border-box\" /><strong style=\"box-sizing:border-box;font-weight:bolder\">Listas de conjuros</strong>: Conjuros de bardo, Conjuros de hechicero y Conjuros de mago</span></p><p style=\"box-sizing:border-box;margin-top:0px;margin-bottom:1rem;color:rgb(85, 89, 92);font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;background-color:rgb(255, 255, 255);text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><span style=\"font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif\">Cuando lanzas el conjuro, dibujas un círculo de 10 pies de diámetro en el suelo con símbolos que conectan tu localización con un círculo de teletransporte permanente de tu elección cuya secuencia de símbolos conoces y que está en tu mismo plano de existencia. Un portal reluciente se abre dentro del círculo y permanece abierto hasta el final de tu siguiente turno. Cualquier criatura que entra en el portal aparece instantáneamente a 5 pies del círculo de destino o en el espacio sin ocupar más cercano si ese está ocupado.</span></p><p style=\"box-sizing:border-box;margin-top:0px;margin-bottom:1rem;color:rgb(85, 89, 92);font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;background-color:rgb(255, 255, 255);text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><span style=\"font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif\">Muchos templos grandes, gremios y otros lugares importantes tienen círculos de teletransporte permanentes inscritos en algún lugar de sus confines. Cada uno de estos círculos tiene una secuencia de símbolos única, una sucesión de runas mágicas colocadas siguiendo un patrón particular. Cuando consigues la capacidad para lanzar este conjuro por primera vez, aprendes la secuencia de símbolos de dos destinos del Plano Material determinados por el director de juego. Puedes aprender otras secuencias de símbolos durante tus aventuras. Puedes memorizar una nueva secuencia de símbolos después de estudiar durante 1 minuto.</span></p><p style=\"box-sizing:border-box;margin-top:0px;margin-bottom:1rem;color:rgb(85, 89, 92);font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;background-color:rgb(255, 255, 255);text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><span style=\"font-family:'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif\">Puedes crear un círculo de teletransporte permanente lanzando este conjuro en el mismo lugar todos los días durante un año. No necesitas usar el círculo para teleportarte cuando lanzas el conjuro de este modo.</span></p><p><br class=\"Apple-interchange-newline\" /></p>",
+          "chat": ""
+        },
+        "identifier": "new-spell",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "activation": {
+          "type": "action",
+          "condition": ""
+        },
+        "duration": {
+          "units": "inst"
+        },
+        "level": 5,
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [],
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "school": "",
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "type": "",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false,
+            "type": ""
+          }
+        },
+        "ability": "",
+        "method": "spell",
+        "prepared": 1,
+        "sourceItem": "class:sorcerer"
+      },
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "8RVPPGS8tu9C7p1h",
+      "name": "Mano Arcana",
+      "level": 5,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "120",
+        "units": "ft",
+        "special": "",
+        "label": "120 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S",
+        "M",
+        "concentration",
+        "mgc"
+      ],
+      "materials": "An eggshell and a snakeskin glove",
+      "description": "Creas una gran mano de fuerza brillante y translúcida en un espacio desocupado que puedes ver dentro del alcance. La mano dura la duración del hechizo y se mueve a tus órdenes, imitando los movimientos de tu propia mano.\nLa mano es un objeto que tiene AC 20 y puntos de golpe iguales a tu máximo de puntos de golpe. Si cae a 0 puntos de golpe, el hechizo termina. Tiene una Fuerza de 26 (+8) y una Destreza de 10 (+0). La mano no llena su espacio.\nCuando lanzas el hechizo y como Acción de Bonificación en tus turnos subsiguientes, puedes mover la mano hasta 60 pies y luego causar uno de los siguientes Efectos con ella.\nPuño cerrado. La mano golpea a una criatura u objeto a menos de 5 pies de ella. Haz un ataque de hechizo cuerpo a cuerpo para la mano usando tus estadísticas de juego. De un golpe, el objetivo recibe 4d8 de daño de fuerza.\nMano contundente. La mano intenta empujar a una criatura a menos de 5 pies de ella en la dirección que elijas. Haz un check con la Fuerza de la mano disputada por el check de Fuerza (Atletismo) del objetivo. Si el objetivo es mediano o menor, tiene ventaja en el cheque. Si tienes éxito, la mano empuja al objetivo hasta 5 pies más un número de pies igual a cinco veces tu modificador de habilidad de lanzamiento de hechizos. La mano se mueve con el objetivo para permanecer a menos de 5 pies de él.\nMano de agarre. La mano intenta agarrar a una criatura enorme o más pequeña a menos de 5 pies de ella. Usas la puntuación de fuerza de la mano para resolver el agarre. Si el objetivo es mediano o menor, tiene ventaja en el cheque. Mientras la mano está agarrando al objetivo, puedes usar una acción de bonificación para que la mano lo aplaste. Cuando lo haces, el objetivo recibe un daño contundente igual a 2d6 + tu modificador de habilidad de Lanzamiento de hechizos.\nMano interpuesta. La mano se interpone entre tú y una criatura que elijas hasta que le des a la mano una orden diferente. La mano se mueve para permanecer entre usted y el objetivo, proporcionándole la mitad de la cobertura contra el objetivo. El objetivo no puede moverse a través del espacio de la mano si su puntuación de Fuerza es menor o igual que la puntuación de Fuerza de la mano. Si su puntuación de fuerza es más alta que la puntuación de fuerza de la mano, el objetivo puede moverse hacia ti a través del espacio de la mano, pero ese espacio es un terreno difícil para el objetivo.\nEn niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 6 o superior, el daño de la opción de puño cerrado aumenta en 2d8 y el daño de la mano que agarra aumenta en 2d6 por cada nivel de ranura por encima de 5to.",
+      "descriptionLength": 2652,
+      "activities": [
+        {
+          "id": null,
+          "name": "Mano Arcana",
+          "type": "summon",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "8RVPPGS8tu9C7p1h",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span style=\"font-family:Roboto, sans-serif\">Creas una gran mano de fuerza brillante y translúcida en un espacio desocupado que puedes ver dentro del alcance. La mano dura la duración del hechizo y se mueve a tus órdenes, imitando los movimientos de tu propia mano.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />La mano es un objeto que tiene AC 20 y puntos de golpe iguales a tu máximo de puntos de golpe. Si cae a 0 puntos de golpe, el hechizo termina. Tiene una Fuerza de 26 (+8) y una Destreza de 10 (+0). La mano no llena su espacio.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Cuando lanzas el hechizo y como Acción de Bonificación en tus turnos subsiguientes, puedes mover la mano hasta 60 pies y luego causar uno de los siguientes Efectos con ella.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Puño cerrado. La mano golpea a una criatura u objeto a menos de 5 pies de ella. Haz un ataque de hechizo cuerpo a cuerpo para la mano usando tus estadísticas de juego. De un golpe, el objetivo recibe 4d8 de daño de fuerza.</span></p><p><span style=\"font-family:Roboto, sans-serif\">Mano contundente. La mano intenta empujar a una criatura a menos de 5 pies de ella en la dirección que elijas. Haz un check con la Fuerza de la mano disputada por el check de Fuerza (Atletismo) del objetivo. Si el objetivo es mediano o menor, tiene ventaja en el cheque. Si tienes éxito, la mano empuja al objetivo hasta 5 pies más un número de pies igual a cinco veces tu modificador de habilidad de lanzamiento de hechizos. La mano se mueve con el objetivo para permanecer a menos de 5 pies de él.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Mano de agarre. La mano intenta agarrar a una criatura enorme o más pequeña a menos de 5 pies de ella. Usas la puntuación de fuerza de la mano para resolver el agarre. Si el objetivo es mediano o menor, tiene ventaja en el cheque. Mientras la mano está agarrando al objetivo, puedes usar una acción de bonificación para que la mano lo aplaste. Cuando lo haces, el objetivo recibe un daño contundente igual a 2d6 + tu modificador de habilidad de Lanzamiento de hechizos.</span></p><p><span style=\"font-family:Roboto, sans-serif\">Mano interpuesta. La mano se interpone entre tú y una criatura que elijas hasta que le des a la mano una orden diferente. La mano se mueve para permanecer entre usted y el objetivo, proporcionándole la mitad de la cobertura contra el objetivo. El objetivo no puede moverse a través del espacio de la mano si su puntuación de Fuerza es menor o igual que la puntuación de Fuerza de la mano. Si su puntuación de fuerza es más alta que la puntuación de fuerza de la mano, el objetivo puede moverse hacia ti a través del espacio de la mano, pero ese espacio es un terreno difícil para el objetivo.<br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" /><br style=\"color:rgb(17, 17, 17);font-family:Roboto, sans-serif;font-size:18px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:pre-wrap;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />En niveles superiores. Cuando lanzas este hechizo usando una ranura de conjuro de nivel 6 o superior, el daño de la opción de puño cerrado aumenta en 2d8 y el daño de la mano que agarra aumenta en 2d6 por cada nivel de ranura por encima de 5to.</span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "target": {
+          "affects": {
+            "type": "space",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "120",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 5,
+        "school": "evo",
+        "materials": {
+          "value": "An eggshell and a snakeskin glove",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration",
+          "mgc"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "summon",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "bonuses": {
+              "ac": "",
+              "hp": "@attributes.hp.max",
+              "attackDamage": "",
+              "saveDamage": "",
+              "healing": ""
+            },
+            "creatureSizes": [],
+            "creatureTypes": [],
+            "match": {
+              "proficiency": false,
+              "attacks": true,
+              "saves": false,
+              "disposition": false
+            },
+            "profiles": [
+              {
+                "name": "",
+                "_id": "M8uQaRVLa9er5zMP",
+                "uuid": "Compendium.dnd5e.monsters.Actor.iHj5Tkm6HRgXuaWP",
+                "level": {
+                  "min": null,
+                  "max": null
+                },
+                "types": []
+              }
+            ],
+            "summon": {
+              "mode": "",
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "effects": [],
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "arcane-hand",
+        "ability": "",
+        "method": "spell",
+        "prepared": 0,
+        "sourceItem": "class:sorcerer"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "p3SUcC91hi9q1uDO",
+      "name": "Chain Lightning",
+      "level": 6,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "150",
+        "units": "ft",
+        "label": "150 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S",
+        "M"
+      ],
+      "materials": "A bit of fur; a piece of amber, glass, or a crystal rod; and three silver pins",
+      "description": "You create a bolt of lightning that arcs toward a target of your choice that you can see within range. Three bolts then leap from that target to as many as three other targets, each of which must be within 30 feet of the first target. A target can be a creature or an object and can be targeted by only one of the bolts.\nA target must make a Dexterity saving throw. The target takes 10d8 lightning damage on a failed save, or half as much damage on a successful one.\nHigher Levels. When you cast this spell using a spell slot of 7th level or higher, one additional bolt leaps from the first target to another target for each slot level above 6th.",
+      "descriptionLength": 646,
+      "activities": [
+        {
+          "id": null,
+          "name": "Chain Lightning",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "DES"
+            ]
+          },
+          "damage": {
+            "parts": [
+              "10d8 lightning"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "p3SUcC91hi9q1uDO",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p>You create a bolt of lightning that arcs toward a target of your choice that you can see within range. Three bolts then leap from that target to as many as three other targets, each of which must be within 30 feet of the first target. A target can be a creature or an object and can be targeted by only one of the bolts.</p><p>A target must make a Dexterity saving throw. The target takes 10d8 lightning damage on a failed save, or half as much damage on a successful one.</p><p><strong>Higher Levels. </strong>When you cast this spell using a spell slot of 7th level or higher, one additional bolt leaps from the first target to another target for each slot level above 6th.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "150",
+          "units": "ft"
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 6,
+        "school": "evo",
+        "materials": {
+          "value": "A bit of fur; a piece of amber, glass, or a crystal rod; and three silver pins",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "number": 10,
+                  "denomination": 8,
+                  "bonus": "",
+                  "types": [
+                    "lightning"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "chain-lightning",
+        "method": "spell",
+        "prepared": 0,
+        "sourceItem": "class:sorcerer"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "PrbKLNvodK3mUXjg",
+      "name": "Telekinesis",
+      "level": 6,
+      "school": null,
+      "schoolLabel": "—",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "You gain the ability to move or manipulate creatures or objects by thought. When you cast the spell, and as your action each round for the duration, you can exert your will on one creature or object that you can see within range, causing the appropriate effect below. You can affect the same target round after round, or choose a new one at any time. If you switch targets, the prior target is no longer affected by the spell.\nCreature.\nYou can try to move a Huge or smaller creature. Make an ability check with your spellcasting ability contested by the creature’s Strength check. If you win the contest, you move the creature up to 30 feet in any direction, including upward but not beyond the range of this spell. Until the end of your next turn, the creature is restrained in your telekinetic grip. A creature lifted upward is suspended in mid-air.\nOn subsequent rounds, you can use your action to attempt to maintain your telekinetic grip on the creature by repeating the contest.\nObject.\nYou can try to move an object that weighs up to 1,000 pounds. If the object isn’t being worn or carried, you automatically move it up to 30 feet in any direction, but not beyond the range of this spell.\nIf the object is worn or carried by a creature, you must make an ability check with your spellcasting ability contested by that creature’s Strength check. If you succeed, you pull the object away from that creature and can move it up to 30 feet in any direction but not beyond the range of this spell.\nYou can exert fine control on objects with your telekinetic grip, such as manipulating a simple tool, opening a door or a container, stowing or retrieving an item from an open container, or pouring the contents from a vial.\nSpell Lists. Sorcerer, Wizard",
+      "descriptionLength": 1752,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "PrbKLNvodK3mUXjg",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p>You gain the ability to move or manipulate creatures or objects by thought. When you cast the spell, and as your action each round for the duration, you can exert your will on one creature or object that you can see within range, causing the appropriate effect below. You can affect the same target round after round, or choose a new one at any time. If you switch targets, the prior target is no longer affected by the spell.</p><p>Creature.</p><p>You can try to move a Huge or smaller creature. Make an ability check with your spellcasting ability contested by the creature’s Strength check. If you win the contest, you move the creature up to 30 feet in any direction, including upward but not beyond the range of this spell. Until the end of your next turn, the creature is restrained in your telekinetic grip. A creature lifted upward is suspended in mid-air.</p><p>On subsequent rounds, you can use your action to attempt to maintain your telekinetic grip on the creature by repeating the contest.</p><p>Object.</p><p>You can try to move an object that weighs up to 1,000 pounds. If the object isn’t being worn or carried, you automatically move it up to 30 feet in any direction, but not beyond the range of this spell.</p><p>If the object is worn or carried by a creature, you must make an ability check with your spellcasting ability contested by that creature’s Strength check. If you succeed, you pull the object away from that creature and can move it up to 30 feet in any direction but not beyond the range of this spell.</p><p>You can exert fine control on objects with your telekinetic grip, such as manipulating a simple tool, opening a door or a container, stowing or retrieving an item from an open container, or pouring the contents from a vial.</p><p>Spell Lists. Sorcerer, Wizard</p>",
+          "chat": ""
+        },
+        "identifier": "new-spell",
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activation": {
+          "type": "action",
+          "condition": ""
+        },
+        "duration": {
+          "units": "inst"
+        },
+        "level": 6,
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "method": "spell",
+        "prepared": 0,
+        "properties": [],
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "school": "",
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "type": "",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false,
+            "type": ""
+          }
+        },
+        "ability": "",
+        "sourceItem": "class:sorcerer"
+      },
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "c6FAcc3MRmWCUitV",
+      "name": "Prismatic Spray",
+      "level": 7,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S"
+      ],
+      "materials": null,
+      "description": "Eight multicolored rays of light flash from your hand. Each ray is a different color and has a different power and purpose. Each creature in a 60-foot cone must make a Dexterity saving throw. For each target, roll a d8 to determine which color ray affects it.\nRed . The target takes 10d6 fire damage on a failed save, or half as much damage on a successful one.\nOrange . The target takes 10d6 acid damage on a failed save, or half as much damage on a successful one.\nYellow . The target takes 10d6 lightning damage on a failed save, or half as much damage on a successful one.\nGreen . The target takes 10d6 poison damage on a failed save, or half as much damage on a successful one.\nBlue . The target takes 10d6 cold damage on a failed save, or half as much damage on a successful one.\nIndigo . On a failed save, the target is &Reference[Restrained]. It must then make a Constitution saving throw at the end of each of its turns. If it successfully saves three times, the spell ends. If it fails its save three times, it permanently turns to stone and is subjected to the &Reference[Petrified] condition. The successes and failures don't need to be consecutive; keep track of both until the target collects three of a kind.\nViolet . On a failed save, the target is &Reference[Blinded]. It must then make a Wisdom saving throw at the start of your next turn. A successful save ends the blindness. If it fails that save, the creature is transported to another plane of existence of the DM's choosing and is no longer Blinded. (Typically, a creature that is on a plane that isn't its home plane is banished home, while other creatures are usually cast into the Astral or Ethereal planes.)\nSpecial . The target is struck by two rays. Roll twice more, rerolling any 8.",
+      "descriptionLength": 1763,
+      "activities": [
+        {
+          "id": null,
+          "name": "Prismatic Spray",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "DES"
+            ]
+          },
+          "damage": {
+            "parts": [
+              "10d6"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "c6FAcc3MRmWCUitV",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p>Eight multicolored rays of light flash from your hand. Each ray is a different color and has a different power and purpose. Each creature in a 60-foot cone must make a Dexterity saving throw. For each target, roll a d8 to determine which color ray affects it.</p><ol><li><strong>Red</strong>. The target takes 10d6 fire damage on a failed save, or half as much damage on a successful one.</li><li><strong>Orange</strong>. The target takes 10d6 acid damage on a failed save, or half as much damage on a successful one.</li><li><strong>Yellow</strong>. The target takes 10d6 lightning damage on a failed save, or half as much damage on a successful one.</li><li><strong>Green</strong>. The target takes 10d6 poison damage on a failed save, or half as much damage on a successful one.</li><li><strong>Blue</strong>. The target takes 10d6 cold damage on a failed save, or half as much damage on a successful one.</li><li><strong>Indigo</strong>. On a failed save, the target is &amp;Reference[Restrained]. It must then make a Constitution saving throw at the end of each of its turns. If it successfully saves three times, the spell ends. If it fails its save three times, it permanently turns to stone and is subjected to the &amp;Reference[Petrified] condition. The successes and failures don't need to be consecutive; keep track of both until the target collects three of a kind.</li><li><strong>Violet</strong>. On a failed save, the target is &amp;Reference[Blinded]. It must then make a Wisdom saving throw at the start of your next turn. A successful save ends the blindness. If it fails that save, the creature is transported to another plane of existence of the DM's choosing and is no longer Blinded. (Typically, a creature that is on a plane that isn't its home plane is banished home, while other creatures are usually cast into the Astral or Ethereal planes.)</li><li><strong>Special</strong>. The target is struck by two rays. Roll twice more, rerolling any 8.</li></ol>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "type": "cone",
+            "size": "60",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "range": {
+          "units": "self"
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 7,
+        "school": "evo",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "6bNxvdxYMSZK9N0A",
+                "onSave": false,
+                "level": {}
+              },
+              {
+                "_id": "Y5OA9lzI3tMHA3KF",
+                "onSave": false,
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "number": 10,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "prismatic-spray",
+        "method": "spell",
+        "prepared": 0,
+        "sourceItem": "class:sorcerer"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "4zkfk97kctVDE3hB",
+      "name": "Dominate Monster",
+      "level": 8,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [
+        "V",
+        "S",
+        "concentration"
+      ],
+      "materials": null,
+      "description": "Intentas hechizar a una criatura que puedas ver dentro del alcance. Debe superar una tirada de salvación de Sabiduría o quedará encantada por ti durante la duración del hechizo. Si tú o criaturas aliadas luchan contra ella, tiene ventaja en la tirada de salvación. Mientras la criatura esté encantada, tienes un vínculo telepático con ella mientras ambos estéis en el mismo plano de existencia. Puedes usar este vínculo para darle órdenes mientras estás consciente (sin necesidad de realizar ninguna acción), las cuales intentará obedecer. Puedes especificar una acción simple y general, como «Ataca a esa criatura», «Corre hacia allá» o «Trae ese objeto». Si la criatura completa la orden y no recibe más instrucciones tuyas, se defiende y se protege lo mejor que puede. Puedes usar tu acción para tomar el control total y preciso del objetivo. Hasta el final de tu siguiente turno, la criatura solo realizará las acciones que elijas y no hará nada que no le permitas. Durante este tiempo, también puedes hacer que la criatura use una reacción, pero esto requiere que tú también uses la tuya. Cada vez que el objetivo recibe daño, realiza una nueva tirada de salvación de Sabiduría contra el conjuro. Si la tirada de salvación tiene éxito, el conjuro termina. A niveles superiores: Cuando lanzas este conjuro con un espacio de conjuro de noveno nivel, su duración requiere concentración, hasta un máximo de 8 horas.",
+      "descriptionLength": 1416,
+      "activities": [
+        {
+          "id": null,
+          "name": "Dominate Monster",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "SAB"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "consumption": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "4zkfk97kctVDE3hB",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "description": {
+          "value": "<p><span class=\"Y2IQFc\" lang=\"es\"><span class=\"tw-data-text tw-text-large tw-ta\" data-placeholder=\"Traducción\" id=\"tw-target-text\" role=\"text\" tabindex=\"-1\" data-ved=\"2ahUKEwjFloPAneyTAxXQGLkGHS8rLa0Q3ewLegQIDBAV\" dir=\"ltr\" aria-label=\"Texto traducido: Intentas hechizar a una criatura que puedas ver dentro del alcance. Debe superar una tirada de salvación de Sabiduría o quedará encantada por ti durante la duración del hechizo. Si tú o criaturas aliadas luchan contra ella, tiene ventaja en la tirada de salvación.\n\nMientras la criatura esté encantada, tienes un vínculo telepático con ella mientras ambos estéis en el mismo plano de existencia. Puedes usar este vínculo para darle órdenes mientras estás consciente (sin necesidad de realizar ninguna acción), las cuales intentará obedecer. Puedes especificar una acción simple y general, como «Ataca a esa criatura», «Corre hacia allá» o «Trae ese objeto». Si la criatura completa la orden y no recibe más instrucciones tuyas, se defiende y se protege lo mejor que puede.\n\nPuedes usar tu acción para tomar el control total y preciso del objetivo. Hasta el final de tu siguiente turno, la criatura solo realizará las acciones que elijas y no hará nada que no le permitas. Durante este tiempo, también puedes hacer que la criatura use una reacción, pero esto requiere que tú también uses la tuya.\n\nCada vez que el objetivo recibe daño, realiza una nueva tirada de salvación de Sabiduría contra el conjuro. Si la tirada de salvación tiene éxito, el conjuro termina.\n\nA niveles superiores: Cuando lanzas este conjuro con un espacio de conjuro de noveno nivel, su duración requiere concentración, hasta un máximo de 8 horas.\" style=\"unicode-bidi:isolate;font-size:28px;line-height:36px;background-color:rgb(48, 49, 52);border:none;padding:2px 0.14em 2px 0px;position:relative;margin:-2px 0px;resize:none;font-family:inherit;overflow:hidden;text-align:left;width:270px;white-space:pre-wrap;overflow-wrap:break-word;color:rgb(232, 234, 237);outline:0px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\">Intentas hechizar a una criatura que puedas ver dentro del alcance. Debe superar una tirada de salvación de Sabiduría o quedará encantada por ti durante la duración del hechizo. Si tú o criaturas aliadas luchan contra ella, tiene ventaja en la tirada de salvación.  Mientras la criatura esté encantada, tienes un vínculo telepático con ella mientras ambos estéis en el mismo plano de existencia. Puedes usar este vínculo para darle órdenes mientras estás consciente (sin necesidad de realizar ninguna acción), las cuales intentará obedecer. Puedes especificar una acción simple y general, como «Ataca a esa criatura», «Corre hacia allá» o «Trae ese objeto». Si la criatura completa la orden y no recibe más instrucciones tuyas, se defiende y se protege lo mejor que puede.  Puedes usar tu acción para tomar el control total y preciso del objetivo. Hasta el final de tu siguiente turno, la criatura solo realizará las acciones que elijas y no hará nada que no le permitas. Durante este tiempo, también puedes hacer que la criatura use una reacción, pero esto requiere que tú también uses la tuya.  Cada vez que el objetivo recibe daño, realiza una nueva tirada de salvación de Sabiduría contra el conjuro. Si la tirada de salvación tiene éxito, el conjuro termina.  A niveles superiores: Cuando lanzas este conjuro con un espacio de conjuro de noveno nivel, su duración requiere concentración, hasta un máximo de 8 horas.</span></span></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 8,
+        "school": "enc",
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "concentration"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "fBMLyF7ftAaWmv1s",
+                "onSave": false,
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "dominate-monster",
+        "method": "spell",
+        "prepared": 0,
+        "sourceItem": "class:sorcerer"
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A3_6_ARTIONKETH_SPELL_AUDIT"
+}
