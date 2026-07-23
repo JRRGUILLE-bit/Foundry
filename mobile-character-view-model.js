@@ -319,18 +319,83 @@
   }
 
   function mapActions(character, rawIndex, auditIndex, sessionState) {
+    const usedAuditOrders = new Set();
+    const usedRawItemIds = new Set();
+    const actionIdCounts = new Map();
+    const auditRecords = [...auditIndex.actionOrder.entries()];
+
+    function recordNameKey(record) {
+      return normalizeKey(record?.source || record?.name || record?.linkedFeatureName || record?.linkedInventoryName);
+    }
+
+    function selectAuditRecord(action, index) {
+      const sourceKey = normalizeKey(action?.source || action?.name || action?.activities?.[0]?.name);
+      const ordered = auditIndex.actionOrder.get(index + 1) || null;
+      if (ordered && (!sourceKey || recordNameKey(ordered) === sourceKey)) {
+        usedAuditOrders.add(index + 1);
+        return ordered;
+      }
+      const matched = auditRecords.find(([order, record]) => !usedAuditOrders.has(order) && sourceKey && recordNameKey(record) === sourceKey);
+      if (matched) {
+        usedAuditOrders.add(matched[0]);
+        return matched[1];
+      }
+      if (ordered) {
+        usedAuditOrders.add(index + 1);
+        return ordered;
+      }
+      return null;
+    }
+
+    function selectRawItem(action, auditRecord) {
+      for (const id of candidateIds(action, auditRecord)) {
+        const raw = rawIndex.byId.get(id);
+        if (allowedRawItem(raw, "action")) return raw;
+      }
+
+      for (const name of candidateNames(action, auditRecord)) {
+        const matches = array(rawIndex.byName.get(normalizeKey(name))).filter((item) => allowedRawItem(item, "action"));
+        if (!matches.length) continue;
+        const unused = matches.find((item) => {
+const id = item?._id || item?.id;
+return id && !usedRawItemIds.has(id);
+        });
+        return unused || matches[0];
+      }
+      return null;
+    }
+
     return array(character.actions).map((action, index) => {
-      const auditRecord = auditIndex.actionOrder.get(index + 1) || null;
-      const rawItem = resolveRawItem(rawIndex, action, "action", auditRecord);
-      const id = action.id || action._id || auditRecord?.linkedFeatureId || rawItem?._id || rawItem?.id || null;
-      const sessionEntry = id ? sessionState?.resources?.[id] || sessionState?.inventoryUses?.[id] : null;
-      const activities = array(action.activities).map((activity, activityIndex) => mapActivity(activity, id || `action:${index + 1}`, activityIndex));
+      const auditRecord = selectAuditRecord(action, index);
+      const rawItem = selectRawItem(action, auditRecord);
+      const rawItemId = rawItem?._id || rawItem?.id || null;
+      if (rawItemId) usedRawItemIds.add(rawItemId);
+
+      const sourceEntityId = action.id || action._id || auditRecord?.linkedFeatureId || auditRecord?.linkedInventoryId || rawItemId || auditRecord?.rawItemId || null;
+      const actionName = action.name || action.source || action.activities?.[0]?.name || auditRecord?.name || `Acción ${index + 1}`;
+      const baseId = action.id || action._id || (sourceEntityId
+        ? `${sourceEntityId}:action:${slug(actionName)}`
+        : `action:${index + 1}:${slug(actionName)}`);
+      const occurrence = (actionIdCounts.get(baseId) || 0) + 1;
+      actionIdCounts.set(baseId, occurrence);
+      const id = occurrence === 1 ? baseId : `${baseId}:${occurrence}`;
+
+      const sessionEntry = sourceEntityId
+        ? sessionState?.resources?.[sourceEntityId] || sessionState?.inventoryUses?.[sourceEntityId]
+        : null;
+      const activities = array(action.activities).map((activity, activityIndex) => mapActivity(activity, id, activityIndex));
       const activation = clone(action.activation) || clone(activities[0]?.activation) || null;
+      const source = sourceMeta(rawItem, auditRecord);
+      if (!source.rawItemId && sourceEntityId) source.rawItemId = sourceEntityId;
+      if (!source.rawItemType && auditRecord?.linkedFeatureId) source.rawItemType = "feat";
+      source.linked = Boolean(source.rawItemId);
+      source.linkStatus = auditRecord?.linkStatus || (source.linked ? "LINKED_RAW_SOURCE" : "UNRESOLVED_ACTION_SOURCE");
+
       return {
         id,
-        sessionKey: id && action.uses ? makeSessionKey(character.id, "action", id) : null,
-        sourceEntityId: id,
-        name: action.name || action.source || activities[0]?.name || "Acción",
+        sessionKey: action.uses ? makeSessionKey(character.id, "action", id) : null,
+        sourceEntityId,
+        name: actionName,
         sourceName: action.source || action.name || null,
         sourceType: action.sourceType || action.type || rawItem?.type || null,
         actionCategory: actionCategory(activation),
@@ -339,10 +404,7 @@
         activities,
         description: action.description || "",
         searchText: normalizeKey([action.source, action.name, action.sourceType, action.description].join(" ")),
-        source: {
-          ...sourceMeta(rawItem, auditRecord),
-          linkStatus: auditRecord?.linkStatus || (rawItem ? "LINKED_RAW_SOURCE" : "UNRESOLVED_ACTION_SOURCE")
-        }
+        source
       };
     });
   }

@@ -1,6 +1,6 @@
 {
   "auditVersion": 1,
-  "generatedAt": "2026-07-23T08:48:52.956Z",
+  "generatedAt": "2026-07-23T08:57:18.125Z",
   "repository": "JRRGUILLE-bit/Foundry",
   "adapter": {
     "path": "mobile-character-view-model.js",
@@ -25,7 +25,7 @@
     "features": 155
   },
   "validation": {
-    "allCharactersValid": false,
+    "allCharactersValid": true,
     "allExpectedCountsMatch": true,
     "countValidation": {
       "characters": true,
@@ -34,20 +34,16 @@
       "inventory": true,
       "features": true
     },
-    "zeroModelErrors": false,
+    "zeroModelErrors": true,
     "sessionOverlayWorksForEveryCharacter": true
   },
-  "status": "ADAPTER_NEEDS_REVIEW",
+  "status": "ADAPTER_READY_FOR_MOBILE_RENDERER",
   "characters": [
     {
       "id": "sathar",
       "name": "Sathar Heranti",
-      "valid": false,
-      "errors": [
-        "actions: missing stable ids",
-        "actions: broken raw source link for Hex Warrior",
-        "actions: 1 unresolved source(s)"
-      ],
+      "valid": true,
+      "errors": [],
       "warningCount": 18,
       "counts": {
         "actions": 12,
@@ -134,14 +130,8 @@
     {
       "id": "balder",
       "name": "Balder",
-      "valid": false,
-      "errors": [
-        "actions: missing stable ids",
-        "actions: broken raw source link for Potion of Healing*",
-        "actions: missing session key for Potion of Healing*",
-        "actions: broken raw source link for Potion of Healing*",
-        "actions: missing session key for Potion of Healing*"
-      ],
+      "valid": true,
+      "errors": [],
       "warningCount": 15,
       "counts": {
         "actions": 15,
