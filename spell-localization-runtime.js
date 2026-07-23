@@ -179,6 +179,7 @@
   function localizedComponents(values, materials) {
     const mapped = array(values).map((entry) => {
       const key = String(entry).toLowerCase();
+      if (key === "mgc") return "";
       if (["v", "vocal", "verbal"].includes(key)) return "V";
       if (["s", "somatic", "somático", "somaticos"].includes(key)) return "S";
       if (["m", "material"].includes(key)) return "M";
