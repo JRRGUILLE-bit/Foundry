@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-07-23",
+  "characters": [
+    {
+      "id": "sathar",
+      "name": "Sathar Heranti",
+      "sprite": {
+        "x": 8.5,
+        "y": 57.0,
+        "w": 17.0,
+        "h": 82.0
+      },
+      "race": "No registrado",
+      "level": 15,
+      "classes": "Paladin 1 / Warlock 14",
+      "subclasses": [
+        "Hexblade"
+      ],
+      "file": "character-data:sathar"
+    },
+    {
+      "id": "artionketh",
+      "name": "Artionketh Heranti",
+      "sprite": {
+        "x": 27.5,
+        "y": 57.0,
+        "w": 18.0,
+        "h": 82.0
+      },
+      "race": "Human",
+      "level": 15,
+      "classes": "Paladin 9 / Fighter 6",
+      "subclasses": [
+        "Oath of Glory",
+        "Rune Knight"
+      ],
+      "file": "character-data:artionketh"
+    },
+    {
+      "id": "magna",
+      "name": "Magna",
+      "sprite": {
+        "x": 43.5,
+        "y": 57.0,
+        "w": 11.5,
+        "h": 70.0
+      },
+      "race": "Semielfo",
+      "level": 15,
+      "classes": "Sorcerer 15",
+      "subclasses": [
+        "Divine Soul"
+      ],
+      "file": "character-data:magna"
+    },
+    {
+      "id": "melkor",
+      "name": "Melkor Amarië",
+      "sprite": {
+        "x": 55.3,
+        "y": 57.0,
+        "w": 11.5,
+        "h": 70.0
+      },
+      "race": "No registrado",
+      "level": 15,
+      "classes": "Monk 8 / Rogue 4 / Fighter 3",
+      "subclasses": [
+        "Way of Shadow",
+        "Assassin",
+        "Battle Master"
+      ],
+      "file": "character-data:melkor"
+    },
+    {
+      "id": "balder",
+      "name": "Balder",
+      "sprite": {
+        "x": 73.5,
+        "y": 57.0,
+        "w": 11.5,
+        "h": 78.0
+      },
+      "race": "Halfling",
+      "level": 15,
+      "classes": "Paladin 15",
+      "subclasses": [
+        "Oath of Vengeance"
+      ],
+      "file": "character-data:balder"
+    },
+    {
+      "id": "ingwe",
+      "name": "Ingwë Amarië",
+      "sprite": {
+        "x": 93.0,
+        "y": 53.5,
+        "w": 12.0,
+        "h": 80.0
+      },
+      "race": "Half-Elf",
+      "level": 15,
+      "classes": "Bard 15",
+      "subclasses": [
+        "College of Lore"
+      ],
+      "file": "character-data:ingwe"
+    }
+  ]
+}

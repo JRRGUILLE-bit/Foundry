@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "version": "392e22f826c432c1",
+  "characterCount": 6,
+  "characters": {
+    "sathar": {
+      "rawItemCount": 49,
+      "spells": 17,
+      "inventory": 11,
+      "features": 21,
+      "actions": 12,
+      "allRawItemsPreserved": true
+    },
+    "balder": {
+      "rawItemCount": 54,
+      "spells": 15,
+      "inventory": 12,
+      "features": 27,
+      "actions": 15,
+      "allRawItemsPreserved": true
+    },
+    "melkor": {
+      "rawItemCount": 62,
+      "spells": 7,
+      "inventory": 17,
+      "features": 38,
+      "actions": 19,
+      "allRawItemsPreserved": true
+    },
+    "ingwe": {
+      "rawItemCount": 62,
+      "spells": 29,
+      "inventory": 12,
+      "features": 21,
+      "actions": 12,
+      "allRawItemsPreserved": true
+    },
+    "magna": {
+      "rawItemCount": 37,
+      "spells": 20,
+      "inventory": 5,
+      "features": 12,
+      "actions": 7,
+      "allRawItemsPreserved": true
+    },
+    "artionketh": {
+      "rawItemCount": 97,
+      "spells": 38,
+      "inventory": 23,
+      "features": 36,
+      "actions": 24,
+      "allRawItemsPreserved": true
+    }
+  }
+}
