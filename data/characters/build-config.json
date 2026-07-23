@@ -1,5 +1,6 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-23",
   "index": "data/characters/index.json",
   "output": {
     "bundle": "generated/characters.bundle.js",
@@ -8,7 +9,6 @@
   "characters": {
     "sathar": {
       "candidates": [
-        ["data/characters/sathar.json.gz.b64"],
         ["data/characters/sathar.json.gz.b64.part1", "data/characters/sathar.json.gz.b64.part2"]
       ]
     },
