@@ -1,9 +1,7 @@
 name: Patch Browser QA Known Gap
 
 on:
-  push:
-    branches:
-      - agent/a17-2-spell-localization
+  pull_request:
     paths:
       - ".github/workflows/patch-browser-qa-known-gap.yml"
 
@@ -19,6 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: agent/a17-2-spell-localization
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove resolved known gap
         run: |
