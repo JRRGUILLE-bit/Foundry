@@ -1,0 +1,345 @@
+/* Mobile live-play pass: modern iPhone and Android devices. */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  summary,
+  .cv-hotspot {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(98, 255, 139, 0.16);
+  }
+
+  .cv-hotspot span {
+    display: none;
+  }
+
+  .cv-window-bar button,
+  .cv-tabs button,
+  .cv-filter-buttons button {
+    min-height: 44px;
+  }
+
+  .cv-card summary {
+    min-height: 52px;
+  }
+}
+
+@media (max-width: 720px), (max-height: 520px) and (orientation: landscape) {
+  .cv-modal {
+    place-items: stretch;
+    padding: 0;
+  }
+
+  .cv-backdrop {
+    backdrop-filter: none;
+  }
+
+  .cv-window {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-right: 0;
+    border-left: 0;
+    outline: 0;
+    box-shadow: none;
+  }
+
+  .cv-window-bar {
+    min-height: calc(3rem + env(safe-area-inset-top));
+    padding:
+      env(safe-area-inset-top)
+      max(0.45rem, env(safe-area-inset-right))
+      0
+      max(0.65rem, env(safe-area-inset-left));
+    font-size: 1rem;
+  }
+
+  .cv-window-bar > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cv-window-bar button {
+    display: grid;
+    flex: 0 0 48px;
+    width: 48px;
+    min-width: 48px;
+    min-height: 44px;
+    place-items: center;
+    padding: 0;
+  }
+
+  .cv-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .cv-sidebar {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 0.38rem;
+    max-height: none;
+    padding:
+      0.42rem
+      max(0.55rem, env(safe-area-inset-right))
+      0.42rem
+      max(0.55rem, env(safe-area-inset-left));
+    border-right: 0;
+    border-bottom: 2px solid var(--green-dim);
+    overflow: hidden;
+  }
+
+  .cv-ident small,
+  .cv-ident p,
+  .cv-source {
+    display: none;
+  }
+
+  .cv-ident h2 {
+    margin: 0;
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
+    line-height: 0.9;
+  }
+
+  .cv-tabs {
+    display: flex;
+    gap: 0.28rem;
+    padding-bottom: 0.1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cv-tabs::-webkit-scrollbar,
+  .cv-filter-buttons::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cv-tabs button {
+    flex: 0 0 auto;
+    width: auto;
+    min-height: 44px;
+    padding: 0.5rem 0.72rem;
+    white-space: nowrap;
+    scroll-snap-align: start;
+    text-align: center;
+  }
+
+  .cv-content {
+    padding:
+      0.65rem
+      max(0.65rem, env(safe-area-inset-right))
+      max(1rem, env(safe-area-inset-bottom))
+      max(0.65rem, env(safe-area-inset-left));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-padding-top: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cv-section-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.2rem 0.65rem;
+  }
+
+  .cv-section-header h3 {
+    font-size: clamp(1.75rem, 7vw, 2.35rem);
+  }
+
+  .cv-section-header span {
+    width: 100%;
+    max-width: none;
+    font-size: 0.82rem;
+    text-align: left;
+  }
+
+  .cv-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.42rem;
+  }
+
+  .cv-stat {
+    padding: 0.55rem 0.35rem;
+  }
+
+  .cv-stat strong {
+    font-size: 1.8rem;
+  }
+
+  .cv-two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-panel {
+    padding: 0.7rem;
+  }
+
+  .cv-panel p,
+  .cv-card-body p,
+  .cv-detail-list,
+  .cv-resource-list,
+  .cv-slot-list {
+    font-size: 1.1rem;
+    line-height: 1.28;
+  }
+
+  .cv-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.5rem;
+  }
+
+  .cv-toolbar label {
+    flex-basis: auto;
+  }
+
+  .cv-toolbar input {
+    min-height: 46px;
+    padding: 0.5rem 0.58rem;
+    font-size: 1.1rem;
+  }
+
+  .cv-filter-buttons {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 0.1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cv-filter-buttons button {
+    flex: 0 0 auto;
+    min-height: 42px;
+    padding: 0.45rem 0.62rem;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .cv-card summary {
+    min-height: 52px;
+    padding: 0.62rem 0.58rem;
+  }
+
+  .cv-card summary span {
+    font-size: 1.3rem;
+    line-height: 1.05;
+  }
+
+  .cv-card summary em {
+    overflow-wrap: anywhere;
+  }
+
+  .cv-card-body {
+    padding: 0.72rem;
+  }
+
+  .cv-activity {
+    padding: 0.62rem;
+  }
+
+  .cv-activity-title {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .cv-badge {
+    padding: 0.22rem 0.4rem;
+    font-size: 0.98rem;
+    line-height: 1.12;
+  }
+
+  .cv-detail-list div {
+    grid-template-columns: 1fr;
+    gap: 0.06rem;
+    padding: 0.38rem 0;
+  }
+
+  .cv-slot-strip {
+    flex-wrap: nowrap;
+    padding-bottom: 0.1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cv-slot-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cv-slot-strip > span {
+    flex: 0 0 auto;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .cv-sidebar {
+    grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+  }
+
+  .cv-ident h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .terminal-shell {
+    width: 100%;
+    margin: 0;
+    border-right: 0;
+    border-left: 0;
+    box-shadow: none;
+  }
+
+  .terminal-bar {
+    padding-left: max(0.6rem, env(safe-area-inset-left));
+    padding-right: max(0.6rem, env(safe-area-inset-right));
+  }
+
+  .terminal-grid {
+    gap: 0.45rem;
+    padding: 0.45rem;
+  }
+
+  .feed-panel,
+  .control-panel {
+    padding: 0.5rem;
+  }
+
+  .panel-heading {
+    margin-bottom: 0.42rem;
+  }
+
+  .panel-heading > span,
+  .feed-meta {
+    display: none;
+  }
+
+  .video-frame {
+    box-shadow: inset 0 0 0 2px #020805;
+  }
+
+  .foundry-link {
+    min-height: 52px;
+    display: grid;
+    place-items: center;
+  }
+}
