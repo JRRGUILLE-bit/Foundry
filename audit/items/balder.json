@@ -1,0 +1,1956 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T06:42:43.472Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "balder",
+    "name": "Balder",
+    "inventoryCount": 12
+  },
+  "inventoryCount": 12,
+  "countsByType": {
+    "equipment": 5,
+    "weapon": 3,
+    "loot": 1,
+    "consumable": 3
+  },
+  "countsByCategory": {
+    "ARMOR_OR_SHIELD": 5,
+    "WEAPON": 3,
+    "GENERAL_OR_LOOT": 1,
+    "CONSUMABLE": 3
+  },
+  "statusCounts": {
+    "COMPLETE_FROM_JSON": 12
+  },
+  "equippedCount": 5,
+  "attunedCount": 2,
+  "itemsWithUses": 2,
+  "itemsWithActivities": 8,
+  "validation": {
+    "expectedInventoryCount": 12,
+    "countMatchesExpected": true,
+    "uniqueIds": true,
+    "allHaveNames": true,
+    "allHaveRawItem": true,
+    "noSpellsOrFeaturesIncluded": true
+  },
+  "reviewItems": [],
+  "items": [
+    {
+      "order": 1,
+      "id": "90R1Cc0TIRnndPCp",
+      "name": "Shield",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 6,
+        "units": "lb"
+      },
+      "price": {
+        "value": 10,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "spent": 0,
+        "recovery": []
+      },
+      "consumableType": "shield",
+      "armor": {
+        "type": "shield",
+        "value": 2,
+        "dex": null,
+        "magicalBonus": 0
+      },
+      "weapon": {
+        "weaponType": "shield",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "A shield is made from wood or metal and is carried in one hand. Wielding a shield increases your Armor Class by 2. You can benefit from only one shield at a time.",
+      "descriptionLength": 162,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "90R1Cc0TIRnndPCp",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "armor": {
+          "value": 2,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "shield",
+          "baseItem": ""
+        },
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 2,
+      "id": "qo4TBnpZzCqb2fj0",
+      "name": "Studded Leather Armor",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 13,
+        "units": "lb"
+      },
+      "price": {
+        "value": 45,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": true,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "spent": 0,
+        "recovery": []
+      },
+      "consumableType": "light",
+      "armor": {
+        "type": "light",
+        "value": 12,
+        "dex": null,
+        "magicalBonus": 0
+      },
+      "weapon": {
+        "weaponType": "light",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Made from tough but flexible leather, studded leather is reinforced with close-set rivets or spikes.",
+      "descriptionLength": 100,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "qo4TBnpZzCqb2fj0",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 13,
+          "units": "lb"
+        },
+        "price": {
+          "value": 45,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "armor": {
+          "value": 12,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "light",
+          "baseItem": "studded"
+        },
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 3,
+      "id": "I2hG5Fj1lUCHnlCF",
+      "name": "Golden axe of Luck",
+      "type": "weapon",
+      "category": "WEAPON",
+      "quantity": 1,
+      "weight": {
+        "value": 2,
+        "units": "lb"
+      },
+      "price": {
+        "value": 10,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": true,
+      "equipped": true,
+      "attunement": "required",
+      "attuned": true,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "martialM",
+      "armor": {
+        "value": 10
+      },
+      "weapon": {
+        "weaponType": "martialM",
+        "mastery": "",
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "",
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": "1d6 + @mod +1"
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "fin",
+          "Armadura ligera",
+          "mgc"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Golden axe of Luck",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 13,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d8+8 slashing"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "This radiant golden hammer was forged in the temples of fortune and justice. Its surface shimmers with soft celestial light, and a lucky charm dangles from its hilt. The hammer blesses its wielder with divine strength—and occasional bursts of miraculous luck.\nWeapon Stats:\nType: Maul (2d6, heavy, two-handed) or Mace (1d6, one-handed)\nRarity: Very Rare\nRequires Attunement: Yes (Paladin or Cleric, good alignment)\nMagic Features:\n1. Divine Blessing\nYou gain a +3 bonus to attack and damage rolls made with this weapon.\n2. Fortune's Favor (1/long rest)\nWhen you miss an attack roll, fail an ability check, or fail a saving throw, you can choose to reroll the result. You must take the new roll.\n3. Radiant Smite (2/long rest)\nWhen you hit a creature with this weapon, you can choose to deal an extra 2d6 radiant damage. If the target is a fiend or undead, the radiant damage increases to 2d8.\n4. Glimmer of Luck (passive)\nWhile attuned, you gain a +1 bonus to initiative rolls and can’t be surprised while conscious.",
+      "descriptionLength": 1016,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "I2hG5Fj1lUCHnlCF",
+      "rawItemType": "weapon",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "required",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 10
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "",
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": "1d6 + @mod +1"
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "fin",
+          "lgt",
+          "mgc"
+        ],
+        "type": {
+          "value": "martialM",
+          "baseItem": "shortsword"
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 4,
+      "id": "Bl6hBoNHHF57zOQs",
+      "name": "Bedroll",
+      "type": "loot",
+      "category": "GENERAL_OR_LOOT",
+      "quantity": 1,
+      "weight": {
+        "value": 7,
+        "units": "lb"
+      },
+      "price": {
+        "value": 1,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": null,
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": null,
+      "consumableType": "",
+      "armor": null,
+      "weapon": {
+        "weaponType": "",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Roll of cloth used by traveller to sleep in.",
+      "descriptionLength": 44,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "Bl6hBoNHHF57zOQs",
+      "rawItemType": "loot",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 7,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": null,
+        "equipped": null,
+        "identified": true,
+        "uses": null,
+        "recharge": null,
+        "armor": null,
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 5,
+      "id": "IuTGuC1wUMpWOHDY",
+      "name": "Shortbow",
+      "type": "weapon",
+      "category": "WEAPON",
+      "quantity": 1,
+      "weight": {
+        "value": 2,
+        "units": "lb"
+      },
+      "price": {
+        "value": 25,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "simpleR",
+      "armor": {
+        "value": 10
+      },
+      "weapon": {
+        "weaponType": "simpleR",
+        "mastery": null,
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 80,
+          "long": 320,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "two",
+          "amm"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Shortbow",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "80",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "80 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d6+5 piercing"
+            ]
+          },
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "This two handed bow is somewhat smaller than the traditional longbow variant, making it well suited for rapid attacks while on the move or mounted from horseback.",
+      "descriptionLength": 162,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "IuTGuC1wUMpWOHDY",
+      "rawItemType": "weapon",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "price": {
+          "value": 25,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 10
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 80,
+          "long": 320,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "two",
+          "amm"
+        ],
+        "type": {
+          "value": "simpleR",
+          "baseItem": "shortbow"
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 6,
+      "id": "A6mbDglYKYffqbxc",
+      "name": "Arrow",
+      "type": "consumable",
+      "category": "CONSUMABLE",
+      "quantity": 9,
+      "weight": {
+        "value": 0.05,
+        "units": "lb"
+      },
+      "price": {
+        "value": 5,
+        "denomination": "cp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "autoDestroy": false,
+        "spent": 0
+      },
+      "consumableType": "ammo",
+      "armor": null,
+      "weapon": {
+        "weaponType": "ammo",
+        "mastery": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Arrow",
+          "type": "attack",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "value": "5",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "5 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "cha",
+            "derived": true
+          },
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "Standard ammunition used for bows of all varieties. These mundane arrows are made of smooth wooden shafts with goose feather fletching and hammer metal bodkins.",
+      "descriptionLength": 160,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "A6mbDglYKYffqbxc",
+      "rawItemType": "consumable",
+      "rawSystem": {
+        "quantity": 9,
+        "weight": {
+          "value": 0.05,
+          "units": "lb"
+        },
+        "price": {
+          "value": 5,
+          "denomination": "cp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "autoDestroy": false,
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "ammo",
+          "subtype": ""
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 7,
+      "id": "u9Llg1mgCDrF8LI2",
+      "name": "Shield +1*",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 6,
+        "units": "lb"
+      },
+      "price": {
+        "value": 1500,
+        "denomination": "gp"
+      },
+      "rarity": "uncommon",
+      "magical": true,
+      "equipped": true,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "shield",
+      "armor": {
+        "type": "shield",
+        "value": 3,
+        "dex": null,
+        "magicalBonus": 0
+      },
+      "weapon": {
+        "weaponType": "shield",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Shield +1*",
+          "type": "utility",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "self",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "self"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.",
+      "descriptionLength": 118,
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "u9Llg1mgCDrF8LI2",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1500,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "attunement": "",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 3,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "shield",
+          "baseItem": ""
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 8,
+      "id": "QYEV7Kg4cNvvr8ZX",
+      "name": "Force crossbow",
+      "type": "weapon",
+      "category": "WEAPON",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": true,
+      "attunement": "required",
+      "attuned": true,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "simpleR",
+      "armor": {
+        "value": null
+      },
+      "weapon": {
+        "weaponType": "simpleR",
+        "mastery": null,
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "range": {
+          "value": 80,
+          "long": 320,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "Armadura ligera"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Force crossbow",
+          "type": "attack",
+          "activation": {
+            "type": "",
+            "value": null,
+            "condition": "",
+            "override": false,
+            "label": "—"
+          },
+          "consumption": null,
+          "range": {
+            "value": "80",
+            "units": "ft",
+            "special": "",
+            "override": false,
+            "label": "80 ft"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creatureOrObject",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creatureOrObject"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": {
+            "bonus": 10,
+            "ability": "dex",
+            "derived": true
+          },
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "The Force Crossbow: This ethereal weapon channels spectral energy to propel ghostly force bolts, eliminating the need for traditional ammunition. With each shot, it harnesses otherworldly power to strike foes with spectral precision.",
+      "descriptionLength": 233,
+      "source": {
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "QYEV7Kg4cNvvr8ZX",
+      "rawItemType": "weapon",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "required",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": null
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "range": {
+          "value": 80,
+          "long": 320,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [
+          "lgt"
+        ],
+        "type": {
+          "value": "simpleR",
+          "baseItem": "lightcrossbow"
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 9,
+      "id": "hSSMHgPqB2C5TQa8",
+      "name": "Potion of Healing*",
+      "type": "consumable",
+      "category": "CONSUMABLE",
+      "quantity": 2,
+      "weight": {
+        "value": 0.1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 50,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "current": 1,
+        "max": 1,
+        "spent": 0,
+        "rawMax": "1",
+        "recovery": []
+      },
+      "consumableType": "potion",
+      "armor": null,
+      "weapon": {
+        "weaponType": "potion",
+        "mastery": null,
+        "damage": {
+          "base": {
+            "number": 2,
+            "denomination": 4,
+            "bonus": "2",
+            "types": [
+              "healing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Potion of Healing*",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "The potion's red liquid glimmers when agitated.\nYou regain 2d4+2 hit points when you drink this potion.",
+      "descriptionLength": 103,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "hSSMHgPqB2C5TQa8",
+      "rawItemType": "consumable",
+      "rawSystem": {
+        "quantity": 2,
+        "weight": {
+          "value": 0.1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 50,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "1",
+          "recovery": [],
+          "autoDestroy": true,
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": {
+          "base": {
+            "number": 2,
+            "denomination": 4,
+            "bonus": "2",
+            "types": [
+              "healing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "potion",
+          "subtype": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 10,
+      "id": "Txs9Gx1UUf0wdupD",
+      "name": "Potion of Healing*",
+      "type": "consumable",
+      "category": "CONSUMABLE",
+      "quantity": 1,
+      "weight": {
+        "value": 0.1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 50,
+        "denomination": "gp"
+      },
+      "rarity": "common",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "current": 1,
+        "max": 1,
+        "spent": 0,
+        "rawMax": "1",
+        "recovery": []
+      },
+      "consumableType": "potion",
+      "armor": null,
+      "weapon": {
+        "weaponType": "potion",
+        "mastery": null,
+        "damage": {
+          "base": {
+            "number": 2,
+            "denomination": 4,
+            "bonus": "2",
+            "types": [
+              "healing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": []
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Potion of Healing*",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "touch",
+            "special": "",
+            "override": false,
+            "label": "Toque"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "1",
+              "type": "creature",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "1 creature"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "The potion's red liquid glimmers when agitated.\nYou regain 2d4+2 hit points when you drink this potion.",
+      "descriptionLength": 103,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "container": null,
+      "rawItemId": "Txs9Gx1UUf0wdupD",
+      "rawItemType": "consumable",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0.1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 50,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "1",
+          "recovery": [],
+          "autoDestroy": true,
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": null,
+        "damage": {
+          "base": {
+            "number": 2,
+            "denomination": 4,
+            "bonus": "2",
+            "types": [
+              "healing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "replace": false
+        },
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "potion",
+          "subtype": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 11,
+      "id": "UFDcUYdhksvCLeTU",
+      "name": "Sending stones",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 0,
+        "units": "lb"
+      },
+      "price": {
+        "value": 0,
+        "denomination": "gp"
+      },
+      "rarity": "",
+      "magical": false,
+      "equipped": false,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "spent": 0,
+        "recovery": []
+      },
+      "consumableType": "light",
+      "armor": {
+        "value": null,
+        "dex": null
+      },
+      "weapon": {
+        "weaponType": "light",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": []
+      },
+      "activities": [],
+      "activityCount": 0,
+      "description": "Sending stones come in pairs, with each smooth stone carved to match the other so the pairing is easily recognized. While you touch one stone, you can use an action to cast the sending spell from it. The target is the bearer of the other stone. If no creature bears the other stone, you know that fact as soon as you use the stone and don't cast the spell.\nOnce sending is cast through the stones, they can't be used again until the next dawn. If one of the stones in a pair is destroyed, the other one becomes nonmagical.",
+      "descriptionLength": 522,
+      "source": {
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "UFDcUYdhksvCLeTU",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": false,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "recharge": null,
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "damage": null,
+        "range": null,
+        "properties": [],
+        "type": {
+          "value": "light",
+          "baseItem": ""
+        },
+        "source": {
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "order": 12,
+      "id": "S7qPokVL6v9gj28j",
+      "name": "Robe of Useful Items",
+      "type": "equipment",
+      "category": "ARMOR_OR_SHIELD",
+      "quantity": 1,
+      "weight": {
+        "value": 1,
+        "units": "lb"
+      },
+      "price": {
+        "value": 140,
+        "denomination": "gp"
+      },
+      "rarity": "uncommon",
+      "magical": true,
+      "equipped": true,
+      "attunement": "",
+      "attuned": false,
+      "identified": true,
+      "proficient": null,
+      "uses": {
+        "max": "",
+        "recovery": [],
+        "spent": 0
+      },
+      "consumableType": "clothing",
+      "armor": {
+        "type": "clothing",
+        "value": 0,
+        "dex": 0,
+        "magicalBonus": 0
+      },
+      "weapon": {
+        "weaponType": "clothing",
+        "mastery": null,
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ]
+      },
+      "activities": [
+        {
+          "id": null,
+          "name": "Robe of Useful Items",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": 1,
+            "condition": "",
+            "override": false,
+            "label": "1 acción"
+          },
+          "consumption": null,
+          "range": {
+            "units": "self",
+            "special": "",
+            "override": false,
+            "label": "Personal"
+          },
+          "target": {
+            "template": {
+              "count": "",
+              "contiguous": false,
+              "type": "",
+              "size": "",
+              "width": "",
+              "height": "",
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "count": "",
+              "type": "self",
+              "choice": false,
+              "special": ""
+            },
+            "prompt": true,
+            "override": false,
+            "label": "self"
+          },
+          "duration": {
+            "concentration": false,
+            "value": "",
+            "units": "inst",
+            "special": "",
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "uses": null,
+          "roll": null,
+          "effectCount": 0,
+          "description": null
+        }
+      ],
+      "activityCount": 1,
+      "description": "Wondrous item\nThis robe has cloth patches of various shapes and colors covering it. While wearing the robe, you can use an action to detach one of the patches, causing it to become the object or creature it represents. Once the last patch is removed, the robe becomes an ordinary garment.\nThe robe has the following patches:\nx2 Dagger patches\nx2 Bullseye lantern (filled and lit) patches\nx2 Steel mirror patches\nx2 10-foot pole patches\nx2 Hempen rope (50 feet, coiled) patches\nx2 Sack patches\nIn addition, the robe has [[/r 4d4]] other patches. The GM chooses the patches or determines them randomly from the @UUID[Compendium.dnd5e.tables.RollTable.CTGxcd51szehUGBn]{Robe of Useful Items} table.\nFoundry Note\nIt is recommended to delete items here as necessary to track patches left.\nThe price guide has been calculated at 5 x item for the maximum number of items possible. Please adjust as necessary to reflect the number of patches and the DM's world economy.",
+      "descriptionLength": 961,
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "container": null,
+      "rawItemId": "S7qPokVL6v9gj28j",
+      "rawItemType": "equipment",
+      "rawSystem": {
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 140,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "attunement": "",
+        "equipped": true,
+        "identified": true,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "recharge": null,
+        "armor": {
+          "value": 0,
+          "dex": 0
+        },
+        "damage": null,
+        "range": null,
+        "properties": [
+          "mgc"
+        ],
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A4_3_MELKOR_INVENTORY_AUDIT"
+}
