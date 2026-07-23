@@ -1,0 +1,1475 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T06:14:01.627Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "melkor",
+    "name": "Melkor Amarië",
+    "classes": [
+      {
+        "name": "Monk",
+        "levels": 8,
+        "identifier": "monk"
+      },
+      {
+        "name": "Rogue",
+        "levels": 4,
+        "identifier": "rogue"
+      },
+      {
+        "name": "Fighter",
+        "levels": 3,
+        "identifier": "fighter"
+      }
+    ],
+    "subclasses": [
+      "Way of Shadow",
+      "Assassin",
+      "Battle Master"
+    ],
+    "spellcasting": {
+      "ability": "int",
+      "abilityLabel": "INT",
+      "attack": 6,
+      "dc": 14,
+      "slots": [
+        {
+          "level": 3,
+          "current": 0,
+          "max": 1,
+          "raw": {
+            "value": 0,
+            "override": 1
+          }
+        }
+      ],
+      "pact": null
+    }
+  },
+  "spellCount": 7,
+  "countsByLevel": {
+    "0": 1,
+    "2": 5,
+    "3": 1
+  },
+  "statusCounts": {
+    "NEEDS_REVIEW": 3,
+    "COMPLETE_FROM_JSON": 4
+  },
+  "validation": {
+    "expectedSpellCount": 7,
+    "countMatchesExpected": true,
+    "uniqueIds": true,
+    "allHaveNames": true,
+    "allHaveRawItem": true,
+    "allRawItemsAreSpells": true
+  },
+  "spells": [
+    {
+      "id": "dWzFWbADUsv0DIon",
+      "name": "Minor Illusion",
+      "level": 0,
+      "school": "ill",
+      "schoolLabel": "Ilusión",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "special": "",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "materials": "A bit of fleece.",
+      "description": "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\nIf you create an image of an object—such as a chair, muddy footprints, or a small chest—it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\nIf a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
+      "descriptionLength": 1067,
+      "activities": [
+        {
+          "id": null,
+          "name": "Minor Illusion",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "dWzFWbADUsv0DIon",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "level": 0,
+        "school": "ill",
+        "preparation": null,
+        "properties": [
+          "somatic",
+          "material"
+        ],
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "30",
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "cube",
+            "size": "5",
+            "contiguous": false,
+            "count": "",
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "A bit of fleece.",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "SCuq0QpsICcM8TlR",
+      "name": "Imagen especular",
+      "level": 2,
+      "school": "ill",
+      "schoolLabel": "Ilusión",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "materials": null,
+      "description": "Tres duplicados ilusorios de ti mismo aparecen en tu espacio. Hasta que termina el hechizo, los duplicados se mueven contigo e imitan tus acciones, cambiando de posición para que sea imposible rastrear qué imagen es real. Puede usar su acción para descartar los duplicados ilusorios.\nCada vez que una criatura te haga objetivo con un ataque durante la duración del hechizo, tira un 1d20 para determinar si el ataque hace objetivo a uno de tus duplicados.\nSi tienes tres duplicados, debes sacar un 6 o más para cambiar el objetivo del ataque a un duplicado. Con dos duplicados, debes sacar un 8 o más. Con un duplicado, debes sacar un 11 o más.\nLa CA de un duplicado es igual a 10 + tu modificador de Destreza. Si un ataque golpea a un duplicado, el duplicado se destruye. Un duplicado solo puede ser destruido por un ataque que lo golpee. Ignora todos los demás daños y efectos. El hechizo termina cuando los tres duplicados son destruidos.\nUna criatura no se ve afectada por este hechizo si no puede ver, si depende de otros sentidos además de la vista, como la ceguera, o si puede percibir las ilusiones como falsas, como con la visión verdadera.",
+      "descriptionLength": 1148,
+      "activities": [
+        {
+          "id": null,
+          "name": "Imagen especular",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItemId": "SCuq0QpsICcM8TlR",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "level": 2,
+        "school": "ill",
+        "preparation": null,
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "self",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "1d20",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "PdRNQV4cu8DyTMb0",
+      "name": "oscuridad",
+      "level": 2,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "special": "",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "10",
+        "units": "minute",
+        "label": "10 Minutos"
+      },
+      "target": null,
+      "components": [
+        "concentration"
+      ],
+      "materials": "Bat fur and a drop of pitch or piece of coal",
+      "description": "la oscuridad magica se extiende desde un punto que elijas dentro del alcance psrs llenar uns esfera de 15 pies de radio durante la duracion. la oscuridad se extiende por las esquinas. una criatura con vicion oscura no puede ver atraves de esta oscuridad, y la luz no magica no puede iluminarla.\nsi el punto que eliges esta en un objeto y se mueve con el. cubrir completamente la fuente de la oscuridad con un objeto opaco, como un cuenco o un yelmo, bloquea la oscuridad.\nsi alguna de las areas de este hechizo se superpone con un area de luz creada por un hechizo de 2º nivel o inferior, el hechizo que creo la luz se disipa.",
+      "descriptionLength": 626,
+      "activities": [
+        {
+          "id": null,
+          "name": "oscuridad",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "PdRNQV4cu8DyTMb0",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "level": 2,
+        "school": "evo",
+        "preparation": null,
+        "properties": [
+          "vocal",
+          "material",
+          "concentration"
+        ],
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "sphere",
+            "size": "15",
+            "contiguous": false,
+            "count": "",
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "10",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "Bat fur and a drop of pitch or piece of coal",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "di7iUi7U7ISL7hwf",
+      "name": "Pase sin dejar rastro",
+      "level": 2,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [
+        "concentration"
+      ],
+      "materials": "Ashes from a burned leaf of mistletoe and a sprig of spruce",
+      "description": "Tiempo de lanzamiento: 1 acción\nRango: Propio\nObjetivo: Yo mismo\nComponentes: VSM (cenizas de una hoja de muérdago quemada y una ramita de abeto)\nDuración: Hasta 1 hora\nClases: Druida, Explorador\nUn velo de sombras y silencio irradia desde ti, ocultándote a ti y a tus compañeros para que no sean detectados. Mientras dure el hechizo, cada criatura que elijas a 30 pies de ti (incluido tú) tiene un bonificador de +10 a las pruebas de Destreza (Sigilo) y no puede ser rastreada excepto por medios mágicos. Una criatura que recibe este bonificador no deja rastros ni otras huellas de su paso.",
+      "descriptionLength": 591,
+      "activities": [
+        {
+          "id": null,
+          "name": "Pase sin dejar rastro",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "di7iUi7U7ISL7hwf",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "level": 2,
+        "school": "abj",
+        "preparation": null,
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "radius",
+            "size": "30",
+            "contiguous": false,
+            "count": "",
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "materials": {
+          "value": "Ashes from a burned leaf of mistletoe and a sprig of spruce",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "fcpdwqcZV9Sbkd3H",
+      "name": "silencio",
+      "level": 2,
+      "school": "ill",
+      "schoolLabel": "Ilusión",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": true,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "120",
+        "units": "ft",
+        "special": "",
+        "label": "120 ft"
+      },
+      "duration": {
+        "value": "10",
+        "units": "minute",
+        "label": "10 Minutos"
+      },
+      "target": null,
+      "components": [
+        "concentration",
+        "ritual"
+      ],
+      "materials": null,
+      "description": "no se puede crear ningun sonido en una esfera de 20 pies de radio, y ningun sonido puede atravesarla. cuaklquier criatura u objeto que este dentro de la esfera es inmune al daño por trueno y las criaturas quedan ensordecidas mientras estqan dentro. no se pueden lanzar conjuros con componentes vervales.",
+      "descriptionLength": 303,
+      "activities": [
+        {
+          "id": null,
+          "name": "silencio",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "fcpdwqcZV9Sbkd3H",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "level": 2,
+        "school": "ill",
+        "preparation": null,
+        "properties": [
+          "vocal",
+          "somatic",
+          "concentration",
+          "ritual"
+        ],
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "120",
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "sphere",
+            "size": "20",
+            "contiguous": false,
+            "count": "",
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "10",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    },
+    {
+      "id": "5LY2PfFqPIuYMpQ7",
+      "name": "vicion en la oscuridad",
+      "level": 2,
+      "school": "trs",
+      "schoolLabel": "Transmutación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "special": "",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "8",
+        "units": "hour",
+        "label": "8 Horas"
+      },
+      "target": null,
+      "components": [],
+      "materials": "Either a pinch of dried carrot or an agate",
+      "description": "tocas a una criatura dispuesta para otorgarle la capacidad de ver en la oscuridad. durante la duracion, esa criatura tiene una vicion oscura a un rango de 60 pies.",
+      "descriptionLength": 163,
+      "activities": [
+        {
+          "id": null,
+          "name": "vicion en la oscuridad",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "5LY2PfFqPIuYMpQ7",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "level": 2,
+        "school": "trs",
+        "preparation": null,
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "touch",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "8",
+          "units": "hour"
+        },
+        "materials": {
+          "value": "Either a pinch of dried carrot or an agate",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "Dzan2aPdK45Hh9Gi",
+      "name": "Haste",
+      "level": 3,
+      "school": "trs",
+      "schoolLabel": "Transmutación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "special": "",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [
+        "concentration"
+      ],
+      "materials": "A shaving of licorice root",
+      "description": "Elige una criatura voluntaria que puedas ver dentro del alcance. Hasta que el hechizo termine, la velocidad del objetivo se duplica, obtiene un bonificador de +2 a la CA, tiene ventaja en las tiradas de salvación de Destreza y obtiene una acción adicional en cada uno de sus turnos. Esa acción solo se puede usar para realizar la acción de Ataque (solo un ataque con arma), Correr, Desengancharse, Esconderse o Usar un objeto.\nCuando el hechizo termina, el objetivo no puede moverse ni realizar acciones hasta después de su siguiente turno, ya que una ola de letargo lo barre.",
+      "descriptionLength": 576,
+      "activities": [
+        {
+          "id": null,
+          "name": "Haste",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItemId": "Dzan2aPdK45Hh9Gi",
+      "rawItemType": "spell",
+      "rawSystem": {
+        "level": 3,
+        "school": "trs",
+        "preparation": null,
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "30",
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "materials": {
+          "value": "A shaving of licorice root",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        }
+      },
+      "missingFields": [],
+      "status": "COMPLETE_FROM_JSON"
+    }
+  ],
+  "nextTask": "A3_4_INGWE_SPELL_AUDIT"
+}
