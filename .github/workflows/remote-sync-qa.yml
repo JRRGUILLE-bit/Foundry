@@ -1,0 +1,40 @@
+name: Remote Sync QA
+
+on:
+  pull_request:
+    paths:
+      - "mobile-session-remote-sync.js"
+      - "mobile-session-store.js"
+      - "index.html"
+      - "audit/remote-sync-qa.js"
+      - ".github/workflows/remote-sync-qa.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "mobile-session-remote-sync.js"
+      - "mobile-session-store.js"
+      - "index.html"
+      - "audit/remote-sync-qa.js"
+      - ".github/workflows/remote-sync-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  remote-sync-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check syntax
+        run: |
+          node --check mobile-session-remote-sync.js
+          node --check audit/remote-sync-qa.js
+      - name: Run remote sync QA
+        run: node audit/remote-sync-qa.js mobile-session-remote-sync.js
