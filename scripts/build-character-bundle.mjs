@@ -75,6 +75,48 @@ function decodeCandidate(paths) {
   };
 }
 
+function addStructuralFeature(features, name, requirements, sourceType) {
+  const cleanName = String(name || "").trim();
+  if (!cleanName) return;
+  const exists = features.some((entry) => String(entry?.name || "").trim().toLowerCase() === cleanName.toLowerCase());
+  if (exists) return;
+  features.push({
+    name: cleanName,
+    requirements,
+    category: sourceType,
+    description: "",
+    activities: [],
+    uses: null,
+    structural: true
+  });
+}
+
+function representEveryStructuralEntry(raw) {
+  const data = structuredClone(raw && typeof raw === "object" ? raw : {});
+  const features = Array.isArray(data.features)
+    ? [...data.features]
+    : (data.features && typeof data.features === "object" ? Object.values(data.features) : []);
+
+  const classes = Array.isArray(data.classes)
+    ? data.classes
+    : (data.classes && typeof data.classes === "object" ? Object.values(data.classes) : []);
+  for (const entry of classes) {
+    if (typeof entry === "string") addStructuralFeature(features, entry, "Clase", "class");
+    else addStructuralFeature(features, entry?.name, `Clase ${Number(entry?.levels || 0) || ""}`.trim(), "class");
+  }
+
+  const subclasses = Array.isArray(data.subclasses)
+    ? data.subclasses
+    : (data.subclasses && typeof data.subclasses === "object" ? Object.values(data.subclasses) : []);
+  for (const entry of subclasses) {
+    const name = typeof entry === "string" ? entry : entry?.name;
+    addStructuralFeature(features, name, "Subclase", "subclass");
+  }
+
+  data.features = features;
+  return data;
+}
+
 function loadCharacter(id, candidates) {
   const errors = [];
   for (const paths of candidates) {
@@ -84,7 +126,7 @@ function loadCharacter(id, candidates) {
       }
       const decoded = decodeCandidate(paths);
       return {
-        character: normalizeCharacter(decoded.raw, id),
+        character: normalizeCharacter(representEveryStructuralEntry(decoded.raw), id),
         sourceFiles: decoded.sourceFiles,
         sourceDigest: decoded.sourceDigest,
         checksumRecovered: decoded.checksumRecovered,
@@ -122,8 +164,9 @@ for (const [id, definition] of Object.entries(config.characters)) {
 
 const contentDigest = sha256(JSON.stringify({ index, characters, sources }));
 const payload = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   version: contentDigest.slice(0, 16),
+  generatedAt: config.generatedAt || null,
   index,
   characters,
   sources
@@ -135,8 +178,9 @@ const safeJson = JSON.stringify(payload)
   .replace(/\u2029/g, "\\u2029");
 const bundleText = `/* AUTO-GENERATED. DO NOT EDIT. Run: npm run build:characters */\nwindow.BANDA_CHARACTER_DATA = ${safeJson};\n`;
 const manifestText = `${JSON.stringify({
-  schemaVersion: 1,
+  schemaVersion: 2,
   version: payload.version,
+  generatedAt: payload.generatedAt,
   characterCount: Object.keys(characters).length,
   sources
 }, null, 2)}\n`;
