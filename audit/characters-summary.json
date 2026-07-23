@@ -1,0 +1,477 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T05:35:13.076Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "branchSource": "main",
+  "bundle": {
+    "path": "foundry_characters_static/characters.bundle.js",
+    "schemaVersion": 1,
+    "dataVersion": "392e22f826c432c1",
+    "generated": "2026-07-23",
+    "declaredSource": "Six original Foundry VTT actor JSON exports"
+  },
+  "characterCount": 6,
+  "totals": {
+    "rawItems": 361,
+    "spells": 126,
+    "inventory": 80,
+    "features": 155,
+    "actions": 89,
+    "resources": 15
+  },
+  "characters": [
+    {
+      "id": "sathar",
+      "name": "Sathar Heranti",
+      "race": "No registrado",
+      "level": 15,
+      "classes": [
+        {
+          "name": "Paladin",
+          "levels": 1,
+          "identifier": "paladin"
+        },
+        {
+          "name": "Warlock",
+          "levels": 14,
+          "identifier": "warlock"
+        }
+      ],
+      "subclasses": [
+        "Hexblade"
+      ],
+      "hp": {
+        "current": 132,
+        "max": 132,
+        "temporary": 25
+      },
+      "armorClass": {
+        "value": 18,
+        "formula": "Derivada del export; base calculada 18"
+      },
+      "initiative": 0,
+      "proficiencyBonus": 5,
+      "spellcasting": {
+        "ability": "cha",
+        "abilityLabel": "CAR",
+        "attackBonus": 10,
+        "saveDc": 18,
+        "slots": [],
+        "pact": {
+          "level": 5,
+          "current": 1,
+          "max": 3
+        }
+      },
+      "counts": {
+        "rawItems": 49,
+        "spells": 17,
+        "inventory": 11,
+        "features": 21,
+        "actions": 12,
+        "resources": 3
+      },
+      "source": {
+        "systemId": null,
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.364",
+        "hasRawActor": true
+      }
+    },
+    {
+      "id": "artionketh",
+      "name": "Artionketh Heranti",
+      "race": "Human",
+      "level": 15,
+      "classes": [
+        {
+          "name": "Paladin",
+          "levels": 9,
+          "identifier": "paladin"
+        },
+        {
+          "name": "Fighter",
+          "levels": 6,
+          "identifier": "fighter"
+        }
+      ],
+      "subclasses": [
+        "Oath of Glory",
+        "Rune Knight"
+      ],
+      "hp": {
+        "current": 154,
+        "max": 154,
+        "temporary": 14
+      },
+      "armorClass": {
+        "value": 25,
+        "formula": "Derivada del export; base calculada 25"
+      },
+      "initiative": 2,
+      "proficiencyBonus": 5,
+      "spellcasting": {
+        "ability": "cha",
+        "abilityLabel": "CAR",
+        "attackBonus": 8,
+        "saveDc": 16,
+        "slots": [
+          {
+            "level": 1,
+            "current": 4,
+            "max": 4
+          },
+          {
+            "level": 2,
+            "current": 3,
+            "max": 3
+          },
+          {
+            "level": 3,
+            "current": 2,
+            "max": 2
+          }
+        ],
+        "pact": null
+      },
+      "counts": {
+        "rawItems": 97,
+        "spells": 38,
+        "inventory": 23,
+        "features": 36,
+        "actions": 24,
+        "resources": 3
+      },
+      "source": {
+        "systemId": null,
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.364",
+        "hasRawActor": true
+      }
+    },
+    {
+      "id": "magna",
+      "name": "Magna",
+      "race": "Semielfo",
+      "level": 15,
+      "classes": [
+        {
+          "name": "Sorcerer",
+          "levels": 15,
+          "identifier": "sorcerer"
+        }
+      ],
+      "subclasses": [
+        "Divine Soul"
+      ],
+      "hp": {
+        "current": 89,
+        "max": 89,
+        "temporary": 0
+      },
+      "armorClass": {
+        "value": 14,
+        "formula": "Derivada del export; base calculada 14"
+      },
+      "initiative": 2,
+      "proficiencyBonus": 5,
+      "spellcasting": {
+        "ability": "cha",
+        "abilityLabel": "CAR",
+        "attackBonus": 10,
+        "saveDc": 18,
+        "slots": [
+          {
+            "level": 1,
+            "current": 4,
+            "max": 4
+          },
+          {
+            "level": 2,
+            "current": 3,
+            "max": 3
+          },
+          {
+            "level": 3,
+            "current": 3,
+            "max": 3
+          },
+          {
+            "level": 4,
+            "current": 3,
+            "max": 3
+          },
+          {
+            "level": 5,
+            "current": 2,
+            "max": 2
+          },
+          {
+            "level": 6,
+            "current": 1,
+            "max": 1
+          },
+          {
+            "level": 7,
+            "current": 1,
+            "max": 1
+          },
+          {
+            "level": 8,
+            "current": 0,
+            "max": 1
+          }
+        ],
+        "pact": null
+      },
+      "counts": {
+        "rawItems": 37,
+        "spells": 20,
+        "inventory": 5,
+        "features": 12,
+        "actions": 7,
+        "resources": 0
+      },
+      "source": {
+        "systemId": null,
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.364",
+        "hasRawActor": true
+      }
+    },
+    {
+      "id": "melkor",
+      "name": "Melkor Amarië",
+      "race": "No registrado",
+      "level": 15,
+      "classes": [
+        {
+          "name": "Monk",
+          "levels": 8,
+          "identifier": "monk"
+        },
+        {
+          "name": "Rogue",
+          "levels": 4,
+          "identifier": "rogue"
+        },
+        {
+          "name": "Fighter",
+          "levels": 3,
+          "identifier": "fighter"
+        }
+      ],
+      "subclasses": [
+        "Way of Shadow",
+        "Assassin",
+        "Battle Master"
+      ],
+      "hp": {
+        "current": 129,
+        "max": 129,
+        "temporary": 14
+      },
+      "armorClass": {
+        "value": 23,
+        "formula": "Derivada del export; base calculada 20"
+      },
+      "initiative": 10,
+      "proficiencyBonus": 5,
+      "spellcasting": {
+        "ability": "int",
+        "abilityLabel": "INT",
+        "attackBonus": 6,
+        "saveDc": 14,
+        "slots": [
+          {
+            "level": 3,
+            "current": 0,
+            "max": 1
+          }
+        ],
+        "pact": null
+      },
+      "counts": {
+        "rawItems": 62,
+        "spells": 7,
+        "inventory": 17,
+        "features": 38,
+        "actions": 19,
+        "resources": 3
+      },
+      "source": {
+        "systemId": null,
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.364",
+        "hasRawActor": true
+      }
+    },
+    {
+      "id": "balder",
+      "name": "Balder",
+      "race": "Halfling",
+      "level": 15,
+      "classes": [
+        {
+          "name": "Paladin",
+          "levels": 15,
+          "identifier": "paladin"
+        }
+      ],
+      "subclasses": [
+        "Oath of Vengeance"
+      ],
+      "hp": {
+        "current": 139,
+        "max": 139,
+        "temporary": 0
+      },
+      "armorClass": {
+        "value": 20,
+        "formula": "Derivada del export; base calculada 20"
+      },
+      "initiative": 6,
+      "proficiencyBonus": 5,
+      "spellcasting": {
+        "ability": "cha",
+        "abilityLabel": "CAR",
+        "attackBonus": 10,
+        "saveDc": 18,
+        "slots": [
+          {
+            "level": 1,
+            "current": 4,
+            "max": 4
+          },
+          {
+            "level": 2,
+            "current": 3,
+            "max": 3
+          },
+          {
+            "level": 3,
+            "current": 3,
+            "max": 3
+          },
+          {
+            "level": 4,
+            "current": 2,
+            "max": 2
+          }
+        ],
+        "pact": null
+      },
+      "counts": {
+        "rawItems": 54,
+        "spells": 15,
+        "inventory": 12,
+        "features": 27,
+        "actions": 15,
+        "resources": 3
+      },
+      "source": {
+        "systemId": null,
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.364",
+        "hasRawActor": true
+      }
+    },
+    {
+      "id": "ingwe",
+      "name": "Ingwë Amarië",
+      "race": "Half-Elf",
+      "level": 15,
+      "classes": [
+        {
+          "name": "Bard",
+          "levels": 15,
+          "identifier": "bard"
+        }
+      ],
+      "subclasses": [
+        "College of Lore"
+      ],
+      "hp": {
+        "current": 123,
+        "max": 123,
+        "temporary": 0
+      },
+      "armorClass": {
+        "value": 14,
+        "formula": "Derivada del export; base calculada 13"
+      },
+      "initiative": 2,
+      "proficiencyBonus": 5,
+      "spellcasting": {
+        "ability": "cha",
+        "abilityLabel": "CAR",
+        "attackBonus": 10,
+        "saveDc": 18,
+        "slots": [
+          {
+            "level": 1,
+            "current": 4,
+            "max": 4
+          },
+          {
+            "level": 2,
+            "current": 3,
+            "max": 3
+          },
+          {
+            "level": 3,
+            "current": 1,
+            "max": 3
+          },
+          {
+            "level": 4,
+            "current": 3,
+            "max": 3
+          },
+          {
+            "level": 5,
+            "current": 1,
+            "max": 2
+          },
+          {
+            "level": 6,
+            "current": 1,
+            "max": 1
+          },
+          {
+            "level": 7,
+            "current": 1,
+            "max": 1
+          },
+          {
+            "level": 8,
+            "current": 0,
+            "max": 1
+          }
+        ],
+        "pact": null
+      },
+      "counts": {
+        "rawItems": 62,
+        "spells": 29,
+        "inventory": 12,
+        "features": 21,
+        "actions": 12,
+        "resources": 3
+      },
+      "source": {
+        "systemId": null,
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.364",
+        "hasRawActor": true
+      }
+    }
+  ],
+  "validation": {
+    "allCharactersPresent": true,
+    "allLevelFifteen": true,
+    "allRawActorsPresent": true,
+    "allClassLevelsMatchCharacterLevel": true
+  },
+  "nextTask": "A3_1_SATHAR_SPELL_AUDIT"
+}
