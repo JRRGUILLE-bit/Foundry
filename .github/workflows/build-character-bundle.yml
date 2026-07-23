@@ -40,17 +40,30 @@ jobs:
           node-version: 20
 
       - name: Build complete static character bundle
-        run: npm run build:characters
-
-      - name: Verify generated files in pull requests
-        if: github.event_name == 'pull_request'
-        run: git diff --exit-code -- generated/characters.bundle.js generated/characters.manifest.json
-
-      - name: Commit generated files
-        if: github.event_name == 'push'
+        id: character-build
+        continue-on-error: true
         shell: bash
         run: |
-          git add generated/characters.bundle.js generated/characters.manifest.json
+          rm -f generated/characters-build-error.txt
+          mkdir -p generated
+          set +e
+          npm run build:characters > /tmp/character-build.log 2>&1
+          status=$?
+          cat /tmp/character-build.log
+          if [ "$status" -ne 0 ]; then
+            cp /tmp/character-build.log generated/characters-build-error.txt
+          fi
+          exit "$status"
+
+      - name: Verify generated files in pull requests
+        if: github.event_name == 'pull_request' && steps.character-build.outcome == 'success'
+        run: git diff --exit-code -- generated/characters.bundle.js generated/characters.manifest.json
+
+      - name: Commit generated files or diagnostics
+        if: github.event_name == 'push' && always()
+        shell: bash
+        run: |
+          git add generated/characters.bundle.js generated/characters.manifest.json generated/characters-build-error.txt 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Character bundle already current."
             exit 0
@@ -59,3 +72,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Build static character bundle"
           git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Fail workflow when character build failed
+        if: steps.character-build.outcome == 'failure'
+        run: exit 1
