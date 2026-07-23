@@ -1,0 +1,3028 @@
+{
+  "auditVersion": 1,
+  "generatedAt": "2026-07-23T06:05:17.146Z",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "bundleVersion": "392e22f826c432c1",
+  "character": {
+    "id": "balder",
+    "name": "Balder",
+    "classes": [
+      {
+        "name": "Paladin",
+        "levels": 15,
+        "identifier": "paladin"
+      }
+    ],
+    "subclasses": [
+      "Oath of Vengeance"
+    ],
+    "spellcasting": {
+      "ability": "cha",
+      "abilityLabel": "CAR",
+      "attack": 10,
+      "dc": 18,
+      "slots": [
+        {
+          "level": 1,
+          "current": 4,
+          "max": 4,
+          "raw": {
+            "value": 4,
+            "override": null
+          }
+        },
+        {
+          "level": 2,
+          "current": 3,
+          "max": 3,
+          "raw": {
+            "value": 3,
+            "override": null
+          }
+        },
+        {
+          "level": 3,
+          "current": 3,
+          "max": 3,
+          "raw": {
+            "value": 3,
+            "override": null
+          }
+        },
+        {
+          "level": 4,
+          "current": 2,
+          "max": 2,
+          "raw": {
+            "value": 2,
+            "override": null
+          }
+        }
+      ],
+      "pact": null
+    }
+  },
+  "spellCount": 15,
+  "countsByLevel": {
+    "1": 6,
+    "2": 5,
+    "3": 4
+  },
+  "statusCounts": {
+    "NEEDS_REVIEW": 15
+  },
+  "validation": {
+    "expectedSpellCount": 15,
+    "countMatchesExpected": true,
+    "uniqueIds": true,
+    "allHaveNames": true,
+    "allHaveRawItem": true,
+    "allRawItemsAreSpells": true
+  },
+  "spells": [
+    {
+      "id": "Gxnbifwc5AgZaFFv",
+      "name": "Bane",
+      "level": 1,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": "A drop of blood",
+      "description": "Up to three creatures of your choice that you can see within range must make Charisma saving throws. Whenever a target that fails this saving throw makes an attack roll or a saving throw before the spell ends, the target must roll a d4 and subtract the number rolled from the attack roll or saving throw.\nHigher Levels. When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st.",
+      "descriptionLength": 457,
+      "activities": [
+        {
+          "id": null,
+          "name": "Bane",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "CAR"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItem": {
+        "id": "Gxnbifwc5AgZaFFv",
+        "name": "Bane",
+        "type": "spell",
+        "level": 1,
+        "school": "enc",
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "3",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "materials": {
+          "value": "A drop of blood",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "potjmpJPeUA1U4oe",
+                "onSave": false,
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "cha"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "10JZaKTIsLOpPnVL",
+      "name": "Divine Favor",
+      "level": 1,
+      "school": "evo",
+      "schoolLabel": "Evocación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "bonus",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción adicional"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": null,
+      "description": "Your prayer empowers you with divine radiance. Until the spell ends, your weapon attacks deal an extra 1d4 radiant damage on a hit.",
+      "descriptionLength": 131,
+      "activities": [
+        {
+          "id": null,
+          "name": "Divine Favor",
+          "type": "damage",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d4 radiant"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItem": {
+        "id": "10JZaKTIsLOpPnVL",
+        "name": "Divine Favor",
+        "type": "spell",
+        "level": 1,
+        "school": "evo",
+        "preparation": null,
+        "activation": {
+          "type": "bonus",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "affects": {
+            "type": "self",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "concentration"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "damage",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "critical": {
+                "allow": false,
+                "bonus": ""
+              },
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "radiant"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "5H4qIX3L4C1yKZaS",
+      "name": "Hunter's Mark",
+      "level": 1,
+      "school": "div",
+      "schoolLabel": "Adivinación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "bonus",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción adicional"
+      },
+      "range": {
+        "value": "90",
+        "units": "ft",
+        "label": "90 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": null,
+      "description": "You choose a creature you can see within range and mystically mark it as your quarry. Until the spell ends, you deal an extra {@dice 1d6} damage to the target whenever you hit it with a weapon attack, and you have advantage on any Wisdom (Perception) or Wisdom (Survival) check you make to find it. If the target drops to 0 hit points before this spell ends, you can use a bonus action on a subsequent turn of yours to mark a new creature.",
+      "descriptionLength": 439,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hunter's Mark",
+          "type": "damage",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": {
+            "parts": [
+              "1d6"
+            ]
+          },
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItem": {
+        "id": "5H4qIX3L4C1yKZaS",
+        "name": "Hunter's Mark",
+        "type": "spell",
+        "level": 1,
+        "school": "div",
+        "preparation": null,
+        "activation": {
+          "type": "bonus",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "90",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "properties": [
+          "vocal",
+          "concentration"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "damage",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "critical": {
+                "allow": false,
+                "bonus": ""
+              },
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "ju1l9LL8nN3GwoC3",
+      "name": "New Spell",
+      "level": 1,
+      "school": null,
+      "schoolLabel": "—",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "value": null,
+        "condition": "",
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": null,
+      "description": null,
+      "descriptionLength": 0,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "rawItem": {
+        "id": "ju1l9LL8nN3GwoC3",
+        "name": "New Spell",
+        "type": "spell",
+        "level": 1,
+        "school": null,
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "value": null,
+          "condition": ""
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "type": "",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false,
+            "type": ""
+          }
+        },
+        "duration": {
+          "units": "inst"
+        },
+        "properties": [],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "activities": {}
+      },
+      "missingFields": [
+        "components",
+        "description",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "QhRkTAWdq0IJaOfs",
+      "name": "Protection from Evil and Good",
+      "level": 1,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "10",
+        "units": "minute",
+        "label": "10 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": "Holy water or powdered silver and iron, which the spell consumes",
+      "description": "Until the spell ends, one willing creature you touch is protected against certain types of creatures: aberrations, celestials, elementals, fey, fiends, and undead.\nThe protection grants several benefits. Creatures of those types have disadvantage on attack rolls against the target. The target also can't be charmed, frightened, or possessed by them. If the target is already charmed, frightened, or possessed by such a creature, the target has advantage on any new saving throw against the relevant effect.",
+      "descriptionLength": 507,
+      "activities": [
+        {
+          "id": null,
+          "name": "Protection from Evil and Good",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItem": {
+        "id": "QhRkTAWdq0IJaOfs",
+        "name": "Protection from Evil and Good",
+        "type": "spell",
+        "level": 1,
+        "school": "abj",
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "touch"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "10",
+          "units": "minute"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "materials": {
+          "value": "Holy water or powdered silver and iron, which the spell consumes",
+          "consumed": true,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "JrYy1NRFgnf9Msye",
+      "name": "Shield of Faith",
+      "level": 1,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "bonus",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción adicional"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "10",
+        "units": "minute",
+        "label": "10 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": "A small parchment with a bit of holy text written on it.",
+      "description": "A shimmering field appears and surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration.",
+      "descriptionLength": 127,
+      "activities": [
+        {
+          "id": null,
+          "name": "Shield of Faith",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItem": {
+        "id": "JrYy1NRFgnf9Msye",
+        "name": "Shield of Faith",
+        "type": "spell",
+        "level": 1,
+        "school": "abj",
+        "preparation": null,
+        "activation": {
+          "type": "bonus",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "10",
+          "units": "minute"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "materials": {
+          "value": "A small parchment with a bit of holy text written on it.",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "UWbONBliOjXJOKV0",
+      "name": "Find Steed",
+      "level": 2,
+      "school": "con",
+      "schoolLabel": "Conjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "minute",
+        "condition": "",
+        "value": 10,
+        "label": "10 minutos"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": null,
+      "description": "You summon a spirit that assumes the form of an unusually intelligent, strong, and loyal steed, creating a long-lasting bond with it. Appearing in an unoccupied space within range, the steed takes on a form that you choose, such as a warhorse, a pony, a camel, an elk, or a mastiff. (Your DM might allow other animals to be summoned as steeds.) The steed has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of its normal type. Additionally, if your steed has an Intelligence of 5 or less, its Intelligence becomes 6, and it gains the ability to understand one language of your choice that you speak.\nYour steed serves you as a mount, both in combat and out, and you have an instinctive bond with it that allows you to fight as a seamless unit. While mounted on your steed, you can make any spell you cast that targets only you also target your steed.\nWhen the steed drops to 0 hit points, it disappears, leaving behind no physical form. You can also dismiss your steed at any time as an action, causing it to disappear. In either case, casting this spell again summons the same steed, restored to its hit point maximum.\nWhile your steed is within 1 mile of you, you can communicate with it telepathically.\nYou can't have more than one steed bonded by this spell at a time. As an action, you can release the steed from its bond at any time, causing it to disappear.",
+      "descriptionLength": 1413,
+      "activities": [
+        {
+          "id": null,
+          "name": "Find Steed",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItem": {
+        "id": "UWbONBliOjXJOKV0",
+        "name": "Find Steed",
+        "type": "spell",
+        "level": 2,
+        "school": "con",
+        "preparation": null,
+        "activation": {
+          "type": "minute",
+          "condition": "",
+          "value": 10
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "space",
+            "choice": false
+          },
+          "template": {
+            "units": "any",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "wuxW0myouWPS3pbz",
+      "name": "Hold Person",
+      "level": 2,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": "A small, straight piece of iron",
+      "description": "Choose a humanoid that you can see within range. The target must succeed on a Wisdom saving throw or be &Reference[paralyzed] for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends on the target.\nHigher Levels. When you cast this spell using a spell slot of 3rd level or higher, you can target one additional humanoid for each slot level above 2nd. The humanoids must be within 30 feet of each other when you target them.",
+      "descriptionLength": 495,
+      "activities": [
+        {
+          "id": null,
+          "name": "Hold Person",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "SAB"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItem": {
+        "id": "wuxW0myouWPS3pbz",
+        "name": "Hold Person",
+        "type": "spell",
+        "level": 2,
+        "school": "enc",
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "materials": {
+          "value": "A small, straight piece of iron",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "HH5YVjzxkwXpDZS0",
+                "onSave": false,
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "25dmknSL8r9dibDD",
+      "name": "Misty Step",
+      "level": 2,
+      "school": "con",
+      "schoolLabel": "Conjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "bonus",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción adicional"
+      },
+      "range": {
+        "units": "self",
+        "label": "Personal"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": null,
+      "description": "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see.",
+      "descriptionLength": 103,
+      "activities": [
+        {
+          "id": null,
+          "name": "Misty Step",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItem": {
+        "id": "25dmknSL8r9dibDD",
+        "name": "Misty Step",
+        "type": "spell",
+        "level": 2,
+        "school": "con",
+        "preparation": null,
+        "activation": {
+          "type": "bonus",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "self"
+        },
+        "target": {
+          "affects": {
+            "type": "space",
+            "count": "30",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "properties": [
+          "vocal"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "zrlQ3avJPANwJIuq",
+      "name": "Warding Bond",
+      "level": 2,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": "A pair of platinum rings worth at least 50 gp each, which you and the target must wear for the duration",
+      "description": "This spell wards a willing creature you touch and creates a mystic connection between you and the target until the spell ends. While the target is within 60 feet of you, it gains a +1 bonus to AC and saving throws, and it has resistance to all damage. Also, each time it takes damage, you take the same amount of damage.\nThe spell ends if you drop to 0 hit points or if you and the target become separated by more than 60 feet. It also ends if the spell is cast again on either of the connected creatures. You can also dismiss the spell as an action.",
+      "descriptionLength": 550,
+      "activities": [
+        {
+          "id": null,
+          "name": "Warding Bond",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItem": {
+        "id": "zrlQ3avJPANwJIuq",
+        "name": "Warding Bond",
+        "type": "spell",
+        "level": 2,
+        "school": "abj",
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "touch"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "materials": {
+          "value": "A pair of platinum rings worth at least 50 gp each, which you and the target must wear for the duration",
+          "consumed": false,
+          "cost": 100,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "ka2x21HEVAhY4MYZ",
+      "name": "Zone of Truth",
+      "level": 2,
+      "school": "enc",
+      "schoolLabel": "Encantamiento",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "60",
+        "units": "ft",
+        "label": "60 ft"
+      },
+      "duration": {
+        "value": "10",
+        "units": "minute",
+        "label": "10 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": null,
+      "description": "You create a magical zone that guards against deception in a 15-foot-radius sphere centered on a point of your choice within range. Until the spell ends, a creature that enters the spell's area for the first time on a turn or starts its turn there must make a Charisma saving throw. On a failed save, a creature can't speak a deliberate lie while in the radius. You know whether each creature succeeds or fails on its saving throw.\nAn affected creature is aware of the spell and can thus avoid answering questions to which it would normally respond with a lie. Such a creature can be evasive in its answers as long as it remains within the boundaries of the truth.",
+      "descriptionLength": 664,
+      "activities": [
+        {
+          "id": null,
+          "name": "Zone of Truth",
+          "type": "save",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": {
+            "dc": 18,
+            "labels": [
+              "CAR"
+            ]
+          },
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "SRD 5.1",
+        "revision": 1,
+        "rules": "2014"
+      },
+      "rawItem": {
+        "id": "ka2x21HEVAhY4MYZ",
+        "name": "Zone of Truth",
+        "type": "spell",
+        "level": 2,
+        "school": "enc",
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "60",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "type": "sphere",
+            "size": "15",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "10",
+          "units": "minute"
+        },
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "cha"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "Vm4ev9EMjqdXPzmm",
+      "name": "Crusader's Mantle",
+      "level": 3,
+      "school": null,
+      "schoolLabel": "—",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "self",
+        "special": "",
+        "label": "Personal"
+      },
+      "duration": {
+        "units": "minute",
+        "value": "1",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": null,
+      "description": "Holy power radiates from you in an aura with a 30-foot radius, awakening boldness in friendly creatures. Until the spell ends, the aura moves with you, centered on you. While in the aura, each non-hostile creature in the aura (including you) deals an extra 1d4 radiant damage when it hits with a weapon attack.Holy power radiates from you in an aura with a 30-foot radius, awakening boldness in friendly creatures. Until the spell ends, the aura moves with you, centered on you. While in the aura, each non-hostile creature in the aura (including you) deals an extra 1d4 radiant damage when it hits with a weapon attack.",
+      "descriptionLength": 620,
+      "activities": [],
+      "source": {
+        "revision": 1,
+        "rules": "2024"
+      },
+      "rawItem": {
+        "id": "Vm4ev9EMjqdXPzmm",
+        "name": "Crusader's Mantle",
+        "type": "spell",
+        "level": 3,
+        "school": null,
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": ""
+        },
+        "range": {
+          "units": "self",
+          "special": ""
+        },
+        "target": {
+          "template": {
+            "contiguous": false,
+            "units": "ft",
+            "type": "",
+            "stationary": false
+          },
+          "affects": {
+            "choice": false,
+            "type": ""
+          }
+        },
+        "duration": {
+          "units": "minute",
+          "value": "1"
+        },
+        "properties": [
+          "concentration"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "activities": {}
+      },
+      "missingFields": [
+        "components",
+        "activities"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "dz4hXA8D3cSn48Jl",
+      "name": "Haste",
+      "level": 3,
+      "school": "trs",
+      "schoolLabel": "Transmutación",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "value": "30",
+        "units": "ft",
+        "label": "30 ft"
+      },
+      "duration": {
+        "value": "1",
+        "units": "minute",
+        "label": "1 Minutos"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": "A shaving of licorice root",
+      "description": "Choose a willing creature that you can see within range. Until the spell ends, the target's speed is doubled, it gains a +2 bonus to AC, it has advantage on Dexterity Saving Throws, and it gains an additional action on each of its turns. That action can be used only to take the Attack (one weapon attack only), Dash, Disengage, Hide, or Use an Object action.\nWhen the spell ends, the target can't move or take Actions until after its next turn, as a wave of lethargy sweeps over it.",
+      "descriptionLength": 483,
+      "activities": [
+        {
+          "id": null,
+          "name": "Haste",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItem": {
+        "id": "dz4hXA8D3cSn48Jl",
+        "name": "Haste",
+        "type": "spell",
+        "level": 3,
+        "school": "trs",
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "value": "30",
+          "units": "ft"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "materials": {
+          "value": "A shaving of licorice root",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "DEPrzDiNHOqKj4Hj",
+                "level": {}
+              }
+            ],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "3U70nDMbDfqk3ETZ",
+      "name": "Protection from Energy",
+      "level": 3,
+      "school": "abj",
+      "schoolLabel": "Abjuración",
+      "prepared": false,
+      "method": "spell",
+      "concentration": true,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "1",
+        "units": "hour",
+        "label": "1 Horas"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": null,
+      "description": "For the duration, the willing creature you touch has resistance to one damage type of your choice: acid, cold, fire, lightning, or thunder.",
+      "descriptionLength": 139,
+      "activities": [
+        {
+          "id": null,
+          "name": "Protection from Energy",
+          "type": "utility",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItem": {
+        "id": "3U70nDMbDfqk3ETZ",
+        "name": "Protection from Energy",
+        "type": "spell",
+        "level": 3,
+        "school": "abj",
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "touch"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "1",
+          "units": "hour"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "concentration"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "dmlDqg3HQNWpmM79",
+      "name": "Revivify",
+      "level": 3,
+      "school": "nec",
+      "schoolLabel": "Nigromancia",
+      "prepared": false,
+      "method": "spell",
+      "concentration": false,
+      "ritual": false,
+      "activation": {
+        "type": "action",
+        "condition": "",
+        "value": 1,
+        "label": "1 acción"
+      },
+      "range": {
+        "units": "touch",
+        "label": "Toque"
+      },
+      "duration": {
+        "value": "",
+        "units": "inst",
+        "label": "Instantánea"
+      },
+      "target": null,
+      "components": [],
+      "componentSource": null,
+      "materials": "Diamonds worth 300gp, which the spell consumes.",
+      "description": "You touch a creature that has died within the last minute. That creature returns to life with 1 hit point. This spell can't return to life a creature that has died of old age, nor can it restore any missing body parts.",
+      "descriptionLength": 218,
+      "activities": [
+        {
+          "id": null,
+          "name": "Revivify",
+          "type": "heal",
+          "activation": {
+            "type": "action",
+            "value": null,
+            "override": false,
+            "label": "1 acción"
+          },
+          "range": {
+            "override": false,
+            "units": "self",
+            "label": "Personal"
+          },
+          "target": {
+            "prompt": true,
+            "template": {
+              "contiguous": false,
+              "units": "ft",
+              "stationary": false
+            },
+            "affects": {
+              "choice": false
+            },
+            "override": false,
+            "label": "—"
+          },
+          "duration": {
+            "units": "inst",
+            "concentration": false,
+            "override": false,
+            "label": "Instantánea"
+          },
+          "attack": null,
+          "save": null,
+          "damage": null,
+          "healing": null,
+          "roll": null,
+          "hasChatFlavor": false
+        }
+      ],
+      "source": {
+        "custom": "",
+        "book": "SRD 5.1",
+        "page": "",
+        "license": "CC-BY-4.0",
+        "rules": "2014",
+        "revision": 1
+      },
+      "rawItem": {
+        "id": "dmlDqg3HQNWpmM79",
+        "name": "Revivify",
+        "type": "spell",
+        "level": 3,
+        "school": "nec",
+        "preparation": null,
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": 1
+        },
+        "range": {
+          "units": "touch"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "materials": {
+          "value": "Diamonds worth 300gp, which the spell consumes.",
+          "consumed": true,
+          "cost": 100,
+          "supply": 0
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "healing": {
+              "number": null,
+              "denomination": null,
+              "bonus": "",
+              "types": [
+                "healing"
+              ],
+              "custom": {
+                "enabled": true,
+                "formula": "1"
+              },
+              "scaling": {
+                "mode": "",
+                "number": null,
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        }
+      },
+      "missingFields": [
+        "components"
+      ],
+      "status": "NEEDS_REVIEW"
+    }
+  ],
+  "nextTask": "A3_3_MELKOR_SPELL_AUDIT"
+}
