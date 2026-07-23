@@ -1,0 +1,134 @@
+{
+  "auditVersion": 1,
+  "auditedAt": "2026-07-23",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "branchAudited": "main",
+  "status": "ACTIVE_STATIC_MEMORY_BUNDLE_CONFIRMED",
+  "canonicalCharacterSource": {
+    "path": "foundry_characters_static/characters.bundle.js",
+    "blobSha": "689e79a1f6818b2ae555903a0eb5296fef337004",
+    "schemaVersion": 1,
+    "dataVersion": "392e22f826c432c1",
+    "generated": "2026-07-23",
+    "declaredSource": "Six original Foundry VTT actor JSON exports",
+    "characterCount": 6,
+    "globals": [
+      "window.BANDA_CHARACTER_DATA",
+      "window.BANDA_CHARACTER_INDEX",
+      "window.BANDA_CHARACTERS"
+    ],
+    "containsRawActorForEveryCharacter": true
+  },
+  "manifest": {
+    "path": "foundry_characters_static/characters.manifest.json",
+    "blobSha": "4e62f3ed351d1eadf9b07ed2ad84085c0f89239c",
+    "schemaVersion": 1,
+    "version": "392e22f826c432c1",
+    "characterCount": 6,
+    "totals": {
+      "rawItems": 361,
+      "spells": 126,
+      "inventory": 80,
+      "features": 155,
+      "actions": 89
+    },
+    "characters": {
+      "sathar": {
+        "rawItems": 49,
+        "spells": 17,
+        "inventory": 11,
+        "features": 21,
+        "actions": 12,
+        "allRawItemsPreserved": true
+      },
+      "balder": {
+        "rawItems": 54,
+        "spells": 15,
+        "inventory": 12,
+        "features": 27,
+        "actions": 15,
+        "allRawItemsPreserved": true
+      },
+      "melkor": {
+        "rawItems": 62,
+        "spells": 7,
+        "inventory": 17,
+        "features": 38,
+        "actions": 19,
+        "allRawItemsPreserved": true
+      },
+      "ingwe": {
+        "rawItems": 62,
+        "spells": 29,
+        "inventory": 12,
+        "features": 21,
+        "actions": 12,
+        "allRawItemsPreserved": true
+      },
+      "magna": {
+        "rawItems": 37,
+        "spells": 20,
+        "inventory": 5,
+        "features": 12,
+        "actions": 7,
+        "allRawItemsPreserved": true
+      },
+      "artionketh": {
+        "rawItems": 97,
+        "spells": 38,
+        "inventory": 23,
+        "features": 36,
+        "actions": 24,
+        "allRawItemsPreserved": true
+      }
+    }
+  },
+  "activeLoadChain": [
+    {
+      "order": 1,
+      "path": "foundry_characters_static/characters.bundle.js",
+      "purpose": "Loads the six normalized characters, index and original raw actors into memory."
+    },
+    {
+      "order": 2,
+      "path": "character-static-runtime.js",
+      "blobSha": "e1b0efcd6880d0a3c5fa8154c1488abb0f12ac25",
+      "purpose": "Intercepts the legacy index and character-data fetches and returns the in-memory objects without reparsing them."
+    },
+    {
+      "order": 3,
+      "path": "characters.js",
+      "blobSha": "e09cf25b1488c7a0dfc06e87e603e014e15fc918",
+      "purpose": "Consumes the index and per-character records and renders the current desktop character modal."
+    }
+  ],
+  "entryPoint": {
+    "path": "index.html",
+    "blobSha": "1be9c619e08224d33c8d55449d7aa56481580092",
+    "bundleScript": "foundry_characters_static/characters.bundle.js?v=392e22f826c432c1",
+    "runtimeScript": "character-static-runtime.js?v=20260723-1",
+    "consumerScript": "characters.js?v=20260723-1"
+  },
+  "runtimeBehavior": {
+    "indexRequest": "data/characters/index.json",
+    "characterRequestScheme": "character-data:<character-id>",
+    "responseHeader": "X-Character-Data-Source: static-memory-bundle",
+    "networkRequiredForCharacterData": false,
+    "legacyFetchAPIKeptForCompatibility": true
+  },
+  "characterOrder": [
+    "sathar",
+    "artionketh",
+    "magna",
+    "melkor",
+    "balder",
+    "ingwe"
+  ],
+  "conclusions": [
+    "The static memory bundle is the only active character-data source loaded by index.html.",
+    "The six original Foundry actor exports remain embedded as rawActor data and are the authoritative source for the next audit tasks.",
+    "The manifest version matches the cache-busted bundle version used by index.html.",
+    "No interface file was changed by this audit."
+  ],
+  "nextTask": "A2_CHARACTER_SUMMARY"
+}
