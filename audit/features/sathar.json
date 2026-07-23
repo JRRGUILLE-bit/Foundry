@@ -36,7 +36,8 @@
     "allRawItemsAreFeatureTypes": true,
     "normalizedActionCountMatches": true,
     "resourceIdsUnique": true,
-    "allNormalizedActionsLinked": false
+    "allFeatureActionsLinked": true,
+    "allNormalizedActionsAccountedFor": true
   },
   "reviewFeatures": [],
   "resources": [
@@ -3278,7 +3279,7 @@
       ],
       "linkedFeatureId": null,
       "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "linkStatus": "EXTERNAL_ACTION_SOURCE",
       "raw": {
         "source": "Frostbrand of Titania",
         "sourceType": "Arma",
@@ -3417,7 +3418,7 @@
       ],
       "linkedFeatureId": null,
       "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "linkStatus": "EXTERNAL_ACTION_SOURCE",
       "raw": {
         "source": "Rations",
         "sourceType": "Consumible",
@@ -3545,7 +3546,7 @@
       ],
       "linkedFeatureId": null,
       "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "linkStatus": "EXTERNAL_ACTION_SOURCE",
       "raw": {
         "source": "Cook's Utensils",
         "sourceType": "Herramienta",
@@ -3667,7 +3668,7 @@
       ],
       "linkedFeatureId": null,
       "linkedFeatureName": null,
-      "linkStatus": "UNRESOLVED_ACTION_SOURCE",
+      "linkStatus": "EXTERNAL_ACTION_SOURCE",
       "raw": {
         "source": "Winged Boots",
         "sourceType": "Equipo",
@@ -4871,5 +4872,13 @@
       }
     }
   ],
-  "unresolvedActionReferenceCount": 4
+  "unresolvedActionReferenceCount": 0,
+  "countsByNormalizedActionSourceType": {
+    "Arma": 1,
+    "Consumible": 1,
+    "Herramienta": 1,
+    "Equipo": 1,
+    "feat": 8
+  },
+  "externalActionReferenceCount": 4
 }
