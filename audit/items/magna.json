@@ -14,9 +14,9 @@
     "consumable": 1
   },
   "countsByCategory": {
-    "ARMOR_OR_SHIELD": 3,
-    "CONSUMABLE": 1,
-    "EQUIPMENT": 1
+    "EQUIPMENT": 3,
+    "ARMOR_OR_SHIELD": 1,
+    "CONSUMABLE": 1
   },
   "statusCounts": {
     "COMPLETE_FROM_JSON": 5
@@ -40,7 +40,7 @@
       "id": "PE6T4xyyGDFVH9bu",
       "name": "Botas de levitación",
       "type": "equipment",
-      "category": "ARMOR_OR_SHIELD",
+      "category": "EQUIPMENT",
       "quantity": 1,
       "weight": {
         "value": 1,
@@ -629,7 +629,7 @@
       "id": "P11wjLVxqEpXr4vl",
       "name": "Medallion of Thoughts",
       "type": "equipment",
-      "category": "ARMOR_OR_SHIELD",
+      "category": "EQUIPMENT",
       "quantity": 1,
       "weight": {
         "value": 0.01,
