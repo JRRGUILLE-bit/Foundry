@@ -1,0 +1,780 @@
+{
+  "contractVersion": 1,
+  "status": "DESIGN_CONTRACT_READY_FOR_IMPLEMENTATION",
+  "repository": "JRRGUILLE-bit/Foundry",
+  "scope": "Mobile character experience only. This contract does not change the desktop renderer or canonical Foundry data.",
+  "canonicalSource": {
+    "path": "foundry_characters_static/characters.bundle.js",
+    "global": "window.BANDA_CHARACTERS",
+    "authority": "rawActor embedded in each normalized character record",
+    "readPolicy": "READ_ONLY",
+    "sourcePrecedence": [
+      "character.rawActor",
+      "normalized character fields in window.BANDA_CHARACTERS",
+      "per-character audit files",
+      "explicit UI fallback labels"
+    ],
+    "forbiddenSources": [
+      "inferred rules not present in the export",
+      "old rescue loaders",
+      "desktop DOM as a data source",
+      "temporary session state as permanent character truth"
+    ]
+  },
+  "architecture": {
+    "canonicalLayer": {
+      "name": "CharacterMaster",
+      "lifetime": "permanent",
+      "mutability": "immutable in the browser",
+      "origin": "static Foundry bundle",
+      "responsibility": "identity, rules data, descriptions, actions, spells, inventory, features and source metadata"
+    },
+    "projectionLayer": {
+      "name": "MobileCharacterViewModel",
+      "lifetime": "rebuilt when a character is opened or canonical data changes",
+      "mutability": "derived only",
+      "responsibility": "stable field names, sorting, grouping, search text, display labels and safe fallbacks"
+    },
+    "sessionLayer": {
+      "name": "SessionLiveState",
+      "lifetime": "temporary session, approximately four to five hours",
+      "mutability": "writable",
+      "responsibility": "current HP, temporary HP, resource expenditure, spell-slot expenditure, conditions, death saves, inspiration and session notes",
+      "mustNeverOverwriteCanonical": true
+    }
+  },
+  "identifiers": {
+    "characterId": {
+      "type": "string",
+      "required": true,
+      "source": "character.id",
+      "stability": "persistent"
+    },
+    "entityId": {
+      "type": "string",
+      "required": true,
+      "sourceOrder": [
+        "entity.id",
+        "entity._id",
+        "entity.rawItem._id"
+      ],
+      "stability": "persistent per Foundry export"
+    },
+    "sessionKey": {
+      "type": "string",
+      "format": "<characterId>:<domain>:<entityId>",
+      "requiredForWritableEntities": true
+    }
+  },
+  "nullAndFallbackPolicy": {
+    "missingText": "—",
+    "missingCollection": [],
+    "missingBoolean": false,
+    "unknownCurrentValue": null,
+    "unknownMaximumValue": null,
+    "missingDescription": "Sin descripción en el export de Foundry.",
+    "missingStructuredField": "Do not infer. Keep the raw source available and mark the field as incomplete.",
+    "htmlPolicy": "Descriptions are treated as untrusted content and must be escaped or sanitized before rendering.",
+    "reviewBadge": "Show only when an entity audit status is NEEDS_REVIEW; it must not prevent use of the entity."
+  },
+  "rootModel": {
+    "type": "object",
+    "required": [
+      "id",
+      "identity",
+      "combat",
+      "abilities",
+      "actions",
+      "spells",
+      "inventory",
+      "features",
+      "more",
+      "source"
+    ],
+    "fields": {
+      "id": {
+        "type": "string",
+        "source": "character.id",
+        "required": true
+      },
+      "identity": {
+        "$ref": "#/models/Identity"
+      },
+      "combat": {
+        "$ref": "#/models/Combat"
+      },
+      "abilities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/models/Ability"
+        }
+      },
+      "actions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/models/ActionEntry"
+        }
+      },
+      "spells": {
+        "type": "array",
+        "items": {
+          "$ref": "#/models/Spell"
+        }
+      },
+      "inventory": {
+        "type": "array",
+        "items": {
+          "$ref": "#/models/InventoryItem"
+        }
+      },
+      "features": {
+        "type": "array",
+        "items": {
+          "$ref": "#/models/Feature"
+        }
+      },
+      "more": {
+        "$ref": "#/models/More"
+      },
+      "source": {
+        "$ref": "#/models/Source"
+      }
+    }
+  },
+  "models": {
+    "Identity": {
+      "required": [
+        "name",
+        "level",
+        "classes",
+        "portrait"
+      ],
+      "fields": {
+        "name": {
+          "type": "string",
+          "source": "character.name",
+          "required": true
+        },
+        "race": {
+          "type": "string",
+          "source": "character.race",
+          "fallback": "No registrado"
+        },
+        "level": {
+          "type": "integer",
+          "source": "character.level",
+          "required": true
+        },
+        "classes": {
+          "type": "array",
+          "source": "character.classes",
+          "itemShape": {
+            "name": "string",
+            "levels": "integer",
+            "identifier": "string|null"
+          }
+        },
+        "subclasses": {
+          "type": "array",
+          "source": "character.subclasses",
+          "items": "string"
+        },
+        "portrait": {
+          "type": "string|null",
+          "sourceOrder": [
+            "character.img",
+            "character.rawActor.img"
+          ],
+          "required": true,
+          "fallbackBehavior": "Use the existing character selector portrait or a neutral silhouette."
+        }
+      }
+    },
+    "Combat": {
+      "required": [
+        "hp",
+        "armorClass",
+        "initiative",
+        "movement",
+        "proficiency",
+        "resources",
+        "spellcasting"
+      ],
+      "fields": {
+        "hp": {
+          "$ref": "#/models/HitPoints"
+        },
+        "armorClass": {
+          "type": "object",
+          "source": "character.ac",
+          "fields": {
+            "value": "number",
+            "formula": "string|null",
+            "armorSources": "array<string>",
+            "shieldSources": "array<string>"
+          }
+        },
+        "initiative": {
+          "type": "number",
+          "source": "character.initiative"
+        },
+        "movement": {
+          "type": "object",
+          "source": "character.movement",
+          "fields": {
+            "modes": "object<string,number>",
+            "units": "string"
+          }
+        },
+        "proficiency": {
+          "type": "number",
+          "source": "character.proficiency"
+        },
+        "resources": {
+          "type": "array",
+          "source": "merged normalized resources and feature uses",
+          "items": {
+            "$ref": "#/models/Resource"
+          }
+        },
+        "spellcasting": {
+          "$ref": "#/models/Spellcasting"
+        },
+        "hitDice": {
+          "type": "array",
+          "source": "character.hitDice",
+          "items": {
+            "class": "string",
+            "remaining": "number|null",
+            "total": "number|null",
+            "die": "string|null"
+          }
+        },
+        "defenses": {
+          "type": "object",
+          "source": "character.traits",
+          "fields": {
+            "damageResistances": "array<string>",
+            "damageImmunities": "array<string>",
+            "damageVulnerabilities": "array<string>",
+            "conditionImmunities": "array<string>"
+          }
+        },
+        "senses": {
+          "type": "object",
+          "source": "character.senses"
+        }
+      }
+    },
+    "HitPoints": {
+      "required": [
+        "canonicalMax",
+        "sessionCurrent",
+        "sessionTemporary"
+      ],
+      "fields": {
+        "canonicalCurrent": {
+          "type": "number|null",
+          "source": "character.hp.value",
+          "mutability": "read-only snapshot"
+        },
+        "canonicalMax": {
+          "type": "number",
+          "source": "character.hp.max",
+          "mutability": "read-only"
+        },
+        "canonicalTemporary": {
+          "type": "number",
+          "source": "character.hp.temp",
+          "mutability": "read-only snapshot"
+        },
+        "sessionCurrent": {
+          "type": "number|null",
+          "sourceOrder": [
+            "SessionLiveState.hp.current",
+            "character.hp.value"
+          ],
+          "mutability": "session-writable",
+          "constraints": "integer, normally 0..canonicalMax"
+        },
+        "sessionTemporary": {
+          "type": "number",
+          "sourceOrder": [
+            "SessionLiveState.hp.temporary",
+            "character.hp.temp",
+            "0"
+          ],
+          "mutability": "session-writable",
+          "constraints": "integer >= 0"
+        }
+      }
+    },
+    "Resource": {
+      "required": [
+        "id",
+        "name",
+        "current",
+        "max",
+        "recovery"
+      ],
+      "fields": {
+        "id": "string",
+        "name": "string",
+        "sourceType": "featureUses|normalizedCharacter|spellSlots|pactSlots|custom",
+        "canonicalCurrent": "number|string|null",
+        "current": "number|string|null",
+        "max": "number|string|null",
+        "spent": "number|null",
+        "recovery": "array<object>",
+        "shortRest": "boolean|null",
+        "longRest": "boolean|null",
+        "actionCategory": "ACTION|BONUS_ACTION|REACTION|PASSIVE_OR_SPECIAL|null",
+        "sessionWritable": "boolean"
+      },
+      "sessionRule": "Current or spent may change during a session; name, maximum formula and recovery definition remain canonical."
+    },
+    "Spellcasting": {
+      "fields": {
+        "ability": "string|null",
+        "abilityLabel": "string|null",
+        "attack": "number|null",
+        "dc": "number|null",
+        "slots": "array<SpellSlot>",
+        "pact": "PactSlot|null"
+      },
+      "slotSessionRule": "Current slots are session-writable. Level and maximum are canonical."
+    },
+    "Ability": {
+      "required": [
+        "key",
+        "score",
+        "modifier",
+        "save"
+      ],
+      "source": "character.abilities[]",
+      "fields": {
+        "key": "string",
+        "label": "string|null",
+        "score": "number",
+        "modifier": "number",
+        "check": "number",
+        "save": "number",
+        "saveProficient": "boolean",
+        "passive": "number|null"
+      }
+    },
+    "Activity": {
+      "required": [
+        "name",
+        "type"
+      ],
+      "fields": {
+        "id": "string|null",
+        "name": "string",
+        "type": "string",
+        "activation": "object|null",
+        "range": "object|null",
+        "target": "object|null",
+        "duration": "object|null",
+        "attack": "object|null",
+        "save": "object|null",
+        "damage": "object|null",
+        "healing": "object|null",
+        "uses": "object|null",
+        "consumption": "object|null",
+        "roll": "string|null",
+        "chatFlavor": "string|null"
+      }
+    },
+    "ActionEntry": {
+      "required": [
+        "id",
+        "source",
+        "sourceType",
+        "activities",
+        "actionCategories"
+      ],
+      "fields": {
+        "id": "string",
+        "source": "string",
+        "sourceType": "string",
+        "description": "string|null",
+        "uses": "Resource|null",
+        "activities": "array<Activity>",
+        "actionCategories": "array<ACTION|BONUS_ACTION|REACTION|PASSIVE_OR_SPECIAL>",
+        "searchText": "derived lowercase string",
+        "reviewStatus": "COMPLETE_FROM_JSON|NEEDS_REVIEW"
+      },
+      "sort": [
+        "ACTION",
+        "BONUS_ACTION",
+        "REACTION",
+        "PASSIVE_OR_SPECIAL",
+        "source alphabetical"
+      ]
+    },
+    "Spell": {
+      "required": [
+        "id",
+        "name",
+        "level",
+        "schoolLabel",
+        "activities",
+        "reviewStatus"
+      ],
+      "fields": {
+        "id": "string",
+        "name": "string",
+        "level": "integer",
+        "school": "string|null",
+        "schoolLabel": "string",
+        "prepared": "boolean",
+        "method": "spell|pact|atwill|innate|always|unknown",
+        "concentration": "boolean",
+        "ritual": "boolean",
+        "activation": "object|null",
+        "range": "object|null",
+        "duration": "object|null",
+        "components": "array<string>",
+        "materials": "string|null",
+        "description": "string|null",
+        "activities": "array<Activity>",
+        "source": "object|null",
+        "searchText": "derived lowercase string",
+        "reviewStatus": "COMPLETE_FROM_JSON|NEEDS_REVIEW",
+        "missingFields": "array<string>"
+      },
+      "sort": [
+        "level ascending",
+        "name locale ascending"
+      ],
+      "filters": [
+        "level",
+        "prepared",
+        "concentration",
+        "ritual",
+        "method",
+        "text"
+      ]
+    },
+    "InventoryItem": {
+      "required": [
+        "id",
+        "name",
+        "category",
+        "activities",
+        "reviewStatus"
+      ],
+      "fields": {
+        "id": "string",
+        "name": "string",
+        "type": "string",
+        "category": "WEAPON|ARMOR_OR_SHIELD|CONSUMABLE|EQUIPMENT|TOOL|CONTAINER|GENERAL_OR_LOOT|OTHER",
+        "quantity": "number",
+        "weight": "object|null",
+        "price": "object|null",
+        "rarity": "string|null",
+        "magical": "boolean",
+        "equipped": "boolean",
+        "attuned": "boolean",
+        "identified": "boolean|null",
+        "uses": "object|null",
+        "properties": "array<string>",
+        "weapon": "object|null",
+        "armor": "object|null",
+        "activities": "array<Activity>",
+        "description": "string|null",
+        "searchText": "derived lowercase string",
+        "reviewStatus": "COMPLETE_FROM_JSON|NEEDS_REVIEW",
+        "missingFields": "array<string>"
+      },
+      "sessionWritableFields": [
+        "uses.current",
+        "uses.spent",
+        "quantity for consumables only"
+      ],
+      "sort": [
+        "equipped first",
+        "category order",
+        "name locale ascending"
+      ]
+    },
+    "Feature": {
+      "required": [
+        "id",
+        "name",
+        "sourceType",
+        "activities",
+        "reviewStatus"
+      ],
+      "fields": {
+        "id": "string",
+        "name": "string",
+        "sourceType": "feat|class|subclass|race|background",
+        "requirements": "string|null",
+        "description": "string|null",
+        "uses": "Resource|null",
+        "activities": "array<Activity>",
+        "actionCategory": "ACTION|BONUS_ACTION|REACTION|PASSIVE_OR_SPECIAL",
+        "searchText": "derived lowercase string",
+        "reviewStatus": "COMPLETE_FROM_JSON|NEEDS_REVIEW",
+        "missingFields": "array<string>"
+      },
+      "sort": [
+        "features with remaining uses first",
+        "action category",
+        "name locale ascending"
+      ]
+    },
+    "More": {
+      "fields": {
+        "skills": {
+          "type": "array",
+          "source": "character.skills"
+        },
+        "traits": {
+          "type": "object",
+          "source": "character.traits"
+        },
+        "tools": {
+          "type": "array",
+          "source": "character.tools"
+        },
+        "currency": {
+          "type": "object",
+          "source": "character.currency"
+        },
+        "inspiration": {
+          "type": "boolean",
+          "sourceOrder": [
+            "SessionLiveState.inspiration",
+            "character.inspiration"
+          ],
+          "sessionWritable": true
+        },
+        "exhaustion": {
+          "type": "number",
+          "sourceOrder": [
+            "SessionLiveState.exhaustion",
+            "character.exhaustion"
+          ],
+          "sessionWritable": true
+        },
+        "conditions": {
+          "type": "array<string>",
+          "source": "SessionLiveState.conditions",
+          "sessionWritable": true
+        },
+        "deathSaves": {
+          "type": "object|null",
+          "source": "SessionLiveState.deathSaves",
+          "sessionWritable": true
+        },
+        "notes": {
+          "type": "object",
+          "source": "character.notes",
+          "sessionWritable": false
+        },
+        "sessionNotes": {
+          "type": "string",
+          "source": "SessionLiveState.sessionNotes",
+          "sessionWritable": true,
+          "persistence": "temporary"
+        }
+      }
+    },
+    "Source": {
+      "fields": {
+        "systemVersion": "string|null",
+        "coreVersion": "string|null",
+        "bundleVersion": "string",
+        "hasRawActor": "boolean",
+        "auditStatus": "string",
+        "rawActor": "object"
+      },
+      "rawActorVisibility": "developer/debug only; never render the complete object in the normal mobile interface"
+    }
+  },
+  "mobileViews": {
+    "selector": {
+      "requiredFields": [
+        "id",
+        "identity.name",
+        "identity.level",
+        "identity.classes",
+        "identity.portrait"
+      ],
+      "behavior": "Selecting a character opens a full-screen sheet and establishes the active character for the session."
+    },
+    "fixedHeader": {
+      "requiredFields": [
+        "identity.name",
+        "identity.level",
+        "identity.classes",
+        "combat.hp.sessionCurrent",
+        "combat.hp.canonicalMax",
+        "combat.hp.sessionTemporary",
+        "combat.armorClass.value"
+      ],
+      "sessionControls": [
+        "HP decrement/increment",
+        "temporary HP edit",
+        "close sheet"
+      ]
+    },
+    "combat": {
+      "requiredFields": [
+        "combat",
+        "actions",
+        "abilities"
+      ],
+      "primaryOrder": [
+        "HP and AC",
+        "initiative and movement",
+        "resources",
+        "spell slots or pact slots",
+        "frequent actions",
+        "saving throws"
+      ]
+    },
+    "spells": {
+      "requiredFields": [
+        "combat.spellcasting",
+        "spells"
+      ],
+      "interaction": "Search, level filters, prepared/concentration/ritual filters, expandable spell details and session slot tracking."
+    },
+    "equipment": {
+      "requiredFields": [
+        "inventory"
+      ],
+      "interaction": "Search, category filters, equipped-first ordering, expandable details and consumable-use tracking."
+    },
+    "features": {
+      "requiredFields": [
+        "features"
+      ],
+      "interaction": "Search, action-category grouping, expandable descriptions and feature-use tracking."
+    },
+    "more": {
+      "requiredFields": [
+        "more",
+        "abilities",
+        "source"
+      ],
+      "contains": [
+        "skills",
+        "senses and defenses",
+        "proficiencies",
+        "currency",
+        "notes and biography",
+        "conditions",
+        "exhaustion",
+        "inspiration",
+        "death saves",
+        "source metadata"
+      ]
+    }
+  },
+  "bottomNavigation": {
+    "tabs": [
+      {
+        "id": "combat",
+        "label": "Combate"
+      },
+      {
+        "id": "spells",
+        "label": "Hechizos"
+      },
+      {
+        "id": "equipment",
+        "label": "Equipo"
+      },
+      {
+        "id": "features",
+        "label": "Rasgos"
+      },
+      {
+        "id": "more",
+        "label": "Más"
+      }
+    ],
+    "rule": "Navigation changes only the visible projection; it must not refetch or reparse the character bundle."
+  },
+  "sessionLiveState": {
+    "schemaVersion": 1,
+    "required": [
+      "sessionId",
+      "characterId",
+      "updatedAt",
+      "hp",
+      "resources",
+      "spellSlots",
+      "conditions"
+    ],
+    "shape": {
+      "sessionId": "string",
+      "characterId": "string",
+      "updatedAt": "ISO-8601 string",
+      "hp": {
+        "current": "number|null",
+        "temporary": "number"
+      },
+      "resources": "object<resourceId,{current:number|string|null,spent:number|null}>",
+      "spellSlots": "object<slotKey,{current:number|null}>",
+      "inventoryUses": "object<itemId,{current:number|null,spent:number|null,quantity:number|null}>",
+      "conditions": "array<string>",
+      "deathSaves": {
+        "successes": "integer 0..3",
+        "failures": "integer 0..3"
+      },
+      "inspiration": "boolean|null",
+      "exhaustion": "integer|null",
+      "sessionNotes": "string"
+    },
+    "mergeRule": "Overlay session values onto the MobileCharacterViewModel by stable IDs. Canonical fields remain available for reset and validation.",
+    "resetRule": "Reset deletes or archives the temporary session record; it never writes values into the static bundle.",
+    "conflictRule": "The newest updatedAt wins for writable session fields. Canonical data always wins for immutable definitions."
+  },
+  "validation": {
+    "characterLevel": [
+      "id is present and unique",
+      "identity name and level are present",
+      "HP maximum and AC are numeric",
+      "entity IDs are unique within each domain",
+      "all actions, spells, inventory items and features preserve raw source linkage",
+      "all session-writable entities have a stable sessionKey"
+    ],
+    "global": [
+      "exactly six canonical characters",
+      "126 spells",
+      "80 inventory items",
+      "155 features",
+      "89 actions",
+      "zero unresolved action sources",
+      "all canonical records share one bundle version"
+    ],
+    "nonBlockingReview": "Entities marked NEEDS_REVIEW remain usable and must preserve missingFields and raw source access.",
+    "blockingFailure": "Missing IDs, count mismatches, broken raw links, unresolved action sources or invalid session overlays block implementation."
+  },
+  "implementationRules": [
+    "Build a dedicated mobile view model; do not scrape the desktop modal DOM.",
+    "Load the static bundle once and keep it in memory.",
+    "Keep desktop rendering unchanged during the first mobile implementation passes.",
+    "Use stable IDs for all session state instead of array positions or display names.",
+    "Do not infer missing D&D rules data inside the renderer.",
+    "Make all touch targets at least 44 by 44 CSS pixels.",
+    "Support Safari on current iPhone versions and Chrome on current Android versions.",
+    "Preserve Escape and explicit close behavior on devices with keyboards.",
+    "Treat the full-screen mobile sheet as a separate composition using the same canonical data."
+  ],
+  "acceptanceCriteria": [
+    "A mobile renderer can be implemented without reading characters.js DOM output.",
+    "Every mobile tab has an explicit required-field list.",
+    "Permanent character data and temporary session state are structurally separated.",
+    "All writable values have stable keys and reset behavior.",
+    "Missing structured data is visible as non-blocking review state rather than fabricated.",
+    "Desktop behavior remains outside the scope of this contract."
+  ],
+  "nextTask": "A8_MOBILE_VIEW_MODEL_ADAPTER"
+}
