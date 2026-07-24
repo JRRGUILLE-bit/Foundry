@@ -1,0 +1,56 @@
+name: Spell Localization QA
+
+on:
+  pull_request:
+    paths:
+      - "audit/spells/**"
+      - "audit/spell-localization-qa.mjs"
+      - "spell-localization-runtime.js"
+      - "index.html"
+      - ".github/workflows/spell-localization-qa.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "audit/spells/**"
+      - "audit/spell-localization-qa.mjs"
+      - "spell-localization-runtime.js"
+      - "index.html"
+      - ".github/workflows/spell-localization-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  spell-localization-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Check source syntax
+        run: |
+          node --check spell-localization-runtime.js
+          node --check audit/spell-localization-qa.mjs
+
+      - name: Run localization QA
+        shell: bash
+        run: |
+          set -o pipefail
+          node audit/spell-localization-qa.mjs | tee audit/spell-localization-report.json
+
+      - name: Upload localization report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spell-localization-report-${{ github.sha }}
+          path: audit/spell-localization-report.json
+          if-no-files-found: warn
+          retention-days: 14

@@ -64,14 +64,7 @@ const report = {
   status: "RUNNING",
   generatedAt: new Date().toISOString(),
   baseUrl: BASE_URL,
-  knownGaps: [
-    {
-      issue: 64,
-      title: "Localización de hechizos por personaje",
-      blocking: false,
-      requirement: "Magna y Melkor en español; resto y fallback global en inglés."
-    }
-  ],
+  knownGaps: [],
   profiles: [],
   totals: { checks: 0, failures: 0, warnings: 0, screenshots: 0 },
   failures: [],
@@ -171,9 +164,19 @@ async function waitForApp(page) {
 }
 
 async function openCharacter(page, profile, characterId) {
-  const opened = await page.evaluate((id) => window.BANDA_MOBILE_SHELL.open(id), characterId);
+  await page.waitForFunction(() => matchMedia("(max-width: 820px)").matches && innerWidth <= 820, null, { timeout: 5_000 });
+  await sleep(350);
+  let opened = await page.evaluate((id) => window.BANDA_MOBILE_SHELL.open(id), characterId);
   requireStep(profile, `${characterId}:open`, opened === true, `open returned ${opened}`);
-  await page.locator(".mcs-root:not([hidden])").waitFor({ state: "visible", timeout: 5_000 });
+  try {
+    await page.locator(".mcs-root:not([hidden])").waitFor({ state: "visible", timeout: 1_500 });
+  } catch {
+    await page.waitForFunction(() => matchMedia("(max-width: 820px)").matches && innerWidth <= 820, null, { timeout: 15_000 });
+    await sleep(500);
+    opened = await page.evaluate((id) => window.BANDA_MOBILE_SHELL.open(id), characterId);
+    requireStep(profile, `${characterId}:open-retry`, opened === true, `retry returned ${opened}`);
+    await page.locator(".mcs-root:not([hidden])").waitFor({ state: "visible", timeout: 5_000 });
+  }
   await page.waitForFunction((id) => window.BANDA_MOBILE_SHELL.activeCharacterId() === id, characterId);
   await sleep(220);
   const active = await page.evaluate(() => window.BANDA_MOBILE_SHELL.activeCharacterId());

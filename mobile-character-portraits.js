@@ -18,7 +18,7 @@
 
   function applyPortrait(characterId) {
     const source = portraits[characterId];
-    if (!source || portrait.dataset.optimizedCharacter === characterId) return false;
+    if (!source) return false;
     portrait.src = source;
     portrait.dataset.optimizedCharacter = characterId;
     return true;
