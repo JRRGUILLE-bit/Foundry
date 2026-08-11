@@ -6,7 +6,7 @@
   // current browser session. Fail closed until mobile-session-auth.js finds
   // a valid local token.
   window.BANDA_SESSION_REMOTE_CONFIG = Object.freeze({
-    endpoint: "https://script.google.com/macros/s/AKfycbz7X0451KOcVPEnaDa1WkF5-Xlm7J9DSJTWjc0BABeS69u1wWIQOntj7wxzXxbLarPSUQ/exec",
+    endpoint: "https://script.google.com/macros/s/AKfycbylwSlLjyeZLxA_m3A7ONpAveKZA9YOPB3OVnSWu9GD6lws5r1gIgkaQPf_BxZeoov2/exec",
     enabled: false,
     debounceMs: 650,
     timeoutMs: 12000
