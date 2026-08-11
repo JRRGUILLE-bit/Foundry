@@ -37,6 +37,8 @@ Por lo tanto:
 - La localización funciona en desktop y mobile.
 - La capa no modifica mecánicas ni exports canónicos.
 - Los PR viejos #24 y #67 fueron cerrados como superseded y no deben reabrirse ni mergearse.
+- No hay PRs abiertos al 11/08/2026.
+- La issue #69 sigue abierta para el cierre de verificación del backend seguro ya desplegado.
 
 La issue #26 continúa como backburner para una futura sesión interactiva GM → celulares.
 
@@ -112,7 +114,7 @@ El diseño original permitía leer/escribir el endpoint público sin autenticaci
 - el token puede importarse mediante `#session-live-token=...` y el fragmento se elimina inmediatamente de la barra de direcciones;
 - el token **nunca** debe guardarse en GitHub, commits, issues, PRs, README, configuración pública, query strings ni logs públicos.
 
-Importante: cambiar `apps-script/Code.gs` en GitHub **no actualiza automáticamente el Web App ya desplegado**. Después de mergear el hardening, el propietario debe copiar el `Code.gs` actualizado al proyecto Apps Script, ejecutar `rotateSessionLiveAccessToken` y publicar una nueva versión del despliegue existente. Hasta entonces, el código desplegado previamente conserva su comportamiento anterior.
+Estado verificado el 11/08/2026: se creó y desplegó un backend seguro nuevo de Google Apps Script y `main` ya apunta a ese deployment público. La issue #69 sigue abierta hasta completar la rotación final del token, comprobar el health check, confirmar que un navegador sin token queda en `LOCAL` y validar la sincronización desde un navegador autorizado.
 
 ### QA
 
@@ -162,7 +164,7 @@ Después, inspeccionar issues/PRs actuales en GitHub. El repositorio vivo manda 
 
 Pendientes conocidos del último ciclo:
 
-- completar el despliegue manual del backend autenticado de `SESSION_LIVE` en Apps Script y rotar/generar la credencial privada;
+- completar la issue #69: rotación final de la credencial privada, health check y verificación de acceso autorizado/no autorizado;
 - smoke test manual en Safari de iPhone real;
 - smoke test manual en Chrome de Android real;
 - prueba end-to-end real de `SESSION_LIVE` con dos dispositivos/navegadores autorizados: modificar PG en uno, confirmar recepción en el otro, probar edición offline y reconciliación al reconectar;
