@@ -23,10 +23,11 @@ Verificado el 11/08/2026:
 
 - Repo: `JRRGUILLE-bit/Foundry`.
 - Rama principal: `main`.
-- Último cambio funcional conocido en `main`: commit `38fb7e100ba56bad4e8d85f8bac18f3a6ce66ee2`.
+- Último cambio funcional conocido antes del hardening de seguridad: commit `38fb7e100ba56bad4e8d85f8bac18f3a6ce66ee2`.
 - Ese commit mergeó PR #66, **A17.2 — localización de hechizos por personaje**.
 - Por tanto, no tratar A17.2 como trabajo pendiente.
 - Issue #26 sigue siendo backburner: sesión interactiva GM → celulares.
+- Los PR viejos #24 y #67 están cerrados/superseded; no reabrirlos ni mergearlos.
 
 El repositorio privado de infraestructura del servidor es otro proyecto: `JRRGUILLE-bit/JRRGUILLE-bit-foundry-infra`. No mezclar cambios de hosting/Windows/backups con cambios de esta web salvo que el usuario lo pida explícitamente.
 
@@ -84,12 +85,23 @@ El modo `SESSION_LIVE` tiene adaptador remoto y backend Google Apps Script + Goo
 
 - `mobile-session-store.js`
 - `mobile-session-remote-config.js`
+- `mobile-session-auth.js`
 - `mobile-session-remote-sync.js`
 - `apps-script/Code.gs`
 - `apps-script/appsscript.json`
 - `docs/session-live-apps-script-deployment.md`
 
-No publicar en documentación pública la URL privada de la Sheet, tokens, secretos ni información de la cuenta propietaria.
+### Reglas de seguridad obligatorias de SESSION_LIVE
+
+- La Google Sheet debe permanecer privada.
+- La URL `/exec` de Apps Script puede ser pública y **no es una credencial**.
+- El token `BANDA_SESSION_ACCESS_TOKEN` es secreto y vive únicamente en Script Properties de Apps Script y, temporalmente, en `sessionStorage` de navegadores autorizados.
+- **Nunca** poner el token en GitHub, código fuente, README, AGENTS, issues, PRs, commits, logs públicos, query strings ni archivos de configuración pública.
+- `mobile-session-remote-config.js` debe permanecer `enabled: false`; `mobile-session-auth.js` habilita la sincronización solo cuando existe una credencial local válida.
+- Lecturas y escrituras sensibles se realizan mediante **POST autenticado**. No volver a exponer `action=get` mediante GET.
+- El fragmento `#session-live-token=...` es solo un mecanismo de importación privada al navegador; debe borrarse inmediatamente con `history.replaceState` y no persistirse en `localStorage`.
+- Si falta autenticación o hay un error de configuración, fallar cerrado y conservar funcionamiento `LOCAL`.
+- No degradar estas reglas por comodidad. Cualquier cambio en autenticación requiere actualizar `audit/apps-script-backend-qa.js` y la guía de despliegue.
 
 ## QA obligatorio según el área tocada
 
@@ -103,6 +115,8 @@ Suites disponibles:
 - Spell Localization QA.
 
 Antes de presentar un PR como listo, ejecutar el QA que cubra el cambio. Si falla Playwright, distinguir una regresión real de un timeout/flakiness usando artefactos y logs antes de modificar producción.
+
+Para cambios de `SESSION_LIVE`, el Apps Script Backend QA debe comprobar como mínimo: fail-closed sin token, rechazo de token incorrecto, lectura/escritura con token correcto, POST-only para datos sensibles, configuración pública sin secreto y orden `config → auth → remote-sync` en `index.html`.
 
 ## Forma de trabajo
 
