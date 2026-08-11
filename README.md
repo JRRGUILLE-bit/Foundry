@@ -1,6 +1,34 @@
 # El Foundry de la Banda
 
-Sitio estático para consultar y usar las fichas de los seis personajes de la campaña, con vista desktop, ficha mobile orientada al juego en mesa, estado temporal de sesión y sincronización opcional mediante Google Sheets + Apps Script.
+**Aplicación web responsive para consultar y usar seis fichas de personaje, con experiencias desktop/mobile independientes, estado temporal de sesión y sincronización remota opcional con autenticación fail-closed.**
+
+[English project overview](README.en.md) · [Caso de estudio técnico](https://jrrguille-bit.github.io/guillermo-barbeito-it/projects/foundry/)
+
+## Qué demuestra técnicamente
+
+- Modelado y presentación de datos complejos exportados desde Foundry VTT.
+- Arquitectura desktop/mobile desacoplada.
+- Estado temporal por personaje con TTL, migraciones, subscripción y reset de sesión.
+- Sincronización opcional mediante Google Sheets y Google Apps Script.
+- Autenticación fail-closed: sin credencial válida, el cliente permanece en modo local.
+- Localización de contenido sin alterar IDs ni mecánicas canónicas.
+- QA automatizado para mobile, navegadores, estado, sincronización, backend y localización.
+
+## Stack
+
+JavaScript · HTML · CSS · Google Apps Script · Google Sheets · Playwright · GitHub Actions
+
+## Estado público
+
+- Seis personajes con datos estáticos auditados.
+- Vistas desktop y mobile funcionales.
+- Sincronización remota segura desplegada, pendiente de verificaciones finales documentadas en la issue #69.
+- Sin PRs abiertos al 11 de agosto de 2026.
+- No se publican tokens, URLs privadas de Google Sheets ni credenciales.
+
+---
+
+## Continuidad operativa
 
 Este repositorio está documentado para que el trabajo pueda continuar desde **otra cuenta de ChatGPT/Codex sin depender del historial de chats anteriores**.
 
@@ -39,6 +67,7 @@ Por lo tanto:
 - A17.2 **ya está mergeado**.
 - La issue #64 fue cerrada como completada el 11/08/2026.
 - Los PR viejos #24 y #67 quedaron cerrados como superseded; no deben reabrirse ni mergearse.
+- La issue #69 registra el cierre de verificación del backend seguro ya desplegado.
 - La issue #26 continúa deliberadamente en backburner para una futura interacción GM → celulares.
 - `SESSION_LIVE` debe operar bajo el modelo de autenticación descrito abajo; nunca volver a exponer lectura/escritura remota sin credencial.
 
@@ -268,20 +297,19 @@ El Browser Mobile QA cubre Chromium Android simulado, WebKit iPhone simulado y C
 
 ## Pendientes conocidos
 
-### Seguridad / despliegue manual de `SESSION_LIVE`
+### Seguridad / cierre de verificación de `SESSION_LIVE`
 
-Los cambios de `apps-script/Code.gs` en GitHub no actualizan por sí solos el Web App que ya está desplegado en Google Apps Script.
+El 11/08/2026 se creó y desplegó un backend seguro nuevo de Google Apps Script. `main` ya apunta al deployment público actualizado y conserva `enabled: false` para funcionar en modo fail-closed.
 
-Después de integrar el hardening hay que completar en la cuenta propietaria de Apps Script:
+La issue #69 permanece abierta hasta completar estas verificaciones finales:
 
-1. copiar el `Code.gs` actual al proyecto Apps Script;
-2. ejecutar `setupSessionLive` si corresponde;
-3. ejecutar `rotateSessionLiveAccessToken` y guardar la credencial fuera de GitHub;
-4. publicar una **Nueva versión** del despliegue existente;
-5. comprobar que el health check devuelve `authRequired: true` y `authConfigured: true`;
-6. autorizar los dispositivos mediante la credencial privada.
+1. rotar una última vez `BANDA_SESSION_ACCESS_TOKEN`;
+2. guardar la credencial únicamente en un lugar privado;
+3. comprobar en el health check `ok: true`, `authRequired: true` y `authConfigured: true`;
+4. confirmar que un navegador sin token permanece en `LOCAL`;
+5. confirmar sincronización desde al menos un navegador autorizado.
 
-Hasta que el Web App desplegado se actualice, su versión anterior conserva el comportamiento anterior aunque GitHub ya contenga el código seguro.
+La URL pública del Web App no es una credencial. El token, la URL privada de la Google Sheet y las credenciales de cuenta deben permanecer fuera de GitHub.
 
 ### Pruebas manuales
 
