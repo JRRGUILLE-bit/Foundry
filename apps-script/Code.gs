@@ -5,9 +5,11 @@ const SESSION_LIVE_CONFIG = Object.freeze({
   schemaVersion: 1,
   sheetName: "SESSION_LIVE",
   spreadsheetIdProperty: "BANDA_SESSION_SPREADSHEET_ID",
+  accessTokenProperty: "BANDA_SESSION_ACCESS_TOKEN",
   cleanupHandler: "cleanupExpiredSessions",
   lockTimeoutMs: 10000,
   maxRecordJsonLength: 45000,
+  minAccessTokenLength: 32,
   allowedCharacterIds: Object.freeze([
     "artionketh",
     "balder",
@@ -48,9 +50,19 @@ function handleRequest_(method, event) {
         protocolVersion: SESSION_LIVE_CONFIG.protocolVersion,
         service: "BANDA_SESSION_LIVE",
         sheetName: SESSION_LIVE_CONFIG.sheetName,
+        authRequired: true,
+        authConfigured: hasSessionLiveAccessToken_(),
         serverTime: new Date().toISOString()
       });
     }
+
+    // Sensitive SESSION_LIVE operations are POST-only so the credential never
+    // appears in URLs, browser history, referrers or normal proxy logs.
+    if (method !== "POST") {
+      throw serviceError_("METHOD_NOT_ALLOWED", "SESSION_LIVE requiere POST autenticado.");
+    }
+
+    requireAccessToken_(request.accessToken);
 
     if (request.action === "get") {
       validateCharacterId_(request.characterId);
@@ -89,10 +101,11 @@ function parseRequest_(method, event) {
   if (method === "GET") {
     const parameters = event && event.parameter ? event.parameter : {};
     return {
-      action: String(parameters.action || "get").trim().toLowerCase(),
+      action: String(parameters.action || "health").trim().toLowerCase(),
       protocolVersion: integer_(parameters.protocolVersion, SESSION_LIVE_CONFIG.protocolVersion),
       characterId: normalizeCharacterId_(parameters.characterId),
-      record: null
+      record: null,
+      accessToken: ""
     };
   }
 
@@ -108,7 +121,8 @@ function parseRequest_(method, event) {
     action: String(payload.action || "").trim().toLowerCase(),
     protocolVersion: integer_(payload.protocolVersion, 0),
     characterId: normalizeCharacterId_(payload.characterId || (payload.record && payload.record.characterId)),
-    record: payload.record || null
+    record: payload.record || null,
+    accessToken: String(payload.accessToken || "")
   };
 }
 
@@ -127,10 +141,68 @@ function setupSessionLive() {
     ok: true,
     spreadsheetId: spreadsheet.getId(),
     sheetName: sheet.getName(),
-    cleanupTrigger: SESSION_LIVE_CONFIG.cleanupHandler
+    cleanupTrigger: SESSION_LIVE_CONFIG.cleanupHandler,
+    authConfigured: hasSessionLiveAccessToken_()
   };
   console.log(JSON.stringify(result));
   return result;
+}
+
+function rotateSessionLiveAccessToken() {
+  const token = [
+    Utilities.getUuid().replace(/-/g, ""),
+    Utilities.getUuid().replace(/-/g, "")
+  ].join("");
+  PropertiesService.getScriptProperties().setProperty(
+    SESSION_LIVE_CONFIG.accessTokenProperty,
+    token
+  );
+  return {
+    ok: true,
+    accessToken: token,
+    warning: "Copiá este token ahora. No lo guardes en GitHub, issues, commits ni documentación pública."
+  };
+}
+
+function clearSessionLiveAccessToken() {
+  PropertiesService.getScriptProperties().deleteProperty(
+    SESSION_LIVE_CONFIG.accessTokenProperty
+  );
+  return { ok: true, authConfigured: false };
+}
+
+function hasSessionLiveAccessToken_() {
+  const token = PropertiesService.getScriptProperties().getProperty(
+    SESSION_LIVE_CONFIG.accessTokenProperty
+  );
+  return Boolean(token && String(token).length >= SESSION_LIVE_CONFIG.minAccessTokenLength);
+}
+
+function requireAccessToken_(candidate) {
+  const configured = PropertiesService.getScriptProperties().getProperty(
+    SESSION_LIVE_CONFIG.accessTokenProperty
+  );
+  if (!configured || String(configured).length < SESSION_LIVE_CONFIG.minAccessTokenLength) {
+    throw serviceError_("AUTH_NOT_CONFIGURED", "SESSION_LIVE está bloqueado hasta configurar una credencial.");
+  }
+  const provided = String(candidate || "");
+  if (!constantTimeEqual_(String(configured), provided)) {
+    throw serviceError_("UNAUTHORIZED", "Credencial SESSION_LIVE inválida.");
+  }
+  return true;
+}
+
+function constantTimeEqual_(left, right) {
+  const a = String(left || "");
+  const b = String(right || "");
+  let mismatch = a.length ^ b.length;
+  const length = Math.max(a.length, b.length);
+  for (let index = 0; index < length; index += 1) {
+    const ac = index < a.length ? a.charCodeAt(index) : 0;
+    const bc = index < b.length ? b.charCodeAt(index) : 0;
+    mismatch |= ac ^ bc;
+  }
+  return mismatch === 0;
 }
 
 function cleanupExpiredSessions() {

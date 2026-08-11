@@ -24,11 +24,16 @@ Este repositorio fue trabajado anteriormente desde otra cuenta de ChatGPT. El hi
 - Este repo contiene **la web/fichas de El Foundry de la Banda**.
 - La infraestructura física del servidor Foundry VTT está en otro repo: `JRRGUILLE-bit/JRRGUILLE-bit-foundry-infra`.
 - No mezcles ambos proyectos salvo pedido explícito.
-- La última etapa funcional verificada antes de este handoff fue A17.2, mergeada mediante PR #66.
+- La última etapa funcional verificada antes del hardening de seguridad fue A17.2, mergeada mediante PR #66.
 - A17.2 localiza los hechizos de Magna y Melkor al español por defecto; los otros cuatro personajes permanecen en inglés por defecto.
 - Los exports completos de actores de Foundry son la fuente canónica de datos, salvo correcciones explícitas posteriores del usuario.
 - La ficha mobile y la desktop están desacopladas arquitectónicamente.
 - Existe `SESSION_LIVE` con store local, sincronización remota, Google Apps Script + Google Sheets y QA específico.
+- `SESSION_LIVE` debe funcionar **fail-closed**: sin credencial privada válida queda en modo `LOCAL` y no lee ni escribe remotamente.
+- La URL pública `/exec` de Apps Script no es un secreto; el token `BANDA_SESSION_ACCESS_TOKEN` sí lo es.
+- El token nunca puede escribirse en GitHub, archivos, commits, issues, PRs, README, AGENTS, logs públicos ni query strings.
+- El token solo debe vivir en Script Properties de Apps Script y temporalmente en `sessionStorage` de un navegador autorizado.
+- Si ves un token real en el repositorio, no lo reutilices: tratálo como comprometido, retiralo del contenido visible y pedí/indicá una rotación.
 - No publiques secretos, tokens, licencias ni URLs privadas de Google Sheets.
 - No mergees PRs sin autorización explícita del usuario.
 

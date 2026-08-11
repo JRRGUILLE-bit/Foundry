@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, "..");
 const codePath = path.join(root, "apps-script", "Code.gs");
 const code = fs.readFileSync(codePath, "utf8");
 const configSource = fs.readFileSync(path.join(root, "mobile-session-remote-config.js"), "utf8");
-const remoteSource = fs.readFileSync(path.join(root, "mobile-session-remote-sync.js"), "utf8");
+const authSource = fs.readFileSync(path.join(root, "mobile-session-auth.js"), "utf8");
 const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "apps-script", "appsscript.json"), "utf8"));
 const guide = fs.readFileSync(path.join(root, "docs", "session-live-apps-script-deployment.md"), "utf8");
@@ -103,6 +103,7 @@ const spreadsheet = new MockSpreadsheet();
 const properties = new Map();
 const triggers = [];
 const lockStats = { waited: 0, released: 0 };
+let uuidCounter = 0;
 
 const sandbox = {
   console,
@@ -122,7 +123,8 @@ const sandbox = {
   PropertiesService: {
     getScriptProperties: () => ({
       getProperty: (key) => properties.get(key) || null,
-      setProperty: (key, value) => { properties.set(key, String(value)); }
+      setProperty: (key, value) => { properties.set(key, String(value)); },
+      deleteProperty: (key) => { properties.delete(key); }
     })
   },
   LockService: {
@@ -140,6 +142,9 @@ const sandbox = {
         })
       })
     })
+  },
+  Utilities: {
+    getUuid: () => `00000000-0000-4000-8000-${String(++uuidCounter).padStart(12, "0")}`
   },
   ContentService: {
     MimeType: { JSON: "application/json" },
@@ -198,37 +203,48 @@ const setup = sandbox.setupSessionLive();
 const sheet = spreadsheet.getSheetByName("SESSION_LIVE");
 check("setup:result", setup.ok === true && setup.sheetName === "SESSION_LIVE");
 check("setup:property", properties.get("BANDA_SESSION_SPREADSHEET_ID") === spreadsheet.id);
+check("setup:auth-not-configured", setup.authConfigured === false);
 check("setup:headers", sheet?.data[0]?.join("|") === "schema_version|character_id|session_id|updated_at|expires_at|record_json|stored_at");
 check("setup:frozen-header", sheet?.frozenRows === 1);
 check("setup:cleanup-trigger", triggers.length === 1 && triggers[0].getHandlerFunction() === "cleanupExpiredSessions");
 
 const health = get({ action: "health", protocolVersion: "1" });
 check("get:health", health.ok === true && health.service === "BANDA_SESSION_LIVE");
+check("get:health-auth-required", health.authRequired === true && health.authConfigured === false);
 check("get:protocol-error", get({ action: "health", protocolVersion: "2" }).code === "PROTOCOL_VERSION_UNSUPPORTED");
-check("get:character-whitelist", get({ action: "get", protocolVersion: "1", characterId: "intruder" }).code === "CHARACTER_NOT_ALLOWED");
+check("get:sensitive-method-blocked", get({ action: "get", protocolVersion: "1", characterId: "balder" }).code === "METHOD_NOT_ALLOWED");
+
+const beforeAuth = post({ action: "get", protocolVersion: 1, characterId: "balder", accessToken: "x".repeat(64) });
+check("auth:fail-closed-unconfigured", beforeAuth.code === "AUTH_NOT_CONFIGURED");
+
+const rotated = sandbox.rotateSessionLiveAccessToken();
+const accessToken = rotated.accessToken;
+check("auth:rotate", rotated.ok === true && typeof accessToken === "string" && accessToken.length >= 32);
+check("auth:stored-private-property", properties.get("BANDA_SESSION_ACCESS_TOKEN") === accessToken);
+check("auth:wrong-token", post({ action: "get", protocolVersion: 1, characterId: "balder", accessToken: "z".repeat(64) }).code === "UNAUTHORIZED");
 
 const first = record("balder", -2000, 5 * 60 * 60 * 1000, 40);
-const created = post({ action: "upsert", protocolVersion: 1, record: first });
+const created = post({ action: "upsert", protocolVersion: 1, accessToken, record: first });
 check("post:create", created.ok === true && created.accepted === true && created.direction === "created");
 check("sheet:one-row-per-character", sheet.getLastRow() === 2);
 
-const fetched = get({ action: "get", protocolVersion: "1", characterId: "balder" });
-check("get:record", fetched.ok === true && fetched.record?.state?.hp?.current === 40);
+const fetched = post({ action: "get", protocolVersion: 1, accessToken, characterId: "balder" });
+check("post:get-record", fetched.ok === true && fetched.record?.state?.hp?.current === 40);
 
 const newer = record("balder", -1000, 5 * 60 * 60 * 1000, 31);
-const replaced = post({ action: "upsert", protocolVersion: 1, record: newer });
+const replaced = post({ action: "upsert", protocolVersion: 1, accessToken, record: newer });
 check("post:newer-wins", replaced.accepted === true && replaced.direction === "client" && replaced.record.state.hp.current === 31);
 check("sheet:still-one-row", sheet.getLastRow() === 2);
 
 const older = record("balder", -3000, 5 * 60 * 60 * 1000, 5);
-const conflict = post({ action: "upsert", protocolVersion: 1, record: older });
+const conflict = post({ action: "upsert", protocolVersion: 1, accessToken, record: older });
 check("post:server-newer-wins", conflict.accepted === false && conflict.direction === "server" && conflict.record.state.hp.current === 31);
 
-const equal = post({ action: "upsert", protocolVersion: 1, record: newer });
+const equal = post({ action: "upsert", protocolVersion: 1, accessToken, record: newer });
 check("post:equal-idempotent", equal.accepted === true && equal.direction === "equal");
 
 const magna = record("magna", -500, 5 * 60 * 60 * 1000, 18);
-const second = post({ action: "upsert", protocolVersion: 1, record: magna });
+const second = post({ action: "upsert", protocolVersion: 1, accessToken, record: magna });
 check("post:second-character", second.ok === true && sheet.getLastRow() === 3);
 
 const expired = record("sathar", -10000, -1000, 12);
@@ -241,30 +257,43 @@ check("post:invalid-json", invalidJson.code === "INVALID_JSON");
 
 const mismatch = record("ingwe");
 mismatch.state.characterId = "balder";
-check("post:identity-validation", post({ action: "upsert", protocolVersion: 1, record: mismatch }).code === "STATE_IDENTITY_MISMATCH");
+check("post:identity-validation", post({ action: "upsert", protocolVersion: 1, accessToken, record: mismatch }).code === "STATE_IDENTITY_MISMATCH");
 
 const expiredPost = record("ingwe", -10000, -1000, 12);
-check("post:expired-rejected", post({ action: "upsert", protocolVersion: 1, record: expiredPost }).code === "SESSION_EXPIRED");
+check("post:expired-rejected", post({ action: "upsert", protocolVersion: 1, accessToken, record: expiredPost }).code === "SESSION_EXPIRED");
 
 const tooLarge = record("ingwe");
 tooLarge.state.sessionNotes = "x".repeat(46000);
-check("post:size-limit", post({ action: "upsert", protocolVersion: 1, record: tooLarge }).code === "RECORD_TOO_LARGE");
+check("post:size-limit", post({ action: "upsert", protocolVersion: 1, accessToken, record: tooLarge }).code === "RECORD_TOO_LARGE");
+
+sandbox.clearSessionLiveAccessToken();
+check("auth:clear", properties.has("BANDA_SESSION_ACCESS_TOKEN") === false);
+check("auth:locked-after-clear", post({ action: "get", protocolVersion: 1, characterId: "balder", accessToken }).code === "AUTH_NOT_CONFIGURED");
 check("lock:balanced", lockStats.waited > 0 && lockStats.waited === lockStats.released, JSON.stringify(lockStats));
 
-check("protocol:remote-get", remoteSource.includes('url.searchParams.set("action", "get")'));
-check("protocol:remote-upsert", remoteSource.includes('action: "upsert"'));
-check("protocol:text-plain", remoteSource.includes('"Content-Type": "text/plain;charset=utf-8"'));
-check("config:empty-endpoint", /endpoint:\s*""/.test(configSource));
-check("config:no-secret", !/(token|secret|authorization)\s*:/i.test(configSource));
+check("config:fail-closed", /enabled:\s*false/.test(configSource));
+check("config:no-token", !/accessToken\s*:/.test(configSource));
+check("auth:session-storage", authSource.includes("sessionStorage"));
+check("auth:post-only", authSource.includes('method: "POST"'));
+check("auth:body-token", authSource.includes("accessToken"));
+check("auth:clears-fragment", authSource.includes("replaceState"));
+check("auth:no-local-storage", !authSource.includes("localStorage"));
+
 const configPosition = indexSource.indexOf('src="mobile-session-remote-config.js');
+const authPosition = indexSource.indexOf('src="mobile-session-auth.js');
 const adapterPosition = indexSource.indexOf('src="mobile-session-remote-sync.js');
-check("index:config-before-adapter", configPosition >= 0 && adapterPosition > configPosition);
+check("index:config-before-auth", configPosition >= 0 && authPosition > configPosition);
+check("index:auth-before-adapter", authPosition >= 0 && adapterPosition > authPosition);
+
 check("manifest:timezone", manifest.timeZone === "America/Montevideo");
 check("manifest:v8", manifest.runtimeVersion === "V8");
 check("guide:anyone-access", guide.includes("Quién tiene acceso: **Cualquier persona**"));
-check("guide:health-check", guide.includes("action=health&protocolVersion=1"));
+check("guide:token-private", guide.includes("no debe guardarse en GitHub"));
+check("guide:post-auth", guide.includes("POST autenticado"));
 check("backend:lock-service", code.includes("LockService.getScriptLock"));
 check("backend:hourly-cleanup", code.includes("everyHours(1)"));
+check("backend:auth-property", code.includes("BANDA_SESSION_ACCESS_TOKEN"));
+check("backend:method-block", code.includes("METHOD_NOT_ALLOWED"));
 check("backend:allowed-ids", ["artionketh", "balder", "ingwe", "magna", "melkor", "sathar"].every((id) => code.includes(`"${id}"`)));
 
 const report = {

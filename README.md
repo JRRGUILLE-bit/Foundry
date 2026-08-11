@@ -8,10 +8,11 @@ Este repositorio está documentado para que el trabajo pueda continuar desde **o
 
 Antes de modificar código:
 
-1. Leer [`AGENTS.md`](AGENTS.md).
-2. Leer [`docs/handoff-gonza-codex.md`](docs/handoff-gonza-codex.md).
-3. Verificar en GitHub el estado real de `main`, PRs e issues.
-4. Ejecutar el QA correspondiente al área que se vaya a tocar.
+1. Leer [`00-START-HERE-GONZA.md`](00-START-HERE-GONZA.md).
+2. Leer [`AGENTS.md`](AGENTS.md).
+3. Leer [`docs/handoff-gonza-codex.md`](docs/handoff-gonza-codex.md).
+4. Verificar en GitHub el estado real de `main`, PRs e issues.
+5. Ejecutar el QA correspondiente al área que se vaya a tocar.
 
 Gonzalo trabaja con el usuario de GitHub `gonzalosellanesvera-art`. El repo es público y puede leerse sin permisos especiales, pero para crear ramas y hacer `push` directamente necesita acceso de escritura como collaborator.
 
@@ -25,7 +26,7 @@ Fecha de este handoff: **11 de agosto de 2026**.
 
 Rama principal: `main`.
 
-Último cambio funcional verificado antes de este handoff:
+Último cambio funcional de referencia anterior al hardening de seguridad:
 
 ```text
 38fb7e100ba56bad4e8d85f8bac18f3a6ce66ee2
@@ -37,8 +38,9 @@ Por lo tanto:
 
 - A17.2 **ya está mergeado**.
 - La issue #64 fue cerrada como completada el 11/08/2026.
-- No tratar la localización de hechizos como trabajo pendiente.
+- Los PR viejos #24 y #67 quedaron cerrados como superseded; no deben reabrirse ni mergearse.
 - La issue #26 continúa deliberadamente en backburner para una futura interacción GM → celulares.
+- `SESSION_LIVE` debe operar bajo el modelo de autenticación descrito abajo; nunca volver a exponer lectura/escritura remota sin credencial.
 
 ---
 
@@ -197,30 +199,36 @@ Archivo principal:
 
 ### 5. Sincronización remota `SESSION_LIVE`
 
-Se implementó y desplegó un backend con Google Apps Script + Google Sheets.
-
-Incluye:
-
-- `GET` y `POST`;
-- health check;
-- pestaña `SESSION_LIVE`;
-- una fila por personaje;
-- JSON completo del estado;
-- `LockService`;
-- validación de protocolo y esquema;
-- resolución por `updatedAt`;
-- expiración y limpieza horaria;
-- adaptador remoto con debounce y estado de conexión.
+Existe un backend con Google Apps Script + Google Sheets para sincronizar temporalmente el estado de los personajes.
 
 Archivos relevantes:
 
 - `mobile-session-remote-config.js`
+- `mobile-session-auth.js`
 - `mobile-session-remote-sync.js`
 - `apps-script/Code.gs`
 - `apps-script/appsscript.json`
 - `docs/session-live-apps-script-deployment.md`
 
-No publicar en este README la URL privada de la Sheet, tokens, secretos ni información de la cuenta propietaria.
+#### Modelo de seguridad canónico
+
+El diseño actual es **fail-closed**:
+
+- la Google Sheet debe permanecer privada;
+- la URL `/exec` de Apps Script puede ser pública y no se considera una credencial;
+- `health` puede consultarse sin autenticación y no devuelve estado de personajes;
+- leer o escribir estado requiere **POST autenticado**;
+- el token `BANDA_SESSION_ACCESS_TOKEN` vive únicamente en Script Properties de Apps Script y temporalmente en `sessionStorage` de navegadores autorizados;
+- `mobile-session-remote-config.js` queda `enabled: false` por defecto;
+- `mobile-session-auth.js` habilita la sincronización solo cuando el navegador posee un token válido;
+- el token puede importarse mediante `#session-live-token=...` y ese fragmento se elimina inmediatamente de la barra de direcciones;
+- el token no se persiste en `localStorage`.
+
+**Nunca publicar el token** en GitHub, código fuente, commits, issues, PRs, README, AGENTS, query strings, logs públicos ni archivos de configuración.
+
+La URL pública del Web App no necesita ocultarse. La URL privada de la Google Sheet, credenciales de cuenta y token de acceso sí deben permanecer fuera del repo.
+
+El Apps Script Backend QA cubre el modelo de seguridad, además de protocolo, esquema, conflictos, TTL, whitelist, tamaño máximo y locking. El hardening del 11/08/2026 pasó **51/51 comprobaciones** en validación local.
 
 ### 6. Localización de hechizos — A17.2
 
@@ -260,16 +268,32 @@ El Browser Mobile QA cubre Chromium Android simulado, WebKit iPhone simulado y C
 
 ## Pendientes conocidos
 
+### Seguridad / despliegue manual de `SESSION_LIVE`
+
+Los cambios de `apps-script/Code.gs` en GitHub no actualizan por sí solos el Web App que ya está desplegado en Google Apps Script.
+
+Después de integrar el hardening hay que completar en la cuenta propietaria de Apps Script:
+
+1. copiar el `Code.gs` actual al proyecto Apps Script;
+2. ejecutar `setupSessionLive` si corresponde;
+3. ejecutar `rotateSessionLiveAccessToken` y guardar la credencial fuera de GitHub;
+4. publicar una **Nueva versión** del despliegue existente;
+5. comprobar que el health check devuelve `authRequired: true` y `authConfigured: true`;
+6. autorizar los dispositivos mediante la credencial privada.
+
+Hasta que el Web App desplegado se actualice, su versión anterior conserva el comportamiento anterior aunque GitHub ya contenga el código seguro.
+
 ### Pruebas manuales
 
-La arquitectura de modo en vivo está implementada, pero sigue pendiente una prueba end-to-end real con dos dispositivos o navegadores:
+Después del redeploy autenticado sigue pendiente una prueba end-to-end real con dos dispositivos o navegadores autorizados:
 
 1. abrir el mismo personaje en ambos;
 2. modificar PG en uno;
 3. confirmar que el otro recibe el estado;
 4. verificar la fila correspondiente en `SESSION_LIVE`;
 5. editar sin conexión;
-6. reconectar y confirmar reconciliación.
+6. reconectar y confirmar reconciliación;
+7. verificar que un tercer navegador sin token queda en `LOCAL` y no puede sincronizar.
 
 También siguen pendientes smoke tests en hardware real:
 
@@ -298,6 +322,8 @@ Antes de arrancar cualquier pendiente, verificar que no haya commits, PRs o issu
 - Mantener el bundle canónico intacto y aplicar correcciones mediante capas.
 - Ejecutar QA relevante antes de presentar un PR como listo.
 - En fallos de Playwright, leer artefactos/logs y distinguir regresión real de timeout/flakiness antes de cambiar producción.
+- Para `SESSION_LIVE`, nunca desactivar o eludir autenticación por comodidad.
+- Nunca introducir un token real en el repositorio.
 - Después de una etapa importante, actualizar este README y `docs/handoff-gonza-codex.md` para que la siguiente sesión no dependa de memoria de chat.
 
 ---
@@ -306,7 +332,7 @@ Antes de arrancar cualquier pendiente, verificar que no haya commits, PRs o issu
 
 Un prompt de arranque recomendado para Gonza es:
 
-> Trabajá sobre `JRRGUILLE-bit/Foundry`. Antes de cambiar nada, leé `AGENTS.md`, `README.md` y `docs/handoff-gonza-codex.md`; después verificá el estado real de `main`, PRs e issues. No asumas contexto de chats anteriores. Decime qué está efectivamente terminado, qué está pendiente y qué QA corresponde a la tarea que te pida.
+> Trabajá sobre `JRRGUILLE-bit/Foundry`. Antes de cambiar nada, leé `00-START-HERE-GONZA.md`, `AGENTS.md`, `README.md` y `docs/handoff-gonza-codex.md`; después verificá el estado real de `main`, PRs e issues. No asumas contexto de chats anteriores. Decime qué está efectivamente terminado, qué está pendiente y qué QA corresponde a la tarea que te pida. No publiques ni escribas credenciales de SESSION_LIVE en GitHub.
 
 Ese procedimiento convierte al repositorio en la fuente de continuidad entre cuentas.
 
@@ -314,13 +340,15 @@ Ese procedimiento convierte al repositorio en la fuente de continuidad entre cue
 
 ## Referencias rápidas
 
+- Primera entrada de Gonza/Codex: [`00-START-HERE-GONZA.md`](00-START-HERE-GONZA.md)
 - Instrucciones para agentes/Codex: [`AGENTS.md`](AGENTS.md)
 - Handoff específico para Gonza: [`docs/handoff-gonza-codex.md`](docs/handoff-gonza-codex.md)
 - Contrato mobile: `docs/mobile-character-data-contract.json`
 - Resumen consolidado: `audit/consolidated-summary.json`
-- Despliegue `SESSION_LIVE`: `docs/session-live-apps-script-deployment.md`
+- Despliegue seguro `SESSION_LIVE`: `docs/session-live-apps-script-deployment.md`
 - Workflow de navegador: `.github/workflows/browser-mobile-qa.yml`
 - Workflow de localización: `.github/workflows/spell-localization-qa.yml`
 - PR A17.2 mergeado: #66
 - Issue A17.2 completada/cerrada: #64
+- PRs superseded: #24, #67
 - Backburner: #26
