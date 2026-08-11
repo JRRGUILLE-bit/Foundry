@@ -1,14 +1,21 @@
 # AGENTS.md — El Foundry de la Banda
 
+## PRIMERA EJECUCIÓN EN LA CUENTA DE GONZA
+
+Si esta es la primera vez que esta sesión de ChatGPT/Codex entra al proyecto desde la cuenta de Gonzalo (`gonzalosellanesvera-art`), **leer primero `00-START-HERE-GONZA.md` y seguir esas instrucciones antes de tocar código**.
+
+No asumir contexto de conversaciones anteriores. GitHub y la documentación del repositorio son la fuente de continuidad entre cuentas.
+
 Estas instrucciones existen para que cualquier sesión de Codex, incluida la cuenta de Gonzalo (`gonzalosellanesvera-art`), pueda retomar el proyecto sin depender del historial de otro chat.
 
 ## Antes de tocar código
 
-1. Leer `README.md` completo.
-2. Leer `docs/handoff-gonza-codex.md`.
-3. Verificar el estado real de `main`, PRs e issues en GitHub antes de asumir que el README sigue siendo exacto.
-4. Inspeccionar los workflows relevantes antes de presentar un cambio como terminado.
-5. Si una instrucción de un chat contradice el repositorio o una instrucción explícita posterior del usuario, pedir/usar la instrucción más reciente y dejar la discrepancia documentada.
+1. Leer `00-START-HERE-GONZA.md` si es la primera sesión de Gonza.
+2. Leer `README.md` completo.
+3. Leer `docs/handoff-gonza-codex.md`.
+4. Verificar el estado real de `main`, PRs e issues en GitHub antes de asumir que el README sigue siendo exacto.
+5. Inspeccionar los workflows relevantes antes de presentar un cambio como terminado.
+6. Si una instrucción de un chat contradice el repositorio o una instrucción explícita posterior del usuario, pedir/usar la instrucción más reciente y dejar la discrepancia documentada.
 
 ## Estado base verificado
 
