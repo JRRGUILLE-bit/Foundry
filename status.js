@@ -92,7 +92,10 @@
       const status = await response.json();
       const url = getValidHttpsUrl(status.url);
 
-      if (status.online !== true || !url) {
+      // GitHub Actions is the authoritative health monitor. The browser also
+      // performs a lightweight reachability probe so a stale ONLINE state can
+      // never leave an enabled link when the endpoint has already disappeared.
+      if (status.enabled === false || status.online !== true || !url) {
         setState("offline");
         return;
       }
