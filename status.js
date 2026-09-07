@@ -8,6 +8,8 @@
   const panel = document.querySelector("#server-panel");
   const statusText = document.querySelector("#status-text");
   const foundryLink = document.querySelector("#foundry-link");
+  const mastheadStatus = document.querySelector("#masthead-status");
+  const mastheadStatusText = document.querySelector("#masthead-status-text");
 
   if (!panel || !statusText || !foundryLink) return;
 
@@ -16,8 +18,20 @@
     return typeof value === "string" ? value : fallback;
   }
 
+  function setMastheadState(state) {
+    if (!mastheadStatus || !mastheadStatusText) return;
+
+    mastheadStatus.dataset.state = state;
+    mastheadStatusText.textContent = state === "online"
+      ? "PORTAL ONLINE"
+      : state === "offline"
+        ? "PORTAL OFFLINE"
+        : "CHECKING PORTAL...";
+  }
+
   function setState(state, url = "") {
     panel.dataset.state = state;
+    setMastheadState(state);
 
     if (state === "online") {
       statusText.textContent = translatedStatus(

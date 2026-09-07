@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="interface.css">
   <link rel="stylesheet" href="characters.css">
   <link rel="stylesheet" href="ui-polish.css?v=20260721-3">
+  <link rel="stylesheet" href="command-center.css?v=20260907-1">
 </head>
 <body>
   <div id="code-rain" class="code-rain" aria-hidden="true"></div>
@@ -21,6 +22,21 @@
     <header class="terminal-bar">
       <span class="terminal-path" data-i18n="terminal.command">C:\BANDA\FOUNDRY&gt; SUMMON ADVENTURE.EXE --NO_REFUNDS</span>
     </header>
+
+    <section class="campaign-masthead" aria-labelledby="campaign-title">
+      <div>
+        <p class="campaign-kicker">VERITAS // CAMPAIGN TERMINAL</p>
+        <h1 id="campaign-title">
+          <span>EL FOUNDRY</span>
+          <span>DE LA BANDA</span>
+        </h1>
+        <p class="campaign-subtitle">TACTICAL SCRYING // PARTY FILES // BAD DECISIONS</p>
+      </div>
+      <div class="masthead-status" id="masthead-status" data-state="checking" aria-live="polite">
+        <span class="masthead-status-light" aria-hidden="true"></span>
+        <span id="masthead-status-text">CHECKING PORTAL...</span>
+      </div>
+    </section>
 
     <div class="terminal-grid">
       <section class="feed-panel" aria-labelledby="feed-title">
@@ -38,7 +54,7 @@
             muted
             loop
             playsinline
-            preload="auto"
+            preload="metadata"
             disablepictureinpicture
           >
             <source src="VideoProject25-web-720p%20(1).mp4?v=20260721-2" type="video/mp4">
@@ -54,12 +70,25 @@
       </section>
 
       <aside class="control-panel">
-        <section class="identity-block">
-          <p class="system-label" data-i18n="identity.label">DEPARTMENT OF BAD DECISIONS</p>
-          <h1>
-            <span>EL FOUNDRY</span>
-            <span>DE LA BANDA</span>
-          </h1>
+        <section class="server-panel" id="server-panel" data-state="checking" aria-live="polite">
+          <header class="status-header" data-i18n="status.header">MYSTICAL_BROADBAND.SYS</header>
+
+          <div class="status-row">
+            <span class="status-light" aria-hidden="true"></span>
+            <span id="status-text" data-i18n="status.checking">ASKING WIZARD TO REBOOT...</span>
+          </div>
+
+          <a
+            class="foundry-link"
+            id="foundry-link"
+            aria-disabled="true"
+            tabindex="-1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="prompt-prefix">&gt;</span>
+            <span data-i18n="button.enter">ENTER FOUNDRY</span>
+          </a>
         </section>
 
         <dl class="system-readout">
@@ -87,29 +116,16 @@
           <p class="log-idle" data-i18n="log.dragon">WAKE DRAGON ........ GREAT IDEA</p>
           <p class="log-active" data-i18n="log.dm">DM IMPROVISATION BUFFERING</p>
         </section>
-
-        <section class="server-panel" id="server-panel" data-state="checking" aria-live="polite">
-          <header class="status-header" data-i18n="status.header">MYSTICAL_BROADBAND.SYS</header>
-
-          <div class="status-row">
-            <span class="status-light" aria-hidden="true"></span>
-            <span id="status-text" data-i18n="status.checking">ASKING WIZARD TO REBOOT...</span>
-          </div>
-
-          <a
-            class="foundry-link"
-            id="foundry-link"
-            aria-disabled="true"
-            tabindex="-1"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="prompt-prefix">&gt;</span>
-            <span data-i18n="button.enter">ENTER FOUNDRY</span>
-          </a>
-        </section>
       </aside>
     </div>
+
+    <section class="party-deck" aria-labelledby="party-deck-title">
+      <header class="party-deck-header">
+        <h2 id="party-deck-title">PARTY FILES // ACTIVE OPERATIVES</h2>
+        <span>TAP A PORTRAIT TO OPEN THE SHEET</span>
+      </header>
+      <div class="party-roster" id="party-roster" data-state="loading"></div>
+    </section>
 
     <footer class="terminal-footer">
       <span data-i18n="footer.ready">DM READY // PLAN NOT FOUND</span>
@@ -128,7 +144,8 @@
   <script src="mobile-session-remote-config.js?v=20260811-2"></script>
   <script src="mobile-session-auth.js?v=20260811-1"></script>
   <script src="mobile-session-remote-sync.js?v=20260723-1"></script>
-  <script src="characters.js?v=20260723-1"></script>
+  <script src="characters.js?v=20260907-1"></script>
+  <script src="party-roster.js?v=20260907-1"></script>
   <script src="desktop-character-portraits.js?v=20260723-1"></script>
   <script src="mobile-character-shell.js?v=20260723-1"></script>
   <script src="spell-localization-runtime.js?v=20260723-5"></script>
