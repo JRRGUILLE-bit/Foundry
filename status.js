@@ -58,25 +58,50 @@
     }
   }
 
-  async function probeServer(url) {
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), PROBE_TIMEOUT);
+  function getFoundrySocketUrl(baseUrl) {
+    const base = new URL(baseUrl);
+    const socket = new URL("/socket.io/", base);
+    socket.protocol = "wss:";
+    socket.searchParams.set("EIO", "4");
+    socket.searchParams.set("transport", "websocket");
+    socket.searchParams.set("portal_check", Date.now().toString());
+    return socket.href;
+  }
 
-    try {
-      const separator = url.includes("?") ? "&" : "?";
-      await fetch(`${url}${separator}portal-check=${Date.now()}`, {
-        method: "GET",
-        mode: "no-cors",
-        cache: "no-store",
-        redirect: "follow",
-        signal: controller.signal
+  function probeFoundry(url) {
+    return new Promise((resolve) => {
+      let settled = false;
+      let socket;
+
+      const finish = (ok) => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timeout);
+        if (socket && socket.readyState < WebSocket.CLOSING) {
+          socket.close(1000, "portal health check complete");
+        }
+        resolve(ok);
+      };
+
+      const timeout = window.setTimeout(() => finish(false), PROBE_TIMEOUT);
+
+      try {
+        socket = new WebSocket(getFoundrySocketUrl(url));
+      } catch {
+        finish(false);
+        return;
+      }
+
+      socket.addEventListener("message", (event) => {
+        const payload = typeof event.data === "string" ? event.data : "";
+        // Engine.IO opens a valid Socket.IO connection with packet type "0".
+        // Requiring the handshake avoids treating an arbitrary HTTPS response
+        // or unrelated WebSocket service as a healthy Foundry instance.
+        if (payload.startsWith("0")) finish(true);
       });
-      return true;
-    } catch {
-      return false;
-    } finally {
-      window.clearTimeout(timeout);
-    }
+      socket.addEventListener("error", () => finish(false));
+      socket.addEventListener("close", () => finish(false));
+    });
   }
 
   async function refreshStatus(showChecking = false) {
@@ -92,12 +117,15 @@
       const status = await response.json();
       const url = getValidHttpsUrl(status.url);
 
-      if (status.online !== true || !url) {
+      // `enabled` is the operator kill switch. `online` is retained as a
+      // human-readable last-known state only; the browser decides live status
+      // from a real Foundry Socket.IO handshake.
+      if (status.enabled === false || !url) {
         setState("offline");
         return;
       }
 
-      const reachable = await probeServer(url);
+      const reachable = await probeFoundry(url);
       setState(reachable ? "online" : "offline", reachable ? url : "");
     } catch {
       setState("offline");
