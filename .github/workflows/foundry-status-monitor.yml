@@ -1,0 +1,98 @@
+name: Foundry Status Monitor
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: foundry-status-monitor
+  cancel-in-progress: true
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Probe configured Foundry endpoint
+        id: probe
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ENABLED="$(jq -r '.enabled // true' server-status.json)"
+          URL="$(jq -r '.url // empty' server-status.json)"
+
+          if [[ "$ENABLED" != "true" ]]; then
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+            echo "Operator kill switch is disabled."
+            exit 0
+          fi
+
+          if [[ -z "$URL" || "$URL" != https://* ]]; then
+            echo "healthy=false" >> "$GITHUB_OUTPUT"
+            echo "No valid HTTPS Foundry endpoint is configured."
+            exit 0
+          fi
+
+          TMP_BODY="$(mktemp)"
+          HTTP_CODE="$(curl \
+            --location \
+            --silent \
+            --show-error \
+            --connect-timeout 5 \
+            --max-time 12 \
+            --output "$TMP_BODY" \
+            --write-out '%{http_code}' \
+            "$URL" || true)"
+
+          HEALTHY=false
+
+          if [[ "$HTTP_CODE" =~ ^2[0-9][0-9]$|^3[0-9][0-9]$ ]]; then
+            if grep -Eiq 'Foundry Virtual Tabletop|FoundryVTT|foundry\.js|socket\.io' "$TMP_BODY"; then
+              HEALTHY=true
+            fi
+          fi
+
+          rm -f "$TMP_BODY"
+
+          echo "healthy=$HEALTHY" >> "$GITHUB_OUTPUT"
+          echo "HTTP status: ${HTTP_CODE:-none}; Foundry healthy: $HEALTHY"
+
+      - name: Update status only on transition
+        env:
+          HEALTHY: ${{ steps.probe.outputs.healthy }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          CURRENT="$(jq -r '.online == true' server-status.json)"
+
+          if [[ "$CURRENT" == "$HEALTHY" ]]; then
+            echo "No status transition. Leaving repository untouched."
+            exit 0
+          fi
+
+          NOW="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          TMP="$(mktemp)"
+          jq \
+            --argjson online "$HEALTHY" \
+            --arg updatedAt "$NOW" \
+            '.online = $online | .updatedAt = $updatedAt' \
+            server-status.json > "$TMP"
+          mv "$TMP" server-status.json
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add server-status.json
+          git commit -m "chore: mark Foundry ${HEALTHY}"
+          git push origin HEAD:main
