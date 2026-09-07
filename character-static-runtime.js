@@ -2,13 +2,31 @@
   "use strict";
 
   const nativeFetch = window.fetch.bind(window);
-  const index = window.BANDA_CHARACTER_INDEX;
-  const characters = window.BANDA_CHARACTERS;
+  const sourceIndex = window.BANDA_CHARACTER_INDEX;
+  const sourceCharacters = window.BANDA_CHARACTERS;
+  const retiredIds = new Set(["magna"]);
 
-  if (!index || !characters) {
+  if (!sourceIndex || !sourceCharacters) {
     console.error("[CHARACTER STATIC DATA] El bundle no se cargó antes del adaptador.");
     return;
   }
+
+  const characters = Object.fromEntries(
+    Object.entries(sourceCharacters).filter(([id]) => !retiredIds.has(id))
+  );
+
+  const index = {
+    ...sourceIndex,
+    characters: Array.isArray(sourceIndex.characters)
+      ? sourceIndex.characters.filter((entry) => entry?.id && !retiredIds.has(entry.id))
+      : []
+  };
+
+  // Expose only the active roster to every downstream consumer. The original
+  // bundle and repository assets remain untouched for historical continuity.
+  window.BANDA_CHARACTERS = characters;
+  window.BANDA_CHARACTER_INDEX = index;
+  window.BANDA_RETIRED_CHARACTER_IDS = Object.freeze([...retiredIds]);
 
   const memoryResponse = (data, status = 200) => ({
     ok: status >= 200 && status < 300,
@@ -39,12 +57,15 @@
     if (url.startsWith("character-data:")) {
       const id = url.slice("character-data:".length).trim().toLowerCase();
       const character = characters[id];
-      if (!character) return memoryResponse({ error: `No existe el personaje ${id}` }, 404);
+      if (!character) return memoryResponse({ error: `No existe el personaje activo ${id}` }, 404);
       return memoryResponse(character);
     }
 
     return nativeFetch(input, init);
   };
 
-  console.info(`[CHARACTER STATIC DATA] ${Object.keys(characters).length} personajes cargados en memoria. Versión ${window.BANDA_CHARACTER_DATA?.version || "sin versión"}.`);
+  console.info(
+    `[CHARACTER STATIC DATA] ${Object.keys(characters).length} personajes activos cargados en memoria. ` +
+    `${retiredIds.size} retirado(s). Versión ${window.BANDA_CHARACTER_DATA?.version || "sin versión"}.`
+  );
 })();
