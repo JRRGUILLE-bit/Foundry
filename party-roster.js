@@ -8,7 +8,6 @@
   const portraits = {
     sathar: "sathar_portrait.webp",
     artionketh: "arti_portrait.webp",
-    magna: "magna_portrait.webp",
     melkor: "melkor_portrait.webp",
     balder: "balder_portrait.webp",
     ingwe: "ingwe_portrait.webp"
@@ -17,7 +16,6 @@
   const shortNames = {
     sathar: "Sathar",
     artionketh: "Arthi",
-    magna: "Magna",
     melkor: "Melkor",
     balder: "Balder",
     ingwe: "Ingwë"

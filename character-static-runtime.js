@@ -2,13 +2,26 @@
   "use strict";
 
   const nativeFetch = window.fetch.bind(window);
-  const index = window.BANDA_CHARACTER_INDEX;
+  const sourceIndex = window.BANDA_CHARACTER_INDEX;
   const characters = window.BANDA_CHARACTERS;
+  const retiredIds = new Set(["magna"]);
 
-  if (!index || !characters) {
+  if (!sourceIndex || !characters) {
     console.error("[CHARACTER STATIC DATA] El bundle no se cargó antes del adaptador.");
     return;
   }
+
+  const index = {
+    ...sourceIndex,
+    characters: Array.isArray(sourceIndex.characters)
+      ? sourceIndex.characters.filter((entry) => entry?.id && !retiredIds.has(entry.id))
+      : []
+  };
+
+  // Keep archived character data available for historical continuity, but
+  // expose a filtered active index to every UI consumer.
+  window.BANDA_CHARACTER_INDEX = index;
+  window.BANDA_RETIRED_CHARACTER_IDS = Object.freeze([...retiredIds]);
 
   const memoryResponse = (data, status = 200) => ({
     ok: status >= 200 && status < 300,
@@ -46,5 +59,8 @@
     return nativeFetch(input, init);
   };
 
-  console.info(`[CHARACTER STATIC DATA] ${Object.keys(characters).length} personajes cargados en memoria. Versión ${window.BANDA_CHARACTER_DATA?.version || "sin versión"}.`);
+  console.info(
+    `[CHARACTER STATIC DATA] ${index.characters.length} personajes activos. ` +
+    `${retiredIds.size} retirado(s) conservado(s) como archivo histórico. Versión ${window.BANDA_CHARACTER_DATA?.version || "sin versión"}.`
+  );
 })();
