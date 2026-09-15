@@ -2,6 +2,7 @@
   "use strict";
 
   const STATUS_URL = "server-status.json";
+  const FOUNDRY_URL = "http://190.135.240.33:30000/game";
   const POLL_INTERVAL = 30000;
   const PROBE_TIMEOUT = 7000;
 
@@ -12,6 +13,10 @@
   const mastheadStatusText = document.querySelector("#masthead-status-text");
 
   if (!panel || !statusText || !foundryLink) return;
+
+  foundryLink.href = FOUNDRY_URL;
+  foundryLink.setAttribute("aria-disabled", "false");
+  foundryLink.removeAttribute("tabindex");
 
   function translatedStatus(key, fallback) {
     const value = window.FoundryI18n?.t(`status.${key}`);
@@ -29,24 +34,23 @@
         : "CHECKING PORTAL...";
   }
 
-  function setState(state, url = "") {
+  function setState(state) {
     panel.dataset.state = state;
     setMastheadState(state);
+
+    // The Foundry button always points directly to the live game endpoint.
+    // Keep it enabled even when the status monitor cannot probe the HTTP endpoint.
+    foundryLink.href = FOUNDRY_URL;
+    foundryLink.setAttribute("aria-disabled", "false");
+    foundryLink.removeAttribute("tabindex");
 
     if (state === "online") {
       statusText.textContent = translatedStatus(
         "online",
         "ONLINE // BAD IDEAS WELCOME"
       );
-      foundryLink.href = url;
-      foundryLink.setAttribute("aria-disabled", "false");
-      foundryLink.removeAttribute("tabindex");
       return;
     }
-
-    foundryLink.removeAttribute("href");
-    foundryLink.setAttribute("aria-disabled", "true");
-    foundryLink.setAttribute("tabindex", "-1");
 
     if (state === "checking") {
       statusText.textContent = translatedStatus(
@@ -58,17 +62,6 @@
         "offline",
         "OFFLINE // PORTAL ON BREAK"
       );
-    }
-  }
-
-  function getValidHttpsUrl(value) {
-    if (typeof value !== "string" || value.trim() === "") return "";
-
-    try {
-      const url = new URL(value);
-      return url.protocol === "https:" ? url.href : "";
-    } catch {
-      return "";
     }
   }
 
@@ -104,18 +97,16 @@
       if (!response.ok) throw new Error("Status file unavailable");
 
       const status = await response.json();
-      const url = getValidHttpsUrl(status.url);
 
-      // GitHub Actions is the authoritative health monitor. The browser also
-      // performs a lightweight reachability probe so a stale ONLINE state can
-      // never leave an enabled link when the endpoint has already disappeared.
-      if (status.enabled === false || status.online !== true || !url) {
+      // The status monitor is informational only. The actual button target is
+      // intentionally fixed to the current Foundry game endpoint above.
+      if (status.enabled === false || status.online !== true) {
         setState("offline");
         return;
       }
 
-      const reachable = await probeServer(url);
-      setState(reachable ? "online" : "offline", reachable ? url : "");
+      const reachable = await probeServer(FOUNDRY_URL);
+      setState(reachable ? "online" : "offline");
     } catch {
       setState("offline");
     }
