@@ -2,7 +2,7 @@
   "use strict";
 
   const STATUS_URL = "server-status.json";
-  const FOUNDRY_URL = "http://190.135.240.33:30000/game";
+  const FOUNDRY_URL = "http://190.133.176.41:30000/";
   const POLL_INTERVAL = 30000;
   const PROBE_TIMEOUT = 7000;
 
