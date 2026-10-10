@@ -1,0 +1,40 @@
+name: Behind the Screen QA
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "behind-screen.js"
+      - "behind-screen.css"
+      - "audit/behind-screen-qa.js"
+      - ".github/workflows/behind-screen-qa.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "behind-screen.js"
+      - "behind-screen.css"
+      - "audit/behind-screen-qa.js"
+      - ".github/workflows/behind-screen-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  behind-screen-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Check shortcut script syntax
+        run: node --check behind-screen.js
+
+      - name: Run shortcut QA
+        run: node audit/behind-screen-qa.js
