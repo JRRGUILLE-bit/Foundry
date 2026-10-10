@@ -160,12 +160,7 @@
   }
 
   function goToSavedAddress() {
-    const savedUrl = getSavedUrl();
-    if (!savedUrl) {
-      openSettings();
-      return;
-    }
-    window.location.assign(savedUrl);
+    window.location.assign("http://192.168.86.35:30000/game");
   }
 
   trigger.addEventListener("click", goToSavedAddress);
