@@ -145,6 +145,17 @@ Orden recomendado:
 
 Después, inspeccionar issues/PRs actuales en GitHub. El repositorio vivo manda sobre cualquier fecha escrita en este handoff.
 
+## Acceso local opcional: Behind the Screen
+
+La portada web incluye un botón fijo abajo a la izquierda, **Behind the Screen / Para Guille**, para abrir la instancia local de Foundry desde el mismo navegador.
+
+- En el primer uso se ingresa una URL HTTP(S) del servidor en la red local, por ejemplo `http://192.168.1.50:30000` (la IP de ejemplo no es una dirección real del servidor).
+- La dirección se guarda solo en `localStorage` de ese navegador; no se sube a GitHub ni se envía a ningún backend.
+- El botón principal abre la dirección guardada. El botón de configuración permite editarla o borrarla.
+- Una página pública no puede descubrir de forma fiable la IP privada del servidor. La dirección se configura manualmente; el atajo funciona cuando el dispositivo está en la misma LAN. Reservar la IP por DHCP en el router ayuda a evitar que cambie.
+- El acceso existente por Tailscale (`https://santipc.tail278254.ts.net/`) permanece sin cambios para el acceso remoto. No sustituirlo por una IP privada.
+- QA: `node --check behind-screen.js` y `node audit/behind-screen-qa.js`, además del Browser Mobile QA en PR.
+
 ## 5. Reglas que vienen del trabajo anterior
 
 - No inventar datos faltantes.
