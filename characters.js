@@ -1,8 +1,6 @@
 (() => {
   "use strict";
 
-  const overlay = document.querySelector("#character-overlay");
-  if (!overlay) return;
 
   const cache = new Map();
   let lastTrigger = null;
@@ -494,27 +492,5 @@
     }
   }
 
-  function createHotspot(meta) {
-    const button = document.createElement("button");
-    button.className = "cv-hotspot";
-    button.type = "button";
-    button.style.cssText = `--x:${meta.sprite.x}%;--y:${meta.sprite.y}%;--w:${meta.sprite.w}%;--h:${meta.sprite.h}%`;
-    button.innerHTML = `<span>${escapeHtml(meta.name)}</span>`;
-    button.setAttribute("aria-label", `Abrir ficha de ${meta.name}`);
-    button.addEventListener("click", () => openCharacter(meta, button));
-    return button;
-  }
-
-  fetch("data/characters/index.json", { cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    })
-    .then((data) => {
-      overlay.replaceChildren(...(data.characters || []).map(createHotspot));
-    })
-    .catch((error) => {
-      console.error(error);
-      overlay.innerHTML = `<p class="cv-load-error">${labels.error}</p>`;
-    });
+  window.openFoundryCharacter = openCharacter;
 })();
