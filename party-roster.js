@@ -2,8 +2,7 @@
   "use strict";
 
   const roster = document.querySelector("#party-roster");
-  const overlay = document.querySelector("#character-overlay");
-  if (!roster || !overlay) return;
+  if (!roster) return;
 
   const portraits = {
     sathar: "sathar_portrait.webp",
@@ -29,21 +28,7 @@
     "'": "&#39;"
   })[char]);
 
-  function openExistingSheet(index) {
-    const hotspots = overlay.querySelectorAll(".cv-hotspot");
-    const hotspot = hotspots[index];
-    if (hotspot) {
-      hotspot.click();
-      return;
-    }
-
-    window.setTimeout(() => {
-      const retry = overlay.querySelectorAll(".cv-hotspot")[index];
-      retry?.click();
-    }, 180);
-  }
-
-  function createCard(meta, index) {
+  function createCard(meta) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "party-card";
@@ -55,7 +40,7 @@
         <strong class="party-card-name">${escapeHtml(shortNames[meta.id] || meta.name)}</strong>
         <span class="party-card-class">${escapeHtml(meta.classes || "")}</span>
       </span>`;
-    button.addEventListener("click", () => openExistingSheet(index));
+    button.addEventListener("click", () => window.openFoundryCharacter?.(meta, button));
     return button;
   }
 
