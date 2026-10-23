@@ -1,8 +1,8 @@
 {
   "enabled": false,
-  "online": false,
+  "online": true,
   "host": "ASUS",
-  "url": "",
-  "updatedAt": null,
-  "note": "ASUS endpoint is for infrastructure testing. The public game button remains pointed at Santi until the campaign is formally switched."
+  "url": "https://beginners-expense-punch-journal.trycloudflare.com",
+  "updatedAt": "2026-10-23T22:43:59Z",
+  "note": "Endpoint monitorizado automaticamente. La pagina principal sigue apuntando a Santi hasta la promocion formal."
 }
