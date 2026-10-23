@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "online": false,
+  "host": "ASUS",
+  "url": "",
+  "updatedAt": null,
+  "note": "ASUS endpoint is for infrastructure testing. The public game button remains pointed at Santi until the campaign is formally switched."
+}
