@@ -1,0 +1,16 @@
+.video-pixelate-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  opacity: 0.68;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.video-pixelate-layer.is-ready {
+  visibility: visible;
+}
