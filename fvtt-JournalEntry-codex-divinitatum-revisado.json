@@ -1,0 +1,452 @@
+{
+ "folder": "BZkDYMbQUteCmBmm",
+ "name": "Codex Divinitatum",
+ "pages": [
+  {
+   "sort": 100000,
+   "name": "Codex Divinitatum — Liber I: Ex Ordine Rerum",
+   "type": "text",
+   "_id": "2FabIBQB3A0Df636",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<p>En el principio no había nada de lo que ahora hay. Había la Gran Vacuidad, una tiniebla sin forma ni lindero, donde jamás resonó eco alguno ni corrió la cuenta de las horas. Y en el seno de aquella noche sin orillas, que los sabios llaman el Abismo Profundo, dormían las tres Semillas Divinas, cada una en el recinto cerrado de su huevo, aguardando una hora que nadie había fijado.</p><p>Fue <strong>Tenebrae</strong> el primero en despertar, y por eso lo llaman el Primer Nacido. Grande era su ansia de ser, y tan poca su paciencia que quebró la cáscara antes de tiempo. El estruendo de aquel nacimiento hendió la nada misma. De los fragmentos del cascarón brotaron las estrellas, los astros errantes y los cimientos de todos los mundos; y la fuerza del estallido alzó en los confines del cosmos un muro que ninguna criatura ha franqueado desde entonces, y arrojó de vuelta a la oscuridad exterior a los Seres Antiguos, que moraban allí desde antes de que hubiera tiempo para contarlos. Pero Tenebrae no tuvo figura. Se derramó entero en la materia naciente y se hizo borde y frontera del mundo; y la fuerza invisible que atrae los cuerpos celestes unos hacia otros no es sino su lamento, el anhelo de los restos de su cascarón por juntarse de nuevo.</p><p><strong>Luna</strong> fue la segunda. Había contemplado la obra de su hermano y había sentido un deseo de hacer, de maravillarse y, muy hondo, una pizca de envidia. Pero esperó a que la madurez la tocara, y cuando despertó no quebró su morada: la dejó intacta, suspendida en lo alto, y allí sigue, orbe de plata que vela las noches. Luego tomó los rescoldos del fuego estelar que flotaban en el vacío y los trabajó con paciencia de artífice, y de ellos engendró a los <strong>Nueve Hijos</strong>, las constelaciones vivas que cruzan la bóveda y trazan el curso de las mareas, el aliento de los vientos y la suerte de los mortales.</p><p><strong>Sol</strong> despertó el último. Fue el Dios Mayor, el que supo callar hasta que los tiempos se colmaron, y esperó hasta que todo su poder estuvo cumplido. Y cuando al fin se abrió su velo, el mundo se encendió en luz, en fuego y en materia viva, y de su aliento brotaron todas las criaturas que caminan o florecen bajo el cielo. Pero su gloria era tal que habría reducido a cenizas lo mismo que acababa de engendrar. Por eso Sol se encerró, por propia voluntad, dentro de la esfera abrasadora de su huevo, y desde allí mira y sostiene el orden del cosmos.</p><p>Así quedó urdida la Gran Obra. Tenebrae quedó como baluarte, para que el horror de afuera no entrara. Luna quedó como belleza que cambia, como misterio y como juego de la noche. Y Sol quedó como el fuego sagrado que sostiene la vida y la ley. Y bajo la mirada de los Nueve Hijos, el mundo empezó a envejecer.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792783990109,
+    "modifiedTime": 1792784078249,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 200000,
+   "name": "Codex Divinitatum — Liber I: Firmamentum Velatum",
+   "type": "text",
+   "_id": "ZBGhBDiV5CrGQQab",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<p>Mirar el cielo, en este mundo, nunca fue un acto de contemplación. La bóveda de la noche no es adorno ni distancia muerta, sino una trama viva donde las potencias primeras sostienen un equilibrio tenso que no cesa. Arriba, <strong>Sol</strong> permanece recluido en su esfera abrasadora, para que su gloria no consuma la creación. <strong>Luna</strong> aguarda dentro de su huevo de plata y mira cómo obran sus caprichos sobre los mortales. Y en los confines del espacio, la sombra de <strong>Tenebrae</strong> hace de muro contra los horrores que empujan desde el Vacío Exterior.</p><p>Entre las tres potencias cruzan los <strong>Nueve Hijos</strong>, constelaciones vivas cuyos tránsitos mandan sobre los vientos, las corrientes y los destinos de los reinos. Y cuando <strong>Viride</strong>, el Planeta Verde, echa su brillo extraño sobre la noche, los mortales nacidos bajo su luz vienen al mundo con dones zodiacales: no para mirar la historia, sino para ser sus piezas, destinados a la gloria o a la tragedia.</p><p>Bajo esa bóveda se extiende un mundo casi todo de agua, donde la tierra firme es una franja codiciada y disputada. Tres continentes emergen del mar. <strong>Rala</strong>, quebrada en reinos feudales, federaciones libres, enclaves enanos y círculos de druidas que lindan con la inmensidad de El Gran Bosque. <strong>Tomun</strong>, mosaico de imperios arcanos, teocracias del sol, pueblos del norte, reinos del desierto y cordilleras donde mandan dracónidos y enanos. Y <strong>Abigur</strong>, la lejana, el monolítico <em>Imperium Ravum</em>, donde una sola potencia, aislada y de técnica implacable, gobierna bajo el mandato del Consejo Tripartito.</p><p>Entre Rala y Tomun corre <strong>La Arteria Azul</strong>, el canal por donde pasan el comercio, las flotas y las querellas de las naciones. Más allá, en los confines del océano, los archipiélagos guardan sus propias leyes: la fe marítima del Archipiélago de la Ballena, el dominio sin ley de Cayo Cólera y la teocracia antigua de Anáhuac. Y ahora, cuando los astros se alinean y el orden antiguo empieza a resquebrajarse, alzar la vista al firmamento ya no es devoción opcional. Es la única manera de saber qué potencia reclamará el destino del mundo.</p><p>— <strong>Codex Divinitatum</strong></p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792784265612,
+    "modifiedTime": 1792785683459,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 225000,
+   "name": "Codex Divinitatum — Liber I: De Creatione Novem Filiorum",
+   "type": "text",
+   "_id": "Gxyl1eDH6bwIqLz5",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<blockquote><p><em>«Y aconteció en la juventud del mundo que Luna contempló la inmensidad de las tinieblas que Tenebrae había abierto, y sintió el deseo de poblar la noche. Y de las cenizas del fuego estelar y de los destellos del caos primero compuso nueve sombras luminosas, a las que dio aliento y camino en la bóveda de los cielos.»</em></p></blockquote><p>En las edades tempranas del firmamento, cuando el espacio aún relucía con los fragmentos del huevo de Tenebrae, Luna habitaba sola la quietud de su recinto de plata. Maravillada por la inmensidad del cosmos, pero sin ánimo de quebrar su refugio, extendió las manos divinas hacia los espacios profundos y recogió los rescoldos que flotaban en la nada, los pulsos de la primera magia y las corrientes del caos estelar. Con paciencia de artífice moldeó nueve formas vivas.</p><p>A cada una dio un espíritu distinto, un anhelo propio y un trazado en la bóveda nocturna, y así tejió una fraternidad inmortal e inquieta. No las fijó al suelo de los mundos ni las encadenó a tronos inmóviles: las lanzó a recorrer las casas del cielo en un baile sin fin, de modo que sus encuentros, alineaciones y ausencias dictaran para siempre el ritmo de los vientos, el flujo de las mareas y la suerte de cuantos respiran bajo las estrellas.</p><h2>De Natura et Spiritu Singulorum (De la Naturaleza y el Espíritu de Cada Uno)</h2><h3>I. El Ciervo</h3><p><em>El Espíritu de la Vida Indómita</em></p><p>Al primero lo hizo Luna de la hierba verde del caos y de los brotes de la luz pura, y le dio la figura de un ciervo coronado de cuernas de fuego estelar. Le infundió la furia de la renovación, el salto de las crías y la libertad celosa del bosque que nadie ha pisado. El Ciervo corre sin descanso abriendo senda entre los astros, vela por los seres silvestres y aborrece toda cerca, todo yugo y toda servidumbre que pretenda enjaular la fuerza de la vida.</p><h3>II. El Cuervo</h3><p><em>El Guardián del Saber y la Memoria</em></p><p>Después tomó Luna la penumbra que orla las estrellas y las plumas del viento nocturno, y dio forma al Cuervo. Le puso ojos capaces de atravesar el olvido y una mente fría y sin fondo. Vuela sobre los abismos sin batir las alas, mira nacer y caer las dinastías de los mortales y guarda en el pecho el registro intacto de las glorias y los crímenes de los reinos, sin dictar juicio ni conceder perdón.</p><h3>III. La Ballena</h3><p><em>La Fuerza del Mar y la Tempestad</em></p><p>De las aguas primeras que flotaban sumergidas en el vacío esculpió Luna un gigante marino. La Ballena cruza el océano de las estrellas con movimientos lentos y majestuosos, pero tan inmensa es su sustancia que cada golpe de su cola despierta huracanes en el aire y revuelve las corrientes hondas del mundo. Ella recuerda a los navegantes cuán pequeñas son sus naves ante el abismo del mar.</p><h3>IV. El Zorro</h3><p><em>El Ingenio y la Astucia</em></p><p>De los destellos errantes de la luz y de las sombras que cambian al sesgo concibió Luna al Zorro, y le dio una mente sutil, veloz y amiga de los senderos torcidos. El Zorro camina por las orillas de las constelaciones urdiendo emboscadas, y enseña a las criaturas que la fuerza bruta cede ante el ardid bien trazado, y que sobrevive quien sabe cuándo ceder y cuándo cerrar la trampa.</p><h3>V. La Tortuga</h3><p><em>La Perseverancia y la Forja Eterna</em></p><p>Luna amasó los fragmentos más densos de la roca primera y los metales que flotaban en la nada, y levantó con ellos el caparazón inexpugnable de la Tortuga. Le dio la paciencia de las montañas y la disciplina del martillo. Avanza con paso lento e igual por el firmamento, patrona de las canteras, de los yunques y de los reinos de las profundidades, y enseña que nada duradero se levanta sin sudor, rigor y empeño.</p><h3>VI. El Caballo</h3><p><em>La Pasión del Combate y el Ímpetu</em></p><p>De los cometas que cruzan el vacío envueltos en llamas prendió Luna la chispa del Caballo. Le dio cascos de trueno y un corazón que arde con el ímpetu de la batalla abierta. El Caballo galopa a la vanguardia del cielo, encendiendo el valor, la competencia recta y la prueba de la fuerza, y guía a los guerreros y capitanes que buscan la gloria cara a cara.</p><h3>VII. El Dragón</h3><p><em>El Señorío de la Magia Primera</em></p><p>Luna tomó la urdimbre misma del poder arcano, el fuego concentrado y el orgullo de los dioses, y los fundió en las alas del Dragón. Soberbio y celoso de los arcanos, surca la bóveda derramando el flujo de la magia sobre el mundo material. Exige rigor y ambición a quienes intentan descifrar sus secretos, y mira con desdén a los mortales que pretenden dominar las fuerzas del cosmos sin pagar el precio de la maestría.</p><h3>VIII. La Rata</h3><p><em>La Supervivencia en la Penuria</em></p><p>De las grietas de la tumba, de las ruinas de los mundos caídos y de las sombras del subsuelo engendró Luna a la Rata. Le dio el don de hallar luz en la oscuridad cerrada y pasadizos de escape donde manda la desesperación. Se escurre entre las casas del Zodíaco velando por los parias y los caídos, y recuerda que aun en la mayor miseria persiste la terquedad de seguir con vida.</p><h3>IX. La Serpiente</h3><p><em>El Reposo Inevitable de la Muerte</em></p><p>Por último, de la quietud del término y de la certeza de que todo principio exige su fin, trazó Luna los anillos de la Serpiente. Silenciosa y paciente, se desliza al final de la ronda celeste. No conoce la ira ni la prisa; aguarda con serenidad el instante en que cada historia escrita en el mundo haya de cerrarse, y así cuida de que el ciclo se cumpla y el equilibrio no se quiebre.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792785508247,
+    "modifiedTime": 1792785743300,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 250000,
+   "name": "Codex Divinitatum — Liber I: De Tribus Planetis",
+   "type": "text",
+   "_id": "i7nrTpeR1sgG2G4y",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<blockquote><p><em>«Y aconteció en las edades primeras que no todas las cenizas del cascarón de Tenebrae entraron en el tejido de las constelaciones. Tres orbes enormes de materia y fuego se asentaron en los espacios profundos, fuera de la ronda de los Nueve Hijos, y sus tránsitos por las casas del Zodíaco quedaron fijados como los grandes péndulos del destino de la Creación.»</em></p></blockquote><h2>De Natura Planetarum (De la Naturaleza de los Tres Astros)</h2><p>Cuando el cascarón de Tenebrae se quebró en el Vacío y sus fragmentos fueron arrojados a la nada, no todo el polvo de estrellas pasó por las manos de Luna para tejer la danza de sus Hijos. Tres masas gigantes de piedra, metal y sustancia divina se hicieron en los abismos de la noche y echaron a andar por órbitas propias que cruzan el Zodíaco.</p><p>A diferencia de las constelaciones vivas, guiadas por el espíritu de Luna, los Tres Planetas son orbes errantes de peso y alcance inmensos. Sus tránsitos no obedecen al capricho de los vientos ni al compás regular de la noche: son las balanzas austeras de la historia, y su resplandor sobre la tierra presagia las eras de abundancia, las guerras de los imperios y el fin inevitable de los reinos mortales.</p><h2>De Singulis Planetis (De Cada Uno de los Tres Planetas)</h2><h3>I. Rubrum, el Dios Rojo</h3><p><em>El Planeta del Acero y la Piedra Inconclusa</em></p><p>Cuentan las estirpes enanas, en la memoria más antigua que guardan, que en la juventud del mundo La Tortuga quiso emular el poder creador de Luna e intentó forjar una constelación propia con los metales más densos del cosmos. Pero la obra era tan pesada que se derrumbó sobre sí misma antes de alzarse al firmamento, y quedó convertida en el planeta ardiente y carmesí que los mortales llaman Rubrum. Por eso los enanos llaman a la Tortuga la Vieja Madre, y a Rubrum, el Guía.</p><p>Rubrum anda cerca de la tierra, y su fuego sostenido vela sobre los grandes empeños del hierro, la minería y la guerra ordenada. Para los canteros y artesanos de las profundidades no es un astro remoto, sino la obra mayor que los dioses dejaron inconclusa en lo alto; y enseñan que cada golpe de martillo en el yunque, y cada piedra labrada en los cimientos del mundo, ayuda a perfeccionar un diseño que quedó a medias.</p><h3>II. Viride, el Planeta Verde</h3><p><em>El Heraldo del Destino y los Elegidos</em></p><p>Forjado en el torbellino del caos primero, por choques terribles entre los fragmentos de la Creación, Viride es el más brillante y pavoroso de los astros errantes. Su luz esmeralda cruza la bóveda en tránsitos desiguales y derrama sobre el mundo un efluvio de virtud cósmica.</p><p>Y aconteció que cuando el resplandor de Viride baña la noche, los mortales que nacen bajo su luz reciben la Marca Cósmica y quedan consagrados como sus Elegidos. Pero enseña la sabiduría arcana que el favor de Viride es un don austero: la luz verde no promete paz, ni sosiego, ni ventura tranquila, sino la huella ineludible de la grandeza. Quienes llevan su signo están destinados a torcer el curso de la historia, y a subir a las cumbres de la gloria o a despeñarse en tragedias que los bardos cantarán durante siglos.</p><h3>III. Purpureum, el Planeta Púrpura</h3><p><em>El Heraldo de las Sombras y los Finales de Era</em></p><p>En las fronteras heladas del cosmos, donde la luz de Sol apenas alcanza a herir la sombra, orbita Purpureum. Silencioso y lejano, solo muestra su fulgor violeta en las noches más frías y largas del invierno, cuando el manto de Tenebrae se ajusta sobre el mundo.</p><p>Purpureum no tiene altares en las ciudades ni sacerdotes que digan su nombre en cantos de fiesta. Es el astro de los augures, de los astrólogos de las coronas y de los guardianes de los manuscritos antiguos. Cuando se lo ve con claridad, las cortes de los reyes lo reciben con sobrecogimiento, porque su paso presagia el derrumbe de linajes milenarios, vientos helados, plagas y el fin de eras enteras. Es el ojo distante del universo, que recuerda a los mortales que ningún imperio es eterno bajo las estrellas.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792785594325,
+    "modifiedTime": 1792785716612,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 262500,
+   "name": "Codex Divinitatum — Liber I: De Influentia Caelesti et Maculis Siderum",
+   "type": "text",
+   "_id": "Z8Bl5Kd3yo3Mn3uy",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<blockquote><p><em>«No hay mirada al cielo que no sea devuelta por las fuerzas que lo habitan. Pues aunque la multitud de los mortales pase su vida ignorante de las corrientes invisibles, el firmamento no es un estrado lejano: sus tránsitos moldean la carne, la fortuna y el aliento de quienes nacen bajo la mirada de las estrellas.»</em></p></blockquote><h2>De Cursu Caelesti in Vita Mortalium (Del Curso del Cielo en la Vida de los Mortales)</h2><p>En el mundo de la materia, el tiempo no se mide con artificios de relojero, sino por la ronda incesante de las Nueve Constelaciones. Cada mes del calendario está bajo el dominio de uno de los Nueve Hijos, y sus inclinaciones y enemistades se reflejan en el clima, en el temple de los pueblos y en los vientos de la magia.</p><p>Para la inmensa mayoría de los mortales, el lugar del cielo en la hora de su nacimiento no es más que una inclinación sutil: una disposición natural hacia la astucia, la bravura, la devoción o el trabajo fino. Solo cuando los astros mayores vuelcan su gloria directamente sobre la cúpula de la noche, el cosmos estampa su sello en el espíritu humano y crea a los <strong>Marcados de las Estrellas</strong>.</p><h2>De Electis Viridis (De los Elegidos de Viride)</h2><p>De todos los astros errantes, ninguno deja una huella tan violenta e ineludible como <strong>Viride</strong>. Cuando su luz esmeralda vuelve a las casas del Zodíaco y baña el mundo en sus noches de mayor fulgor, la barrera entre la constelación reinante y el plano terrenal se vuelve permeable. Los mortales nacidos bajo ese resplandor son consagrados como <strong>Elegidos de Viride</strong>, y la luz verde vierte en ellos la esencia del Hijo de la Luna que gobierna aquella noche.</p><p>Tres cosas enseña la teología sobre ellos. La primera es el don: el recién nacido recibe una facultad arcana, un vigor del cuerpo o una agudeza del espíritu ligada a su signo, sin importar su estirpe, su vocación ni su cuna. La segunda es el peso: el favor de Viride jamás trae quietud ni dicha doméstica, y quienes lo llevan son arrojados al centro de los grandes sucesos, para alterar el destino de los reinos, alzarse como héroes de leyenda o hundirse en desastres que los bardos cantarán durante siglos. La tercera es el vínculo: la marca no pide adoración ni sumisión al Hijo de la Luna que la concede. Es una huella del cuerpo y del espíritu, un fragmento de poder estelar engarzado en la carne.</p><h2>De Maculis Primordialibus (De las Marcas de las Tres Semillas)</h2><p>Si los Elegidos de Viride son los instrumentos del destino cambiante, los <strong>Marcados por los Primordiales</strong> son los recipientes directos de las tres fuerzas que sostienen la existencia. Sus marcas no obedecen al curso de los meses, sino a horas rarísimas del año, y cada una responde a una de las Semillas Divinas.</p><h3>I. La Marca del Cenit Solar — el Sello de Sol</h3><p>La recibe quien nace al mediodía del día más largo del año, cuando Sol alcanza el punto más alto de su poder. Imprime en el alma la llama de la ley cósmica. La sangre de los Marcados por Sol arde con un calor sutil que los vuelve inmunes a la desesperación y a la corrupción de la mente, y su sola presencia impone respeto y orden en medio del caos. Sus ojos devuelven un destello dorado bajo la luz directa, y su contacto resulta insoportable para las criaturas engendradas en las tinieblas o en el Abismo. Están hechos para mandar, para sostener la justicia o para arder hasta el fin en el cumplimiento del deber.</p><h3>II. La Estela de Plata — el Sello de Luna</h3><p>La recibe quien nace de noche, bajo la luna llena. Los Marcados por Luna llevan en el ser el dinamismo, la metamorfosis y el misterio de la noche: criaturas de intuición asombrosa, capaces de ver a través de las ilusiones y de amoldarse a cualquier adversidad. Su sombra parece moverse a veces con un instante de retraso, y su piel o su cabello conservan un matiz nacarado en la penumbra. Son buscadores de secretos, maestros de la hechicería del crepúsculo y agentes del cambio que no se detiene.</p><h3>III. El Nadir de las Sombras — el Sello de Tenebrae</h3><p>Es la más rara y la más temida de las marcas. La recibe quien nace a medianoche, en la noche más larga del año, cuando las grietas del firmamento se abren al Vacío. Tenebrae no da calidez ni consuelo: sus marcados llevan consigo la gravedad del Primer Nacido y la fría inmensidad del espacio profundo. Perciben las líneas invisibles del destino, la atracción de las grandes masas arcanas y la presencia de lo innombrable. Rara vez nacen en comunidades corrientes. Suelen ser elfos o sabios destinados a velar las fronteras de la realidad, y leen en las sombras la llegada de las amenazas que buscan devorar el cosmos.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792786013017,
+    "modifiedTime": 1792786166090,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 275000,
+   "name": "Codex Divinitatum — Liber I: De Rebellione Infernali et Bello Abyssi",
+   "type": "text",
+   "_id": "fpweCFEccdksnaJI",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<blockquote><p><em>«No por odio a la Luz se alzaron las murallas de hierro de Nessus, sino por la amarga certeza de que la ley sagrada de Sol jamás contendría la voracidad del Abismo. Y aconteció que Sariel no cayó por flaqueza de espíritu; antes bien, se despojó de su esplendor primero para forjar la única arma capaz de guardar a la Creación del Olvido.»</em></p></blockquote><h2>De Bello Abyssi (De la Guerra del Abismo)</h2><p>Y aconteció en las edades antiguas que las huestes celestiales sostuvieron un combate sin tregua contra las legiones abisales, en los confines mismos del cosmos. Porque el Abismo no es reino ni corona, sino una llaga abierta en la trama del mundo, y de su negrura brotan engendros de perdición pura, ciegos a la razón y ajenos a toda piedad. Sol exigía que la guerra se librara con la limpieza y la gracia sagrada que corresponden a los Hijos de la Luz, y los ejércitos del cielo sangraban en vano. Incontables ángeles perecían, o sucumbían al veneno del Abismo, ante un enemigo sin número ni fin. La grieta no se cerraba, y la simetría del universo vacilaba al borde de la ruina.</p><h2>De Rebellione Sarielis (De la Rebelión de Sariel)</h2><p>Entre todos los servidores de Sol ninguno igualaba en grandeza ni en poder a Sariel, el Ángel de la Luz, a cuyo cargo estaba el mando supremo de la frontera. Durante eones vio el sacrificio estéril de sus hermanos y la vanidad de oponer preceptos de pureza a un Horror que no conoce norma. Entonces volvió ante el Trono Solar para implorar el fin de las ataduras y una guerra sin escrúpulos.</p><p>Sol rechazó su súplica y le ordenó perseverar bajo el dogma primero, aunque le concedió una centella de su propia llama para sostener su aliento. Comprendió entonces Sariel que la victoria jamás se alcanzaría bajo las leyes de su Padre. Tomó el poder recibido y transmutó la gran fortaleza celestial en un reino aparte y soberano. Renunció a su nombre celestial, adoptó el de Asmodeus, rompió sus lazos con los Cielos y ascendió como el primer Señor del Infierno.</p><h2>De Regno Nessi (Del Infierno como Bastión)</h2><p>No abrazó Asmodeus la sombra por amor al estrago, sino por un rigor sin piedad. Juzgó que el único freno contra el caos del Abismo era una disciplina invulnerable, el dominio severo de las almas y la tiranía de una ley de hierro. Bajo su cetro los Nueve Pisos del Infierno fueron dispuestos como un engranaje terrible y perfecto, donde cada diablo, cada pacto y cada juramento se subordina a contener la marea demoníaca en el frente de Avernus. Y así, mientras los Cielos miran desde lejos y los mortales condenan la dureza de sus pactos, Asmodeus y los Ocho Señores guardan los linderos del mundo, sabedores de que para preservar la Creación hubo que sacrificar la inocencia.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792784990179,
+    "modifiedTime": 1792785553030,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 287500,
+   "name": "Codex Divinitatum — Liber I: De Abysso, Daemonibus et Antiquis",
+   "type": "text",
+   "_id": "GKjepkqqClVqBbpo",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<h2>De Abysso et Profundo Ejus (Del Abismo y del Abismo Profundo)</h2><p>En la teología de la Creación se distingue la herida del plano material del vacío que yace más allá de las estrellas. El <strong>Abismo Profundo</strong>, llamado también el Vacío Exterior, es el no-lugar que antecede a las Semillas Divinas: la negrura sin fondo donde no rigen el tiempo, ni la materia, ni la razón, y de cuya voracidad Tenebrae protege al cosmos con el gran manto de su ser.</p><p>El <strong>Abismo</strong>, en cambio, la grieta supurante que amenaza los cimientos del plano, es una herida interna del tejido del universo. Nació en las eras primeras, cuando el estallido del cascarón de Tenebrae y el despertar de Sol desgarraron la urdimbre de la nada. No es nación ni corona; no tiene jerarquía ni templo. Es una vorágine de caos y entropía, una masa informe que busca devorar la luz, disolver la sustancia y devolver toda la obra divina a la confusión del principio.</p><h2>De Daemonibus (De los Demonios)</h2><p>De las entrañas del Abismo no nacen criaturas de voluntad ni de doctrina, sino engendros de destrucción hecha carne: los <strong>Demonios</strong>. Mientras los Diablos del Infierno combaten bajo una disciplina de hierro y contratos de ley, las hordas abisales no conocen el pacto, el honor ni la tregua. Los demonios son fragmentos del caos primero, dotados de una malevolencia instintiva. No buscan gobernar las almas ni levantar imperios. Su único impulso es profanar, matar y arruinar todo lo que tenga forma, belleza u orden.</p><p>Como el Abismo no tiene límites ni estructura, engendra seres sin número. De sus honduras salen desde las bestias menores que devoran la carne hasta los Señores del Caos, entidades colosales de poder ruinoso que marchan sin pausa contra las barreras de Avernus.</p><h2>De Entitatibus Antiquis (De los Seres Antiguos)</h2><p>En los confines del Abismo Profundo, más allá del muro de estrellas que sostienen los Primordiales, moran los <strong>Seres Antiguos</strong>, las inteligencias primigenias que habitaban la vacuidad antes de que el tiempo echara a andar. Cuando Tenebrae eclosionó antes de hora y esparció sus fragmentos, la expansión de su fuerza empujó a estas abominaciones hacia las tinieblas exteriores. No son dioses ni demonios. Son inteligencias ajenas a la lógica de la Creación, y su sola cercanía al plano material corrompe la cordura de los mortales y deforma la naturaleza.</p><p>Los Seres Antiguos aguardan en el frío de la nada, golpeando a compás contra las fisuras del muro estelar. No conocen la muerte como la entienden los hombres; duermen en el abismo de afuera esperando la hora en que las luces de Sol y de Luna se apaguen, para reclamar el espacio y reducir la Creación a un silencio sin fin.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792786261246,
+    "modifiedTime": 1792786291990,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 300000,
+   "name": "Codex Divinitatum — Liber II: De Tribus Primordialibus",
+   "type": "text",
+   "_id": "pFpNloMZVzqvVzLh",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<blockquote><p><em>«Antes de que la materia tuviera forma o el tiempo comenzara su curso, tres Semillas Divinas aguardaban en la vacuidad del Abismo Profundo. Ellas son las progenitoras del cosmos material y los pilares de la existencia.»</em></p><p>— <strong>Codex Divinitatum, Liber II</strong></p></blockquote><h2>Tenebrae, el Oscuro</h2><p><strong>Título:</strong> el Primer Nacido · <strong>Dominios sugeridos:</strong> Arcano, Conocimiento, Vida, Muerte</p><p><strong>Ámbito:</strong> las sombras del firmamento, la gravedad y la frontera del mundo.</p><p><strong>Dogma:</strong> Tenebrae no exige fervor moral, sino la comprensión de las leyes ocultas del universo. Es una divinidad de escala insondable e intenciones opacas, y rara vez interviene de manera directa. Su eclosión prematura demarcó los límites de la realidad y levantó la barrera contra el Vacío Exterior.</p><p><strong>Cultores:</strong> su clero está formado sobre todo por elfos, altos humanos y sabios consagrados al estudio del destino, magos adivinos que leen los astros y astrólogos que escudriñan las grietas del firmamento.</p><p><strong>Nota de juego:</strong> su sello es el Nadir de las Sombras. Quien nace a medianoche en la noche más larga del año obtiene el cantrip <em>Thaumaturgy</em> y elige uno entre <em>Chill Touch</em> y <em>Ray of Frost</em>.</p><h2>Luna</h2><p><strong>Título:</strong> la Segunda Semilla, Dueña de la Noche · <strong>Dominios sugeridos:</strong> Arcano, Engaño, Naturaleza, Crepúsculo, Tumba, Muerte</p><p><strong>Ámbito:</strong> la noche y el firmamento plateado; el cambio, la curiosidad, el dinamismo y los misterios del mundo silvestre.</p><p><strong>Dogma:</strong> Luna celebra la metamorfosis, la adaptabilidad y el descubrimiento. Le fascina introducir variables en el mundo mortal para ver cómo reaccionan sus criaturas. A diferencia de su hermano mayor, no destruyó su huevo, que sigue intacto en los cielos como el orbe de plata.</p><p><strong>Cultores:</strong> druidas del círculo nocturno, caminantes de los bosques, cambiantes, ilusionistas y quienes hallan consuelo en la penumbra del crepúsculo.</p><p><strong>Nota de juego:</strong> su sello es la Estela de Plata. Quien nace de noche, bajo la luna llena, obtiene los cantrips <em>Minor Illusion</em> y <em>Guidance</em>.</p><h2>Sol</h2><p><strong>Título:</strong> el Dios Mayor, la Tercera Semilla · <strong>Dominios sugeridos:</strong> Vida, Luz, Naturaleza, Orden, Paz, Guerra</p><p><strong>Ámbito:</strong> el orden y la vida; la constancia, el fuego sagrado, la ley cósmica y la justicia inamovible.</p><p><strong>Dogma:</strong> Sol esperó en silencio hasta la plenitud de su poder, y al despertar encendió el mundo en fuego, luz y materia viva. Para que su gloria no redujera la creación a cenizas, se recluyó por voluntad propia en su esfera abrasadora, desde donde sostiene el orden del cosmos. Su doctrina exige estructura, veracidad, honor y la preservación activa de la existencia frente a las sombras y las aberraciones del Abismo.</p><p><strong>Cultores:</strong> reyes y legisladores, paladines, templarios solares e inquisidores dedicados a erradicar el caos y mantener la estabilidad de las naciones.</p><p><strong>Nota de juego:</strong> su sello es el Cenit Solar. Quien nace de día, al mediodía del día más largo del año, obtiene el cantrip <em>Light</em> y elige uno entre <em>Produce Flame</em> y <em>Fire Bolt</em>.</p><p><em>Cuando recibís un cantrip por una marca cósmica o un don zodiacal, elegís Inteligencia, Sabiduría o Carisma como característica de lanzamiento; esa elección vale para todos los cantrips de la misma fuente.</em></p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792784388003,
+    "modifiedTime": 1792784528766,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 400000,
+   "name": "Codex Divinitatum — Liber II: De Novem Filiis",
+   "type": "text",
+   "_id": "CIP4JOQuSCsk90HY",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<blockquote><p><em>«Tomó Luna los rescoldos del fuego estelar y los moldeó con paciencia de artífice para engendrar a los Nueve Hijos, las constelaciones vivas que atraviesan los espacios profundos, trazando el curso de las mareas, el aliento de los vientos y la suerte de los mortales.»</em></p></blockquote><h2>Los Nueve Hijos de la Luna</h2><table><thead><tr><th>Hijo</th><th>Mes</th><th>Dominio</th><th>Alineamiento</th></tr></thead><tbody><tr><td>I. El Ciervo</td><td>del Ciervo</td><td>Vida</td><td>Caótico Bueno</td></tr><tr><td>II. El Cuervo</td><td>del Cuervo</td><td>Conocimiento</td><td>Neutral</td></tr><tr><td>III. La Ballena</td><td>de la Ballena</td><td>Tempestad</td><td>Caótico Neutral</td></tr><tr><td>IV. El Zorro</td><td>del Zorro</td><td>Engaño</td><td>Caótico Neutral</td></tr><tr><td>V. La Tortuga</td><td>de la Tortuga</td><td>Forja</td><td>Legal Neutral</td></tr><tr><td>VI. El Caballo</td><td>del Caballo</td><td>Guerra</td><td>Legal Bueno</td></tr><tr><td>VII. El Dragón</td><td>del Dragón</td><td>Arcano</td><td>Legal Neutral</td></tr><tr><td>VIII. La Rata</td><td>de la Rata</td><td>Tumba</td><td>Neutral</td></tr><tr><td>IX. La Serpiente</td><td>de la Serpiente</td><td>Muerte</td><td>Neutral</td></tr></tbody></table><p>Cada Hijo da nombre a uno de los nueve meses del calendario, de 28 días cada uno. Todos los mortales nacen bajo la mirada de alguno de ellos, pero solo los Elegidos de Viride, nacidos en las Noches Verdes, reciben el don zodiacal del signo del mes en que nacen. Los dones son innatos y no exigen venerar al Hijo correspondiente.</p><h3>I. El Ciervo</h3><p><strong>Alineamiento:</strong> Caótico Bueno · <strong>Dominio sugerido:</strong> Vida · <strong>Mes:</strong> del Ciervo</p><p><strong>Ámbito:</strong> el mundo silvestre, la vitalidad desbordante y la libertad sin ataduras.</p><p><strong>Dogma y culto:</strong> Engendrado por Luna como la fuerza misma de la renovación natural, el Ciervo protege el vigor de la tierra que la civilización no ha pisado. Es una divinidad impulsiva y celosa de sus dominios forestales, incapaz de tolerar la jaula, el yugo o el dominio artificial.</p><p><strong>Cultores:</strong> cazadores de la espesura, druidas de los círculos antiguos, rastreadores y comunidades independientes que veneran el instinto, la resistencia del cuerpo y el ciclo de la presa y el depredador.</p><p><strong>Don zodiacal:</strong> el cantrip <em>Spare the Dying</em> y competencia en Medicina.</p><h3>II. El Cuervo</h3><p><strong>Alineamiento:</strong> Neutral · <strong>Dominio sugerido:</strong> Conocimiento · <strong>Mes:</strong> del Cuervo</p><p><strong>Ámbito:</strong> la memoria cósmica, la historia y las verdades sepultadas.</p><p><strong>Dogma y culto:</strong> El Cuervo vuela en silencio sobre el espacio profundo y atesora toda la historia mortal, desde las glorias olvidadas hasta las faltas más oscuras de reyes e imperios. No juzga ni absuelve: registra y preserva los hechos sin distorsión.</p><p><strong>Cultores:</strong> historiadores, jueces, archivistas arcanos, cronistas y diplomáticos, que saben que el conocimiento es el único recurso inalterable frente al caos y al paso de los siglos.</p><p><strong>Don zodiacal:</strong> competencia en Arcanos e Historia.</p><h3>III. La Ballena</h3><p><strong>Alineamiento:</strong> Caótico Neutral · <strong>Dominio sugerido:</strong> Tempestad · <strong>Mes:</strong> de la Ballena</p><p><strong>Ámbito:</strong> las mareas, los tifones y el comportamiento de las aguas abiertas.</p><p><strong>Dogma y culto:</strong> Su tránsito por el firmamento rige las aguas del mundo. Es una fuerza de escala cataclísmica que no actúa por malicia, sino por la inmensidad de su propia existencia. En alta mar se le ofrecen libaciones y plegarias para obtener un paso seguro.</p><p><strong>Cultores:</strong> navegantes, capitanes, náufragos e insulares.</p><p><strong>Don zodiacal:</strong> el cantrip <em>Gust</em> y una velocidad de nado igual a tu velocidad de movimiento normal.</p><h3>IV. El Zorro</h3><p><strong>Alineamiento:</strong> Caótico Neutral · <strong>Dominio sugerido:</strong> Engaño · <strong>Mes:</strong> del Zorro</p><p><strong>Ámbito:</strong> la astucia, las soluciones indirectas y los pactos de conveniencia.</p><p><strong>Dogma y culto:</strong> El Zorro encarna la inteligencia rápida que prevalece cuando fracasan la fuerza bruta y el dogma rígido. Enseña que sobrevivir exige flexibilidad, saber cuándo retroceder y cómo tender la trampa en el momento justo.</p><p><strong>Cultores:</strong> pícaros, estrategas militares, diplomáticos, comerciantes de frontera y proscriptos que confían en su sagacidad para salir de situaciones desesperadas.</p><p><strong>Don zodiacal:</strong> competencia en Sigilo y Acrobacias.</p><h3>V. La Tortuga</h3><p><strong>Alineamiento:</strong> Legal Neutral · <strong>Dominio sugerido:</strong> Forja · <strong>Mes:</strong> de la Tortuga</p><p><strong>Ámbito:</strong> la perseverancia, el rigor técnico, la piedra y el metal.</p><p><strong>Dogma y culto:</strong> La Tortuga inspira el trabajo dedicado que convierte la materia prima en arquitectura y en instrumentos eternos, y se la vincula con las tradiciones mineras y metalúrgicas de las profundidades. Entiende el trabajo manual y la disciplina como un acto de devoción capaz de dar orden al caos del plano material. Los enanos la llaman la Vieja Madre.</p><p><strong>Cultores:</strong> artesanos, canteros, armeros y enanos de las colinas.</p><p><strong>Don zodiacal:</strong> competencia con dos herramientas a tu elección.</p><h3>VI. El Caballo</h3><p><strong>Alineamiento:</strong> Legal Bueno · <strong>Dominio sugerido:</strong> Guerra · <strong>Mes:</strong> del Caballo</p><p><strong>Ámbito:</strong> el combate abierto, la competencia y la pasión por la victoria.</p><p><strong>Dogma y culto:</strong> El Caballo rige la energía bélica, la velocidad en la maniobra y el temple de quienes se miden cara a cara en el campo de batalla. A diferencia de las potencias del odio, celebra la destreza militar, la bravura, la competencia recta y la superación de los límites del cuerpo por el esfuerzo.</p><p><strong>Cultores:</strong> caballeros de la frontera, legionarios, mercenarios, estrategas de caballería y atletas que buscan el honor y la gloria a través de la lucha.</p><p><strong>Don zodiacal:</strong> +5 pies a tu velocidad de movimiento base y competencia en Atletismo.</p><h3>VII. El Dragón</h3><p><strong>Alineamiento:</strong> Legal Neutral · <strong>Dominio sugerido:</strong> Arcano · <strong>Mes:</strong> del Dragón</p><p><strong>Ámbito:</strong> el fuego mágico, la urdimbre arcana y el orgullo del poder.</p><p><strong>Dogma y culto:</strong> Su paso por las casas celestes canaliza las corrientes de la magia pura sobre el mundo. Orgulloso e intransigente, el Dragón exige maestría, estudio riguroso y ambición a quienes buscan manipular el plano arcano.</p><p><strong>Cultores:</strong> magos universitarios, hechiceros de linaje antiguo y arcanistas que ven en el dominio de los conjuros el camino para trascender la debilidad mortal.</p><p><strong>Don zodiacal:</strong> un cantrip dañino a elección entre <em>Fire Bolt</em>, <em>Frostbite</em>, <em>Poison Spray</em>, <em>Ray of Frost</em>, <em>Produce Flame</em>, <em>Shocking Grasp</em> o <em>Thunderclap</em>, y competencia en Arcanos.</p><h3>VIII. La Rata</h3><p><strong>Alineamiento:</strong> Neutral · <strong>Dominio sugerido:</strong> Tumba · <strong>Mes:</strong> de la Rata</p><p><strong>Ámbito:</strong> la supervivencia en la penuria, los pasadizos de escape y las ruinas del mundo.</p><p><strong>Dogma y culto:</strong> La Rata rige el umbral entre la decadencia y la perseverancia, y enseña a prosperar donde cualquier otra criatura perecería. Protege a los desplazados, a los habitantes de las catacumbas y a quienes viven entre los restos de los imperios caídos. Su culto, austero y sombrío, recuerda que aun en la tumba hay una grieta hacia la salvación.</p><p><strong>Cultores:</strong> desplazados, catacumberos y supervivientes de toda ruina.</p><p><strong>Don zodiacal:</strong> la capacidad de conjurar <em>Find Familiar</em> sin costo, solo para invocar una rata. El ritual no requiere componentes materiales ni oro, tarda una hora y diez minutos como todo ritual, no gasta espacio de conjuro y solo puede realizarse durante el mes de la Rata. Si tu familiar muere, no podés obtener otro por este don hasta el siguiente mes de la Rata.</p><h3>IX. La Serpiente</h3><p><strong>Alineamiento:</strong> Neutral · <strong>Dominio sugerido:</strong> Muerte · <strong>Mes:</strong> de la Serpiente</p><p><strong>Ámbito:</strong> el ciclo final de la vida y el término de todas las historias.</p><p><strong>Dogma y culto:</strong> La Serpiente actúa sin rabia ni prisa, consciente de que todo lo que nace en el plano material habrá de volver a su dominio. Representa la certeza de la muerte como un hecho natural que equilibra la existencia.</p><p><strong>Cultores:</strong> sepultureros, clérigos de la partida, inquisidores y conservadores del orden, que velan por el descanso de los difuntos y persiguen con severidad a quienes buscan la inmortalidad impura de la nigromancia.</p><p><strong>Don zodiacal:</strong> competencia en Intimidación y un cantrip a elegir entre <em>Vicious Mockery</em> y <em>Acid Splash</em>.</p><p><em>Cuando recibís un cantrip por una marca cósmica o un don zodiacal, elegís Inteligencia, Sabiduría o Carisma como característica de lanzamiento; esa elección vale para todos los cantrips de la misma fuente.</em></p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792784640641,
+    "modifiedTime": 1792786337441,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 700000,
+   "name": "Codex Divinitatum — Liber II: De Tribus Planetis",
+   "type": "text",
+   "_id": "0PgB077kmfHAykxh",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<h2>Los Tres Planetas Errantes</h2><table><thead><tr><th>Planeta</th><th>Alineamiento</th><th>Ciclo completo</th><th>Tiempo en cada casa</th></tr></thead><tbody><tr><td>I. Rubrum, el Dios Rojo</td><td>Legal Neutral</td><td>288 días</td><td>32 días</td></tr><tr><td>II. Viride, el Planeta Verde</td><td>Caótico Neutral</td><td>576 días</td><td>64 días</td></tr><tr><td>III. Purpureum, el Planeta Púrpura</td><td>Neutral</td><td>2304 días (9 años)</td><td>256 días (un año)</td></tr></tbody></table><p>Los tres recorren las nueve casas del zodíaco en el orden del calendario, y su tránsito por cada casa dicta augurios. Cada nueve años, el Gran Ciclo, regresan a las posiciones que tenían al comenzar.</p><h3>I. Rubrum, el Dios Rojo</h3><p><strong>Dominios sugeridos:</strong> Forja, Orden, Guerra, Conocimiento · <strong>Alineamiento:</strong> Legal Neutral</p><p><strong>Ámbito:</strong> un astro denso y carmesí ligado a la estructura de la materia, la piedra, el metal y la gran obra inconclusa de la Creación.</p><p><strong>Dogma y culto:</strong> según la tradición de los clanes enanos, Rubrum nació cuando La Tortuga intentó emular a su madre, Luna, creando una constelación propia. La masa de metales y rocas fue tan densa que colapsó, y de ella salió el primer planeta. Por eso en el folclore enano la Tortuga es la Vieja Madre, y Rubrum, el Guía. Su teología enseña que la labor incesante, la disciplina técnica y la búsqueda de la excelencia en cualquier oficio son actos sagrados que ayudan a completar la obra divina.</p><p><strong>Cultores:</strong> mineros, canteros, armeros, arquitectos y estrategas militares, que entienden el trabajo dedicado como la forma definitiva de imponer orden al caos.</p><h3>II. Viride, el Planeta Verde</h3><p><strong>Dominios sugeridos:</strong> Guerra, Vida, Luz, Conocimiento · <strong>Alineamiento:</strong> Caótico Neutral</p><p><strong>Ámbito:</strong> un astro de fulgor esmeralda e intensidad variable, heraldo de los destinos extraordinarios y fuente del poder de los Elegidos.</p><p><strong>Dogma y culto:</strong> formado de manera natural durante el caos primigenio por la colisión y acumulación de fragmentos estelares, Viride cruza el firmamento en tránsitos irregulares. La doctrina arcana sostiene que cuando su luz verde ilumina la noche la frontera cósmica se vuelve permeable, y los niños que nacen bajo su resplandor reciben la Marca Cósmica y un fragmento del poder de la constelación reinante. Viride no tiene iglesia ni jerarquía, solo la reverencia temerosa de astrólogos y profetas. Su luz no promete paz ni sosiego, sino una existencia marcada por la grandeza, que empuja a sus marcados hacia triunfos heroicos o tragedias de escala histórica.</p><p><strong>Nota de juego:</strong> Viride brilla con fuerza solo durante las tres noches en que vuelve a la casa del Ciervo, una vez cada 576 días. Son las <strong>Noches Verdes</strong>: quienes nacen en ellas son los Elegidos de Viride, y su signo es el del mes en que cae la noche.</p><h3>III. Purpureum, el Planeta Púrpura</h3><p><strong>Dominio sugerido:</strong> Muerte · <strong>Alineamiento:</strong> Neutral</p><p><strong>Ámbito:</strong> el orbe más distante y helado del sistema, heraldo de las transiciones sombrías, los presagios funestos y los finales de era.</p><p><strong>Dogma y culto:</strong> Purpureum navega en los confines helados del cosmos y solo se asoma en las noches gélidas del invierno. Su avistamiento claro se interpreta como un presagio ineludible de mala suerte, plagas, caída de dinastías o derrumbe de imperios. No tiene templos abiertos ni fiestas populares. Sus únicos servidores son ermitaños, astrólogos reales, historiadores de los hechos finales y guardianes de profecías oscuras, que estudian sus tránsitos para advertir al mundo de las grandes mudanzas que se avecinan.</p><p><strong>Nota de juego:</strong> Purpureum solo se ve en invierno, y ni siquiera todas las noches. Como tarda exactamente un año en cada casa, cambia de casa una vez por año, en el Nadir de las Sombras.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792786377131,
+    "modifiedTime": 1792786391445,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+     "worldId": "work-in-progress",
+     "uuid": "JournalEntry.jwIXObez5erF4Kma",
+     "coreVersion": "14.369",
+     "systemId": "dnd5e",
+     "systemVersion": "6.0.6"
+    }
+   }
+  },
+  {
+   "sort": 800000,
+   "name": "Codex Divinitatum — Liber II: De Novem Dominis Inferni",
+   "type": "text",
+   "_id": "WMGps9pta3ng2Jzn",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<blockquote><p><em>«El Infierno no es un reino de caos, sino una máquina de guerra perfecta movida por una jerarquía de hierro. Ocho señores gobiernan los pisos superiores administrando defensas, recursos y conocimientos prohibidos, mientras Asmodeus rige el noveno piso y sostiene el mando supremo.»</em></p></blockquote><h2>Los Nueve Pisos y sus Señores</h2><table><thead><tr><th>Piso</th><th>Nombre</th><th>Señor</th><th>Dominios</th><th>Función</th></tr></thead><tbody><tr><td>I</td><td>Avernus</td><td>Abaddon</td><td>Guerra, Conocimiento</td><td>Frente de batalla y estudio del Abismo</td></tr><tr><td>II</td><td>Dis</td><td>Dispater</td><td>Orden, Forja, Conocimiento</td><td>Defensa e investigación</td></tr><tr><td>III</td><td>Minauros</td><td>Beelzebub</td><td>Muerte, Tumba</td><td>Corrupción y decadencia</td></tr><tr><td>IV</td><td>Phlegethos</td><td>Mephistopheles</td><td>Arcano, Conocimiento</td><td>Magia prohibida</td></tr><tr><td>V</td><td>Stygia</td><td>Levistus</td><td>Engaño, Muerte</td><td>Traición y error</td></tr><tr><td>VI</td><td>Malbolge</td><td>Glasya</td><td>Engaño, Conocimiento</td><td>Intrigas y conspiraciones</td></tr><tr><td>VII</td><td>Maladomini</td><td>Samael</td><td>Orden, Muerte</td><td>Juicio y condena</td></tr><tr><td>VIII</td><td>Cania</td><td>Mammon</td><td>Orden, Engaño</td><td>Recursos, deudas y pactos</td></tr><tr><td>IX</td><td>Nessus</td><td>Asmodeus</td><td>Orden, Arcano, Guerra</td><td>Soberanía infernal</td></tr></tbody></table><h3>I. Abaddon, el Conocedor del Abismo</h3><p><strong>Dominio infernal:</strong> Avernus, Piso I (la Frontera en Guerra) · <strong>Dominios sugeridos:</strong> Guerra, Conocimiento · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> general supremo de la primera línea de defensa infernal, estratega brutal y el mayor estudioso de la naturaleza demoníaca.</p><p><strong>Dogma y culto:</strong> Avernus es el frente permanente de la guerra contra los ejércitos inagotables del Abismo. Abaddon dirige la resistencia desde la vanguardia y estudia las tácticas, la biología y la corrupción de la horda para contener sus incursiones antes de que lleguen a los pisos interiores. Enseña que la victoria no requiere virtud, sino una comprensión fría e implacable del enemigo.</p><p><strong>Cultores:</strong> tácticos militares, mercenarios sin escrúpulos, inquisidores bélicos y estrategas obsesionados con anticipar al adversario a cualquier costo.</p><h3>II. Dispater, el Guardián de Dis</h3><p><strong>Dominio infernal:</strong> Dis, Piso II (la Ciudad Fortaleza) · <strong>Dominios sugeridos:</strong> Orden, Forja, Conocimiento · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> arquitecto de defensas inexpugnables y guardián de las murallas que resguardan el Infierno; la paranoia metódica hecha señor.</p><p><strong>Dogma y culto:</strong> Desde la metrópoli de hierro de Dis, Dispater administra el bastión que protege las capas profundas de las brechas de Avernus. Mantiene complejos de investigación dedicados a las debilidades demoníacas y asegura que la maquinaria bélica e industrial del Infierno no se detenga jamás.</p><p><strong>Cultores:</strong> ingenieros militares, carceleros, gobernantes tiranos obsesionados con la seguridad y arcanistas que levantan fortificaciones impenetrables.</p><h3>III. Beelzebub, Señor de la Corrupción y la Decadencia</h3><p><strong>Dominio infernal:</strong> Minauros, Piso III (el Pantano de la Decadencia) · <strong>Dominios sugeridos:</strong> Muerte, Tumba · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> entidad fétida que encarna el deterioro ineludible de las instituciones, la carne, las obras mortales y los ideales.</p><p><strong>Dogma y culto:</strong> En el pantano tóxico de Minauros, entre ruinas inestables y aguas contaminadas, Beelzebub vigila el proceso por el cual todo lo noble o perdurable termina pudriéndose. Representa el desgaste que erosiona reinos, sociedades y mentes desde adentro. Sus cultos operan en las sombras de las grandes ciudades.</p><p><strong>Cultores:</strong> saboteadores, políticos corruptos, nigromantes de la degradación y quienes buscan destruir el legado de sus enemigos infectando sus estructuras.</p><h3>IV. Mephistopheles, Señor de la Magia Prohibida</h3><p><strong>Dominio infernal:</strong> Phlegethos, Piso IV (el Reino de la Magia Prohibida) · <strong>Dominios sugeridos:</strong> Arcano, Conocimiento · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> erudito de los fuegos subterráneos y mayor archimago del Infierno, explorador de los saberes arcanos anatematizados.</p><p><strong>Dogma y culto:</strong> Bajo cielos de magma y volcanes, Mephistopheles investiga artes vedadas con la esperanza de hallar hechizos y artefactos capaces de cambiar el rumbo de la guerra contra el Abismo. No reconoce límites, ética ni tabúes en la busca del conocimiento.</p><p><strong>Cultores:</strong> magos renegados, alquimistas obsesionados, pactantes del fuego e inquisidores arcanos dispuestos a pagar el precio supremo por un poder sin restricciones.</p><h3>V. Levistus, Señor de la Traición y el Error</h3><p><strong>Dominio infernal:</strong> Stygia, Piso V (el Mar Helado) · <strong>Dominios sugeridos:</strong> Engaño, Muerte · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> seductor del rencor y encarnación de los errores irreparables, la paranoia y las alianzas traicioneras.</p><p><strong>Dogma y culto:</strong> Encerrado en los glaciares y las aguas oscuras de Stygia, Levistus rige sobre las consecuencias del perjurio y la desconfianza. Atiende las plegarias de los desesperados que han cometido faltas trágicas y los enreda en contratos de venganza y trampas legales de las que no hay retorno.</p><p><strong>Cultores:</strong> traidores, fugitivos de la justicia, conspiradores acorralados y quienes quieren destruir a sus rivales aunque el pacto arrastre su propia alma.</p><h3>VI. Glasya, Señora de las Conspiraciones</h3><p><strong>Dominio infernal:</strong> Malbolge, Piso VI (el Reino de las Intrigas) · <strong>Dominios sugeridos:</strong> Engaño, Conocimiento · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> maestra de la manipulación social, el chantaje, las alianzas volubles y la desestabilización política; el veneno de la traición calculada.</p><p><strong>Dogma y culto:</strong> En los precipicios inestables y los cañones traicioneros de Malbolge, Glasya gobierna con una red de espionaje, pactos secretos y manipulación. Su poder está en conocer la debilidad oculta de cada rival para que sus enemigos se destruyan entre sí sin mover un ejército.</p><p><strong>Cultores:</strong> cortesanos ambiciosos, espías, chantajistas, diplomáticos corruptos y quienes buscan derribar tronos desde las sombras de la corte.</p><h3>VII. Samael, Señor del Juicio y la Condena</h3><p><strong>Dominio infernal:</strong> Maladomini, Piso VII (el Reino de las Ruinas) · <strong>Dominios sugeridos:</strong> Orden, Muerte · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> inquisidor severo y juez implacable, la ley desprovista de gracia y el castigo eterno e inapelable.</p><p><strong>Dogma y culto:</strong> Maladomini está lleno de fortalezas derruidas y ciudades monumentales abandonadas, recordatorio de los fracasos de la ambición. Samael personifica la condena inflexible y la responsabilidad ineludible por los propios actos, y ejecuta sentencias sin atenuantes ni misericordia.</p><p><strong>Cultores:</strong> jueces tiranos, inquisidores fanáticos, ejecutores y quienes buscan castigar la culpa ajena con una ley de hierro ciega a la compasión.</p><h3>VIII. Mammon, Señor de los Recursos y las Deudas</h3><p><strong>Dominio infernal:</strong> Cania, Piso VIII (la Ciudad de los Pactos) · <strong>Dominios sugeridos:</strong> Orden, Engaño · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> gran tesorero del Infierno, mercader de almas y amo del comercio y la avaricia institucionalizada.</p><p><strong>Dogma y culto:</strong> Cania es la gran metrópoli del comercio infernal, donde se negocian escrituras de almas, se compran favores y se tasan las deudas de los mortales. Mammon administra el flujo de riqueza que financia la maquinaria bélica de Avernus, y recuerda que todo poder tiene un precio y que cada favor genera una obligación eterna.</p><p><strong>Cultores:</strong> banqueros despiadados, usureros, mercaderes de esclavos y mortales dispuestos a empeñar su destino por oro, títulos o posición.</p><h3>IX. Asmodeus, Rey del Infierno</h3><p><strong>Dominio infernal:</strong> Nessus, Piso IX (el Trono Infernal) · <strong>Dominios sugeridos:</strong> Orden, Arcano, Guerra · <strong>Alineamiento:</strong> Legal Malvado</p><p><strong>Ámbito:</strong> el Señor Supremo del Infierno, antiguo Ángel de la Luz (Sariel) y soberano absoluto de los Nueve Pisos; la mente maestra que sostiene la estructura infernal.</p><p><strong>Dogma y culto:</strong> Antes llamado Sariel, el más poderoso de los servidores de Sol, fue enviado a combatir al Abismo durante eones. Al comprender que las restricciones de Sol jamás permitirían vencer al caos, usó el poder que su padre le había concedido para rebelarse, transformar la fortaleza celestial en el Infierno y ascender como Rey de los Diablos. Desde el foso de Nessus gobierna a los ocho señores con autoridad absoluta, y sostiene que la tiranía del orden es la única fuerza capaz de salvar la Creación del colapso.</p><p><strong>Cultores:</strong> quienes creen que solo una disciplina sin piedad puede detener el caos, y los mortales que pactan con el Infierno para ganar poder.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792785147409,
+    "modifiedTime": 1792786395854,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  }
+ ],
+ "categories": [],
+ "ownership": {
+  "default": 0
+ },
+ "flags": {},
+ "_stats": {
+  "coreVersion": "14.369",
+  "systemId": "dnd5e",
+  "systemVersion": "6.0.6",
+  "createdTime": 1792783982759,
+  "modifiedTime": 1792783982759,
+  "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+  "compendiumSource": null,
+  "duplicateSource": null,
+  "exportSource": {
+   "worldId": "work-in-progress",
+   "uuid": "JournalEntry.jwIXObez5erF4Kma",
+   "coreVersion": "14.369",
+   "systemId": "dnd5e",
+   "systemVersion": "6.0.6"
+  }
+ }
+}
