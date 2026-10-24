@@ -13,12 +13,12 @@ assert(
   "index.html must load the versioned Behind the Screen stylesheet"
 );
 assert(
-  html.includes('src="behind-screen.js?v=20261009-2"'),
-  "index.html must load the versioned Behind the Screen script"
+  html.includes('src="behind-screen.js?v=20261024-1"'),
+  "index.html must load the current versioned Behind the Screen script"
 );
 assert(
-  script.includes('http://192.168.86.33:30000/'),
-  "Behind the Screen shortcut must match the current local Foundry endpoint"
+  script.includes('http://192.168.86.21:30000/join'),
+  "Guille DM shortcut must open the requested local join page"
 );
 assert(script.includes('link.href = foundryUrl'), "shortcut must open the configured Foundry URL");
 assert(script.includes("BEHIND THE SCREEN") && script.includes("PARA GUILLE"), "shortcut label must be present");
