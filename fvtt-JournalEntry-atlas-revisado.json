@@ -1,0 +1,257 @@
+{
+ "folder": "BZkDYMbQUteCmBmm",
+ "name": "Atlas",
+ "pages": [
+  {
+   "sort": 100000,
+   "name": "World Map",
+   "type": "image",
+   "_id": "ZHmcucWLHIp7PLB4",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {
+    "caption": ""
+   },
+   "text": {
+    "format": 1
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": "assets/Gemini_Generated_Image_s9155s9155s9155s.webp",
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792730279826,
+    "modifiedTime": 1792790588982,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 200000,
+   "name": "Continente de Abigur",
+   "type": "text",
+   "_id": "9rtkfQFPl7xEUz8t",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<p><em>En el mar del sur, solo, lejos de las costas de Rala y de Tomun, yace Abigur, el menor de los tres continentes. Pero lo que le falta en tierra le sobra en dominio, porque no hay en el mundo otro estado que cubra tanto: una sola ley, un solo gobierno y una sola voluntad se extienden sobre cada palmo de su suelo. Sus puertas están cerradas a los extranjeros, y las pocas que se abren dan todas a un mismo puerto fortificado.</em></p><h2>Imperium Ravum (el Imperio Gris)</h2><p><strong>Capital:</strong> Aetheluria<br><strong>Gobierno:</strong> autocracia aislacionista administrada por el Consejo Tripartito (3 Archimagos, 7 Clérigos y 10 Generales), con un Emperador rotativo elegido entre sus miembros<br><strong>Razas:</strong> Alto Humano, Humano, Enano, Dracónido, Gnomo, Semielfo, Semiorco, Tiflin, Aasimar, Genasi, Goblin, Goliat, Orco, Tabaxi, Leonin, Cambiante y Forjado<br><strong>Religiones:</strong> los Tres Primordiales (Tenebrae, Sol y Luna), las constelaciones del Dragón, el Cuervo y la Tortuga, y Asmodeus</p><p>Es el estado unificado más extenso del mundo, pues abarca la totalidad de la masa continental de Abigur. Su sociedad profesa el elitismo y la superioridad cultural, técnica y mágica, y funda su orgullo en la investigación omni-mágica, omni-teológica y científica. Mantiene un aislacionismo estricto para que nadie interfiera en sus asuntos, y centraliza todo contacto comercial y consular en el puerto fortificado de Portus Varia.</p><p>El Consejo Tripartito, de veinte escaños, gobierna por voto en bloque: Archimagos, Clérigos y Generales emiten un voto por rama, y un decreto necesita dos votos a favor para aprobarse. El título de Emperador rota entre los miembros del Consejo. El imperio es muy avanzado en magia arcana, magia divina y técnica, y comercia con el resto del mundo solo de manera estrictamente limitada.</p><h3>Las diez ciudades del Imperio</h3><ul><li><strong>Aetheluria</strong>: capital imperial y sede del Consejo Tripartito.</li><li><strong>Portus Varia</strong>: único puerto comercial del imperio y su puerta fortificada, en la costa norte.</li><li><strong>Valeriam</strong>: bastión militar.</li><li><strong>Arkenum</strong>: centro de investigación arcana.</li><li><strong>Sancturia</strong>: templos y observatorios, a orillas del Lago Sanctus.</li><li><strong>Praetorix</strong>: fortaleza del norte.</li><li><strong>Lucisburgum</strong>: alquimia y tecnología.</li><li><strong>Archivaea</strong>: biblioteca imperial.</li><li><strong>Ferrum-Corvinium</strong>: minería profunda; allí nace el Flumen Augustus.</li><li><strong>Aequitania</strong>: metrópoli agrícola, sobre el mismo río.</li></ul>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792735517141,
+    "modifiedTime": 1792782072362,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 300000,
+   "name": "Continente de Rala",
+   "type": "text",
+   "_id": "YBzBEkGTgUBRUXKK",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<p><em>Rala es la tierra de los muchos reinos. Quebrada en señoríos y federaciones, en fortalezas enanas y círculos de druidas, se extiende de costa a costa bajo la sombra de El Gran Bosque, que cubre el corazón del continente y no reconoce rey. Junto a la Arteria Azul, en la costa occidental, se alinean las ciudades libres, los caballeros y los enanos de las colinas. Hacia el interior moran los druidas, los labradores y la gente de las montañas de plata. Y frente al océano abierto, en la costa oriental, viven los pescadores y los balleneros.</em></p><h2>Eleuthéra Symmachía (la Alianza Libre)</h2><p><strong>Capital:</strong> rotativa cada año entre sus cinco ciudades<br><strong>Gobierno:</strong> federación informal de ciudades-estado, cada una con su propio sistema de gobierno<br><strong>Razas:</strong> Semiorcos, Orcos, Enanos, Gnomos, Humanos, Semielfos, Aasimar, Tiflins y Medianos<br><strong>Religiones:</strong> libre culto, según la ciudad-estado</p><p>En la costa de la Arteria Azul se alzan cinco ciudades que no han querido ser un solo reino: Kalythra, Mythenis, Sarisos, Zeyron y Varkales. Las une un pacto de libre comercio, de fronteras abiertas entre ellas, de patrullaje común de sus límites exteriores y de defensa mutua frente a cualquier agresión. La capitalidad y la sede del Consejo cambian cada año de una ciudad a otra.</p><table><thead><tr><th>Ciudad-estado</th><th>Gobierno</th></tr></thead><tbody><tr><td>Kalythra</td><td>Democracia directa por cabildo abierto</td></tr><tr><td>Mythenis</td><td>Democracia parlamentaria</td></tr><tr><td>Sarisos</td><td>Democracia presidencialista</td></tr><tr><td>Zeyron</td><td>Magocracia meritocrática, por exámenes académicos</td></tr><tr><td>Varkales</td><td>Oligarquía financiera: el consorcio de príncipes mercaderes</td></tr></tbody></table><h2>Sylvanguard</h2><p><strong>Capital:</strong> Silvercrest<br><strong>Gobierno:</strong> monarquía feudal<br><strong>Razas:</strong> Humanos (mayoría absoluta) y Semielfos<br><strong>Religiones:</strong> la Luna y la Constelación del Cuervo</p><p>Reino feudal de caballería tradicional, atado por pactos ancestrales a las criaturas feéricas del bosque. Sus tierras son célebres por la cría de caballos de raza, el ganado y la forja de armaduras.</p><p>Bajo el rey William III Lionheart, Sylvanguard es un bastión del orden caballeresco que mantiene con las comunidades druídicas vecinas una relación de respeto tenso. Sus principales ciudades son Highford, Falconridge y Kingsbridge.</p><h2>Rothügel (Colinas Rojas)</h2><p><strong>Capital:</strong> Rotburg (Fuerte Rojo)<br><strong>Gobierno:</strong> monarquía enana de superficie<br><strong>Razas:</strong> Enanos de las colinas y Gnomos de las rocas<br><strong>Religiones:</strong> Rubrum (el Guía) y la Constelación de la Tortuga (la Vieja Madre)</p><p>Reino enano independiente, asentado en la superficie de las Colinas Rojas. Es la potencia metalúrgica y minera de la región, y provee de hierro, cobre, herramientas y cerveza a los reinos vecinos.</p><p>Lo gobierna Helga Rothügel, y su soberanía alcanza las fortalezas de Rotberg, Eisenburg y Kupferdamm. Mantiene tratados comerciales para vender metales trabajados a cambio de grano, telas y madera.</p><h2>Caer Cathbad</h2><p><strong>Capital:</strong> Glanmorifa<br><strong>Gobierno:</strong> monarquía druídica (Gran Rey o Ard-Rí)<br><strong>Razas:</strong> Semielfos, Gnomos de los bosques y Cambiantes<br><strong>Religiones:</strong> la Luna y la Constelación del Ciervo</p><p>Reino de druidas, en los lindes de El Gran Bosque. Su gente se reúne en torno a los círculos mayores: el Círculo de la Luna, en la capital; el Círculo de las Llamas, en Tine-Glan; el Círculo de la Piedra, en Clach-Mor; y el Círculo de las Sombras, en Doire-Ombra.</p><p>El Gran Rey Maelor guarda la estabilidad de la espesura salvaje, y el reino vende hierbas medicinales, pieles y madera sin talar. Defiende las tradiciones místicas frente al avance de los estados feudales.</p><h2>Aldenfell</h2><p><strong>Capital:</strong> Oakhaven<br><strong>Gobierno:</strong> monarquía hereditaria<br><strong>Razas:</strong> Humanos, Medianos, Gnomos, Semiorcos, Semielfos y Elfos<br><strong>Religiones:</strong> Rubrum (el Guía) y la Constelación del Ciervo</p><p>Reino de geografía variada, con ricas llanuras de labranza al sur y valles mineros alpinos al norte, bajo las Montañas de Plata. Es la principal potencia agrícola de Rala y abastece de trigo y harina a muchas naciones.</p><p>Lo rige el rey Roderick II desde Oakhaven, y sus asentamientos principales son Wheatfield, Riverbend y Greenhollow. Sostiene el antiguo «Pacto de la Madera Caída», que regula el uso de los recursos forestales de El Gran Bosque.</p><h2>Tidesreach</h2><p><strong>Capital:</strong> Port Haven<br><strong>Gobierno:</strong> monarquía marítima<br><strong>Razas:</strong> Humanos, Semielfos y Genasis de agua<br><strong>Religiones:</strong> la Constelación de la Ballena y la Luna</p><p>Estado de la costa, frente al océano abierto. Su economía y su modo de vida giran en torno al mar: la pesca en salazón, la extracción de perlas y la caza y el procesamiento del aceite de ballena.</p><p>Gobierna la reina Isolde, que mantiene la seguridad de las rutas marítimas de la costa exterior y de sus pesquerías, con los puertos de Saltmist y Brinewater además de la capital.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792735543053,
+    "modifiedTime": 1792735565705,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 400000,
+   "name": "Continente de Tomun",
+   "type": "text",
+   "_id": "4odWCO4bfB9znENs",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<p><em>Tomun es la tierra de los contrastes. Hay en ella imperios de magos, teocracias del sol, reinos del norte, sultanatos del desierto y cordilleras donde mandan los dracónidos de las cumbres y los enanos de la piedra. Mira a Rala a través de la Arteria Azul, a uno o dos días de navegación, y en sus costas pasan juntos el comercio de las ciudades, el pillaje de los proscriptos y la guerra fría de los credos.</em></p><h2>Skjaldgard</h2><p><strong>Capital:</strong> Krakhavn<br><strong>Gobierno:</strong> monarquía militarista orca, organizada en dominios de Jarls<br><strong>Razas:</strong> Orcos y Semiorcos (clase gobernante); Humanos, Enanos y Gnomos (población civil y artesana)<br><strong>Religiones:</strong> cultos bélicos y tradiciones náuticas orcas</p><p>Reino orco de la costa, guerrero y marinero, de inspiración normanda. Controla fiordos de importancia estratégica y astilleros, y exporta mercenarios, pieles del norte y pescado en salazón.</p><p>Lo encabeza la reina Skagga la Rompeolas (Skagga Bloodhair). El reino se divide en dominios que mandan Jarls desde fortalezas como Bjornskag, Fiordvik, Jaldergard y Frostnes. Mantiene frecuentes conflictos navales con la teocracia de Solgard.</p><h2>Solgard</h2><p><strong>Capital:</strong> Solaria<br><strong>Gobierno:</strong> teocracia militarista e inquisitorial<br><strong>Razas:</strong> Humanos, Aasimar, Semielfos y Enanos templarios<br><strong>Religiones:</strong> Sol, venerado aquí como el Sol Rojo, y la Teología Celestial</p><p>Estado teocrático que extiende su dominio desde la costa de la Arteria Azul hacia el interior del continente. La Iglesia del Sol y la orden de los Templarios del Sol ejercen un poder judicial, militar e inquisitorial equivalente al de la corona misma.</p><p>Administra ciudades de la costa y del interior, como Altavilla y Castelrojo. Produce vino, aceite de oliva y reliquias bendecidas, y vigila con rigor la ortodoxia de la fe y la contención de Skjaldgard.</p><h2>Thindowin (el Delta de las Nieblas)</h2><p><strong>Capital:</strong> Thindowin<br><strong>Gobierno:</strong> enclave informal de gremios de contrabandistas y sindicatos<br><strong>Razas:</strong> Genasis de agua, Humanos, Tiflins y Cambiantes<br><strong>Religiones:</strong> sin religión oficial</p><p>Laberinto de manglares y estuarios, cubierto de continuo por una densa niebla arcana. Es refugio inexpugnable de proscriptos, contrabandistas y navegantes sin bandera.</p><p>No tiene gobierno central. Se ordena por acuerdos entre gremios criminales y mercaderes furtivos, y vive del tráfico de bienes sin registro, de información y de las plantas raras del delta.</p><h2>Aetheloria</h2><p><strong>Capital:</strong> Lareth-Vael<br><strong>Gobierno:</strong> monarquía dinástica (Casa Larethian)<br><strong>Razas:</strong> Elfos (todas las subrazas) y Humanos<br><strong>Religiones:</strong> fe élfica tradicional</p><p>Reino de estirpe élfica, regido por la antigua Casa Larethian. Se distingue por una cultura refinada y por bienes de gran valor: seda, vino élfico, arte y objetos mágicos de sutil encantamiento.</p><p>Gobierna las ciudades de Caelum, Sol-Draconis, Vesperis y Aethelis. Mantiene una postura diplomática reservada, fundada en la neutralidad y en el prestigio de su linaje.</p><h2>Qamarah (Al-Qamar)</h2><p><strong>Capital:</strong> Qamar-Zal<br><strong>Gobierno:</strong> monarquía del desierto (sultanato)<br><strong>Razas:</strong> Humanos, Semielfos y Genasis de fuego y de aire<br><strong>Religiones:</strong> la Luna y la Constelación del Zorro</p><p>Reino del desierto, cuya riqueza y supervivencia dependen del dominio de las rutas de caravanas, la extracción de sal, el cristal del desierto y la cría de camellos.</p><p>Enlaza los oasis y las instalaciones clave del desierto por medio de asentamientos como Zal-Bazar, Al-Kharim y el puerto de Al-Shatil. La Hermandad de los Pozos regula con neutralidad el acceso al agua en todo el territorio.</p><h2>Sorcerer Kingdom</h2><p><strong>Capital:</strong> Academia (sede del Consejo)<br><strong>Gobierno:</strong> magocracia universitaria, gobernada por un Consejo de Archimagos<br><strong>Razas:</strong> Semielfos, Gnomos, Humanos, Tiflins, Genasis y Aasimar<br><strong>Religiones:</strong> culto a las artes arcanas y a las ciencias mágicas</p><p>Reino mágico compuesto por seis ciudades universitarias: Academia, Magia Vana, Runaria, Aetheria, Axiom y Pyrosia. Es el centro del continente en la producción de grimorios, reactivos alquímicos y objetos mágicos.</p><p>El gobierno ejecutivo recae en el Consejo de los Seis, formado por los Archimagos de cada ciudad. La jerarquía política y el acceso a los cargos públicos se miden por títulos doctorales, publicaciones e investigaciones arcanas.</p><h2>The Wyrm Empire</h2><p><strong>Capital:</strong> The Black City<br><strong>Gobierno:</strong> imperio dracónico y militar<br><strong>Razas:</strong> Dracónidos (Dragonborn) y Goliats<br><strong>Religiones:</strong> la Constelación del Dragón</p><p>Imperio levantado en las cumbres más altas de la cordillera de Colmillos de Dragón. Se destaca por la minería de mithral, el trabajo de las gemas talladas y la forja de armas de gran calidad.</p><p>Domina los picos desde baluartes como Wyrmfang, Scalepeak y Ashspire, y sostiene acuerdos de paso con los clanes enanos para el control de la cordillera.</p><h2>Reino Enano de Dunmor (Superficie)</h2><p><strong>Capital:</strong> Dunmor<br><strong>Gobierno:</strong> monarquía enana de montaña<br><strong>Razas:</strong> Enanos de las montañas y Gnomos profundos (Svirfneblin)<br><strong>Religiones:</strong> la Constelación de la Tortuga (la Vieja Madre), Rubrum (el Guía) y las demás deidades tradicionales de la forja</p><p>Vertiente exterior y puerto de entrada, sobre la superficie, de las grandes posesiones subterráneas del Underdark. Administra el acceso a El Gran Túnel, la vía subterránea más importante de la cordillera.</p><p>Lo rige Dolan Redbeard, que mantiene el control de los bastiones de Kilrochan y Glenfort y regula los peajes y el comercio entre el interior de la montaña y el mundo de afuera.</p>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792735570244,
+    "modifiedTime": 1792735638509,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 500000,
+   "name": "Geografía, Ríos y Zonas Salvajes",
+   "type": "text",
+   "_id": "pQ74QNOYNKnlNOPd",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<h2>Morfología Global y Vías Marítimas</h2><p><em>El mundo es redondo y casi todo de agua. La tierra firme es allí un bien escaso: tres continentes, algunas islas y muchas más aguas de las que ningún navegante ha cruzado.</em></p><ul><li><strong>Masas continentales:</strong> tres continentes principales (Rala, Tomun y Abigur), acompañados por archipiélagos e islas dispersas.</li><li><strong>La Arteria Azul:</strong> estrecho marino central que separa los continentes de Rala y Tomun. Es la ruta comercial y militar más estratégica del planeta.</li></ul><h2>Escala y Distancias</h2><table><thead><tr><th>Dato</th><th>Medida</th></tr></thead><tbody><tr><td>Rala y Tomun, de norte a sur</td><td>5000 km cada uno, y unos 3000 km de ancho</td></tr><tr><td>La Arteria Azul</td><td>100 km de ancho en todo su tramo, unos 3200 km de largo</td></tr><tr><td>Abigur</td><td>2200 km de ancho por 1500 km de alto; su costa norte queda 1500 km al sur de Rala y Tomun</td></tr><tr><td>Archipiélago de la Ballena</td><td>al noreste de Rala, a unos 1300 km de su costa</td></tr><tr><td>Islas Libres (Cayo Cólera)</td><td>al oeste de Tomun, a unos 1400 km de su costa</td></tr><tr><td>Archipiélago de Anáhuac</td><td>al sudeste del océano, a más de 2200 km de la tierra más cercana</td></tr></tbody></table><p><strong>Notas de viaje:</strong> a pie se avanzan unos 38,5 km por día, de modo que cruzar un continente de norte a sur lleva unos 130 días. En barco se avanzan unos 75 km por día, y cruzar la Arteria Azul lleva de uno a dos.</p><h2>Hidrografía Principal (Ríos y Lagos)</h2><h3>Continente de Rala</h3><ul><li><strong>Río de Aldenfell:</strong> nace en las Montañas de Plata, riega los valles agrícolas de Aldenfell y desemboca en el océano exterior.</li><li><strong>Río del Gran Bosque:</strong> nace en la masa forestal interior, pasa por la zona de Sauce Chico y corre hacia el sur.</li><li><strong>Lago Silencioso:</strong> cuerpo de agua en los dominios de Caer Cathbad.</li></ul><h3>Continente de Tomun</h3><ul><li><strong>Río del Dragón:</strong> desciende de la cordillera de Colmillos de Dragón y atraviesa las tierras del Sorcerer Kingdom.</li><li><strong>Río Solaria:</strong> corre por el territorio de Solgard hasta desembocar en el delta de Thindowin.</li><li><strong>Lago Espejo Mágico:</strong> depósito de agua en el interior del Sorcerer Kingdom.</li></ul><h3>Continente de Abigur</h3><ul><li><strong>Flumen Augustus:</strong> vía fluvial principal del imperio, con su red de acueductos. Va desde Ferrum-Corvinium, pasa por Aequitania y Aetheluria, y llega al puerto de Portus Varia.</li><li><strong>Lago Sanctus:</strong> cuerpo de agua interior del Imperio Gris, junto a Sancturia.</li></ul><h2>Cadenas Montañosas</h2><ul><li><strong>Montañas de Plata (Silver Peaks):</strong> cordillera al norte del continente de Rala. Da un perfil alpino y minero a los asentamientos septentrionales de Aldenfell.</li><li><strong>Colmillos de Dragón:</strong> gran cordillera de Tomun. En sus picos más altos alberga al Imperio Wyrm; en sus estribaciones y sus honduras, la fortaleza enana de Dunmor y el cruce estratégico de El Gran Túnel.</li></ul><h2>Zonas Salvajes</h2><h3>El Gran Bosque (interior de Rala)</h3><ul><li><strong>Naturaleza:</strong> vasta masa forestal, inexplorada en su espesura profunda, que cubre la mayor parte del interior del continente.</li><li><strong>Sociedad:</strong> aldeas independientes, comunidades agrícolas y gremios de aventureros, fuera de todo control estatal.</li><li><strong>Razas:</strong> Leonin, Tabaxi, Cambiantes, Semielfos, Gnomos de los bosques, Medianos, Humanos, Semiorcos y Goblins libres o exiliados.</li><li><strong>El Antiguo Camino del Bosque:</strong> el viejo camino que cruza el bosque nace en su extremo suroeste, serpentea hacia el norte con la cola torcida y se bifurca en una «Y» cuyas dos ramas llegan al límite septentrional de la masa forestal. En él se alza Sauce Caído, uno de los últimos asentamientos antes de la franja donde la gente ya no se interna.</li></ul><h3>La Franja Salvaje (costa este de Tomun)</h3><ul><li><strong>Naturaleza:</strong> franja costera de acantilados que ningún reino reclama.</li><li><strong>Sociedad:</strong> dominada por tribus y por las bestias de la zona.</li><li><strong>Razas:</strong> Goblins, Orcos salvajes y Bárbaros humanos.</li></ul><h3>La Meseta Olvidada (interior de Tomun)</h3><ul><li><strong>Naturaleza:</strong> tierra de badlands, cañones y ruinas antiguas, con concentraciones de magia residual inestable.</li><li><strong>Sociedad:</strong> refugio de grupos marginados y de comunidades fuera de la ley.</li><li><strong>Razas:</strong> Orcos exiliados y Goblins.</li></ul><h3>Los Acantilados Negros (costa exterior de Tomun)</h3><ul><li><strong>Naturaleza:</strong> costa abrupta de arrecifes peligrosos, visitada de continuo por densas nieblas marinas.</li><li><strong>Sociedad:</strong> base de piratas de alta mar y de navegantes furtivos.</li><li><strong>Razas:</strong> Genasis de agua, Tabaxi, piratas humanos y Semiorcos.</li></ul>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792735687057,
+    "modifiedTime": 1792735695112,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  },
+  {
+   "sort": 600000,
+   "name": "Archipiélagos Oceánicos Principales",
+   "type": "text",
+   "_id": "otZndBmtoEENXyN9",
+   "system": {},
+   "title": {
+    "show": true,
+    "level": 1
+   },
+   "image": {},
+   "text": {
+    "format": 1,
+    "content": "<p><em>Más allá de las costas, en la inmensidad del océano, la tierra se deshace en islas. Tres archipiélagos guardan nombre y leyes propias, y cada uno vive a su manera de espaldas a los continentes.</em></p><h2>Archipiélago de la Ballena</h2><p><strong>Ubicación:</strong> noreste de Rala.</p><p><strong>Capital:</strong> el Santuario de las Brisas, asentamiento druídico central<br><strong>Gobierno:</strong> teocracia druídica y marítima, regida por el Círculo Druídico de las Mareas, que encabeza un Consejo de Ancianos y Druidas Acuáticos<br><strong>Razas:</strong> Elfos, Humanos, Genasis de agua y marineros integrados<br><strong>Religiones:</strong> culto sagrado al Océano y a la Constelación de la Ballena</p><p>Comunidad insular de marineros, náufragos y sociedades costeras pacíficas, que viven integrados al entorno marino bajo la guía de druidas acuáticos encargados de la navegación y de preservar las aguas.</p><ul><li><strong>Santuario de las Brisas:</strong> centro espiritual y de reunión del Círculo Druídico.</li><li><strong>Puerto Ballena:</strong> asentamiento pesquero y refugio seguro para las naves que surcan el océano exterior.</li></ul><h2>Archipiélago de las Islas Libres (Cayo Cólera)</h2><p><strong>Ubicación:</strong> oeste de Tomun.</p><p><strong>Capital:</strong> Cayo Cólera<br><strong>Gobierno:</strong> sin gobierno central; rige informalmente la Hermandad de la Costa, con un Consejo de Capitanes<br><strong>Razas:</strong> cosmopolita: Humanos, Semiorcos, Tiflins, Genasis de agua, Tabaxi, Goblins y fugitivos de todos los continentes<br><strong>Religiones:</strong> sin fe oficial; devoción libre a la Fortuna, a los vientos del mar y a las deidades del océano</p><p>Territorio tropical y sin leyes, que funciona como dominio independiente de piratas, contrabandistas, corsarios y marineros renegados.</p><ul><li><strong>Cayo Cólera:</strong> ciudad portuaria principal, mercado negro y bastión pirata que nadie ha logrado tomar.</li><li><strong>Refugio de los Bajíos:</strong> ancladero secundario, usado para reparar cascos, carenar y contrabandear.</li></ul><h2>Archipiélago de Anáhuac (El Reino Primordial)</h2><p><strong>Ubicación:</strong> sudeste del océano.</p><p><strong>Capital:</strong> Tenoch-Zal<br><strong>Gobierno:</strong> teocracia y monarquía sagrada insular: gobierna el Gran Tlatoani junto al Concilio Teocalli de los Primordiales<br><strong>Razas:</strong> Humanos nativos, Dracónidos, Hombres Lagarto (Lizardfolk) y Cambiantes<br><strong>Religiones:</strong> culto primordial a los Tres Grandes, en sus versiones teológicas ancestrales</p><p>Reino insular de estética y nomenclatura náhuatl, que se tiene por el heredero y custodio de la fe original del mundo y preserva la forma más antigua de la teología global.</p><ul><li><strong>Tenoch-Zal:</strong> ciudad capital y sagrada, levantada sobre pirámides escalonadas de piedra y canales tropicales.</li><li><strong>Xochicalco:</strong> centro astronómico, complejo de templos y fortaleza insular.</li></ul>"
+   },
+   "video": {
+    "controls": true,
+    "volume": 0.5
+   },
+   "src": null,
+   "category": null,
+   "ownership": {
+    "default": -1,
+    "p7EHGdH1Nw1D8mRX": 3
+   },
+   "flags": {},
+   "_stats": {
+    "coreVersion": "14.369",
+    "systemId": "dnd5e",
+    "systemVersion": "6.0.6",
+    "createdTime": 1792782027997,
+    "modifiedTime": 1792782126699,
+    "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+   }
+  }
+ ],
+ "categories": [],
+ "ownership": {
+  "default": 2
+ },
+ "flags": {},
+ "_stats": {
+  "coreVersion": "14.369",
+  "systemId": "dnd5e",
+  "systemVersion": "6.0.6",
+  "createdTime": 1792730257389,
+  "modifiedTime": 1792782025497,
+  "lastModifiedBy": "p7EHGdH1Nw1D8mRX",
+  "compendiumSource": null,
+  "duplicateSource": null,
+  "exportSource": {
+   "worldId": "work-in-progress",
+   "uuid": "JournalEntry.BDmguG0zHHnUStai",
+   "coreVersion": "14.369",
+   "systemId": "dnd5e",
+   "systemVersion": "6.0.6"
+  }
+ }
+}
