@@ -264,3 +264,8 @@ Pedido del usuario: retirar la estética pixel-art/juego retro únicamente de la
 - La bienvenida deja de usar una caja rectangular con borde, doble contorno, fondo oscuro y sombra. El título y el CTA quedan integrados sobre la viñeta inferior, con Cormorant Garamond / IM Fell English, marfil suave y verde musgo apagado. La imagen final no se modifica.
 - La frase promocional genérica se quitó de forma intencional para acordar con el usuario un texto críptico basado en el canon de la campaña antes de volver a añadirlo. Título y CTA se muestran en caja normal, sin glifos decorativos.
 - Se actualizó el cache-buster CSS. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+
+
+## Creator Personarum — revisión de redacción (24/10/2026)
+
+Se revisó el texto de los dos caminos y su primer paso sin tocar CSS, composición, imágenes ni flujo. El camino conocido usa voz directa de manual de aventureros; la exploración usa lenguaje de crónica y viaje de fantasía épica. Se eliminaron formulaciones genéricas de IA y se mantuvo explícito que la selección de regiones depende de integrar el atlas.
