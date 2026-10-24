@@ -251,3 +251,13 @@ Cuando se incorpore el JSON del atlas, enlazar la divinidad/creencia con las reg
 ### Ampliación: Infierno como opción (24/10/2026)
 
 El selector incluye **El Infierno — Asmodeus y los Nueve Señores** como una opción seleccionable adicional. El texto sigue el Codex: el Infierno es una jerarquía organizada para contener al Abismo; no es el Abismo ni debe confundirse con los demonios. No se atribuye un solo alineamiento ni dominios compartidos a todos los señores. En el camino de exploración, esta opción lleva el origen del personaje al Imperio Gris; en el camino directo se permite escoger el vínculo infernal sin forzar una región antes de integrar el atlas.
+
+
+## 11. Creator Personarum — nueva dirección visual de campaña (24/10/2026)
+
+Pedido del usuario: retirar la estética pixel-art/juego retro únicamente de la parte de la campaña nueva en Creator Personarum. La dirección es libro antiguo de fantasía: pergamino marfil, bordes y filetes envejecidos, tinta oscura, ornamento sobrio, verdes naturales y tipografía condensada clásica para títulos con serif literaria para lectura.
+
+- Todo el nuevo tema debe permanecer encapsulado bajo `.creator-personarum-page`; no cambiar la portada general ni las seis fichas existentes.
+- No alterar la imagen `creator-personarum-final-frame.png`, los videos de intro/outro ni el contenido canónico del mundo.
+- Se usan Oswald como alternativa condensada web y Cormorant Garamond / IM Fell English para texto; no se incluye la fuente comercial Modesto Condensed.
+- Verificar: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
