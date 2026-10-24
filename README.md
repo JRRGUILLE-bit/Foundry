@@ -416,8 +416,10 @@ Se añadió **El Infierno — Asmodeus y los Nueve Señores** como opción del s
 
 ## Creator Personarum — estética de la campaña nueva (24/10/2026)
 
-Se está reemplazando la estética retro/pixel de **Creator Personarum solamente** por una dirección visual de libro antiguo de fantasía: papel marfil/pergamino, tinta oscura, verdes musgo, filetes dorados discretos, tipografía editorial condensada para títulos y serif literaria para lectura. La intro, el outro y la ilustración final existente se conservan intactos. La portada general, las seis fichas actuales y las demás herramientas del sitio no deben heredar este tema.
+La estética retro/pixel de **Creator Personarum solamente** ya fue sustituida por una dirección visual de libro antiguo de fantasía: papel marfil/pergamino, tinta oscura, verdes musgo, filetes dorados discretos, tipografía editorial condensada para títulos y serif literaria para lectura. La intro, el outro y la ilustración final existente se conservan intactos. La portada general, las seis fichas actuales y las demás herramientas del sitio no deben heredar este tema.
 
 - Alcance: `creator-personarum.html` y sus estilos encapsulados en `.creator-personarum-page`.
 - Tipografía web: Oswald condensada para jerarquía/títulos y Cormorant Garamond / IM Fell English para texto de lectura; no se agrega ni se redistribuye una fuente comercial de Modesto Condensed.
-- QA previsto: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+- Se retiró la etiqueta superpuesta «CREATOR PERSONARUM / SECUENCIA I/II»: durante la intro no aparece ese rótulo; al terminar se muestra el fotograma final intacto con la bienvenida y el botón para continuar.
+- La intro se intenta iniciar automáticamente al abrir la página, salvo que el navegador indique preferencia por movimiento reducido. No hace falta refrescar para avanzar durante la secuencia; una pestaña que ya estaba abierta no se actualiza sola cuando se publica código nuevo, por lo que la versión publicada nueva debe abrirse de nuevo para probarla.
+- QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
