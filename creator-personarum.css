@@ -979,3 +979,40 @@
     transition: none;
   }
 }
+
+/* Canonical pantheon selection for divine concepts. */
+.creator-divine-section {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1rem, 2.5vw, 1.6rem);
+  border: 1px solid rgba(199, 161, 90, 0.7);
+  background: linear-gradient(135deg, rgba(74, 54, 25, 0.25), rgba(8, 7, 5, 0.8));
+}
+.creator-divine-section[hidden] { display: none; }
+.creator-divine-heading h2 {
+  margin: 0.25rem 0 0.6rem;
+  color: #fff1d0;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 400;
+}
+.creator-divine-heading p,
+.creator-deity-details,
+.creator-deity-guidance {
+  margin: 0;
+  color: #c4b79a;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+.creator-divine-kicker {
+  color: #d7b66f;
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+}
+.creator-deity-details {
+  padding: 0.85rem;
+  border-left: 2px solid #b18a48;
+  background: rgba(0, 0, 0, 0.35);
+  color: #f0dfb7;
+}
+.creator-deity-guidance { color: #a99d84; }
