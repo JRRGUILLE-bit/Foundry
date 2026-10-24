@@ -260,4 +260,6 @@ Pedido del usuario: retirar la estética pixel-art/juego retro únicamente de la
 - Todo el nuevo tema debe permanecer encapsulado bajo `.creator-personarum-page`; no cambiar la portada general ni las seis fichas existentes.
 - No alterar la imagen `creator-personarum-final-frame.png`, los videos de intro/outro ni el contenido canónico del mundo.
 - Se usan Oswald como alternativa condensada web y Cormorant Garamond / IM Fell English para texto; no se incluye la fuente comercial Modesto Condensed.
-- Verificar: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+- Se eliminó la etiqueta cinematográfica superior «CREATOR PERSONARUM / SECUENCIA I/II»; retirar ese overlay no debe alterar la intro, el outro ni el PNG final.
+- El JavaScript arranca la intro automáticamente al cargar la página, salvo preferencia por movimiento reducido; al terminar muestra el fotograma final y la bienvenida. La pestaña ya abierta no se actualiza automáticamente tras una publicación; volver a abrir el enlace sirve para probar el HTML/JS nuevos, sin añadir un paso de refresco dentro de la experiencia.
+- QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.

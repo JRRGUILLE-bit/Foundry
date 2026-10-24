@@ -38,7 +38,6 @@
   const soundToggle = document.getElementById('creator-sound-toggle');
   const retryOutroButton = document.getElementById('creator-retry-outro');
   const cinematicStatus = document.getElementById('creator-cinematic-status');
-  const cinematicLabel = document.getElementById('creator-cinematic-label');
   const workspace = document.getElementById('creator-workspace');
   const pathChoice = document.getElementById('creator-path-choice');
   const exploreStep = document.getElementById('creator-explore-step');
@@ -94,7 +93,6 @@
     introActivation.hidden = true;
     retryOutroButton.hidden = true;
     stage.dataset.state = 'welcome';
-    cinematicLabel.querySelector('.creator-sequence').textContent = 'EL UMBRAL';
     setStatus(message || 'INTRODUCCIÓN COMPLETADA // EL LIBRO ESTÁ ABIERTO');
   }
 
@@ -248,7 +246,6 @@
     outroVideo.hidden = true;
     welcomePanel.hidden = true;
     stage.dataset.state = 'intro';
-    cinematicLabel.querySelector('.creator-sequence').textContent = 'SECUENCIA I';
     setStatus('ABRIENDO EL LIBRO…');
     introVideo.currentTime = 0;
     introVideo.muted = !soundEnabled;
@@ -266,7 +263,6 @@
     outroVideo.hidden = false;
     retryOutroButton.hidden = true;
     stage.dataset.state = 'outro';
-    cinematicLabel.querySelector('.creator-sequence').textContent = 'SECUENCIA II';
     setStatus('EL UMBRAL SE ABRE…');
     outroVideo.currentTime = 0;
     outroVideo.muted = !soundEnabled;

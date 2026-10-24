@@ -31,6 +31,9 @@ assert.match(page, /creador%20outro\.mp4/, 'The outro must reference the committ
 assert.match(page, /creator-personarum-final-frame\.png/, 'The final illustration must be used on the welcome screen');
 assert.match(page, /id="creator-start-button"/, 'Welcome screen must expose the start control');
 assert.match(page, /CREAR TU PERSONAJE/, 'The cinematic CTA must clearly say create your character');
+assert.doesNotMatch(page, /creator-cinematic-label|creator-sequence|SECUENCIA I|SECUENCIA II/, 'The intro must not show the unwanted title/sequence overlay');
+assert.doesNotMatch(runtime, /cinematicLabel|SECUENCIA I|SECUENCIA II/, 'Runtime must not depend on the removed title/sequence overlay');
+assert.match(runtime, /else\s*\{\s*playIntro\(\);\s*\}/, 'Intro must start automatically on page open unless reduced motion is preferred');
 assert.match(runtime, /introVideo\.addEventListener\('ended'/, 'Intro completion must reveal the welcome frame');
 assert.match(runtime, /startButton\.addEventListener\('click', playOutro\)/, 'The cinematic CTA must trigger the outro');
 assert.match(runtime, /outroVideo\.addEventListener\('ended', showWorkspace\)/, 'The workspace must appear when the outro ends');

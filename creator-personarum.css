@@ -142,35 +142,6 @@
     radial-gradient(ellipse at center, transparent 36%, rgba(0, 0, 0, 0.2) 100%);
 }
 
-.creator-cinematic-label {
-  position: absolute;
-  z-index: 3;
-  top: clamp(0.85rem, 2.7vh, 1.75rem);
-  left: clamp(0.85rem, 2.6vw, 2rem);
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid rgba(227, 196, 130, 0.45);
-  background: rgba(13, 10, 7, 0.76);
-  color: #f3dfb1;
-  font-size: clamp(0.95rem, 1.5vw, 1.25rem);
-  letter-spacing: 0.1em;
-  text-shadow: 0 2px 6px #000;
-}
-
-.creator-sigil {
-  color: #e6bd70;
-  font-size: 1.4em;
-}
-
-.creator-sequence {
-  margin-left: 0.4rem;
-  padding-left: 0.75rem;
-  border-left: 1px solid rgba(227, 196, 130, 0.45);
-  color: #b7a27c;
-  font-size: 0.85em;
-}
 
 .creator-sound-toggle,
 .creator-retry-outro {
@@ -571,9 +542,6 @@
     font-size: 0.95rem;
   }
 
-  .creator-sequence {
-    display: none;
-  }
 
   .creator-workspace-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -585,13 +553,7 @@
 }
 
 @media (max-width: 520px) {
-  .creator-cinematic-label {
-    max-width: calc(100vw - 7.5rem);
-    gap: 0.35rem;
-    padding: 0.42rem 0.5rem;
-    font-size: 0.84rem;
-    letter-spacing: 0.05em;
-  }
+
 
   .creator-sound-toggle {
     padding: 0.46rem 0.52rem;
@@ -1050,8 +1012,6 @@
 .creator-personarum-page .creator-stage {
   background: #17140e;
 }
-
-.creator-personarum-page .creator-cinematic-label,
 .creator-personarum-page .creator-sound-toggle,
 .creator-personarum-page .creator-retry-outro {
   border-color: rgba(221, 197, 147, 0.58);
@@ -1075,7 +1035,6 @@
 }
 
 .creator-personarum-page .creator-eyebrow,
-.creator-personarum-page .creator-sequence,
 .creator-personarum-page .creator-cinematic-status {
   font-family: "Oswald", "Arial Narrow", sans-serif;
   font-weight: 400;
