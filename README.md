@@ -412,3 +412,12 @@ Al seleccionar **Clérigo** o **Paladín**, el creador muestra un selector de di
 ### Ampliación del panteón: opción infernal (24/10/2026)
 
 Se añadió **El Infierno — Asmodeus y los Nueve Señores** como opción del selector divino. La descripción mantiene la distinción canónica entre Infierno (jerarquía organizada), Abismo (herida caótica) y demonios (engendros abisales). No se inventa un único alineamiento ni un dominio común para los nueve señores. En el camino de exploración, esta elección conecta el origen con el Imperio Gris; en el camino de creación directa se puede seleccionar como vínculo infernal sin fijar todavía una región.
+
+
+## Creator Personarum — estética de la campaña nueva (24/10/2026)
+
+Se está reemplazando la estética retro/pixel de **Creator Personarum solamente** por una dirección visual de libro antiguo de fantasía: papel marfil/pergamino, tinta oscura, verdes musgo, filetes dorados discretos, tipografía editorial condensada para títulos y serif literaria para lectura. La intro, el outro y la ilustración final existente se conservan intactos. La portada general, las seis fichas actuales y las demás herramientas del sitio no deben heredar este tema.
+
+- Alcance: `creator-personarum.html` y sus estilos encapsulados en `.creator-personarum-page`.
+- Tipografía web: Oswald condensada para jerarquía/títulos y Cormorant Garamond / IM Fell English para texto de lectura; no se agrega ni se redistribuye una fuente comercial de Modesto Condensed.
+- QA previsto: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
