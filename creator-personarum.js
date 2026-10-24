@@ -61,7 +61,7 @@
   function showWorkspace() {
     stage.hidden = true;
     workspace.hidden = false;
-    workspace.focus({ preventScroll: true });
+    workspace.focus();
     restoreDraft();
     renderPreview(readFormValues());
   }
