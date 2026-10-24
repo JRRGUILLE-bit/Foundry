@@ -7,6 +7,25 @@
     explore: 'world-explorer'
   };
 
+  // Canonical choices distilled from fvtt-JournalEntry-codex-divinitatum-revisado.json.
+  const DIVINE_OPTIONS = [
+    { value: 'tenebrae', name: 'Tenebrae, el Oscuro', kind: 'Semilla Divina / Primordial', domains: 'Arcano, Conocimiento, Vida, Muerte', alignment: 'No especificado en el Codex', summary: 'El Primer Nacido; frontera del mundo, gravedad y defensa contra el Vacío Exterior. Su culto busca comprender las leyes ocultas del universo.' },
+    { value: 'luna', name: 'Luna', kind: 'Semilla Divina / Primordial', domains: 'Arcano, Engaño, Naturaleza, Crepúsculo, Tumba, Muerte', alignment: 'No especificado en el Codex', summary: 'La Segunda Semilla, Dueña de la Noche. Representa el cambio, la curiosidad, la adaptabilidad y los misterios de la noche y de lo silvestre.' },
+    { value: 'sol', name: 'Sol', kind: 'Semilla Divina / Primordial', domains: 'Vida, Luz, Naturaleza, Orden, Paz, Guerra', alignment: 'No especificado en el Codex', summary: 'El Dios Mayor, la Tercera Semilla. Sostiene la vida, la ley cósmica, el honor, la verdad y la preservación activa de la existencia.' },
+    { value: 'ciervo', name: 'El Ciervo', kind: 'Hijo de la Luna', domains: 'Vida', alignment: 'Caótico Bueno', summary: 'Vida indómita, renovación natural y libertad sin ataduras. Sus cultores incluyen druidas, cazadores y comunidades independientes.' },
+    { value: 'cuervo', name: 'El Cuervo', kind: 'Hijo de la Luna', domains: 'Conocimiento', alignment: 'Neutral', summary: 'Memoria, historia y verdades sepultadas. Sus cultores preservan hechos sin juzgar: cronistas, archivistas, jueces e historiadores.' },
+    { value: 'ballena', name: 'La Ballena', kind: 'Hijo de la Luna', domains: 'Tempestad', alignment: 'Caótico Neutral', summary: 'Mareas, tifones y aguas abiertas. Navegantes, capitanes e insulares le ofrecen plegarias para atravesar el mar.' },
+    { value: 'zorro', name: 'El Zorro', kind: 'Hijo de la Luna', domains: 'Engaño', alignment: 'Caótico Neutral', summary: 'Ingenio, astucia, soluciones indirectas y supervivencia mediante la flexibilidad.' },
+    { value: 'tortuga', name: 'La Tortuga', kind: 'Hijo de la Luna', domains: 'Forja', alignment: 'Legal Neutral', summary: 'Perseverancia, piedra, metal y trabajo dedicado. Los enanos la llaman la Vieja Madre.' },
+    { value: 'caballo', name: 'El Caballo', kind: 'Hijo de la Luna', domains: 'Guerra', alignment: 'Legal Bueno', summary: 'Combate abierto, valor, competencia recta y superación mediante el esfuerzo.' },
+    { value: 'dragon', name: 'El Dragón', kind: 'Hijo de la Luna', domains: 'Arcano', alignment: 'Legal Neutral', summary: 'Magia primera, estudio riguroso, maestría arcana y ambición.' },
+    { value: 'rata', name: 'La Rata', kind: 'Hijo de la Luna', domains: 'Tumba', alignment: 'Neutral', summary: 'Supervivencia en la penuria, refugio entre ruinas y protección de los desplazados y caídos.' },
+    { value: 'serpiente', name: 'La Serpiente', kind: 'Hijo de la Luna', domains: 'Muerte', alignment: 'Neutral', summary: 'El reposo inevitable de la muerte y el cierre natural de todas las historias.' },
+    { value: 'rubrum', name: 'Rubrum, el Dios Rojo', kind: 'Planeta errante / potencia cósmica', domains: 'Forja, Orden, Guerra, Conocimiento', alignment: 'Legal Neutral', summary: 'Piedra, metal, disciplina técnica y excelencia en el oficio. En la tradición enana, la Tortuga es la Vieja Madre y Rubrum, el Guía.' },
+    { value: 'viride', name: 'Viride, el Planeta Verde', kind: 'Planeta errante / potencia cósmica', domains: 'Guerra, Vida, Luz, Conocimiento', alignment: 'Caótico Neutral', summary: 'No tiene iglesia ni jerarquía. Su luz marca a los Elegidos y augura destinos capaces de torcer el curso de la historia; no equivale a una religión organizada.' },
+    { value: 'purpureum', name: 'Purpureum, el Planeta Púrpura', kind: 'Planeta errante / potencia cósmica', domains: 'Muerte', alignment: 'Neutral', summary: 'Presagios, transiciones sombrías y finales de era. No tiene templos abiertos ni fiestas populares; sus servidores estudian los augurios.' }
+  ];
+
   const stage = document.getElementById('creator-stage');
   const introVideo = document.getElementById('creator-intro-video');
   const outroVideo = document.getElementById('creator-outro-video');
@@ -38,6 +57,10 @@
   const nameInput = document.getElementById('creator-character-name');
   const lineageSelect = document.getElementById('creator-lineage');
   const classSelect = document.getElementById('creator-character-class');
+  const divineSection = document.getElementById('creator-divine-section');
+  const deitySelect = document.getElementById('creator-deity');
+  const deityDetails = document.getElementById('creator-deity-details');
+  const deityGuidance = document.getElementById('creator-deity-guidance');
   const draftForm = document.getElementById('creator-draft-form');
   const draftStatus = document.getElementById('creator-draft-status');
   const exportDraftButton = document.getElementById('creator-export-draft');
@@ -125,6 +148,46 @@
     if (heading) heading.focus();
   }
 
+  function initialiseDivineOptions() {
+    DIVINE_OPTIONS.forEach(option => {
+      let group = Array.from(deitySelect.querySelectorAll('optgroup')).find(item => item.label === option.kind);
+      if (!group) {
+        group = document.createElement('optgroup');
+        group.label = option.kind;
+        deitySelect.appendChild(group);
+      }
+      const element = document.createElement('option');
+      element.value = option.value;
+      element.textContent = option.name;
+      group.appendChild(element);
+    });
+  }
+
+  function getSelectedDeity() {
+    return DIVINE_OPTIONS.find(item => item.value === deitySelect.value) || null;
+  }
+
+  function updateDeityDetails() {
+    const option = getSelectedDeity();
+    deityDetails.textContent = option
+      ? option.kind + ' · Ámbitos sugeridos: ' + option.domains + ' · Alineamiento: ' + option.alignment + '. ' + option.summary
+      : 'Al elegir una opción, vas a ver sus ámbitos y una síntesis de su tradición.';
+  }
+
+  function updateDivineSection() {
+    const selectedClass = classSelect.value;
+    const isCleric = selectedClass === 'Clérigo';
+    const isPaladin = selectedClass === 'Paladín';
+    divineSection.hidden = !(isCleric || isPaladin);
+    deitySelect.required = isCleric && currentMode !== CREATION_MODES.explore;
+    if (isCleric) {
+      deityGuidance.textContent = 'Para clérigos, elegí una divinidad o potencia que dé forma a su fe y a sus dominios. Los ámbitos son los sugeridos por el Codex; no asignan automáticamente mecánicas.';
+    } else if (isPaladin) {
+      deityGuidance.textContent = 'Para paladines, la veneración es opcional: el juramento puede ser el centro del personaje. Si sigue una divinidad o potencia, elegila aquí.';
+    }
+    updateDeityDetails();
+  }
+
   function showDraftStep(mode, focus) {
     currentMode = mode;
     if (typeof focus === 'string') explorationFocus = focus;
@@ -157,6 +220,7 @@
 
     resetFormFields();
     restoreDraft();
+    updateDivineSection();
     renderPreview(readFormValues());
     const heading = document.getElementById('creator-workspace-title');
     if (heading) heading.focus();
@@ -240,7 +304,9 @@
       characterClass: classSelect.value,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
-      concept: document.getElementById('creator-concept').value.trim()
+      concept: document.getElementById('creator-concept').value.trim(),
+      deity: deitySelect.value,
+      deityName: getSelectedDeity() ? getSelectedDeity().name : ''
     };
   }
 
@@ -252,6 +318,8 @@
     document.getElementById('creator-preview-class').textContent = values.characterClass || 'Sin definir';
     document.getElementById('creator-preview-level').textContent = String(values.level || 1);
     document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
+    document.getElementById('creator-preview-deity-row').hidden = !values.deityName;
+    document.getElementById('creator-preview-deity').textContent = values.deityName || 'A definir';
     document.getElementById('creator-preview-monogram').textContent = name === 'Sin definir'
       ? (currentMode === CREATION_MODES.explore ? '✦' : '?')
       : name.charAt(0).toLocaleUpperCase('es');
@@ -279,6 +347,7 @@
       nameInput.value = draft.name || '';
       lineageSelect.value = draft.lineage || '';
       classSelect.value = draft.characterClass || '';
+      deitySelect.value = draft.deity || '';
       document.getElementById('creator-background').value = draft.background || '';
       document.getElementById('creator-level').value = String(draft.level || 1);
       document.getElementById('creator-concept').value = draft.concept || '';
@@ -320,6 +389,8 @@
       name: values.name,
       lineage: values.lineage,
       characterClass: values.characterClass,
+      deity: values.deity,
+      deityName: values.deityName,
       background: values.background,
       level: values.level,
       concept: values.concept
@@ -385,11 +456,18 @@
     }
   });
 
+  classSelect.addEventListener('change', updateDivineSection);
+  deitySelect.addEventListener('change', () => {
+    updateDeityDetails();
+    renderPreview(readFormValues());
+  });
+
   draftForm.addEventListener('submit', saveDraft);
   exportDraftButton.addEventListener('click', exportDraft);
   draftForm.addEventListener('input', () => renderPreview(readFormValues()));
   draftForm.addEventListener('change', () => renderPreview(readFormValues()));
 
+  initialiseDivineOptions();
   setSoundEnabled(false);
   renderPreview(null);
 
