@@ -122,8 +122,8 @@
     }
 
     exploreStatus.textContent = getSelectedExplorationFocus()
-      ? 'Tu última pista está marcada. Podés cambiarla o seguir.'
-      : 'Elegí una pista para continuar.';
+      ? 'Ya habías señalado esta senda. Podés seguir por ella o tomar otra.'
+      : 'Elegí una senda.';
     exploreStatus.dataset.state = 'idle';
     const heading = document.getElementById('creator-explore-title');
     if (heading) heading.focus();
@@ -152,7 +152,7 @@
     const option = getSelectedDeity();
     deityDetails.textContent = option
       ? option.kind + ' · Ámbitos sugeridos: ' + option.domains + ' · Alineamiento: ' + option.alignment + '. ' + option.summary
-      : 'Al elegir una opción, vas a ver sus ámbitos y una síntesis de su tradición.';
+      : 'Elegí una divinidad para consultar sus ámbitos y su tradición.';
   }
 
   function updateDivineSection() {
@@ -162,9 +162,9 @@
     divineSection.hidden = !(isCleric || isPaladin);
     deitySelect.required = isCleric && currentMode !== CREATION_MODES.explore;
     if (isCleric) {
-      deityGuidance.textContent = 'Para clérigos, elegí una divinidad o potencia que dé forma a su fe y a sus dominios. Los ámbitos son los sugeridos por el Codex; no asignan automáticamente mecánicas.';
+      deityGuidance.textContent = 'Para un clérigo, la divinidad forma parte de su fe. Los ámbitos del Codex orientan el concepto, pero no conceden poderes de reglas por sí solos.';
     } else if (isPaladin) {
-      deityGuidance.textContent = 'Para paladines, la veneración es opcional: el juramento puede ser el centro del personaje. Si sigue una divinidad o potencia, elegila aquí.';
+      deityGuidance.textContent = 'Para un paladín, el juramento puede bastar. Si también venera a una divinidad o potencia, elegila aquí.';
     }
     updateDeityDetails();
   }
@@ -182,18 +182,18 @@
     classSelect.required = !isExplorer;
 
     if (isExplorer) {
-      draftEyebrow.textContent = 'CAMINO 02 // EXPLORAR EL MUNDO';
-      draftTitle.textContent = 'DEJÁ QUE EL MUNDO TE INSPIRE';
-      draftDescription.textContent = 'Primero registrá la pista que te despertó curiosidad. No hace falta que ya tengas nombre, linaje o clase definidos.';
-      originPromise.textContent = 'ETAPA SIGUIENTE: conectar esta pista con las regiones oficiales del atlas. El paso final permitirá elegir de dónde viene tu personaje y recibir una historia de origen vinculada con ese lugar.';
+      draftEyebrow.textContent = 'CAMINO 02 // PRIMERAS HUELLAS';
+      draftTitle.textContent = 'LA PRIMERA HUELLA';
+      draftDescription.textContent = 'Anotá qué lugar o historia te trajo hasta aquí. No necesitás tener nombre, linaje ni clase: basta con saber qué despertó tu interés.';
+      originPromise.textContent = 'MÁS ADELANTE: el atlas permitirá escoger una región concreta y conocer las historias que perduran allí.';
       formStepLabel.textContent = '02 / PRIMERA IDEA';
       formModeLabel.textContent = 'EXPLORACIÓN';
-      nameInput.placeholder = 'Podés dejarlo para más adelante';
+      nameInput.placeholder = 'El nombre puede esperar';
     } else {
-      draftEyebrow.textContent = 'CAMINO 01 // DAR FORMA A TU IDEA';
-      draftTitle.textContent = 'TU PERSONAJE, COMO LO IMAGINASTE';
-      draftDescription.textContent = 'Contanos lo esencial de ese aventurero que ya tenés en la cabeza. Podés dejar detalles para después.';
-      originPromise.textContent = 'ETAPA FINAL A INTEGRAR: elegir de qué región oficial del mundo viene tu personaje y recibir una historia de origen que lo conecte con ese lugar.';
+      draftEyebrow.textContent = 'CAMINO 01 // PERFIL DEL AVENTURERO';
+      draftTitle.textContent = 'EL AVENTURERO QUE TENÉS EN MENTE';
+      draftDescription.textContent = 'Dale forma a lo esencial: su nombre, su linaje, su clase y aquello que lo mueve. No hace falta resolver ahora cada detalle de su pasado.';
+      originPromise.textContent = 'MÁS ADELANTE: el atlas permitirá elegir su región de origen y conocer las historias que la marcaron.';
       formStepLabel.textContent = '02 / IDENTIDAD';
       formModeLabel.textContent = 'IDEA PROPIA';
       nameInput.placeholder = '¿Cómo lo llamarán las crónicas?';
@@ -216,8 +216,8 @@
     savedDraft = null;
     exportDraftButton.disabled = true;
     draftStatus.textContent = currentMode === CREATION_MODES.explore
-      ? 'Todavía no hace falta que tengas todas las respuestas.'
-      : 'Los cambios se guardan cuando pulsás «Guardar borrador».';
+      ? 'No hace falta decidirlo todo ahora.'
+      : 'Guardá el borrador para conservar los cambios.';
     draftStatus.dataset.state = 'idle';
   }
 
@@ -329,7 +329,7 @@
       document.getElementById('creator-level').value = String(draft.level || 1);
       document.getElementById('creator-concept').value = draft.concept || '';
       exportDraftButton.disabled = false;
-      setDraftStatus('BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', 'saved');
+      setDraftStatus('Borrador recuperado.', 'saved');
     } catch (error) {
       savedDraft = null;
       exportDraftButton.disabled = true;
@@ -378,7 +378,7 @@
       savedDraft = draft;
       exportDraftButton.disabled = false;
       renderPreview(draft);
-      setDraftStatus('BORRADOR GUARDADO EN ESTE NAVEGADOR. TODAVÍA NO ES UN ACTOR DE FOUNDRY.', 'saved');
+      setDraftStatus('Borrador guardado. Todavía no se creó un actor en Foundry.', 'saved');
     } catch (error) {
       setDraftStatus('No se pudo guardar en el navegador. Revisá el espacio disponible o los permisos de almacenamiento.', 'error');
     }
@@ -402,7 +402,7 @@
   function continueExploration() {
     const selected = getSelectedExplorationFocus();
     if (!selected) {
-      exploreStatus.textContent = 'Elegí una pista antes de continuar; puede cambiar más adelante.';
+      exploreStatus.textContent = 'Primero elegí una senda.';
       exploreStatus.dataset.state = 'error';
       return;
     }
@@ -426,7 +426,7 @@
 
   exploreStep.addEventListener('change', event => {
     if (event.target && event.target.name === 'creator-exploration-focus') {
-      exploreStatus.textContent = 'Pista elegida: ' + getExplorationLabel(event.target.value) + '. Podés cambiarla después.';
+      exploreStatus.textContent = 'Senda elegida: ' + getExplorationLabel(event.target.value) + '. Podés seguir por ella o escoger otra.';
       exploreStatus.dataset.state = 'idle';
     }
   });
