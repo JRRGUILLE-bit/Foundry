@@ -420,7 +420,7 @@ La estética retro/pixel de **Creator Personarum solamente** ya fue sustituida p
 
 - Alcance: `creator-personarum.html` y sus estilos encapsulados en `.creator-personarum-page`.
 - Tipografía web: Oswald condensada para jerarquía/títulos y Cormorant Garamond / IM Fell English para texto de lectura; no se agrega ni se redistribuye una fuente comercial de Modesto Condensed.
-- Se retiraron el rótulo «CREATOR PERSONARUM / SECUENCIA I/II», el control de sonido y todos los mensajes de estado cinematográficos. La animación no muestra texto adicional ni un botón de audio.
-- Durante la intro aparece únicamente «SALTAR INTRO»; al pulsarlo, se detiene el video y aparece el fotograma final intacto con la bienvenida. Al comenzar el outro, el mismo control cambia a «SALTAR TRANSICIÓN» y permite pasar directamente al selector de caminos. Si el navegador bloquea un video, el flujo avanza sin mostrar avisos sobrepuestos.
-- La intro se intenta iniciar automáticamente al abrir la página, salvo cuando está activada la preferencia del sistema por movimiento reducido. Se incrementaron las versiones de caché de CSS/JS.
-- QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+- Se retiraron el rótulo de secuencia, el control de sonido y los mensajes de estado cinematográficos. Durante la intro solo aparece «SALTAR INTRO»; durante el outro cambia a «SALTAR TRANSICIÓN».
+- El fotograma final original se conserva. El panel rectangular de bienvenida se quitó: el título y el botón se superponen directamente sobre una viñeta inferior suave, con serif literaria y una paleta más apagada de marfil y verde musgo, sin marco doble ni caja oscura.
+- Se quitó el texto genérico de bienvenida a la espera de acordar con el usuario una frase críptica conectada con la campaña. El título se muestra como «Creator Personarum» y la acción como «Crear tu personaje», sin la flecha decorativa.
+- Se incrementó la versión de caché CSS. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.

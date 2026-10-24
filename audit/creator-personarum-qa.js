@@ -30,7 +30,11 @@ assert.match(page, /creador%20intro\.mp4/, 'The cinematic intro must reference t
 assert.match(page, /creador%20outro\.mp4/, 'The outro must reference the committed outro asset');
 assert.match(page, /creator-personarum-final-frame\.png/, 'The final illustration must be used on the welcome screen');
 assert.match(page, /id="creator-start-button"/, 'Welcome screen must expose the start control');
-assert.match(page, /CREAR TU PERSONAJE/, 'The cinematic CTA must clearly say create your character');
+assert.match(page, /<h1 id="creator-welcome-title">Creator Personarum<\/h1>/, 'Welcome title uses literary title casing');
+assert.match(page, /<button type="button" id="creator-start-button" class="creator-primary-button">Crear tu personaje<\/button>/, 'Welcome CTA uses simple title case without decorative glyphs');
+assert.doesNotMatch(page, /La página está abierta|Tu próxima leyenda empieza con una decisión|UN MUNDO\. INFINITAS HISTORIAS/, 'Generic welcome copy remains absent until the campaign line is agreed');
+assert.match(styles, /\.creator-personarum-page \.creator-welcome-panel\s*\{[^}]*border: none;[^}]*background: transparent;[^}]*box-shadow: none;/s, 'Welcome panel must not render a rectangle');
+assert.match(styles, /\.creator-personarum-page \.creator-welcome-panel h1\s*\{[^}]*Cormorant Garamond/s, 'Welcome title uses literary serif typography');
 assert.match(page, /id="creator-skip-animation"/, 'A skip-intro/animation control must be available during cinematic playback');
 assert.doesNotMatch(page, /creator-sound-toggle|SONIDO: OFF|creator-cinematic-status|INTRODUCCIÓN COMPLETADA|EL LIBRO ESTÁ ABIERTO|creator-intro-activation|creator-retry-outro|REINTENTAR TRANSICIÓN/, 'The cinematic stage must not expose sound controls, status text or retry overlays');
 assert.doesNotMatch(runtime, /cinematicStatus|setStatus|soundToggle|setSoundEnabled|soundEnabled|introActivation|playIntroButton|retryOutroButton|INTRODUCCIÓN COMPLETADA|EL LIBRO ESTÁ ABIERTO|REINTENTAR TRANSICIÓN|SONIDO:/, 'The runtime must not reference removed cinematic UI');
