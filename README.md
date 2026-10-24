@@ -295,15 +295,18 @@ Suites existentes:
 El Browser Mobile QA cubre Chromium Android simulado, WebKit iPhone simulado y Chromium desktop, además de los seis personajes y las cinco pestañas mobile.
 
 
-### Creator Personarum — primera etapa cinematográfica
+### Creator Personarum — flujo cinematográfico y dos caminos
 
-La portada enlaza a `creator-personarum.html`, una secuencia independiente para el futuro creador de personajes.
+La portada enlaza a `creator-personarum.html`, una secuencia independiente para el creador de personajes.
 
 - `creador intro.mp4` se reproduce al abrir la página; el audio arranca silenciado para permitir autoplay y puede activarse desde el control de sonido.
-- Al terminar, se muestra `creator-personarum-final-frame.png` intacta, con el rótulo y el botón **Comenzar** superpuestos en HTML.
-- **Comenzar** dispara `creador outro.mp4`; al finalizar, abre el formulario inicial del creador.
-- El formulario incluye nombre, linaje, clase, trasfondo, nivel y concepto. Guarda un borrador local bajo `banda.creator-personarum.draft.v1` y permite exportarlo a JSON.
-- Esta primera etapa **no crea todavía un actor de Foundry** ni calcula atributos, competencias, equipo o hechizos. Esos pasos quedan para las siguientes iteraciones.
+- Al terminar, se muestra `creator-personarum-final-frame.png` intacta, con el título y el botón **Crear tu personaje** superpuestos en HTML.
+- El clic reproduce `creador outro.mp4`; al finalizar, aparecen dos recorridos de creación:
+  1. **Ya sé lo que quiero jugar:** empezar desde el concepto de personaje que el jugador ya tiene en mente.
+  2. **Todavía no lo sé:** iniciar una exploración guiada desde intereses en culturas, tierras salvajes, conflictos, ruinas, viajes o lugares mágicos.
+- La ruta exploradora permite registrar una pista inicial sin exigir que el jugador conozca todavía su nombre, linaje o clase. Los borradores se guardan por separado en el navegador y se pueden exportar a JSON.
+- Las pistas de exploración son temas orientativos, **no nombres de regiones del canon**. La siguiente etapa debe conectar el atlas oficial del mundo, ofrecer regiones concretas y, al cierre del proceso, dejar elegir la procedencia del personaje para contarle su historia de origen.
+- Esta etapa **no crea todavía un actor de Foundry** ni calcula atributos, competencias, equipo o hechizos.
 - QA: `node --check creator-personarum.js` y `node audit/creator-personarum-qa.js`, además del Browser Mobile QA.
 
 ---
