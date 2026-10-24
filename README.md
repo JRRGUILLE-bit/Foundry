@@ -424,3 +424,11 @@ La estética retro/pixel de **Creator Personarum solamente** ya fue sustituida p
 - El fotograma final original se conserva. El panel rectangular de bienvenida se quitó: el título y el botón se superponen directamente sobre una viñeta inferior suave, con serif literaria y una paleta más apagada de marfil y verde musgo, sin marco doble ni caja oscura.
 - Se quitó el texto genérico de bienvenida a la espera de acordar con el usuario una frase críptica conectada con la campaña. El título se muestra como «Creator Personarum» y la acción como «Crear tu personaje», sin la flecha decorativa.
 - Se incrementó la versión de caché CSS. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+
+
+## Creator Personarum — revisión de voz de los caminos (24/10/2026)
+
+- Camino «Ya sé lo que quiero jugar»: prosa directa de guía de aventureros, concreta y centrada en concepto, linaje, clase y motivación.
+- Camino «Todavía no lo sé»: voz de crónica y viaje, con caminos antiguos, tierras y leyendas; sin imitar literalmente a un autor.
+- Se limpiaron frases genéricas de IA y se conservaron los nombres/IDs de controles y la estructura de la página. No se modifican CSS, composición visual, iconos ni imágenes.
+- La integración del atlas sigue indicada como futura para no prometer una selección de región que aún no está conectada.
