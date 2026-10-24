@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#080705">
+  <meta name="description" content="Creator Personarum: abrí el libro y empezá a crear tu próximo aventurero.">
+  <title>Creator Personarum | El Foundry de la Banda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="creator-personarum.css?v=20261024-1">
+</head>
+<body class="creator-personarum-page">
+  <main id="creator-app">
+    <section id="creator-stage" class="creator-stage" aria-label="Introducción cinematográfica de Creator Personarum">
+      <div id="creator-final-frame" class="creator-final-frame" hidden>
+        <img
+          src="creator-personarum-final-frame.png"
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+        >
+      </div>
+
+      <video
+        id="creator-intro-video"
+        class="creator-cinematic-video"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        poster="creator-personarum-final-frame.png"
+        aria-label="Introducción cinematográfica del libro"
+      >
+        <source src="creador%20intro.mp4" type="video/mp4">
+      </video>
+
+      <video
+        id="creator-outro-video"
+        class="creator-cinematic-video"
+        playsinline
+        preload="auto"
+        hidden
+        aria-label="Transición cinematográfica hacia el creador de personajes"
+      >
+        <source src="creador%20outro.mp4" type="video/mp4">
+      </video>
+
+      <div class="creator-vignette" aria-hidden="true"></div>
+
+      <div class="creator-cinematic-label" id="creator-cinematic-label">
+        <span class="creator-sigil" aria-hidden="true">✦</span>
+        <span>CREATOR PERSONARUM</span>
+        <span class="creator-sequence">SECUENCIA I</span>
+      </div>
+
+      <button
+        type="button"
+        id="creator-sound-toggle"
+        class="creator-sound-toggle"
+        aria-pressed="false"
+        aria-label="Activar sonido"
+      >SONIDO: OFF</button>
+
+      <section id="creator-intro-activation" class="creator-intro-activation" hidden>
+        <p>EL LIBRO ESPERA.</p>
+        <button type="button" id="creator-play-intro" class="creator-primary-button">REPRODUCIR INTRO</button>
+      </section>
+
+      <section id="creator-welcome-panel" class="creator-welcome-panel" hidden aria-labelledby="creator-welcome-title">
+        <p class="creator-eyebrow">UN MUNDO. INFINITAS HISTORIAS.</p>
+        <h1 id="creator-welcome-title">CREATOR PERSONARUM</h1>
+        <p class="creator-welcome-copy">La página está abierta. Tu próxima leyenda empieza con una decisión.</p>
+        <button type="button" id="creator-start-button" class="creator-primary-button">
+          COMENZAR
+          <span aria-hidden="true">↗</span>
+        </button>
+      </section>
+
+      <button type="button" id="creator-retry-outro" class="creator-retry-outro" hidden>
+        REINTENTAR TRANSICIÓN
+      </button>
+
+      <p id="creator-cinematic-status" class="creator-cinematic-status" role="status" aria-live="polite">
+        ABRIENDO EL LIBRO…
+      </p>
+    </section>
+
+    <section id="creator-workspace" class="creator-workspace" hidden tabindex="-1" aria-labelledby="creator-workspace-title">
+      <header class="creator-workspace-header">
+        <a href="index.html" class="creator-home-link">← VOLVER A EL FOUNDRY DE LA BANDA</a>
+        <span class="creator-workspace-code">REGISTRUM // PERSONARUM</span>
+      </header>
+
+      <div class="creator-workspace-intro">
+        <p class="creator-eyebrow">SECUENCIA COMPLETADA // NUEVO REGISTRO</p>
+        <h1 id="creator-workspace-title">CREÁ TU AVENTURERO</h1>
+        <p>Empezá por su identidad. Este primer paso guarda un borrador en este navegador; todavía no crea un actor dentro de Foundry.</p>
+      </div>
+
+      <div class="creator-workspace-grid">
+        <form id="creator-draft-form" class="creator-draft-form">
+          <header class="creator-form-heading">
+            <span>01 / IDENTIDAD</span>
+            <span>BORRADOR LOCAL</span>
+          </header>
+
+          <label class="creator-field creator-field-wide" for="creator-character-name">
+            <span>NOMBRE DEL AVENTURERO</span>
+            <input
+              id="creator-character-name"
+              name="characterName"
+              type="text"
+              maxlength="80"
+              autocomplete="off"
+              placeholder="¿Cómo lo llamarán las crónicas?"
+              required
+            >
+          </label>
+
+          <label class="creator-field" for="creator-lineage">
+            <span>LINAJE / RAZA</span>
+            <select id="creator-lineage" name="lineage" required>
+              <option value="">Elegí un linaje…</option>
+              <option>Humano</option>
+              <option>Elfo</option>
+              <option>Enano</option>
+              <option>Mediano</option>
+              <option>Gnomo</option>
+              <option>Dracónido</option>
+              <option>Semielfo</option>
+              <option>Tiefling</option>
+              <option>Semiorco</option>
+              <option>Otro / personalizado</option>
+            </select>
+          </label>
+
+          <label class="creator-field" for="creator-character-class">
+            <span>CLASE</span>
+            <select id="creator-character-class" name="characterClass" required>
+              <option value="">Elegí una clase…</option>
+              <option>Bárbaro</option>
+              <option>Bardo</option>
+              <option>Brujo</option>
+              <option>Clérigo</option>
+              <option>Druida</option>
+              <option>Explorador</option>
+              <option>Guerrero</option>
+              <option>Hechicero</option>
+              <option>Mago</option>
+              <option>Monje</option>
+              <option>Paladín</option>
+              <option>Pícaro</option>
+              <option>Clase personalizada</option>
+            </select>
+          </label>
+
+          <label class="creator-field" for="creator-background">
+            <span>TRASFONDO</span>
+            <select id="creator-background" name="background">
+              <option value="">A definir…</option>
+              <option>Acólito</option>
+              <option>Artesano de gremio</option>
+              <option>Criminal</option>
+              <option>Ermitaño</option>
+              <option>Héroe del pueblo</option>
+              <option>Marinero</option>
+              <option>Noble</option>
+              <option>Sabio</option>
+              <option>Soldado</option>
+              <option>Personalizado</option>
+            </select>
+          </label>
+
+          <label class="creator-field" for="creator-level">
+            <span>NIVEL INICIAL</span>
+            <input id="creator-level" name="level" type="number" min="1" max="20" step="1" value="1" required>
+          </label>
+
+          <label class="creator-field creator-field-wide" for="creator-concept">
+            <span>CONCEPTO / NOTAS</span>
+            <textarea
+              id="creator-concept"
+              name="concept"
+              rows="4"
+              maxlength="1200"
+              placeholder="Una promesa, una deuda, una pregunta sin resolver…"
+            ></textarea>
+          </label>
+
+          <div class="creator-form-actions">
+            <button type="submit" class="creator-primary-button">GUARDAR BORRADOR</button>
+            <button type="button" id="creator-export-draft" class="creator-secondary-button" disabled>EXPORTAR JSON</button>
+          </div>
+          <p id="creator-draft-status" class="creator-draft-status" role="status" aria-live="polite">
+            Los cambios se guardan cuando pulsás «Guardar borrador».
+          </p>
+        </form>
+
+        <aside class="creator-preview-panel" aria-labelledby="creator-preview-title">
+          <p class="creator-eyebrow">VISTA PREVIA</p>
+          <h2 id="creator-preview-title">FICHA EN CONSTRUCCIÓN</h2>
+          <div class="creator-preview-monogram" id="creator-preview-monogram" aria-hidden="true">?</div>
+          <dl class="creator-preview-list">
+            <div><dt>NOMBRE</dt><dd id="creator-preview-name">Sin definir</dd></div>
+            <div><dt>LINAJE</dt><dd id="creator-preview-lineage">Sin definir</dd></div>
+            <div><dt>CLASE</dt><dd id="creator-preview-class">Sin definir</dd></div>
+            <div><dt>NIVEL</dt><dd id="creator-preview-level">1</dd></div>
+            <div><dt>TRASFONDO</dt><dd id="creator-preview-background">A definir</dd></div>
+          </dl>
+          <p class="creator-preview-note">
+            Esta etapa registra la identidad inicial. Atributos, competencias, equipo, hechizos y creación de actores en Foundry quedan para la siguiente fase.
+          </p>
+        </aside>
+      </div>
+
+      <footer class="creator-workspace-footer">
+        <span>CREATOR PERSONARUM</span>
+        <span>EL RESTO DE LA HISTORIA TODAVÍA NO ESTÁ ESCRITO.</span>
+      </footer>
+    </section>
+  </main>
+
+  <script src="creator-personarum.js?v=20261024-1"></script>
+</body>
+</html>

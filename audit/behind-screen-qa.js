@@ -17,8 +17,8 @@ assert(
   "index.html must load the versioned Behind the Screen script"
 );
 assert(
-  script.includes('http://192.168.86.35:30000/game'),
-  "Behind the Screen button must point directly to Guille's local Foundry"
+  script.includes('http://192.168.86.33:30000/'),
+  "Behind the Screen shortcut must match the current local Foundry endpoint"
 );
 assert(script.includes('link.href = foundryUrl'), "shortcut must open the configured Foundry URL");
 assert(script.includes("BEHIND THE SCREEN") && script.includes("PARA GUILLE"), "shortcut label must be present");

@@ -4,6 +4,12 @@ on:
   pull_request:
     paths:
       - "index.html"
+      - "creator-personarum.html"
+      - "creator-personarum.css"
+      - "creator-personarum.js"
+      - "creator-personarum-final-frame.png"
+      - "creador *.mp4"
+      - "audit/creator-personarum-qa.js"
       - "*.css"
       - "mobile-*.js"
       - "character-*.js"
@@ -18,6 +24,12 @@ on:
       - main
     paths:
       - "index.html"
+      - "creator-personarum.html"
+      - "creator-personarum.css"
+      - "creator-personarum.js"
+      - "creator-personarum-final-frame.png"
+      - "creador *.mp4"
+      - "audit/creator-personarum-qa.js"
       - "*.css"
       - "mobile-*.js"
       - "character-*.js"
@@ -53,6 +65,11 @@ jobs:
 
       - name: Check QA script syntax
         run: node --check audit/browser-mobile-qa-runner.mjs
+
+      - name: Check Creator Personarum flow and assets
+        run: |
+          node --check creator-personarum.js
+          node audit/creator-personarum-qa.js
 
       - name: Run browser QA
         run: node audit/browser-mobile-qa-runner.mjs

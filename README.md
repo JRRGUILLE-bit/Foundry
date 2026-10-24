@@ -294,6 +294,18 @@ Suites existentes:
 
 El Browser Mobile QA cubre Chromium Android simulado, WebKit iPhone simulado y Chromium desktop, además de los seis personajes y las cinco pestañas mobile.
 
+
+### Creator Personarum — primera etapa cinematográfica
+
+La portada enlaza a `creator-personarum.html`, una secuencia independiente para el futuro creador de personajes.
+
+- `creador intro.mp4` se reproduce al abrir la página; el audio arranca silenciado para permitir autoplay y puede activarse desde el control de sonido.
+- Al terminar, se muestra `creator-personarum-final-frame.png` intacta, con el rótulo y el botón **Comenzar** superpuestos en HTML.
+- **Comenzar** dispara `creador outro.mp4`; al finalizar, abre el formulario inicial del creador.
+- El formulario incluye nombre, linaje, clase, trasfondo, nivel y concepto. Guarda un borrador local bajo `banda.creator-personarum.draft.v1` y permite exportarlo a JSON.
+- Esta primera etapa **no crea todavía un actor de Foundry** ni calcula atributos, competencias, equipo o hechizos. Esos pasos quedan para las siguientes iteraciones.
+- QA: `node --check creator-personarum.js` y `node audit/creator-personarum-qa.js`, además del Browser Mobile QA.
+
 ---
 
 ## Pendientes conocidos
