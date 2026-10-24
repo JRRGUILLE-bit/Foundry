@@ -1016,3 +1016,496 @@
   color: #f0dfb7;
 }
 .creator-deity-guidance { color: #a99d84; }
+
+
+
+/* New campaign art direction: illuminated manuscript / parchment.
+   Deliberately scoped to Creator Personarum; the existing Foundry roster,
+   character sheets and homepage entry strip retain their current design. */
+.creator-personarum-page {
+  --cp-paper: #eee3c7;
+  --cp-paper-light: #f5edd9;
+  --cp-paper-shadow: #d5c39d;
+  --cp-ink: #30281d;
+  --cp-ink-soft: #5d503c;
+  --cp-green: #394b36;
+  --cp-green-dark: #293729;
+  --cp-gold: #8b6b35;
+  --cp-rule: rgba(92, 68, 34, 0.48);
+  background: #17140e;
+  color: var(--cp-ink);
+  font-family: "Cormorant Garamond", "IM Fell English", Georgia, serif;
+  font-size: 18px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.creator-personarum-page button,
+.creator-personarum-page input,
+.creator-personarum-page select,
+.creator-personarum-page textarea {
+  font-family: "Cormorant Garamond", "IM Fell English", Georgia, serif;
+}
+
+.creator-personarum-page .creator-stage {
+  background: #17140e;
+}
+
+.creator-personarum-page .creator-cinematic-label,
+.creator-personarum-page .creator-sound-toggle,
+.creator-personarum-page .creator-retry-outro {
+  border-color: rgba(221, 197, 147, 0.58);
+  border-radius: 2px;
+  background: rgba(28, 24, 17, 0.74);
+  color: #f0e2c1;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.2);
+}
+
+.creator-personarum-page .creator-welcome-panel {
+  border: 1px solid rgba(224, 199, 150, 0.8);
+  outline: 1px solid rgba(224, 199, 150, 0.18);
+  outline-offset: -6px;
+  border-radius: 2px;
+  background: rgba(30, 25, 17, 0.88);
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(3px);
+}
+
+.creator-personarum-page .creator-eyebrow,
+.creator-personarum-page .creator-sequence,
+.creator-personarum-page .creator-cinematic-status {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+}
+
+.creator-personarum-page .creator-welcome-panel h1 {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  line-height: 0.98;
+}
+
+.creator-personarum-page .creator-welcome-copy {
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.2;
+}
+
+.creator-personarum-page .creator-primary-button,
+.creator-personarum-page .creator-secondary-button {
+  border: 1px solid #d8c18f;
+  border-radius: 2px;
+  background: #d9c59a;
+  color: #2e281d;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.075em;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.16);
+  transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.creator-personarum-page .creator-primary-button:hover,
+.creator-personarum-page .creator-primary-button:focus-visible {
+  background: #eee1c1;
+  border-color: #f3e8ce;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+}
+
+.creator-personarum-page .creator-secondary-button {
+  border-color: #a99a7b;
+  background: #e4d8b9;
+  color: #3c3427;
+  box-shadow: none;
+}
+
+.creator-personarum-page .creator-workspace {
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(255, 250, 230, 0.62), transparent 38%),
+    radial-gradient(ellipse at 90% 88%, rgba(150, 117, 65, 0.12), transparent 42%),
+    repeating-linear-gradient(0deg, rgba(90, 66, 34, 0.025) 0, rgba(90, 66, 34, 0.025) 1px, transparent 1px, transparent 5px),
+    var(--cp-paper);
+  color: var(--cp-ink);
+}
+
+.creator-personarum-page .creator-workspace-header,
+.creator-personarum-page .creator-workspace-footer {
+  border-color: var(--cp-rule);
+  color: var(--cp-ink-soft);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 0.92rem;
+  letter-spacing: 0.055em;
+}
+
+.creator-personarum-page .creator-home-link {
+  color: var(--cp-green);
+}
+
+.creator-personarum-page .creator-home-link:hover,
+.creator-personarum-page .creator-home-link:focus-visible {
+  color: #1e2b1d;
+}
+
+.creator-personarum-page .creator-workspace-intro h1,
+.creator-personarum-page .creator-path-choice > h1,
+.creator-personarum-page .creator-explore-step > h1 {
+  color: var(--cp-ink);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(2.25rem, 5.7vw, 4.6rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: 0.012em;
+  text-shadow: none;
+}
+
+.creator-personarum-page .creator-eyebrow {
+  color: #75572a;
+  font-size: 0.95rem;
+  letter-spacing: 0.13em;
+}
+
+.creator-personarum-page .creator-workspace-intro > p:last-child,
+.creator-personarum-page .creator-choice-intro,
+.creator-personarum-page .creator-explore-intro {
+  color: #544832;
+  font-size: clamp(1.15rem, 1.8vw, 1.42rem);
+  line-height: 1.32;
+}
+
+.creator-personarum-page .creator-path-cards {
+  gap: clamp(1rem, 2vw, 1.55rem);
+}
+
+.creator-personarum-page .creator-path-card {
+  min-height: 25rem;
+  padding: clamp(1.2rem, 2.4vw, 2rem);
+  gap: 0.72rem;
+  border: 1px solid rgba(110, 82, 41, 0.58);
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, rgba(255, 252, 240, 0.8), rgba(232, 218, 185, 0.96)),
+    var(--cp-paper-light);
+  color: var(--cp-ink);
+  box-shadow: 0 5px 16px rgba(62, 47, 25, 0.12);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.creator-personarum-page .creator-path-card-explore {
+  border-color: rgba(57, 75, 54, 0.56);
+  background:
+    linear-gradient(135deg, rgba(247, 246, 224, 0.88), rgba(220, 226, 199, 0.94)),
+    #e0e2c9;
+}
+
+.creator-personarum-page .creator-path-card:hover,
+.creator-personarum-page .creator-path-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--cp-gold);
+  outline: 2px solid rgba(139, 107, 53, 0.42);
+  outline-offset: 2px;
+  box-shadow: 0 9px 22px rgba(62, 47, 25, 0.16);
+}
+
+.creator-personarum-page .creator-path-number,
+.creator-personarum-page .creator-form-heading,
+.creator-personarum-page .creator-field > span,
+.creator-personarum-page .creator-interest-fieldset legend,
+.creator-personarum-page .creator-divine-kicker {
+  color: #75572a;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+}
+
+.creator-personarum-page .creator-path-card-explore .creator-path-number {
+  color: var(--cp-green);
+}
+
+.creator-personarum-page .creator-path-icon {
+  border: 0;
+  color: #87672f;
+  font-size: 2rem;
+}
+
+.creator-personarum-page .creator-path-card-explore .creator-path-icon {
+  color: var(--cp-green);
+}
+
+.creator-personarum-page .creator-path-title {
+  color: #30281d;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(1.65rem, 2.9vw, 2.3rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0.012em;
+}
+
+.creator-personarum-page .creator-path-subtitle {
+  color: #67502c;
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+
+.creator-personarum-page .creator-path-card-explore .creator-path-subtitle {
+  color: var(--cp-green);
+}
+
+.creator-personarum-page .creator-path-description {
+  color: #554a36;
+  font-size: 1.12rem;
+  line-height: 1.32;
+}
+
+.creator-personarum-page .creator-path-promise {
+  border-top-color: var(--cp-rule);
+  color: #6e5126;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.creator-personarum-page .creator-path-card-explore .creator-path-promise {
+  border-top-color: rgba(57, 75, 54, 0.32);
+  color: var(--cp-green);
+}
+
+.creator-personarum-page .creator-path-action {
+  border-radius: 2px;
+  background: var(--cp-green);
+  color: #f6eedb;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.creator-personarum-page .creator-path-card-explore .creator-path-action {
+  background: #596b4e;
+  color: #fff8e7;
+}
+
+.creator-personarum-page .creator-choice-footnote {
+  color: #6a5a40;
+  font-size: 1.08rem;
+}
+
+.creator-personarum-page .creator-back-link {
+  border: 1px solid rgba(110, 82, 41, 0.45);
+  border-radius: 2px;
+  background: rgba(248, 241, 220, 0.7);
+  color: var(--cp-green);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 0.92rem;
+  letter-spacing: 0.055em;
+}
+
+.creator-personarum-page .creator-back-link:hover,
+.creator-personarum-page .creator-back-link:focus-visible {
+  border-color: var(--cp-gold);
+  outline-color: rgba(139, 107, 53, 0.4);
+}
+
+.creator-personarum-page .creator-interest-fieldset {
+  border-color: var(--cp-rule);
+  background: rgba(250, 246, 231, 0.4);
+}
+
+.creator-personarum-page .creator-interest-card {
+  border-color: rgba(110, 82, 41, 0.38);
+  border-radius: 2px;
+  background: rgba(255, 252, 240, 0.64);
+  box-shadow: none;
+}
+
+.creator-personarum-page .creator-interest-card:hover {
+  border-color: var(--cp-gold);
+}
+
+.creator-personarum-page .creator-interest-card:has(input:checked) {
+  border-color: var(--cp-green);
+  background: rgba(110, 132, 87, 0.13);
+  box-shadow: inset 0 0 0 1px rgba(57, 75, 54, 0.13);
+}
+
+.creator-personarum-page .creator-interest-card input {
+  accent-color: var(--cp-green);
+}
+
+.creator-personarum-page .creator-interest-icon {
+  color: #81632e;
+}
+
+.creator-personarum-page .creator-interest-title {
+  color: var(--cp-ink);
+  font-size: 1.12rem;
+  line-height: 1.15;
+}
+
+.creator-personarum-page .creator-interest-description {
+  color: #65583f;
+  font-size: 1.02rem;
+  line-height: 1.24;
+}
+
+.creator-personarum-page .creator-explore-canon-note {
+  border-left-color: var(--cp-green);
+  color: #62563f;
+  font-size: 1.02rem;
+  line-height: 1.28;
+}
+
+.creator-personarum-page .creator-origin-promise {
+  border-left-color: var(--cp-gold);
+  background: rgba(166, 130, 67, 0.1);
+  color: #54452e;
+  font-size: 1.12rem;
+  line-height: 1.28;
+}
+
+.creator-personarum-page .creator-draft-form,
+.creator-personarum-page .creator-preview-panel {
+  border: 1px solid rgba(110, 82, 41, 0.52);
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, rgba(255, 252, 240, 0.85), rgba(232, 219, 189, 0.92)),
+    var(--cp-paper-light);
+  box-shadow: 0 5px 16px rgba(62, 47, 25, 0.12);
+}
+
+.creator-personarum-page .creator-form-heading {
+  border-bottom-color: var(--cp-rule);
+}
+
+.creator-personarum-page .creator-field input,
+.creator-personarum-page .creator-field select,
+.creator-personarum-page .creator-field textarea {
+  border: 1px solid rgba(110, 82, 41, 0.55);
+  border-radius: 2px;
+  background: rgba(255, 252, 241, 0.8);
+  color: var(--cp-ink);
+  font-size: 1.12rem;
+}
+
+.creator-personarum-page .creator-field input::placeholder,
+.creator-personarum-page .creator-field textarea::placeholder {
+  color: #81745d;
+}
+
+.creator-personarum-page .creator-field input:focus-visible,
+.creator-personarum-page .creator-field select:focus-visible,
+.creator-personarum-page .creator-field textarea:focus-visible {
+  border-color: var(--cp-green);
+  outline-color: rgba(57, 75, 54, 0.45);
+}
+
+.creator-personarum-page .creator-draft-status {
+  color: #65583f;
+  font-size: 1.05rem;
+  line-height: 1.28;
+}
+
+.creator-personarum-page .creator-draft-status[data-state="saved"] {
+  color: #315b35;
+}
+
+.creator-personarum-page .creator-draft-status[data-state="error"] {
+  color: #8d3028;
+}
+
+.creator-personarum-page .creator-preview-panel h2 {
+  color: var(--cp-ink);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: clamp(1.7rem, 2.8vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.creator-personarum-page .creator-preview-monogram {
+  border: 1px solid rgba(110, 82, 41, 0.56);
+  border-radius: 50%;
+  background: #e2d1a8;
+  color: var(--cp-green);
+  font-family: "IM Fell English", Georgia, serif;
+  font-size: 2.6rem;
+}
+
+.creator-personarum-page .creator-preview-list > div {
+  border-bottom: 1px solid rgba(110, 82, 41, 0.22);
+}
+
+.creator-personarum-page .creator-preview-list dt {
+  color: #75572a;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+.creator-personarum-page .creator-preview-list dd {
+  color: var(--cp-ink);
+  font-size: 1.12rem;
+}
+
+.creator-personarum-page .creator-preview-note {
+  color: #65583f;
+  font-size: 1rem;
+  line-height: 1.28;
+}
+
+.creator-personarum-page .creator-divine-section {
+  border-color: rgba(110, 82, 41, 0.54);
+  border-radius: 2px;
+  background: rgba(226, 211, 171, 0.4);
+}
+
+.creator-personarum-page .creator-divine-heading h2 {
+  color: var(--cp-ink);
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+}
+
+.creator-personarum-page .creator-divine-heading p,
+.creator-personarum-page .creator-deity-guidance {
+  color: #65583f;
+  font-size: 1.08rem;
+  line-height: 1.32;
+}
+
+.creator-personarum-page .creator-deity-details {
+  border-left-color: var(--cp-gold);
+  background: rgba(255, 252, 240, 0.7);
+  color: #423723;
+  font-size: 1.08rem;
+  line-height: 1.32;
+}
+
+.creator-personarum-page .creator-workspace [tabindex="-1"]:focus {
+  outline: none;
+}
+
+@media (max-width: 650px) {
+  .creator-personarum-page .creator-path-card {
+    min-height: 0;
+  }
+
+  .creator-personarum-page .creator-workspace {
+    padding: 1rem 0.85rem;
+  }
+
+  .creator-personarum-page .creator-workspace-intro h1,
+  .creator-personarum-page .creator-path-choice > h1,
+  .creator-personarum-page .creator-explore-step > h1 {
+    font-size: clamp(2.15rem, 9vw, 3.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creator-personarum-page .creator-path-card,
+  .creator-personarum-page .creator-primary-button,
+  .creator-personarum-page .creator-secondary-button {
+    transition: none;
+  }
+}
