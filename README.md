@@ -420,6 +420,7 @@ La estética retro/pixel de **Creator Personarum solamente** ya fue sustituida p
 
 - Alcance: `creator-personarum.html` y sus estilos encapsulados en `.creator-personarum-page`.
 - Tipografía web: Oswald condensada para jerarquía/títulos y Cormorant Garamond / IM Fell English para texto de lectura; no se agrega ni se redistribuye una fuente comercial de Modesto Condensed.
-- Se retiró la etiqueta superpuesta «CREATOR PERSONARUM / SECUENCIA I/II»: durante la intro no aparece ese rótulo; al terminar se muestra el fotograma final intacto con la bienvenida y el botón para continuar.
-- La intro se intenta iniciar automáticamente al abrir la página, salvo que el navegador indique preferencia por movimiento reducido. No hace falta refrescar para avanzar durante la secuencia; una pestaña que ya estaba abierta no se actualiza sola cuando se publica código nuevo, por lo que la versión publicada nueva debe abrirse de nuevo para probarla.
+- Se retiraron el rótulo «CREATOR PERSONARUM / SECUENCIA I/II», el control de sonido y todos los mensajes de estado cinematográficos. La animación no muestra texto adicional ni un botón de audio.
+- Durante la intro aparece únicamente «SALTAR INTRO»; al pulsarlo, se detiene el video y aparece el fotograma final intacto con la bienvenida. Al comenzar el outro, el mismo control cambia a «SALTAR TRANSICIÓN» y permite pasar directamente al selector de caminos. Si el navegador bloquea un video, el flujo avanza sin mostrar avisos sobrepuestos.
+- La intro se intenta iniciar automáticamente al abrir la página, salvo cuando está activada la preferencia del sistema por movimiento reducido. Se incrementaron las versiones de caché de CSS/JS.
 - QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
