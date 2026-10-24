@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const foundryUrl = "http://192.168.86.33:30000/";
+  const foundryUrl = "http://192.168.86.21:30000/join";
   const dock = document.createElement("nav");
   dock.className = "behind-screen-dock";
   dock.setAttribute("aria-label", "Para Guille: abrir Foundry en la Dell");
