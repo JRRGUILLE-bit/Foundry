@@ -58,7 +58,10 @@ assert.match(page, /id="creator-explore-step"/, 'Exploration mode must have a se
 assert.match(page, /name="creator-exploration-focus"/, 'Exploration mode must collect an initial interest');
 assert.match(page, /id="creator-explore-continue"/, 'Exploration mode must have a continue control');
 assert.match(page, /creator-origin-promise/, 'The flow must set expectations for the eventual origin reveal');
-assert.match(page, /El atlas se conectará con el lore del mundo/, 'Exploration prompts must not be presented as canonical region names');
+assert.match(page, /Cuando el atlas esté integrado/, 'Exploration prompts must remain separate from canonical region names until atlas integration');
+assert.match(page, /Ya sabés a quién querés llevar a la aventura/, 'Known-character path should use direct adventurer-guide copy');
+assert.match(page, /Los mapas no cuentan toda la historia/, 'Exploration path should use mythic, world-discovery copy');
+assert.doesNotMatch(page, /usaremos esa curiosidad como punto de partida|Tu próxima leyenda empieza con una decisión|se conectará con el lore del mundo/, 'Generic AI-sounding copy must remain absent');
 assert.match(runtime, /knownPathButton\.addEventListener\('click'/, 'Known-character choice must enter its own path');
 assert.match(runtime, /explorePathButton\.addEventListener\('click'/, 'Explorer choice must enter its own path');
 assert.match(runtime, /function continueExploration\(\)/, 'Explorer flow must validate and preserve the selected interest');
