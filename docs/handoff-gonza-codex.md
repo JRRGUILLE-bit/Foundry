@@ -246,3 +246,8 @@ El selector de clase muestra un apartado del panteón al elegir **Clérigo** o *
 El selector enseña ámbitos sugeridos, alineamiento cuando consta en el Codex y una descripción breve. Clérigo requiere una selección en el camino de personaje conocido; Paladín puede dejarla vacía porque su juramento puede ser el centro de su identidad. La elección se persiste y se exporta con el borrador; no altera mecánicas de D&D ni concede dominios automáticamente.
 
 Cuando se incorpore el JSON del atlas, enlazar la divinidad/creencia con las regiones, culturas y tradiciones canónicas. No inventar templos, organizaciones, territorios ni prácticas no presentes en las fuentes. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+
+
+### Ampliación: Infierno como opción (24/10/2026)
+
+El selector incluye **El Infierno — Asmodeus y los Nueve Señores** como una opción seleccionable adicional. El texto sigue el Codex: el Infierno es una jerarquía organizada para contener al Abismo; no es el Abismo ni debe confundirse con los demonios. No se atribuye un solo alineamiento ni dominios compartidos a todos los señores. En el camino de exploración, esta opción lleva el origen del personaje al Imperio Gris; en el camino directo se permite escoger el vínculo infernal sin forzar una región antes de integrar el atlas.

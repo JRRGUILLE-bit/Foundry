@@ -59,6 +59,9 @@ assert.match(runtime, /fvtt-JournalEntry-codex-divinitatum-revisado\.json/, 'Pan
 assert.match(runtime, /Tenebrae, el Oscuro/, 'Pantheon must include Tenebrae');
 assert.match(runtime, /El Ciervo/, 'Pantheon must include the Nine Children');
 assert.match(runtime, /Purpureum, el Planeta Púrpura/, 'Pantheon must distinguish cosmic powers/planets');
+assert.match(runtime, /El Infierno — Asmodeus y los Nueve Señores/, 'Pantheon must include the Inferno as a selectable option');
+assert.match(runtime, /vincula el origen del personaje con el Imperio Gris/, 'Explorer path must connect the Inferno option to the Grey Empire');
+assert.match(runtime, /no debe confundirse con el Abismo ni con los demonios/, 'Inferno must remain distinct from the Abyss and demons');
 assert.match(runtime, /selectedClass === 'Clérigo'/, 'Cleric selection must activate the deity field');
 assert.match(runtime, /selectedClass === 'Paladín'/, 'Paladin selection must activate the optional deity field');
 assert.match(runtime, /deityName: values\.deityName/, 'Saved/exported drafts must preserve the selected deity');

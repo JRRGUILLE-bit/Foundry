@@ -407,3 +407,8 @@ Al seleccionar **Clérigo** o **Paladín**, el creador muestra un selector de di
 - La elección se guarda y exporta en el borrador JSON y aparece en la vista previa.
 - Los ámbitos son información narrativa del Codex; no asignan automáticamente dominios mecánicos, conjuros ni rasgos de D&D.
 - Fuente canónica: [Codex Divinitatum JSON](fvtt-JournalEntry-codex-divinitatum-revisado.json). El atlas del mundo se integrará después para enlazar fe, culturas y región de origen sin inventar canon.
+
+
+### Ampliación del panteón: opción infernal (24/10/2026)
+
+Se añadió **El Infierno — Asmodeus y los Nueve Señores** como opción del selector divino. La descripción mantiene la distinción canónica entre Infierno (jerarquía organizada), Abismo (herida caótica) y demonios (engendros abisales). No se inventa un único alineamiento ni un dominio común para los nueve señores. En el camino de exploración, esta elección conecta el origen con el Imperio Gris; en el camino de creación directa se puede seleccionar como vínculo infernal sin fijar todavía una región.
