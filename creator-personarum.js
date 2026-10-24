@@ -275,7 +275,7 @@
       if (draft.mode && draft.mode !== currentMode) return;
 
       savedDraft = draft;
-      explorationFocus = draft.explorationFocus || explorationFocus;
+      if (!explorationFocus) explorationFocus = draft.explorationFocus || '';
       nameInput.value = draft.name || '';
       lineageSelect.value = draft.lineage || '';
       classSelect.value = draft.characterClass || '';
