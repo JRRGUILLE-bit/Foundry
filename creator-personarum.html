@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="creator-personarum.css?v=20261024-1">
+  <link rel="stylesheet" href="creator-personarum.css?v=20261024-2">
 </head>
 <body class="creator-personarum-page">
   <main id="creator-app">
@@ -74,7 +74,7 @@
         <h1 id="creator-welcome-title">CREATOR PERSONARUM</h1>
         <p class="creator-welcome-copy">La página está abierta. Tu próxima leyenda empieza con una decisión.</p>
         <button type="button" id="creator-start-button" class="creator-primary-button">
-          COMENZAR
+          CREAR TU PERSONAJE
           <span aria-hidden="true">↗</span>
         </button>
       </section>
@@ -88,23 +88,109 @@
       </p>
     </section>
 
-    <section id="creator-workspace" class="creator-workspace" hidden tabindex="-1" aria-labelledby="creator-workspace-title">
+    <section id="creator-workspace" class="creator-workspace" hidden tabindex="-1" aria-labelledby="creator-path-title">
       <header class="creator-workspace-header">
         <a href="index.html" class="creator-home-link">← VOLVER A EL FOUNDRY DE LA BANDA</a>
         <span class="creator-workspace-code">REGISTRUM // PERSONARUM</span>
       </header>
 
-      <div class="creator-workspace-intro">
-        <p class="creator-eyebrow">SECUENCIA COMPLETADA // NUEVO REGISTRO</p>
-        <h1 id="creator-workspace-title">CREÁ TU AVENTURERO</h1>
-        <p>Empezá por su identidad. Este primer paso guarda un borrador en este navegador; todavía no crea un actor dentro de Foundry.</p>
+      <section id="creator-path-choice" class="creator-path-choice" aria-labelledby="creator-path-title">
+        <p class="creator-eyebrow">ANTES DE EMPEZAR // ELEGÍ TU CAMINO</p>
+        <h1 id="creator-path-title">¿YA SABÉS A QUIÉN QUERÉS SER?</h1>
+        <p class="creator-choice-intro">No hay una única manera de crear un aventurero. Podés traer una idea que ya te entusiasma o dejar que el mundo te ayude a encontrarla.</p>
+
+        <div class="creator-path-cards">
+          <button type="button" id="creator-known-path-button" class="creator-path-card">
+            <span class="creator-path-number">CAMINO 01</span>
+            <span class="creator-path-icon" aria-hidden="true">⚔</span>
+            <span class="creator-path-title">YA SÉ LO QUE QUIERO JUGAR</span>
+            <span class="creator-path-subtitle">Tengo un personaje en la cabeza.</span>
+            <span class="creator-path-description">Traé esa idea: su personalidad, su pasado, lo que sabe hacer o lo que lo mueve. Vamos a darle forma sin apagar lo que ya imaginaste.</span>
+            <span class="creator-path-promise">AL FINAL: elegís de qué región viene y descubrís su origen.</span>
+            <span class="creator-path-action">CREAR MI PERSONAJE <span aria-hidden="true">↗</span></span>
+          </button>
+
+          <button type="button" id="creator-explore-path-button" class="creator-path-card creator-path-card-explore">
+            <span class="creator-path-number">CAMINO 02</span>
+            <span class="creator-path-icon" aria-hidden="true">✦</span>
+            <span class="creator-path-title">TODAVÍA NO LO SÉ</span>
+            <span class="creator-path-subtitle">Quiero explorar el mundo.</span>
+            <span class="creator-path-description">Descubrí sus distintas regiones, sus culturas, sus tensiones y sus misterios. Quizá el lugar que te atraiga te muestre qué personaje querés interpretar.</span>
+            <span class="creator-path-promise">AL FINAL: el mundo te ayuda a encontrar tu lugar y tu historia.</span>
+            <span class="creator-path-action">EXPLORAR EL MUNDO <span aria-hidden="true">↗</span></span>
+          </button>
+        </div>
+
+        <p class="creator-choice-footnote">Tu elección no te encierra en un camino: podés cambiar de idea mientras creás.</p>
+      </section>
+
+      <section id="creator-explore-step" class="creator-explore-step" hidden aria-labelledby="creator-explore-title">
+        <button type="button" id="creator-back-to-path-from-explore" class="creator-back-link">← VOLVER A ELEGIR CAMINO</button>
+        <p class="creator-eyebrow">CAMINO 02 // PRIMERAS PISTAS</p>
+        <h1 id="creator-explore-title">¿QUÉ TE GUSTARÍA DESCUBRIR?</h1>
+        <p class="creator-explore-intro">No necesitás saber qué clase o linaje querés jugar. Elegí qué tipo de lugares, historias o culturas te llaman la atención y usaremos esa curiosidad como punto de partida.</p>
+
+        <fieldset class="creator-interest-fieldset">
+          <legend>ME GUSTARÍA EXPLORAR…</legend>
+          <div class="creator-interest-grid">
+            <label class="creator-interest-card">
+              <input type="radio" name="creator-exploration-focus" value="ciudades-y-culturas">
+              <span class="creator-interest-icon" aria-hidden="true">⌂</span>
+              <span class="creator-interest-title">Ciudades y culturas</span>
+              <span class="creator-interest-description">Costumbres, comunidades, mercados y formas de vivir.</span>
+            </label>
+            <label class="creator-interest-card">
+              <input type="radio" name="creator-exploration-focus" value="bosques-y-tierras-salvajes">
+              <span class="creator-interest-icon" aria-hidden="true">♧</span>
+              <span class="creator-interest-title">Bosques y tierras salvajes</span>
+              <span class="creator-interest-description">Naturaleza, fronteras desconocidas y vida lejos de las ciudades.</span>
+            </label>
+            <label class="creator-interest-card">
+              <input type="radio" name="creator-exploration-focus" value="imperios-y-conflictos">
+              <span class="creator-interest-icon" aria-hidden="true">⚑</span>
+              <span class="creator-interest-title">Imperios y conflictos</span>
+              <span class="creator-interest-description">Lealtades, disputas, poder y decisiones que cambian regiones.</span>
+            </label>
+            <label class="creator-interest-card">
+              <input type="radio" name="creator-exploration-focus" value="ruinas-y-secretos">
+              <span class="creator-interest-icon" aria-hidden="true">⌘</span>
+              <span class="creator-interest-title">Ruinas y secretos</span>
+              <span class="creator-interest-description">Vestigios antiguos, leyendas y preguntas sin respuesta.</span>
+            </label>
+            <label class="creator-interest-card">
+              <input type="radio" name="creator-exploration-focus" value="caminos-y-costas">
+              <span class="creator-interest-icon" aria-hidden="true">➶</span>
+              <span class="creator-interest-title">Caminos y costas</span>
+              <span class="creator-interest-description">Viajes, encuentros, rutas y horizontes lejanos.</span>
+            </label>
+            <label class="creator-interest-card">
+              <input type="radio" name="creator-exploration-focus" value="magia-y-lugares-extraordinarios">
+              <span class="creator-interest-icon" aria-hidden="true">✧</span>
+              <span class="creator-interest-title">Magia y lugares extraordinarios</span>
+              <span class="creator-interest-description">Lo inexplicable, lo sagrado y lo que desafía lo conocido.</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <p class="creator-explore-canon-note">Estas pistas orientan tu exploración; no son nombres de regiones oficiales. El atlas se conectará con el lore del mundo para que cada lugar y su historia sean fieles al canon.</p>
+        <p id="creator-explore-status" class="creator-draft-status" role="status" aria-live="polite">Elegí una pista para continuar.</p>
+        <button type="button" id="creator-explore-continue" class="creator-primary-button">CONTINUAR CON ESTA PISTA <span aria-hidden="true">↗</span></button>
+      </section>
+
+      <section id="creator-draft-step" hidden>
+        <div class="creator-workspace-intro">
+        <p class="creator-eyebrow" id="creator-draft-eyebrow">CAMINO 01 // DAR FORMA A TU IDEA</p>
+        <h1 id="creator-workspace-title">TU PERSONAJE, COMO LO IMAGINASTE</h1>
+        <p id="creator-draft-description">Contanos lo esencial de ese aventurero que ya tenés en la cabeza. Podés dejar detalles para después.</p>
+        <p id="creator-origin-promise" class="creator-origin-promise">Al final del proceso, vas a poder elegir de qué región del mundo viene tu personaje y conocer la historia de su origen.</p>
+        <button type="button" id="creator-back-to-path-from-draft" class="creator-back-link">← CAMBIAR MI CAMINO</button>
       </div>
 
       <div class="creator-workspace-grid">
         <form id="creator-draft-form" class="creator-draft-form">
           <header class="creator-form-heading">
-            <span>01 / IDENTIDAD</span>
-            <span>BORRADOR LOCAL</span>
+            <span id="creator-form-step-label">01 / IDENTIDAD</span>
+            <span id="creator-form-mode-label">BORRADOR LOCAL</span>
           </header>
 
           <label class="creator-field creator-field-wide" for="creator-character-name">
@@ -116,13 +202,12 @@
               maxlength="80"
               autocomplete="off"
               placeholder="¿Cómo lo llamarán las crónicas?"
-              required
             >
           </label>
 
           <label class="creator-field" for="creator-lineage">
             <span>LINAJE / RAZA</span>
-            <select id="creator-lineage" name="lineage" required>
+            <select id="creator-lineage" name="lineage">
               <option value="">Elegí un linaje…</option>
               <option>Humano</option>
               <option>Elfo</option>
@@ -139,7 +224,7 @@
 
           <label class="creator-field" for="creator-character-class">
             <span>CLASE</span>
-            <select id="creator-character-class" name="characterClass" required>
+            <select id="creator-character-class" name="characterClass">
               <option value="">Elegí una clase…</option>
               <option>Bárbaro</option>
               <option>Bardo</option>
@@ -215,6 +300,7 @@
           </p>
         </aside>
       </div>
+      </section>
 
       <footer class="creator-workspace-footer">
         <span>CREATOR PERSONARUM</span>
@@ -223,6 +309,6 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261024-1"></script>
+  <script src="creator-personarum.js?v=20261024-2"></script>
 </body>
 </html>
