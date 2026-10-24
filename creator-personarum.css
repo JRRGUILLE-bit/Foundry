@@ -143,8 +143,7 @@
 }
 
 
-.creator-sound-toggle,
-.creator-retry-outro {
+.creator-skip-animation {
   position: absolute;
   z-index: 5;
   top: clamp(0.85rem, 2.7vh, 1.75rem);
@@ -158,14 +157,9 @@
   letter-spacing: 0.07em;
 }
 
-.creator-retry-outro {
-  top: clamp(3.8rem, 8vh, 4.8rem);
-}
 
-.creator-sound-toggle:hover,
-.creator-sound-toggle:focus-visible,
-.creator-retry-outro:hover,
-.creator-retry-outro:focus-visible {
+.creator-skip-animation:hover,
+.creator-skip-animation:focus-visible {
   border-color: #ffe494;
   outline: 2px solid #ffe494;
   outline-offset: 3px;
@@ -261,38 +255,7 @@
   cursor: not-allowed;
 }
 
-.creator-intro-activation {
-  position: absolute;
-  z-index: 4;
-  inset: 0;
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: 0.9rem;
-  padding: 1.25rem;
-  background: rgba(6, 5, 4, 0.78);
-  text-align: center;
-}
 
-.creator-intro-activation p {
-  margin: 0;
-  color: #fff1d0;
-  font-size: clamp(1.7rem, 5vw, 3.4rem);
-  letter-spacing: 0.08em;
-}
-
-.creator-cinematic-status {
-  position: absolute;
-  z-index: 3;
-  left: clamp(0.85rem, 2.6vw, 2rem);
-  bottom: clamp(0.85rem, 2.3vh, 1.5rem);
-  margin: 0;
-  color: rgba(255, 241, 208, 0.75);
-  font-size: clamp(0.82rem, 1.2vw, 1.05rem);
-  letter-spacing: 0.1em;
-  text-shadow: 0 2px 5px #000;
-  pointer-events: none;
-}
 
 .creator-workspace {
   min-height: 100svh;
@@ -555,10 +518,6 @@
 @media (max-width: 520px) {
 
 
-  .creator-sound-toggle {
-    padding: 0.46rem 0.52rem;
-    font-size: 0.8rem;
-  }
 
   .creator-welcome-panel {
     bottom: 1rem;
@@ -1012,8 +971,7 @@
 .creator-personarum-page .creator-stage {
   background: #17140e;
 }
-.creator-personarum-page .creator-sound-toggle,
-.creator-personarum-page .creator-retry-outro {
+.creator-personarum-page .creator-skip-animation {
   border-color: rgba(221, 197, 147, 0.58);
   border-radius: 2px;
   background: rgba(28, 24, 17, 0.74);
@@ -1034,8 +992,7 @@
   backdrop-filter: blur(3px);
 }
 
-.creator-personarum-page .creator-eyebrow,
-.creator-personarum-page .creator-cinematic-status {
+.creator-personarum-page .creator-eyebrow {
   font-family: "Oswald", "Arial Narrow", sans-serif;
   font-weight: 400;
   letter-spacing: 0.12em;
