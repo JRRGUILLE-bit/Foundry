@@ -31,6 +31,13 @@ assert.match(page, /creador%20outro\.mp4/, 'The outro must reference the committ
 assert.match(page, /creator-personarum-final-frame\.png/, 'The final illustration must be used on the welcome screen');
 assert.match(page, /id="creator-start-button"/, 'Welcome screen must expose the start control');
 assert.match(page, /CREAR TU PERSONAJE/, 'The cinematic CTA must clearly say create your character');
+assert.match(page, /id="creator-skip-animation"/, 'A skip-intro/animation control must be available during cinematic playback');
+assert.doesNotMatch(page, /creator-sound-toggle|SONIDO: OFF|creator-cinematic-status|INTRODUCCIÓN COMPLETADA|EL LIBRO ESTÁ ABIERTO|creator-intro-activation|creator-retry-outro|REINTENTAR TRANSICIÓN/, 'The cinematic stage must not expose sound controls, status text or retry overlays');
+assert.doesNotMatch(runtime, /cinematicStatus|setStatus|soundToggle|setSoundEnabled|soundEnabled|introActivation|playIntroButton|retryOutroButton|INTRODUCCIÓN COMPLETADA|EL LIBRO ESTÁ ABIERTO|REINTENTAR TRANSICIÓN|SONIDO:/, 'The runtime must not reference removed cinematic UI');
+assert.match(runtime, /skipAnimationButton\.addEventListener\('click', skipAnimation\)/, 'Skip button must bypass the current cinematic');
+assert.match(runtime, /SALTAR INTRO/, 'Skip button must identify the intro while intro video plays');
+assert.match(runtime, /SALTAR TRANSICIÓN/, 'Skip button must identify the transition while outro video plays');
+assert.doesNotMatch(styles, /\.creator-sound-toggle|\.creator-cinematic-status|\.creator-intro-activation|\.creator-retry-outro/, 'Styles for removed cinematic UI must be deleted');
 assert.doesNotMatch(page, /creator-cinematic-label|creator-sequence|SECUENCIA I|SECUENCIA II/, 'The intro must not show the unwanted title/sequence overlay');
 assert.doesNotMatch(runtime, /cinematicLabel|SECUENCIA I|SECUENCIA II/, 'Runtime must not depend on the removed title/sequence overlay');
 assert.match(runtime, /else\s*\{\s*playIntro\(\);\s*\}/, 'Intro must start automatically on page open unless reduced motion is preferred');
@@ -78,4 +85,4 @@ assert.match(styles, /\.creator-path-cards/, 'Both paths must have dedicated sty
 assert.match(styles, /\.creator-interest-grid/, 'Exploration interests must have dedicated styling');
 assert.match(workflow, /creator-personarum-qa\.js/, 'Browser QA workflow must run the Creator Personarum checks');
 
-console.log('Creator Personarum QA: cinematic flow, two paths, explorer prompt and draft persistence checks passed.');
+console.log('Creator Personarum QA: skip controls, clean cinematic stage, two paths, explorer prompt and draft persistence checks passed.');

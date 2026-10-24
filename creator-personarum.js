@@ -32,12 +32,8 @@
   const outroVideo = document.getElementById('creator-outro-video');
   const finalFrame = document.getElementById('creator-final-frame');
   const welcomePanel = document.getElementById('creator-welcome-panel');
-  const introActivation = document.getElementById('creator-intro-activation');
-  const playIntroButton = document.getElementById('creator-play-intro');
   const startButton = document.getElementById('creator-start-button');
-  const soundToggle = document.getElementById('creator-sound-toggle');
-  const retryOutroButton = document.getElementById('creator-retry-outro');
-  const cinematicStatus = document.getElementById('creator-cinematic-status');
+  const skipAnimationButton = document.getElementById('creator-skip-animation');
   const workspace = document.getElementById('creator-workspace');
   const pathChoice = document.getElementById('creator-path-choice');
   const exploreStep = document.getElementById('creator-explore-step');
@@ -65,50 +61,36 @@
   const draftStatus = document.getElementById('creator-draft-status');
   const exportDraftButton = document.getElementById('creator-export-draft');
 
-  let soundEnabled = false;
   let currentMode = null;
   let explorationFocus = '';
   let savedDraft = null;
 
-  function setStatus(message) {
-    cinematicStatus.textContent = message;
-  }
-
-  function setSoundEnabled(enabled) {
-    soundEnabled = Boolean(enabled);
-    introVideo.muted = !soundEnabled;
-    outroVideo.muted = !soundEnabled;
-    soundToggle.textContent = soundEnabled ? 'SONIDO: ON' : 'SONIDO: OFF';
-    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
-    soundToggle.setAttribute('aria-label', soundEnabled ? 'Silenciar sonido' : 'Activar sonido');
-  }
-
-  function showWelcome(message) {
+  function showWelcome() {
     introVideo.pause();
     introVideo.hidden = true;
     outroVideo.pause();
     outroVideo.hidden = true;
     finalFrame.hidden = false;
     welcomePanel.hidden = false;
-    introActivation.hidden = true;
-    retryOutroButton.hidden = true;
+    skipAnimationButton.hidden = true;
     stage.dataset.state = 'welcome';
-    setStatus(message || 'INTRODUCCIÓN COMPLETADA // EL LIBRO ESTÁ ABIERTO');
-  }
-
-  function showIntroPlaybackFallback() {
-    introVideo.hidden = true;
-    finalFrame.hidden = false;
-    introActivation.hidden = false;
-    welcomePanel.hidden = true;
-    stage.dataset.state = 'intro-blocked';
-    setStatus('LA REPRODUCCIÓN AUTOMÁTICA NO ESTÁ DISPONIBLE');
   }
 
   function showWorkspace() {
+    introVideo.pause();
+    outroVideo.pause();
+    skipAnimationButton.hidden = true;
     stage.hidden = true;
     workspace.hidden = false;
     showPathChoice();
+  }
+
+  function skipAnimation() {
+    if (stage.dataset.state === 'outro') {
+      showWorkspace();
+      return;
+    }
+    showWelcome();
   }
 
   function showPathChoice() {
@@ -240,39 +222,37 @@
   }
 
   function playIntro() {
-    introActivation.hidden = true;
     finalFrame.hidden = true;
     introVideo.hidden = false;
     outroVideo.hidden = true;
     welcomePanel.hidden = true;
     stage.dataset.state = 'intro';
-    setStatus('ABRIENDO EL LIBRO…');
+    skipAnimationButton.textContent = 'SALTAR INTRO';
+    skipAnimationButton.setAttribute('aria-label', 'Saltar introducción');
+    skipAnimationButton.hidden = false;
     introVideo.currentTime = 0;
-    introVideo.muted = !soundEnabled;
+    introVideo.muted = true;
 
     const playPromise = introVideo.play();
     if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(showIntroPlaybackFallback);
+      playPromise.catch(() => showWelcome());
     }
   }
 
   function playOutro() {
     welcomePanel.hidden = true;
-    introActivation.hidden = true;
     finalFrame.hidden = false;
     outroVideo.hidden = false;
-    retryOutroButton.hidden = true;
     stage.dataset.state = 'outro';
-    setStatus('EL UMBRAL SE ABRE…');
+    skipAnimationButton.textContent = 'SALTAR TRANSICIÓN';
+    skipAnimationButton.setAttribute('aria-label', 'Saltar transición');
+    skipAnimationButton.hidden = false;
     outroVideo.currentTime = 0;
-    outroVideo.muted = !soundEnabled;
+    outroVideo.muted = true;
 
     const playPromise = outroVideo.play();
     if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(() => {
-        retryOutroButton.hidden = false;
-        setStatus('PULSÁ «REINTENTAR TRANSICIÓN» PARA CONTINUAR');
-      });
+      playPromise.catch(() => showWorkspace());
     }
   }
 
@@ -430,15 +410,13 @@
     showDraftStep(CREATION_MODES.explore, explorationFocus);
   }
 
-  introVideo.addEventListener('ended', () => showWelcome());
-  introVideo.addEventListener('error', () => showWelcome('INTRO NO DISPONIBLE // SE MUESTRA EL FOTOGRAMA FINAL'));
+  introVideo.addEventListener('ended', showWelcome);
+  introVideo.addEventListener('error', showWelcome);
   outroVideo.addEventListener('ended', showWorkspace);
   outroVideo.addEventListener('error', showWorkspace);
 
-  soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
-  playIntroButton.addEventListener('click', playIntro);
+  skipAnimationButton.addEventListener('click', skipAnimation);
   startButton.addEventListener('click', playOutro);
-  retryOutroButton.addEventListener('click', playOutro);
 
   knownPathButton.addEventListener('click', () => showDraftStep(CREATION_MODES.known, ''));
   explorePathButton.addEventListener('click', showExploreStep);
@@ -465,12 +443,13 @@
   draftForm.addEventListener('change', () => renderPreview(readFormValues()));
 
   initialiseDivineOptions();
-  setSoundEnabled(false);
+  introVideo.muted = true;
+  outroVideo.muted = true;
   renderPreview(null);
 
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) {
-    showWelcome('MODO DE MOVIMIENTO REDUCIDO // EL LIBRO ESTÁ ABIERTO');
+    showWelcome();
   } else {
     playIntro();
   }
