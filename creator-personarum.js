@@ -104,7 +104,7 @@
 
     // Recover the last exploration interest without carrying character details
     // from the other creation path.
-    try {
+    if (!getSelectedExplorationFocus()) try {
       const raw = window.localStorage.getItem(storageKeyForMode(CREATION_MODES.explore));
       if (raw) {
         const draft = JSON.parse(raw);
