@@ -396,3 +396,14 @@ Ese procedimiento convierte al repositorio en la fuente de continuidad entre cue
 - Issue A17.2 completada/cerrada: #64
 - PRs superseded: #24, #67
 - Backburner: #26
+
+
+## Creator Personarum — panteón y clases divinas (24/10/2026)
+
+Al seleccionar **Clérigo** o **Paladín**, el creador muestra un selector de divinidad/potencia basado en `fvtt-JournalEntry-codex-divinitatum-revisado.json`. Incluye las tres Semillas Divinas, los Nueve Hijos de la Luna y los tres planetas errantes, diferenciados por categoría. Muestra ámbitos sugeridos, alineamiento cuando el Codex lo especifica y una síntesis de la tradición.
+
+- Clérigo: la divinidad/potencia es obligatoria en el camino de personaje definido; en modo exploración se puede dejar para más adelante.
+- Paladín: la elección es opcional porque el juramento puede ser el centro del personaje.
+- La elección se guarda y exporta en el borrador JSON y aparece en la vista previa.
+- Los ámbitos son información narrativa del Codex; no asignan automáticamente dominios mecánicos, conjuros ni rasgos de D&D.
+- Fuente canónica: [Codex Divinitatum JSON](fvtt-JournalEntry-codex-divinitatum-revisado.json). El atlas del mundo se integrará después para enlazar fe, culturas y región de origen sin inventar canon.
