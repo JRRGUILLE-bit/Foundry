@@ -132,16 +132,22 @@ La suite de localización de A17.2 llegó a **633 comprobaciones sin fallos** en
 El hardening de `SESSION_LIVE` fue probado localmente con **51/51 comprobaciones** del Apps Script Backend QA: fail-closed, token incorrecto, token correcto, POST-only, TTL/conflictos, configuración sin secreto y orden de carga `config → auth → remote-sync`.
 
 
-### Creator Personarum (primera etapa)
+### Creator Personarum (cinemática + dos recorridos)
 
-La rama de trabajo de esta etapa añade una página propia, `creator-personarum.html`, enlazada desde la portada.
+La página `creator-personarum.html` se enlaza desde la portada y usa los tres recursos cinematográficos ya presentes en la repo.
 
-Flujo esperado:
-1. La intro se reproduce al abrir la página (silenciada por defecto para compatibilidad con autoplay).
-2. Al terminar, aparece `creator-personarum-final-frame.png` sin editar, con el título y **Comenzar** superpuestos desde HTML/CSS.
-3. El clic en **Comenzar** reproduce el outro.
-4. Cuando termina el outro, se abre el formulario de identidad del personaje.
-5. El formulario guarda localmente el borrador y permite exportarlo a JSON. No crea todavía actores de Foundry ni genera las mecánicas de una ficha.
+Flujo implementado:
+1. La intro se reproduce al abrir la página, silenciada por defecto para compatibilidad con autoplay.
+2. Al terminar, aparece `creator-personarum-final-frame.png` sin editar, con el título y **Crear tu personaje** superpuestos desde HTML/CSS.
+3. El clic reproduce el outro.
+4. Al terminar el outro, se ofrece elegir entre dos caminos:
+   - **Ya sé lo que quiero jugar:** pasar a definir el personaje pensado por el jugador.
+   - **Todavía no lo sé:** elegir un interés de exploración (culturas, tierras salvajes, conflictos, ruinas, viajes o lugares extraordinarios) y después registrar una idea inicial sin exigir nombre, linaje ni clase.
+5. Cada camino guarda su borrador de forma independiente en el navegador y permite exportarlo a JSON.
+
+Pendiente funcional importante:
+- Los temas de exploración son orientativos, no regiones canónicas. Hace falta conectar el atlas/lore oficial del mundo, explorar regiones concretas y, como paso final, permitir elegir la procedencia del personaje y generar una historia de origen vinculada a esa región.
+- El creador aún no crea actores de Foundry ni deriva automáticamente atributos, competencias, equipo o hechizos.
 
 Archivos y QA:
 - `creator-personarum.html`
