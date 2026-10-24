@@ -1509,3 +1509,101 @@
     transition: none;
   }
 }
+
+
+/* Cinematic welcome: editorial typography over the original open-book artwork, never a boxed UI card. */
+.creator-personarum-page .creator-welcome-panel {
+  width: min(90vw, 900px);
+  padding: clamp(1rem, 3vh, 2.5rem) clamp(1rem, 3vw, 2rem);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  text-align: center;
+  animation: creator-panel-in 700ms ease both;
+}
+
+.creator-personarum-page .creator-welcome-panel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -1.5rem -2rem;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(12, 10, 7, 0.42) 0%, rgba(12, 10, 7, 0.2) 48%, transparent 78%);
+}
+
+.creator-personarum-page .creator-welcome-panel .creator-eyebrow {
+  margin-bottom: 0.9rem;
+  color: #e2c98f;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(0.8rem, 1.4vw, 1.05rem);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+}
+
+.creator-personarum-page .creator-welcome-panel h1 {
+  color: #fff3d8;
+  font-family: "IM Fell English", "Cormorant Garamond", serif;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0.025em;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.95), 0 8px 26px rgba(0, 0, 0, 0.9);
+}
+
+.creator-personarum-page .creator-welcome-copy {
+  max-width: 39rem;
+  margin: 1rem auto 1.5rem;
+  color: #f3e7cd;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.98);
+}
+
+.creator-personarum-page #creator-start-button {
+  min-height: 3.25rem;
+  padding: 0.7rem 1.6rem;
+  border: 1px solid rgba(230, 204, 147, 0.9);
+  background: rgba(19, 27, 17, 0.9);
+  color: #f4e4bd;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  box-shadow: 0 5px 24px rgba(0, 0, 0, 0.38);
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.creator-personarum-page #creator-start-button:hover,
+.creator-personarum-page #creator-start-button:focus-visible {
+  border-color: #fff0c5;
+  background: rgba(42, 49, 27, 0.96);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .creator-personarum-page .creator-welcome-panel {
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    width: min(94vw, 35rem);
+    padding: 0.8rem 0.35rem;
+  }
+
+  .creator-personarum-page .creator-welcome-panel::before {
+    inset: -1rem -0.5rem;
+    background: radial-gradient(ellipse at center, rgba(12, 10, 7, 0.58), transparent 82%);
+  }
+
+  .creator-personarum-page .creator-welcome-panel h1 {
+    font-size: clamp(2.15rem, 11vw, 3.6rem);
+  }
+
+  .creator-personarum-page .creator-welcome-copy {
+    margin: 0.75rem auto 1rem;
+    font-size: clamp(1.15rem, 5vw, 1.5rem);
+  }
+}
