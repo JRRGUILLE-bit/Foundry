@@ -234,3 +234,15 @@ Cada vez que se mergee una etapa relevante:
 3. mantener `AGENTS.md` estable y solo modificarlo cuando cambien reglas operativas/canónicas;
 4. cerrar issues completadas para evitar que otra sesión de Codex las interprete como trabajo pendiente;
 5. para cambios de seguridad de `SESSION_LIVE`, confirmar que ningún secreto nuevo haya entrado en el diff antes de mergear.
+
+
+## 10. Creator Personarum — integración del Codex Divinitatum (24/10/2026)
+
+El selector de clase muestra un apartado del panteón al elegir **Clérigo** o **Paladín**. La lista está basada en `fvtt-JournalEntry-codex-divinitatum-revisado.json` y separa:
+- las tres Semillas Divinas: Tenebrae, Luna y Sol;
+- los Nueve Hijos de la Luna;
+- los tres planetas errantes: Rubrum, Viride y Purpureum, etiquetados como potencias cósmicas y no como una iglesia homogénea.
+
+El selector enseña ámbitos sugeridos, alineamiento cuando consta en el Codex y una descripción breve. Clérigo requiere una selección en el camino de personaje conocido; Paladín puede dejarla vacía porque su juramento puede ser el centro de su identidad. La elección se persiste y se exporta con el borrador; no altera mecánicas de D&D ni concede dominios automáticamente.
+
+Cuando se incorpore el JSON del atlas, enlazar la divinidad/creencia con las regiones, culturas y tradiciones canónicas. No inventar templos, organizaciones, territorios ni prácticas no presentes en las fuentes. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.

@@ -242,6 +242,22 @@
             </select>
           </label>
 
+          <section id="creator-divine-section" class="creator-divine-section creator-field-wide" hidden aria-labelledby="creator-divine-title">
+            <div class="creator-divine-heading">
+              <span class="creator-divine-kicker">PANTEÓN DEL CODEX DIVINITATUM</span>
+              <h2 id="creator-divine-title">¿A qué divinidad o potencia seguís?</h2>
+              <p>Elegí según la fe, el ideal o la tradición de tu personaje. Estas opciones proceden del Codex Divinitatum; cada una tiene su propio ámbito, dogma y relación con el mundo.</p>
+            </div>
+            <label class="creator-field" for="creator-deity">
+              <span>DIVINIDAD / POTENCIA VENERADA</span>
+              <select id="creator-deity" name="deity">
+                <option value="">Elegí una opción del panteón…</option>
+              </select>
+            </label>
+            <p id="creator-deity-details" class="creator-deity-details" aria-live="polite">Al elegir una opción, vas a ver sus ámbitos y una síntesis de su tradición.</p>
+            <p id="creator-deity-guidance" class="creator-deity-guidance">Para clérigos, elegir una divinidad es parte central del concepto. Para paladines, esta elección es opcional: también pueden definir su camino a partir de un juramento.</p>
+          </section>
+
           <label class="creator-field" for="creator-background">
             <span>TRASFONDO</span>
             <select id="creator-background" name="background">
@@ -292,6 +308,7 @@
             <div><dt>NOMBRE</dt><dd id="creator-preview-name">Sin definir</dd></div>
             <div><dt>LINAJE</dt><dd id="creator-preview-lineage">Sin definir</dd></div>
             <div><dt>CLASE</dt><dd id="creator-preview-class">Sin definir</dd></div>
+              <div id="creator-preview-deity-row" hidden><dt>FE / IDEAL</dt><dd id="creator-preview-deity">A definir</dd></div>
             <div><dt>NIVEL</dt><dd id="creator-preview-level">1</dd></div>
             <div><dt>TRASFONDO</dt><dd id="creator-preview-background">A definir</dd></div>
           </dl>
@@ -309,6 +326,6 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261024-2"></script>
+  <script src="creator-personarum.js?v=20261024-3"></script>
 </body>
 </html>
