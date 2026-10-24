@@ -187,6 +187,10 @@
   letter-spacing: 0.07em;
 }
 
+.creator-retry-outro {
+  top: clamp(3.8rem, 8vh, 4.8rem);
+}
+
 .creator-sound-toggle:hover,
 .creator-sound-toggle:focus-visible,
 .creator-retry-outro:hover,
