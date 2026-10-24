@@ -52,6 +52,18 @@ assert.match(runtime, /nameInput\.required = !isExplorer/, 'Exploration mode mus
 assert.match(runtime, /modeLabel: currentMode === CREATION_MODES\.explore/, 'Drafts must preserve the chosen creation mode');
 assert.match(runtime, /explorationFocus,/, 'Draft data must preserve the exploration preference');
 
+assert.match(page, /id="creator-divine-section"/, 'Divine classes must expose a dedicated pantheon section');
+assert.match(page, /id="creator-deity"/, 'Character creator must offer a canonical deity/power selector');
+assert.match(page, /id="creator-preview-deity"/, 'Selected deity must appear in the character preview');
+assert.match(runtime, /fvtt-JournalEntry-codex-divinitatum-revisado\.json/, 'Pantheon data must document its canonical source');
+assert.match(runtime, /Tenebrae, el Oscuro/, 'Pantheon must include Tenebrae');
+assert.match(runtime, /El Ciervo/, 'Pantheon must include the Nine Children');
+assert.match(runtime, /Purpureum, el Planeta Púrpura/, 'Pantheon must distinguish cosmic powers/planets');
+assert.match(runtime, /selectedClass === 'Clérigo'/, 'Cleric selection must activate the deity field');
+assert.match(runtime, /selectedClass === 'Paladín'/, 'Paladin selection must activate the optional deity field');
+assert.match(runtime, /deityName: values\.deityName/, 'Saved/exported drafts must preserve the selected deity');
+assert.match(styles, /\.creator-divine-section/, 'Pantheon selector must have dedicated styling');
+
 assert.match(runtime, /banda\.creator-personarum\.draft\.v1/, 'Drafts must use a versioned local storage key');
 assert.match(runtime, /localStorage\.setItem/, 'The form must save a local draft');
 assert.match(runtime, /creator-personarum-personaje\.json/, 'Known-character drafts must be exportable as JSON');
