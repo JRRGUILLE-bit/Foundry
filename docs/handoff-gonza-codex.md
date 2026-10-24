@@ -260,7 +260,7 @@ Pedido del usuario: retirar la estética pixel-art/juego retro únicamente de la
 - Todo el nuevo tema debe permanecer encapsulado bajo `.creator-personarum-page`; no cambiar la portada general ni las seis fichas existentes.
 - No alterar la imagen `creator-personarum-final-frame.png`, los videos de intro/outro ni el contenido canónico del mundo.
 - Se usan Oswald como alternativa condensada web y Cormorant Garamond / IM Fell English para texto; no se incluye la fuente comercial Modesto Condensed.
-- Se retiraron el rótulo «CREATOR PERSONARUM / SECUENCIA I/II», el control de sonido, los mensajes de estado cinematográficos y el panel de fallback de reproducción. La intro/outro y el PNG final siguen sin editarse.
-- Durante el primer video, el botón «SALTAR INTRO» detiene el video y muestra la bienvenida sobre el PNG final. Durante el outro, el botón se rotula «SALTAR TRANSICIÓN» y abre directamente el selector de caminos. No deben reintroducirse mensajes o controles de sonido en la etapa cinematográfica.
-- La intro se inicia automáticamente, excepto con preferencia `prefers-reduced-motion`; los bloqueos de reproducción pasan al siguiente estado sin mostrar textos de estado. HTML utiliza cache-busters actualizados.
-- QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+- La intro y el outro permanecen intactos. Se retiraron el rótulo de secuencia, el control de sonido, los mensajes de estado y el panel de fallback; se mantienen los botones «SALTAR INTRO» y «SALTAR TRANSICIÓN».
+- La bienvenida deja de usar una caja rectangular con borde, doble contorno, fondo oscuro y sombra. El título y el CTA quedan integrados sobre la viñeta inferior, con Cormorant Garamond / IM Fell English, marfil suave y verde musgo apagado. La imagen final no se modifica.
+- La frase promocional genérica se quitó de forma intencional para acordar con el usuario un texto críptico basado en el canon de la campaña antes de volver a añadirlo. Título y CTA se muestran en caja normal, sin glifos decorativos.
+- Se actualizó el cache-buster CSS. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
