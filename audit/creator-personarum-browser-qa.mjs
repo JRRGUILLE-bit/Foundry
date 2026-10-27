@@ -165,6 +165,11 @@ try {
     /Velocidad base registrada:.*vuelo/i,
     'Aarakocra should display its catalogued flight speed'
   );
+  assert.match(
+    await page.locator('#creator-lineage-skills-list').innerText(),
+    /Tamaño registrado: Mediano/i,
+    'Aarakocra should display its catalogued size'
+  );
 
   // Lineages with skill choices expose catalogued options and enforce their count.
   const lineageSkills = page.locator('#creator-lineage-skills-list');
