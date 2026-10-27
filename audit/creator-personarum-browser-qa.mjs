@@ -90,9 +90,69 @@ try {
   // Open the character form before interacting with its controls.
   await page.locator('#creator-known-path-button').click();
 
-  // Lineage language proficiencies show automatically granted languages from the catalog.
+  // Optional lineage languages persist through saving and restoring a real draft.
   const lineageSelect = page.locator('#creator-lineage');
   const lineageLanguages = page.locator('#creator-lineage-languages-list');
+  await lineageSelect.selectOption({ label: 'Semielfo' });
+  assert.match(await lineageLanguages.innerText(), /Elegí 1 idioma entre estas opciones/, 'Half-Elf should offer one optional language');
+  const halfElfLanguages = lineageLanguages.locator('input[type="checkbox"]');
+  assert.ok(await halfElfLanguages.count() > 0, 'Half-Elf should expose selectable language options');
+  await halfElfLanguages.first().check();
+  const chosenOptionalLanguage = await halfElfLanguages.first().inputValue();
+
+  await page.locator('#creator-character-name').fill('QA Idiomas');
+  await page.locator('#creator-character-class').selectOption({ label: 'Bardo' });
+  const languageQaClassSkills = page.locator('#creator-class-skills-list input[type="checkbox"]');
+  await languageQaClassSkills.nth(0).check();
+  await languageQaClassSkills.nth(1).check();
+  await languageQaClassSkills.nth(2).check();
+  const halfElfSkills = page.locator('#creator-lineage-skills-list input[type="checkbox"]');
+  assert.ok(await halfElfSkills.count() >= 2, 'Half-Elf should expose its two skill choices');
+  await halfElfSkills.nth(0).check();
+  await halfElfSkills.nth(1).check();
+  await page.locator('#creator-draft-form button[type="submit"]').click();
+
+  await page.waitForFunction(() => {
+    const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
+    return draft && draft.lineage === 'Semielfo' &&
+      draft.selectedLineageLanguages &&
+      Object.values(draft.selectedLineageLanguages).flat().length === 1;
+  });
+  const savedLanguageChoices = await page.evaluate(() => {
+    const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
+    return draft.selectedLineageLanguages;
+  });
+  assert.equal(Object.values(savedLanguageChoices).flat()[0], chosenOptionalLanguage, 'Saved draft should contain the chosen optional language');
+
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await waitForAtlas();
+  await exposeWorkspace();
+  await page.locator('#creator-known-path-button').click();
+  await page.waitForFunction(() => {
+    const input = document.getElementById('creator-selected-lineage-languages');
+    return input && input.value !== '{}';
+  });
+  assert.deepEqual(
+    JSON.parse(await page.locator('#creator-selected-lineage-languages').inputValue()),
+    savedLanguageChoices,
+    'Restored lineage language field should match the saved draft'
+  );
+  assert.ok(
+    await lineageLanguages.locator('input[type="checkbox"]:checked').evaluateAll(
+      (inputs, expected) => inputs.some(input => input.value === expected),
+      chosenOptionalLanguage
+    ),
+    'The optional lineage language checkbox should remain checked after restoring the draft'
+  );
+
+  // Return to a clean draft so the remaining browser checks stay independent.
+  await page.evaluate(() => localStorage.clear());
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await waitForAtlas();
+  await exposeWorkspace();
+  await page.locator('#creator-known-path-button').click();
+
+  // Lineage language proficiencies show automatically granted languages from the catalog.
   await lineageSelect.selectOption({ label: 'Elfo' });
   assert.match(await lineageLanguages.innerText(), /Común/, 'Elf should show Common as an automatic language');
   assert.match(await lineageLanguages.innerText(), /Élfico/, 'Elf should show Elvish as an automatic language');
