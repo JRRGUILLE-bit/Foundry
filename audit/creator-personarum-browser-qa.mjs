@@ -87,6 +87,9 @@ try {
 
   await gotoCreator();
 
+  // Known-character path: the campaign warlock rule appears, but the Abyss is not an option.
+  await page.locator('#creator-known-path-button').click();
+
   // Backgrounds disclose their fixed skill proficiencies and unselected catalog choices.
   const backgroundSelect = page.locator('#creator-background');
   const backgroundSkills = page.locator('#creator-background-skills-list');
@@ -97,8 +100,6 @@ try {
   assert.match(await backgroundSkills.innerText(), /Elección pendiente: elegí 2 habilidades/, 'Haunted One should display its two unselected skill choices');
   assert.match(await backgroundSkills.innerText(), /Arcanos/, 'Background skill choices should be readable in Spanish');
 
-  // Known-character path: the campaign warlock rule appears, but the Abyss is not an option.
-  await page.locator('#creator-known-path-button').click();
   await page.locator('#creator-character-name').fill('QA Aventurero');
   await page.locator('#creator-lineage').selectOption({ label: 'Otro / personalizado' });
   assert.equal(await page.locator('#creator-custom-lineage-field').evaluate(element => element.hidden), false);
