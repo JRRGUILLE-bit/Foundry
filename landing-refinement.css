@@ -435,3 +435,149 @@ body > .behind-screen-dock .behind-screen-trigger {
     animation: none;
   }
 }
+
+
+/* Place Creator Personarum in the open right side of the masthead. */
+.terminal-shell > .campaign-masthead {
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+.terminal-shell > .campaign-masthead > .campaign-masthead-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.terminal-shell > .campaign-masthead > .campaign-masthead-actions {
+  display: flex;
+  flex: 0 0 clamp(18rem, 29vw, 23rem);
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+}
+
+.terminal-shell > .campaign-masthead .masthead-status {
+  display: none;
+}
+
+.terminal-shell > .campaign-masthead > .campaign-masthead-actions > .masthead-creator-entry {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  min-height: 0;
+  padding: 0.72rem 0.78rem;
+  border: 1px solid rgba(255, 209, 92, 0.4);
+  background: linear-gradient(110deg, rgba(23, 17, 9, 0.78), rgba(5, 13, 7, 0.76));
+  color: #ffe494;
+  text-decoration: none;
+  box-shadow: none;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.terminal-shell > .campaign-masthead .masthead-creator-entry:hover,
+.terminal-shell > .campaign-masthead .masthead-creator-entry:focus-visible {
+  border-color: rgba(255, 228, 148, 0.85);
+  background: linear-gradient(110deg, rgba(43, 29, 12, 0.86), rgba(5, 18, 9, 0.84));
+  transform: translateY(-1px);
+  outline: 2px solid rgba(255, 228, 148, 0.72);
+  outline-offset: 3px;
+}
+
+.terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-mark {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-color: rgba(179, 141, 75, 0.55);
+  font-size: 1.35rem;
+}
+
+.terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-copy {
+  flex: 1 1 auto;
+}
+
+.terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-copy strong {
+  font-size: clamp(1.05rem, 1.35vw, 1.3rem);
+  line-height: 1.05;
+  letter-spacing: 0.045em;
+}
+
+.terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-copy small {
+  margin-top: 0.18rem;
+  color: rgba(181, 168, 136, 0.9);
+  font-size: clamp(0.78rem, 0.96vw, 0.91rem);
+  line-height: 1.1;
+  letter-spacing: 0.025em;
+}
+
+.terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-action {
+  flex: 0 0 5.1rem;
+  margin-left: 0;
+  padding: 0.28rem 0 0.28rem 0.55rem;
+  border: 0;
+  border-left: 1px solid rgba(149, 114, 61, 0.42);
+  color: #d8c38d;
+  font-size: 0.82rem;
+  line-height: 1.1;
+  white-space: normal;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .terminal-shell > .campaign-masthead {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .terminal-shell > .campaign-masthead > .campaign-masthead-actions {
+    flex: 0 0 auto;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .terminal-shell > .campaign-masthead .masthead-creator-entry {
+    max-width: 28rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .terminal-shell > .campaign-masthead > .campaign-masthead-actions {
+    width: 100%;
+  }
+
+  .terminal-shell > .campaign-masthead .masthead-creator-entry {
+    max-width: none;
+    gap: 0.48rem;
+    padding: 0.55rem 0.58rem;
+  }
+
+  .terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-mark {
+    width: 1.55rem;
+    height: 1.55rem;
+    flex-basis: 1.55rem;
+    font-size: 1.1rem;
+  }
+
+  .terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-copy strong {
+    font-size: clamp(0.95rem, 3.6vw, 1.14rem);
+    letter-spacing: 0.025em;
+  }
+
+  .terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-copy small {
+    font-size: clamp(0.69rem, 2.6vw, 0.79rem);
+    letter-spacing: 0.01em;
+  }
+
+  .terminal-shell > .campaign-masthead .masthead-creator-entry .creator-entry-action {
+    flex-basis: 4rem;
+    padding-left: 0.35rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-shell > .campaign-masthead .masthead-creator-entry {
+    transition: none;
+  }
+}
