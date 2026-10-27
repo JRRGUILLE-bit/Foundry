@@ -431,7 +431,7 @@ La estética retro/pixel de **Creator Personarum solamente** ya fue sustituida p
 La rama `feat/new-campaign-origin-picker` prepara estos cambios; **no se consideran integrados en `main` hasta que el PR pase QA y sea mergeado**.
 
 - La procedencia se carga desde `fvtt-JournalEntry-atlas-revisado.json`; agrupa regiones de Abigur, Rala y Tomun, zonas salvajes nombradas y los tres archipiélagos. El selector es opcional, muestra el contexto del Atlas y conserva región/continente en el borrador y su exportación JSON.
-- Se amplían los linajes a los pueblos que aparecen en el Atlas. La procedencia no filtra las razas disponibles; de acuerdo con el canon indicado por el usuario, el Imperio Gris no restringe la creación por raza.
+- Se amplían los linajes a los pueblos que aparecen en el Atlas y se permite escribir un linaje personalizado; el nombre real se guarda, restaura y exporta. La procedencia no filtra las razas disponibles; de acuerdo con el canon indicado por el usuario, el Imperio Gris no restringe la creación por raza.
 - Al seleccionar **Brujo**, aparece una nota de canon: el Abismo y sus demonios son enemigos; no se ofrece como patrón. El creador aún no tiene un selector de patrón/subclase, y no se inventa una lista nueva hasta tenerla definida por el canon.
 - El Infierno sigue separado del Abismo: la opción infernal existente en el selector divino no convierte al Abismo en una potencia jugable. En el recorrido de exploración, elegirla preselecciona Imperium Ravum (el Imperio Gris) como procedencia, que el jugador puede cambiar después.
 - La historia de origen completa (narrativa personalizada que combine región, concepto, linaje y trasfondo) sigue pendiente. Esta etapa tampoco crea actores de Foundry.
