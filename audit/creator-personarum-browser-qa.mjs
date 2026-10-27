@@ -439,7 +439,29 @@ try {
   await page.locator('#creator-character-name').fill('QA Aventurero');
   await page.locator('#creator-lineage').selectOption({ label: 'Otro / personalizado' });
   assert.equal(await page.locator('#creator-custom-lineage-field').evaluate(element => element.hidden), false);
-  await page.locator('#creator-custom-lineage').fill('Tortuga viajera');
+  const customLineageInput = page.locator('#creator-custom-lineage');
+  assert.equal(
+    await customLineageInput.evaluate(element => element.required),
+    true,
+    'Known-character path must require the custom lineage name'
+  );
+  assert.equal(
+    await customLineageInput.evaluate(element => element.validity.valueMissing),
+    true,
+    'An empty custom lineage should be invalid before saving'
+  );
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem('banda.creator-personarum.draft.v1')),
+    null,
+    'The known-character draft should start empty for this validation check'
+  );
+  await page.locator('#creator-draft-form button[type="submit"]').click();
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem('banda.creator-personarum.draft.v1')),
+    null,
+    'Known-character path must not save an empty custom lineage'
+  );
+  await customLineageInput.fill('Tortuga viajera');
   await page.locator('#creator-character-class').selectOption({ label: 'Brujo' });
   assert.equal(
     await page.locator('#creator-warlock-canon-note').evaluate(element => element.hidden),
