@@ -7,6 +7,7 @@
   let pendingRestoredFeat = '';
   let pendingRestoredSpells = null;
   let pendingRestoredClassSkills = null;
+  let pendingRestoredBackgroundSkills = null;
   let selectedSpells = [];
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
@@ -51,6 +52,25 @@
     pendingRestoredClassSkills = [];
     if (typeof window.creatorPersonarumApplyRestoredClassSkills === 'function') {
       window.creatorPersonarumApplyRestoredClassSkills();
+    }
+  });
+
+  window.addEventListener('creator-personarum:restore-background-skills', (event) => {
+    pendingRestoredBackgroundSkills = {
+      background: String(event.detail?.background || ''),
+      skills: Array.isArray(event.detail?.skills)
+        ? event.detail.skills.filter(skill => typeof skill === 'string')
+        : []
+    };
+    if (typeof window.creatorPersonarumApplyRestoredBackgroundSkills === 'function') {
+      window.creatorPersonarumApplyRestoredBackgroundSkills();
+    }
+  });
+
+  window.addEventListener('creator-personarum:reset-background-skills', () => {
+    pendingRestoredBackgroundSkills = null;
+    if (typeof window.creatorPersonarumApplyRestoredBackgroundSkills === 'function') {
+      window.creatorPersonarumApplyRestoredBackgroundSkills([]);
     }
   });
 
@@ -342,14 +362,14 @@
     const select = byId('creator-background');
     const details = byId('creator-background-skills-list');
     const status = byId('creator-background-skills-status');
-    if (!select || !details || !status) return;
+    const hiddenInput = byId('creator-selected-background-skills');
+    if (!select || !details || !status || !hiddenInput) return;
 
     const seen = new Set();
-    const rows = records.filter((item) => item.category === 'background')
+    const rows = records.filter(item => item.category === 'background')
       .sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
         String(a.source).localeCompare(String(b.source)));
     const selectedRows = [];
-
     for (const item of rows) {
       const key = normalize(item.name);
       if (!key || seen.has(key)) continue;
@@ -357,8 +377,7 @@
       selectedRows.push(item);
       addOption(select, translate(item.name, BACKGROUND_LABELS), item.source, item.category, [item.name]);
     }
-
-    Array.from(select.options).forEach((option) => {
+    Array.from(select.options).forEach(option => {
       if (normalize(option.value) === 'personalizado') option.remove();
     });
 
@@ -382,81 +401,179 @@
       stealth: 'Sigilo',
       survival: 'Supervivencia'
     };
+    const allSkillKeys = Object.keys(skillLabels);
+    let selectedSkills = [];
+    let activeBackgroundValue = '';
+    let activeChoiceCount = 0;
+    let activeBackgroundName = '';
+    let activeSource = '';
 
-    const refreshSkills = () => {
+    const syncHiddenValue = () => {
+      hiddenInput.value = JSON.stringify(selectedSkills);
+    };
+
+    const render = (restoreSkills) => {
       details.replaceChildren();
       const selectedValue = normalize(select.value);
-      if (!selectedValue) {
-        const item = document.createElement('li');
-        item.textContent = 'Elegí un trasfondo para consultar sus habilidades.';
-        details.appendChild(item);
-        status.textContent = 'La información proviene del catálogo del trasfondo elegido.';
-        return;
-      }
-
       const mappedName = Object.entries(BACKGROUND_LABELS)
         .find(([, label]) => normalize(label) === selectedValue)?.[0];
       const background = selectedRows.find(item =>
         normalize(item.name) === normalize(mappedName || select.value)
       );
 
-      if (!background) {
+      if (!selectedValue || !background) {
+        selectedSkills = [];
+        activeBackgroundValue = select.value;
+        activeChoiceCount = 0;
+        activeBackgroundName = '';
+        activeSource = '';
+        syncHiddenValue();
         const item = document.createElement('li');
-        item.textContent = 'No hay datos de habilidades para esta opción de trasfondo en el catálogo.';
+        item.textContent = !selectedValue
+          ? 'Elegí un trasfondo para consultar y seleccionar sus habilidades.'
+          : 'No hay datos de habilidades para esta opción de trasfondo en el catálogo.';
         details.appendChild(item);
-        status.textContent = 'No se encontró un registro coincidente.';
+        status.textContent = !selectedValue
+          ? 'Las elecciones se guardan en el borrador.'
+          : 'No se encontró un registro coincidente.';
         return;
       }
 
-      const lines = [];
+      if (activeBackgroundValue !== select.value) {
+        selectedSkills = [];
+        activeBackgroundValue = select.value;
+      }
+      activeBackgroundName = background.name;
+      activeSource = background.source || '';
       const proficiencyGroups = Array.isArray(background.skillProficiencies)
-        ? background.skillProficiencies
+        ? background.skillProficiencies.filter(group => group && typeof group === 'object')
         : [];
-      for (const group of proficiencyGroups) {
-        if (!group || typeof group !== 'object') continue;
-        const fixedSkills = Object.entries(group)
+      const fixedSkills = [...new Set(proficiencyGroups.flatMap(group =>
+        Object.entries(group)
           .filter(([key, value]) => value === true && skillLabels[normalize(key)])
-          .map(([key]) => skillLabels[normalize(key)]);
-        if (fixedSkills.length) lines.push('Concede: ' + fixedSkills.join(', ') + '.');
-
-        const choice = group.choose;
-        if (choice && typeof choice === 'object') {
-          const count = Number.isInteger(Number(choice.count)) && Number(choice.count) > 0
-            ? Number(choice.count)
+          .map(([key]) => normalize(key))
+      ))];
+      const choiceDefinitions = proficiencyGroups.flatMap(group => {
+        if (group.choose && typeof group.choose === 'object') {
+          const count = Number.isInteger(Number(group.choose.count)) && Number(group.choose.count) > 0
+            ? Number(group.choose.count)
             : 1;
-          const options = Array.isArray(choice.from)
-            ? choice.from.map(skill => skillLabels[normalize(skill)] || String(skill))
+          const options = Array.isArray(group.choose.from)
+            ? group.choose.from.map(skill => normalize(skill)).filter(skill => skillLabels[skill])
             : [];
-          lines.push(options.length
-            ? 'Elección pendiente: elegí ' + count + (count === 1 ? ' habilidad entre: ' : ' habilidades entre: ') + options.join(', ') + '.'
-            : 'Elección pendiente: el catálogo registra una habilidad para elegir, pero no detalla las opciones.');
+          return [{ count, options: options.filter(skill => !fixedSkills.includes(skill)), label: 'opciones del trasfondo' }];
         }
-
         if (Number(group.any) > 0) {
-          const count = Number(group.any);
-          lines.push('Elección pendiente: elegí ' + count + (count === 1 ? ' habilidad a tu elección.' : ' habilidades a tu elección.'));
+          return [{ count: Number(group.any), options: allSkillKeys.filter(skill => !fixedSkills.includes(skill)), label: 'cualquier habilidad' }];
         }
+        return [];
+      });
+      activeChoiceCount = choiceDefinitions.reduce((total, definition) => total + definition.count, 0);
+      selectedSkills = [...new Set(selectedSkills)].filter(skill =>
+        choiceDefinitions.some(definition => definition.options.includes(skill))
+      ).slice(0, activeChoiceCount);
+      if (Array.isArray(restoreSkills)) {
+        selectedSkills = [...new Set(restoreSkills.map(normalize))].filter(skill =>
+          choiceDefinitions.some(definition => definition.options.includes(skill))
+        ).slice(0, activeChoiceCount);
       }
 
-      if (!lines.length) {
+      if (fixedSkills.length) {
+        const fixed = document.createElement('li');
+        fixed.textContent = 'Concede automáticamente: ' + fixedSkills.map(skill => skillLabels[skill]).join(', ') + '.';
+        details.appendChild(fixed);
+      }
+
+      if (choiceDefinitions.length) {
+        for (const definition of choiceDefinitions) {
+          const heading = document.createElement('li');
+          heading.textContent = 'Elegí ' + definition.count +
+            (definition.count === 1 ? ' habilidad entre estas opciones:' : ' habilidades entre estas opciones:');
+          details.appendChild(heading);
+          for (const skill of definition.options) {
+            const item = document.createElement('li');
+            const label = document.createElement('label');
+            label.className = 'creator-background-skill-choice';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'backgroundSkills';
+            checkbox.value = skill;
+            checkbox.dataset.backgroundSkillChoice = 'true';
+            checkbox.checked = selectedSkills.includes(skill);
+            const limitReached = selectedSkills.length >= activeChoiceCount;
+            checkbox.disabled = limitReached && !checkbox.checked;
+            label.append(checkbox, document.createTextNode(' ' + skillLabels[skill]));
+            item.appendChild(label);
+            details.appendChild(item);
+            checkbox.addEventListener('change', () => {
+              if (checkbox.checked) {
+                if (selectedSkills.length >= activeChoiceCount) {
+                  checkbox.checked = false;
+                  status.textContent = 'Ya elegiste las ' + activeChoiceCount +
+                    ' habilidades permitidas. Desmarcá una para cambiar la selección.';
+                  return;
+                }
+                if (!selectedSkills.includes(skill)) selectedSkills.push(skill);
+              } else {
+                selectedSkills = selectedSkills.filter(value => value !== skill);
+              }
+              selectedSkills.sort((a, b) => allSkillKeys.indexOf(a) - allSkillKeys.indexOf(b));
+              syncHiddenValue();
+              render();
+            });
+          }
+        }
+      } else if (!fixedSkills.length) {
         const item = document.createElement('li');
         item.textContent = 'El catálogo no registra habilidades concretas para este trasfondo.';
         details.appendChild(item);
-      } else {
-        for (const line of lines) {
-          const item = document.createElement('li');
-          item.textContent = line;
-          details.appendChild(item);
-        }
       }
-      status.textContent = (background.source ? 'Fuente: ' + background.source + '. ' : '') +
-        'Las alternativas visibles todavía no están seleccionadas en el borrador.';
+
+      syncHiddenValue();
+      const selectedCount = selectedSkills.length;
+      const remaining = Math.max(0, activeChoiceCount - selectedCount);
+      const message = activeChoiceCount
+        ? selectedCount === activeChoiceCount
+          ? 'Elegiste todas las habilidades que permite este trasfondo.'
+          : 'Elegiste ' + selectedCount + ' de ' + activeChoiceCount +
+            '; te falta' + (remaining === 1 ? '' : 'n') + ' ' + remaining + '.'
+        : fixedSkills.length
+          ? 'Este trasfondo concede sus habilidades automáticamente; no hay elecciones adicionales registradas.'
+          : 'No hay habilidades registradas para seleccionar.';
+      status.textContent = (activeSource ? 'Fuente: ' + activeSource + '. ' : '') + message;
     };
 
-    select.addEventListener('change', refreshSkills);
-    refreshSkills();
-  }
+    window.creatorPersonarumApplyRestoredBackgroundSkills = (skills) => {
+      if (Array.isArray(skills)) {
+        selectedSkills = skills;
+        render(skills);
+        return;
+      }
+      if (!pendingRestoredBackgroundSkills) return;
+      if (normalize(pendingRestoredBackgroundSkills.background) !== normalize(select.value)) return;
+      const restored = pendingRestoredBackgroundSkills.skills;
+      pendingRestoredBackgroundSkills = null;
+      render(restored);
+    };
 
+    window.creatorPersonarumGetBackgroundSkillSelection = () => ({
+      requiredCount: activeChoiceCount,
+      selected: [...selectedSkills],
+      backgroundName: activeBackgroundName,
+      backgroundValue: activeBackgroundValue
+    });
+
+    select.addEventListener('change', () => {
+      activeBackgroundValue = '';
+      selectedSkills = [];
+      render();
+      if (pendingRestoredBackgroundSkills &&
+          normalize(pendingRestoredBackgroundSkills.background) === normalize(select.value)) {
+        window.creatorPersonarumApplyRestoredBackgroundSkills();
+      }
+    });
+    render();
+  }
   function appendClassSkillChoices(records) {
     const classSelect = byId('creator-character-class');
     const list = byId('creator-class-skills-list');

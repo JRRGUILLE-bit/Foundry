@@ -120,8 +120,14 @@ try {
   assert.match(await backgroundSkills.innerText(), /Perspicacia/, 'Acolyte should display Insight proficiency');
   assert.match(await backgroundSkills.innerText(), /Religión/, 'Acolyte should display Religion proficiency');
   await backgroundSelect.selectOption({ label: 'Haunted One' });
-  assert.match(await backgroundSkills.innerText(), /Elección pendiente: elegí 2 habilidades/, 'Haunted One should display its two unselected skill choices');
+  assert.match(await backgroundSkills.innerText(), /Elegí 2 habilidades entre estas opciones/, 'Haunted One should show its two selectable skill choices');
   assert.match(await backgroundSkills.innerText(), /Arcanos/, 'Background skill choices should be readable in Spanish');
+  const hauntedOneSkills = backgroundSkills.locator('input[type="checkbox"]');
+  assert.equal(await hauntedOneSkills.count(), 4, 'Haunted One should offer its four catalogued skill options');
+  await hauntedOneSkills.nth(0).check();
+  await hauntedOneSkills.nth(1).check();
+  assert.equal(await backgroundSkills.locator('input[type="checkbox"]:checked').count(), 2, 'Haunted One should allow exactly two selected skills');
+  assert.equal(await hauntedOneSkills.nth(2).isDisabled(), true, 'Additional background skills should be disabled at the allowed limit');
 
   await page.locator('#creator-character-name').fill('QA Aventurero');
   await page.locator('#creator-lineage').selectOption({ label: 'Otro / personalizado' });
@@ -206,7 +212,9 @@ try {
       && draft.subclass === expectedSubclass
       && draft.feat === expectedFeat
       && Array.isArray(draft.selectedClassSkills)
-      && draft.selectedClassSkills.length === 2;
+      && draft.selectedClassSkills.length === 2
+      && Array.isArray(draft.selectedBackgroundSkills)
+      && draft.selectedBackgroundSkills.length === 2;
   }, { expectedSubclass: fighterSubclassValue, expectedFeat: selectedFeatValue });
   const [knownDownload] = await Promise.all([
     page.waitForEvent('download'),
@@ -217,6 +225,7 @@ try {
   assert.equal(knownExport.originContinent, 'Abigur');
   assert.equal(knownExport.lineage, 'Tortuga viajera');
   assert.equal(knownExport.selectedClassSkills.length, 2, 'Exported draft should include the two selected class skills');
+  assert.equal(knownExport.selectedBackgroundSkills.length, 2, 'Exported draft should include the two selected background skills');
 
   // Reload and verify the chosen origin and class skills are restored.
   await page.reload({ waitUntil: 'domcontentloaded' });
@@ -234,6 +243,9 @@ try {
   const restoredClassSkills = await page.locator('#creator-class-skills-list input[type="checkbox"]:checked').evaluateAll(inputs => inputs.map(input => input.value));
   assert.deepEqual(restoredClassSkills, ['acrobatics', 'animal handling'], 'Saved Fighter skill choices should be restored');
   assert.deepEqual(JSON.parse(await page.locator('#creator-selected-class-skills').inputValue()), restoredClassSkills, 'Restored checkboxes and saved selection field should match');
+  const restoredBackgroundSkills = await page.locator('#creator-background-skills-list input[type="checkbox"]:checked').evaluateAll(inputs => inputs.map(input => input.value));
+  assert.deepEqual(restoredBackgroundSkills, ['arcana', 'investigation'], 'Saved Haunted One skill choices should be restored');
+  assert.deepEqual(JSON.parse(await page.locator('#creator-selected-background-skills').inputValue()), restoredBackgroundSkills, 'Restored background checkboxes and saved selection field should match');
   assert.match(await page.locator('#creator-origin-details').innerText(), /estado unificado|gobierno/i);
 
   // Explorer path: the existing Inferno association preselects the Grey Empire,

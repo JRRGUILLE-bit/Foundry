@@ -242,6 +242,7 @@
     draftForm.reset();
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-spells'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-class-skills'));
+    window.dispatchEvent(new CustomEvent('creator-personarum:reset-background-skills'));
     classSelect.dispatchEvent(new Event('change', { bubbles: true }));
     updateCustomLineageField();
     document.getElementById('creator-level').value = '1';
@@ -466,6 +467,13 @@
       selectedSpells = [];
     }
     const customLineage = customLineageInput.value.trim();
+    let selectedBackgroundSkills = [];
+    try {
+      const parsedBackgroundSkills = JSON.parse(document.getElementById('creator-selected-background-skills').value || '[]');
+      if (Array.isArray(parsedBackgroundSkills)) selectedBackgroundSkills = parsedBackgroundSkills.filter(skill => typeof skill === 'string');
+    } catch (error) {
+      selectedBackgroundSkills = [];
+    }
     let selectedClassSkills = [];
     try {
       const parsedClassSkills = JSON.parse(document.getElementById('creator-selected-class-skills').value || '[]');
@@ -483,6 +491,7 @@
       feat: featSelect.value,
       selectedSpells,
       selectedClassSkills,
+      selectedBackgroundSkills,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
@@ -583,7 +592,15 @@
       }
       originRegionSelect.value = draft.originRegion || '';
       deitySelect.value = draft.deity || '';
-      document.getElementById('creator-background').value = draft.background || '';
+      const backgroundSelect = document.getElementById('creator-background');
+      backgroundSelect.value = draft.background || '';
+      backgroundSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-background-skills', {
+        detail: {
+          background: backgroundSelect.value,
+          skills: Array.isArray(draft.selectedBackgroundSkills) ? draft.selectedBackgroundSkills : []
+        }
+      }));
       document.getElementById('creator-level').value = String(draft.level || 1);
       document.getElementById('creator-concept').value = draft.concept || '';
       exportDraftButton.disabled = false;
@@ -615,6 +632,26 @@
       levelInput.setCustomValidity('El nivel debe estar entre 1 y 20.');
       levelInput.reportValidity();
       levelInput.setCustomValidity('');
+      return;
+    }
+
+    const backgroundSkillSelection = typeof window.creatorPersonarumGetBackgroundSkillSelection === 'function'
+      ? window.creatorPersonarumGetBackgroundSkillSelection()
+      : null;
+    if (currentMode !== CREATION_MODES.explore
+        && values.background
+        && backgroundSkillSelection
+        && backgroundSkillSelection.requiredCount > 0
+        && values.selectedBackgroundSkills.length !== backgroundSkillSelection.requiredCount) {
+      setDraftStatus('Elegí exactamente ' + backgroundSkillSelection.requiredCount +
+        (backgroundSkillSelection.requiredCount === 1 ? ' habilidad' : ' habilidades') +
+        ' para el trasfondo ' + backgroundSkillSelection.backgroundName + ' antes de guardar.', 'error');
+      const backgroundSkillList = document.getElementById('creator-background-skills-list');
+      if (backgroundSkillList) {
+        backgroundSkillList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const firstChoice = backgroundSkillList.querySelector('input[type="checkbox"]');
+        if (firstChoice) firstChoice.focus();
+      }
       return;
     }
 
@@ -659,6 +696,7 @@
       feat: values.feat,
       selectedSpells: values.selectedSpells,
       selectedClassSkills: values.selectedClassSkills,
+      selectedBackgroundSkills: values.selectedBackgroundSkills,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,
