@@ -35,7 +35,7 @@ La región no filtra los linajes. En particular, el Imperio Gris no debe restrin
 
 ### Regla de Brujo / Abismo
 
-Al elegir **Brujo**, el creador presenta esta regla de campaña: el Abismo y sus demonios son enemigos de la Creación y no una opción de patrón jugable. La rama no añade un selector de patronos que pueda introducir opciones sin canon. El Infierno permanece conceptualmente separado del Abismo, tal como lo describe el Codex.
+Al elegir **Brujo**, el creador presenta esta regla de campaña: el Abismo y sus demonios son enemigos de la Creación y no una opción de patrón jugable. La rama no añade un selector de patronos que pueda introducir opciones sin canon. El Infierno permanece conceptualmente separado del Abismo, tal como lo describe el Codex. En el recorrido de exploración, elegir la opción infernal preselecciona Imperium Ravum (el Imperio Gris) según la asociación ya descrita por el creador; la procedencia no queda bloqueada y el jugador puede cambiarla.
 
 ## Qué falta
 
