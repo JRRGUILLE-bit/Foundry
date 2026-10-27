@@ -43,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           install_chromium() {
-            timeout --signal=TERM --kill-after=30s 5m npx playwright install --with-deps chromium
+            timeout --signal=TERM --kill-after=30s 5m npx playwright install chromium
           }
           if install_chromium; then
             exit 0
