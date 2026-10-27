@@ -177,6 +177,11 @@ try {
     /Competencias con herramientas:.*herramientas de herrero.*suministros de cervecero.*herramientas de albañil/i,
     'Dwarf should display its three catalogued tool proficiency choices'
   );
+  assert.match(
+    await page.locator('#creator-lineage-skills-list').innerText(),
+    /Competencias con armas:.*hacha de batalla.*hacha de mano.*martillo ligero.*martillo de guerra/i,
+    'Dwarf should display its catalogued weapon proficiencies'
+  );
 
   // Lineages with skill choices expose catalogued options and enforce their count.
   const lineageSkills = page.locator('#creator-lineage-skills-list');
