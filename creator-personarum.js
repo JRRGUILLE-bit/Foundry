@@ -71,6 +71,8 @@
   const nameInput = document.getElementById('creator-character-name');
   const lineageSelect = document.getElementById('creator-lineage');
   const classSelect = document.getElementById('creator-character-class');
+  const customClassField = document.getElementById('creator-custom-class-field');
+  const customClassInput = document.getElementById('creator-custom-class');
   const subclassSelect = document.getElementById('creator-subclass');
   const featSelect = document.getElementById('creator-feat');
   const customLineageField = document.getElementById('creator-custom-lineage-field');
@@ -527,7 +529,11 @@
       lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
       lineageChoice,
       customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
-      characterClass: classSelect.value,
+      characterClass: classSelect.value === 'Clase personalizada'
+        ? customClassInput.value.trim()
+        : classSelect.value,
+      characterClassChoice: classSelect.value,
+      customClass: classSelect.value === 'Clase personalizada' ? customClassInput.value.trim() : '',
       subclass: subclassSelect.value,
       feat: featSelect.value,
       selectedSpells,
@@ -646,6 +652,13 @@
     if (!isCustomLineage) customLineageInput.setCustomValidity('');
   }
 
+  function updateCustomClassField() {
+    const isCustomClass = classSelect.value === 'Clase personalizada';
+    customClassField.hidden = !isCustomClass;
+    customClassInput.required = isCustomClass;
+    if (!isCustomClass) customClassInput.setCustomValidity('');
+  }
+
   function restoreDraft() {
     try {
       const raw = window.localStorage.getItem(storageKeyForMode(currentMode));
@@ -675,7 +688,19 @@
           : (savedLineage && savedLineage !== 'Otro / personalizado' ? savedLineage : ''))
         : '';
       updateCustomLineageField();
-      classSelect.value = draft.characterClass || '';
+      const classOptionValues = Array.from(classSelect.options).map(option => option.value);
+      const savedClassChoice = typeof draft.characterClassChoice === 'string' && classOptionValues.includes(draft.characterClassChoice)
+        ? draft.characterClassChoice
+        : classOptionValues.includes(draft.characterClass)
+          ? draft.characterClass
+          : (typeof draft.characterClass === 'string' && draft.characterClass ? 'Clase personalizada' : '');
+      classSelect.value = savedClassChoice;
+      customClassInput.value = savedClassChoice === 'Clase personalizada'
+        ? (typeof draft.customClass === 'string' && draft.customClass
+          ? draft.customClass
+          : (draft.characterClass && draft.characterClass !== 'Clase personalizada' ? draft.characterClass : ''))
+        : '';
+      updateCustomClassField();
       classSelect.dispatchEvent(new Event('change', { bubbles: true }));
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-subclass', {
         detail: { value: typeof draft.subclass === 'string' ? draft.subclass : '' }
@@ -880,6 +905,8 @@
       lineageChoice: values.lineageChoice,
       customLineage: values.customLineage,
       characterClass: values.characterClass,
+      characterClassChoice: values.characterClassChoice,
+      customClass: values.customClass,
       subclass: values.subclass,
       feat: values.feat,
       selectedSpells: values.selectedSpells,
@@ -1267,7 +1294,11 @@
     }
   });
 
-  classSelect.addEventListener('change', updateDivineSection);
+  classSelect.addEventListener('change', () => {
+    updateDivineSection();
+    updateCustomClassField();
+  });
+  customClassInput.addEventListener('input', () => renderPreview(readFormValues()));
   lineageSelect.addEventListener('change', () => {
     updateCustomLineageField();
     renderPreview(readFormValues());
