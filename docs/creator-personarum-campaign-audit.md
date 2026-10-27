@@ -42,7 +42,7 @@ Al elegir **Brujo**, el creador presenta esta regla de campaña: el Abismo y sus
 1. **Historia de origen:** generar una narración a partir de la procedencia elegida, el concepto, el linaje y el trasfondo; distinguir claramente el canon del Atlas de los detalles creativos nuevos.
 2. **Patronos de Brujo:** definir las opciones permitidas por la campaña antes de programar el selector. El Abismo y sus demonios deben quedar excluidos.
 3. **Procedencia más precisa:** evaluar ciudad/comunidad como segundo nivel después de validar la selección regional; coordinar esa fase con el mapa interactivo, sin sustituir el trabajo de Claude.
-4. **QA:** ejecutar `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA en Chromium/WebKit, revisar los resultados y corregir cualquier regresión antes de integrar.
+4. **QA:** ejecutar `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js`, `node --check audit/creator-personarum-browser-qa.mjs`, `node audit/creator-personarum-browser-qa.mjs` y Browser Mobile QA en Chromium/WebKit, revisar los resultados y corregir cualquier regresión antes de integrar.
 5. **Integración:** esta rama no debe mergearse sin revisión de QA y autorización explícita.
 
 ## Guardrails para siguientes sesiones
