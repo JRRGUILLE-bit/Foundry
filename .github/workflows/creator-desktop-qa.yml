@@ -38,8 +38,19 @@ jobs:
       - name: Install Playwright
         run: npm install --no-save playwright@1.54.1
 
-      - name: Install Chromium only
-        run: npx playwright install --with-deps chromium
+      - name: Install Chromium only (clean retry on failure)
+        shell: bash
+        run: |
+          set -euo pipefail
+          install_chromium() {
+            timeout --signal=TERM --kill-after=30s 5m npx playwright install --with-deps chromium
+          }
+          if install_chromium; then
+            exit 0
+          fi
+          echo "Chromium installation failed or timed out. Removing the Playwright browser cache and retrying once."
+          rm -rf "$HOME/.cache/ms-playwright"
+          install_chromium
 
       - name: Check Creator Personarum scripts and catalog
         run: |
