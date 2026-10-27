@@ -738,6 +738,7 @@ try {
     'Character preview should update the name immediately before the draft is saved'
   );
   await page.locator('#creator-concept').fill('C'.repeat(1200));
+  await page.locator('#creator-level').fill('3');
   await page.locator('#creator-feat').selectOption(selectedFeatValue);
   await page.locator('#creator-origin-story-draft').click();
   const explorerStoryProposal = await page.locator('#creator-origin-story').inputValue();
@@ -775,6 +776,7 @@ try {
   await page.waitForFunction((expectedSpell) => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.world-explorer') || 'null');
     return draft && draft.originRegion === 'tomun-aetheloria' && draft.originRegionName === 'Aetheloria'
+      && draft.level === 3
       && Array.isArray(draft.selectedSpells) && draft.selectedSpells.length === 1
       && draft.selectedSpells[0].name === expectedSpell;
   }, selectedSpellForDraft);
@@ -801,6 +803,7 @@ try {
     'Export should preserve the complete player concept separately from the generated origin story'
   );
   assert.equal(explorerExport.originContinent, 'Tomun');
+  assert.equal(explorerExport.level, 3, 'Export should preserve the selected character level');
   assert.match(explorerExport.originStory, /Ciudades y culturas/i, 'Explorer story should be preserved in the exported draft');
   assert.equal(explorerExport.selectedSpells[0].name, selectedSpellForDraft, 'Export should include the selected spell');
 
@@ -843,6 +846,16 @@ try {
     await page.locator('#creator-concept').inputValue(),
     'C'.repeat(1200),
     'Saved player concept should be restored exactly after reload'
+  );
+  assert.equal(
+    await page.locator('#creator-level').inputValue(),
+    '3',
+    'Saved exploration level should be restored after reload'
+  );
+  assert.equal(
+    await page.locator('#creator-preview-level').innerText(),
+    '3',
+    'Restored exploration preview should display the saved level'
   );
   assert.equal(
     await page.locator('#creator-character-name').inputValue(),
