@@ -952,6 +952,30 @@
       ...(Array.isArray(draft.selectedClassSkills) ? draft.selectedClassSkills : []),
       ...(Array.isArray(draft.selectedBackgroundSkills) ? draft.selectedBackgroundSkills : [])
     ].filter(skill => typeof skill === 'string' && skill.trim());
+    const skillAbbreviations = {
+      acrobatics: 'acr',
+      animalhandling: 'ani',
+      arcana: 'arc',
+      athletics: 'ath',
+      deception: 'dec',
+      history: 'his',
+      insight: 'ins',
+      investigation: 'inv',
+      intimidation: 'itm',
+      medicine: 'med',
+      nature: 'nat',
+      perception: 'prc',
+      performance: 'prf',
+      persuasion: 'per',
+      religion: 'rel',
+      sleightofhand: 'slt',
+      stealth: 'ste',
+      survival: 'sur'
+    };
+    const foundrySkillKeys = [...new Set(skillChoices
+      .map(skill => skillAbbreviations[skill.toLowerCase().replace(/[^a-z]/g, '')])
+      .filter(Boolean))];
+    const foundrySkills = Object.fromEntries(foundrySkillKeys.map(key => [key, { value: 1 }]));
     const spellChoices = Array.isArray(draft.selectedSpells)
       ? draft.selectedSpells.map(spell => spell && typeof spell.name === 'string' ? spell.name : '').filter(Boolean)
       : [];
@@ -1015,6 +1039,7 @@
       name: actorName,
       type: 'character',
       system: {
+        skills: foundrySkills,
         details: {
           race: typeof draft.lineage === 'string' && draft.lineage.trim() ? draft.lineage.trim() : null,
           background: typeof draft.background === 'string' && draft.background.trim() ? draft.background.trim() : null,
