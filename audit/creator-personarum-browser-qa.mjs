@@ -690,6 +690,11 @@ try {
     /La primera pista que despertó mi curiosidad fue: Ciudades y culturas\./i,
     'Explorer story proposal should incorporate the interest chosen in the first step'
   );
+  assert.match(
+    explorerStoryProposal,
+    /Mi fe o ideal se vincula con El Infierno — Asmodeus y los Nueve Señores\./,
+    'Story proposal should include the selected deity or power'
+  );
 
   await page.locator('#creator-draft-form button[type="submit"]').click();
   await page.waitForFunction((expectedSpell) => {

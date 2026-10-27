@@ -954,6 +954,7 @@
         (values.subclass ? ', por la senda de ' + values.subclass : '') + '.');
     }
     if (values.background) paragraphs.push('Mi trasfondo es ' + values.background + '.');
+    if (values.deityName) paragraphs.push('Mi fe o ideal se vincula con ' + values.deityName + '.');
     if (values.concept) {
       const concept = values.concept.length > 420 ? values.concept.slice(0, 417).trimEnd() + '…' : values.concept;
       paragraphs.push('Hay algo que guía mis pasos: ' + concept);
