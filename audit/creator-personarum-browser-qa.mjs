@@ -210,12 +210,12 @@ try {
   );
 
   await page.locator('#creator-draft-form button[type="submit"]').click();
-  await page.waitForFunction(() => {
+  await page.waitForFunction((expectedSpell) => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.world-explorer') || 'null');
     return draft && draft.originRegion === 'tomun-aetheloria' && draft.originRegionName === 'Aetheloria'
       && Array.isArray(draft.selectedSpells) && draft.selectedSpells.length === 1
-      && draft.selectedSpells[0].name === selectedSpellForDraft;
-  });
+      && draft.selectedSpells[0].name === expectedSpell;
+  }, selectedSpellForDraft);
   const [explorerDownload] = await Promise.all([
     page.waitForEvent('download'),
     page.locator('#creator-export-draft').click()
