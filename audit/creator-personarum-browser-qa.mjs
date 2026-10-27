@@ -118,6 +118,12 @@ try {
   assert.equal(await previewAbilityText.innerText(), 'Fuerza', 'Preview should update when a lineage ability is deselected');
   await halfElfAbilityChoices.nth(1).check();
   assert.equal(await previewAbilityText.innerText(), 'Fuerza, Destreza', 'Preview should update when a lineage ability is selected again');
+  await halfElfAbilityChoices.nth(1).uncheck();
+  await halfElfAbilityChoices.nth(0).uncheck();
+  assert.equal(await previewAbilityRow.evaluate(element => element.hidden), true, 'Preview should hide the ability row when no lineage abilities are selected');
+  await halfElfAbilityChoices.nth(0).check();
+  await halfElfAbilityChoices.nth(1).check();
+  assert.equal(await previewAbilityRow.evaluate(element => element.hidden), false, 'Preview should show the ability row again when choices are made');
   assert.match(await lineageLanguages.innerText(), /Elegí 1 idioma entre estas opciones/, 'Half-Elf should offer one optional language');
   const halfElfLanguages = lineageLanguages.locator('input[type="checkbox"]');
   const availableHalfElfLanguages = await halfElfLanguages.evaluateAll(inputs => inputs.map(input => input.value));
