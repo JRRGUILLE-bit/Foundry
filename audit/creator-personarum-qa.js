@@ -23,6 +23,8 @@ const page = read('creator-personarum.html');
 const runtime = read('creator-personarum.js');
 const styles = read('creator-personarum.css');
 const workflow = read('.github/workflows/browser-mobile-qa.yml');
+const atlas = JSON.parse(read('fvtt-JournalEntry-atlas-revisado.json'));
+const atlasText = JSON.stringify(atlas);
 
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
 assert.match(homepage, /creator-personarum\.css/, 'Homepage must load the shared entry-point styling');
@@ -58,7 +60,25 @@ assert.match(page, /id="creator-explore-step"/, 'Exploration mode must have a se
 assert.match(page, /name="creator-exploration-focus"/, 'Exploration mode must collect an initial interest');
 assert.match(page, /id="creator-explore-continue"/, 'Exploration mode must have a continue control');
 assert.match(page, /creator-origin-promise/, 'The flow must set expectations for the eventual origin reveal');
-assert.match(page, /El atlas se conectará con el lore del mundo/, 'Exploration prompts must not be presented as canonical region names');
+assert.match(page, /La procedencia se elige desde las regiones del Atlas oficial/, 'Exploration should point to canonical regions already loaded from the Atlas');
+assert.match(page, /id="creator-origin-region"/, 'The origin selector must expose a region choice sourced from the canonical Atlas');
+assert.match(page, /id="creator-preview-origin-row"/, 'Selected origin must be reflected in the preview');
+assert.match(runtime, /fvtt-JournalEntry-atlas-revisado\.json/, 'Origin choices must be loaded from the canonical Atlas export');
+assert.match(runtime, /function parseAtlasRegions\(atlas\)/, 'Atlas parsing must be a distinct testable transformation');
+assert.match(runtime, /function getSelectedOriginRegion\(\)/, 'The selected region should resolve to canonical details');
+assert.match(runtime, /originRegionName: values\.originRegionName/, 'Saved/exported drafts must preserve origin metadata');
+assert.match(atlasText, /Imperium Ravum \(el Imperio Gris\)/, 'Origin data must include the Grey Empire as named in the Atlas');
+assert.match(atlasText, /El Gran Bosque \(interior de Rala\)/, 'Origin data must include the Great Forest zone');
+assert.match(atlasText, /Archipiélago de Anáhuac/, 'Origin data must include the Anáhuac archipelago');
+assert.match(page, /Alto humano/, 'Creator must include the high-human lineage named in the Atlas');
+assert.match(page, /Genasi de agua/, 'Creator must include water genasi from the campaign Atlas');
+assert.match(page, /Gnomo profundo \(Svirfneblin\)/, 'Creator must include deep gnomes from the campaign Atlas');
+assert.match(page, /Forjado/, 'Creator must include the Forged lineage named in the Atlas');
+assert.match(page, /Hombre lagarto/, 'Creator must include lizardfolk from the campaign Atlas');
+assert.match(page, /creator-warlock-canon-note/, 'Warlocks must receive the campaign-specific Abyss restriction note');
+assert.match(runtime, /selectedClass !== 'Brujo'/, 'The Abyss restriction note must be shown only for warlocks');
+assert.doesNotMatch(page, /<option[^>]*>[^<]*Abismo[^<]*<\/option>/i, 'The Abyss must not be selectable as a creator option');
+assert.doesNotMatch(runtime, /value:\s*['"]abismo['"]|name:\s*['"][^'"]*patrón abisal/i, 'The Abyss must not be introduced as a selectable patron');
 assert.match(runtime, /knownPathButton\.addEventListener\('click'/, 'Known-character choice must enter its own path');
 assert.match(runtime, /explorePathButton\.addEventListener\('click'/, 'Explorer choice must enter its own path');
 assert.match(runtime, /function continueExploration\(\)/, 'Explorer flow must validate and preserve the selected interest');
@@ -89,4 +109,4 @@ assert.match(styles, /\.creator-path-cards/, 'Both paths must have dedicated sty
 assert.match(styles, /\.creator-interest-grid/, 'Exploration interests must have dedicated styling');
 assert.match(workflow, /creator-personarum-qa\.js/, 'Browser QA workflow must run the Creator Personarum checks');
 
-console.log('Creator Personarum QA: skip controls, clean cinematic stage, two paths, explorer prompt and draft persistence checks passed.');
+console.log('Creator Personarum QA: campaign Atlas regions, canon lineages, warlock Abyss restriction, cinematic flow and draft persistence checks passed.');
