@@ -960,6 +960,21 @@
       !Array.isArray(draft.selectedLineageLanguages)
       ? Object.values(draft.selectedLineageLanguages).flat().filter(language => typeof language === 'string' && language.trim())
       : [];
+    const abilityLabels = {
+      str: 'Fuerza',
+      dex: 'Destreza',
+      con: 'Constitución',
+      int: 'Inteligencia',
+      wis: 'Sabiduría',
+      cha: 'Carisma'
+    };
+    const selectedLineageAbilityChoices = draft.selectedLineageAbilities &&
+      typeof draft.selectedLineageAbilities === 'object' &&
+      !Array.isArray(draft.selectedLineageAbilities)
+      ? [...new Set(Object.values(draft.selectedLineageAbilities).flat()
+          .map(ability => abilityLabels[ability])
+          .filter(Boolean))]
+      : [];
     const origin = [draft.originRegionName, draft.originContinent]
       .filter(value => typeof value === 'string' && value.trim())
       .join(' · ');
@@ -975,6 +990,7 @@
       ['Pista inicial', draft.explorationLabel],
       ['Habilidades elegidas', skillChoices.join(', ')],
       ['Idiomas elegidos', selectedLineageLanguages.join(', ')],
+      ['Características elegidas para el linaje', selectedLineageAbilityChoices.join(', ')],
       ['Conjuros elegidos', spellChoices.join(', ')],
       ['Fuente del Atlas', draft.originRegionContext && draft.originRegionContext.sourcePage]
     ].filter(([, value]) => typeof value === 'string' && value.trim());
