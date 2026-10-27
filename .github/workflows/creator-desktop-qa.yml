@@ -1,0 +1,52 @@
+name: Creator Personarum Desktop QA
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "creator-personarum.html"
+      - "creator-personarum.css"
+      - "creator-personarum.js"
+      - "creator-personarum-catalog.js"
+      - "creator-personarum-data/player-options.json"
+      - "creator-personarum-final-frame.png"
+      - "creador *.mp4"
+      - "fvtt-JournalEntry-atlas-revisado.json"
+      - "fvtt-JournalEntry-codex-divinitatum-revisado.json"
+      - "audit/creator-personarum-qa.js"
+      - "audit/creator-personarum-browser-qa.mjs"
+      - ".github/workflows/creator-desktop-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  creator-desktop-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install Playwright
+        run: npm install --no-save playwright@1.54.1
+
+      - name: Install Chromium only
+        run: npx playwright install --with-deps chromium
+
+      - name: Check Creator Personarum scripts and catalog
+        run: |
+          node --check creator-personarum.js
+          node --check creator-personarum-catalog.js
+          node --check audit/creator-personarum-browser-qa.mjs
+          node audit/creator-personarum-qa.js
+
+      - name: Run desktop browser smoke tests
+        run: node audit/creator-personarum-browser-qa.mjs
