@@ -240,6 +240,7 @@
 
   function resetFormFields() {
     draftForm.reset();
+    window.dispatchEvent(new CustomEvent('creator-personarum:reset-spells'));
     classSelect.dispatchEvent(new Event('change', { bubbles: true }));
     updateCustomLineageField();
     document.getElementById('creator-level').value = '1';
@@ -456,6 +457,13 @@
 
   function readFormValues() {
     const lineageChoice = lineageSelect.value;
+    let selectedSpells = [];
+    try {
+      const parsedSpells = JSON.parse(document.getElementById('creator-selected-spells').value || '[]');
+      if (Array.isArray(parsedSpells)) selectedSpells = parsedSpells;
+    } catch (error) {
+      selectedSpells = [];
+    }
     const customLineage = customLineageInput.value.trim();
     return {
       name: nameInput.value.trim(),
@@ -465,6 +473,7 @@
       characterClass: classSelect.value,
       subclass: subclassSelect.value,
       feat: featSelect.value,
+      selectedSpells,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
@@ -486,6 +495,11 @@
     document.getElementById('creator-preview-subclass').textContent = values.subclass || 'A definir';
     document.getElementById('creator-preview-feat-row').hidden = !values.feat;
     document.getElementById('creator-preview-feat').textContent = values.feat || 'A definir';
+    const selectedSpells = Array.isArray(values.selectedSpells) ? values.selectedSpells : [];
+    document.getElementById('creator-preview-spells-row').hidden = selectedSpells.length === 0;
+    const spellNames = selectedSpells.map(spell => spell && spell.name).filter(Boolean);
+    document.getElementById('creator-preview-spells').textContent = spellNames.slice(0, 3).join(', ')
+      + (spellNames.length > 3 ? ' (+' + (spellNames.length - 3) + ' más)' : '');
     document.getElementById('creator-preview-level').textContent = String(values.level || 1);
     document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
     document.getElementById('creator-preview-deity-row').hidden = !values.deityName;
@@ -545,6 +559,9 @@
       }));
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-feat', {
         detail: { value: typeof draft.feat === 'string' ? draft.feat : '' }
+      }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-spells', {
+        detail: { spells: Array.isArray(draft.selectedSpells) ? draft.selectedSpells : [] }
       }));
       if (draft.originRegion && !Array.from(originRegionSelect.options).some(option => option.value === draft.originRegion) && draft.originRegionName) {
         const savedOrigin = document.createElement('option');
@@ -608,6 +625,7 @@
       characterClass: values.characterClass,
       subclass: values.subclass,
       feat: values.feat,
+      selectedSpells: values.selectedSpells,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,

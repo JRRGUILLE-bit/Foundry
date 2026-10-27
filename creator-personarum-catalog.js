@@ -5,6 +5,8 @@
   const byId = (id) => document.getElementById(id);
   let pendingRestoredSubclass = '';
   let pendingRestoredFeat = '';
+  let pendingRestoredSpells = null;
+  let selectedSpells = [];
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
     pendingRestoredSubclass = String(event.detail?.value || '');
@@ -23,6 +25,17 @@
       pendingRestoredFeat = '';
       select.dispatchEvent(new Event('change', { bubbles: true }));
     }
+  });
+
+  window.addEventListener('creator-personarum:restore-spells', (event) => {
+    pendingRestoredSpells = Array.isArray(event.detail?.spells) ? event.detail.spells : [];
+    if (typeof window.creatorPersonarumApplyRestoredSpells === 'function') window.creatorPersonarumApplyRestoredSpells();
+  });
+
+  window.addEventListener('creator-personarum:reset-spells', () => {
+    selectedSpells = [];
+    pendingRestoredSpells = [];
+    renderSelectedSpells();
   });
 
   const CLASS_LABELS = {
@@ -273,6 +286,162 @@
     refreshDetails();
   }
 
+  function spellClasses(item) {
+    const names = new Set();
+    const addName = (value) => {
+      if (typeof value === 'string' && value.trim()) names.add(value.trim());
+      else if (value && typeof value === 'object') {
+        if (typeof value.name === 'string' && value.name.trim()) names.add(value.name.trim());
+        if (typeof value.className === 'string' && value.className.trim()) names.add(value.className.trim());
+        if (value.class && typeof value.class.name === 'string') names.add(value.class.name.trim());
+      }
+    };
+    const classes = item.classes;
+    if (Array.isArray(classes)) classes.forEach(addName);
+    else if (classes && typeof classes === 'object') {
+      const fromClassList = classes.fromClassList || classes.classList || classes.classes || [];
+      if (Array.isArray(fromClassList)) fromClassList.forEach(addName);
+      if (classes.className) addName(classes.className);
+    }
+    addName(item.class_name);
+    addName(item.className);
+    return Array.from(names).map(name => translate(name, CLASS_LABELS));
+  }
+
+  function appendSpells(records) {
+    const levelSelect = byId('creator-spell-level');
+    const spellSelect = byId('creator-spell-choice');
+    const addButton = byId('creator-spell-add');
+    const selectedInput = byId('creator-selected-spells');
+    const selectedList = byId('creator-selected-spells-list');
+    const status = byId('creator-spell-status');
+    const classSelect = byId('creator-character-class');
+    if (!levelSelect || !spellSelect || !addButton || !selectedInput || !selectedList || !status || !classSelect) return;
+
+    const byName = new Map();
+    const rows = records.filter(item => item.category === 'spell' && String(item.name || '').trim())
+      .sort((a, b) => String(a.name).localeCompare(String(b.name)) || String(a.source).localeCompare(String(b.source)));
+    for (const item of rows) {
+      const key = normalize(item.name);
+      if (!key || byName.has(key)) continue;
+      byName.set(key, {
+        name: String(item.name),
+        source: String(item.source || ''),
+        level: Number.isInteger(Number(item.level)) ? Number(item.level) : 0,
+        classes: spellClasses(item)
+      });
+    }
+
+    function availableForClass(className) {
+      const selectedClass = normalize(className);
+      if (!selectedClass) return [];
+      return Array.from(byName.values()).filter(item => item.classes.some(name => normalize(name) === selectedClass));
+    }
+
+    function renderSelectedSpells() {
+      selectedInput.value = JSON.stringify(selectedSpells);
+      selectedList.replaceChildren();
+      if (!selectedSpells.length) {
+        selectedList.textContent = 'Todavía no agregaste conjuros a este borrador.';
+      } else {
+        selectedSpells.forEach((spell, index) => {
+          const row = document.createElement('div');
+          row.className = 'creator-selected-option';
+          row.dataset.selectedSpell = spell.name;
+          const label = document.createElement('span');
+          label.textContent = spell.name + ' · nivel ' + spell.level + (spell.source ? ' · ' + spell.source : '');
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'creator-secondary-button';
+          remove.textContent = 'Quitar';
+          remove.setAttribute('aria-label', 'Quitar conjuro ' + spell.name);
+          remove.addEventListener('click', () => {
+            selectedSpells = selectedSpells.filter((_, selectedIndex) => selectedIndex !== index);
+            renderSelectedSpells();
+          });
+          row.append(label, remove);
+          selectedList.appendChild(row);
+        });
+      }
+      selectedInput.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    function refreshSpellOptions(pruneInvalidSelections = false) {
+      const className = classSelect.value;
+      const classSpells = availableForClass(className);
+      const levelValue = levelSelect.value;
+      const visible = classSpells.filter(item => levelValue === '' || item.level === Number(levelValue));
+      spellSelect.replaceChildren(new Option(
+        !className ? 'Primero elegí una clase…'
+          : !classSpells.length ? 'No hay conjuros catalogados para esta clase'
+            : !visible.length ? 'No hay conjuros para este nivel'
+              : 'Elegí un conjuro…',
+        ''
+      ));
+      visible.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.name;
+        option.textContent = item.name + ' (nivel ' + item.level + ')' + (item.source ? ' · ' + item.source : '');
+        option.dataset.source = item.source;
+        spellSelect.appendChild(option);
+      });
+      spellSelect.disabled = !visible.length;
+      levelSelect.disabled = !className || !classSpells.length;
+      addButton.disabled = spellSelect.disabled || !spellSelect.value;
+
+      if (pruneInvalidSelections) {
+        const validNames = new Set(classSpells.map(item => normalize(item.name)));
+        const before = selectedSpells.length;
+        selectedSpells = selectedSpells.filter(spell => validNames.has(normalize(spell.name)));
+        if (selectedSpells.length !== before) renderSelectedSpells();
+      }
+      status.textContent = !className
+        ? 'Elegí una clase para explorar sus conjuros permitidos.'
+        : !classSpells.length
+          ? 'El catálogo filtrado no contiene conjuros asignados a esta clase.'
+          : visible.length + ' conjuros disponibles con este filtro. La selección se conserva en el borrador.';
+    }
+
+    function applyRestoredSpells() {
+      const requested = Array.isArray(pendingRestoredSpells) ? pendingRestoredSpells : [];
+      const valid = availableForClass(classSelect.value);
+      const validByName = new Map(valid.map(item => [normalize(item.name), item]));
+      selectedSpells = requested.map(spell => validByName.get(normalize(spell && spell.name)))
+        .filter(Boolean);
+      pendingRestoredSpells = null;
+      renderSelectedSpells();
+    }
+
+    window.creatorPersonarumApplyRestoredSpells = applyRestoredSpells;
+    classSelect.addEventListener('change', () => refreshSpellOptions(true));
+    levelSelect.addEventListener('change', () => refreshSpellOptions(false));
+    spellSelect.addEventListener('change', () => {
+      addButton.disabled = spellSelect.disabled || !spellSelect.value;
+    });
+    addButton.addEventListener('click', () => {
+      const selected = byName.get(normalize(spellSelect.value));
+      if (!selected || selectedSpells.some(spell => normalize(spell.name) === normalize(selected.name))) return;
+      selectedSpells.push({ name: selected.name, source: selected.source, level: selected.level });
+      renderSelectedSpells();
+      refreshSpellOptions(false);
+      spellSelect.value = selected.name;
+      addButton.disabled = true;
+    });
+
+    window.addEventListener('creator-personarum:restore-spells', () => {
+      if (pendingRestoredSpells !== null) applyRestoredSpells();
+    });
+    window.addEventListener('creator-personarum:reset-spells', () => {
+      selectedSpells = [];
+      renderSelectedSpells();
+      refreshSpellOptions(false);
+    });
+
+    renderSelectedSpells();
+    refreshSpellOptions(false);
+    if (pendingRestoredSpells !== null) applyRestoredSpells();
+  }
+
   async function loadCatalog() {
     try {
       const response = await fetch(CATALOG_URL, { cache: 'no-store' });
@@ -285,6 +454,7 @@
       appendBackgrounds(catalog.records);
       appendSubclasses(catalog.records);
       appendFeats(catalog.records);
+      appendSpells(catalog.records);
       document.documentElement.dataset.creatorCatalogState = 'loaded';
       document.documentElement.dataset.creatorCatalogCount = String(catalog.totals?.included_records || catalog.records.length);
     } catch (error) {
