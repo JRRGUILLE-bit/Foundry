@@ -96,7 +96,9 @@ try {
   await lineageSelect.selectOption({ label: 'Semielfo' });
   assert.match(await lineageLanguages.innerText(), /Elegí 1 idioma entre estas opciones/, 'Half-Elf should offer one optional language');
   const halfElfLanguages = lineageLanguages.locator('input[type="checkbox"]');
-  assert.ok(await halfElfLanguages.count() > 0, 'Half-Elf should expose selectable language options');
+  const availableHalfElfLanguages = await halfElfLanguages.evaluateAll(inputs => inputs.map(input => input.value));
+  assert.ok(availableHalfElfLanguages.includes('common'), 'Half-Elf language choices should include a standard language');
+  assert.ok(availableHalfElfLanguages.includes('abyssal'), 'Half-Elf language choices should include an exotic language');
   await halfElfLanguages.first().check();
   const chosenOptionalLanguage = await halfElfLanguages.first().inputValue();
 
