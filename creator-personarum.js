@@ -71,6 +71,8 @@
   const nameInput = document.getElementById('creator-character-name');
   const lineageSelect = document.getElementById('creator-lineage');
   const classSelect = document.getElementById('creator-character-class');
+  const customLineageField = document.getElementById('creator-custom-lineage-field');
+  const customLineageInput = document.getElementById('creator-custom-lineage');
   const warlockCanonNote = document.getElementById('creator-warlock-canon-note');
   const originRegionSelect = document.getElementById('creator-origin-region');
   const originDetails = document.getElementById('creator-origin-details');
@@ -236,6 +238,7 @@
 
   function resetFormFields() {
     draftForm.reset();
+    updateCustomLineageField();
     document.getElementById('creator-level').value = '1';
     nameInput.required = currentMode !== CREATION_MODES.explore;
     lineageSelect.required = currentMode !== CREATION_MODES.explore;
@@ -449,9 +452,13 @@
   }
 
   function readFormValues() {
+    const lineageChoice = lineageSelect.value;
+    const customLineage = customLineageInput.value.trim();
     return {
       name: nameInput.value.trim(),
-      lineage: lineageSelect.value,
+      lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
+      lineageChoice,
+      customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
       characterClass: classSelect.value,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
@@ -488,6 +495,13 @@
     draftStatus.dataset.state = state || 'idle';
   }
 
+  function updateCustomLineageField() {
+    const isCustomLineage = lineageSelect.value === 'Otro / personalizado';
+    customLineageField.hidden = !isCustomLineage;
+    customLineageInput.required = isCustomLineage && currentMode !== CREATION_MODES.explore;
+    if (!isCustomLineage) customLineageInput.setCustomValidity('');
+  }
+
   function restoreDraft() {
     try {
       const raw = window.localStorage.getItem(storageKeyForMode(currentMode));
@@ -503,7 +517,18 @@
       savedDraft = draft;
       if (!explorationFocus) explorationFocus = draft.explorationFocus || '';
       nameInput.value = draft.name || '';
-      lineageSelect.value = draft.lineage || '';
+      const savedLineage = typeof draft.lineage === 'string' ? draft.lineage : '';
+      const lineageOptionValues = Array.from(lineageSelect.options).map(option => option.value);
+      const savedLineageChoice = draft.lineageChoice || (lineageOptionValues.includes(savedLineage)
+        ? savedLineage
+        : (savedLineage ? 'Otro / personalizado' : ''));
+      lineageSelect.value = savedLineageChoice;
+      customLineageInput.value = savedLineageChoice === 'Otro / personalizado'
+        ? (typeof draft.customLineage === 'string'
+          ? draft.customLineage
+          : (savedLineage && savedLineage !== 'Otro / personalizado' ? savedLineage : ''))
+        : '';
+      updateCustomLineageField();
       classSelect.value = draft.characterClass || '';
       if (draft.originRegion && !Array.from(originRegionSelect.options).some(option => option.value === draft.originRegion) && draft.originRegionName) {
         const savedOrigin = document.createElement('option');
@@ -532,6 +557,15 @@
 
     if (!draftForm.reportValidity()) return;
 
+    if (currentMode !== CREATION_MODES.explore
+        && lineageSelect.value === 'Otro / personalizado'
+        && !customLineageInput.value.trim()) {
+      customLineageInput.setCustomValidity('Especificá el nombre del linaje personalizado.');
+      customLineageInput.reportValidity();
+      customLineageInput.setCustomValidity('');
+      return;
+    }
+
     if (!Number.isInteger(values.level) || values.level < 1 || values.level > 20) {
       levelInput.setCustomValidity('El nivel debe estar entre 1 y 20.');
       levelInput.reportValidity();
@@ -553,6 +587,8 @@
       explorationLabel: explorationFocus ? getExplorationLabel(explorationFocus) : '',
       name: values.name,
       lineage: values.lineage,
+      lineageChoice: values.lineageChoice,
+      customLineage: values.customLineage,
       characterClass: values.characterClass,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
@@ -623,6 +659,11 @@
   });
 
   classSelect.addEventListener('change', updateDivineSection);
+  lineageSelect.addEventListener('change', () => {
+    updateCustomLineageField();
+    renderPreview(readFormValues());
+  });
+  customLineageInput.addEventListener('input', () => renderPreview(readFormValues()));
   originRegionSelect.addEventListener('change', () => {
     updateOriginDetails();
     renderPreview(readFormValues());
