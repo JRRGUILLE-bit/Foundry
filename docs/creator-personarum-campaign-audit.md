@@ -29,7 +29,7 @@ La procedencia elegida, su nombre y su continente se guardan en el borrador y en
 
 ### Linajes
 
-El selector contempla los pueblos documentados en el Atlas, incluyendo Alto humano, Gnomo profundo/Svirfneblin, Aasimar, variantes de Genasi, Goblin, Goliat, Orco, Tabaxi, Leonin, Cambiante, Forjado y Hombre lagarto, además de los linajes que ya estaban.
+El selector contempla los pueblos documentados en el Atlas, incluyendo Alto humano, Gnomo profundo/Svirfneblin, Aasimar, variantes de Genasi, Goblin, Goliat, Orco, Tabaxi, Leonin, Cambiante, Forjado y Hombre lagarto, además de los linajes que ya estaban. «Otro / personalizado» abre un campo de texto real y conserva el nombre en borradores y exportaciones.
 
 La región no filtra los linajes. En particular, el Imperio Gris no debe restringir la creación de personajes por raza, según el canon confirmado por el usuario. La lista no se utiliza para asignar reglas mecánicas, atributos o rasgos automáticamente.
 
