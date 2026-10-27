@@ -306,7 +306,8 @@ La portada enlaza a `creator-personarum.html`, una secuencia independiente para 
   2. **Todavía no lo sé:** iniciar una exploración guiada desde intereses en culturas, tierras salvajes, conflictos, ruinas, viajes o lugares mágicos.
 - La ruta exploradora permite registrar una pista inicial sin exigir que el jugador conozca todavía su nombre, linaje o clase. Los borradores se guardan por separado en el navegador y se pueden exportar a JSON.
 - Las pistas de exploración siguen siendo orientativas, no regiones canónicas. La rama de auditoría carga la procedencia desde las regiones y zonas salvajes del Atlas revisado y muestra su contexto. La generación de una historia de origen completa, basada en la región y el concepto del personaje, sigue pendiente.
-- Esta etapa **no crea todavía un actor de Foundry** ni calcula atributos, competencias, equipo o hechizos.
+- Creator Personarum carga las opciones filtradas desde `creator-personarum-data/player-options.json`: especies/variantes, clases y trasfondos se amplían con el catálogo Legacy/2014 generado automáticamente (solo metadatos/mecánicas, sin descripciones extensas). La automatización aplica el filtro de fuentes; no publica los datos crudos de la repo privada.
+- Siguen pendientes los selectores funcionales de subclases, dotes, conjuros y elecciones por nivel, la progresión mecánica completa y la creación de actores. Esta etapa no calcula todavía la ficha completa ni crea un actor de Foundry.
 - QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y `node audit/creator-personarum-browser-qa.mjs`, además del Browser Mobile QA.
 
 ---
