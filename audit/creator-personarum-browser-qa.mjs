@@ -87,6 +87,16 @@ try {
 
   await gotoCreator();
 
+  // Backgrounds disclose their fixed skill proficiencies and unselected catalog choices.
+  const backgroundSelect = page.locator('#creator-background');
+  const backgroundSkills = page.locator('#creator-background-skills-list');
+  await backgroundSelect.selectOption({ label: 'Acólito' });
+  assert.match(await backgroundSkills.innerText(), /Perspicacia/, 'Acolyte should display Insight proficiency');
+  assert.match(await backgroundSkills.innerText(), /Religión/, 'Acolyte should display Religion proficiency');
+  await backgroundSelect.selectOption({ label: 'Haunted One' });
+  assert.match(await backgroundSkills.innerText(), /Elección pendiente: elegí 2 habilidades/, 'Haunted One should display its two unselected skill choices');
+  assert.match(await backgroundSkills.innerText(), /Arcanos/, 'Background skill choices should be readable in Spanish');
+
   // Known-character path: the campaign warlock rule appears, but the Abyss is not an option.
   await page.locator('#creator-known-path-button').click();
   await page.locator('#creator-character-name').fill('QA Aventurero');

@@ -323,21 +323,121 @@
 
   function appendBackgrounds(records) {
     const select = byId('creator-background');
+    const details = byId('creator-background-skills-list');
+    const status = byId('creator-background-skills-status');
+    if (!select || !details || !status) return;
+
     const seen = new Set();
     const rows = records.filter((item) => item.category === 'background')
       .sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
         String(a.source).localeCompare(String(b.source)));
+    const selectedRows = [];
 
     for (const item of rows) {
       const key = normalize(item.name);
       if (!key || seen.has(key)) continue;
       seen.add(key);
+      selectedRows.push(item);
       addOption(select, translate(item.name, BACKGROUND_LABELS), item.source, item.category, [item.name]);
     }
 
     Array.from(select.options).forEach((option) => {
       if (normalize(option.value) === 'personalizado') option.remove();
     });
+
+    const skillLabels = {
+      acrobatics: 'Acrobacias',
+      'animal handling': 'Trato con animales',
+      arcana: 'Arcanos',
+      athletics: 'Atletismo',
+      deception: 'Engaño',
+      history: 'Historia',
+      insight: 'Perspicacia',
+      intimidation: 'Intimidación',
+      investigation: 'Investigación',
+      medicine: 'Medicina',
+      nature: 'Naturaleza',
+      perception: 'Percepción',
+      performance: 'Interpretación',
+      persuasion: 'Persuasión',
+      religion: 'Religión',
+      'sleight of hand': 'Juego de manos',
+      stealth: 'Sigilo',
+      survival: 'Supervivencia'
+    };
+
+    const refreshSkills = () => {
+      details.replaceChildren();
+      const selectedValue = normalize(select.value);
+      if (!selectedValue) {
+        const item = document.createElement('li');
+        item.textContent = 'Elegí un trasfondo para consultar sus habilidades.';
+        details.appendChild(item);
+        status.textContent = 'La información proviene del catálogo del trasfondo elegido.';
+        return;
+      }
+
+      const mappedName = Object.entries(BACKGROUND_LABELS)
+        .find(([, label]) => normalize(label) === selectedValue)?.[0];
+      const background = selectedRows.find(item =>
+        normalize(item.name) === normalize(mappedName || select.value)
+      );
+
+      if (!background) {
+        const item = document.createElement('li');
+        item.textContent = 'No hay datos de habilidades para esta opción de trasfondo en el catálogo.';
+        details.appendChild(item);
+        status.textContent = 'No se encontró un registro coincidente.';
+        return;
+      }
+
+      const lines = [];
+      const proficiencyGroups = Array.isArray(background.skillProficiencies)
+        ? background.skillProficiencies
+        : [];
+      for (const group of proficiencyGroups) {
+        if (!group || typeof group !== 'object') continue;
+        const fixedSkills = Object.entries(group)
+          .filter(([key, value]) => value === true && skillLabels[normalize(key)])
+          .map(([key]) => skillLabels[normalize(key)]);
+        if (fixedSkills.length) lines.push('Concede: ' + fixedSkills.join(', ') + '.');
+
+        const choice = group.choose;
+        if (choice && typeof choice === 'object') {
+          const count = Number.isInteger(Number(choice.count)) && Number(choice.count) > 0
+            ? Number(choice.count)
+            : 1;
+          const options = Array.isArray(choice.from)
+            ? choice.from.map(skill => skillLabels[normalize(skill)] || String(skill))
+            : [];
+          lines.push(options.length
+            ? 'Elección pendiente: elegí ' + count + (count === 1 ? ' habilidad entre: ' : ' habilidades entre: ') + options.join(', ') + '.'
+            : 'Elección pendiente: el catálogo registra una habilidad para elegir, pero no detalla las opciones.');
+        }
+
+        if (Number(group.any) > 0) {
+          const count = Number(group.any);
+          lines.push('Elección pendiente: elegí ' + count + (count === 1 ? ' habilidad a tu elección.' : ' habilidades a tu elección.'));
+        }
+      }
+
+      if (!lines.length) {
+        const item = document.createElement('li');
+        item.textContent = 'El catálogo no registra habilidades concretas para este trasfondo.';
+        details.appendChild(item);
+      } else {
+        for (const line of lines) {
+          const item = document.createElement('li');
+          item.textContent = line;
+          details.appendChild(item);
+        }
+      }
+      status.textContent = (background.source ? 'Fuente: ' + background.source + '. ' : '') +
+        'Las alternativas visibles todavía no están seleccionadas en el borrador.';
+    };
+
+    select.addEventListener('change', refreshSkills);
+    refreshSkills();
   }
 
   function appendSubclasses(records) {
