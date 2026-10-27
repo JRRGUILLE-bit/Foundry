@@ -976,6 +976,39 @@
       .map(skill => skillAbbreviations[skill.toLowerCase().replace(/[^a-z]/g, '')])
       .filter(Boolean))];
     const foundrySkills = Object.fromEntries(foundrySkillKeys.map(key => [key, { value: 1 }]));
+    const normalizedClassName = typeof draft.characterClass === 'string'
+      ? draft.characterClass.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').trim()
+      : '';
+    const savingThrowsByClass = {
+      barbarian: ['str', 'con'],
+      barbaro: ['str', 'con'],
+      bard: ['dex', 'cha'],
+      bardo: ['dex', 'cha'],
+      cleric: ['wis', 'cha'],
+      clerigo: ['wis', 'cha'],
+      druid: ['int', 'wis'],
+      druida: ['int', 'wis'],
+      fighter: ['str', 'con'],
+      guerrero: ['str', 'con'],
+      monk: ['str', 'dex'],
+      monje: ['str', 'dex'],
+      paladin: ['wis', 'cha'],
+      ranger: ['str', 'dex'],
+      explorador: ['str', 'dex'],
+      rogue: ['dex', 'int'],
+      picaro: ['dex', 'int'],
+      sorcerer: ['con', 'cha'],
+      hechicero: ['con', 'cha'],
+      warlock: ['wis', 'cha'],
+      brujo: ['wis', 'cha'],
+      wizard: ['int', 'wis'],
+      mago: ['int', 'wis'],
+      artificer: ['con', 'int'],
+      artifice: ['con', 'int']
+    };
+    const foundrySavingThrows = Object.fromEntries(
+      (savingThrowsByClass[normalizedClassName] || []).map(ability => [ability, { proficient: 1 }])
+    );
     const spellChoices = Array.isArray(draft.selectedSpells)
       ? draft.selectedSpells.map(spell => spell && typeof spell.name === 'string' ? spell.name : '').filter(Boolean)
       : [];
@@ -1066,6 +1099,7 @@
       name: actorName,
       type: 'character',
       system: {
+        abilities: foundrySavingThrows,
         skills: foundrySkills,
         traits: {
           languages: {

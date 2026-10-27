@@ -666,6 +666,11 @@ try {
     { acr: 1, ani: 1, arc: 1, inv: 1 },
     'Foundry actor export should turn the selected class and background skills into native skill proficiencies'
   );
+  assert.deepEqual(
+    Object.fromEntries(Object.entries(knownActorExport.system.abilities).map(([key, ability]) => [key, ability.proficient])),
+    { str: 1, con: 1 },
+    'Foundry actor export should mark the Fighter class saving throw proficiencies'
+  );
   assert.equal(knownActorExport.flags.dnd5e.rulesVersion, 'legacy', 'Foundry actor export should mark the 2014/Legacy ruleset');
   const creatorPersonarumMetadata = knownActorExport.flags.world.creatorPersonarum;
   assert.equal(creatorPersonarumMetadata.schemaVersion, 1, 'Actor should carry a versioned Creator Personarum metadata block');
