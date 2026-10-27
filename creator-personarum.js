@@ -938,9 +938,9 @@
     }
 
     const values = readFormValues();
-    const paragraphs = [
-      'Mi historia comienza en ' + region.name + ', en ' + region.group + '.'
-    ];
+    const paragraphs = [];
+    if (values.name) paragraphs.push('Me llamo ' + values.name + '.');
+    paragraphs.push('Mi historia comienza en ' + region.name + ', en ' + region.group + '.');
     const explorationLabel = explorationFocus ? getExplorationLabel(explorationFocus) : '';
     if (explorationLabel) {
       paragraphs.push('La primera pista que despertó mi curiosidad fue: ' + explorationLabel + '.');

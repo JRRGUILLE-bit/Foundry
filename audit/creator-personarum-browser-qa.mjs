@@ -683,8 +683,14 @@ try {
     'Aetheloria · Tomun',
     'The player should be able to override the suggested origin'
   );
+  await page.locator('#creator-character-name').fill('Ariadna QA');
   await page.locator('#creator-origin-story-draft').click();
   const explorerStoryProposal = await page.locator('#creator-origin-story').inputValue();
+  assert.match(
+    explorerStoryProposal,
+    /Me llamo Ariadna QA\./,
+    'Story proposal should include the character name entered by the player'
+  );
   assert.match(
     explorerStoryProposal,
     /La primera pista que despertó mi curiosidad fue: Ciudades y culturas\./i,
