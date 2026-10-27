@@ -475,6 +475,7 @@
 
     const selectedAbilityChoices = {};
     let activeAbilityLineageValue = '';
+    let activeAbilityChoiceDefinitions = [];
     let abilitySelectionInput = byId('creator-selected-lineage-abilities');
     if (!abilitySelectionInput && details.parentElement) {
       abilitySelectionInput = document.createElement('input');
@@ -797,6 +798,7 @@
 
     const render = (restoreSkills) => {
       details.replaceChildren();
+      activeAbilityChoiceDefinitions = [];
       const lineage = getSelectedLineageRecord();
       const lineageValue = select.value;
       if (activeLineageValue !== lineageValue) {
@@ -1067,6 +1069,7 @@
           }
         }
       });
+      activeAbilityChoiceDefinitions = abilityChoiceDefinitions;
       const abilityItem = document.createElement('li');
       abilityItem.textContent = abilityDescriptions.length
         ? 'Incrementos de características registrados: ' + abilityDescriptions.join('; ') + '.'
@@ -1247,7 +1250,8 @@
     window.creatorPersonarumGetLineageAbilitySelection = () => ({
       lineageValue: activeAbilityLineageValue,
       selectedByChoice: JSON.parse(JSON.stringify(selectedAbilityChoices)),
-      selected: [...new Set(Object.values(selectedAbilityChoices).flat())]
+      selected: [...new Set(Object.values(selectedAbilityChoices).flat())],
+      requiredCount: activeAbilityChoiceDefinitions.reduce((sum, definition) => sum + definition.count, 0)
     });
     window.creatorPersonarumApplyRestoredLineageAbilities = (selections) => {
       if (selections && typeof selections === 'object' && !Array.isArray(selections)) {
