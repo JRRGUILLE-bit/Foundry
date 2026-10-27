@@ -709,6 +709,16 @@ try {
 
   await page.locator('#creator-deity').selectOption('inferno');
   assert.equal(
+    await page.locator('#creator-preview-deity-row').evaluate(element => element.hidden),
+    false,
+    'Selected deity should appear in the character preview immediately'
+  );
+  assert.equal(
+    await page.locator('#creator-preview-deity').innerText(),
+    'El Infierno — Asmodeus y los Nueve Señores',
+    'Character preview should show the canonical name of the selected divine power'
+  );
+  assert.equal(
     await page.locator('#creator-origin-region').inputValue(),
     greyEmpireId,
     'Inferno in exploration mode should preselect the Grey Empire'
