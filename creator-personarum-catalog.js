@@ -847,20 +847,20 @@
       const toolGroups = Array.isArray(lineage.toolProficiencies) ? lineage.toolProficiencies : [];
       if (toolGroups.length) {
         const toolLabels = {
-          "smith's tools": 'herramientas de herrero',
-          "brewer's supplies": 'suministros de cervecero',
-          "mason's tools": 'herramientas de albañil',
-          "thieves' tools": 'herramientas de ladrón',
-          "carpenter's tools": 'herramientas de carpintero',
-          "leatherworker's tools": 'herramientas de curtidor',
-          "woodcarver's tools": 'herramientas de tallista de madera',
-          "tinker's tools": 'herramientas de hojalatero',
-          "cobbler's tools": 'herramientas de zapatero',
-          "calligrapher's supplies": 'materiales de calígrafo',
-          "cartographer's tools": 'herramientas de cartógrafo',
-          "cook's utensils": 'utensilios de cocinero',
-          "gaming set": 'un juego de azar',
-          "musical instrument": 'un instrumento musical'
+          'smith s tools': 'herramientas de herrero',
+          'brewer s supplies': 'suministros de cervecero',
+          'mason s tools': 'herramientas de albañil',
+          'thieves tools': 'herramientas de ladrón',
+          'carpenter s tools': 'herramientas de carpintero',
+          'leatherworker s tools': 'herramientas de curtidor',
+          'woodcarver s tools': 'herramientas de tallista de madera',
+          'tinker s tools': 'herramientas de hojalatero',
+          'cobbler s tools': 'herramientas de zapatero',
+          'calligrapher s supplies': 'materiales de calígrafo',
+          'cartographer s tools': 'herramientas de cartógrafo',
+          'cook s utensils': 'utensilios de cocinero',
+          'gaming set': 'un juego de azar',
+          'musical instrument': 'un instrumento musical'
         };
         const toolDescriptions = [];
         for (const group of toolGroups) {
