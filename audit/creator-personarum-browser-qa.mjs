@@ -846,6 +846,11 @@ try {
   );
   assert.equal(await page.locator('#creator-origin-region').inputValue(), tomunAetheloriaId);
   assert.match(await page.locator('#creator-origin-details').innerText(), /Aetheloria|Tomun/);
+  assert.equal(
+    await page.locator('#creator-preview-origin').innerText(),
+    'Aetheloria · Tomun',
+    'Restored preview should show the exact saved origin region'
+  );
   assert.equal(await page.locator('#creator-selected-spells-list [data-selected-spell]').count(), 1, 'Saved spell selection should be restored');
   assert.equal(await page.locator('#creator-selected-spells-list [data-selected-spell]').first().getAttribute('data-selected-spell'), selectedSpellForDraft);
   assert.equal(await page.locator('#creator-preview-spells-row').evaluate(element => element.hidden), false, 'Preview should show the selected spell list');
