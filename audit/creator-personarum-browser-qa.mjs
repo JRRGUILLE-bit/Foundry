@@ -87,6 +87,9 @@ try {
 
   await gotoCreator();
 
+  // Open the character form before interacting with its controls.
+  await page.locator('#creator-known-path-button').click();
+
   // Class skill options are shown from the Legacy/2014 class rules.
   const classSelect = page.locator('#creator-character-class');
   const classSkillList = page.locator('#creator-class-skills-list');
@@ -98,9 +101,6 @@ try {
   await classSelect.selectOption({ label: 'Bardo' });
   assert.match(await classSkillList.innerText(), /elegí 3 habilidades cualesquiera/i, 'Bard should allow any three skills');
   assert.match(await classSkillList.innerText(), /Juego de manos/, 'Bard choice list should include Sleight of Hand');
-
-  // Known-character path: the campaign warlock rule appears, but the Abyss is not an option.
-  await page.locator('#creator-known-path-button').click();
 
   // Backgrounds disclose their fixed skill proficiencies and unselected catalog choices.
   const backgroundSelect = page.locator('#creator-background');
