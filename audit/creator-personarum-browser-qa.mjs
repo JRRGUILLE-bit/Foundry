@@ -113,14 +113,15 @@ try {
   const previewAbilityRow = page.locator('#creator-preview-lineage-abilities-row');
   const previewAbilityText = page.locator('#creator-preview-lineage-abilities');
   assert.equal(await previewAbilityRow.evaluate(element => element.hidden), false, 'Preview should show selected lineage abilities');
-  assert.equal(await previewAbilityText.innerText(), 'Fuerza, Destreza', 'Preview should list selected lineage abilities');
+  assert.equal(await previewAbilityText.innerText(), '+2 Carisma, +1 Fuerza, +1 Destreza', 'Preview should list fixed and selected lineage ability increments');
   await halfElfAbilityChoices.nth(1).uncheck();
-  assert.equal(await previewAbilityText.innerText(), 'Fuerza', 'Preview should update when a lineage ability is deselected');
+  assert.equal(await previewAbilityText.innerText(), '+2 Carisma, +1 Fuerza', 'Preview should update when a lineage ability is deselected');
   await halfElfAbilityChoices.nth(1).check();
-  assert.equal(await previewAbilityText.innerText(), 'Fuerza, Destreza', 'Preview should update when a lineage ability is selected again');
+  assert.equal(await previewAbilityText.innerText(), '+2 Carisma, +1 Fuerza, +1 Destreza', 'Preview should update when a lineage ability is selected again');
   await halfElfAbilityChoices.nth(1).uncheck();
   await halfElfAbilityChoices.nth(0).uncheck();
-  assert.equal(await previewAbilityRow.evaluate(element => element.hidden), true, 'Preview should hide the ability row when no lineage abilities are selected');
+  assert.equal(await previewAbilityRow.evaluate(element => element.hidden), false, 'Preview should retain the fixed lineage bonus when no optional abilities are selected');
+  assert.equal(await previewAbilityText.innerText(), '+2 Carisma', 'Fixed lineage bonuses should remain visible when optional choices are empty');
   await halfElfAbilityChoices.nth(0).check();
   await halfElfAbilityChoices.nth(1).check();
   assert.equal(await previewAbilityRow.evaluate(element => element.hidden), false, 'Preview should show the ability row again when choices are made');
@@ -217,8 +218,8 @@ try {
   );
   assert.equal(
     await page.locator('#creator-preview-lineage-abilities').innerText(),
-    'Fuerza, Destreza',
-    'Character preview should show restored lineage ability choices'
+    '+2 Carisma, +1 Fuerza, +1 Destreza',
+    'Character preview should show restored lineage ability increments'
   );
 
   const [lineageAbilityDownload] = await Promise.all([
