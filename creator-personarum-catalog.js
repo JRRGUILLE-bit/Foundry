@@ -476,6 +476,7 @@
     const selectedAbilityChoices = {};
     let activeAbilityLineageValue = '';
     let activeAbilityChoiceDefinitions = [];
+    let activeAbilityFixedBonuses = [];
     let abilitySelectionInput = byId('creator-selected-lineage-abilities');
     if (!abilitySelectionInput && details.parentElement) {
       abilitySelectionInput = document.createElement('input');
@@ -799,6 +800,7 @@
     const render = (restoreSkills) => {
       details.replaceChildren();
       activeAbilityChoiceDefinitions = [];
+      activeAbilityFixedBonuses = [];
       const lineage = getSelectedLineageRecord();
       const lineageValue = select.value;
       if (activeLineageValue !== lineageValue) {
@@ -1041,10 +1043,11 @@
       const abilityChoiceDefinitions = [];
       abilityGroups.forEach((group, groupIndex) => {
         if (!group || typeof group !== 'object') return;
-        const fixedBonuses = Object.entries(group)
+        const fixedBonusEntries = Object.entries(group)
           .filter(([key, value]) => abilityLabels[key] && typeof value === 'number' && value > 0)
-          .map(([key, value]) => '+' + value + ' ' + abilityLabels[key]);
-        abilityDescriptions.push(...fixedBonuses);
+          .map(([key, amount]) => ({ key, amount }));
+        activeAbilityFixedBonuses.push(...fixedBonusEntries);
+        abilityDescriptions.push(...fixedBonusEntries.map(({ key, amount }) => '+' + amount + ' ' + abilityLabels[key]));
         if (group.choose && typeof group.choose === 'object') {
           const rawCount = Number(group.choose.count);
           const count = Number.isInteger(rawCount) && rawCount > 0 ? rawCount : 1;
@@ -1247,12 +1250,24 @@
       syncHiddenValue();
     };
 
-    window.creatorPersonarumGetLineageAbilitySelection = () => ({
-      lineageValue: activeAbilityLineageValue,
-      selectedByChoice: JSON.parse(JSON.stringify(selectedAbilityChoices)),
-      selected: [...new Set(Object.values(selectedAbilityChoices).flat())],
-      requiredCount: activeAbilityChoiceDefinitions.reduce((sum, definition) => sum + definition.count, 0)
-    });
+    window.creatorPersonarumGetLineageAbilitySelection = () => {
+      const selectedChoiceBonuses = activeAbilityChoiceDefinitions.flatMap(definition =>
+        (Array.isArray(selectedAbilityChoices[definition.key]) ? selectedAbilityChoices[definition.key] : [])
+          .map(key => ({ key, amount: definition.amount }))
+      );
+      const totalsByAbility = new Map();
+      for (const bonus of [...activeAbilityFixedBonuses, ...selectedChoiceBonuses]) {
+        if (!bonus || typeof bonus.key !== 'string' || !Number.isFinite(bonus.amount) || bonus.amount <= 0) continue;
+        totalsByAbility.set(bonus.key, (totalsByAbility.get(bonus.key) || 0) + bonus.amount);
+      }
+      return {
+        lineageValue: activeAbilityLineageValue,
+        selectedByChoice: JSON.parse(JSON.stringify(selectedAbilityChoices)),
+        selected: [...new Set(Object.values(selectedAbilityChoices).flat())],
+        requiredCount: activeAbilityChoiceDefinitions.reduce((sum, definition) => sum + definition.count, 0),
+        bonuses: [...totalsByAbility].map(([key, amount]) => ({ key, amount }))
+      };
+    };
     window.creatorPersonarumApplyRestoredLineageAbilities = (selections) => {
       if (selections && typeof selections === 'object' && !Array.isArray(selections)) {
         pendingRestoredLineageAbilities = {
