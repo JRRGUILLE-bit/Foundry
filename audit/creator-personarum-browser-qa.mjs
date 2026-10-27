@@ -94,6 +94,11 @@ try {
   const lineageSelect = page.locator('#creator-lineage');
   const lineageLanguages = page.locator('#creator-lineage-languages-list');
   await lineageSelect.selectOption({ label: 'Semielfo' });
+  assert.match(
+    await page.locator('#creator-lineage-skills-list').innerText(),
+    /Incrementos de características registrados:.*\+2 Carisma.*elegí 2 características/i,
+    'Half-Elf should display its catalogued fixed and selectable ability score increases'
+  );
   assert.match(await lineageLanguages.innerText(), /Elegí 1 idioma entre estas opciones/, 'Half-Elf should offer one optional language');
   const halfElfLanguages = lineageLanguages.locator('input[type="checkbox"]');
   const availableHalfElfLanguages = await halfElfLanguages.evaluateAll(inputs => inputs.map(input => input.value));
