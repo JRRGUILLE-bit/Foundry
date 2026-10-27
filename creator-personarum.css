@@ -360,6 +360,12 @@
   grid-column: 1 / -1;
 }
 
+.creator-ability-scores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.8rem;
+}
+
 .creator-field > span {
   color: #d7b66f;
   font-size: 1.1rem;

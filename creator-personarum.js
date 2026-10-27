@@ -458,6 +458,33 @@
     return title ? title.textContent.trim() : '';
   }
 
+  function readAbilityScores() {
+    const keys = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+    return Object.fromEntries(keys.map(key => {
+      const field = document.getElementById('creator-score-' + key);
+      const raw = field ? field.value.trim() : '';
+      return [key, raw !== '' && Number.isFinite(Number(raw)) ? Number(raw) : ''];
+    }));
+  }
+
+  function restoreAbilityScores(savedScores) {
+    const scores = savedScores && typeof savedScores === 'object' && !Array.isArray(savedScores)
+      ? savedScores
+      : {};
+    ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(key => {
+      const field = document.getElementById('creator-score-' + key);
+      if (!field) return;
+      const value = scores[key];
+      if (typeof value === 'number' && Number.isFinite(value)) {
+        field.value = String(value);
+      } else if (typeof value === 'string' && value.trim() !== '' && Number.isFinite(Number(value))) {
+        field.value = value;
+      } else {
+        field.value = '';
+      }
+    });
+  }
+
   function readFormValues() {
     const lineageChoice = lineageSelect.value;
     let selectedSpells = [];
@@ -505,6 +532,7 @@
     return {
       name: nameInput.value.trim(),
       skillLanguage: document.getElementById('creator-skill-language')?.value === 'en' ? 'en' : 'es',
+      abilityScores: readAbilityScores(),
       lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
       lineageChoice,
       customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
@@ -530,6 +558,30 @@
   function renderPreview(draft) {
     const values = draft || {};
     const name = values.name || 'Sin definir';
+    const abilityScoreLabels = [
+      { key: 'str', label: 'Fuerza' },
+      { key: 'dex', label: 'Destreza' },
+      { key: 'con', label: 'Constitución' },
+      { key: 'int', label: 'Inteligencia' },
+      { key: 'wis', label: 'Sabiduría' },
+      { key: 'cha', label: 'Carisma' }
+    ];
+    const abilityScores = values.abilityScores && typeof values.abilityScores === 'object' && !Array.isArray(values.abilityScores)
+      ? values.abilityScores
+      : {};
+    const hasAbilityScores = abilityScoreLabels.some(({ key }) => {
+      const score = abilityScores[key];
+      return score !== '' && score !== null && score !== undefined && Number.isFinite(Number(score));
+    });
+    document.getElementById('creator-preview-ability-scores-row').hidden = !hasAbilityScores;
+    document.getElementById('creator-preview-ability-scores').textContent = hasAbilityScores
+      ? abilityScoreLabels.map(({ key, label }) => {
+        const score = abilityScores[key];
+        return label + ': ' + (score !== '' && score !== null && score !== undefined && Number.isFinite(Number(score))
+          ? String(score)
+          : 'sin definir');
+      }).join(' · ')
+      : 'Sin definir';
     document.getElementById('creator-preview-name').textContent = name;
     document.getElementById('creator-preview-lineage').textContent = values.lineage || 'Sin definir';
     const abilityLabels = {
@@ -639,6 +691,7 @@
       const skillLanguageSelect = document.getElementById('creator-skill-language');
       if (skillLanguageSelect) skillLanguageSelect.value = draft.skillLanguage === 'en' ? 'en' : 'es';
       nameInput.value = draft.name || '';
+      restoreAbilityScores(draft.abilityScores);
       const savedLineage = typeof draft.lineage === 'string' ? draft.lineage : '';
       const lineageOptionValues = Array.from(lineageSelect.options).map(option => option.value);
       const savedLineageChoice = draft.lineageChoice || (lineageOptionValues.includes(savedLineage)
@@ -712,6 +765,7 @@
       document.getElementById('creator-level').value = String(draft.level || 1);
       document.getElementById('creator-concept').value = draft.concept || '';
       exportDraftButton.disabled = false;
+      renderPreview(readFormValues());
       setDraftStatus('BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', 'saved');
     } catch (error) {
       savedDraft = null;
@@ -849,6 +903,7 @@
       explorationLabel: explorationFocus ? getExplorationLabel(explorationFocus) : '',
       name: values.name,
       skillLanguage: values.skillLanguage === 'en' ? 'en' : 'es',
+      abilityScores: values.abilityScores,
       lineage: values.lineage,
       lineageChoice: values.lineageChoice,
       customLineage: values.customLineage,

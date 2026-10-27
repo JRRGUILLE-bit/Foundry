@@ -93,6 +93,15 @@ assert.match(page, /Gnomo profundo \(Svirfneblin\)/, 'Creator must include deep 
 assert.match(page, /Forjado/, 'Creator must include the Forged lineage named in the Atlas');
 assert.match(page, /Hombre lagarto/, 'Creator must include lizardfolk from the campaign Atlas');
 assert.match(page, /id="creator-custom-lineage"/, 'Players must be able to enter a custom lineage not listed in the Atlas');
+assert.match(page, /id="creator-ability-scores-section"/, 'Creator must expose separate base ability score inputs');
+for (const key of ['str', 'dex', 'con', 'int', 'wis', 'cha']) {
+  assert.match(page, new RegExp('id="creator-score-' + key + '"'), 'Creator must expose a base score field for ' + key);
+}
+assert.match(page, /id="creator-preview-ability-scores-row"/, 'Base scores must have their own preview row, separate from lineage increases');
+assert.match(runtime, /function readAbilityScores\(\)/, 'Base ability scores must be read from the form');
+assert.match(runtime, /function restoreAbilityScores\(savedScores\)/, 'Base ability scores must restore from an existing draft');
+assert.match(runtime, /abilityScores: values\.abilityScores/, 'Base ability scores must persist in the saved/exported draft');
+assert.match(styles, /\.creator-ability-scores-grid/, 'Base score fields must use a responsive grid');
 assert.match(runtime, /function updateCustomLineageField\(\)/, 'The custom lineage field must respond to the lineage selector');
 assert.match(runtime, /lineageChoice: values\.lineageChoice/, 'Drafts must preserve the choice between catalog and custom lineage');
 assert.match(runtime, /customLineage: values\.customLineage/, 'Drafts and exports must preserve the actual custom lineage name');

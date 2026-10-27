@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IM+Fell+English&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="creator-personarum.css?v=20261027-1">
+  <link rel="stylesheet" href="creator-personarum.css?v=20261027-2">
 </head>
 <body class="creator-personarum-page">
   <main id="creator-app">
@@ -248,6 +248,40 @@
             <p id="creator-lineage-languages-status" class="creator-deity-guidance" role="status" aria-live="polite">Los datos proceden del catálogo permitido.</p>
           </section>
 
+          <section id="creator-ability-scores-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-ability-scores-title">
+            <div class="creator-divine-heading">
+              <span class="creator-divine-kicker">PUNTUACIONES BASE // SIN MÉTODO PREASIGNADO</span>
+              <h2 id="creator-ability-scores-title">CARACTERÍSTICAS BASE</h2>
+              <p>Ingresá las puntuaciones base acordadas para tu mesa. Los campos quedan vacíos hasta que los completes; el creador no elige un método ni aplica incrementos del linaje a estos valores.</p>
+            </div>
+            <div class="creator-ability-scores-grid">
+              <label class="creator-field" for="creator-score-str">
+                <span>FUERZA</span>
+                <input id="creator-score-str" name="scoreStr" type="number" step="1" inputmode="numeric" autocomplete="off">
+              </label>
+              <label class="creator-field" for="creator-score-dex">
+                <span>DESTREZA</span>
+                <input id="creator-score-dex" name="scoreDex" type="number" step="1" inputmode="numeric" autocomplete="off">
+              </label>
+              <label class="creator-field" for="creator-score-con">
+                <span>CONSTITUCIÓN</span>
+                <input id="creator-score-con" name="scoreCon" type="number" step="1" inputmode="numeric" autocomplete="off">
+              </label>
+              <label class="creator-field" for="creator-score-int">
+                <span>INTELIGENCIA</span>
+                <input id="creator-score-int" name="scoreInt" type="number" step="1" inputmode="numeric" autocomplete="off">
+              </label>
+              <label class="creator-field" for="creator-score-wis">
+                <span>SABIDURÍA</span>
+                <input id="creator-score-wis" name="scoreWis" type="number" step="1" inputmode="numeric" autocomplete="off">
+              </label>
+              <label class="creator-field" for="creator-score-cha">
+                <span>CARISMA</span>
+                <input id="creator-score-cha" name="scoreCha" type="number" step="1" inputmode="numeric" autocomplete="off">
+              </label>
+            </div>
+          </section>
+
           <label id="creator-custom-lineage-field" class="creator-field creator-field-wide" for="creator-custom-lineage" hidden>
             <span>NOMBRE DEL LINAJE PERSONALIZADO</span>
             <input id="creator-custom-lineage" name="customLineage" type="text" maxlength="80" autocomplete="off" placeholder="Escribí cualquier otro linaje permitido por la campaña">
@@ -458,6 +492,7 @@
           <dl class="creator-preview-list">
             <div><dt>NOMBRE</dt><dd id="creator-preview-name">Sin definir</dd></div>
             <div><dt>LINAJE</dt><dd id="creator-preview-lineage">Sin definir</dd></div>
+            <div id="creator-preview-ability-scores-row" hidden><dt>CARACTERÍSTICAS BASE</dt><dd id="creator-preview-ability-scores">Sin definir</dd></div>
             <div id="creator-preview-lineage-abilities-row" hidden><dt>INCREMENTOS DE CARACTERÍSTICAS</dt><dd id="creator-preview-lineage-abilities">A definir</dd></div>
             <div><dt>CLASE</dt><dd id="creator-preview-class">Sin definir</dd></div>
             <div id="creator-preview-subclass-row" hidden><dt>SUBCLASE</dt><dd id="creator-preview-subclass">A definir</dd></div>
@@ -470,7 +505,7 @@
             <div id="creator-preview-skills-row" hidden><dt id="creator-preview-skills-label">HABILIDADES ELEGIDAS</dt><dd id="creator-preview-skills">A definir</dd></div>
           </dl>
           <p class="creator-preview-note">
-            Esta etapa registra la identidad inicial. Atributos, competencias, equipo, hechizos y creación de actores en Foundry quedan para la siguiente fase.
+            Las puntuaciones base y los incrementos del linaje se registran por separado. No se aplica un método de generación ni se crea todavía un actor de Foundry.
           </p>
         </aside>
       </div>
@@ -483,7 +518,7 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261027-7"></script>
+  <script src="creator-personarum.js?v=20261027-8"></script>
   <script src="creator-personarum-catalog.js?v=20261027-15"></script>
 </body>
 </html>

@@ -89,6 +89,11 @@ try {
 
   // Open the character form before interacting with its controls.
   await page.locator('#creator-known-path-button').click();
+  assert.deepEqual(
+    await page.locator('#creator-ability-scores-section input[type="number"]').evaluateAll(inputs => inputs.map(input => input.value)),
+    ['', '', '', '', '', ''],
+    'Base ability score fields must start blank; the creator must not choose a scoring method or values'
+  );
 
   // Optional lineage languages persist through saving and restoring a real draft.
   const lineageSelect = page.locator('#creator-lineage');
@@ -134,6 +139,10 @@ try {
   const chosenOptionalLanguage = await halfElfLanguages.first().inputValue();
 
   await page.locator('#creator-character-name').fill('QA Idiomas');
+  await page.locator('#creator-score-str').fill('13');
+  await page.locator('#creator-score-dex').fill('12');
+  assert.equal(await page.locator('#creator-preview-ability-scores-row').evaluate(element => element.hidden), false, 'Entered base scores should appear in their own preview row');
+  assert.match(await page.locator('#creator-preview-ability-scores').innerText(), /Fuerza: 13.*Destreza: 12/, 'Preview should display entered base scores without folding in lineage bonuses');
   await page.locator('#creator-character-class').selectOption({ label: 'Bardo' });
   const languageQaClassSkills = page.locator('#creator-class-skills-list input[type="checkbox"]');
   await languageQaClassSkills.nth(0).check();
@@ -222,6 +231,17 @@ try {
       draft.selectedLineageAbilities['group-0'].includes('str') &&
       draft.selectedLineageAbilities['group-0'].includes('dex');
   });
+  const savedAbilityScores = await page.evaluate(() => {
+    const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
+    return draft && draft.abilityScores;
+  });
+  assert.deepEqual(savedAbilityScores, { str: 13, dex: 12, con: '', int: '', wis: '', cha: '' }, 'Saved draft should contain only entered base scores and preserve blanks');
+  const [abilityScoreDownload] = await Promise.all([
+    page.waitForEvent('download'),
+    page.locator('#creator-export-draft').click()
+  ]);
+  const abilityScoreExport = JSON.parse(fs.readFileSync(await abilityScoreDownload.path(), 'utf8'));
+  assert.deepEqual(abilityScoreExport.abilityScores, savedAbilityScores, 'Exported JSON should include base scores exactly as entered');
   const savedLanguageChoices = await page.evaluate(() => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
     return draft.selectedLineageLanguages;
@@ -232,6 +252,11 @@ try {
   await waitForAtlas();
   await exposeWorkspace();
   await page.locator('#creator-known-path-button').click();
+  assert.equal(await page.locator('#creator-score-str').inputValue(), '13', 'Strength base score should restore from the saved draft');
+  assert.equal(await page.locator('#creator-score-dex').inputValue(), '12', 'Dexterity base score should restore from the saved draft');
+  assert.equal(await page.locator('#creator-score-con').inputValue(), '', 'An unentered base score should remain blank after restoring');
+  assert.equal(await page.locator('#creator-preview-ability-scores-row').evaluate(element => element.hidden), false, 'Restored base scores should remain visible in the preview');
+  assert.match(await page.locator('#creator-preview-ability-scores').innerText(), /Fuerza: 13.*Destreza: 12/, 'Restored base score preview should match saved values');
   await page.waitForFunction(() => {
     const input = document.getElementById('creator-selected-lineage-languages');
     return input && input.value !== '{}';
