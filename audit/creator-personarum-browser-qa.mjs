@@ -239,16 +239,19 @@ try {
     return input && JSON.parse(input.value || '{}') &&
       Object.values(JSON.parse(input.value || '{}')).flat().length === 0;
   });
-  assert.equal(
-    await page.locator('#creator-preview-lineage-abilities-row').evaluate(element => element.hidden),
-    true,
-    'Changing lineage should clear preview selections from the previous lineage'
-  );
+  const elfPreviewBonuses = await page.locator('#creator-preview-lineage-abilities').innerText();
+  assert.doesNotMatch(elfPreviewBonuses, /\+1 Fuerza/, 'Elf preview should not retain the previous Half-Elf Strength choice');
+  assert.doesNotMatch(elfPreviewBonuses, /\+1 Destreza/, 'Elf preview should not retain the previous Half-Elf Dexterity choice');
   await lineageSelect.selectOption({ label: 'Semielfo' });
   assert.deepEqual(
     Object.values(JSON.parse(await page.locator('#creator-selected-lineage-abilities').inputValue())).flat(),
     [],
     'Changing back to Half-Elf should not restore stale ability choices from another lineage'
+  );
+  assert.equal(
+    await page.locator('#creator-preview-lineage-abilities').innerText(),
+    '+2 Carisma',
+    'Returning to Half-Elf should show its fixed bonus without restoring stale optional choices'
   );
 
   // Return to a clean draft so the remaining browser checks stay independent.
