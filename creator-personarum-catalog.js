@@ -546,7 +546,7 @@
     };
     const resolveLanguageOptions = (token) => {
       const key = normalize(token);
-      const compact = key.replace(/\\s+/g, '');
+      const compact = key.replace(/\s+/g, '');
       let values;
       if (compact === 'anystandard') {
         values = standardLanguageKeys.map(catalogLanguage).filter(Boolean);
@@ -592,7 +592,7 @@
       const fixedLanguages = [...new Set(groups.flatMap(group => {
         if (!group || typeof group !== 'object') return [];
         return Object.entries(group)
-          .filter(([key, value]) => value === true && !normalize(key).replace(/\\s+/g, '').startsWith('any'))
+          .filter(([key, value]) => value === true && !normalize(key).replace(/\s+/g, '').startsWith('any'))
           .map(([key]) => normalize(key));
       }))];
       const definitions = [];
@@ -610,7 +610,7 @@
           definitions.push({ key: 'group-' + groupIndex + '-choose', count, options });
         }
         for (const [token, rawCount] of Object.entries(group)) {
-          const compact = normalize(token).replace(/\\s+/g, '');
+          const compact = normalize(token).replace(/\s+/g, '');
           if (!['anystandard', 'anyexotic', 'any', 'anylanguage'].includes(compact)) continue;
           const count = Number(rawCount);
           if (!Number.isInteger(count) || count < 1) continue;
