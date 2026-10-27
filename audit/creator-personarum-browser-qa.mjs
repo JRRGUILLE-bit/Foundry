@@ -462,6 +462,11 @@ try {
     'Known-character path must not save an empty custom lineage'
   );
   await customLineageInput.fill('Tortuga viajera');
+  assert.equal(
+    await page.locator('#creator-preview-lineage').innerText(),
+    'Tortuga viajera',
+    'Character preview should update the custom lineage immediately before saving'
+  );
   await page.locator('#creator-character-class').selectOption({ label: 'Brujo' });
   assert.equal(
     await page.locator('#creator-warlock-canon-note').evaluate(element => element.hidden),
