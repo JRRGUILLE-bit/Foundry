@@ -844,6 +844,16 @@ try {
     'C'.repeat(1200),
     'Saved player concept should be restored exactly after reload'
   );
+  assert.equal(
+    await page.locator('#creator-feat').inputValue(),
+    selectedFeatValue,
+    'Saved feat should be restored in the exploration path'
+  );
+  assert.equal(
+    await page.locator('#creator-preview-feat').innerText(),
+    selectedFeatValue,
+    'Restored exploration preview should show the selected feat'
+  );
   assert.equal(await page.locator('#creator-origin-region').inputValue(), tomunAetheloriaId);
   assert.match(await page.locator('#creator-origin-details').innerText(), /Aetheloria|Tomun/);
   assert.equal(
