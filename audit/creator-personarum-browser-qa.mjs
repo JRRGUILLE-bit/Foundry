@@ -159,6 +159,13 @@ try {
   assert.match(await lineageLanguages.innerText(), /Común/, 'Elf should show Common as an automatic language');
   assert.match(await lineageLanguages.innerText(), /Élfico/, 'Elf should show Elvish as an automatic language');
 
+  await lineageSelect.selectOption({ label: 'Aarakocra' });
+  assert.match(
+    await page.locator('#creator-lineage-skills-list').innerText(),
+    /Velocidad base registrada:.*vuelo/i,
+    'Aarakocra should display its catalogued flight speed'
+  );
+
   // Lineages with skill choices expose catalogued options and enforce their count.
   const lineageSkills = page.locator('#creator-lineage-skills-list');
   await lineageSelect.selectOption({ label: 'Humano — Variante' });
