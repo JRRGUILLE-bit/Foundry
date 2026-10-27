@@ -634,6 +634,8 @@ try {
   assert.ok(knownExport.originRegionContext.summary.length > 0, 'Export should preserve the canonical region summary');
   assert.equal(knownExport.originStory, originStory, 'Exported draft should include the written origin story');
   assert.equal(knownExport.lineage, 'Tortuga viajera');
+  assert.equal(knownExport.subclass, fighterSubclassValue, 'Exported draft should preserve the selected subclass');
+  assert.equal(knownExport.feat, selectedFeatValue, 'Exported draft should preserve the selected feat');
   assert.equal(knownExport.selectedClassSkills.length, 2, 'Exported draft should include the two selected class skills');
   assert.equal(knownExport.selectedBackgroundSkills.length, 2, 'Exported draft should include the two selected background skills');
 
