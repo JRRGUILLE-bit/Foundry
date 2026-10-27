@@ -156,6 +156,8 @@ Archivos y QA:
 - `audit/creator-personarum-qa.js`
 - `node --check creator-personarum.js`
 - `node audit/creator-personarum-qa.js`
+- `node --check audit/creator-personarum-browser-qa.mjs`
+- `node audit/creator-personarum-browser-qa.mjs`
 - Browser Mobile QA, disparado también por los paths de Creator Personarum.
 
 ## 4. Archivos que Codex debería leer primero
@@ -281,6 +283,6 @@ La rama de trabajo `feat/new-campaign-origin-picker` no se considera parte de `m
 1. Generar una historia de origen narrativa usando región, linaje, clase, trasfondo y concepto; separar claramente hechos del Atlas de los elementos creativos que se propongan.
 2. Cuando el canon esté listo, definir qué patronos/subclases de brujo están permitidos. Excluir siempre al Abismo y sus demonios como opción de patrón.
 3. Considerar un selector posterior de ciudad/comunidad cuando la procedencia regional esté validada y el mapa interactivo esté listo. No bloquear ni reemplazar el trabajo del mapa de Claude.
-4. Ejecutar `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA. Revisar los resultados antes de integrar.
+4. Ejecutar `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js`, `node --check audit/creator-personarum-browser-qa.mjs`, `node audit/creator-personarum-browser-qa.mjs` y Browser Mobile QA. Revisar los resultados antes de integrar.
 
 Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-codex-divinitatum-revisado.json`.
