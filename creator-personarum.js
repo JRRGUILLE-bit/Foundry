@@ -716,6 +716,16 @@
       return;
     }
 
+    const lineageLanguageSelection = typeof window.creatorPersonarumGetLineageLanguageSelection === 'function'
+      ? window.creatorPersonarumGetLineageLanguageSelection()
+      : null;
+    const selectedLineageLanguages = lineageLanguageSelection &&
+      lineageLanguageSelection.lineageValue === lineageSelect.value &&
+      lineageLanguageSelection.selectedByChoice &&
+      typeof lineageLanguageSelection.selectedByChoice === 'object'
+      ? JSON.parse(JSON.stringify(lineageLanguageSelection.selectedByChoice))
+      : {};
+
     const draft = {
       schemaVersion: 1,
       updatedAt: new Date().toISOString(),
@@ -734,6 +744,7 @@
       selectedClassSkills: values.selectedClassSkills,
       selectedBackgroundSkills: values.selectedBackgroundSkills,
       selectedLineageSkills: values.selectedLineageSkills,
+      selectedLineageLanguages,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,
