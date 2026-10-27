@@ -395,7 +395,7 @@
   function updateOriginDetails() {
     const region = getSelectedOriginRegion();
     if (region) {
-      originDetails.textContent = region.group + ' · ' + region.summary;
+      originDetails.textContent = 'Fuente del Atlas: ' + region.sourcePage + '. ' + region.group + ' · ' + region.summary;
       return;
     }
     if (atlasLoading) {

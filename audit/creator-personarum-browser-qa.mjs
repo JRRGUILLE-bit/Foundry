@@ -502,6 +502,11 @@ try {
     'The warlock-only rule should hide for other classes'
   );
   await page.locator('#creator-origin-region').selectOption({ value: greyEmpireId });
+  assert.match(
+    await page.locator('#creator-origin-details').innerText(),
+    /Fuente del Atlas: Continente de Abigur/,
+    'Selected origin should identify the canonical Atlas page'
+  );
   assert.equal(
     await page.locator('#creator-preview-origin-row').evaluate(element => element.hidden),
     false,
