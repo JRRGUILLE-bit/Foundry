@@ -214,7 +214,7 @@
       draftEyebrow.textContent = 'CAMINO 02 // EXPLORAR EL MUNDO';
       draftTitle.textContent = 'DEJÁ QUE EL MUNDO TE INSPIRE';
       draftDescription.textContent = 'Primero registrá la pista que te despertó curiosidad. No hace falta que ya tengas nombre, linaje o clase definidos.';
-      originPromise.textContent = 'ETAPA SIGUIENTE: conectar esta pista con las regiones oficiales del atlas. El paso final permitirá elegir de dónde viene tu personaje y recibir una historia de origen vinculada con ese lugar.';
+      originPromise.textContent = 'EN ESTE PASO: elegí una región oficial del Atlas para conectar tu primera pista con un lugar del mundo. Podés preparar una propuesta de historia de origen y editarla antes de guardar.';
       formStepLabel.textContent = '02 / PRIMERA IDEA';
       formModeLabel.textContent = 'EXPLORACIÓN';
       nameInput.placeholder = 'Podés dejarlo para más adelante';
@@ -222,7 +222,7 @@
       draftEyebrow.textContent = 'CAMINO 01 // DAR FORMA A TU IDEA';
       draftTitle.textContent = 'TU PERSONAJE, COMO LO IMAGINASTE';
       draftDescription.textContent = 'Contanos lo esencial de ese aventurero que ya tenés en la cabeza. Podés dejar detalles para después.';
-      originPromise.textContent = 'ETAPA FINAL A INTEGRAR: elegir de qué región oficial del mundo viene tu personaje y recibir una historia de origen que lo conecte con ese lugar.';
+      originPromise.textContent = 'EN ESTE PASO: elegí una región oficial del Atlas para registrar la procedencia. Si querés, prepará una propuesta de historia de origen y editála antes de guardar.';
       formStepLabel.textContent = '02 / IDENTIDAD';
       formModeLabel.textContent = 'IDEA PROPIA';
       nameInput.placeholder = '¿Cómo lo llamarán las crónicas?';

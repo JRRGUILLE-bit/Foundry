@@ -89,6 +89,8 @@ try {
 
   // Open the character form before interacting with its controls.
   await page.locator('#creator-known-path-button').click();
+  assert.match(await page.locator('#creator-origin-promise').innerText(), /elegí una región oficial del Atlas/i);
+  assert.doesNotMatch(await page.locator('#creator-origin-promise').innerText(), /ETAPA FINAL A INTEGRAR/i);
 
   // Optional lineage languages persist through saving and restoring a real draft.
   const lineageSelect = page.locator('#creator-lineage');
@@ -648,6 +650,8 @@ try {
   await page.locator('#creator-explore-path-button').click();
   await page.locator('input[name="creator-exploration-focus"][value="ciudades-y-culturas"]').check();
   await page.locator('#creator-explore-continue').click();
+  assert.match(await page.locator('#creator-origin-promise').innerText(), /elegí una región oficial del Atlas/i);
+  assert.doesNotMatch(await page.locator('#creator-origin-promise').innerText(), /ETAPA SIGUIENTE: conectar/i);
   await page.locator('#creator-character-class').selectOption({ label: 'Clérigo' });
   const spellLevelSelect = page.locator('#creator-spell-level');
   const spellChoiceSelect = page.locator('#creator-spell-choice');
