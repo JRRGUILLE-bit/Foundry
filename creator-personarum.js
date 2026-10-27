@@ -1009,6 +1009,26 @@
     const foundrySavingThrows = Object.fromEntries(
       (savingThrowsByClass[normalizedClassName] || []).map(ability => [ability, { proficient: 1 }])
     );
+    const spellcastingAbilityByClass = {
+      bard: 'cha',
+      bardo: 'cha',
+      cleric: 'wis',
+      clerigo: 'wis',
+      druid: 'wis',
+      druida: 'wis',
+      paladin: 'cha',
+      ranger: 'wis',
+      explorador: 'wis',
+      sorcerer: 'cha',
+      hechicero: 'cha',
+      warlock: 'cha',
+      brujo: 'cha',
+      wizard: 'int',
+      mago: 'int',
+      artificer: 'int',
+      artifice: 'int'
+    };
+    const spellcastingAbility = spellcastingAbilityByClass[normalizedClassName] || '';
     const spellChoices = Array.isArray(draft.selectedSpells)
       ? draft.selectedSpells.map(spell => spell && typeof spell.name === 'string' ? spell.name : '').filter(Boolean)
       : [];
@@ -1099,6 +1119,7 @@
       name: actorName,
       type: 'character',
       system: {
+        ...(spellcastingAbility ? { attributes: { spellcasting: spellcastingAbility } } : {}),
         abilities: foundrySavingThrows,
         skills: foundrySkills,
         traits: {

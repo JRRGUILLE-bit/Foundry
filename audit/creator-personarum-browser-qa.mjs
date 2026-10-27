@@ -946,6 +946,28 @@ try {
     'Restored preview should show the exact saved spell name'
   );
 
+  // A fresh Cleric export must include the native D&D 5e spellcasting ability.
+  await page.evaluate(() => localStorage.clear());
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await waitForAtlas();
+  await exposeWorkspace();
+  await page.locator('#creator-known-path-button').click();
+  await page.locator('#creator-character-name').fill('QA Clériga');
+  await page.locator('#creator-lineage').selectOption({ label: 'Elfo' });
+  await page.locator('#creator-character-class').selectOption({ label: 'Clérigo' });
+  await page.locator('#creator-deity').selectOption('luna');
+  await page.locator('#creator-draft-form button[type="submit"]').click();
+  const [clericActorDownload] = await Promise.all([
+    page.waitForEvent('download'),
+    page.locator('#creator-export-foundry-actor').click()
+  ]);
+  const clericActorExport = JSON.parse(fs.readFileSync(await clericActorDownload.path(), 'utf8'));
+  assert.equal(
+    clericActorExport.system.attributes.spellcasting,
+    'wis',
+    'Foundry Actor export should use Wisdom as a Cleric spellcasting ability'
+  );
+
   assert.deepEqual(pageErrors, [], 'Creator Personarum should not raise runtime JavaScript exceptions');
   console.log('Creator Personarum browser QA passed: Atlas loading, warlock restriction, origin preview/persistence/export, Inferno→Grey Empire association and editable exploration origin.');
 } finally {
