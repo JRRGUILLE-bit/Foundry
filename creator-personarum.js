@@ -941,6 +941,10 @@
     const paragraphs = [
       'Mi historia comienza en ' + region.name + ', en ' + region.group + '.'
     ];
+    const explorationLabel = explorationFocus ? getExplorationLabel(explorationFocus) : '';
+    if (explorationLabel) {
+      paragraphs.push('La primera pista que despertó mi curiosidad fue: ' + explorationLabel + '.');
+    }
     if (region.summary) {
       paragraphs.push('El Atlas describe esta región así: ' + region.summary);
     }

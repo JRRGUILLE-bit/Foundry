@@ -683,6 +683,13 @@ try {
     'Aetheloria · Tomun',
     'The player should be able to override the suggested origin'
   );
+  await page.locator('#creator-origin-story-draft').click();
+  const explorerStoryProposal = await page.locator('#creator-origin-story').inputValue();
+  assert.match(
+    explorerStoryProposal,
+    /La primera pista que despertó mi curiosidad fue: Ciudades y culturas\./i,
+    'Explorer story proposal should incorporate the interest chosen in the first step'
+  );
 
   await page.locator('#creator-draft-form button[type="submit"]').click();
   await page.waitForFunction((expectedSpell) => {
@@ -698,6 +705,7 @@ try {
   assert.equal(explorerDownload.suggestedFilename(), 'creator-personarum-exploracion.json');
   const explorerExport = JSON.parse(fs.readFileSync(await explorerDownload.path(), 'utf8'));
   assert.equal(explorerExport.originContinent, 'Tomun');
+  assert.match(explorerExport.originStory, /Ciudades y culturas/i, 'Explorer story should be preserved in the exported draft');
   assert.equal(explorerExport.selectedSpells[0].name, selectedSpellForDraft, 'Export should include the selected spell');
 
   await page.reload({ waitUntil: 'domcontentloaded' });
