@@ -171,6 +171,13 @@ try {
     'Aarakocra should display its catalogued size'
   );
 
+  await lineageSelect.selectOption({ label: 'Enano' });
+  assert.match(
+    await page.locator('#creator-lineage-skills-list').innerText(),
+    /Competencias con herramientas:.*herramientas de herrero.*suministros de cervecero.*herramientas de albañil/i,
+    'Dwarf should display its three catalogued tool proficiency choices'
+  );
+
   // Lineages with skill choices expose catalogued options and enforce their count.
   const lineageSkills = page.locator('#creator-lineage-skills-list');
   await lineageSelect.selectOption({ label: 'Humano — Variante' });
