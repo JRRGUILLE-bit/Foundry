@@ -90,8 +90,14 @@ try {
   // Open the character form before interacting with its controls.
   await page.locator('#creator-known-path-button').click();
 
-  // Lineages with skill choices expose catalogued options and enforce their count.
+  // Lineage language proficiencies show automatically granted languages from the catalog.
   const lineageSelect = page.locator('#creator-lineage');
+  const lineageLanguages = page.locator('#creator-lineage-languages-list');
+  await lineageSelect.selectOption({ label: 'Elfo' });
+  assert.match(await lineageLanguages.innerText(), /Común/, 'Elf should show Common as an automatic language');
+  assert.match(await lineageLanguages.innerText(), /Élfico/, 'Elf should show Elvish as an automatic language');
+
+  // Lineages with skill choices expose catalogued options and enforce their count.
   const lineageSkills = page.locator('#creator-lineage-skills-list');
   await lineageSelect.selectOption({ label: 'Humano — Variante' });
   assert.match(await lineageSkills.innerText(), /Elegí 1 habilidad entre estas opciones/, 'Variant Human should offer one selectable skill');

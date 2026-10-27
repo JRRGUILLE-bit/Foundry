@@ -366,6 +366,8 @@
 
     const details = byId('creator-lineage-skills-list');
     const status = byId('creator-lineage-skills-status');
+    const languageDetails = byId('creator-lineage-languages-list');
+    const languageStatus = byId('creator-lineage-languages-status');
     const hiddenInput = byId('creator-selected-lineage-skills');
     const classSkillInput = byId('creator-selected-class-skills');
     const backgroundSkillInput = byId('creator-selected-background-skills');
@@ -392,6 +394,30 @@
       survival: 'Supervivencia'
     };
     const allSkillKeys = Object.keys(skillLabels);
+    const LANGUAGE_LABELS = {
+      abyssal: 'Abisal',
+      aquan: 'Acuano',
+      auran: 'Aurano',
+      celestial: 'Celestial',
+      common: 'Común',
+      'deep speech': 'Habla profunda',
+      draconic: 'Dracónico',
+      druidic: 'Druídico',
+      dwarvish: 'Enano',
+      elvish: 'Élfico',
+      giant: 'Gigante',
+      gnomish: 'Gnómico',
+      goblin: 'Goblin',
+      halfling: 'Mediano',
+      ignan: 'Ígneo',
+      infernal: 'Infernal',
+      orc: 'Orco',
+      primordial: 'Primordial',
+      sylvan: 'Silvano',
+      terran: 'Terrano',
+      "thieves' cant": 'Jerga de ladrones',
+      undercommon: 'Infracomún'
+    };
     let selectedSkills = [];
     let activeLineageValue = '';
     let activeChoiceCount = 0;
@@ -457,6 +483,56 @@
       }
       return null;
     };
+    const renderLineageLanguages = (lineage) => {
+      if (!languageDetails || !languageStatus) return;
+      languageDetails.replaceChildren();
+
+      if (!lineage) {
+        const item = document.createElement('li');
+        item.textContent = select.value
+          ? 'No se encontró el registro de idioma de este linaje en el catálogo.'
+          : 'Elegí un linaje para consultar sus idiomas.';
+        languageDetails.appendChild(item);
+        languageStatus.textContent = 'Los idiomas se muestran únicamente cuando constan en el catálogo.';
+        return;
+      }
+
+      const groups = Array.isArray(lineage.languageProficiencies) ? lineage.languageProficiencies : [];
+      const fixedLanguages = [...new Set(groups.flatMap(group => {
+        if (!group || typeof group !== 'object') return [];
+        return Object.entries(group)
+          .filter(([key, value]) => value === true && !normalize(key).startsWith('any'))
+          .map(([key]) => normalize(key));
+      }))].sort((a, b) => a.localeCompare(b));
+      const hasChoice = groups.some(group =>
+        group && typeof group === 'object' &&
+        ((group.choose && typeof group.choose === 'object') || Number(group.any) > 0)
+      );
+
+      if (fixedLanguages.length) {
+        const item = document.createElement('li');
+        item.textContent = 'Concede automáticamente: ' + fixedLanguages.map(language =>
+          LANGUAGE_LABELS[language] || (language.charAt(0).toUpperCase() + language.slice(1))
+        ).join(', ') + '.';
+        languageDetails.appendChild(item);
+      }
+      if (hasChoice) {
+        const item = document.createElement('li');
+        item.textContent = 'Este linaje también registra una elección de idioma opcional; todavía no se puede seleccionar aquí.';
+        languageDetails.appendChild(item);
+      }
+      if (!fixedLanguages.length && !hasChoice) {
+        const item = document.createElement('li');
+        item.textContent = 'El catálogo no registra idiomas concedidos automáticamente para este linaje.';
+        languageDetails.appendChild(item);
+      }
+
+      languageStatus.textContent = (lineage.source ? 'Fuente: ' + lineage.source + '. ' : '') +
+        (fixedLanguages.length ? fixedLanguages.length + ' idioma(s) automático(s) registrado(s).' :
+          hasChoice ? 'Hay una elección de idioma registrada pendiente de implementar.' :
+            'Sin idiomas automáticos registrados.');
+    };
+
     const render = (restoreSkills) => {
       details.replaceChildren();
       const lineage = getSelectedLineageRecord();
@@ -467,6 +543,7 @@
       }
       activeLineageName = lineage?.name || '';
       activeSource = lineage?.source || '';
+      renderLineageLanguages(lineage);
       if (!lineage) {
         activeChoiceCount = 0;
         activeOptions = [];
