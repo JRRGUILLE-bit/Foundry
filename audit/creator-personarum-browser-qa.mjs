@@ -215,6 +215,11 @@ try {
     ['str', 'dex'],
     'Ability choice checkboxes should remain checked after restoring the draft'
   );
+  assert.equal(
+    await page.locator('#creator-preview-lineage-abilities').innerText(),
+    'Fuerza, Destreza',
+    'Character preview should show restored lineage ability choices'
+  );
 
   const [lineageAbilityDownload] = await Promise.all([
     page.waitForEvent('download'),
