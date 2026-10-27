@@ -263,7 +263,7 @@ try {
   assert.equal(await page.locator('#creator-skill-language').inputValue(), 'en',
     'Saved skill language preference should be restored');
   assert.equal(await page.locator('#creator-preview-skills').innerText(), expectedSkillSummary('en'),
-    'Restored preview should keep the player's English skill preference');
+    "Restored preview should keep the player's English skill preference");
   assert.deepEqual(
     await page.locator('#creator-lineage-skills-list input[data-lineage-ability-choice]:checked')
       .evaluateAll(inputs => inputs.map(input => input.value)),
