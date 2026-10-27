@@ -603,6 +603,32 @@ try {
   await spellChoiceSelect.selectOption(selectedSpellForDraft);
   await page.locator('#creator-spell-add').click();
   assert.equal(await page.locator('#creator-selected-spells-list [data-selected-spell]').count(), 1, 'Adding a spell should place it in the draft selection');
+
+  // Switching to a class without access to the selected spell must remove that spell.
+  const selectedSpellsInput = page.locator('#creator-selected-spells');
+  await page.locator('#creator-character-class').selectOption({ label: 'Bárbaro' });
+  assert.equal(
+    await page.locator('#creator-selected-spells-list [data-selected-spell]').count(),
+    0,
+    'Changing to a class that cannot use the selected spell should prune it from the selection'
+  );
+  assert.deepEqual(
+    JSON.parse(await selectedSpellsInput.inputValue()),
+    [],
+    'The saved spell field should also be cleared when the spell becomes incompatible'
+  );
+
+  // Restore the original class and spell so the existing export/persistence checks stay unchanged.
+  await page.locator('#creator-character-class').selectOption({ label: 'Clérigo' });
+  await spellLevelSelect.selectOption('0');
+  await spellChoiceSelect.selectOption(selectedSpellForDraft);
+  await page.locator('#creator-spell-add').click();
+  assert.equal(
+    await page.locator('#creator-selected-spells-list [data-selected-spell]').count(),
+    1,
+    'The compatible spell should be selectable again after restoring its class'
+  );
+
   await page.locator('#creator-deity').selectOption('inferno');
   assert.equal(
     await page.locator('#creator-origin-region').inputValue(),
