@@ -1752,9 +1752,16 @@
     const rows = records.filter(item => item.category === 'subclass');
     const refresh = () => {
       const selectedClass = normalize(classSelect.value);
+      const isWarlock = selectedClass === 'brujo' || selectedClass === 'warlock';
       const matching = rows.filter(item => {
         const className = translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS);
-        return selectedClass && normalize(className) === selectedClass;
+        if (!selectedClass || normalize(className) !== selectedClass) return false;
+        if (isWarlock) {
+          const subclassName = normalize(item.name);
+          // Campaign canon: Infernal patrons are allowed; Abyssal/demonic patrons are not.
+          if (/(^| )(abyss|abyssal|abismo|abismal|demon|demonic|demonio|demoniaca|demoniaco)( |$)/.test(subclassName)) return false;
+        }
+        return true;
       }).sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
         String(a.source).localeCompare(String(b.source)));
 
@@ -1768,6 +1775,13 @@
         if (!key || seen.has(key)) continue;
         seen.add(key);
         addOption(select, item.name, item.source, item.category);
+        if (isWarlock && key === 'the fiend') {
+          const option = Array.from(select.options).find(candidate => candidate.value === item.name);
+          if (option) {
+            option.textContent = 'The Fiend — patrón infernal (no abisal)';
+            option.title = 'Permitido solo con un patrón infernal; no puede vincularse al Abismo ni a demonios.';
+          }
+        }
       }
       select.disabled = !selectedClass || matching.length === 0;
 
