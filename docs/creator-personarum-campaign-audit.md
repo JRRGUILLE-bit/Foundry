@@ -1,55 +1,68 @@
 # Auditoría de Creator Personarum — campaña nueva
 
-**Fecha:** 27/10/2026  
-**Rama:** `feat/new-campaign-origin-picker`  
+**Última actualización:** 27/10/2026  
+**Rama:** `main`  
 **Repositorio:** `JRRGUILLE-bit/Foundry`  
-**Estado:** cambios preparados en una rama separada; no mergeados a `main`.
+**Alcance:** creador de personajes y borradores de la campaña nueva.
 
-## Alcance y criterio
+Esta auditoría describe el estado que se observa en `main`. No modifica ni reemplaza el trabajo del mapa interactivo ni el generador del Atlas que está preparando Claude.
 
-Esta etapa se limita al creador de personajes de la campaña nueva. No modifica el mapa interactivo que Claude está preparando ni las seis fichas de personajes de la campaña anterior. Las fuentes de canon consultadas son:
+## Estado implementado
 
-- `fvtt-JournalEntry-atlas-revisado.json`
-- `fvtt-JournalEntry-codex-divinitatum-revisado.json`
+### Dos recorridos de creación
 
-## Hallazgos
-
-1. El creador tenía dos recorridos y selección de panteón, pero su procedencia regional todavía era una promesa futura: no se elegía una región del mundo ni se mostraba la entrada correspondiente del Atlas.
-2. El selector de linajes era demasiado reducido para los pueblos nombrados en el Atlas.
-3. El creador no ofrece todavía selector de patrono/subclase de brujo. La regla de campaña debe permanecer explícita para que una fase posterior no convierta el Abismo en una opción jugable.
-4. Guardar/exportar borradores no genera todavía una historia de origen ni un actor de Foundry; esa limitación debe seguir visible.
-
-## Cambios preparados en la rama
+El creador ofrece un recorrido para quien ya sabe qué quiere jugar y otro para explorar el mundo a partir de una pista de interés. Los borradores de ambos recorridos se guardan por separado en el almacenamiento local del navegador.
 
 ### Procedencia conectada al Atlas
 
-El selector consulta el JSON oficial del Atlas y extrae encabezados y resúmenes de las entradas canónicas. Organiza las opciones en grupos: Abigur, Rala, Tomun, Zonas salvajes y Archipiélagos. El selector es opcional y no bloquea el borrador si el Atlas no puede cargarse.
+El selector lee `fvtt-JournalEntry-atlas-revisado.json`, extrae las regiones reconocidas y muestra el resumen canónico de la región seleccionada. La región, el continente y el contexto de la fuente se conservan en el borrador y en el JSON exportado; la procedencia aparece también en la vista previa. Si el Atlas no se puede cargar, el creador deja continuar sin inventar una región.
 
-La procedencia elegida, su nombre y su continente se guardan en el borrador y en la exportación JSON, y aparecen en la vista previa. El resumen mostrado se obtiene del Atlas; no se inventa geografía adicional.
+En el camino de exploración, la opción del Infierno preselecciona `Imperium Ravum (el Imperio Gris)`. El jugador puede cambiar la procedencia. Esa asociación no convierte al Imperio Gris en una restricción de linaje.
 
-### Linajes
+### Linajes y opciones del personaje
 
-El selector contempla los pueblos documentados en el Atlas, incluyendo Alto humano, Gnomo profundo/Svirfneblin, Aasimar, variantes de Genasi, Goblin, Goliat, Orco, Tabaxi, Leonin, Cambiante, Forjado y Hombre lagarto, además de los linajes que ya estaban. «Otro / personalizado» abre un campo de texto real y conserva el nombre en borradores y exportaciones.
+El selector combina las opciones del mundo con el catálogo filtrado de opciones de D&D 5e Legacy/2014. Incluye linajes adicionales citados en el Atlas y permite «Otro / personalizado»; el nombre personalizado se conserva al guardar y exportar. Los linajes no se filtran según la región elegida.
 
-La región no filtra los linajes. En particular, el Imperio Gris no debe restringir la creación de personajes por raza, según el canon confirmado por el usuario. La lista no se utiliza para asignar reglas mecánicas, atributos o rasgos automáticamente.
+El catálogo aporta clases, subclases, trasfondos, dotes, conjuros y datos de competencias. Las selecciones compatibles se reflejan en la vista previa y en el borrador. Las opciones incompatibles de subclase y conjuro se limpian al cambiar la clase. El creador también permite elegir idioma de visualización para las habilidades.
 
-### Regla de Brujo / Abismo
+### Regla de Brujo, Infierno y Abismo
 
-Al elegir **Brujo**, el creador presenta esta regla de campaña: el Abismo y sus demonios son enemigos de la Creación y no una opción de patrón jugable. La rama no añade un selector de patronos que pueda introducir opciones sin canon. El Infierno permanece conceptualmente separado del Abismo, tal como lo describe el Codex. En el recorrido de exploración, elegir la opción infernal preselecciona Imperium Ravum (el Imperio Gris) según la asociación ya descrita por el creador; la procedencia no queda bloqueada y el jugador puede cambiarla.
+Al elegir Brujo, el creador muestra la regla de campaña que excluye al Abismo y a sus demonios como opción jugable. El Infierno —Asmodeus y los Nueve Señores— permanece diferenciado del Abismo y de los demonios.
 
-## Qué falta
+El catálogo de subclases disponible no debe interpretarse por sí solo como una lista de patronos aprobados por la campaña. Antes de dar por cerrado el Brujo, se debe confirmar el conjunto canónico permitido con el responsable de la campaña.
 
-1. **Historia de origen:** generar una narración a partir de la procedencia elegida, el concepto, el linaje y el trasfondo; distinguir claramente el canon del Atlas de los detalles creativos nuevos.
-2. **Patronos de Brujo:** definir las opciones permitidas por la campaña antes de programar el selector. El Abismo y sus demonios deben quedar excluidos.
-3. **Procedencia más precisa:** evaluar ciudad/comunidad como segundo nivel después de validar la selección regional; coordinar esa fase con el mapa interactivo, sin sustituir el trabajo de Claude.
-4. **QA:** ejecutar `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js`, `node --check audit/creator-personarum-browser-qa.mjs`, `node audit/creator-personarum-browser-qa.mjs` y Browser Mobile QA en Chromium/WebKit, revisar los resultados y corregir cualquier regresión antes de integrar.
-5. **Integración:** esta rama no debe mergearse sin revisión de QA y autorización explícita.
+### Historia de origen propuesta
 
-## Guardrails para siguientes sesiones
+El botón **«Proponer historia desde mis elecciones»** prepara un borrador editable cuando hay una región seleccionada y el campo de historia está vacío. La propuesta puede incluir el nombre, la región y su grupo, la pista de exploración, el resumen del Atlas claramente identificado como fuente canónica, linaje, clase/subclase, trasfondo, dote, divinidad o potencia y concepto del jugador. No reemplaza una historia ya escrita.
 
-- Usar el Atlas y el Codex como fuentes primarias; no inventar nombres de regiones, ciudades, cultos, patronos ni historia geopolítica.
-- No ofrecer el Abismo o demonios como patrono de Brujo: son el enemigo.
-- No interpretar la raza dominante descrita en una región como prohibición para crear personajes de otra raza.
+La historia aparece en la vista previa y se guarda en el borrador local y en el JSON exportado. Sigue siendo una propuesta: el texto procedente del Atlas se distingue de la parte redactada para el personaje, y no se agregan hechos nuevos al canon.
+
+El campo admite hasta 2.000 caracteres. El cambio para conservar la frase final al generar una propuesta larga está en el commit `349a188e58956ddf8de978456f9d41863afcaa37`; **su QA automatizado estaba en cola en la última consulta**, por lo que todavía no debe darse por validado.
+
+## Límites actuales
+
+- **No genera un actor de Foundry listo para jugar.** El producto actual es un borrador persistido localmente y exportable como JSON propio. La creación de un actor compatible con Foundry es un trabajo diferente y requiere definir y validar su esquema completo.
+- **Los patronos de Brujo requieren cierre canónico.** Confirmar cuáles están permitidos por la campaña antes de declarar completa esa parte. No añadir el Abismo ni demonios.
+- **No elige todavía una ciudad o comunidad dentro de cada región.** Esa precisión es una etapa posterior y debe coordinarse con el Atlas y el mapa interactivo de Claude.
+- **La historia de origen no es una narración canónica terminada.** Es una propuesta editable. No presentar el resumen regional ni la creatividad del jugador como nuevos hechos del mundo.
+
+## Verificación
+
+La suite de navegador de Creator Personarum comprueba, entre otros casos, la carga del Atlas y catálogo, la asociación Infierno–Imperio Gris, los cambios de clase y limpieza de elecciones incompatibles, la historia propuesta, el guardado/restauración y la exportación JSON.
+
+Las ejecuciones del commit anterior a la prueba reforzada de historias largas terminaron con éxito:
+
+- Escritorio: https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40514677988
+- Móvil: https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40514677878
+- Publicación: https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40514677032
+
+Para el commit `349a188e58956ddf8de978456f9d41863afcaa37`, que modifica el manejo y la prueba del límite de historia, los workflows de escritorio, móvil y publicación figuraban en cola en la última consulta. No se debe atribuirles un resultado satisfactorio hasta que concluyan.
+
+## Guardrails
+
+- Usar el Atlas y el Codex como fuentes primarias; no inventar regiones, ciudades, cultos, patronos ni historia geopolítica.
+- No ofrecer el Abismo o demonios como patronos jugables.
+- No restringir linajes por la población predominante de una región; el Imperio Gris no excluye razas.
 - No confundir el Infierno (jerarquía organizada) con el Abismo (herida caótica) ni con los demonios.
-- No presentar el borrador como actor completo de Foundry ni como historia de origen terminada.
-- No tocar el mapa interactivo de Claude dentro de esta etapa.
+- No confundir borrador JSON con actor completo de Foundry.
+- No modificar el mapa interactivo ni el generador del Atlas encargado a Claude.
