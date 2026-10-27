@@ -232,6 +232,24 @@ try {
     'Exported draft should include selected lineage ability choices'
   );
 
+  await lineageSelect.selectOption({ label: 'Elfo' });
+  await page.waitForFunction(() => {
+    const input = document.getElementById('creator-selected-lineage-abilities');
+    return input && JSON.parse(input.value || '{}') &&
+      Object.values(JSON.parse(input.value || '{}')).flat().length === 0;
+  });
+  assert.equal(
+    await page.locator('#creator-preview-lineage-abilities-row').evaluate(element => element.hidden),
+    true,
+    'Changing lineage should clear preview selections from the previous lineage'
+  );
+  await lineageSelect.selectOption({ label: 'Semielfo' });
+  assert.deepEqual(
+    JSON.parse(await page.locator('#creator-selected-lineage-abilities').inputValue()),
+    {},
+    'Changing back to Half-Elf should not restore stale ability choices from another lineage'
+  );
+
   // Return to a clean draft so the remaining browser checks stay independent.
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: 'domcontentloaded' });
