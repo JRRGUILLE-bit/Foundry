@@ -2,7 +2,7 @@
   "use strict";
 
   const STATUS_URL = "server-status.json";
-  const FOUNDRY_URL = "https://santipc.tail278254.ts.net/";
+  const FOUNDRY_URL = "http://167.57.189.66:30000/join";
   const POLL_INTERVAL = 30000;
   const PROBE_TIMEOUT = 7000;
 
