@@ -226,6 +226,7 @@
 
     resetFormFields();
     restoreDraft();
+    alignInfernalExplorationOrigin(false);
     updateOriginDetails();
     updateDivineSection();
     renderPreview(readFormValues());
@@ -372,6 +373,15 @@
     return atlasRegions.find(region => region.id === originRegionSelect.value) || null;
   }
 
+  function alignInfernalExplorationOrigin(force) {
+    if (currentMode !== CREATION_MODES.explore || deitySelect.value !== 'inferno' || !atlasLoaded) return;
+    const greyEmpire = atlasRegions.find(region => region.name === 'Imperium Ravum (el Imperio Gris)');
+    if (!greyEmpire || (!force && originRegionSelect.value)) return;
+    originRegionSelect.value = greyEmpire.id;
+    updateOriginDetails();
+    renderPreview(readFormValues());
+  }
+
   function updateOriginDetails() {
     const region = getSelectedOriginRegion();
     if (region) {
@@ -400,6 +410,7 @@
       atlasLoaded = true;
       atlasLoading = false;
       populateOriginRegions(atlasRegions);
+      alignInfernalExplorationOrigin(false);
       updateOriginDetails();
       renderPreview(readFormValues());
     } catch (error) {
@@ -617,6 +628,7 @@
     renderPreview(readFormValues());
   });
   deitySelect.addEventListener('change', () => {
+    alignInfernalExplorationOrigin(true);
     updateDeityDetails();
     renderPreview(readFormValues());
   });
