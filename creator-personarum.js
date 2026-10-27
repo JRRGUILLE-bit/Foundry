@@ -617,6 +617,16 @@
           skills: Array.isArray(draft.selectedLineageSkills) ? draft.selectedLineageSkills : []
         }
       }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-lineage-languages', {
+        detail: {
+          lineage: lineageSelect.value,
+          selectedByChoice: draft.selectedLineageLanguages &&
+            typeof draft.selectedLineageLanguages === 'object' &&
+            !Array.isArray(draft.selectedLineageLanguages)
+            ? draft.selectedLineageLanguages
+            : {}
+        }
+      }));
       document.getElementById('creator-level').value = String(draft.level || 1);
       document.getElementById('creator-concept').value = draft.concept || '';
       exportDraftButton.disabled = false;
