@@ -684,9 +684,15 @@ try {
     'The player should be able to override the suggested origin'
   );
   await page.locator('#creator-character-name').fill('Ariadna QA');
+  await page.locator('#creator-concept').fill('C'.repeat(1200));
   await page.locator('#creator-feat').selectOption(selectedFeatValue);
   await page.locator('#creator-origin-story-draft').click();
   const explorerStoryProposal = await page.locator('#creator-origin-story').inputValue();
+  assert.ok(explorerStoryProposal.length <= 2000, 'Generated origin story should respect the textarea limit');
+  assert.ok(
+    explorerStoryProposal.endsWith('El resto de mi historia todavía está por escribirse.'),
+    'Generated origin story should preserve its closing sentence instead of cutting off at the field limit'
+  );
   assert.match(
     explorerStoryProposal,
     /Me llamo Ariadna QA\./,

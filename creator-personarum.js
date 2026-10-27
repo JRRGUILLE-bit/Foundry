@@ -962,7 +962,45 @@
     }
     paragraphs.push('El resto de mi historia todavía está por escribirse.');
 
-    storyField.value = paragraphs.join('\n\n').slice(0, 2000);
+    const maxStoryLength = storyField.maxLength > 0 ? storyField.maxLength : 2000;
+    const atlasParagraphPrefix = 'El Atlas describe esta región así: ';
+    const conceptParagraphPrefix = 'Hay algo que guía mis pasos: ';
+    let proposedStory = paragraphs.join('\n\n');
+
+    // If the proposal exceeds the field limit, shorten descriptive prose first
+    // so the selected character details and the closing sentence are preserved.
+    const compactParagraph = (index, prefix) => {
+      const otherParagraphLength = paragraphs.reduce(
+        (total, paragraph, paragraphIndex) => total + (paragraphIndex === index ? 0 : paragraph.length),
+        0
+      );
+      const separatorsLength = Math.max(0, paragraphs.length - 1) * 2;
+      const availableLength = maxStoryLength - otherParagraphLength - separatorsLength;
+      if (availableLength < 1) {
+        paragraphs.splice(index, 1);
+        return;
+      }
+      if (availableLength < prefix.length + 1) {
+        paragraphs[index] = '…';
+        return;
+      }
+      const body = paragraphs[index].slice(prefix.length);
+      const bodyLength = Math.max(0, availableLength - prefix.length - 1);
+      paragraphs[index] = prefix + body.slice(0, bodyLength).trimEnd() + (bodyLength < body.length ? '…' : '');
+    };
+
+    if (proposedStory.length > maxStoryLength) {
+      const atlasParagraphIndex = paragraphs.findIndex(paragraph => paragraph.startsWith(atlasParagraphPrefix));
+      if (atlasParagraphIndex >= 0) compactParagraph(atlasParagraphIndex, atlasParagraphPrefix);
+      proposedStory = paragraphs.join('\n\n');
+    }
+    if (proposedStory.length > maxStoryLength) {
+      const conceptParagraphIndex = paragraphs.findIndex(paragraph => paragraph.startsWith(conceptParagraphPrefix));
+      if (conceptParagraphIndex >= 0) compactParagraph(conceptParagraphIndex, conceptParagraphPrefix);
+      proposedStory = paragraphs.join('\n\n');
+    }
+
+    storyField.value = proposedStory;
     storyField.dispatchEvent(new Event('input', { bubbles: true }));
     storyStatus.textContent = 'Propuesta preparada. Podés editarla libremente; el párrafo del Atlas conserva su carácter de referencia canónica.';
   }
