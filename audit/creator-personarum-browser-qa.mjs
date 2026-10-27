@@ -87,7 +87,9 @@ try {
   // Known-character path: the campaign warlock rule appears, but the Abyss is not an option.
   await page.locator('#creator-known-path-button').click();
   await page.locator('#creator-character-name').fill('QA Aventurero');
-  await page.locator('#creator-lineage').selectOption({ label: 'Humano' });
+  await page.locator('#creator-lineage').selectOption({ label: 'Otro / personalizado' });
+  assert.equal(await page.locator('#creator-custom-lineage-field').evaluate(element => element.hidden), false);
+  await page.locator('#creator-custom-lineage').fill('Tortuga viajera');
   await page.locator('#creator-character-class').selectOption({ label: 'Brujo' });
   assert.equal(
     await page.locator('#creator-warlock-canon-note').evaluate(element => element.hidden),
@@ -121,7 +123,9 @@ try {
   await page.waitForFunction(() => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
     return draft && draft.originRegion === 'abigur-imperium-ravum-el-imperio-gris'
-      && draft.originRegionName === 'Imperium Ravum (el Imperio Gris)';
+      && draft.originRegionName === 'Imperium Ravum (el Imperio Gris)'
+      && draft.lineage === 'Tortuga viajera'
+      && draft.lineageChoice === 'Otro / personalizado';
   });
   const [knownDownload] = await Promise.all([
     page.waitForEvent('download'),
@@ -130,6 +134,7 @@ try {
   assert.equal(knownDownload.suggestedFilename(), 'creator-personarum-personaje.json');
   const knownExport = JSON.parse(fs.readFileSync(await knownDownload.path(), 'utf8'));
   assert.equal(knownExport.originContinent, 'Abigur');
+  assert.equal(knownExport.lineage, 'Tortuga viajera');
 
   // Reload and verify the chosen origin is restored with its Atlas-derived summary.
   await page.reload({ waitUntil: 'domcontentloaded' });
@@ -137,6 +142,9 @@ try {
   await exposeWorkspace();
   await page.locator('#creator-known-path-button').click();
   assert.equal(await page.locator('#creator-origin-region').inputValue(), greyEmpireId);
+  assert.equal(await page.locator('#creator-lineage').inputValue(), 'Otro / personalizado');
+  assert.equal(await page.locator('#creator-custom-lineage').inputValue(), 'Tortuga viajera');
+  assert.equal(await page.locator('#creator-preview-lineage').innerText(), 'Tortuga viajera');
   assert.match(await page.locator('#creator-origin-details').innerText(), /estado unificado|gobierno/i);
 
   // Explorer path: the existing Inferno association preselects the Grey Empire,
