@@ -312,6 +312,25 @@ try {
     'Returning to Half-Elf should show its fixed bonus without restoring stale optional choices'
   );
 
+  // The two creation paths must not leak character details into each other.
+  await page.locator('#creator-back-to-path-from-draft').click();
+  await page.locator('#creator-explore-path-button').click();
+  await page.locator('input[name="creator-exploration-focus"][value="ciudades-y-culturas"]').check();
+  await page.locator('#creator-explore-continue').click();
+  assert.equal(await page.locator('#creator-character-name').inputValue(), '',
+    'Explorer path should not inherit the known-character name');
+  assert.equal(await page.locator('#creator-lineage').inputValue(), '',
+    'Explorer path should not inherit the known-character lineage');
+  assert.equal(await page.locator('#creator-character-class').inputValue(), '',
+    'Explorer path should not inherit the known-character class');
+  assert.equal(await page.locator('#creator-origin-story').inputValue(), '',
+    'Explorer path should not inherit the known-character origin story');
+  assert.equal(
+    await page.evaluate(() => JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null')?.lineage),
+    'Semielfo',
+    'Switching paths should preserve the separate known-character draft'
+  );
+
   // Return to a clean draft so the remaining browser checks stay independent.
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: 'domcontentloaded' });
