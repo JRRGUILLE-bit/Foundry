@@ -167,6 +167,24 @@ try {
     'The optional lineage language checkbox should remain checked after restoring the draft'
   );
 
+  await page.waitForFunction(() => {
+    const input = document.getElementById('creator-selected-lineage-abilities');
+    if (!input) return false;
+    const selected = JSON.parse(input.value || '{}')['group-0'] || [];
+    return selected.includes('str') && selected.includes('dex');
+  });
+  assert.deepEqual(
+    JSON.parse(await page.locator('#creator-selected-lineage-abilities').inputValue()),
+    { 'group-0': ['str', 'dex'] },
+    'Restored lineage ability selection field should match the saved draft'
+  );
+  assert.deepEqual(
+    await page.locator('#creator-lineage-skills-list input[data-lineage-ability-choice]:checked')
+      .evaluateAll(inputs => inputs.map(input => input.value)),
+    ['str', 'dex'],
+    'Ability choice checkboxes should remain checked after restoring the draft'
+  );
+
   // Return to a clean draft so the remaining browser checks stay independent.
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: 'domcontentloaded' });
