@@ -994,6 +994,8 @@
       type: 'character',
       system: {
         details: {
+          race: typeof draft.lineage === 'string' && draft.lineage.trim() ? draft.lineage.trim() : null,
+          background: typeof draft.background === 'string' && draft.background.trim() ? draft.background.trim() : null,
           biography: {
             value: biography,
             public: ''

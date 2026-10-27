@@ -647,6 +647,10 @@ try {
   const knownActorExport = JSON.parse(fs.readFileSync(await knownActorDownload.path(), 'utf8'));
   assert.equal(knownActorExport.name, 'QA Aventurero', 'Foundry actor export should preserve the character name');
   assert.equal(knownActorExport.type, 'character', 'Foundry actor export should use the D&D 5e character type');
+  assert.equal(knownActorExport.system.details.race, 'Tortuga viajera',
+    'Foundry character system data should preserve the selected lineage in its native race field');
+  assert.equal(knownActorExport.system.details.background, 'Haunted One',
+    'Foundry character system data should preserve the selected background in its native background field');
   assert.equal(knownActorExport.flags.dnd5e.rulesVersion, 'legacy', 'Foundry actor export should mark the 2014/Legacy ruleset');
   const creatorPersonarumMetadata = knownActorExport.flags.world.creatorPersonarum;
   assert.equal(creatorPersonarumMetadata.schemaVersion, 1, 'Actor should carry a versioned Creator Personarum metadata block');
