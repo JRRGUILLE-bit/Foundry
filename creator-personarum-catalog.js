@@ -35,7 +35,6 @@
   window.addEventListener('creator-personarum:reset-spells', () => {
     selectedSpells = [];
     pendingRestoredSpells = [];
-    renderSelectedSpells();
   });
 
   const CLASS_LABELS = {
