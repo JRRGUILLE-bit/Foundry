@@ -99,6 +99,17 @@ try {
     /Incrementos de características registrados:.*\+2 Carisma.*elegí 2 características/i,
     'Half-Elf should display its catalogued fixed and selectable ability score increases'
   );
+  const halfElfAbilityChoices = page.locator('#creator-lineage-skills-list input[data-lineage-ability-choice]');
+  assert.equal(await halfElfAbilityChoices.count(), 5, 'Half-Elf should expose its five selectable ability scores');
+  await halfElfAbilityChoices.nth(0).check();
+  await halfElfAbilityChoices.nth(1).check();
+  assert.equal(await page.locator('#creator-lineage-skills-list input[data-lineage-ability-choice]:checked').count(), 2, 'Half-Elf should permit exactly two extra ability choices');
+  assert.equal(await halfElfAbilityChoices.nth(2).isDisabled(), true, 'Extra ability choices should be disabled at the allowed limit');
+  assert.deepEqual(
+    JSON.parse(await page.locator('#creator-selected-lineage-abilities').inputValue()),
+    { 'group-0': ['str', 'dex'] },
+    'Ability selections should be mirrored into the hidden draft field'
+  );
   assert.match(await lineageLanguages.innerText(), /Elegí 1 idioma entre estas opciones/, 'Half-Elf should offer one optional language');
   const halfElfLanguages = lineageLanguages.locator('input[type="checkbox"]');
   const availableHalfElfLanguages = await halfElfLanguages.evaluateAll(inputs => inputs.map(input => input.value));
