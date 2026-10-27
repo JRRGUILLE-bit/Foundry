@@ -87,6 +87,7 @@
   let savedDraft = null;
   let atlasRegions = [];
   let atlasLoaded = false;
+  let atlasLoading = true;
 
   function showWelcome() {
     introVideo.pause();
@@ -225,6 +226,7 @@
 
     resetFormFields();
     restoreDraft();
+    updateOriginDetails();
     updateDivineSection();
     renderPreview(readFormValues());
     const heading = document.getElementById('creator-workspace-title');
@@ -376,6 +378,10 @@
       originDetails.textContent = region.group + ' · ' + region.summary;
       return;
     }
+    if (atlasLoading) {
+      originDetails.textContent = 'Cargando regiones oficiales del Atlas…';
+      return;
+    }
     if (!atlasLoaded) {
       originDetails.textContent = 'El Atlas oficial no está disponible ahora. Podés continuar el borrador sin inventar una procedencia.';
       return;
@@ -384,6 +390,7 @@
   }
 
   async function loadAtlasRegions() {
+    atlasLoading = true;
     originDetails.textContent = 'Cargando regiones oficiales del Atlas…';
     try {
       const response = await window.fetch(ATLAS_SOURCE_FILE, { cache: 'no-store' });
@@ -391,12 +398,14 @@
       const atlas = await response.json();
       atlasRegions = parseAtlasRegions(atlas);
       atlasLoaded = true;
+      atlasLoading = false;
       populateOriginRegions(atlasRegions);
       updateOriginDetails();
       renderPreview(readFormValues());
     } catch (error) {
       atlasRegions = [];
       atlasLoaded = false;
+      atlasLoading = false;
       const preservedId = savedDraft && savedDraft.originRegion ? savedDraft.originRegion : '';
       originRegionSelect.replaceChildren(new Option(
         preservedId && savedDraft.originRegionName
