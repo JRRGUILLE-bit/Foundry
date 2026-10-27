@@ -1018,6 +1018,7 @@
       ? Object.values(draft.selectedLineageLanguages).flat().filter(language => typeof language === 'string' && language.trim())
       : [];
     const foundryLanguageKeyBySelection = {
+      aarakocra: 'aarakocra',
       abyssal: 'abyssal',
       aquan: 'aquan',
       auran: 'auran',
@@ -1029,15 +1030,19 @@
       dwarvish: 'dwarvish',
       elvish: 'elvish',
       giant: 'giant',
+      gith: 'gith',
       gnomish: 'gnomish',
+      gnoll: 'gnoll',
       goblin: 'goblin',
       halfling: 'halfling',
       ignan: 'ignan',
       infernal: 'infernal',
       orc: 'orc',
       primordial: 'primordial',
+      sign: 'sign',
       sylvan: 'sylvan',
       terran: 'terran',
+      'thieves cant': 'cant',
       "thieves' cant": 'cant',
       undercommon: 'undercommon'
     };
