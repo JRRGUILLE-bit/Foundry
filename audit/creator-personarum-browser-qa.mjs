@@ -548,6 +548,20 @@ try {
     'A selected region should appear in the preview'
   );
   assert.match(await page.locator('#creator-preview-origin').innerText(), /Imperium Ravum/);
+  const storyProposalButton = page.locator('#creator-origin-story-draft');
+  await page.locator('#creator-concept').fill('Una promesa de proteger a quienes viajan.');
+  await storyProposalButton.click();
+  const storyProposal = await page.locator('#creator-origin-story').inputValue();
+  assert.match(storyProposal, /Imperium Ravum/);
+  assert.match(storyProposal, /El Atlas describe esta región así:/);
+  assert.match(storyProposal, /Tortuga viajera/);
+  assert.match(storyProposal, /Guerrero/);
+  assert.match(storyProposal, /Haunted One/);
+  assert.match(storyProposal, /Una promesa de proteger a quienes viajan\./);
+  assert.match(await page.locator('#creator-origin-story-status').innerText(), /Propuesta preparada/);
+  await storyProposalButton.click();
+  assert.equal(await page.locator('#creator-origin-story').inputValue(), storyProposal, 'The proposal action must not overwrite an existing story');
+  assert.match(await page.locator('#creator-origin-story-status').innerText(), /No la reemplacé/);
   const originStory = 'Crecí entre viajeros y aprendí a desconfiar de los caminos seguros.';
   await page.locator('#creator-origin-story').fill(originStory);
   assert.equal(await page.locator('#creator-preview-origin-story-row').evaluate(element => element.hidden), false);

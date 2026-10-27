@@ -922,6 +922,45 @@
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
+  function prepareOriginStoryDraft() {
+    const storyField = document.getElementById('creator-origin-story');
+    const storyStatus = document.getElementById('creator-origin-story-status');
+    const region = getSelectedOriginRegion();
+    if (!storyField || !storyStatus) return;
+
+    if (storyField.value.trim()) {
+      storyStatus.textContent = 'Ya hay una historia escrita. No la reemplacé; vaciá el campo manualmente si querés preparar otra propuesta.';
+      return;
+    }
+    if (!region) {
+      storyStatus.textContent = 'Elegí una región oficial del Atlas antes de preparar la propuesta.';
+      return;
+    }
+
+    const values = readFormValues();
+    const paragraphs = [
+      'Mi historia comienza en ' + region.name + ', en ' + region.group + '.'
+    ];
+    if (region.summary) {
+      paragraphs.push('El Atlas describe esta región así: ' + region.summary);
+    }
+    if (values.lineage) paragraphs.push('Mi linaje es ' + values.lineage + '.');
+    if (values.characterClass) {
+      paragraphs.push('He elegido el camino de ' + values.characterClass +
+        (values.subclass ? ', por la senda de ' + values.subclass : '') + '.');
+    }
+    if (values.background) paragraphs.push('Mi trasfondo es ' + values.background + '.');
+    if (values.concept) {
+      const concept = values.concept.length > 420 ? values.concept.slice(0, 417).trimEnd() + '…' : values.concept;
+      paragraphs.push('Hay algo que guía mis pasos: ' + concept);
+    }
+    paragraphs.push('El resto de mi historia todavía está por escribirse.');
+
+    storyField.value = paragraphs.join('\n\n').slice(0, 2000);
+    storyField.dispatchEvent(new Event('input', { bubbles: true }));
+    storyStatus.textContent = 'Propuesta preparada. Podés editarla libremente; el párrafo del Atlas conserva su carácter de referencia canónica.';
+  }
+
   function continueExploration() {
     const selected = getSelectedExplorationFocus();
     if (!selected) {
@@ -946,6 +985,7 @@
   backFromExploreButton.addEventListener('click', showPathChoice);
   backFromDraftButton.addEventListener('click', showPathChoice);
   exploreContinueButton.addEventListener('click', continueExploration);
+  document.getElementById('creator-origin-story-draft')?.addEventListener('click', prepareOriginStoryDraft);
 
   exploreStep.addEventListener('change', event => {
     if (event.target && event.target.name === 'creator-exploration-focus') {
