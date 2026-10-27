@@ -356,6 +356,27 @@ try {
   assert.equal(await lineageSkills.locator('input[data-lineage-skill-choice]:checked').count(), 1, 'Variant Human should allow exactly one selected skill');
   assert.equal(await humanVariantSkills.nth(1).isDisabled(), true, 'Variant Human should disable extra skills at its limit');
   assert.equal(JSON.parse(await page.locator('#creator-selected-lineage-skills').inputValue()).length, 1, 'Lineage choices should be mirrored into the draft field');
+
+  // Changing the skill language must relabel lineage choices without dropping the selection.
+  const selectedVariantSkill = await humanVariantSkills.nth(0).inputValue();
+  await page.locator('#creator-skill-language').selectOption('en');
+  assert.equal(
+    await lineageSkills.locator('input[data-lineage-skill-choice]:checked').first().evaluate(input => input.parentElement.textContent.trim()),
+    skillLabelsForQa[selectedVariantSkill].en,
+    'Lineage skill choices should switch to English'
+  );
+  assert.equal(
+    await lineageSkills.locator('input[data-lineage-skill-choice]:checked').count(),
+    1,
+    'Switching skill language should preserve the selected lineage skill'
+  );
+  await page.locator('#creator-skill-language').selectOption('es');
+  assert.equal(
+    await lineageSkills.locator('input[data-lineage-skill-choice]:checked').first().evaluate(input => input.parentElement.textContent.trim()),
+    skillLabelsForQa[selectedVariantSkill].es,
+    'Lineage skill choices should switch back to Spanish'
+  );
+
   await lineageSelect.selectOption({ label: 'Otro / personalizado' });
 
   // Class skill options are shown from the Legacy/2014 class rules.
@@ -396,6 +417,24 @@ try {
   await hauntedOneSkills.nth(1).check();
   assert.equal(await backgroundSkills.locator('input[type="checkbox"]:checked').count(), 2, 'Haunted One should allow exactly two selected skills');
   assert.equal(await hauntedOneSkills.nth(2).isDisabled(), true, 'Additional background skills should be disabled at the allowed limit');
+
+  // The same language switch must relabel background choices and retain both selections.
+  const selectedBackgroundSkillValues = await backgroundSkills.locator('input[data-background-skill-choice]:checked')
+    .evaluateAll(inputs => inputs.map(input => input.value));
+  await page.locator('#creator-skill-language').selectOption('en');
+  assert.deepEqual(
+    await backgroundSkills.locator('input[data-background-skill-choice]:checked')
+      .evaluateAll(inputs => inputs.map(input => input.parentElement.textContent.trim())),
+    selectedBackgroundSkillValues.map(skill => skillLabelsForQa[skill].en),
+    'Background skill choices should switch to English without losing checked selections'
+  );
+  await page.locator('#creator-skill-language').selectOption('es');
+  assert.deepEqual(
+    await backgroundSkills.locator('input[data-background-skill-choice]:checked')
+      .evaluateAll(inputs => inputs.map(input => input.parentElement.textContent.trim())),
+    selectedBackgroundSkillValues.map(skill => skillLabelsForQa[skill].es),
+    'Background skill choices should switch back to Spanish without losing checked selections'
+  );
 
   await page.locator('#creator-character-name').fill('QA Aventurero');
   await page.locator('#creator-lineage').selectOption({ label: 'Otro / personalizado' });
