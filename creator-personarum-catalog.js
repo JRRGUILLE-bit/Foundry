@@ -8,6 +8,7 @@
   let pendingRestoredSpells = null;
   let pendingRestoredClassSkills = null;
   let pendingRestoredBackgroundSkills = null;
+  let pendingRestoredLineageSkills = null;
   let selectedSpells = [];
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
@@ -71,6 +72,25 @@
     pendingRestoredBackgroundSkills = null;
     if (typeof window.creatorPersonarumApplyRestoredBackgroundSkills === 'function') {
       window.creatorPersonarumApplyRestoredBackgroundSkills([]);
+    }
+  });
+
+  window.addEventListener('creator-personarum:restore-lineage-skills', (event) => {
+    pendingRestoredLineageSkills = {
+      lineage: String(event.detail?.lineage || ''),
+      skills: Array.isArray(event.detail?.skills)
+        ? event.detail.skills.filter(skill => typeof skill === 'string')
+        : []
+    };
+    if (typeof window.creatorPersonarumApplyRestoredLineageSkills === 'function') {
+      window.creatorPersonarumApplyRestoredLineageSkills();
+    }
+  });
+
+  window.addEventListener('creator-personarum:reset-lineage-skills', () => {
+    pendingRestoredLineageSkills = null;
+    if (typeof window.creatorPersonarumApplyRestoredLineageSkills === 'function') {
+      window.creatorPersonarumApplyRestoredLineageSkills([]);
     }
   });
 
@@ -303,10 +323,18 @@
   function addOption(select, label, source, category, aliases = []) {
     if (!select || !label) return false;
     const keys = new Set([label, ...aliases].map(normalize).filter(Boolean));
-    const exists = Array.from(select.options).some((option) =>
+    const existingOption = Array.from(select.options).find((option) =>
       keys.has(normalize(option.textContent)) || keys.has(normalize(option.value))
     );
-    if (exists) return false;
+    if (existingOption) {
+      if (category && !existingOption.dataset.creatorCatalogCategory) {
+        existingOption.dataset.creatorCatalogCategory = category;
+      }
+      if (source && !existingOption.dataset.creatorCatalogSource) {
+        existingOption.dataset.creatorCatalogSource = source;
+      }
+      return false;
+    }
 
     const option = document.createElement('option');
     option.value = label;
@@ -320,24 +348,279 @@
 
   function appendLineages(records) {
     const select = byId('creator-lineage');
-    const species = records.filter((item) => item.category === 'species')
+    const species = records.filter(item => item.category === 'species')
       .sort((a, b) => String(a.name).localeCompare(String(b.name)));
-    const variants = records.filter((item) => item.category === 'species_variant')
+    const variants = records.filter(item => item.category === 'species_variant')
       .sort((a, b) => String(a.parent_name || '').localeCompare(String(b.parent_name || '')) ||
         String(a.name).localeCompare(String(b.name)));
 
     for (const item of species) {
       addOption(select, translate(item.name, LINEAGE_LABELS), item.source, item.category, [item.name]);
     }
-
     for (const item of variants) {
       const child = translate(item.name, LINEAGE_LABELS);
       const parent = translate(item.parent_name || '', LINEAGE_LABELS);
       const label = parent && normalize(parent) !== normalize(child) ? parent + ' — ' + child : child;
       addOption(select, label, item.source, item.category, [child, item.name]);
     }
-  }
 
+    const details = byId('creator-lineage-skills-list');
+    const status = byId('creator-lineage-skills-status');
+    const hiddenInput = byId('creator-selected-lineage-skills');
+    const classSkillInput = byId('creator-selected-class-skills');
+    const backgroundSkillInput = byId('creator-selected-background-skills');
+    const classSelect = byId('creator-character-class');
+    const backgroundSelect = byId('creator-background');
+    const skillLabels = {
+      acrobatics: 'Acrobacias',
+      'animal handling': 'Trato con animales',
+      arcana: 'Arcanos',
+      athletics: 'Atletismo',
+      deception: 'Engaño',
+      history: 'Historia',
+      insight: 'Perspicacia',
+      intimidation: 'Intimidación',
+      investigation: 'Investigación',
+      medicine: 'Medicina',
+      nature: 'Naturaleza',
+      perception: 'Percepción',
+      performance: 'Interpretación',
+      persuasion: 'Persuasión',
+      religion: 'Religión',
+      'sleight of hand': 'Juego de manos',
+      stealth: 'Sigilo',
+      survival: 'Supervivencia'
+    };
+    const allSkillKeys = Object.keys(skillLabels);
+    let selectedSkills = [];
+    let activeLineageValue = '';
+    let activeChoiceCount = 0;
+    let activeLineageName = '';
+    let activeSource = '';
+    let activeOptions = [];
+
+    if (!select || !details || !status || !hiddenInput) return;
+
+    const syncHiddenValue = () => {
+      hiddenInput.value = JSON.stringify(selectedSkills);
+    };
+    const readArray = (input) => {
+      try {
+        const parsed = JSON.parse(input?.value || '[]');
+        return Array.isArray(parsed) ? parsed.filter(skill => typeof skill === 'string').map(normalize) : [];
+      } catch {
+        return [];
+      }
+    };
+    const getSelectedBackgroundRecord = () => {
+      if (!backgroundSelect?.value) return null;
+      const option = backgroundSelect.options[backgroundSelect.selectedIndex];
+      const nameKey = Object.entries(BACKGROUND_LABELS)
+        .find(([, label]) => normalize(label) === normalize(backgroundSelect.value))?.[0] || backgroundSelect.value;
+      return records.find(item =>
+        item.category === 'background' &&
+        normalize(item.name) === normalize(nameKey) &&
+        (!option?.dataset.creatorCatalogSource || item.source === option.dataset.creatorCatalogSource)
+      ) || null;
+    };
+    const getExistingSkills = () => {
+      const existing = new Set([...readArray(classSkillInput), ...readArray(backgroundSkillInput)]);
+      const background = getSelectedBackgroundRecord();
+      const groups = Array.isArray(background?.skillProficiencies) ? background.skillProficiencies : [];
+      for (const group of groups) {
+        if (!group || typeof group !== 'object') continue;
+        for (const [key, value] of Object.entries(group)) {
+          if (value === true && skillLabels[normalize(key)]) existing.add(normalize(key));
+        }
+      }
+      return existing;
+    };
+    const getSelectedLineageRecord = () => {
+      const option = select.options[select.selectedIndex];
+      if (!option || !option.value) return null;
+      const category = option.dataset.creatorCatalogCategory || '';
+      const source = option.dataset.creatorCatalogSource || '';
+      if (category === 'species') {
+        return species.find(item =>
+          (!source || item.source === source) &&
+          normalize(translate(item.name, LINEAGE_LABELS)) === normalize(option.value)
+        ) || null;
+      }
+      if (category === 'species_variant') {
+        return variants.find(item => {
+          if (source && item.source !== source) return false;
+          const child = translate(item.name, LINEAGE_LABELS);
+          const parent = translate(item.parent_name || '', LINEAGE_LABELS);
+          const label = parent && normalize(parent) !== normalize(child) ? parent + ' — ' + child : child;
+          return normalize(label) === normalize(option.value);
+        }) || null;
+      }
+      return null;
+    };
+    const render = (restoreSkills) => {
+      details.replaceChildren();
+      const lineage = getSelectedLineageRecord();
+      const lineageValue = select.value;
+      if (activeLineageValue !== lineageValue) {
+        selectedSkills = [];
+        activeLineageValue = lineageValue;
+      }
+      activeLineageName = lineage?.name || '';
+      activeSource = lineage?.source || '';
+      if (!lineage) {
+        activeChoiceCount = 0;
+        activeOptions = [];
+        selectedSkills = [];
+        syncHiddenValue();
+        const item = document.createElement('li');
+        item.textContent = lineageValue
+          ? 'No hay datos de habilidades adicionales para este linaje en el catálogo.'
+          : 'Elegí un linaje para consultar sus habilidades.';
+        details.appendChild(item);
+        status.textContent = lineageValue
+          ? 'No se inventan habilidades cuando falta el registro del catálogo.'
+          : 'La selección se guarda en el borrador.';
+        return;
+      }
+
+      const groups = Array.isArray(lineage.skillProficiencies) ? lineage.skillProficiencies : [];
+      const fixedSkills = [...new Set(groups.flatMap(group => Object.entries(group || {})
+        .filter(([key, value]) => value === true && skillLabels[normalize(key)])
+        .map(([key]) => normalize(key))))];
+      const existingSkills = getExistingSkills();
+      const duplicateFixed = fixedSkills.filter(skill => existingSkills.has(skill));
+      const allExistingAndFixed = new Set([...existingSkills, ...fixedSkills]);
+      const definitions = groups.flatMap(group => {
+        if (group?.choose && typeof group.choose === 'object') {
+          const count = Number.isInteger(Number(group.choose.count)) && Number(group.choose.count) > 0
+            ? Number(group.choose.count)
+            : 1;
+          const options = Array.isArray(group.choose.from)
+            ? group.choose.from.map(normalize).filter(skill => skillLabels[skill])
+            : [];
+          return [{ count, options: options.filter(skill => !allExistingAndFixed.has(skill)) }];
+        }
+        if (Number(group?.any) > 0) {
+          return [{ count: Number(group.any), options: allSkillKeys.filter(skill => !allExistingAndFixed.has(skill)) }];
+        }
+        return [];
+      });
+      activeChoiceCount = definitions.reduce((sum, definition) => sum + definition.count, 0);
+      activeOptions = [...new Set(definitions.flatMap(definition => definition.options))];
+      if (Array.isArray(restoreSkills)) {
+        selectedSkills = [...new Set(restoreSkills.map(normalize))]
+          .filter(skill => activeOptions.includes(skill))
+          .slice(0, activeChoiceCount);
+      } else {
+        selectedSkills = [...new Set(selectedSkills)]
+          .filter(skill => activeOptions.includes(skill))
+          .slice(0, activeChoiceCount);
+      }
+
+      if (fixedSkills.length) {
+        const fixed = document.createElement('li');
+        fixed.textContent = 'Concede automáticamente: ' + fixedSkills.map(skill =>
+          skillLabels[skill] + (duplicateFixed.includes(skill) ? ' (ya concedida por clase o trasfondo)' : '')
+        ).join(', ') + '.';
+        details.appendChild(fixed);
+      }
+
+      if (definitions.length) {
+        for (const definition of definitions) {
+          const heading = document.createElement('li');
+          heading.textContent = 'Elegí ' + definition.count +
+            (definition.count === 1 ? ' habilidad entre estas opciones:' : ' habilidades entre estas opciones:');
+          details.appendChild(heading);
+          for (const skill of definition.options) {
+            const item = document.createElement('li');
+            const label = document.createElement('label');
+            label.className = 'creator-lineage-skill-choice';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'lineageSkills';
+            checkbox.value = skill;
+            checkbox.dataset.lineageSkillChoice = 'true';
+            checkbox.checked = selectedSkills.includes(skill);
+            checkbox.disabled = selectedSkills.length >= activeChoiceCount && !checkbox.checked;
+            label.append(checkbox, document.createTextNode(' ' + skillLabels[skill]));
+            item.appendChild(label);
+            details.appendChild(item);
+            checkbox.addEventListener('change', () => {
+              if (checkbox.checked) {
+                if (selectedSkills.length >= activeChoiceCount) {
+                  checkbox.checked = false;
+                  status.textContent = 'Ya elegiste las ' + activeChoiceCount +
+                    ' habilidades permitidas. Desmarcá una para cambiar la selección.';
+                  return;
+                }
+                if (!selectedSkills.includes(skill)) selectedSkills.push(skill);
+              } else {
+                selectedSkills = selectedSkills.filter(value => value !== skill);
+              }
+              selectedSkills.sort((a, b) => allSkillKeys.indexOf(a) - allSkillKeys.indexOf(b));
+              syncHiddenValue();
+              render();
+            });
+          }
+        }
+        const selectedCount = selectedSkills.length;
+        const remaining = Math.max(0, activeChoiceCount - selectedCount);
+        status.textContent = (activeSource ? 'Fuente: ' + activeSource + '. ' : '') +
+          (remaining === 0
+            ? 'Elegiste todas las habilidades del linaje.'
+            : 'Elegiste ' + selectedCount + ' de ' + activeChoiceCount +
+              '; te falta' + (remaining === 1 ? '' : 'n') + ' ' + remaining + '.');
+        if (activeOptions.length < activeChoiceCount) {
+          status.textContent += ' Algunas opciones ya las concede la clase o el trasfondo; revisá esas elecciones antes de continuar.';
+        }
+      } else if (fixedSkills.length) {
+        status.textContent = (activeSource ? 'Fuente: ' + activeSource + '. ' : '') +
+          'Este linaje concede sus habilidades automáticamente; no hay elecciones adicionales registradas.';
+      } else {
+        const item = document.createElement('li');
+        item.textContent = 'El catálogo no registra habilidades concretas para este linaje.';
+        details.appendChild(item);
+        status.textContent = 'No hay habilidades registradas para seleccionar.';
+      }
+      syncHiddenValue();
+    };
+
+    window.creatorPersonarumRefreshLineageSkills = () => render();
+    window.creatorPersonarumApplyRestoredLineageSkills = (skills) => {
+      if (Array.isArray(skills)) {
+        selectedSkills = skills;
+        render(skills);
+        return;
+      }
+      if (!pendingRestoredLineageSkills) return;
+      if (normalize(pendingRestoredLineageSkills.lineage) !== normalize(select.value)) return;
+      const restored = pendingRestoredLineageSkills.skills;
+      pendingRestoredLineageSkills = null;
+      render(restored);
+    };
+    window.creatorPersonarumGetLineageSkillSelection = () => ({
+      requiredCount: activeChoiceCount,
+      selected: [...selectedSkills],
+      lineageName: activeLineageName,
+      lineageValue: activeLineageValue
+    });
+
+    select.addEventListener('change', () => {
+      activeLineageValue = '';
+      selectedSkills = [];
+      render();
+      if (pendingRestoredLineageSkills &&
+          normalize(pendingRestoredLineageSkills.lineage) === normalize(select.value)) {
+        window.creatorPersonarumApplyRestoredLineageSkills();
+      }
+    });
+    classSelect?.addEventListener('change', () => window.creatorPersonarumRefreshLineageSkills());
+    backgroundSelect?.addEventListener('change', () => window.creatorPersonarumRefreshLineageSkills());
+    byId('creator-class-skills-list')?.addEventListener('change', () => window.creatorPersonarumRefreshLineageSkills());
+    byId('creator-background-skills-list')?.addEventListener('change', () => window.creatorPersonarumRefreshLineageSkills());
+    window.addEventListener('creator-personarum:refresh-lineage-skills', () => window.creatorPersonarumRefreshLineageSkills());
+    render();
+  }
   function appendClasses(records) {
     const select = byId('creator-character-class');
     const seen = new Set();
@@ -410,6 +693,7 @@
 
     const syncHiddenValue = () => {
       hiddenInput.value = JSON.stringify(selectedSkills);
+      window.dispatchEvent(new CustomEvent('creator-personarum:refresh-lineage-skills'));
     };
 
     const render = (restoreSkills) => {
@@ -626,6 +910,7 @@
 
     const syncHiddenValue = () => {
       hiddenInput.value = JSON.stringify(selectedSkills);
+      window.dispatchEvent(new CustomEvent('creator-personarum:refresh-lineage-skills'));
     };
 
     const updateStatus = (source) => {

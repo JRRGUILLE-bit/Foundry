@@ -215,6 +215,19 @@
             </select>
           </label>
 
+          <section id="creator-lineage-skills-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-lineage-skills-title">
+            <div class="creator-divine-heading">
+              <span class="creator-divine-kicker">CATÁLOGO PERMITIDO // D&D 5E LEGACY</span>
+              <h2 id="creator-lineage-skills-title">HABILIDADES DEL LINAJE</h2>
+              <p>Algunos linajes conceden habilidades automáticamente o permiten elegir entre varias. Las opciones que ya te concede la clase o el trasfondo no se vuelven a contar aquí.</p>
+            </div>
+            <ul id="creator-lineage-skills-list" class="creator-deity-details" aria-live="polite">
+              <li>Elegí un linaje para consultar sus habilidades.</li>
+            </ul>
+            <input type="hidden" id="creator-selected-lineage-skills" name="selectedLineageSkills" value="[]">
+            <p id="creator-lineage-skills-status" class="creator-deity-guidance" role="status" aria-live="polite">La selección se guarda en el borrador.</p>
+          </section>
+
           <label id="creator-custom-lineage-field" class="creator-field creator-field-wide" for="creator-custom-lineage" hidden>
             <span>NOMBRE DEL LINAJE PERSONALIZADO</span>
             <input id="creator-custom-lineage" name="customLineage" type="text" maxlength="80" autocomplete="off" placeholder="Escribí cualquier otro linaje permitido por la campaña">
@@ -449,6 +462,6 @@
   </main>
 
   <script src="creator-personarum.js?v=20261027-6"></script>
-  <script src="creator-personarum-catalog.js?v=20261027-12"></script>
+  <script src="creator-personarum-catalog.js?v=20261027-13"></script>
 </body>
 </html>

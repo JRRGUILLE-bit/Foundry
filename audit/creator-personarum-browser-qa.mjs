@@ -90,6 +90,19 @@ try {
   // Open the character form before interacting with its controls.
   await page.locator('#creator-known-path-button').click();
 
+  // Lineages with skill choices expose catalogued options and enforce their count.
+  const lineageSelect = page.locator('#creator-lineage');
+  const lineageSkills = page.locator('#creator-lineage-skills-list');
+  await lineageSelect.selectOption({ label: 'Humano — Variante' });
+  assert.match(await lineageSkills.innerText(), /Elegí 1 habilidad entre estas opciones/, 'Variant Human should offer one selectable skill');
+  const humanVariantSkills = lineageSkills.locator('input[type="checkbox"]');
+  assert.ok(await humanVariantSkills.count() > 1, 'Variant Human should expose selectable skills');
+  await humanVariantSkills.nth(0).check();
+  assert.equal(await lineageSkills.locator('input[type="checkbox"]:checked').count(), 1, 'Variant Human should allow exactly one selected skill');
+  assert.equal(await humanVariantSkills.nth(1).isDisabled(), true, 'Variant Human should disable extra skills at its limit');
+  assert.equal(JSON.parse(await page.locator('#creator-selected-lineage-skills').inputValue()).length, 1, 'Lineage choices should be mirrored into the draft field');
+  await lineageSelect.selectOption({ label: 'Otro / personalizado' });
+
   // Class skill options are shown from the Legacy/2014 class rules.
   const classSelect = page.locator('#creator-character-class');
   const classSkillList = page.locator('#creator-class-skills-list');
@@ -214,7 +227,9 @@ try {
       && Array.isArray(draft.selectedClassSkills)
       && draft.selectedClassSkills.length === 2
       && Array.isArray(draft.selectedBackgroundSkills)
-      && draft.selectedBackgroundSkills.length === 2;
+      && draft.selectedBackgroundSkills.length === 2
+      && Array.isArray(draft.selectedLineageSkills)
+      && draft.selectedLineageSkills.length === 0;
   }, { expectedSubclass: fighterSubclassValue, expectedFeat: selectedFeatValue });
   const [knownDownload] = await Promise.all([
     page.waitForEvent('download'),

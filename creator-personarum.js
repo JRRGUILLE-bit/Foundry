@@ -243,6 +243,7 @@
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-spells'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-class-skills'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-background-skills'));
+    window.dispatchEvent(new CustomEvent('creator-personarum:reset-lineage-skills'));
     classSelect.dispatchEvent(new Event('change', { bubbles: true }));
     updateCustomLineageField();
     document.getElementById('creator-level').value = '1';
@@ -474,6 +475,13 @@
     } catch (error) {
       selectedBackgroundSkills = [];
     }
+    let selectedLineageSkills = [];
+    try {
+      const parsedLineageSkills = JSON.parse(document.getElementById('creator-selected-lineage-skills').value || '[]');
+      if (Array.isArray(parsedLineageSkills)) selectedLineageSkills = parsedLineageSkills.filter(skill => typeof skill === 'string');
+    } catch (error) {
+      selectedLineageSkills = [];
+    }
     let selectedClassSkills = [];
     try {
       const parsedClassSkills = JSON.parse(document.getElementById('creator-selected-class-skills').value || '[]');
@@ -492,6 +500,7 @@
       selectedSpells,
       selectedClassSkills,
       selectedBackgroundSkills,
+      selectedLineageSkills,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
@@ -601,6 +610,13 @@
           skills: Array.isArray(draft.selectedBackgroundSkills) ? draft.selectedBackgroundSkills : []
         }
       }));
+      lineageSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-lineage-skills', {
+        detail: {
+          lineage: lineageSelect.value,
+          skills: Array.isArray(draft.selectedLineageSkills) ? draft.selectedLineageSkills : []
+        }
+      }));
       document.getElementById('creator-level').value = String(draft.level || 1);
       document.getElementById('creator-concept').value = draft.concept || '';
       exportDraftButton.disabled = false;
@@ -632,6 +648,26 @@
       levelInput.setCustomValidity('El nivel debe estar entre 1 y 20.');
       levelInput.reportValidity();
       levelInput.setCustomValidity('');
+      return;
+    }
+
+    const lineageSkillSelection = typeof window.creatorPersonarumGetLineageSkillSelection === 'function'
+      ? window.creatorPersonarumGetLineageSkillSelection()
+      : null;
+    if (currentMode !== CREATION_MODES.explore
+        && values.lineage
+        && lineageSkillSelection
+        && lineageSkillSelection.requiredCount > 0
+        && values.selectedLineageSkills.length !== lineageSkillSelection.requiredCount) {
+      setDraftStatus('Elegí exactamente ' + lineageSkillSelection.requiredCount +
+        (lineageSkillSelection.requiredCount === 1 ? ' habilidad' : ' habilidades') +
+        ' para el linaje ' + lineageSkillSelection.lineageName + ' antes de guardar.', 'error');
+      const lineageSkillList = document.getElementById('creator-lineage-skills-list');
+      if (lineageSkillList) {
+        lineageSkillList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const firstChoice = lineageSkillList.querySelector('input[type="checkbox"]');
+        if (firstChoice) firstChoice.focus();
+      }
       return;
     }
 
@@ -697,6 +733,7 @@
       selectedSpells: values.selectedSpells,
       selectedClassSkills: values.selectedClassSkills,
       selectedBackgroundSkills: values.selectedBackgroundSkills,
+      selectedLineageSkills: values.selectedLineageSkills,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,
