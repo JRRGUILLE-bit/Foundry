@@ -984,6 +984,33 @@
       !Array.isArray(draft.selectedLineageLanguages)
       ? Object.values(draft.selectedLineageLanguages).flat().filter(language => typeof language === 'string' && language.trim())
       : [];
+    const foundryLanguageKeyBySelection = {
+      abyssal: 'abyssal',
+      aquan: 'aquan',
+      auran: 'auran',
+      celestial: 'celestial',
+      common: 'common',
+      'deep speech': 'deep',
+      draconic: 'draconic',
+      druidic: 'druidic',
+      dwarvish: 'dwarvish',
+      elvish: 'elvish',
+      giant: 'giant',
+      gnomish: 'gnomish',
+      goblin: 'goblin',
+      halfling: 'halfling',
+      ignan: 'ignan',
+      infernal: 'infernal',
+      orc: 'orc',
+      primordial: 'primordial',
+      sylvan: 'sylvan',
+      terran: 'terran',
+      "thieves' cant": 'cant',
+      undercommon: 'undercommon'
+    };
+    const foundryLanguageKeys = [...new Set(selectedLineageLanguages
+      .map(language => foundryLanguageKeyBySelection[language.toLowerCase().trim()])
+      .filter(Boolean))];
     const abilityLabels = {
       str: 'Fuerza',
       dex: 'Destreza',
@@ -1040,6 +1067,12 @@
       type: 'character',
       system: {
         skills: foundrySkills,
+        traits: {
+          languages: {
+            value: foundryLanguageKeys,
+            custom: ''
+          }
+        },
         details: {
           race: typeof draft.lineage === 'string' && draft.lineage.trim() ? draft.lineage.trim() : null,
           background: typeof draft.background === 'string' && draft.background.trim() ? draft.background.trim() : null,

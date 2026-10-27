@@ -230,6 +230,16 @@ try {
   });
   assert.equal(Object.values(savedLanguageChoices).flat()[0], chosenOptionalLanguage, 'Saved draft should contain the chosen optional language');
 
+  const [halfElfActorDownload] = await Promise.all([
+    page.waitForEvent('download'),
+    page.locator('#creator-export-foundry-actor').click()
+  ]);
+  const halfElfActorData = JSON.parse(fs.readFileSync(await halfElfActorDownload.path(), 'utf8'));
+  assert.ok(
+    halfElfActorData.system.traits.languages.value.includes(chosenOptionalLanguage),
+    'Foundry Actor export should store the chosen standard lineage language in the native language trait'
+  );
+
   await page.reload({ waitUntil: 'domcontentloaded' });
   await waitForAtlas();
   await exposeWorkspace();
