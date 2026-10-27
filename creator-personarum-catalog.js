@@ -268,6 +268,9 @@
   // The approved catalog omits spell-class eligibility, so availability is indexed by exact spell name.
   // Base lists use the 2014 SRD dataset; Cleric retains its expanded catalogued list and Artificer
   // includes its published 2014 class list. Every result is intersected with the approved catalog.
+  // Class spell lists use the D&D 5e 2014 SRD spell-class index.
+  // The existing expanded Cleric names and official 2014 Artificer list are retained.
+  // All entries are intersected with the already-filtered campaign catalog below.
   const SPELL_CLASS_NAME_INDEX = {
     artifice: new Set([
       "Absorb Elements", "Acid Splash", "Aid", "Air Bubble", "Alarm",
@@ -368,15 +371,6 @@
       "Wall of Stone", "Wall of Thorns", "Water Breathing", "Water Walk", "Wind Walk",
       "Wind Wall"
     ].map(normalize)),
-    paladin: new Set([
-      "Aid", "Banishment", "Bless", "Branding Smite", "Command",
-      "Create Food and Water", "Cure Wounds", "Daylight", "Death Ward", "Detect Evil and Good",
-      "Detect Magic", "Detect Poison and Disease", "Dispel Evil and Good", "Dispel Magic", "Divine Favor",
-      "Find Steed", "Geas", "Heroism", "Lesser Restoration", "Locate Creature",
-      "Locate Object", "Magic Circle", "Magic Weapon", "Protection from Evil and Good", "Protection from Poison",
-      "Purify Food and Drink", "Raise Dead", "Remove Curse", "Revivify", "Shield of Faith",
-      "Zone of Truth"
-    ].map(normalize)),
     explorador: new Set([
       "Alarm", "Animal Friendship", "Animal Messenger", "Barkskin", "Commune With Nature",
       "Conjure Animals", "Conjure Woodland Beings", "Cure Wounds", "Darkvision", "Daylight",
@@ -412,21 +406,6 @@
       "Sunburst", "Telekinesis", "Teleport", "Teleportation Circle", "Thunderwave",
       "Time Stop", "Tongues", "True Seeing", "True Strike", "Wall of Fire",
       "Wall of Stone", "Water Breathing", "Water Walk", "Web", "Wish"
-    ].map(normalize)),
-    brujo: new Set([
-      "Astral Projection", "Banishment", "Blight", "Charm Person", "Chill Touch",
-      "Circle of Death", "Comprehend Languages", "Conjure Fey", "Contact Other Plane", "Counterspell",
-      "Create Undead", "Darkness", "Demiplane", "Dimension Door", "Dispel Magic",
-      "Dominate Monster", "Dream", "Eldritch Blast", "Enthrall", "Etherealness",
-      "Expeditious Retreat", "Eyebite", "Fear", "Feeblemind", "Finger of Death",
-      "Flesh to Stone", "Fly", "Forcecage", "Foresight", "Gaseous Form",
-      "Glibness", "Hallucinatory Terrain", "Hellish Rebuke", "Hold Monster", "Hold Person",
-      "Hypnotic Pattern", "Illusory Script", "Imprisonment", "Invisibility", "Mage Hand",
-      "Magic Circle", "Major Image", "Mass Suggestion", "Minor Illusion", "Mirror Image",
-      "Misty Step", "Plane Shift", "Poison Spray", "Power Word Kill", "Power Word Stun",
-      "Prestidigitation", "Protection from Evil and Good", "Ray of Enfeeblement", "Remove Curse", "Scrying",
-      "Shatter", "Spider Climb", "Suggestion", "Tongues", "True Polymorph",
-      "True Seeing", "True Strike", "Unseen Servant", "Vampiric Touch"
     ].map(normalize)),
     mago: new Set([
       "Acid Arrow", "Acid Splash", "Alarm", "Alter Self", "Animate Dead",
@@ -470,6 +449,30 @@
       "Tongues", "True Polymorph", "True Seeing", "True Strike", "Unseen Servant",
       "Vampiric Touch", "Wall of Fire", "Wall of Force", "Wall of Ice", "Wall of Stone",
       "Water Breathing", "Web", "Weird", "Wish"
+    ].map(normalize)),
+    paladin: new Set([
+      "Aid", "Banishment", "Bless", "Branding Smite", "Command",
+      "Create Food and Water", "Cure Wounds", "Daylight", "Death Ward", "Detect Evil and Good",
+      "Detect Magic", "Detect Poison and Disease", "Dispel Evil and Good", "Dispel Magic", "Divine Favor",
+      "Find Steed", "Geas", "Heroism", "Lesser Restoration", "Locate Creature",
+      "Locate Object", "Magic Circle", "Magic Weapon", "Protection from Evil and Good", "Protection from Poison",
+      "Purify Food and Drink", "Raise Dead", "Remove Curse", "Revivify", "Shield of Faith",
+      "Zone of Truth"
+    ].map(normalize)),
+    brujo: new Set([
+      "Astral Projection", "Banishment", "Blight", "Charm Person", "Chill Touch",
+      "Circle of Death", "Comprehend Languages", "Conjure Fey", "Contact Other Plane", "Counterspell",
+      "Create Undead", "Darkness", "Demiplane", "Dimension Door", "Dispel Magic",
+      "Dominate Monster", "Dream", "Eldritch Blast", "Enthrall", "Etherealness",
+      "Expeditious Retreat", "Eyebite", "Fear", "Feeblemind", "Finger of Death",
+      "Flesh to Stone", "Fly", "Forcecage", "Foresight", "Gaseous Form",
+      "Glibness", "Hallucinatory Terrain", "Hellish Rebuke", "Hold Monster", "Hold Person",
+      "Hypnotic Pattern", "Illusory Script", "Imprisonment", "Invisibility", "Mage Hand",
+      "Magic Circle", "Major Image", "Mass Suggestion", "Minor Illusion", "Mirror Image",
+      "Misty Step", "Plane Shift", "Poison Spray", "Power Word Kill", "Power Word Stun",
+      "Prestidigitation", "Protection from Evil and Good", "Ray of Enfeeblement", "Remove Curse", "Scrying",
+      "Shatter", "Spider Climb", "Suggestion", "Tongues", "True Polymorph",
+      "True Seeing", "True Strike", "Unseen Servant", "Vampiric Touch"
     ].map(normalize))
   };
 
