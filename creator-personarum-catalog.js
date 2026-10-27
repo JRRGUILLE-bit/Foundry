@@ -1753,8 +1753,6 @@
     const refresh = () => {
       const selectedClass = normalize(classSelect.value);
       const isWarlock = selectedClass === 'brujo' || selectedClass === 'warlock';
-      const warlockCanonNote = byId('creator-warlock-canon-note');
-      if (warlockCanonNote) warlockCanonNote.hidden = !isWarlock;
       const matching = rows.filter(item => {
         const className = translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS);
         if (!selectedClass || normalize(className) !== selectedClass) return false;
