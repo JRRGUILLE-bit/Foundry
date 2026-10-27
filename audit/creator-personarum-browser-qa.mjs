@@ -558,6 +558,11 @@ try {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
     return draft && draft.originRegion === 'abigur-imperium-ravum-el-imperio-gris'
       && draft.originRegionName === 'Imperium Ravum (el Imperio Gris)'
+      && draft.originRegionContext.id === 'abigur-imperium-ravum-el-imperio-gris'
+      && draft.originRegionContext.continent === 'Abigur'
+      && draft.originRegionContext.sourcePage === 'Continente de Abigur'
+      && typeof draft.originRegionContext.summary === 'string'
+      && draft.originRegionContext.summary.length > 0
       && draft.originStory === 'Crecí entre viajeros y aprendí a desconfiar de los caminos seguros.'
       && draft.lineage === 'Tortuga viajera'
       && draft.lineageChoice === 'Otro / personalizado'
@@ -577,6 +582,8 @@ try {
   assert.equal(knownDownload.suggestedFilename(), 'creator-personarum-personaje.json');
   const knownExport = JSON.parse(fs.readFileSync(await knownDownload.path(), 'utf8'));
   assert.equal(knownExport.originContinent, 'Abigur');
+  assert.equal(knownExport.originRegionContext.sourcePage, 'Continente de Abigur', 'Export should preserve the canonical Atlas source page');
+  assert.ok(knownExport.originRegionContext.summary.length > 0, 'Export should preserve the canonical region summary');
   assert.equal(knownExport.originStory, originStory, 'Exported draft should include the written origin story');
   assert.equal(knownExport.lineage, 'Tortuga viajera');
   assert.equal(knownExport.selectedClassSkills.length, 2, 'Exported draft should include the two selected class skills');

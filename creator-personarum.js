@@ -502,6 +502,23 @@
     } catch (error) {
       selectedClassSkills = [];
     }
+    const selectedOriginRegion = getSelectedOriginRegion();
+    const savedOriginContext = savedDraft &&
+      savedDraft.originRegion === originRegionSelect.value &&
+      savedDraft.originRegionContext &&
+      typeof savedDraft.originRegionContext === 'object' &&
+      !Array.isArray(savedDraft.originRegionContext)
+      ? savedDraft.originRegionContext
+      : null;
+    const originRegionContext = selectedOriginRegion
+      ? {
+          id: selectedOriginRegion.id,
+          name: selectedOriginRegion.name,
+          continent: selectedOriginRegion.group,
+          sourcePage: selectedOriginRegion.sourcePage,
+          summary: selectedOriginRegion.summary
+        }
+      : savedOriginContext;
     return {
       name: nameInput.value.trim(),
       skillLanguage: document.getElementById('creator-skill-language')?.value === 'en' ? 'en' : 'es',
@@ -522,8 +539,9 @@
       deity: deitySelect.value,
       deityName: getSelectedDeity() ? getSelectedDeity().name : '',
       originRegion: originRegionSelect.value,
-      originRegionName: getSelectedOriginRegion() ? getSelectedOriginRegion().name : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originRegionName || '' : ''),
-      originContinent: getSelectedOriginRegion() ? getSelectedOriginRegion().group : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originContinent || '' : ''),
+      originRegionName: selectedOriginRegion ? selectedOriginRegion.name : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originRegionName || '' : ''),
+      originContinent: selectedOriginRegion ? selectedOriginRegion.group : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originContinent || '' : ''),
+      originRegionContext,
       originStory: document.getElementById('creator-origin-story').value.trim()
     };
   }
@@ -869,6 +887,7 @@
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,
+      originRegionContext: values.originRegionContext,
       originStory: values.originStory,
       deity: values.deity,
       deityName: values.deityName,
