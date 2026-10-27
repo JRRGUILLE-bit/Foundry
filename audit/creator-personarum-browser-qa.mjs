@@ -549,6 +549,14 @@ try {
   );
   assert.match(await page.locator('#creator-preview-origin').innerText(), /Imperium Ravum/);
   const storyProposalButton = page.locator('#creator-origin-story-draft');
+  await page.locator('#creator-origin-region').selectOption('');
+  await storyProposalButton.click();
+  assert.equal(await page.locator('#creator-origin-story').inputValue(), '',
+    'The story proposal should remain empty when no Atlas region is selected');
+  assert.match(await page.locator('#creator-origin-story-status').innerText(),
+    /Elegí una región oficial del Atlas/,
+    'The story proposal should explain that a canonical region must be selected first');
+  await page.locator('#creator-origin-region').selectOption({ value: greyEmpireId });
   await page.locator('#creator-concept').fill('Una promesa de proteger a quienes viajan.');
   await storyProposalButton.click();
   const storyProposal = await page.locator('#creator-origin-story').inputValue();
