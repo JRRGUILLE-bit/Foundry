@@ -641,6 +641,16 @@
             : {}
         }
       }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-lineage-abilities', {
+        detail: {
+          lineage: lineageSelect.value,
+          selectedByChoice: draft.selectedLineageAbilities &&
+            typeof draft.selectedLineageAbilities === 'object' &&
+            !Array.isArray(draft.selectedLineageAbilities)
+            ? draft.selectedLineageAbilities
+            : {}
+        }
+      }));
       document.getElementById('creator-level').value = String(draft.level || 1);
       document.getElementById('creator-concept').value = draft.concept || '';
       exportDraftButton.disabled = false;
