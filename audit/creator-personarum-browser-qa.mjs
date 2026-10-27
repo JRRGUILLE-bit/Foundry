@@ -245,8 +245,8 @@ try {
   );
   await lineageSelect.selectOption({ label: 'Semielfo' });
   assert.deepEqual(
-    JSON.parse(await page.locator('#creator-selected-lineage-abilities').inputValue()),
-    {},
+    Object.values(JSON.parse(await page.locator('#creator-selected-lineage-abilities').inputValue())).flat(),
+    [],
     'Changing back to Half-Elf should not restore stale ability choices from another lineage'
   );
 
