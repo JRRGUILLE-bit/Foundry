@@ -1,0 +1,64 @@
+name: Build Creator Personarum player-option catalog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/build-creator-personarum-catalog.yml"
+      - "scripts/build-creator-personarum-metadata-index.mjs"
+      - "scripts/filter-creator-personarum-options.mjs"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  build-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout web repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Checkout pinned D&D 5e Legacy/2014 source index
+        uses: actions/checkout@v4
+        with:
+          repository: 5etools-mirror-3/5etools-2014-src
+          ref: 26fdaebc48e66a1494c6092b97c60a3c4674c6d4
+          path: .upstream-5etools-2014
+          sparse-checkout: |
+            data
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build metadata index without long rules prose
+        run: |
+          node scripts/build-creator-personarum-metadata-index.mjs --upstream .upstream-5etools-2014 --output creator-personarum-data/.player-options-metadata-index.json
+
+      - name: Apply campaign source filter
+        run: |
+          node scripts/filter-creator-personarum-options.mjs --input creator-personarum-data/.player-options-metadata-index.json --output creator-personarum-data/player-options.json --books .upstream-5etools-2014/data/books.json --adventures .upstream-5etools-2014/data/adventures.json
+
+      - name: Remove temporary upstream and intermediate index
+        run: |
+          rm -rf .upstream-5etools-2014
+          rm -f creator-personarum-data/.player-options-metadata-index.json
+
+      - name: Commit refreshed public metadata catalog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add creator-personarum-data/player-options.json
+          if git diff --cached --quiet; then
+            echo "Creator Personarum catalog is already up to date."
+            exit 0
+          fi
+          git commit -m "chore: refresh filtered Creator Personarum catalog"
+          git push origin main
