@@ -2,13 +2,23 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const args = Object.fromEntries(process.argv.slice(2).reduce((out, token, i, all) => {
-  if (!token.startsWith("--")) return out;
-  const eq = token.indexOf("=");
-  if (eq > 2) out[token.slice(2, eq)] = token.slice(eq + 1);
-  else out[token.slice(2)] = all[i + 1] && !all[i + 1].startsWith("--") ? all[i + 1] : true;
+function parseArgs(argv) {
+  const out = {};
+  for (let i = 0; i < argv.length; i += 1) {
+    const token = argv[i];
+    if (!token.startsWith("--")) continue;
+    const eq = token.indexOf("=");
+    if (eq > 2) out[token.slice(2, eq)] = token.slice(eq + 1);
+    else {
+      const key = token.slice(2);
+      const next = argv[i + 1];
+      if (next && !next.startsWith("--")) { out[key] = next; i += 1; }
+      else out[key] = true;
+    }
+  }
   return out;
-}, {}));
+}
+const args = parseArgs(process.argv.slice(2));
 const root = process.cwd();
 const input = String(args.input ?? "creator-personarum-data/.player-options-metadata-index.json");
 const output = String(args.output ?? "creator-personarum-data/player-options.json");
