@@ -35972,6 +35972,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Genasi",
       "ability": [
         {
           "dex": 1
@@ -35986,6 +35987,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Genasi",
       "speed": 35
     },
     {
@@ -35995,7 +35997,8 @@
       "page": 21,
       "id": null,
       "ruleset": "dnd5e_2014",
-      "reference_url": "https://5e.tools/"
+      "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling"
     },
     {
       "category": "species_variant",
@@ -36004,7 +36007,8 @@
       "page": 21,
       "id": null,
       "ruleset": "dnd5e_2014",
-      "reference_url": "https://5e.tools/"
+      "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling"
     },
     {
       "category": "species_variant",
@@ -36014,6 +36018,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Shifter",
       "ability": [
         {
           "str": 1,
@@ -36034,6 +36039,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Gnome",
       "ability": [
         {
           "dex": 1
@@ -36055,6 +36061,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Gnome",
       "ability": [
         {
           "dex": 1
@@ -36076,6 +36083,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "dex": 1,
@@ -36091,6 +36099,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Elf",
       "ability": [
         {
           "cha": 1
@@ -36112,6 +36121,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Dwarf",
       "ability": [
         {
           "str": 1
@@ -36133,6 +36143,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Genasi",
       "ability": [
         {
           "str": 1
@@ -36146,7 +36157,8 @@
       "page": 17,
       "id": null,
       "ruleset": "dnd5e_2014",
-      "reference_url": "https://5e.tools/"
+      "reference_url": "https://5e.tools/",
+      "parent_name": "Genasi"
     },
     {
       "category": "species_variant",
@@ -36156,6 +36168,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Elf",
       "ability": [
         {
           "int": 1
@@ -36178,6 +36191,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Elf",
       "ability": [
         {
           "cha": 1
@@ -36192,6 +36206,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Aasimar",
       "ability": [
         {
           "str": 1
@@ -36206,6 +36221,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "wis": 1,
@@ -36221,6 +36237,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Genasi",
       "ability": [
         {
           "int": 1
@@ -36234,7 +36251,8 @@
       "page": 17,
       "id": null,
       "ruleset": "dnd5e_2014",
-      "reference_url": "https://5e.tools/"
+      "reference_url": "https://5e.tools/",
+      "parent_name": "Genasi"
     },
     {
       "category": "species_variant",
@@ -36244,6 +36262,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Gnome",
       "ability": [
         {
           "dex": 1
@@ -36258,6 +36277,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Halfling",
       "ability": [
         {
           "wis": 1
@@ -36272,6 +36292,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Gith",
       "ability": [
         {
           "str": 2
@@ -36299,6 +36320,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Gith",
       "ability": [
         {
           "wis": 2
@@ -36313,6 +36335,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "dex": 1,
@@ -36328,6 +36351,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Elf",
       "ability": [
         {
           "int": 1
@@ -36358,6 +36382,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Dwarf",
       "ability": [
         {
           "wis": 1
@@ -36372,6 +36397,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "con": 1,
@@ -36387,6 +36413,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Halfling",
       "ability": [
         {
           "cha": 1
@@ -36401,6 +36428,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Shifter",
       "ability": [
         {
           "str": 2,
@@ -36420,7 +36448,8 @@
       "page": 22,
       "id": null,
       "ruleset": "dnd5e_2014",
-      "reference_url": "https://5e.tools/"
+      "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling"
     },
     {
       "category": "species_variant",
@@ -36430,6 +36459,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Human",
       "ability": [
         {
           "wis": 2,
@@ -36454,6 +36484,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Halfling",
       "ability": [
         {
           "wis": 1
@@ -36468,6 +36499,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Halfling",
       "ability": [
         {
           "cha": 1
@@ -36482,6 +36514,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Human",
       "ability": [
         {
           "int": 2,
@@ -36511,6 +36544,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Human",
       "ability": [
         {
           "dex": 2,
@@ -36536,6 +36570,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Gnome",
       "ability": [
         {
           "cha": 1
@@ -36550,6 +36585,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Human",
       "ability": [
         {
           "con": 2,
@@ -36565,6 +36601,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Elf",
       "ability": [
         {
           "cha": 1
@@ -36579,6 +36616,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Dwarf",
       "ability": [
         {
           "int": 1
@@ -36592,7 +36630,8 @@
       "page": 23,
       "id": null,
       "ruleset": "dnd5e_2014",
-      "reference_url": "https://5e.tools/"
+      "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling"
     },
     {
       "category": "species_variant",
@@ -36602,6 +36641,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Dwarf",
       "ability": [
         {
           "str": 2
@@ -36622,6 +36662,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Aasimar",
       "ability": [
         {
           "wis": 1
@@ -36636,6 +36677,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Gnome",
       "ability": [
         {
           "con": 1
@@ -36655,6 +36697,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Aasimar",
       "ability": [
         {
           "con": 1
@@ -36669,6 +36712,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Elf",
       "ability": [
         {
           "con": 1
@@ -36702,6 +36746,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Elf",
       "ability": [
         {
           "con": 1
@@ -36716,6 +36761,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Halfling",
       "ability": [
         {
           "con": 1
@@ -36730,6 +36776,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Shifter",
       "ability": [
         {
           "dex": 2,
@@ -36750,6 +36797,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Human",
       "ability": [
         {
           "choose": {
@@ -36779,6 +36827,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Half-Elf",
       "speed": 30
     },
     {
@@ -36789,6 +36838,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "int": 1,
@@ -36811,6 +36861,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Half-Elf",
       "skillProficiencies": [
         {
           "any": 2
@@ -36825,6 +36876,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "int": 1,
@@ -36847,6 +36899,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "int": 1,
@@ -36869,6 +36922,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Half-Elf",
       "ability": [
         {
           "wis": 2,
@@ -36894,6 +36948,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Half-Orc",
       "skillProficiencies": null,
       "languageProficiencies": [
         {
@@ -36910,6 +36965,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Half-Elf",
       "ability": [
         {
           "dex": 1,
@@ -36926,6 +36982,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Half-Elf",
       "skillProficiencies": [
         {
           "any": 2
@@ -36948,6 +37005,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "int": 1,
@@ -36974,6 +37032,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Half-Elf",
       "skillProficiencies": [
         {
           "any": 2
@@ -36996,6 +37055,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Genasi",
       "ability": [
         {
           "wis": 1
@@ -37014,6 +37074,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Genasi",
       "speed": {
         "walk": 30,
         "swim": true
@@ -37027,6 +37088,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Shifter",
       "ability": [
         {
           "dex": 1,
@@ -37047,6 +37109,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Elf",
       "ability": [
         {
           "wis": 1
@@ -37070,6 +37133,7 @@
       "id": null,
       "ruleset": "dnd5e_2014",
       "reference_url": "https://5e.tools/",
+      "parent_name": "Tiefling",
       "ability": [
         {
           "str": 1,
