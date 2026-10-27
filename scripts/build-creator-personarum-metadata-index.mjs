@@ -114,7 +114,7 @@ function readCollection(relativePath, prop, category, extraForRecord=()=>({})) {
 readCollection("data/feats.json", "feat", "feat");
 readCollection("data/backgrounds.json", "background", "background");
 readCollection("data/races.json", "race", "species");
-readCollection("data/races.json", "subrace", "species_variant");
+readCollection("data/races.json", "subrace", "species_variant", record => ({ parent_name: record.raceName ?? record._copy?.raceName ?? null }));
 readCollection("data/items-base.json", "baseitem", "equipment");
 readCollection("data/items.json", "item", "equipment");
 readCollection("data/magicvariants.json", "variant", "equipment_variant");
