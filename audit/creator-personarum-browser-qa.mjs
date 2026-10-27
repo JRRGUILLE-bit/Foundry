@@ -845,6 +845,16 @@ try {
     'Saved player concept should be restored exactly after reload'
   );
   assert.equal(
+    await page.locator('#creator-character-name').inputValue(),
+    'Ariadna QA',
+    'Saved character name should be restored in the exploration path'
+  );
+  assert.equal(
+    await page.locator('#creator-preview-name').innerText(),
+    'Ariadna QA',
+    'Restored exploration preview should display the saved character name'
+  );
+  assert.equal(
     await page.locator('#creator-feat').inputValue(),
     selectedFeatValue,
     'Saved feat should be restored in the exploration path'
