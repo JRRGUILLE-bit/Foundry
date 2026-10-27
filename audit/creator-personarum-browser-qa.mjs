@@ -655,7 +655,7 @@ try {
   const creatorPersonarumMetadata = knownActorExport.flags.world.creatorPersonarum;
   assert.equal(creatorPersonarumMetadata.schemaVersion, 1, 'Actor should carry a versioned Creator Personarum metadata block');
   assert.equal(creatorPersonarumMetadata.draft.name, 'QA Aventurero', 'Structured metadata should preserve the original character name');
-  assert.equal(creatorPersonarumMetadata.draft.mode, 'known', 'Structured metadata should preserve the creation path');
+  assert.equal(creatorPersonarumMetadata.draft.mode, 'known-character', 'Structured metadata should preserve the creation path');
   assert.equal(creatorPersonarumMetadata.draft.concept, 'Una promesa de proteger a quienes viajan.', 'Structured metadata should preserve the player concept');
   assert.equal(creatorPersonarumMetadata.draft.originRegionContext.sourcePage, 'Continente de Abigur',
     'Structured metadata should preserve the canonical Atlas source');
