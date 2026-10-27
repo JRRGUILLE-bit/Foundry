@@ -531,6 +531,27 @@
     const name = values.name || 'Sin definir';
     document.getElementById('creator-preview-name').textContent = name;
     document.getElementById('creator-preview-lineage').textContent = values.lineage || 'Sin definir';
+    const abilityLabels = {
+      str: 'Fuerza',
+      dex: 'Destreza',
+      con: 'Constitución',
+      int: 'Inteligencia',
+      wis: 'Sabiduría',
+      cha: 'Carisma'
+    };
+    const lineageAbilityChoices = values.selectedLineageAbilities &&
+      typeof values.selectedLineageAbilities === 'object' &&
+      !Array.isArray(values.selectedLineageAbilities)
+      ? values.selectedLineageAbilities
+      : {};
+    const selectedLineageAbilityNames = [...new Set(
+      Object.values(lineageAbilityChoices).flat()
+        .filter(key => typeof key === 'string')
+        .map(key => abilityLabels[key])
+        .filter(Boolean)
+    )];
+    document.getElementById('creator-preview-lineage-abilities-row').hidden = selectedLineageAbilityNames.length === 0;
+    document.getElementById('creator-preview-lineage-abilities').textContent = selectedLineageAbilityNames.join(', ');
     document.getElementById('creator-preview-class').textContent = values.characterClass || 'Sin definir';
     document.getElementById('creator-preview-subclass-row').hidden = !values.subclass;
     document.getElementById('creator-preview-subclass').textContent = values.subclass || 'A definir';
