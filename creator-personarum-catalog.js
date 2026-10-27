@@ -775,6 +775,47 @@
         return;
       }
 
+      const movementLabels = {
+        walk: 'a pie',
+        fly: 'vuelo',
+        swim: 'natación',
+        climb: 'trepar',
+        burrow: 'excavar'
+      };
+      let movementRecord = lineage;
+      if (movementRecord.speed == null && lineage.parent_name) {
+        const parentKey = normalize(lineage.parent_name);
+        movementRecord = records.find(item =>
+          item.category === 'species' &&
+          normalize(item.name) === parentKey &&
+          item.source === lineage.source &&
+          item.speed != null
+        ) || records.find(item =>
+          item.category === 'species' &&
+          normalize(item.name) === parentKey &&
+          item.speed != null
+        ) || lineage;
+      }
+      const speed = movementRecord.speed;
+      const speedEntries = typeof speed === 'number'
+        ? [['walk', speed]]
+        : speed && typeof speed === 'object'
+          ? Object.entries(speed).filter(([key, value]) =>
+              movementLabels[key] &&
+              ((typeof value === 'number' && Number.isFinite(value)) || value === true)
+            )
+          : [];
+      const speedItem = document.createElement('li');
+      speedItem.textContent = speedEntries.length
+        ? 'Velocidad base registrada: ' + speedEntries.map(([mode, value]) =>
+            movementLabels[mode] + (typeof value === 'number' ? ' ' + value + ' pies' : ' (según rasgo de especie)')
+          ).join('; ') + '.'
+        : 'El catálogo no registra una velocidad base para este linaje.';
+      details.appendChild(speedItem);
+
+      const skillsTitle = byId('creator-lineage-skills-title');
+      if (skillsTitle) skillsTitle.textContent = 'RASGOS Y HABILIDADES DEL LINAJE';
+
       const groups = Array.isArray(lineage.skillProficiencies) ? lineage.skillProficiencies : [];
       const fixedSkills = [...new Set(groups.flatMap(group => Object.entries(group || {})
         .filter(([key, value]) => value === true && skillLabels[normalize(key)])
