@@ -143,10 +143,55 @@ try {
   assert.ok(await halfElfSkills.count() >= 2, 'Half-Elf should expose its two skill choices');
   await halfElfSkills.nth(0).check();
   await halfElfSkills.nth(1).check();
+  const skillLabelsForQa = {
+    acrobatics: { es: 'Acrobacias', en: 'Acrobatics' },
+    'animal handling': { es: 'Trato con animales', en: 'Animal Handling' },
+    arcana: { es: 'Arcanos', en: 'Arcana' },
+    athletics: { es: 'Atletismo', en: 'Athletics' },
+    deception: { es: 'Engaño', en: 'Deception' },
+    history: { es: 'Historia', en: 'History' },
+    insight: { es: 'Perspicacia', en: 'Insight' },
+    intimidation: { es: 'Intimidación', en: 'Intimidation' },
+    investigation: { es: 'Investigación', en: 'Investigation' },
+    medicine: { es: 'Medicina', en: 'Medicine' },
+    nature: { es: 'Naturaleza', en: 'Nature' },
+    perception: { es: 'Percepción', en: 'Perception' },
+    performance: { es: 'Interpretación', en: 'Performance' },
+    persuasion: { es: 'Persuasión', en: 'Persuasion' },
+    religion: { es: 'Religión', en: 'Religion' },
+    'sleight of hand': { es: 'Juego de manos', en: 'Sleight of Hand' },
+    stealth: { es: 'Sigilo', en: 'Stealth' },
+    survival: { es: 'Supervivencia', en: 'Survival' }
+  };
+  const chosenSkillKeys = await page.locator(
+    'input[data-lineage-skill-choice]:checked, input[data-class-skill-choice]:checked, input[data-background-skill-choice]:checked'
+  ).evaluateAll(inputs => [...new Set(inputs.map(input => input.value))]);
+  const expectedSkillSummary = language => chosenSkillKeys
+    .map(skill => skillLabelsForQa[skill]?.[language])
+    .filter(Boolean)
+    .join(', ');
   assert.equal(
     await page.locator('#creator-preview-skills').innerText(),
-    'Acrobacias, Trato con animales, Arcanos',
-    'Character preview should show selected skills in Spanish and deduplicate overlap between lineage and class choices'
+    expectedSkillSummary('es'),
+    'Character preview should show the chosen skills in Spanish without duplicates'
+  );
+  await page.locator('#creator-skill-language').selectOption('en');
+  assert.equal(
+    await page.locator('#creator-preview-skills').innerText(),
+    expectedSkillSummary('en'),
+    'Player should be able to switch the skill list and preview to English'
+  );
+  assert.equal(
+    await page.locator('#creator-preview-skills-label').innerText(),
+    'SELECTED SKILLS',
+    'Preview heading should follow the selected skill language'
+  );
+  const selectedEnglishClassLabels = await page.locator('#creator-class-skills-list input[data-class-skill-choice]:checked')
+    .evaluateAll(inputs => inputs.map(input => input.parentElement.textContent.trim()));
+  assert.deepEqual(
+    selectedEnglishClassLabels,
+    ['Acrobatics', 'Animal Handling', 'Arcana'],
+    'Class skill choices should switch to English without losing checked selections'
   );
 
   await halfElfAbilityChoices.nth(1).uncheck();
@@ -215,6 +260,10 @@ try {
     { 'group-0': ['str', 'dex'] },
     'Restored lineage ability selection field should match the saved draft'
   );
+  assert.equal(await page.locator('#creator-skill-language').inputValue(), 'en',
+    'Saved skill language preference should be restored');
+  assert.equal(await page.locator('#creator-preview-skills').innerText(), expectedSkillSummary('en'),
+    'Restored preview should keep the player's English skill preference');
   assert.deepEqual(
     await page.locator('#creator-lineage-skills-list input[data-lineage-ability-choice]:checked')
       .evaluateAll(inputs => inputs.map(input => input.value)),
@@ -237,6 +286,8 @@ try {
     { 'group-0': ['str', 'dex'] },
     'Exported draft should include selected lineage ability choices'
   );
+  assert.equal(lineageAbilityExport.skillLanguage, 'en',
+    'Exported draft should preserve the player-selected skill language');
 
   await lineageSelect.selectOption({ label: 'Elfo' });
   await page.waitForFunction(() => {

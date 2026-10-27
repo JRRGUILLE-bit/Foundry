@@ -3,6 +3,32 @@
 
   const CATALOG_URL = 'creator-personarum-data/player-options.json';
   const byId = (id) => document.getElementById(id);
+  const SKILL_LABELS_EN = {
+    acrobatics: 'Acrobatics',
+    'animal handling': 'Animal Handling',
+    arcana: 'Arcana',
+    athletics: 'Athletics',
+    deception: 'Deception',
+    history: 'History',
+    insight: 'Insight',
+    intimidation: 'Intimidation',
+    investigation: 'Investigation',
+    medicine: 'Medicine',
+    nature: 'Nature',
+    perception: 'Perception',
+    performance: 'Performance',
+    persuasion: 'Persuasion',
+    religion: 'Religion',
+    'sleight of hand': 'Sleight of Hand',
+    stealth: 'Stealth',
+    survival: 'Survival'
+  };
+  const displaySkillLabel = (skill, spanishLabels) => (
+    byId('creator-skill-language')?.value === 'en'
+      ? (SKILL_LABELS_EN[skill] || spanishLabels[skill] || skill)
+      : (spanishLabels[skill] || skill)
+  );
+
   let pendingRestoredSubclass = '';
   let pendingRestoredFeat = '';
   let pendingRestoredSpells = null;
@@ -1185,7 +1211,7 @@
       if (fixedSkills.length) {
         const fixed = document.createElement('li');
         fixed.textContent = 'Concede automáticamente: ' + fixedSkills.map(skill =>
-          skillLabels[skill] + (duplicateFixed.includes(skill) ? ' (ya concedida por clase o trasfondo)' : '')
+          displaySkillLabel(skill, skillLabels) + (duplicateFixed.includes(skill) ? ' (ya concedida por clase o trasfondo)' : '')
         ).join(', ') + '.';
         details.appendChild(fixed);
       }
@@ -1207,7 +1233,7 @@
             checkbox.dataset.lineageSkillChoice = 'true';
             checkbox.checked = selectedSkills.includes(skill);
             checkbox.disabled = selectedSkills.length >= activeChoiceCount && !checkbox.checked;
-            label.append(checkbox, document.createTextNode(' ' + skillLabels[skill]));
+            label.append(checkbox, document.createTextNode(' ' + displaySkillLabel(skill, skillLabels)));
             item.appendChild(label);
             details.appendChild(item);
             checkbox.addEventListener('change', () => {
@@ -1312,6 +1338,7 @@
     byId('creator-class-skills-list')?.addEventListener('change', () => window.creatorPersonarumRefreshLineageSkills());
     byId('creator-background-skills-list')?.addEventListener('change', () => window.creatorPersonarumRefreshLineageSkills());
     window.addEventListener('creator-personarum:refresh-lineage-skills', () => window.creatorPersonarumRefreshLineageSkills());
+    byId('creator-skill-language')?.addEventListener('change', () => render());
     render();
   }
   function appendClasses(records) {
@@ -1457,7 +1484,7 @@
 
       if (fixedSkills.length) {
         const fixed = document.createElement('li');
-        fixed.textContent = 'Concede automáticamente: ' + fixedSkills.map(skill => skillLabels[skill]).join(', ') + '.';
+        fixed.textContent = 'Concede automáticamente: ' + fixedSkills.map(skill => displaySkillLabel(skill, skillLabels)).join(', ') + '.';
         details.appendChild(fixed);
       }
 
@@ -1479,7 +1506,7 @@
             checkbox.checked = selectedSkills.includes(skill);
             const limitReached = selectedSkills.length >= activeChoiceCount;
             checkbox.disabled = limitReached && !checkbox.checked;
-            label.append(checkbox, document.createTextNode(' ' + skillLabels[skill]));
+            label.append(checkbox, document.createTextNode(' ' + displaySkillLabel(skill, skillLabels)));
             item.appendChild(label);
             details.appendChild(item);
             checkbox.addEventListener('change', () => {
@@ -1549,6 +1576,7 @@
         window.creatorPersonarumApplyRestoredBackgroundSkills();
       }
     });
+    byId('creator-skill-language')?.addEventListener('change', () => render());
     render();
   }
   function appendClassSkillChoices(records) {
@@ -1664,7 +1692,7 @@
         checkbox.dataset.classSkillChoice = 'true';
         checkbox.checked = selectedSkills.includes(skill);
         checkbox.disabled = selectedSkills.length >= data.count && !checkbox.checked;
-        label.append(checkbox, document.createTextNode(' ' + skillLabels[skill]));
+        label.append(checkbox, document.createTextNode(' ' + displaySkillLabel(skill, skillLabels)));
         item.appendChild(label);
         list.appendChild(item);
 
@@ -1713,6 +1741,7 @@
     });
 
     classSelect.addEventListener('change', render);
+    byId('creator-skill-language')?.addEventListener('change', () => render());
     render();
   }
   function appendSubclasses(records) {

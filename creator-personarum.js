@@ -504,6 +504,7 @@
     }
     return {
       name: nameInput.value.trim(),
+      skillLanguage: document.getElementById('creator-skill-language')?.value === 'en' ? 'en' : 'es',
       lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
       lineageChoice,
       customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
@@ -564,25 +565,26 @@
       + (spellNames.length > 3 ? ' (+' + (spellNames.length - 3) + ' más)' : '');
     document.getElementById('creator-preview-level').textContent = String(values.level || 1);
     document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
+    const skillLanguage = values.skillLanguage === 'en' ? 'en' : 'es';
     const previewSkillLabels = {
-      acrobatics: 'Acrobacias',
-      'animal handling': 'Trato con animales',
-      arcana: 'Arcanos',
-      athletics: 'Atletismo',
-      deception: 'Engaño',
-      history: 'Historia',
-      insight: 'Perspicacia',
-      intimidation: 'Intimidación',
-      investigation: 'Investigación',
-      medicine: 'Medicina',
-      nature: 'Naturaleza',
-      perception: 'Percepción',
-      performance: 'Interpretación',
-      persuasion: 'Persuasión',
-      religion: 'Religión',
-      'sleight of hand': 'Juego de manos',
-      stealth: 'Sigilo',
-      survival: 'Supervivencia'
+      acrobatics: { es: 'Acrobacias', en: 'Acrobatics' },
+      'animal handling': { es: 'Trato con animales', en: 'Animal Handling' },
+      arcana: { es: 'Arcanos', en: 'Arcana' },
+      athletics: { es: 'Atletismo', en: 'Athletics' },
+      deception: { es: 'Engaño', en: 'Deception' },
+      history: { es: 'Historia', en: 'History' },
+      insight: { es: 'Perspicacia', en: 'Insight' },
+      intimidation: { es: 'Intimidación', en: 'Intimidation' },
+      investigation: { es: 'Investigación', en: 'Investigation' },
+      medicine: { es: 'Medicina', en: 'Medicine' },
+      nature: { es: 'Naturaleza', en: 'Nature' },
+      perception: { es: 'Percepción', en: 'Perception' },
+      performance: { es: 'Interpretación', en: 'Performance' },
+      persuasion: { es: 'Persuasión', en: 'Persuasion' },
+      religion: { es: 'Religión', en: 'Religion' },
+      'sleight of hand': { es: 'Juego de manos', en: 'Sleight of Hand' },
+      stealth: { es: 'Sigilo', en: 'Stealth' },
+      survival: { es: 'Supervivencia', en: 'Survival' }
     };
     const selectedSkillKeys = [
       ...(Array.isArray(values.selectedLineageSkills) ? values.selectedLineageSkills : []),
@@ -592,9 +594,11 @@
       .filter(skill => typeof skill === 'string')
       .map(skill => skill.trim().toLowerCase())
       .filter(skill => Object.prototype.hasOwnProperty.call(previewSkillLabels, skill));
-    const selectedSkillLabels = [...new Set(selectedSkillKeys)].map(skill => previewSkillLabels[skill]);
+    const selectedSkillLabels = [...new Set(selectedSkillKeys)].map(skill => previewSkillLabels[skill][skillLanguage]);
     document.getElementById('creator-preview-skills-row').hidden = selectedSkillLabels.length === 0;
     document.getElementById('creator-preview-skills').textContent = selectedSkillLabels.join(', ');
+    document.getElementById('creator-preview-skills-label').textContent =
+      skillLanguage === 'en' ? 'SELECTED SKILLS' : 'HABILIDADES ELEGIDAS';
     document.getElementById('creator-preview-deity-row').hidden = !values.deityName;
     document.getElementById('creator-preview-deity').textContent = values.deityName || 'A definir';
     const originName = values.originRegionName || (getSelectedOriginRegion() ? getSelectedOriginRegion().name : '');
@@ -632,6 +636,8 @@
 
       savedDraft = draft;
       if (!explorationFocus) explorationFocus = draft.explorationFocus || '';
+      const skillLanguageSelect = document.getElementById('creator-skill-language');
+      if (skillLanguageSelect) skillLanguageSelect.value = draft.skillLanguage === 'en' ? 'en' : 'es';
       nameInput.value = draft.name || '';
       const savedLineage = typeof draft.lineage === 'string' ? draft.lineage : '';
       const lineageOptionValues = Array.from(lineageSelect.options).map(option => option.value);
@@ -842,6 +848,7 @@
       explorationFocus,
       explorationLabel: explorationFocus ? getExplorationLabel(explorationFocus) : '',
       name: values.name,
+      skillLanguage: values.skillLanguage === 'en' ? 'en' : 'es',
       lineage: values.lineage,
       lineageChoice: values.lineageChoice,
       customLineage: values.customLineage,
