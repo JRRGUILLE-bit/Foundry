@@ -85,6 +85,7 @@
   const draftForm = document.getElementById('creator-draft-form');
   const draftStatus = document.getElementById('creator-draft-status');
   const exportDraftButton = document.getElementById('creator-export-draft');
+  const exportFoundryActorButton = document.getElementById('creator-export-foundry-actor');
 
   let currentMode = null;
   let explorationFocus = '';
@@ -252,6 +253,7 @@
     classSelect.required = currentMode !== CREATION_MODES.explore;
     savedDraft = null;
     exportDraftButton.disabled = true;
+      exportFoundryActorButton.disabled = true;
     draftStatus.textContent = currentMode === CREATION_MODES.explore
       ? 'Todavía no hace falta que tengas todas las respuestas.'
       : 'Los cambios se guardan cuando pulsás «Guardar borrador».';
@@ -735,10 +737,12 @@
       document.getElementById('creator-concept').value = draft.concept || '';
       document.getElementById('creator-origin-story').value = typeof draft.originStory === 'string' ? draft.originStory : '';
       exportDraftButton.disabled = false;
+      exportFoundryActorButton.disabled = false;
       setDraftStatus('BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', 'saved');
     } catch (error) {
       savedDraft = null;
       exportDraftButton.disabled = true;
+      exportFoundryActorButton.disabled = true;
       setDraftStatus('El navegador no permitió leer el borrador local. Podés continuar y volver a intentar guardar.', 'error');
     }
   }
@@ -900,6 +904,7 @@
       window.localStorage.setItem(storageKeyForMode(currentMode), JSON.stringify(draft));
       savedDraft = draft;
       exportDraftButton.disabled = false;
+      exportFoundryActorButton.disabled = false;
       renderPreview(draft);
       setDraftStatus('BORRADOR GUARDADO EN ESTE NAVEGADOR. TODAVÍA NO ES UN ACTOR DE FOUNDRY.', 'saved');
     } catch (error) {
@@ -920,6 +925,109 @@
     link.click();
     link.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function escapeActorBiographyHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function actorBiographyParagraphs(value) {
+    return String(value ?? '').trim().split(/\n\s*\n/)
+      .filter(paragraph => paragraph.trim())
+      .map(paragraph => '<p>' + escapeActorBiographyHtml(paragraph).replace(/\r?\n/g, '<br>') + '</p>')
+      .join('\n');
+  }
+
+  function buildFoundryActorBase(draft) {
+    const actorName = typeof draft.name === 'string' && draft.name.trim()
+      ? draft.name.trim()
+      : 'Personaje sin nombre';
+    const skillChoices = [
+      ...(Array.isArray(draft.selectedLineageSkills) ? draft.selectedLineageSkills : []),
+      ...(Array.isArray(draft.selectedClassSkills) ? draft.selectedClassSkills : []),
+      ...(Array.isArray(draft.selectedBackgroundSkills) ? draft.selectedBackgroundSkills : [])
+    ].filter(skill => typeof skill === 'string' && skill.trim());
+    const spellChoices = Array.isArray(draft.selectedSpells)
+      ? draft.selectedSpells.map(spell => spell && typeof spell.name === 'string' ? spell.name : '').filter(Boolean)
+      : [];
+    const origin = [draft.originRegionName, draft.originContinent]
+      .filter(value => typeof value === 'string' && value.trim())
+      .join(' · ');
+    const details = [
+      ['Linaje', draft.lineage],
+      ['Clase', draft.characterClass],
+      ['Subclase', draft.subclass],
+      ['Nivel elegido', Number.isInteger(draft.level) ? String(draft.level) : ''],
+      ['Trasfondo', draft.background],
+      ['Dote', draft.feat],
+      ['Fe o ideal', draft.deityName],
+      ['Procedencia', origin],
+      ['Pista inicial', draft.explorationLabel],
+      ['Habilidades elegidas', skillChoices.join(', ')],
+      ['Conjuros elegidos', spellChoices.join(', ')],
+      ['Fuente del Atlas', draft.originRegionContext && draft.originRegionContext.sourcePage]
+    ].filter(([, value]) => typeof value === 'string' && value.trim());
+    const biography = [
+      '<h2>Creator Personarum — ficha inicial</h2>',
+      details.length
+        ? '<dl>' + details.map(([label, value]) =>
+          '<dt><strong>' + escapeActorBiographyHtml(label) + '</strong></dt><dd>' +
+          escapeActorBiographyHtml(value) + '</dd>'
+        ).join('') + '</dl>'
+        : '',
+      draft.originRegionContext && draft.originRegionContext.summary
+        ? '<h3>Referencia canónica del Atlas</h3>' +
+          actorBiographyParagraphs('Fuente: ' + (draft.originRegionContext.sourcePage || 'Atlas oficial')) +
+          actorBiographyParagraphs(draft.originRegionContext.summary)
+        : '',
+      draft.concept ? '<h3>Concepto del jugador</h3>' + actorBiographyParagraphs(draft.concept) : '',
+      draft.originStory ? '<h3>Historia de origen</h3>' + actorBiographyParagraphs(draft.originStory) : ''
+    ].filter(Boolean).join('\n');
+
+    return {
+      name: actorName,
+      type: 'character',
+      system: {
+        details: {
+          biography: {
+            value: biography,
+            public: ''
+          }
+        }
+      },
+      items: [],
+      effects: [],
+      flags: {
+        dnd5e: {
+          rulesVersion: 'legacy'
+        }
+      },
+      prototypeToken: {
+        name: actorName
+      }
+    };
+  }
+
+  function exportFoundryActorBase() {
+    if (!savedDraft) return;
+    const actorSource = buildFoundryActorBase(savedDraft);
+    const file = new Blob([JSON.stringify(actorSource, null, 2)], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(file);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = currentMode === CREATION_MODES.explore
+      ? 'creator-personarum-exploracion-actor-base.json'
+      : 'creator-personarum-personaje-actor-base.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setDraftStatus('ACTOR BASE EXPORTADO. LAS OPCIONES TODAVÍA NO SON ELEMENTOS MECÁNICOS DE FOUNDRY.', 'saved');
   }
 
   function prepareOriginStoryDraft() {
@@ -1055,6 +1163,7 @@
 
   draftForm.addEventListener('submit', saveDraft);
   exportDraftButton.addEventListener('click', exportDraft);
+  exportFoundryActorButton.addEventListener('click', exportFoundryActorBase);
   draftForm.addEventListener('input', () => renderPreview(readFormValues()));
   draftForm.addEventListener('change', () => renderPreview(readFormValues()));
 

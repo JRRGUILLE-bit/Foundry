@@ -639,6 +639,26 @@ try {
   assert.equal(knownExport.selectedClassSkills.length, 2, 'Exported draft should include the two selected class skills');
   assert.equal(knownExport.selectedBackgroundSkills.length, 2, 'Exported draft should include the two selected background skills');
 
+  const [knownActorDownload] = await Promise.all([
+    page.waitForEvent('download'),
+    page.locator('#creator-export-foundry-actor').click()
+  ]);
+  assert.equal(knownActorDownload.suggestedFilename(), 'creator-personarum-personaje-actor-base.json');
+  const knownActorExport = JSON.parse(fs.readFileSync(await knownActorDownload.path(), 'utf8'));
+  assert.equal(knownActorExport.name, 'QA Aventurero', 'Foundry actor export should preserve the character name');
+  assert.equal(knownActorExport.type, 'character', 'Foundry actor export should use the D&D 5e character type');
+  assert.equal(knownActorExport.flags.dnd5e.rulesVersion, 'legacy', 'Foundry actor export should mark the 2014/Legacy ruleset');
+  assert.deepEqual(knownActorExport.items, [], 'Actor base must not invent mechanical item documents');
+  assert.deepEqual(knownActorExport.effects, [], 'Actor base must not invent active effects');
+  const actorBiography = knownActorExport.system.details.biography.value;
+  assert.match(actorBiography, /Tortuga viajera/, 'Actor biography should preserve the custom lineage');
+  assert.match(actorBiography, /Guerrero/, 'Actor biography should preserve the selected class');
+  assert.match(actorBiography, /Crecí entre viajeros y aprendí a desconfiar de los caminos seguros\./,
+    'Actor biography should preserve the written origin story');
+  assert.match(actorBiography, /Fuente: Continente de Abigur/, 'Actor biography should retain the Atlas source reference');
+  assert.match(actorBiography, /Una promesa de proteger a quienes viajan\./,
+    'Actor biography should preserve the player concept');
+
   // Reload and verify the chosen origin and class skills are restored.
   await page.reload({ waitUntil: 'domcontentloaded' });
   await waitForAtlas();
