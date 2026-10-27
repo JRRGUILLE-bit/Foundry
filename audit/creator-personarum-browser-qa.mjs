@@ -835,6 +835,11 @@ try {
     'Saved origin story should be restored exactly after reload'
   );
   assert.equal(
+    await page.locator('#creator-preview-origin-story').innerText(),
+    explorerStoryProposal,
+    'Restored preview should display the saved origin story exactly after reload'
+  );
+  assert.equal(
     await page.locator('#creator-concept').inputValue(),
     'C'.repeat(1200),
     'Saved player concept should be restored exactly after reload'
