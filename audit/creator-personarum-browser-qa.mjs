@@ -142,6 +142,23 @@ try {
   assert.ok(await halfElfSkills.count() >= 2, 'Half-Elf should expose its two skill choices');
   await halfElfSkills.nth(0).check();
   await halfElfSkills.nth(1).check();
+
+  await halfElfAbilityChoices.nth(1).uncheck();
+  await halfElfAbilityChoices.nth(0).uncheck();
+  await page.locator('#creator-draft-form button[type="submit"]').click();
+  assert.match(
+    await page.locator('#creator-draft-status').innerText(),
+    /Elegí exactamente 2 características para el linaje Semielfo antes de guardar/i,
+    'Saving a Half-Elf draft should require its two ability choices'
+  );
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem('banda.creator-personarum.draft.v1')),
+    null,
+    'Draft should not be saved while required lineage ability choices are missing'
+  );
+
+  await halfElfAbilityChoices.nth(0).check();
+  await halfElfAbilityChoices.nth(1).check();
   await page.locator('#creator-draft-form button[type="submit"]').click();
 
   await page.waitForFunction(() => {
