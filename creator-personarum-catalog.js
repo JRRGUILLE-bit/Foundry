@@ -450,6 +450,21 @@
 
     if (!select || !details || !status || !hiddenInput) return;
 
+    const selectedAbilityChoices = {};
+    let activeAbilityLineageValue = '';
+    let abilitySelectionInput = byId('creator-selected-lineage-abilities');
+    if (!abilitySelectionInput && details.parentElement) {
+      abilitySelectionInput = document.createElement('input');
+      abilitySelectionInput.type = 'hidden';
+      abilitySelectionInput.id = 'creator-selected-lineage-abilities';
+      abilitySelectionInput.name = 'selectedLineageAbilities';
+      abilitySelectionInput.value = '{}';
+      details.parentElement.insertBefore(abilitySelectionInput, status || null);
+    }
+    const syncLineageAbilitySelection = () => {
+      if (abilitySelectionInput) abilitySelectionInput.value = JSON.stringify(selectedAbilityChoices);
+    };
+
     const syncHiddenValue = () => {
       hiddenInput.value = JSON.stringify(selectedSkills);
     };
@@ -752,6 +767,11 @@
         selectedSkills = [];
         activeLineageValue = lineageValue;
       }
+      if (activeAbilityLineageValue !== lineageValue) {
+        for (const key of Object.keys(selectedAbilityChoices)) delete selectedAbilityChoices[key];
+        activeAbilityLineageValue = lineageValue;
+        syncLineageAbilitySelection();
+      }
       activeLineageName = lineage?.name || '';
       activeSource = lineage?.source || '';
       renderLineageLanguages(lineage);
@@ -976,8 +996,9 @@
       };
       const abilityGroups = Array.isArray(lineage.ability) ? lineage.ability : [];
       const abilityDescriptions = [];
-      for (const group of abilityGroups) {
-        if (!group || typeof group !== 'object') continue;
+      const abilityChoiceDefinitions = [];
+      abilityGroups.forEach((group, groupIndex) => {
+        if (!group || typeof group !== 'object') return;
         const fixedBonuses = Object.entries(group)
           .filter(([key, value]) => abilityLabels[key] && typeof value === 'number' && value > 0)
           .map(([key, value]) => '+' + value + ' ' + abilityLabels[key]);
@@ -987,21 +1008,96 @@
           const count = Number.isInteger(rawCount) && rawCount > 0 ? rawCount : 1;
           const rawAmount = Number(group.choose.amount);
           const amount = Number.isFinite(rawAmount) && rawAmount > 0 ? rawAmount : 1;
-          const options = Array.isArray(group.choose.from)
-            ? [...new Set(group.choose.from.filter(key => abilityLabels[key]).map(key => abilityLabels[key]))]
+          const optionKeys = Array.isArray(group.choose.from)
+            ? [...new Set(group.choose.from.filter(key => abilityLabels[key]))]
             : [];
+          const options = optionKeys.map(key => abilityLabels[key]);
           abilityDescriptions.push(
             'elegí ' + count + (count === 1 ? ' característica' : ' características') +
             (options.length ? ' entre ' + options.join(', ') : ' entre las opciones registradas') +
             ' (+' + amount + ' ' + (count === 1 ? 'a la elegida' : 'a cada una') + ')'
           );
+          if (optionKeys.length) {
+            abilityChoiceDefinitions.push({
+              key: 'group-' + groupIndex,
+              count,
+              amount,
+              options: optionKeys
+            });
+          }
         }
-      }
+      });
       const abilityItem = document.createElement('li');
       abilityItem.textContent = abilityDescriptions.length
         ? 'Incrementos de características registrados: ' + abilityDescriptions.join('; ') + '.'
         : 'El catálogo no registra incrementos de características para esta entrada del linaje.';
       details.appendChild(abilityItem);
+
+      const selectedAbilityKeys = new Set();
+      for (const definition of abilityChoiceDefinitions) {
+        const validOptions = new Set(definition.options);
+        const currentSelections = Array.isArray(selectedAbilityChoices[definition.key])
+          ? selectedAbilityChoices[definition.key]
+          : [];
+        const cleanSelections = [];
+        for (const key of currentSelections) {
+          if (validOptions.has(key) && !selectedAbilityKeys.has(key) &&
+              cleanSelections.length < definition.count) {
+            cleanSelections.push(key);
+            selectedAbilityKeys.add(key);
+          }
+        }
+        selectedAbilityChoices[definition.key] = cleanSelections;
+      }
+
+      for (const definition of abilityChoiceDefinitions) {
+        const selectedForChoice = selectedAbilityChoices[definition.key] || [];
+        const heading = document.createElement('li');
+        heading.textContent = 'Elegí ' + definition.count +
+          (definition.count === 1 ? ' característica' : ' características') +
+          ' (+' + definition.amount + ' ' +
+          (definition.count === 1 ? 'a la elegida' : 'a cada una') + '); seleccionadas ' +
+          selectedForChoice.length + '/' + definition.count + ':';
+        details.appendChild(heading);
+
+        for (const key of definition.options) {
+          const selectedElsewhere = Object.entries(selectedAbilityChoices)
+            .some(([choiceKey, values]) => choiceKey !== definition.key &&
+              Array.isArray(values) && values.includes(key));
+          const item = document.createElement('li');
+          const label = document.createElement('label');
+          label.className = 'creator-lineage-ability-choice';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = 'lineageAbilities';
+          checkbox.value = key;
+          checkbox.dataset.lineageAbilityChoice = definition.key;
+          checkbox.checked = selectedForChoice.includes(key);
+          checkbox.disabled = selectedElsewhere ||
+            (selectedForChoice.length >= definition.count && !checkbox.checked);
+          label.append(checkbox, document.createTextNode(' ' + abilityLabels[key]));
+          item.appendChild(label);
+          details.appendChild(item);
+
+          checkbox.addEventListener('change', () => {
+            const choices = [...(selectedAbilityChoices[definition.key] || [])];
+            if (checkbox.checked) {
+              if (choices.length >= definition.count || selectedElsewhere) {
+                checkbox.checked = false;
+                return;
+              }
+              if (!choices.includes(key)) choices.push(key);
+            } else {
+              const index = choices.indexOf(key);
+              if (index >= 0) choices.splice(index, 1);
+            }
+            selectedAbilityChoices[definition.key] = choices;
+            syncLineageAbilitySelection();
+            render();
+          });
+        }
+      }
+      syncLineageAbilitySelection();
 
       const skillsTitle = byId('creator-lineage-skills-title');
       if (skillsTitle) skillsTitle.textContent = 'RASGOS Y HABILIDADES DEL LINAJE';
@@ -1107,6 +1203,12 @@
       }
       syncHiddenValue();
     };
+
+    window.creatorPersonarumGetLineageAbilitySelection = () => ({
+      lineageValue: activeAbilityLineageValue,
+      selectedByChoice: JSON.parse(JSON.stringify(selectedAbilityChoices)),
+      selected: [...new Set(Object.values(selectedAbilityChoices).flat())]
+    });
 
     window.creatorPersonarumRefreshLineageSkills = () => render();
     window.creatorPersonarumApplyRestoredLineageSkills = (skills) => {
