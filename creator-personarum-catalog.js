@@ -1762,7 +1762,7 @@
         if (isWarlock && subclassName === 'the great old one') return false;
         const isSorcerer = selectedClass === 'hechicero' || selectedClass === 'sorcerer';
         if (isSorcerer && subclassName === 'aberrant mind') return false;
-        if (isWarlock && /(^| )(demon|demonic|demonio|demoniaca|demoniaco)( |$)/.test(subclassName)) return false;
+        if (/(^| )(demon|demonic|demonio|demoniaca|demoniaco)( |$)/.test(subclassName)) return false;
         return true;
       }).sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
         String(a.source).localeCompare(String(b.source)));
