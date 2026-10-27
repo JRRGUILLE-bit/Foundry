@@ -720,6 +720,11 @@ try {
   ]);
   assert.equal(explorerDownload.suggestedFilename(), 'creator-personarum-exploracion.json');
   const explorerExport = JSON.parse(fs.readFileSync(await explorerDownload.path(), 'utf8'));
+  assert.equal(
+    explorerExport.originStory,
+    explorerStoryProposal,
+    'Export should preserve the complete proposed origin story, including the selected character details'
+  );
   assert.equal(explorerExport.originContinent, 'Tomun');
   assert.match(explorerExport.originStory, /Ciudades y culturas/i, 'Explorer story should be preserved in the exported draft');
   assert.equal(explorerExport.selectedSpells[0].name, selectedSpellForDraft, 'Export should include the selected spell');
