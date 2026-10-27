@@ -232,8 +232,8 @@ try {
   assert.equal(await page.locator('#creator-feat').inputValue(), selectedFeatValue, 'Saved feat should be restored');
   assert.equal(await page.locator('#creator-preview-feat').innerText(), selectedFeatValue, 'Selected feat should appear in the character preview');
   const restoredClassSkills = await page.locator('#creator-class-skills-list input[type="checkbox"]:checked').evaluateAll(inputs => inputs.map(input => input.value));
-  assert.deepEqual(restoredClassSkills, JSON.parse(page.locator('#creator-selected-class-skills') ? await page.locator('#creator-selected-class-skills').inputValue() : '[]'));
-  assert.equal(restoredClassSkills.length, 2, 'Saved class skill choices should be restored');
+  assert.deepEqual(restoredClassSkills, ['acrobatics', 'animal handling'], 'Saved Fighter skill choices should be restored');
+  assert.deepEqual(JSON.parse(await page.locator('#creator-selected-class-skills').inputValue()), restoredClassSkills, 'Restored checkboxes and saved selection field should match');
   assert.match(await page.locator('#creator-origin-details').innerText(), /estado unificado|gobierno/i);
 
   // Explorer path: the existing Inferno association preselects the Grey Empire,

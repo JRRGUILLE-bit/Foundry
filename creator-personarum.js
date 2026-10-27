@@ -629,9 +629,10 @@
       setDraftStatus('Elegí exactamente ' + classSkillSelection.requiredCount +
         (classSkillSelection.requiredCount === 1 ? ' habilidad' : ' habilidades') +
         ' para ' + classSkillSelection.className + ' antes de guardar.', 'error');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        const firstChoice = element.querySelector('input[type="checkbox"]');
+      const classSkillList = document.getElementById('creator-class-skills-list');
+      if (classSkillList) {
+        classSkillList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const firstChoice = classSkillList.querySelector('input[type="checkbox"]');
         if (firstChoice) firstChoice.focus();
       }
       return;
