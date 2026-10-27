@@ -849,6 +849,11 @@ try {
   assert.equal(await page.locator('#creator-selected-spells-list [data-selected-spell]').count(), 1, 'Saved spell selection should be restored');
   assert.equal(await page.locator('#creator-selected-spells-list [data-selected-spell]').first().getAttribute('data-selected-spell'), selectedSpellForDraft);
   assert.equal(await page.locator('#creator-preview-spells-row').evaluate(element => element.hidden), false, 'Preview should show the selected spell list');
+  assert.equal(
+    await page.locator('#creator-preview-spells').innerText(),
+    selectedSpellForDraft,
+    'Restored preview should show the exact saved spell name'
+  );
 
   assert.deepEqual(pageErrors, [], 'Creator Personarum should not raise runtime JavaScript exceptions');
   console.log('Creator Personarum browser QA passed: Atlas loading, warlock restriction, origin preview/persistence/export, Inferno→Grey Empire association and editable exploration origin.');
