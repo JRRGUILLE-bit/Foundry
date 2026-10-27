@@ -834,6 +834,11 @@ try {
     explorerStoryProposal,
     'Saved origin story should be restored exactly after reload'
   );
+  assert.equal(
+    await page.locator('#creator-concept').inputValue(),
+    'C'.repeat(1200),
+    'Saved player concept should be restored exactly after reload'
+  );
   assert.equal(await page.locator('#creator-origin-region').inputValue(), tomunAetheloriaId);
   assert.match(await page.locator('#creator-origin-details').innerText(), /Aetheloria|Tomun/);
   assert.equal(await page.locator('#creator-selected-spells-list [data-selected-spell]').count(), 1, 'Saved spell selection should be restored');
