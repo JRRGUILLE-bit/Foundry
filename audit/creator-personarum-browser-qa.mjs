@@ -87,6 +87,18 @@ try {
 
   await gotoCreator();
 
+  // Class skill options are shown from the Legacy/2014 class rules.
+  const classSelect = page.locator('#creator-character-class');
+  const classSkillList = page.locator('#creator-class-skills-list');
+  await classSelect.selectOption({ label: 'Bárbaro' });
+  assert.match(await classSkillList.innerText(), /elegí 2 habilidades/i, 'Barbarian should explain the number of skill choices');
+  assert.match(await classSkillList.innerText(), /Atletismo/, 'Barbarian should include Athletics');
+  assert.match(await classSkillList.innerText(), /Supervivencia/, 'Barbarian should include Survival');
+  assert.doesNotMatch(await classSkillList.innerText(), /Arcanos/, 'Barbarian must not include a skill outside its class list');
+  await classSelect.selectOption({ label: 'Bardo' });
+  assert.match(await classSkillList.innerText(), /elegí 3 habilidades cualesquiera/i, 'Bard should allow any three skills');
+  assert.match(await classSkillList.innerText(), /Juego de manos/, 'Bard choice list should include Sleight of Hand');
+
   // Known-character path: the campaign warlock rule appears, but the Abyss is not an option.
   await page.locator('#creator-known-path-button').click();
 

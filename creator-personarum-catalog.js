@@ -440,6 +440,91 @@
     refreshSkills();
   }
 
+  function appendClassSkillChoices(records) {
+    const classSelect = byId('creator-character-class');
+    const list = byId('creator-class-skills-list');
+    const status = byId('creator-class-skills-status');
+    if (!classSelect || !list || !status) return;
+
+    const skillLabels = {
+      acrobatics: 'Acrobacias',
+      'animal handling': 'Trato con animales',
+      arcana: 'Arcanos',
+      athletics: 'Atletismo',
+      deception: 'Engaño',
+      history: 'Historia',
+      insight: 'Perspicacia',
+      intimidation: 'Intimidación',
+      investigation: 'Investigación',
+      medicine: 'Medicina',
+      nature: 'Naturaleza',
+      perception: 'Percepción',
+      performance: 'Interpretación',
+      persuasion: 'Persuasión',
+      religion: 'Religión',
+      'sleight of hand': 'Juego de manos',
+      stealth: 'Sigilo',
+      survival: 'Supervivencia'
+    };
+    const anySkills = Object.keys(skillLabels);
+    const choices = {
+      barbarian: { count: 2, skills: ['animal handling', 'athletics', 'intimidation', 'nature', 'perception', 'survival'] },
+      bard: { count: 3, skills: anySkills, any: true },
+      cleric: { count: 2, skills: ['history', 'insight', 'medicine', 'persuasion', 'religion'] },
+      druid: { count: 2, skills: ['arcana', 'animal handling', 'insight', 'medicine', 'nature', 'perception', 'religion', 'survival'] },
+      fighter: { count: 2, skills: ['acrobatics', 'animal handling', 'athletics', 'history', 'insight', 'intimidation', 'perception', 'survival'] },
+      monk: { count: 2, skills: ['acrobatics', 'athletics', 'history', 'insight', 'religion', 'stealth'] },
+      paladin: { count: 2, skills: ['athletics', 'insight', 'intimidation', 'medicine', 'persuasion', 'religion'] },
+      ranger: { count: 3, skills: ['animal handling', 'athletics', 'insight', 'investigation', 'nature', 'perception', 'stealth', 'survival'] },
+      rogue: { count: 4, skills: ['acrobatics', 'athletics', 'deception', 'insight', 'intimidation', 'investigation', 'perception', 'performance', 'persuasion', 'sleight of hand', 'stealth'] },
+      sorcerer: { count: 2, skills: ['arcana', 'deception', 'insight', 'intimidation', 'persuasion', 'religion'] },
+      warlock: { count: 2, skills: ['arcana', 'deception', 'history', 'intimidation', 'investigation', 'nature', 'religion'] },
+      wizard: { count: 2, skills: ['arcana', 'history', 'insight', 'investigation', 'medicine', 'religion'] },
+      artificer: { count: 2, skills: ['arcana', 'history', 'investigation', 'medicine', 'nature', 'perception', 'sleight of hand'], source: 'TCE' }
+    };
+
+    const classRows = records.filter(item => item.category === 'class');
+    const refresh = () => {
+      list.replaceChildren();
+      const className = normalize(classSelect.value);
+      const classKey = Object.entries(CLASS_LABELS)
+        .find(([, label]) => normalize(label) === className)?.[0] || '';
+      const data = choices[classKey];
+
+      if (!classKey || !classSelect.value) {
+        const item = document.createElement('li');
+        item.textContent = 'Elegí una clase para consultar sus habilidades.';
+        list.appendChild(item);
+        status.textContent = 'Las opciones se actualizan al cambiar de clase.';
+        return;
+      }
+      if (!data) {
+        const item = document.createElement('li');
+        item.textContent = 'El catálogo de esta clase no tiene una lista de habilidades iniciales cargada.';
+        list.appendChild(item);
+        status.textContent = 'No se inventan opciones cuando falta el registro de reglas.';
+        return;
+      }
+
+      const row = classRows.find(item => normalize(item.name) === normalize(classKey));
+      const source = data.source || row?.source || 'PHB';
+      const label = classSelect.options[classSelect.selectedIndex]?.textContent || classSelect.value;
+      const heading = document.createElement('li');
+      heading.textContent = data.any
+        ? label + ': elegí ' + data.count + ' habilidades cualesquiera de la lista completa.'
+        : label + ': elegí ' + data.count + (data.count === 1 ? ' habilidad entre estas opciones:' : ' habilidades entre estas opciones:');
+      list.appendChild(heading);
+
+      const options = document.createElement('li');
+      options.textContent = data.skills.map(skill => skillLabels[skill]).join(', ') + '.';
+      list.appendChild(options);
+      status.textContent = 'Fuente: ' + source + '. Esta consulta muestra las opciones; la selección se incorporará en un paso separado.';
+    };
+
+    classSelect.addEventListener('change', refresh);
+    refresh();
+  }
+
   function appendSubclasses(records) {
     const select = byId('creator-subclass');
     const classSelect = byId('creator-character-class');
@@ -866,6 +951,7 @@
 
       appendLineages(catalog.records);
       appendClasses(catalog.records);
+      appendClassSkillChoices(catalog.records);
       appendBackgrounds(catalog.records);
       appendSubclasses(catalog.records);
       appendFeats(catalog.records);
