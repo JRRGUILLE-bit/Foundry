@@ -726,6 +726,28 @@
       return;
     }
 
+    const lineageAbilitySelection = typeof window.creatorPersonarumGetLineageAbilitySelection === 'function'
+      ? window.creatorPersonarumGetLineageAbilitySelection()
+      : null;
+    if (currentMode !== CREATION_MODES.explore
+        && values.lineage
+        && lineageAbilitySelection
+        && lineageAbilitySelection.lineageValue === lineageSelect.value
+        && lineageAbilitySelection.requiredCount > 0
+        && lineageAbilitySelection.selected.length !== lineageAbilitySelection.requiredCount) {
+      setDraftStatus('Elegí exactamente ' + lineageAbilitySelection.requiredCount +
+        (lineageAbilitySelection.requiredCount === 1 ? ' característica' : ' características') +
+        ' para el linaje ' + values.lineage + ' antes de guardar.', 'error');
+      const lineageAbilityList = document.getElementById('creator-lineage-skills-list');
+      if (lineageAbilityList) {
+        lineageAbilityList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const firstChoice = lineageAbilityList.querySelector('input[data-lineage-ability-choice]:not(:disabled)') ||
+          lineageAbilityList.querySelector('input[data-lineage-ability-choice]');
+        if (firstChoice) firstChoice.focus();
+      }
+      return;
+    }
+
     const backgroundSkillSelection = typeof window.creatorPersonarumGetBackgroundSkillSelection === 'function'
       ? window.creatorPersonarumGetBackgroundSkillSelection()
       : null;
