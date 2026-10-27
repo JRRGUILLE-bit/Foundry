@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="behind-screen.css?v=20261009-2">
   <link rel="stylesheet" href="video-pixelate.css?v=20261023-1">
   <link rel="stylesheet" href="creator-personarum.css?v=20261024-1">
-  <link rel="stylesheet" href="landing-refinement.css?v=20261026-1">
+  <link rel="stylesheet" href="landing-refinement.css?v=20261026-2">
 </head>
 <body>
   <div id="code-rain" class="code-rain" aria-hidden="true"></div>
@@ -28,7 +28,7 @@
     </header>
 
     <section class="campaign-masthead" aria-labelledby="campaign-title">
-      <div>
+      <div class="campaign-masthead-copy">
         <p class="campaign-kicker">VERITAS // CAMPAIGN TERMINAL</p>
         <h1 id="campaign-title">
           <span>EL FOUNDRY</span>
@@ -36,22 +36,21 @@
         </h1>
         <p class="campaign-subtitle">TACTICAL SCRYING // PARTY FILES // BAD DECISIONS</p>
       </div>
-      <div class="masthead-status" id="masthead-status" data-state="checking" aria-live="polite">
-        <span class="masthead-status-light" aria-hidden="true"></span>
-        <span id="masthead-status-text">CHECKING PORTAL...</span>
+      <div class="campaign-masthead-actions">
+        <a class="creator-personarum-entry masthead-creator-entry" href="creator-personarum.html">
+          <span class="creator-entry-mark" aria-hidden="true">✦</span>
+          <span class="creator-entry-copy">
+            <strong>CREATOR PERSONARUM</strong>
+            <small>FORJÁ UN NUEVO AVENTURERO</small>
+          </span>
+          <span class="creator-entry-action">ABRIR PORTAL ↗</span>
+        </a>
+        <div class="masthead-status" id="masthead-status" data-state="checking" aria-live="polite">
+          <span class="masthead-status-light" aria-hidden="true"></span>
+          <span id="masthead-status-text">CHECKING PORTAL...</span>
+        </div>
       </div>
     </section>
-
-    <nav class="creator-entry-strip" aria-label="Creador de personajes">
-      <a class="creator-personarum-entry" href="creator-personarum.html">
-        <span class="creator-entry-mark" aria-hidden="true">✦</span>
-        <span class="creator-entry-copy">
-          <strong>CREATOR PERSONARUM</strong>
-          <small>FORJÁ UN NUEVO AVENTURERO</small>
-        </span>
-        <span class="creator-entry-action">ABRIR PORTAL ↗</span>
-      </a>
-    </nav>
 
     <div class="terminal-grid">
       <section class="feed-panel" aria-labelledby="feed-title">
