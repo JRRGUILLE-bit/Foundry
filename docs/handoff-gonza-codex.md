@@ -146,7 +146,7 @@ Flujo implementado:
 5. Cada camino guarda su borrador de forma independiente en el navegador y permite exportarlo a JSON.
 
 Pendiente funcional importante:
-- Los temas de exploración son orientativos, no regiones canónicas. Hace falta conectar el atlas/lore oficial del mundo, explorar regiones concretas y, como paso final, permitir elegir la procedencia del personaje y generar una historia de origen vinculada a esa región.
+- En la rama de auditoría, el creador carga regiones oficiales y sus resúmenes desde el Atlas revisado y permite guardar una procedencia opcional. Queda generar una historia de origen personalizada conectada con esa región, el concepto y el trasfondo.
 - El creador aún no crea actores de Foundry ni deriva automáticamente atributos, competencias, equipo o hechizos.
 
 Archivos y QA:
@@ -156,6 +156,8 @@ Archivos y QA:
 - `audit/creator-personarum-qa.js`
 - `node --check creator-personarum.js`
 - `node audit/creator-personarum-qa.js`
+- `node --check audit/creator-personarum-browser-qa.mjs`
+- `node audit/creator-personarum-browser-qa.mjs`
 - Browser Mobile QA, disparado también por los paths de Creator Personarum.
 
 ## 4. Archivos que Codex debería leer primero
@@ -245,7 +247,7 @@ El selector de clase muestra un apartado del panteón al elegir **Clérigo** o *
 
 El selector enseña ámbitos sugeridos, alineamiento cuando consta en el Codex y una descripción breve. Clérigo requiere una selección en el camino de personaje conocido; Paladín puede dejarla vacía porque su juramento puede ser el centro de su identidad. La elección se persiste y se exporta con el borrador; no altera mecánicas de D&D ni concede dominios automáticamente.
 
-Cuando se incorpore el JSON del atlas, enlazar la divinidad/creencia con las regiones, culturas y tradiciones canónicas. No inventar templos, organizaciones, territorios ni prácticas no presentes en las fuentes. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+Con el Atlas integrado en la rama de auditoría, el siguiente trabajo de lore es enlazar procedencia, fe/ideal, culturas y tradiciones sin inventar templos, organizaciones, territorios ni prácticas. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
 
 
 ### Ampliación: Infierno como opción (24/10/2026)
@@ -264,3 +266,23 @@ Pedido del usuario: retirar la estética pixel-art/juego retro únicamente de la
 - La bienvenida deja de usar una caja rectangular con borde, doble contorno, fondo oscuro y sombra. El título y el CTA quedan integrados sobre la viñeta inferior, con Cormorant Garamond / IM Fell English, marfil suave y verde musgo apagado. La imagen final no se modifica.
 - La frase promocional genérica se quitó de forma intencional para acordar con el usuario un texto críptico basado en el canon de la campaña antes de volver a añadirlo. Título y CTA se muestran en caja normal, sin glifos decorativos.
 - Se actualizó el cache-buster CSS. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+
+
+## 12. Auditoría Creator Personarum — campaña nueva (27/10/2026)
+
+La rama de trabajo `feat/new-campaign-origin-picker` no se considera parte de `main` hasta pasar QA y recibir autorización para merge.
+
+### Cambios preparados
+- Selector opcional de procedencia que lee `fvtt-JournalEntry-atlas-revisado.json` directamente, agrupa regiones oficiales de Abigur, Rala y Tomun, zonas salvajes nombradas y archipiélagos, y presenta un resumen extraído de la entrada fuente.
+- La región y su continente se guardan en el borrador y se exportan; la vista previa muestra la procedencia elegida.
+- Se amplía el selector de linajes con pueblos presentes en el Atlas y se habilita el nombre libre al elegir «Otro / personalizado», con persistencia en borrador/exportación. El origen regional no restringe linajes; para el Imperio Gris, todas las razas continúan disponibles conforme al canon del usuario.
+- Al elegir **Brujo**, se muestra la regla explícita de que el Abismo y los demonios son enemigos, no patrones jugables. No existe todavía una lista de patrones de brujo, por lo que no se improvisa una.
+- La opción del Infierno permanece distinta de cualquier opción abisal.
+
+### Pendientes
+1. Generar una historia de origen narrativa usando región, linaje, clase, trasfondo y concepto; separar claramente hechos del Atlas de los elementos creativos que se propongan.
+2. Cuando el canon esté listo, definir qué patronos/subclases de brujo están permitidos. Excluir siempre al Abismo y sus demonios como opción de patrón.
+3. Considerar un selector posterior de ciudad/comunidad cuando la procedencia regional esté validada y el mapa interactivo esté listo. No bloquear ni reemplazar el trabajo del mapa de Claude.
+4. Ejecutar `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js`, `node --check audit/creator-personarum-browser-qa.mjs`, `node audit/creator-personarum-browser-qa.mjs` y Browser Mobile QA. Revisar los resultados antes de integrar.
+
+Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-codex-divinitatum-revisado.json`.

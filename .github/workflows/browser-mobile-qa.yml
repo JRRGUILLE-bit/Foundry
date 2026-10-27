@@ -10,6 +10,8 @@ on:
       - "creator-personarum-final-frame.png"
       - "creador *.mp4"
       - "audit/creator-personarum-qa.js"
+      - "audit/creator-personarum-browser-qa.mjs"
+      - "audit/creator-personarum-browser-qa.mjs"
       - "*.css"
       - "mobile-*.js"
       - "character-*.js"
@@ -70,6 +72,10 @@ jobs:
         run: |
           node --check creator-personarum.js
           node audit/creator-personarum-qa.js
+          node --check audit/creator-personarum-browser-qa.mjs
+
+      - name: Browser smoke tests for Creator Personarum
+        run: node audit/creator-personarum-browser-qa.mjs
 
       - name: Run browser QA
         run: node audit/browser-mobile-qa-runner.mjs

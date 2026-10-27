@@ -2,6 +2,24 @@
   'use strict';
 
   const DRAFT_STORAGE_KEY = 'banda.creator-personarum.draft.v1';
+  const ATLAS_SOURCE_FILE = 'fvtt-JournalEntry-atlas-revisado.json';
+  const ATLAS_REGION_SOURCES = [
+    { page: 'Continente de Abigur', tag: 'h2', group: 'Abigur' },
+    { page: 'Continente de Rala', tag: 'h2', group: 'Rala' },
+    { page: 'Continente de Tomun', tag: 'h2', group: 'Tomun' },
+    {
+      page: 'Geografía, Ríos y Zonas Salvajes',
+      tag: 'h3',
+      group: 'Zonas salvajes',
+      allow: [
+        'El Gran Bosque (interior de Rala)',
+        'La Franja Salvaje (costa este de Tomun)',
+        'La Meseta Olvidada (interior de Tomun)',
+        'Los Acantilados Negros (costa exterior de Tomun)'
+      ]
+    },
+    { page: 'Archipiélagos Oceánicos Principales', tag: 'h2', group: 'Archipiélagos' }
+  ];
   const CREATION_MODES = {
     known: 'known-character',
     explore: 'world-explorer'
@@ -53,6 +71,11 @@
   const nameInput = document.getElementById('creator-character-name');
   const lineageSelect = document.getElementById('creator-lineage');
   const classSelect = document.getElementById('creator-character-class');
+  const customLineageField = document.getElementById('creator-custom-lineage-field');
+  const customLineageInput = document.getElementById('creator-custom-lineage');
+  const warlockCanonNote = document.getElementById('creator-warlock-canon-note');
+  const originRegionSelect = document.getElementById('creator-origin-region');
+  const originDetails = document.getElementById('creator-origin-details');
   const divineSection = document.getElementById('creator-divine-section');
   const deitySelect = document.getElementById('creator-deity');
   const deityDetails = document.getElementById('creator-deity-details');
@@ -64,6 +87,9 @@
   let currentMode = null;
   let explorationFocus = '';
   let savedDraft = null;
+  let atlasRegions = [];
+  let atlasLoaded = false;
+  let atlasLoading = true;
 
   function showWelcome() {
     introVideo.pause();
@@ -166,6 +192,7 @@
     } else if (isPaladin) {
       deityGuidance.textContent = 'Para paladines, la veneración es opcional: el juramento puede ser el centro del personaje. Si sigue una divinidad o potencia, elegila aquí.';
     }
+    warlockCanonNote.hidden = selectedClass !== 'Brujo';
     updateDeityDetails();
   }
 
@@ -201,6 +228,8 @@
 
     resetFormFields();
     restoreDraft();
+    alignInfernalExplorationOrigin(false);
+    updateOriginDetails();
     updateDivineSection();
     renderPreview(readFormValues());
     const heading = document.getElementById('creator-workspace-title');
@@ -209,6 +238,7 @@
 
   function resetFormFields() {
     draftForm.reset();
+    updateCustomLineageField();
     document.getElementById('creator-level').value = '1';
     nameInput.required = currentMode !== CREATION_MODES.explore;
     lineageSelect.required = currentMode !== CREATION_MODES.explore;
@@ -256,6 +286,153 @@
     }
   }
 
+  function slugifyRegion(value) {
+    return String(value || '')
+      .toLocaleLowerCase('es')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  function stripAtlasMarkup(value) {
+    return String(value || '')
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<br\s*\/?>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&amp;/gi, '&')
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;|&apos;/gi, "'")
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function parseAtlasRegions(atlas) {
+    if (!atlas || !Array.isArray(atlas.pages)) {
+      throw new Error('El archivo no contiene páginas válidas del Atlas.');
+    }
+
+    const regions = [];
+    for (const source of ATLAS_REGION_SOURCES) {
+      const page = atlas.pages.find(item => item.name === source.page);
+      if (!page || !page.text || typeof page.text.content !== 'string') continue;
+      const content = page.text.content;
+      const headings = Array.from(content.matchAll(/<(h[1-6])\b[^>]*>([\s\S]*?)<\/\1>/gi));
+      headings.forEach((heading, index) => {
+        const tag = heading[1].toLowerCase();
+        if (tag !== source.tag) return;
+        const name = stripAtlasMarkup(heading[2]);
+        if (!name || (source.allow && !source.allow.includes(name))) return;
+        const nextHeading = headings[index + 1];
+        const sectionStart = heading.index + heading[0].length;
+        const sectionEnd = nextHeading ? nextHeading.index : content.length;
+        const summary = stripAtlasMarkup(content.slice(sectionStart, sectionEnd)).slice(0, 680);
+        regions.push({
+          id: slugifyRegion(source.group + '-' + name),
+          name,
+          group: source.group,
+          summary,
+          sourcePage: source.page
+        });
+      });
+    }
+
+    if (!regions.length) {
+      throw new Error('No se encontraron regiones reconocidas en el Atlas.');
+    }
+    return regions;
+  }
+
+  function populateOriginRegions(regions) {
+    const previousValue = originRegionSelect.value;
+    originRegionSelect.replaceChildren(new Option('Aún sin elegir (opcional)', ''));
+    let currentGroup = '';
+    let groupElement = null;
+
+    regions.forEach(region => {
+      if (region.group !== currentGroup) {
+        currentGroup = region.group;
+        groupElement = document.createElement('optgroup');
+        groupElement.label = currentGroup;
+        originRegionSelect.appendChild(groupElement);
+      }
+      const option = document.createElement('option');
+      option.value = region.id;
+      option.textContent = region.name;
+      groupElement.appendChild(option);
+    });
+
+    const savedValue = (savedDraft && savedDraft.originRegion) || previousValue;
+    if (savedValue && regions.some(region => region.id === savedValue)) {
+      originRegionSelect.value = savedValue;
+    }
+  }
+
+  function getSelectedOriginRegion() {
+    return atlasRegions.find(region => region.id === originRegionSelect.value) || null;
+  }
+
+  function alignInfernalExplorationOrigin(force) {
+    if (currentMode !== CREATION_MODES.explore || deitySelect.value !== 'inferno' || !atlasLoaded) return;
+    const greyEmpire = atlasRegions.find(region => region.name === 'Imperium Ravum (el Imperio Gris)');
+    if (!greyEmpire || (!force && originRegionSelect.value)) return;
+    originRegionSelect.value = greyEmpire.id;
+    updateOriginDetails();
+    renderPreview(readFormValues());
+  }
+
+  function updateOriginDetails() {
+    const region = getSelectedOriginRegion();
+    if (region) {
+      originDetails.textContent = region.group + ' · ' + region.summary;
+      return;
+    }
+    if (atlasLoading) {
+      originDetails.textContent = 'Cargando regiones oficiales del Atlas…';
+      return;
+    }
+    if (!atlasLoaded) {
+      originDetails.textContent = 'El Atlas oficial no está disponible ahora. Podés continuar el borrador sin inventar una procedencia.';
+      return;
+    }
+    originDetails.textContent = 'La procedencia es opcional. Elegí una región para consultar su contexto del Atlas.';
+  }
+
+  async function loadAtlasRegions() {
+    atlasLoading = true;
+    originDetails.textContent = 'Cargando regiones oficiales del Atlas…';
+    try {
+      const response = await window.fetch(ATLAS_SOURCE_FILE, { cache: 'no-store' });
+      if (!response.ok) throw new Error('No se pudo leer el Atlas oficial.');
+      const atlas = await response.json();
+      atlasRegions = parseAtlasRegions(atlas);
+      atlasLoaded = true;
+      atlasLoading = false;
+      populateOriginRegions(atlasRegions);
+      alignInfernalExplorationOrigin(false);
+      updateOriginDetails();
+      renderPreview(readFormValues());
+    } catch (error) {
+      atlasRegions = [];
+      atlasLoaded = false;
+      atlasLoading = false;
+      const preservedId = savedDraft && savedDraft.originRegion ? savedDraft.originRegion : '';
+      originRegionSelect.replaceChildren(new Option(
+        preservedId && savedDraft.originRegionName
+          ? savedDraft.originRegionName + ' (borrador guardado; Atlas no disponible)'
+          : 'Atlas no disponible — procedencia pendiente',
+        preservedId
+      ));
+      originRegionSelect.value = preservedId;
+      updateOriginDetails();
+      renderPreview(readFormValues());
+    }
+  }
+
   function storageKeyForMode(mode) {
     return mode === CREATION_MODES.explore
       ? DRAFT_STORAGE_KEY + '.world-explorer'
@@ -275,15 +452,22 @@
   }
 
   function readFormValues() {
+    const lineageChoice = lineageSelect.value;
+    const customLineage = customLineageInput.value.trim();
     return {
       name: nameInput.value.trim(),
-      lineage: lineageSelect.value,
+      lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
+      lineageChoice,
+      customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
       characterClass: classSelect.value,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
       deity: deitySelect.value,
-      deityName: getSelectedDeity() ? getSelectedDeity().name : ''
+      deityName: getSelectedDeity() ? getSelectedDeity().name : '',
+      originRegion: originRegionSelect.value,
+      originRegionName: getSelectedOriginRegion() ? getSelectedOriginRegion().name : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originRegionName || '' : ''),
+      originContinent: getSelectedOriginRegion() ? getSelectedOriginRegion().group : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originContinent || '' : '')
     };
   }
 
@@ -297,6 +481,10 @@
     document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
     document.getElementById('creator-preview-deity-row').hidden = !values.deityName;
     document.getElementById('creator-preview-deity').textContent = values.deityName || 'A definir';
+    const originName = values.originRegionName || (getSelectedOriginRegion() ? getSelectedOriginRegion().name : '');
+    const originGroup = values.originContinent || (getSelectedOriginRegion() ? getSelectedOriginRegion().group : '');
+    document.getElementById('creator-preview-origin-row').hidden = !originName;
+    document.getElementById('creator-preview-origin').textContent = originName ? originName + (originGroup ? ' · ' + originGroup : '') : 'A definir';
     document.getElementById('creator-preview-monogram').textContent = name === 'Sin definir'
       ? (currentMode === CREATION_MODES.explore ? '✦' : '?')
       : name.charAt(0).toLocaleUpperCase('es');
@@ -305,6 +493,13 @@
   function setDraftStatus(message, state) {
     draftStatus.textContent = message;
     draftStatus.dataset.state = state || 'idle';
+  }
+
+  function updateCustomLineageField() {
+    const isCustomLineage = lineageSelect.value === 'Otro / personalizado';
+    customLineageField.hidden = !isCustomLineage;
+    customLineageInput.required = isCustomLineage && currentMode !== CREATION_MODES.explore;
+    if (!isCustomLineage) customLineageInput.setCustomValidity('');
   }
 
   function restoreDraft() {
@@ -322,8 +517,26 @@
       savedDraft = draft;
       if (!explorationFocus) explorationFocus = draft.explorationFocus || '';
       nameInput.value = draft.name || '';
-      lineageSelect.value = draft.lineage || '';
+      const savedLineage = typeof draft.lineage === 'string' ? draft.lineage : '';
+      const lineageOptionValues = Array.from(lineageSelect.options).map(option => option.value);
+      const savedLineageChoice = draft.lineageChoice || (lineageOptionValues.includes(savedLineage)
+        ? savedLineage
+        : (savedLineage ? 'Otro / personalizado' : ''));
+      lineageSelect.value = savedLineageChoice;
+      customLineageInput.value = savedLineageChoice === 'Otro / personalizado'
+        ? (typeof draft.customLineage === 'string'
+          ? draft.customLineage
+          : (savedLineage && savedLineage !== 'Otro / personalizado' ? savedLineage : ''))
+        : '';
+      updateCustomLineageField();
       classSelect.value = draft.characterClass || '';
+      if (draft.originRegion && !Array.from(originRegionSelect.options).some(option => option.value === draft.originRegion) && draft.originRegionName) {
+        const savedOrigin = document.createElement('option');
+        savedOrigin.value = draft.originRegion;
+        savedOrigin.textContent = draft.originRegionName + ' (borrador guardado)';
+        originRegionSelect.appendChild(savedOrigin);
+      }
+      originRegionSelect.value = draft.originRegion || '';
       deitySelect.value = draft.deity || '';
       document.getElementById('creator-background').value = draft.background || '';
       document.getElementById('creator-level').value = String(draft.level || 1);
@@ -343,6 +556,15 @@
     const levelInput = document.getElementById('creator-level');
 
     if (!draftForm.reportValidity()) return;
+
+    if (currentMode !== CREATION_MODES.explore
+        && lineageSelect.value === 'Otro / personalizado'
+        && !customLineageInput.value.trim()) {
+      customLineageInput.setCustomValidity('Especificá el nombre del linaje personalizado.');
+      customLineageInput.reportValidity();
+      customLineageInput.setCustomValidity('');
+      return;
+    }
 
     if (!Number.isInteger(values.level) || values.level < 1 || values.level > 20) {
       levelInput.setCustomValidity('El nivel debe estar entre 1 y 20.');
@@ -365,7 +587,12 @@
       explorationLabel: explorationFocus ? getExplorationLabel(explorationFocus) : '',
       name: values.name,
       lineage: values.lineage,
+      lineageChoice: values.lineageChoice,
+      customLineage: values.customLineage,
       characterClass: values.characterClass,
+      originRegion: values.originRegion,
+      originRegionName: values.originRegionName,
+      originContinent: values.originContinent,
       deity: values.deity,
       deityName: values.deityName,
       background: values.background,
@@ -432,7 +659,17 @@
   });
 
   classSelect.addEventListener('change', updateDivineSection);
+  lineageSelect.addEventListener('change', () => {
+    updateCustomLineageField();
+    renderPreview(readFormValues());
+  });
+  customLineageInput.addEventListener('input', () => renderPreview(readFormValues()));
+  originRegionSelect.addEventListener('change', () => {
+    updateOriginDetails();
+    renderPreview(readFormValues());
+  });
   deitySelect.addEventListener('change', () => {
+    alignInfernalExplorationOrigin(true);
     updateDeityDetails();
     renderPreview(readFormValues());
   });
@@ -443,6 +680,7 @@
   draftForm.addEventListener('change', () => renderPreview(readFormValues()));
 
   initialiseDivineOptions();
+  void loadAtlasRegions();
   introVideo.muted = true;
   outroVideo.muted = true;
   renderPreview(null);

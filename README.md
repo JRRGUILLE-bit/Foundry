@@ -305,9 +305,9 @@ La portada enlaza a `creator-personarum.html`, una secuencia independiente para 
   1. **Ya sé lo que quiero jugar:** empezar desde el concepto de personaje que el jugador ya tiene en mente.
   2. **Todavía no lo sé:** iniciar una exploración guiada desde intereses en culturas, tierras salvajes, conflictos, ruinas, viajes o lugares mágicos.
 - La ruta exploradora permite registrar una pista inicial sin exigir que el jugador conozca todavía su nombre, linaje o clase. Los borradores se guardan por separado en el navegador y se pueden exportar a JSON.
-- Las pistas de exploración son temas orientativos, **no nombres de regiones del canon**. La siguiente etapa debe conectar el atlas oficial del mundo, ofrecer regiones concretas y, al cierre del proceso, dejar elegir la procedencia del personaje para contarle su historia de origen.
+- Las pistas de exploración siguen siendo orientativas, no regiones canónicas. La rama de auditoría carga la procedencia desde las regiones y zonas salvajes del Atlas revisado y muestra su contexto. La generación de una historia de origen completa, basada en la región y el concepto del personaje, sigue pendiente.
 - Esta etapa **no crea todavía un actor de Foundry** ni calcula atributos, competencias, equipo o hechizos.
-- QA: `node --check creator-personarum.js` y `node audit/creator-personarum-qa.js`, además del Browser Mobile QA.
+- QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y `node audit/creator-personarum-browser-qa.mjs`, además del Browser Mobile QA.
 
 ---
 
@@ -406,7 +406,7 @@ Al seleccionar **Clérigo** o **Paladín**, el creador muestra un selector de di
 - Paladín: la elección es opcional porque el juramento puede ser el centro del personaje.
 - La elección se guarda y exporta en el borrador JSON y aparece en la vista previa.
 - Los ámbitos son información narrativa del Codex; no asignan automáticamente dominios mecánicos, conjuros ni rasgos de D&D.
-- Fuente canónica: [Codex Divinitatum JSON](fvtt-JournalEntry-codex-divinitatum-revisado.json). El atlas del mundo se integrará después para enlazar fe, culturas y región de origen sin inventar canon.
+- Fuentes canónicas: [Codex Divinitatum JSON](fvtt-JournalEntry-codex-divinitatum-revisado.json) y [Atlas revisado](fvtt-JournalEntry-atlas-revisado.json). En la rama de auditoría, Creator Personarum consulta el Atlas para mostrar regiones de procedencia con resumen canónico. La historia de origen generada todavía no está implementada.
 
 
 ### Ampliación del panteón: opción infernal (24/10/2026)
@@ -424,3 +424,17 @@ La estética retro/pixel de **Creator Personarum solamente** ya fue sustituida p
 - El fotograma final original se conserva. El panel rectangular de bienvenida se quitó: el título y el botón se superponen directamente sobre una viñeta inferior suave, con serif literaria y una paleta más apagada de marfil y verde musgo, sin marco doble ni caja oscura.
 - Se quitó el texto genérico de bienvenida a la espera de acordar con el usuario una frase críptica conectada con la campaña. El título se muestra como «Creator Personarum» y la acción como «Crear tu personaje», sin la flecha decorativa.
 - Se incrementó la versión de caché CSS. QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA.
+
+
+## Auditoría Creator Personarum — campaña nueva (27/10/2026)
+
+La rama `feat/new-campaign-origin-picker` prepara estos cambios; **no se consideran integrados en `main` hasta que el PR pase QA y sea mergeado**.
+
+- La procedencia se carga desde `fvtt-JournalEntry-atlas-revisado.json`; agrupa regiones de Abigur, Rala y Tomun, zonas salvajes nombradas y los tres archipiélagos. El selector es opcional, muestra el contexto del Atlas y conserva región/continente en el borrador y su exportación JSON.
+- Se amplían los linajes a los pueblos que aparecen en el Atlas y se permite escribir un linaje personalizado; el nombre real se guarda, restaura y exporta. La procedencia no filtra las razas disponibles; de acuerdo con el canon indicado por el usuario, el Imperio Gris no restringe la creación por raza.
+- Al seleccionar **Brujo**, aparece una nota de canon: el Abismo y sus demonios son enemigos; no se ofrece como patrón. El creador aún no tiene un selector de patrón/subclase, y no se inventa una lista nueva hasta tenerla definida por el canon.
+- El Infierno sigue separado del Abismo: la opción infernal existente en el selector divino no convierte al Abismo en una potencia jugable. En el recorrido de exploración, elegirla preselecciona Imperium Ravum (el Imperio Gris) como procedencia, que el jugador puede cambiar después.
+- La historia de origen completa (narrativa personalizada que combine región, concepto, linaje y trasfondo) sigue pendiente. Esta etapa tampoco crea actores de Foundry.
+- El trabajo del mapa interactivo sigue separado: esta auditoría no modifica el mapa ni reemplaza la tarea de Claude.
+
+QA previsto: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js`, `node --check audit/creator-personarum-browser-qa.mjs`, `node audit/creator-personarum-browser-qa.mjs` y Browser Mobile QA (Chromium/WebKit). La rama debe permanecer sin merge hasta revisar esos resultados.
