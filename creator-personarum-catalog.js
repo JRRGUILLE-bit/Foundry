@@ -483,9 +483,75 @@
       }
       return null;
     };
+    const catalogLanguageMap = new Map();
+    records.filter(item => item.category === 'language' && typeof item.name === 'string' && item.name.trim())
+      .forEach(item => {
+        const key = normalize(item.name);
+        if (!key || catalogLanguageMap.has(key)) return;
+        catalogLanguageMap.set(key, {
+          key,
+          name: LANGUAGE_LABELS[key] || item.name.trim(),
+          source: item.source || ''
+        });
+      });
+
+    const standardLanguageKeys = [
+      'common', 'dwarvish', 'elvish', 'giant',
+      'gnomish', 'goblin', 'halfling', 'orc'
+    ];
+    const exoticLanguageKeys = [
+      'abyssal', 'celestial', 'draconic', 'deep speech',
+      'infernal', 'primordial', 'sylvan', 'undercommon'
+    ];
+    const selectedLanguageChoices = {};
+    let activeLanguageLineageValue = '';
+    let activeLanguageLineageName = '';
+    let activeLanguageChoiceDefinitions = [];
+    let languageSelectionInput = byId('creator-selected-lineage-languages');
+    if (!languageSelectionInput && languageDetails?.parentElement) {
+      languageSelectionInput = document.createElement('input');
+      languageSelectionInput.type = 'hidden';
+      languageSelectionInput.id = 'creator-selected-lineage-languages';
+      languageSelectionInput.name = 'selectedLineageLanguages';
+      languageSelectionInput.value = '{}';
+      languageDetails.parentElement.insertBefore(languageSelectionInput, languageStatus || null);
+    }
+
+    const catalogLanguage = (key) => {
+      const normalized = normalize(key);
+      return catalogLanguageMap.get(normalized) || null;
+    };
+    const resolveLanguageOptions = (token) => {
+      const key = normalize(token);
+      const compact = key.replace(/\\s+/g, '');
+      let values;
+      if (compact === 'anystandard') {
+        values = standardLanguageKeys.map(catalogLanguage).filter(Boolean);
+      } else if (compact === 'anyexotic') {
+        values = exoticLanguageKeys.map(catalogLanguage).filter(Boolean);
+      } else if (compact === 'any' || compact === 'anylanguage') {
+        values = [...catalogLanguageMap.values()];
+      } else {
+        const direct = catalogLanguage(key);
+        values = direct ? [direct] : [];
+      }
+      return [...new Map(values.map(item => [item.key, item])).values()];
+    };
+    const syncLineageLanguageSelection = () => {
+      if (languageSelectionInput) {
+        languageSelectionInput.value = JSON.stringify(selectedLanguageChoices);
+      }
+    };
+
     const renderLineageLanguages = (lineage) => {
       if (!languageDetails || !languageStatus) return;
       languageDetails.replaceChildren();
+
+      if (activeLanguageLineageValue !== select.value) {
+        for (const key of Object.keys(selectedLanguageChoices)) delete selectedLanguageChoices[key];
+        activeLanguageLineageValue = select.value;
+      }
+      activeLanguageLineageName = lineage?.name || '';
 
       if (!lineage) {
         const item = document.createElement('li');
@@ -494,6 +560,8 @@
           : 'Elegí un linaje para consultar sus idiomas.';
         languageDetails.appendChild(item);
         languageStatus.textContent = 'Los idiomas se muestran únicamente cuando constan en el catálogo.';
+        activeLanguageChoiceDefinitions = [];
+        syncLineageLanguageSelection();
         return;
       }
 
@@ -501,37 +569,137 @@
       const fixedLanguages = [...new Set(groups.flatMap(group => {
         if (!group || typeof group !== 'object') return [];
         return Object.entries(group)
-          .filter(([key, value]) => value === true && !normalize(key).startsWith('any'))
+          .filter(([key, value]) => value === true && !normalize(key).replace(/\\s+/g, '').startsWith('any'))
           .map(([key]) => normalize(key));
-      }))].sort((a, b) => a.localeCompare(b));
-      const hasChoice = groups.some(group =>
-        group && typeof group === 'object' &&
-        ((group.choose && typeof group.choose === 'object') || Number(group.any) > 0)
-      );
+      }))];
+      const definitions = [];
+      groups.forEach((group, groupIndex) => {
+        if (!group || typeof group !== 'object') return;
+        if (group.choose && typeof group.choose === 'object') {
+          const rawCount = Number(group.choose.count);
+          const count = Number.isInteger(rawCount) && rawCount > 0 ? rawCount : 1;
+          const rawFrom = Array.isArray(group.choose.from)
+            ? group.choose.from
+            : typeof group.choose.from === 'string' ? [group.choose.from] : [];
+          const options = [...new Map(rawFrom.flatMap(resolveLanguageOptions)
+            .filter(item => !fixedLanguages.includes(item.key))
+            .map(item => [item.key, item])).values()];
+          definitions.push({ key: 'group-' + groupIndex + '-choose', count, options });
+        }
+        for (const [token, rawCount] of Object.entries(group)) {
+          const compact = normalize(token).replace(/\\s+/g, '');
+          if (!['anystandard', 'anyexotic', 'any', 'anylanguage'].includes(compact)) continue;
+          const count = Number(rawCount);
+          if (!Number.isInteger(count) || count < 1) continue;
+          const options = resolveLanguageOptions(compact)
+            .filter(item => !fixedLanguages.includes(item.key));
+          definitions.push({ key: 'group-' + groupIndex + '-' + compact, count, options });
+        }
+      });
+      activeLanguageChoiceDefinitions = definitions;
 
       if (fixedLanguages.length) {
         const item = document.createElement('li');
         item.textContent = 'Concede automáticamente: ' + fixedLanguages.map(language =>
-          LANGUAGE_LABELS[language] || (language.charAt(0).toUpperCase() + language.slice(1))
+          LANGUAGE_LABELS[language] ||
+          catalogLanguage(language)?.name ||
+          (language.charAt(0).toUpperCase() + language.slice(1))
         ).join(', ') + '.';
         languageDetails.appendChild(item);
       }
-      if (hasChoice) {
-        const item = document.createElement('li');
-        item.textContent = 'Este linaje también registra una elección de idioma opcional; todavía no se puede seleccionar aquí.';
-        languageDetails.appendChild(item);
-      }
-      if (!fixedLanguages.length && !hasChoice) {
-        const item = document.createElement('li');
-        item.textContent = 'El catálogo no registra idiomas concedidos automáticamente para este linaje.';
-        languageDetails.appendChild(item);
+
+      const usedLanguages = new Set(fixedLanguages);
+      for (const definition of definitions) {
+        const validOptions = new Set(definition.options.map(item => item.key));
+        const currentSelections = Array.isArray(selectedLanguageChoices[definition.key])
+          ? selectedLanguageChoices[definition.key]
+          : [];
+        const cleanSelections = [];
+        for (const key of currentSelections) {
+          if (validOptions.has(key) && !usedLanguages.has(key) && cleanSelections.length < definition.count) {
+            cleanSelections.push(key);
+            usedLanguages.add(key);
+          }
+        }
+        selectedLanguageChoices[definition.key] = cleanSelections;
+
+        const heading = document.createElement('li');
+        heading.textContent = 'Elegí ' + definition.count +
+          (definition.count === 1 ? ' idioma entre estas opciones:' : ' idiomas entre estas opciones:');
+        languageDetails.appendChild(heading);
+
+        for (const option of definition.options) {
+          const selectedForThisChoice = selectedLanguageChoices[definition.key];
+          const selectedElsewhere = Object.entries(selectedLanguageChoices)
+            .some(([choiceKey, values]) => choiceKey !== definition.key &&
+              Array.isArray(values) && values.includes(option.key));
+          const item = document.createElement('li');
+          const label = document.createElement('label');
+          label.className = 'creator-lineage-language-choice';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = 'lineageLanguages';
+          checkbox.value = option.key;
+          checkbox.dataset.lineageLanguageChoice = definition.key;
+          checkbox.checked = selectedForThisChoice.includes(option.key);
+          checkbox.disabled = selectedElsewhere ||
+            (selectedForThisChoice.length >= definition.count && !checkbox.checked);
+          label.append(checkbox, document.createTextNode(' ' + option.name));
+          item.appendChild(label);
+          languageDetails.appendChild(item);
+
+          checkbox.addEventListener('change', () => {
+            const choices = [...(selectedLanguageChoices[definition.key] || [])];
+            if (checkbox.checked) {
+              if (choices.length >= definition.count) {
+                checkbox.checked = false;
+                languageStatus.textContent = 'Ya elegiste los ' + definition.count +
+                  ' idiomas permitidos en este grupo. Desmarcá uno para cambiar la selección.';
+                return;
+              }
+              if (!choices.includes(option.key)) choices.push(option.key);
+            } else {
+              const index = choices.indexOf(option.key);
+              if (index >= 0) choices.splice(index, 1);
+            }
+            selectedLanguageChoices[definition.key] = choices;
+            syncLineageLanguageSelection();
+            renderLineageLanguages(lineage);
+          });
+        }
       }
 
-      languageStatus.textContent = (lineage.source ? 'Fuente: ' + lineage.source + '. ' : '') +
-        (fixedLanguages.length ? fixedLanguages.length + ' idioma(s) automático(s) registrado(s).' :
-          hasChoice ? 'Hay una elección de idioma registrada pendiente de implementar.' :
-            'Sin idiomas automáticos registrados.');
+      const selectedCount = Object.values(selectedLanguageChoices)
+        .reduce((sum, values) => sum + (Array.isArray(values) ? values.length : 0), 0);
+      const requiredCount = definitions.reduce((sum, definition) => sum + definition.count, 0);
+      if (!definitions.length) {
+        const item = document.createElement('li');
+        item.textContent = fixedLanguages.length
+          ? 'Este linaje no requiere elegir idiomas adicionales.'
+          : 'El catálogo no registra idiomas concedidos ni elecciones de idioma para este linaje.';
+        languageDetails.appendChild(item);
+      } else if (definitions.some(definition => definition.options.length === 0)) {
+        languageStatus.textContent = 'El catálogo registra una elección de idioma, pero no contiene opciones válidas suficientes para mostrarla.';
+      }
+
+      if (!(definitions.some(definition => definition.options.length === 0))) {
+        languageStatus.textContent = (lineage.source ? 'Fuente: ' + lineage.source + '. ' : '') +
+          (definitions.length
+            ? 'Elegiste ' + selectedCount + ' de ' + requiredCount + ' idiomas opcionales.'
+            : fixedLanguages.length
+              ? fixedLanguages.length + ' idioma(s) automático(s) registrado(s).'
+              : 'Sin idiomas automáticos ni elecciones registradas.');
+      }
+      syncLineageLanguageSelection();
     };
+
+    window.creatorPersonarumGetLineageLanguageSelection = () => ({
+      requiredCount: activeLanguageChoiceDefinitions.reduce((sum, definition) => sum + definition.count, 0),
+      selected: [...new Set(Object.values(selectedLanguageChoices).flat())],
+      selectedByChoice: JSON.parse(JSON.stringify(selectedLanguageChoices)),
+      lineageName: activeLanguageLineageName,
+      lineageValue: activeLanguageLineageValue
+    });
 
     const render = (restoreSkills) => {
       details.replaceChildren();
