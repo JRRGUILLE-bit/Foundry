@@ -795,6 +795,11 @@ try {
     explorerStoryProposal,
     'Export should preserve the complete proposed origin story, including the selected character details'
   );
+  assert.equal(
+    explorerExport.concept,
+    'C'.repeat(1200),
+    'Export should preserve the complete player concept separately from the generated origin story'
+  );
   assert.equal(explorerExport.originContinent, 'Tomun');
   assert.match(explorerExport.originStory, /Ciudades y culturas/i, 'Explorer story should be preserved in the exported draft');
   assert.equal(explorerExport.selectedSpells[0].name, selectedSpellForDraft, 'Export should include the selected spell');
