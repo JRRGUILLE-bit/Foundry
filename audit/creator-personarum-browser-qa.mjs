@@ -491,6 +491,19 @@ try {
   const barbarianSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
   assert.ok(barbarianSubclasses.some(name => /berserker/i.test(name)), 'Barbarian selection should expose its allowed Berserker subclass');
   await subclassSelect.selectOption({ label: 'Path of the Berserker' });
+  await classSelect.selectOption({ label: 'Clérigo' });
+  assert.equal(
+    await subclassSelect.inputValue(),
+    '',
+    'Changing class should clear the previously selected subclass'
+  );
+  await classSelect.selectOption({ label: 'Bárbaro' });
+  assert.equal(
+    await subclassSelect.inputValue(),
+    '',
+    'Returning to the prior class should not silently reselect the old subclass'
+  );
+  await subclassSelect.selectOption({ label: 'Path of the Berserker' });
   const subclassFeatureList = page.locator('#creator-subclass-features-list');
   assert.doesNotMatch(await subclassFeatureList.innerText(), /Frenzy/, 'Level 1 Berserker should not show its level 3 Frenzy feature');
   await levelInput.fill('3');
