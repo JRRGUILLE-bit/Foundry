@@ -185,6 +185,17 @@ try {
     'Ability choice checkboxes should remain checked after restoring the draft'
   );
 
+  const [lineageAbilityDownload] = await Promise.all([
+    page.waitForEvent('download'),
+    page.locator('#creator-export-draft').click()
+  ]);
+  const lineageAbilityExport = JSON.parse(fs.readFileSync(await lineageAbilityDownload.path(), 'utf8'));
+  assert.deepEqual(
+    lineageAbilityExport.selectedLineageAbilities,
+    { 'group-0': ['str', 'dex'] },
+    'Exported draft should include selected lineage ability choices'
+  );
+
   // Return to a clean draft so the remaining browser checks stay independent.
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: 'domcontentloaded' });
