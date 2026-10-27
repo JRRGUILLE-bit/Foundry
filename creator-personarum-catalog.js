@@ -1777,13 +1777,6 @@
         if (!key || seen.has(key)) continue;
         seen.add(key);
         addOption(select, item.name, item.source, item.category);
-        if (isWarlock && key === 'the fiend') {
-          const option = Array.from(select.options).find(candidate => candidate.value === item.name);
-          if (option) {
-            option.textContent = 'The Fiend — patrón infernal (no abisal)';
-            option.title = 'Permitido solo con un patrón infernal; no puede vincularse al Abismo ni a demonios.';
-          }
-        }
       }
       select.disabled = !selectedClass || matching.length === 0;
 
