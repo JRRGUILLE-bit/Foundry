@@ -307,7 +307,7 @@ La portada enlaza a `creator-personarum.html`, una secuencia independiente para 
 - La ruta exploradora permite registrar una pista inicial sin exigir que el jugador conozca todavía su nombre, linaje o clase. Los borradores se guardan por separado en el navegador y se pueden exportar a JSON.
 - Las pistas de exploración siguen siendo orientativas, no regiones canónicas. La rama de auditoría carga la procedencia desde las regiones y zonas salvajes del Atlas revisado y muestra su contexto. La generación de una historia de origen completa, basada en la región y el concepto del personaje, sigue pendiente.
 - Esta etapa **no crea todavía un actor de Foundry** ni calcula atributos, competencias, equipo o hechizos.
-- QA: `node --check creator-personarum.js` y `node audit/creator-personarum-qa.js`, además del Browser Mobile QA.
+- QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y `node audit/creator-personarum-browser-qa.mjs`, además del Browser Mobile QA.
 
 ---
 
@@ -437,4 +437,4 @@ La rama `feat/new-campaign-origin-picker` prepara estos cambios; **no se conside
 - La historia de origen completa (narrativa personalizada que combine región, concepto, linaje y trasfondo) sigue pendiente. Esta etapa tampoco crea actores de Foundry.
 - El trabajo del mapa interactivo sigue separado: esta auditoría no modifica el mapa ni reemplaza la tarea de Claude.
 
-QA previsto: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y Browser Mobile QA (Chromium/WebKit). La rama debe permanecer sin merge hasta revisar esos resultados.
+QA previsto: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js`, `node --check audit/creator-personarum-browser-qa.mjs`, `node audit/creator-personarum-browser-qa.mjs` y Browser Mobile QA (Chromium/WebKit). La rama debe permanecer sin merge hasta revisar esos resultados.
