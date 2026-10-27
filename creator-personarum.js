@@ -523,7 +523,8 @@
       deityName: getSelectedDeity() ? getSelectedDeity().name : '',
       originRegion: originRegionSelect.value,
       originRegionName: getSelectedOriginRegion() ? getSelectedOriginRegion().name : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originRegionName || '' : ''),
-      originContinent: getSelectedOriginRegion() ? getSelectedOriginRegion().group : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originContinent || '' : '')
+      originContinent: getSelectedOriginRegion() ? getSelectedOriginRegion().group : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originContinent || '' : ''),
+      originStory: document.getElementById('creator-origin-story').value.trim()
     };
   }
 
@@ -605,6 +606,9 @@
     const originGroup = values.originContinent || (getSelectedOriginRegion() ? getSelectedOriginRegion().group : '');
     document.getElementById('creator-preview-origin-row').hidden = !originName;
     document.getElementById('creator-preview-origin').textContent = originName ? originName + (originGroup ? ' · ' + originGroup : '') : 'A definir';
+    const originStory = typeof values.originStory === 'string' ? values.originStory.trim() : '';
+    document.getElementById('creator-preview-origin-story-row').hidden = !originStory;
+    document.getElementById('creator-preview-origin-story').textContent = originStory || 'A definir';
     document.getElementById('creator-preview-monogram').textContent = name === 'Sin definir'
       ? (currentMode === CREATION_MODES.explore ? '✦' : '?')
       : name.charAt(0).toLocaleUpperCase('es');
@@ -711,6 +715,7 @@
       }));
       document.getElementById('creator-level').value = String(draft.level || 1);
       document.getElementById('creator-concept').value = draft.concept || '';
+      document.getElementById('creator-origin-story').value = typeof draft.originStory === 'string' ? draft.originStory : '';
       exportDraftButton.disabled = false;
       setDraftStatus('BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', 'saved');
     } catch (error) {
@@ -864,6 +869,7 @@
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,
+      originStory: values.originStory,
       deity: values.deity,
       deityName: values.deityName,
       background: values.background,

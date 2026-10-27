@@ -548,12 +548,17 @@ try {
     'A selected region should appear in the preview'
   );
   assert.match(await page.locator('#creator-preview-origin').innerText(), /Imperium Ravum/);
+  const originStory = 'Crecí entre viajeros y aprendí a desconfiar de los caminos seguros.';
+  await page.locator('#creator-origin-story').fill(originStory);
+  assert.equal(await page.locator('#creator-preview-origin-story-row').evaluate(element => element.hidden), false);
+  assert.equal(await page.locator('#creator-preview-origin-story').innerText(), originStory);
 
   await page.locator('#creator-draft-form button[type="submit"]').click();
   await page.waitForFunction(({ expectedSubclass, expectedFeat }) => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
     return draft && draft.originRegion === 'abigur-imperium-ravum-el-imperio-gris'
       && draft.originRegionName === 'Imperium Ravum (el Imperio Gris)'
+      && draft.originStory === 'Crecí entre viajeros y aprendí a desconfiar de los caminos seguros.'
       && draft.lineage === 'Tortuga viajera'
       && draft.lineageChoice === 'Otro / personalizado'
       && draft.subclass === expectedSubclass
@@ -572,6 +577,7 @@ try {
   assert.equal(knownDownload.suggestedFilename(), 'creator-personarum-personaje.json');
   const knownExport = JSON.parse(fs.readFileSync(await knownDownload.path(), 'utf8'));
   assert.equal(knownExport.originContinent, 'Abigur');
+  assert.equal(knownExport.originStory, originStory, 'Exported draft should include the written origin story');
   assert.equal(knownExport.lineage, 'Tortuga viajera');
   assert.equal(knownExport.selectedClassSkills.length, 2, 'Exported draft should include the two selected class skills');
   assert.equal(knownExport.selectedBackgroundSkills.length, 2, 'Exported draft should include the two selected background skills');
@@ -582,6 +588,8 @@ try {
   await exposeWorkspace();
   await page.locator('#creator-known-path-button').click();
   assert.equal(await page.locator('#creator-origin-region').inputValue(), greyEmpireId);
+  assert.equal(await page.locator('#creator-origin-story').inputValue(), originStory, 'Saved origin story should be restored');
+  assert.equal(await page.locator('#creator-preview-origin-story').innerText(), originStory, 'Restored origin story should remain in the preview');
   assert.equal(await page.locator('#creator-lineage').inputValue(), 'Otro / personalizado');
   assert.equal(await page.locator('#creator-custom-lineage').inputValue(), 'Tortuga viajera');
   assert.equal(await page.locator('#creator-preview-lineage').innerText(), 'Tortuga viajera');
