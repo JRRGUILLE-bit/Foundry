@@ -844,6 +844,58 @@
         : 'El catálogo no registra una velocidad base para este linaje.';
       details.appendChild(speedItem);
 
+      const toolGroups = Array.isArray(lineage.toolProficiencies) ? lineage.toolProficiencies : [];
+      if (toolGroups.length) {
+        const toolLabels = {
+          "smith's tools": 'herramientas de herrero',
+          "brewer's supplies": 'suministros de cervecero',
+          "mason's tools": 'herramientas de albañil',
+          "thieves' tools": 'herramientas de ladrón',
+          "carpenter's tools": 'herramientas de carpintero',
+          "leatherworker's tools": 'herramientas de curtidor',
+          "woodcarver's tools": 'herramientas de tallista de madera',
+          "tinker's tools": 'herramientas de hojalatero',
+          "cobbler's tools": 'herramientas de zapatero',
+          "calligrapher's supplies": 'materiales de calígrafo',
+          "cartographer's tools": 'herramientas de cartógrafo',
+          "cook's utensils": 'utensilios de cocinero',
+          "gaming set": 'un juego de azar',
+          "musical instrument": 'un instrumento musical'
+        };
+        const toolDescriptions = [];
+        for (const group of toolGroups) {
+          if (!group || typeof group !== 'object') continue;
+          const fixedTools = Object.entries(group)
+            .filter(([key, value]) => value === true && key !== 'anyMusicalInstrument')
+            .map(([key]) => toolLabels[normalize(key)] || key);
+          if (fixedTools.length) {
+            toolDescriptions.push('concede automáticamente ' + fixedTools.join(', '));
+          }
+          if (group.choose && typeof group.choose === 'object') {
+            const count = Number.isInteger(Number(group.choose.count)) && Number(group.choose.count) > 0
+              ? Number(group.choose.count)
+              : 1;
+            const options = Array.isArray(group.choose.from)
+              ? group.choose.from.map(value => toolLabels[normalize(value)] || value)
+              : [];
+            toolDescriptions.push('elegí ' + count + (count === 1 ? ' competencia entre ' : ' competencias entre ') +
+              (options.length ? options.join(', ') : 'las opciones permitidas por el catálogo'));
+          }
+          if (Number(group.any) > 0) {
+            toolDescriptions.push('elegí ' + Number(group.any) + ' competencias con herramientas; las opciones concretas no están registradas');
+          }
+          if (Number(group.anyMusicalInstrument) > 0) {
+            const count = Number(group.anyMusicalInstrument);
+            toolDescriptions.push('elegí ' + count + (count === 1 ? ' instrumento musical' : ' instrumentos musicales'));
+          }
+        }
+        if (toolDescriptions.length) {
+          const toolItem = document.createElement('li');
+          toolItem.textContent = 'Competencias con herramientas: ' + toolDescriptions.join('; ') + '.';
+          details.appendChild(toolItem);
+        }
+      }
+
       const skillsTitle = byId('creator-lineage-skills-title');
       if (skillsTitle) skillsTitle.textContent = 'RASGOS Y HABILIDADES DEL LINAJE';
 
