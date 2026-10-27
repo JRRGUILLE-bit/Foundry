@@ -124,7 +124,7 @@ try {
   await languageQaClassSkills.nth(0).check();
   await languageQaClassSkills.nth(1).check();
   await languageQaClassSkills.nth(2).check();
-  const halfElfSkills = page.locator('#creator-lineage-skills-list input[type="checkbox"]');
+  const halfElfSkills = page.locator('#creator-lineage-skills-list input[data-lineage-skill-choice]');
   assert.ok(await halfElfSkills.count() >= 2, 'Half-Elf should expose its two skill choices');
   await halfElfSkills.nth(0).check();
   await halfElfSkills.nth(1).check();
@@ -134,7 +134,11 @@ try {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
     return draft && draft.lineage === 'Semielfo' &&
       draft.selectedLineageLanguages &&
-      Object.values(draft.selectedLineageLanguages).flat().length === 1;
+      Object.values(draft.selectedLineageLanguages).flat().length === 1 &&
+      draft.selectedLineageAbilities &&
+      Array.isArray(draft.selectedLineageAbilities['group-0']) &&
+      draft.selectedLineageAbilities['group-0'].includes('str') &&
+      draft.selectedLineageAbilities['group-0'].includes('dex');
   });
   const savedLanguageChoices = await page.evaluate(() => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
