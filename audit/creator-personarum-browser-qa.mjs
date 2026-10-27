@@ -692,6 +692,11 @@ try {
     'The player should be able to override the suggested origin'
   );
   await page.locator('#creator-character-name').fill('Ariadna QA');
+  assert.equal(
+    await page.locator('#creator-preview-name').innerText(),
+    'Ariadna QA',
+    'Character preview should update the name immediately before the draft is saved'
+  );
   await page.locator('#creator-concept').fill('C'.repeat(1200));
   await page.locator('#creator-feat').selectOption(selectedFeatValue);
   await page.locator('#creator-origin-story-draft').click();
