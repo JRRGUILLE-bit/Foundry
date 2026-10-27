@@ -482,6 +482,19 @@
     } catch (error) {
       selectedLineageSkills = [];
     }
+    let selectedLineageAbilities = {};
+    try {
+      const parsedLineageAbilities = JSON.parse(document.getElementById('creator-selected-lineage-abilities')?.value || '{}');
+      if (parsedLineageAbilities && typeof parsedLineageAbilities === 'object' && !Array.isArray(parsedLineageAbilities)) {
+        selectedLineageAbilities = Object.fromEntries(
+          Object.entries(parsedLineageAbilities).filter(([key, values]) =>
+            typeof key === 'string' && Array.isArray(values) && values.every(value => typeof value === 'string')
+          )
+        );
+      }
+    } catch (error) {
+      selectedLineageAbilities = {};
+    }
     let selectedClassSkills = [];
     try {
       const parsedClassSkills = JSON.parse(document.getElementById('creator-selected-class-skills').value || '[]');
@@ -501,6 +514,7 @@
       selectedClassSkills,
       selectedBackgroundSkills,
       selectedLineageSkills,
+      selectedLineageAbilities,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
@@ -755,6 +769,7 @@
       selectedBackgroundSkills: values.selectedBackgroundSkills,
       selectedLineageSkills: values.selectedLineageSkills,
       selectedLineageLanguages,
+      selectedLineageAbilities: values.selectedLineageAbilities,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,
