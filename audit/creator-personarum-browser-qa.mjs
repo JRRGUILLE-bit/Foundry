@@ -97,7 +97,7 @@ try {
   assert.match(await lineageLanguages.innerText(), /Elegí 1 idioma entre estas opciones/, 'Half-Elf should offer one optional language');
   const halfElfLanguages = lineageLanguages.locator('input[type="checkbox"]');
   const availableHalfElfLanguages = await halfElfLanguages.evaluateAll(inputs => inputs.map(input => input.value));
-  assert.ok(availableHalfElfLanguages.includes('common'), 'Half-Elf language choices should include a standard language');
+  assert.ok(availableHalfElfLanguages.includes('dwarvish'), 'Half-Elf language choices should include a selectable standard language');
   assert.ok(availableHalfElfLanguages.includes('abyssal'), 'Half-Elf language choices should include an exotic language');
   await halfElfLanguages.first().check();
   const chosenOptionalLanguage = await halfElfLanguages.first().inputValue();
