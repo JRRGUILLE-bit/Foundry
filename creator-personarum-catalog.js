@@ -1757,8 +1757,11 @@
         const className = translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS);
         if (!selectedClass || normalize(className) !== selectedClass) return false;
         const subclassName = normalize(item.name);
-        // Campaign canon: no subclass may involve the Abyss; Infernal patrons remain allowed.
+        // Campaign canon: ban explicitly Abyss-linked options; infernal patrons remain allowed.
         if (/(^| )(abyss|abyssal|abismo|abismal)( |$)/.test(subclassName)) return false;
+        if (isWarlock && subclassName === 'the great old one') return false;
+        const isSorcerer = selectedClass === 'hechicero' || selectedClass === 'sorcerer';
+        if (isSorcerer && subclassName === 'aberrant mind') return false;
         if (isWarlock && /(^| )(demon|demonic|demonio|demoniaca|demoniaco)( |$)/.test(subclassName)) return false;
         return true;
       }).sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
