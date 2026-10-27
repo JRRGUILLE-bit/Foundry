@@ -72,6 +72,7 @@
   const lineageSelect = document.getElementById('creator-lineage');
   const classSelect = document.getElementById('creator-character-class');
   const subclassSelect = document.getElementById('creator-subclass');
+  const featSelect = document.getElementById('creator-feat');
   const customLineageField = document.getElementById('creator-custom-lineage-field');
   const customLineageInput = document.getElementById('creator-custom-lineage');
   const warlockCanonNote = document.getElementById('creator-warlock-canon-note');
@@ -463,6 +464,7 @@
       customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
       characterClass: classSelect.value,
       subclass: subclassSelect.value,
+      feat: featSelect.value,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
@@ -482,6 +484,8 @@
     document.getElementById('creator-preview-class').textContent = values.characterClass || 'Sin definir';
     document.getElementById('creator-preview-subclass-row').hidden = !values.subclass;
     document.getElementById('creator-preview-subclass').textContent = values.subclass || 'A definir';
+    document.getElementById('creator-preview-feat-row').hidden = !values.feat;
+    document.getElementById('creator-preview-feat').textContent = values.feat || 'A definir';
     document.getElementById('creator-preview-level').textContent = String(values.level || 1);
     document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
     document.getElementById('creator-preview-deity-row').hidden = !values.deityName;
@@ -538,6 +542,9 @@
       classSelect.dispatchEvent(new Event('change', { bubbles: true }));
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-subclass', {
         detail: { value: typeof draft.subclass === 'string' ? draft.subclass : '' }
+      }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-feat', {
+        detail: { value: typeof draft.feat === 'string' ? draft.feat : '' }
       }));
       if (draft.originRegion && !Array.from(originRegionSelect.options).some(option => option.value === draft.originRegion) && draft.originRegionName) {
         const savedOrigin = document.createElement('option');
@@ -600,6 +607,7 @@
       customLineage: values.customLineage,
       characterClass: values.characterClass,
       subclass: values.subclass,
+      feat: values.feat,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,

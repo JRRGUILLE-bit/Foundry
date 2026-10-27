@@ -60,6 +60,7 @@ try {
   const greyEmpireId = 'abigur-imperium-ravum-el-imperio-gris';
   const tomunAetheloriaId = 'tomun-aetheloria';
   let fighterSubclassValue = '';
+  let selectedFeatValue = '';
 
   const waitForAtlas = async () => {
     await page.waitForFunction(() => {
@@ -122,6 +123,13 @@ try {
   assert.ok(fighterSubclasses.length > 0, 'Fighter selection should expose allowed subclasses');
   fighterSubclassValue = fighterSubclasses[0];
   await subclassSelect.selectOption(fighterSubclassValue);
+
+  const featSelect = page.locator('#creator-feat');
+  const featOptions = await featSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.value));
+  assert.ok(featOptions.length > 0, 'Allowed feat catalog should populate the feat selector');
+  selectedFeatValue = featOptions.find(name => /^alert$/i.test(name)) || featOptions[0];
+  await featSelect.selectOption(selectedFeatValue);
+  assert.match(await page.locator('#creator-feat-details').innerText(), /Fuente:/, 'Choosing a feat should show its source metadata');
   assert.equal(
     await page.locator('#creator-warlock-canon-note').evaluate(element => element.hidden),
     true,
@@ -142,8 +150,9 @@ try {
       && draft.originRegionName === 'Imperium Ravum (el Imperio Gris)'
       && draft.lineage === 'Tortuga viajera'
       && draft.lineageChoice === 'Otro / personalizado'
-      && draft.subclass === expectedSubclass;
-  }, fighterSubclassValue);
+      && draft.subclass === expectedSubclass
+      && draft.feat === selectedFeat;
+  }, fighterSubclassValue, selectedFeatValue);
   const [knownDownload] = await Promise.all([
     page.waitForEvent('download'),
     page.locator('#creator-export-draft').click()
@@ -164,6 +173,8 @@ try {
   assert.equal(await page.locator('#creator-preview-lineage').innerText(), 'Tortuga viajera');
   assert.equal(await page.locator('#creator-subclass').inputValue(), fighterSubclassValue, 'Saved subclass should be restored with its matching class');
   assert.equal(await page.locator('#creator-preview-subclass').innerText(), fighterSubclassValue, 'Selected subclass should appear in the character preview');
+  assert.equal(await page.locator('#creator-feat').inputValue(), selectedFeatValue, 'Saved feat should be restored');
+  assert.equal(await page.locator('#creator-preview-feat').innerText(), selectedFeatValue, 'Selected feat should appear in the character preview');
   assert.match(await page.locator('#creator-origin-details').innerText(), /estado unificado|gobierno/i);
 
   // Explorer path: the existing Inferno association preselects the Grey Empire,

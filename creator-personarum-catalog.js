@@ -4,6 +4,7 @@
   const CATALOG_URL = 'creator-personarum-data/player-options.json';
   const byId = (id) => document.getElementById(id);
   let pendingRestoredSubclass = '';
+  let pendingRestoredFeat = '';
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
     pendingRestoredSubclass = String(event.detail?.value || '');
@@ -11,6 +12,16 @@
     if (pendingRestoredSubclass && select && Array.from(select.options).some(option => option.value === pendingRestoredSubclass)) {
       select.value = pendingRestoredSubclass;
       pendingRestoredSubclass = '';
+    }
+  });
+
+  window.addEventListener('creator-personarum:restore-feat', (event) => {
+    pendingRestoredFeat = String(event.detail?.value || '');
+    const select = byId('creator-feat');
+    if (pendingRestoredFeat && select && Array.from(select.options).some(option => option.value === pendingRestoredFeat)) {
+      select.value = pendingRestoredFeat;
+      pendingRestoredFeat = '';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
     }
   });
 
@@ -223,6 +234,45 @@
     refresh();
   }
 
+  function appendFeats(records) {
+    const select = byId('creator-feat');
+    const details = byId('creator-feat-details');
+    if (!select || !details) return;
+
+    const rows = records.filter(item => item.category === 'feat')
+      .sort((a, b) => String(a.name).localeCompare(String(b.name)) || String(a.source).localeCompare(String(b.source)));
+    const byName = new Map();
+    select.replaceChildren(new Option(rows.length ? 'Elegí una dote…' : 'No hay dotes permitidas en el catálogo', ''));
+
+    for (const item of rows) {
+      const key = normalize(item.name);
+      if (!key || byName.has(key)) continue;
+      byName.set(key, item);
+      addOption(select, item.name, item.source, item.category);
+    }
+    select.disabled = byName.size === 0;
+
+    const refreshDetails = () => {
+      const item = byName.get(normalize(select.value));
+      if (!item) {
+        details.textContent = 'Elegí una dote para consultar la fuente y los requisitos registrados en el catálogo.';
+        return;
+      }
+      const prerequisites = item.prerequisites ?? item.prerequisite;
+      const sourceText = item.source ? 'Fuente: ' + item.source + '.' : 'Fuente sin especificar.';
+      const prerequisiteText = prerequisites == null
+        ? 'El catálogo no registra un requisito explícito para esta entrada.'
+        : 'Requisitos registrados: ' + (typeof prerequisites === 'string' ? prerequisites : JSON.stringify(prerequisites));
+      details.textContent = sourceText + ' ' + prerequisiteText;
+    };
+    select.addEventListener('change', refreshDetails);
+    if (pendingRestoredFeat) {
+      if (Array.from(select.options).some(option => option.value === pendingRestoredFeat)) select.value = pendingRestoredFeat;
+      pendingRestoredFeat = '';
+    }
+    refreshDetails();
+  }
+
   async function loadCatalog() {
     try {
       const response = await fetch(CATALOG_URL, { cache: 'no-store' });
@@ -234,6 +284,7 @@
       appendClasses(catalog.records);
       appendBackgrounds(catalog.records);
       appendSubclasses(catalog.records);
+      appendFeats(catalog.records);
       document.documentElement.dataset.creatorCatalogState = 'loaded';
       document.documentElement.dataset.creatorCatalogCount = String(catalog.totals?.included_records || catalog.records.length);
     } catch (error) {

@@ -247,6 +247,14 @@
             </select>
           </label>
 
+          <label class="creator-field creator-field-wide" for="creator-feat">
+            <span>DOTE (SI CORRESPONDE POR LAS REGLAS DEL PERSONAJE)</span>
+            <select id="creator-feat" name="feat" disabled>
+              <option value="">Cargando dotes permitidas…</option>
+            </select>
+          </label>
+          <p id="creator-feat-details" class="creator-deity-details creator-field-wide" role="status" aria-live="polite">Las dotes se cargarán desde el catálogo permitido; al elegir una se mostrarán su fuente y sus requisitos registrados.</p>
+
           <section id="creator-warlock-canon-note" class="creator-divine-section creator-field-wide creator-warlock-canon-note" hidden aria-label="Regla de campaña para brujos">
             <span class="creator-divine-kicker">REGLA DE CAMPAÑA // BRUJO</span>
             <p>El Abismo y sus demonios son enemigos de la Creación, no una opción de patrón jugable. El creador no ofrecerá pactos abisales. Los patronos permitidos se incorporarán cuando estén definidos por el canon.</p>
@@ -335,6 +343,7 @@
             <div><dt>LINAJE</dt><dd id="creator-preview-lineage">Sin definir</dd></div>
             <div><dt>CLASE</dt><dd id="creator-preview-class">Sin definir</dd></div>
             <div id="creator-preview-subclass-row" hidden><dt>SUBCLASE</dt><dd id="creator-preview-subclass">A definir</dd></div>
+            <div id="creator-preview-feat-row" hidden><dt>DOTE</dt><dd id="creator-preview-feat">A definir</dd></div>
             <div id="creator-preview-deity-row" hidden><dt>FE / IDEAL</dt><dd id="creator-preview-deity">A definir</dd></div>
             <div id="creator-preview-origin-row" hidden><dt>PROCEDENCIA</dt><dd id="creator-preview-origin">A definir</dd></div>
             <div><dt>NIVEL</dt><dd id="creator-preview-level">1</dd></div>
@@ -354,7 +363,7 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261027-3"></script>
-  <script src="creator-personarum-catalog.js?v=20261027-4"></script>
+  <script src="creator-personarum.js?v=20261027-4"></script>
+  <script src="creator-personarum-catalog.js?v=20261027-5"></script>
 </body>
 </html>
