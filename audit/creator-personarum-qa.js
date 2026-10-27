@@ -11,6 +11,8 @@ for (const name of [
   'creator-personarum.html',
   'creator-personarum.css',
   'creator-personarum.js',
+  'creator-personarum-catalog.js',
+  'creator-personarum-data/player-options.json',
   'creator-personarum-final-frame.png',
   'creador intro.mp4',
   'creador outro.mp4'
@@ -21,12 +23,22 @@ for (const name of [
 const homepage = read('index.html');
 const page = read('creator-personarum.html');
 const runtime = read('creator-personarum.js');
+const catalogRuntime = read('creator-personarum-catalog.js');
+const playerOptionsCatalog = JSON.parse(read('creator-personarum-data/player-options.json'));
 const styles = read('creator-personarum.css');
 const workflow = read('.github/workflows/browser-mobile-qa.yml');
 const atlas = JSON.parse(read('fvtt-JournalEntry-atlas-revisado.json'));
 const atlasText = JSON.stringify(atlas);
 
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
+assert.match(page, /creator-personarum-catalog\.js/, 'Creator Personarum must load its filtered player-options catalog adapter');
+assert.match(catalogRuntime, /creator-personarum-data\/player-options\.json/, 'Catalog adapter must load the generated filtered catalog');
+assert.ok(playerOptionsCatalog.records.length > 1000, 'Filtered catalog must contain the existing broad player-option index');
+for (const category of ['species', 'species_variant', 'class', 'subclass', 'background', 'feat', 'spell', 'skill']) {
+  assert.ok(playerOptionsCatalog.totals.included_by_category[category] > 0, 'Filtered catalog must contain category: ' + category);
+}
+const excludedSourceCodes = new Set(['EGW', 'EGTW', 'CRCOTN', 'TDCS', 'TDCSR', 'TCSR', 'XPHB', 'XDMG', 'XMM', 'XSRD', 'SRD52', 'SRD521', 'PHB2024', 'DMG2024', 'MM2024', 'MM']);
+assert.ok(!playerOptionsCatalog.records.some(record => excludedSourceCodes.has(String(record.source).replace(/[^a-z0-9]/gi, '').toUpperCase())), 'Filtered catalog must not expose excluded or reference-only source codes');
 assert.match(homepage, /creator-personarum\.css/, 'Homepage must load the shared entry-point styling');
 assert.match(page, /creador%20intro\.mp4/, 'The cinematic intro must reference the committed intro asset');
 assert.match(page, /creador%20outro\.mp4/, 'The outro must reference the committed outro asset');
