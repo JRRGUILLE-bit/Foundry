@@ -966,6 +966,43 @@
         details.appendChild(armorItem);
       }
 
+      const abilityLabels = {
+        str: 'Fuerza',
+        dex: 'Destreza',
+        con: 'Constitución',
+        int: 'Inteligencia',
+        wis: 'Sabiduría',
+        cha: 'Carisma'
+      };
+      const abilityGroups = Array.isArray(lineage.ability) ? lineage.ability : [];
+      const abilityDescriptions = [];
+      for (const group of abilityGroups) {
+        if (!group || typeof group !== 'object') continue;
+        const fixedBonuses = Object.entries(group)
+          .filter(([key, value]) => abilityLabels[key] && typeof value === 'number' && value > 0)
+          .map(([key, value]) => '+' + value + ' ' + abilityLabels[key]);
+        abilityDescriptions.push(...fixedBonuses);
+        if (group.choose && typeof group.choose === 'object') {
+          const rawCount = Number(group.choose.count);
+          const count = Number.isInteger(rawCount) && rawCount > 0 ? rawCount : 1;
+          const rawAmount = Number(group.choose.amount);
+          const amount = Number.isFinite(rawAmount) && rawAmount > 0 ? rawAmount : 1;
+          const options = Array.isArray(group.choose.from)
+            ? [...new Set(group.choose.from.filter(key => abilityLabels[key]).map(key => abilityLabels[key]))]
+            : [];
+          abilityDescriptions.push(
+            'elegí ' + count + (count === 1 ? ' característica' : ' características') +
+            (options.length ? ' entre ' + options.join(', ') : ' entre las opciones registradas') +
+            ' (+' + amount + ' ' + (count === 1 ? 'a la elegida' : 'a cada una') + ')'
+          );
+        }
+      }
+      const abilityItem = document.createElement('li');
+      abilityItem.textContent = abilityDescriptions.length
+        ? 'Incrementos de características registrados: ' + abilityDescriptions.join('; ') + '.'
+        : 'El catálogo no registra incrementos de características para esta entrada del linaje.';
+      details.appendChild(abilityItem);
+
       const skillsTitle = byId('creator-lineage-skills-title');
       if (skillsTitle) skillsTitle.textContent = 'RASGOS Y HABILIDADES DEL LINAJE';
 
