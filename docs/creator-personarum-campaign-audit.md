@@ -56,7 +56,16 @@ Las ejecuciones del commit anterior a la prueba reforzada de historias largas te
 - Móvil: https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40514677878
 - Publicación: https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40514677032
 
-Para el commit `349a188e58956ddf8de978456f9d41863afcaa37`, que modifica el manejo y la prueba del límite de historia, los workflows de escritorio, móvil y publicación figuraban en cola en la última consulta. No se debe atribuirles un resultado satisfactorio hasta que concluyan.
+El commit `349a188e58956ddf8de978456f9d41863afcaa37`, que elimina el recorte previo del concepto del jugador y refuerza la prueba del límite de historia, quedó validado por las ejecuciones de escritorio, móvil y publicación asociadas al estado corregido de `main`: [Desktop QA](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563004184), [Browser Mobile QA](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563004270) y [GitHub Pages](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563003754).
+
+
+## Corrección documentada — nota de canon de Brujo (27/10/2026)
+
+- **Causa:** el HTML había perdido la sección `creator-warlock-canon-note`, pero `creator-personarum.js` todavía la consulta y controla su visibilidad al cambiar la clase. La auditoría estática exigía esa sección y fallaba; por ello tampoco se ejecutaban los smoke tests de navegador de esa ejecución.
+- **Cambio aplicado:** se restauró únicamente esa sección en `creator-personarum.html`, junto al selector de clase. El texto es la regla de campaña ya documentada: el Abismo y sus demonios no son opciones jugables de patrón y los patronos permitidos quedan pendientes de definición por el canon. No se agregaron clases, subclases ni reglas nuevas.
+- **Commit:** [`ccd23a3fbf5ea18259fd15d0b0e6ba09569c81a4`](https://github.com/JRRGUILLE-bit/Foundry/commit/ccd23a3fbf5ea18259fd15d0b0e6ba09569c81a4).
+- **Resultado verificado:** Desktop QA pasó; la auditoría estática y el smoke test de Creator Personarum pasaron; Browser Mobile QA terminó con éxito, incluido el QA completo de navegador; GitHub Pages construyó y desplegó correctamente. Enlaces: [Desktop QA](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563004184), [Browser Mobile QA](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563004270), [publicación](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563003754).
+- **Alcance preservado:** se modificó un solo archivo, `creator-personarum.html`. La corrección no crea un actor completo de Foundry, no define los patronos pendientes ni modifica el mapa o el generador del Atlas asignados a Claude.
 
 ## Guardrails
 
