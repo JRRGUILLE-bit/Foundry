@@ -1005,6 +1005,12 @@
       flags: {
         dnd5e: {
           rulesVersion: 'legacy'
+        },
+        world: {
+          creatorPersonarum: {
+            schemaVersion: 1,
+            draft: JSON.parse(JSON.stringify(draft))
+          }
         }
       },
       prototypeToken: {

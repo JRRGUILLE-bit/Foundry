@@ -648,6 +648,15 @@ try {
   assert.equal(knownActorExport.name, 'QA Aventurero', 'Foundry actor export should preserve the character name');
   assert.equal(knownActorExport.type, 'character', 'Foundry actor export should use the D&D 5e character type');
   assert.equal(knownActorExport.flags.dnd5e.rulesVersion, 'legacy', 'Foundry actor export should mark the 2014/Legacy ruleset');
+  const creatorPersonarumMetadata = knownActorExport.flags.world.creatorPersonarum;
+  assert.equal(creatorPersonarumMetadata.schemaVersion, 1, 'Actor should carry a versioned Creator Personarum metadata block');
+  assert.equal(creatorPersonarumMetadata.draft.name, 'QA Aventurero', 'Structured metadata should preserve the original character name');
+  assert.equal(creatorPersonarumMetadata.draft.mode, 'known', 'Structured metadata should preserve the creation path');
+  assert.equal(creatorPersonarumMetadata.draft.concept, 'Una promesa de proteger a quienes viajan.', 'Structured metadata should preserve the player concept');
+  assert.equal(creatorPersonarumMetadata.draft.originRegionContext.sourcePage, 'Continente de Abigur',
+    'Structured metadata should preserve the canonical Atlas source');
+  assert.equal(creatorPersonarumMetadata.draft.originStory, originStory,
+    'Structured metadata should preserve the exact origin story');
   assert.deepEqual(knownActorExport.items, [], 'Actor base must not invent mechanical item documents');
   assert.deepEqual(knownActorExport.effects, [], 'Actor base must not invent active effects');
   const actorBiography = knownActorExport.system.details.biography.value;
