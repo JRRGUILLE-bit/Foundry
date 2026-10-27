@@ -896,6 +896,76 @@
         }
       }
 
+      const weaponGroups = Array.isArray(lineage.weaponProficiencies) ? lineage.weaponProficiencies : [];
+      const armorGroups = Array.isArray(lineage.armorProficiencies) ? lineage.armorProficiencies : [];
+      const weaponLabels = {
+        battleaxe: 'hacha de batalla',
+        handaxe: 'hacha de mano',
+        'light hammer': 'martillo ligero',
+        warhammer: 'martillo de guerra',
+        rapier: 'estoque',
+        shortsword: 'espada corta',
+        'hand crossbow': 'ballesta de mano',
+        longsword: 'espada larga',
+        shortbow: 'arco corto',
+        longbow: 'arco largo',
+        spear: 'lanza',
+        trident: 'tridente',
+        'light crossbow': 'ballesta ligera',
+        net: 'red',
+        greatsword: 'espadón',
+        firearms: 'armas de fuego'
+      };
+      const armorLabels = {
+        light: 'armadura ligera',
+        medium: 'armadura media',
+        heavy: 'armadura pesada',
+        shields: 'escudos'
+      };
+      const weaponDescriptions = [];
+      for (const group of weaponGroups) {
+        if (!group || typeof group !== 'object') continue;
+        const fixedWeapons = Object.entries(group)
+          .filter(([key, value]) => value === true)
+          .map(([key]) => {
+            const weapon = normalize(key.split('|')[0]);
+            return weaponLabels[weapon] || key.split('|')[0];
+          });
+        if (fixedWeapons.length) weaponDescriptions.push(...fixedWeapons);
+        if (group.choose && typeof group.choose === 'object') {
+          const count = Number.isInteger(Number(group.choose.count)) && Number(group.choose.count) > 0
+            ? Number(group.choose.count)
+            : 1;
+          const options = Array.isArray(group.choose.from)
+            ? group.choose.from.map(value => weaponLabels[normalize(String(value).split('|')[0])] || value)
+            : [];
+          const filter = typeof group.choose.fromFilter === 'string' ? group.choose.fromFilter : '';
+          weaponDescriptions.push(options.length
+            ? 'elegir ' + count + (count === 1 ? ' arma entre ' : ' armas entre ') + options.join(', ')
+            : 'elegir ' + count + (count === 1 ? ' competencia con arma permitida por el catálogo' : ' competencias con armas permitidas por el catálogo') +
+              (filter ? ' (' + filter + ')' : ''));
+        }
+        if (Number(group.firearms) > 0) weaponDescriptions.push('armas de fuego');
+      }
+      if (weaponDescriptions.length) {
+        const weaponItem = document.createElement('li');
+        weaponItem.textContent = 'Competencias con armas: ' + [...new Set(weaponDescriptions)].join(', ') + '.';
+        details.appendChild(weaponItem);
+      }
+
+      const armorDescriptions = [];
+      for (const group of armorGroups) {
+        if (!group || typeof group !== 'object') continue;
+        for (const [key, value] of Object.entries(group)) {
+          if (value === true) armorDescriptions.push(armorLabels[normalize(key)] || key);
+        }
+      }
+      if (armorDescriptions.length) {
+        const armorItem = document.createElement('li');
+        armorItem.textContent = 'Competencias con armaduras: ' + [...new Set(armorDescriptions)].join(', ') + '.';
+        details.appendChild(armorItem);
+      }
+
       const skillsTitle = byId('creator-lineage-skills-title');
       if (skillsTitle) skillsTitle.textContent = 'RASGOS Y HABILIDADES DEL LINAJE';
 
