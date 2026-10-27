@@ -66,6 +66,9 @@ assert.match(page, /id="creator-preview-origin-row"/, 'Selected origin must be r
 assert.match(runtime, /fvtt-JournalEntry-atlas-revisado\.json/, 'Origin choices must be loaded from the canonical Atlas export');
 assert.match(runtime, /function parseAtlasRegions\(atlas\)/, 'Atlas parsing must be a distinct testable transformation');
 assert.match(runtime, /function getSelectedOriginRegion\(\)/, 'The selected region should resolve to canonical details');
+assert.match(runtime, /function alignInfernalExplorationOrigin\(force\)/, 'Infernal faith in exploration must follow its canonical Grey Empire association');
+assert.match(runtime, /region\.name === 'Imperium Ravum \(el Imperio Gris\)'/, 'Infernal exploration association must resolve to the Atlas Grey Empire entry');
+assert.match(runtime, /alignInfernalExplorationOrigin\(true\)/, 'Choosing the Inferno option in exploration should select its Grey Empire origin');
 assert.match(runtime, /atlasLoading/, 'The Atlas loading state must not be confused with an Atlas fetch failure');
 assert.match(runtime, /restoreDraft\(\);\s*updateOriginDetails\(\);/, 'Restoring a draft must refresh the origin summary');
 assert.match(runtime, /originRegionName: values\.originRegionName/, 'Saved/exported drafts must preserve origin metadata');
