@@ -9,6 +9,7 @@
   let pendingRestoredClassSkills = null;
   let pendingRestoredBackgroundSkills = null;
   let pendingRestoredLineageSkills = null;
+  let pendingRestoredLineageLanguages = null;
   let selectedSpells = [];
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
@@ -91,6 +92,28 @@
     pendingRestoredLineageSkills = null;
     if (typeof window.creatorPersonarumApplyRestoredLineageSkills === 'function') {
       window.creatorPersonarumApplyRestoredLineageSkills([]);
+    }
+  });
+
+  window.addEventListener('creator-personarum:restore-lineage-languages', (event) => {
+    const detail = event.detail || {};
+    const selections = detail.selectedByChoice && typeof detail.selectedByChoice === 'object'
+      && !Array.isArray(detail.selectedByChoice)
+      ? detail.selectedByChoice
+      : {};
+    pendingRestoredLineageLanguages = {
+      lineage: String(detail.lineage || ''),
+      selectedByChoice: selections
+    };
+    if (typeof window.creatorPersonarumApplyRestoredLineageLanguages === 'function') {
+      window.creatorPersonarumApplyRestoredLineageLanguages();
+    }
+  });
+
+  window.addEventListener('creator-personarum:reset-lineage-languages', () => {
+    pendingRestoredLineageLanguages = null;
+    if (typeof window.creatorPersonarumApplyRestoredLineageLanguages === 'function') {
+      window.creatorPersonarumApplyRestoredLineageLanguages({});
     }
   });
 
@@ -701,6 +724,26 @@
       lineageValue: activeLanguageLineageValue
     });
 
+    window.creatorPersonarumApplyRestoredLineageLanguages = (selections) => {
+      if (selections && typeof selections === 'object' && !Array.isArray(selections)) {
+        pendingRestoredLineageLanguages = {
+          lineage: select.value,
+          selectedByChoice: selections
+        };
+      }
+      if (!pendingRestoredLineageLanguages) return;
+      if (normalize(pendingRestoredLineageLanguages.lineage) !== normalize(select.value)) return;
+
+      for (const key of Object.keys(selectedLanguageChoices)) delete selectedLanguageChoices[key];
+      for (const [key, values] of Object.entries(pendingRestoredLineageLanguages.selectedByChoice || {})) {
+        if (Array.isArray(values)) {
+          selectedLanguageChoices[key] = [...new Set(values.filter(value => typeof value === 'string').map(normalize))];
+        }
+      }
+      pendingRestoredLineageLanguages = null;
+      renderLineageLanguages(getSelectedLineageRecord());
+    };
+
     const render = (restoreSkills) => {
       details.replaceChildren();
       const lineage = getSelectedLineageRecord();
@@ -712,6 +755,10 @@
       activeLineageName = lineage?.name || '';
       activeSource = lineage?.source || '';
       renderLineageLanguages(lineage);
+      if (pendingRestoredLineageLanguages &&
+          normalize(pendingRestoredLineageLanguages.lineage) === normalize(select.value)) {
+        window.creatorPersonarumApplyRestoredLineageLanguages();
+      }
       if (!lineage) {
         activeChoiceCount = 0;
         activeOptions = [];
