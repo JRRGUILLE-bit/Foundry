@@ -955,6 +955,11 @@
     const spellChoices = Array.isArray(draft.selectedSpells)
       ? draft.selectedSpells.map(spell => spell && typeof spell.name === 'string' ? spell.name : '').filter(Boolean)
       : [];
+    const selectedLineageLanguages = draft.selectedLineageLanguages &&
+      typeof draft.selectedLineageLanguages === 'object' &&
+      !Array.isArray(draft.selectedLineageLanguages)
+      ? Object.values(draft.selectedLineageLanguages).flat().filter(language => typeof language === 'string' && language.trim())
+      : [];
     const origin = [draft.originRegionName, draft.originContinent]
       .filter(value => typeof value === 'string' && value.trim())
       .join(' · ');
@@ -969,6 +974,7 @@
       ['Procedencia', origin],
       ['Pista inicial', draft.explorationLabel],
       ['Habilidades elegidas', skillChoices.join(', ')],
+      ['Idiomas elegidos', selectedLineageLanguages.join(', ')],
       ['Conjuros elegidos', spellChoices.join(', ')],
       ['Fuente del Atlas', draft.originRegionContext && draft.originRegionContext.sourcePage]
     ].filter(([, value]) => typeof value === 'string' && value.trim());
