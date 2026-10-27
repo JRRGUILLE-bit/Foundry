@@ -3,6 +3,16 @@
 
   const CATALOG_URL = 'creator-personarum-data/player-options.json';
   const byId = (id) => document.getElementById(id);
+  let pendingRestoredSubclass = '';
+
+  window.addEventListener('creator-personarum:restore-subclass', (event) => {
+    pendingRestoredSubclass = String(event.detail?.value || '');
+    const select = byId('creator-subclass');
+    if (pendingRestoredSubclass && select && Array.from(select.options).some(option => option.value === pendingRestoredSubclass)) {
+      select.value = pendingRestoredSubclass;
+      pendingRestoredSubclass = '';
+    }
+  });
 
   const CLASS_LABELS = {
     barbarian: 'Bárbaro',
@@ -174,6 +184,45 @@
     });
   }
 
+  function appendSubclasses(records) {
+    const select = byId('creator-subclass');
+    const classSelect = byId('creator-character-class');
+    if (!select || !classSelect) return;
+
+    const rows = records.filter(item => item.category === 'subclass');
+    const refresh = () => {
+      const selectedClass = normalize(classSelect.value);
+      const matching = rows.filter(item => {
+        const className = translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS);
+        return selectedClass && normalize(className) === selectedClass;
+      }).sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
+        String(a.source).localeCompare(String(b.source)));
+
+      select.replaceChildren(new Option(
+        !selectedClass ? 'Elegí una clase primero…' : matching.length ? 'Elegí una subclase…' : 'No hay subclases permitidas para esta clase',
+        ''
+      ));
+      const seen = new Set();
+      for (const item of matching) {
+        const key = normalize(item.name);
+        if (!key || seen.has(key)) continue;
+        seen.add(key);
+        addOption(select, item.name, item.source, item.category);
+      }
+      select.disabled = !selectedClass || matching.length === 0;
+
+      if (pendingRestoredSubclass) {
+        if (Array.from(select.options).some(option => option.value === pendingRestoredSubclass)) {
+          select.value = pendingRestoredSubclass;
+        }
+        pendingRestoredSubclass = '';
+      }
+    };
+
+    classSelect.addEventListener('change', refresh);
+    refresh();
+  }
+
   async function loadCatalog() {
     try {
       const response = await fetch(CATALOG_URL, { cache: 'no-store' });
@@ -184,6 +233,7 @@
       appendLineages(catalog.records);
       appendClasses(catalog.records);
       appendBackgrounds(catalog.records);
+      appendSubclasses(catalog.records);
       document.documentElement.dataset.creatorCatalogState = 'loaded';
       document.documentElement.dataset.creatorCatalogCount = String(catalog.totals?.included_records || catalog.records.length);
     } catch (error) {

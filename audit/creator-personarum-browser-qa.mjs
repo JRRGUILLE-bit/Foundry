@@ -59,6 +59,7 @@ try {
   const baseUrl = 'http://127.0.0.1:' + server.address().port;
   const greyEmpireId = 'abigur-imperium-ravum-el-imperio-gris';
   const tomunAetheloriaId = 'tomun-aetheloria';
+  let fighterSubclassValue = '';
 
   const waitForAtlas = async () => {
     await page.waitForFunction(() => {
@@ -67,6 +68,7 @@ try {
       const values = Array.from(select.options).map(option => option.value);
       return values.length > 20 && values.includes('abigur-imperium-ravum-el-imperio-gris');
     }, null, { timeout: 15000 });
+    await page.waitForFunction(() => document.documentElement.dataset.creatorCatalogState === 'loaded', null, { timeout: 15000 });
   };
 
   const exposeWorkspace = async () => {
@@ -105,7 +107,21 @@ try {
     'The wider canon lineage list should remain available regardless of selected origin'
   );
 
+  const subclassSelect = page.locator('#creator-subclass');
+  await page.locator('#creator-character-class').selectOption({ label: 'Bárbaro' });
+  const barbarianSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
+  assert.ok(barbarianSubclasses.some(name => /berserker/i.test(name)), 'Barbarian selection should expose its allowed Berserker subclass');
+
+  await page.locator('#creator-character-class').selectOption({ label: 'Mago' });
+  const wizardSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
+  assert.ok(wizardSubclasses.length > 0, 'Wizard selection should expose subclasses from the filtered catalog');
+  assert.ok(!wizardSubclasses.some(name => /berserker/i.test(name)), 'Subclasses from another class must not leak into the Wizard choices');
+
   await page.locator('#creator-character-class').selectOption({ label: 'Guerrero' });
+  const fighterSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.value));
+  assert.ok(fighterSubclasses.length > 0, 'Fighter selection should expose allowed subclasses');
+  fighterSubclassValue = fighterSubclasses[0];
+  await subclassSelect.selectOption(fighterSubclassValue);
   assert.equal(
     await page.locator('#creator-warlock-canon-note').evaluate(element => element.hidden),
     true,
@@ -120,13 +136,14 @@ try {
   assert.match(await page.locator('#creator-preview-origin').innerText(), /Imperium Ravum/);
 
   await page.locator('#creator-draft-form button[type="submit"]').click();
-  await page.waitForFunction(() => {
+  await page.waitForFunction((expectedSubclass) => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
     return draft && draft.originRegion === 'abigur-imperium-ravum-el-imperio-gris'
       && draft.originRegionName === 'Imperium Ravum (el Imperio Gris)'
       && draft.lineage === 'Tortuga viajera'
-      && draft.lineageChoice === 'Otro / personalizado';
-  });
+      && draft.lineageChoice === 'Otro / personalizado'
+      && draft.subclass === expectedSubclass;
+  }, fighterSubclassValue);
   const [knownDownload] = await Promise.all([
     page.waitForEvent('download'),
     page.locator('#creator-export-draft').click()
@@ -145,6 +162,8 @@ try {
   assert.equal(await page.locator('#creator-lineage').inputValue(), 'Otro / personalizado');
   assert.equal(await page.locator('#creator-custom-lineage').inputValue(), 'Tortuga viajera');
   assert.equal(await page.locator('#creator-preview-lineage').innerText(), 'Tortuga viajera');
+  assert.equal(await page.locator('#creator-subclass').inputValue(), fighterSubclassValue, 'Saved subclass should be restored with its matching class');
+  assert.equal(await page.locator('#creator-preview-subclass').innerText(), fighterSubclassValue, 'Selected subclass should appear in the character preview');
   assert.match(await page.locator('#creator-origin-details').innerText(), /estado unificado|gobierno/i);
 
   // Explorer path: the existing Inferno association preselects the Grey Empire,

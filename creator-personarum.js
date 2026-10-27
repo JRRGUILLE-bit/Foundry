@@ -71,6 +71,7 @@
   const nameInput = document.getElementById('creator-character-name');
   const lineageSelect = document.getElementById('creator-lineage');
   const classSelect = document.getElementById('creator-character-class');
+  const subclassSelect = document.getElementById('creator-subclass');
   const customLineageField = document.getElementById('creator-custom-lineage-field');
   const customLineageInput = document.getElementById('creator-custom-lineage');
   const warlockCanonNote = document.getElementById('creator-warlock-canon-note');
@@ -238,6 +239,7 @@
 
   function resetFormFields() {
     draftForm.reset();
+    classSelect.dispatchEvent(new Event('change', { bubbles: true }));
     updateCustomLineageField();
     document.getElementById('creator-level').value = '1';
     nameInput.required = currentMode !== CREATION_MODES.explore;
@@ -460,6 +462,7 @@
       lineageChoice,
       customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
       characterClass: classSelect.value,
+      subclass: subclassSelect.value,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
@@ -477,6 +480,8 @@
     document.getElementById('creator-preview-name').textContent = name;
     document.getElementById('creator-preview-lineage').textContent = values.lineage || 'Sin definir';
     document.getElementById('creator-preview-class').textContent = values.characterClass || 'Sin definir';
+    document.getElementById('creator-preview-subclass-row').hidden = !values.subclass;
+    document.getElementById('creator-preview-subclass').textContent = values.subclass || 'A definir';
     document.getElementById('creator-preview-level').textContent = String(values.level || 1);
     document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
     document.getElementById('creator-preview-deity-row').hidden = !values.deityName;
@@ -530,6 +535,10 @@
         : '';
       updateCustomLineageField();
       classSelect.value = draft.characterClass || '';
+      classSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-subclass', {
+        detail: { value: typeof draft.subclass === 'string' ? draft.subclass : '' }
+      }));
       if (draft.originRegion && !Array.from(originRegionSelect.options).some(option => option.value === draft.originRegion) && draft.originRegionName) {
         const savedOrigin = document.createElement('option');
         savedOrigin.value = draft.originRegion;
@@ -590,6 +599,7 @@
       lineageChoice: values.lineageChoice,
       customLineage: values.customLineage,
       characterClass: values.characterClass,
+      subclass: values.subclass,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,
