@@ -564,6 +564,37 @@
       + (spellNames.length > 3 ? ' (+' + (spellNames.length - 3) + ' más)' : '');
     document.getElementById('creator-preview-level').textContent = String(values.level || 1);
     document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
+    const previewSkillLabels = {
+      acrobatics: 'Acrobacias',
+      'animal handling': 'Trato con animales',
+      arcana: 'Arcanos',
+      athletics: 'Atletismo',
+      deception: 'Engaño',
+      history: 'Historia',
+      insight: 'Perspicacia',
+      intimidation: 'Intimidación',
+      investigation: 'Investigación',
+      medicine: 'Medicina',
+      nature: 'Naturaleza',
+      perception: 'Percepción',
+      performance: 'Interpretación',
+      persuasion: 'Persuasión',
+      religion: 'Religión',
+      'sleight of hand': 'Juego de manos',
+      stealth: 'Sigilo',
+      survival: 'Supervivencia'
+    };
+    const selectedSkillKeys = [
+      ...(Array.isArray(values.selectedLineageSkills) ? values.selectedLineageSkills : []),
+      ...(Array.isArray(values.selectedClassSkills) ? values.selectedClassSkills : []),
+      ...(Array.isArray(values.selectedBackgroundSkills) ? values.selectedBackgroundSkills : [])
+    ]
+      .filter(skill => typeof skill === 'string')
+      .map(skill => skill.trim().toLowerCase())
+      .filter(skill => Object.prototype.hasOwnProperty.call(previewSkillLabels, skill));
+    const selectedSkillLabels = [...new Set(selectedSkillKeys)].map(skill => previewSkillLabels[skill]);
+    document.getElementById('creator-preview-skills-row').hidden = selectedSkillLabels.length === 0;
+    document.getElementById('creator-preview-skills').textContent = selectedSkillLabels.join(', ');
     document.getElementById('creator-preview-deity-row').hidden = !values.deityName;
     document.getElementById('creator-preview-deity').textContent = values.deityName || 'A definir';
     const originName = values.originRegionName || (getSelectedOriginRegion() ? getSelectedOriginRegion().name : '');

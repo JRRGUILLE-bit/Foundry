@@ -143,6 +143,11 @@ try {
   assert.ok(await halfElfSkills.count() >= 2, 'Half-Elf should expose its two skill choices');
   await halfElfSkills.nth(0).check();
   await halfElfSkills.nth(1).check();
+  assert.equal(
+    await page.locator('#creator-preview-skills').innerText(),
+    'Acrobacias, Trato con animales, Arcanos',
+    'Character preview should show selected skills in Spanish and deduplicate overlap between lineage and class choices'
+  );
 
   await halfElfAbilityChoices.nth(1).uncheck();
   await halfElfAbilityChoices.nth(0).uncheck();
