@@ -244,12 +244,13 @@
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">D&D 5E LEGACY // PHB 2014</span>
               <h2 id="creator-class-skills-title">HABILIDADES DISPONIBLES POR CLASE</h2>
-              <p>Acá podés consultar cuántas habilidades permite elegir la clase y entre cuáles. Estas opciones están separadas de las habilidades concedidas por el trasfondo.</p>
+              <p>Marcá las habilidades que querés para tu personaje. La lista respeta las opciones y la cantidad permitida por la clase; estas elecciones son independientes de las del trasfondo.</p>
             </div>
             <ul id="creator-class-skills-list" class="creator-deity-details" aria-live="polite">
-              <li>Elegí una clase para consultar sus habilidades.</li>
+              <li>Elegí una clase para seleccionar sus habilidades.</li>
             </ul>
-            <p id="creator-class-skills-status" class="creator-deity-guidance" role="status" aria-live="polite">Las opciones se actualizan al cambiar de clase.</p>
+            <input type="hidden" id="creator-selected-class-skills" name="selectedClassSkills" value="[]">
+            <p id="creator-class-skills-status" class="creator-deity-guidance" role="status" aria-live="polite">Las elecciones se guardan en el borrador.</p>
           </section>
 
           <label class="creator-field" for="creator-subclass">
@@ -446,7 +447,7 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261027-5"></script>
-  <script src="creator-personarum-catalog.js?v=20261027-11"></script>
+  <script src="creator-personarum.js?v=20261027-6"></script>
+  <script src="creator-personarum-catalog.js?v=20261027-12"></script>
 </body>
 </html>

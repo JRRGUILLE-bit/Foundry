@@ -94,13 +94,24 @@ try {
   const classSelect = page.locator('#creator-character-class');
   const classSkillList = page.locator('#creator-class-skills-list');
   await classSelect.selectOption({ label: 'Bárbaro' });
-  assert.match(await classSkillList.innerText(), /elegí 2 habilidades/i, 'Barbarian should explain the number of skill choices');
+  assert.match(await classSkillList.innerText(), /Marcá 2 habilidades/i, 'Barbarian should explain the number of skill choices');
+  assert.ok(await classSkillList.locator('input[type="checkbox"]').count() > 0, 'Barbarian skill choices should be selectable checkboxes');
   assert.match(await classSkillList.innerText(), /Atletismo/, 'Barbarian should include Athletics');
   assert.match(await classSkillList.innerText(), /Supervivencia/, 'Barbarian should include Survival');
   assert.doesNotMatch(await classSkillList.innerText(), /Arcanos/, 'Barbarian must not include a skill outside its class list');
+  const barbarianSkillChoices = classSkillList.locator('input[type="checkbox"]');
+  await barbarianSkillChoices.nth(0).check();
+  await barbarianSkillChoices.nth(1).check();
+  assert.equal(await classSkillList.locator('input[type="checkbox"]:checked').count(), 2, 'Barbarian should allow exactly two checked skills');
+  assert.equal(await barbarianSkillChoices.nth(2).isDisabled(), true, 'Further skills should be disabled at the class limit');
   await classSelect.selectOption({ label: 'Bardo' });
-  assert.match(await classSkillList.innerText(), /elegí 3 habilidades cualesquiera/i, 'Bard should allow any three skills');
+  assert.equal(await classSkillList.locator('input[type="checkbox"]:checked').count(), 0, 'Changing class should clear incompatible skill choices');
+  assert.match(await classSkillList.innerText(), /Marcá 3 habilidades cualesquiera/i, 'Bard should allow any three skills');
   assert.match(await classSkillList.innerText(), /Juego de manos/, 'Bard choice list should include Sleight of Hand');
+  await classSkillList.locator('input[type="checkbox"]').nth(0).check();
+  await classSkillList.locator('input[type="checkbox"]').nth(1).check();
+  await classSkillList.locator('input[type="checkbox"]').nth(2).check();
+  assert.equal(await classSkillList.locator('input[type="checkbox"]:checked').count(), 3, 'Bard should allow three checked skills');
 
   // Backgrounds disclose their fixed skill proficiencies and unselected catalog choices.
   const backgroundSelect = page.locator('#creator-background');
@@ -158,6 +169,9 @@ try {
   assert.ok(!wizardSubclasses.some(name => /berserker/i.test(name)), 'Subclasses from another class must not leak into the Wizard choices');
 
   await page.locator('#creator-character-class').selectOption({ label: 'Guerrero' });
+  const fighterClassSkillChoices = page.locator('#creator-class-skills-list input[type="checkbox"]');
+  await fighterClassSkillChoices.nth(0).check();
+  await fighterClassSkillChoices.nth(1).check();
   const fighterSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.value));
   assert.ok(fighterSubclasses.length > 0, 'Fighter selection should expose allowed subclasses');
   fighterSubclassValue = fighterSubclasses[0];
@@ -190,7 +204,9 @@ try {
       && draft.lineage === 'Tortuga viajera'
       && draft.lineageChoice === 'Otro / personalizado'
       && draft.subclass === expectedSubclass
-      && draft.feat === expectedFeat;
+      && draft.feat === expectedFeat
+      && Array.isArray(draft.selectedClassSkills)
+      && draft.selectedClassSkills.length === 2;
   }, { expectedSubclass: fighterSubclassValue, expectedFeat: selectedFeatValue });
   const [knownDownload] = await Promise.all([
     page.waitForEvent('download'),
@@ -200,8 +216,9 @@ try {
   const knownExport = JSON.parse(fs.readFileSync(await knownDownload.path(), 'utf8'));
   assert.equal(knownExport.originContinent, 'Abigur');
   assert.equal(knownExport.lineage, 'Tortuga viajera');
+  assert.equal(knownExport.selectedClassSkills.length, 2, 'Exported draft should include the two selected class skills');
 
-  // Reload and verify the chosen origin is restored with its Atlas-derived summary.
+  // Reload and verify the chosen origin and class skills are restored.
   await page.reload({ waitUntil: 'domcontentloaded' });
   await waitForAtlas();
   await exposeWorkspace();
@@ -214,6 +231,9 @@ try {
   assert.equal(await page.locator('#creator-preview-subclass').innerText(), fighterSubclassValue, 'Selected subclass should appear in the character preview');
   assert.equal(await page.locator('#creator-feat').inputValue(), selectedFeatValue, 'Saved feat should be restored');
   assert.equal(await page.locator('#creator-preview-feat').innerText(), selectedFeatValue, 'Selected feat should appear in the character preview');
+  const restoredClassSkills = await page.locator('#creator-class-skills-list input[type="checkbox"]:checked').evaluateAll(inputs => inputs.map(input => input.value));
+  assert.deepEqual(restoredClassSkills, JSON.parse(page.locator('#creator-selected-class-skills') ? await page.locator('#creator-selected-class-skills').inputValue() : '[]'));
+  assert.equal(restoredClassSkills.length, 2, 'Saved class skill choices should be restored');
   assert.match(await page.locator('#creator-origin-details').innerText(), /estado unificado|gobierno/i);
 
   // Explorer path: the existing Inferno association preselects the Grey Empire,

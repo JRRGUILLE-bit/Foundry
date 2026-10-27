@@ -241,6 +241,7 @@
   function resetFormFields() {
     draftForm.reset();
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-spells'));
+    window.dispatchEvent(new CustomEvent('creator-personarum:reset-class-skills'));
     classSelect.dispatchEvent(new Event('change', { bubbles: true }));
     updateCustomLineageField();
     document.getElementById('creator-level').value = '1';
@@ -465,6 +466,13 @@
       selectedSpells = [];
     }
     const customLineage = customLineageInput.value.trim();
+    let selectedClassSkills = [];
+    try {
+      const parsedClassSkills = JSON.parse(document.getElementById('creator-selected-class-skills').value || '[]');
+      if (Array.isArray(parsedClassSkills)) selectedClassSkills = parsedClassSkills.filter(skill => typeof skill === 'string');
+    } catch (error) {
+      selectedClassSkills = [];
+    }
     return {
       name: nameInput.value.trim(),
       lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
@@ -474,6 +482,7 @@
       subclass: subclassSelect.value,
       feat: featSelect.value,
       selectedSpells,
+      selectedClassSkills,
       background: document.getElementById('creator-background').value,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
@@ -563,6 +572,9 @@
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-spells', {
         detail: { spells: Array.isArray(draft.selectedSpells) ? draft.selectedSpells : [] }
       }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-class-skills', {
+        detail: { skills: Array.isArray(draft.selectedClassSkills) ? draft.selectedClassSkills : [] }
+      }));
       if (draft.originRegion && !Array.from(originRegionSelect.options).some(option => option.value === draft.originRegion) && draft.originRegionName) {
         const savedOrigin = document.createElement('option');
         savedOrigin.value = draft.originRegion;
@@ -606,6 +618,25 @@
       return;
     }
 
+    const classSkillSelection = typeof window.creatorPersonarumGetClassSkillSelection === 'function'
+      ? window.creatorPersonarumGetClassSkillSelection()
+      : null;
+    if (currentMode !== CREATION_MODES.explore
+        && values.characterClass
+        && classSkillSelection
+        && classSkillSelection.requiredCount > 0
+        && values.selectedClassSkills.length !== classSkillSelection.requiredCount) {
+      setDraftStatus('Elegí exactamente ' + classSkillSelection.requiredCount +
+        (classSkillSelection.requiredCount === 1 ? ' habilidad' : ' habilidades') +
+        ' para ' + classSkillSelection.className + ' antes de guardar.', 'error');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const firstChoice = element.querySelector('input[type="checkbox"]');
+        if (firstChoice) firstChoice.focus();
+      }
+      return;
+    }
+
     if (currentMode === CREATION_MODES.explore && !explorationFocus) {
       setDraftStatus('Volvé a elegir una pista del mundo para continuar con este camino.', 'error');
       return;
@@ -626,6 +657,7 @@
       subclass: values.subclass,
       feat: values.feat,
       selectedSpells: values.selectedSpells,
+      selectedClassSkills: values.selectedClassSkills,
       originRegion: values.originRegion,
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,

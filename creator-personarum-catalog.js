@@ -6,6 +6,7 @@
   let pendingRestoredSubclass = '';
   let pendingRestoredFeat = '';
   let pendingRestoredSpells = null;
+  let pendingRestoredClassSkills = null;
   let selectedSpells = [];
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
@@ -35,6 +36,22 @@
   window.addEventListener('creator-personarum:reset-spells', () => {
     selectedSpells = [];
     pendingRestoredSpells = [];
+  });
+
+  window.addEventListener('creator-personarum:restore-class-skills', (event) => {
+    pendingRestoredClassSkills = Array.isArray(event.detail?.skills)
+      ? event.detail.skills.filter(skill => typeof skill === 'string')
+      : [];
+    if (typeof window.creatorPersonarumApplyRestoredClassSkills === 'function') {
+      window.creatorPersonarumApplyRestoredClassSkills();
+    }
+  });
+
+  window.addEventListener('creator-personarum:reset-class-skills', () => {
+    pendingRestoredClassSkills = [];
+    if (typeof window.creatorPersonarumApplyRestoredClassSkills === 'function') {
+      window.creatorPersonarumApplyRestoredClassSkills();
+    }
   });
 
   const CLASS_LABELS = {
@@ -444,7 +461,8 @@
     const classSelect = byId('creator-character-class');
     const list = byId('creator-class-skills-list');
     const status = byId('creator-class-skills-status');
-    if (!classSelect || !list || !status) return;
+    const hiddenInput = byId('creator-selected-class-skills');
+    if (!classSelect || !list || !status || !hiddenInput) return;
 
     const skillLabels = {
       acrobatics: 'Acrobacias',
@@ -484,47 +502,124 @@
     };
 
     const classRows = records.filter(item => item.category === 'class');
-    const refresh = () => {
+    let selectedSkills = [];
+    let activeClassKey = '';
+    let activeChoiceData = null;
+    let activeClassLabel = '';
+
+    const syncHiddenValue = () => {
+      hiddenInput.value = JSON.stringify(selectedSkills);
+    };
+
+    const updateStatus = (source) => {
+      if (!activeChoiceData) {
+        status.textContent = 'Elegí una clase para seleccionar sus habilidades.';
+        return;
+      }
+      const selectedCount = selectedSkills.length;
+      const remaining = Math.max(0, activeChoiceData.count - selectedCount);
+      const progress = selectedCount === activeChoiceData.count
+        ? 'Elegiste las ' + activeChoiceData.count + ' habilidades permitidas.'
+        : 'Elegiste ' + selectedCount + ' de ' + activeChoiceData.count +
+          '; te falta' + (remaining === 1 ? '' : 'n') + ' ' + remaining + '.';
+      status.textContent = progress + ' Fuente: ' + source + '.';
+    };
+
+    const render = () => {
       list.replaceChildren();
       const className = normalize(classSelect.value);
       const classKey = Object.entries(CLASS_LABELS)
         .find(([, label]) => normalize(label) === className)?.[0] || '';
-      const data = choices[classKey];
-
-      if (!classKey || !classSelect.value) {
-        const item = document.createElement('li');
-        item.textContent = 'Elegí una clase para consultar sus habilidades.';
-        list.appendChild(item);
-        status.textContent = 'Las opciones se actualizan al cambiar de clase.';
-        return;
+      if (classKey !== activeClassKey) {
+        selectedSkills = [];
+        activeClassKey = classKey;
       }
-      if (!data) {
+      const data = choices[classKey];
+      activeChoiceData = data || null;
+      activeClassLabel = classSelect.options[classSelect.selectedIndex]?.textContent || classSelect.value || '';
+      if (!classKey || !data) {
         const item = document.createElement('li');
-        item.textContent = 'El catálogo de esta clase no tiene una lista de habilidades iniciales cargada.';
+        item.textContent = !classKey
+          ? 'Elegí una clase para seleccionar sus habilidades.'
+          : 'No hay una lista de habilidades de clase cargada para esta opción.';
         list.appendChild(item);
-        status.textContent = 'No se inventan opciones cuando falta el registro de reglas.';
+        selectedSkills = [];
+        syncHiddenValue();
+        status.textContent = !classKey
+          ? 'Las elecciones se guardan en el borrador.'
+          : 'No se inventan opciones cuando falta el registro de reglas.';
         return;
       }
 
       const row = classRows.find(item => normalize(item.name) === normalize(classKey));
       const source = data.source || row?.source || 'PHB';
-      const label = classSelect.options[classSelect.selectedIndex]?.textContent || classSelect.value;
       const heading = document.createElement('li');
-      heading.textContent = data.any
-        ? label + ': elegí ' + data.count + ' habilidades cualesquiera de la lista completa.'
-        : label + ': elegí ' + data.count + (data.count === 1 ? ' habilidad entre estas opciones:' : ' habilidades entre estas opciones:');
+      heading.textContent = 'Marcá ' + data.count + (data.count === 1 ? ' habilidad' : ' habilidades') +
+        (data.any ? ' cualesquiera de estas opciones:' : ' de esta lista:');
       list.appendChild(heading);
 
-      const options = document.createElement('li');
-      options.textContent = data.skills.map(skill => skillLabels[skill]).join(', ') + '.';
-      list.appendChild(options);
-      status.textContent = 'Fuente: ' + source + '. Esta consulta muestra las opciones; la selección se incorporará en un paso separado.';
+      for (const skill of data.skills) {
+        const item = document.createElement('li');
+        const label = document.createElement('label');
+        label.className = 'creator-class-skill-choice';
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'classSkills';
+        checkbox.value = skill;
+        checkbox.dataset.classSkillChoice = 'true';
+        checkbox.checked = selectedSkills.includes(skill);
+        checkbox.disabled = selectedSkills.length >= data.count && !checkbox.checked;
+        label.append(checkbox, document.createTextNode(' ' + skillLabels[skill]));
+        item.appendChild(label);
+        list.appendChild(item);
+
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            if (selectedSkills.length >= data.count) {
+              checkbox.checked = false;
+              status.textContent = 'Ya elegiste las ' + data.count + ' habilidades permitidas. Desmarcá una para cambiar la selección.';
+              return;
+            }
+            if (!selectedSkills.includes(skill)) selectedSkills.push(skill);
+          } else {
+            selectedSkills = selectedSkills.filter(value => value !== skill);
+          }
+          selectedSkills.sort((a, b) => data.skills.indexOf(a) - data.skills.indexOf(b));
+          syncHiddenValue();
+          render();
+          updateStatus(source);
+        });
+      }
+
+      if (pendingRestoredClassSkills !== null) {
+        selectedSkills = [...new Set(pendingRestoredClassSkills.filter(skill => data.skills.includes(skill)))].slice(0, data.count);
+        pendingRestoredClassSkills = null;
+        syncHiddenValue();
+        render();
+      }
+      syncHiddenValue();
+      updateStatus(source);
     };
 
-    classSelect.addEventListener('change', refresh);
-    refresh();
-  }
+    window.creatorPersonarumApplyRestoredClassSkills = () => {
+      if (!activeChoiceData) return;
+      const allowed = activeChoiceData.skills;
+      selectedSkills = [...new Set((pendingRestoredClassSkills || []).filter(skill => allowed.includes(skill)))]
+        .slice(0, activeChoiceData.count);
+      pendingRestoredClassSkills = null;
+      syncHiddenValue();
+      render();
+    };
 
+    window.creatorPersonarumGetClassSkillSelection = () => ({
+      requiredCount: activeChoiceData ? activeChoiceData.count : 0,
+      selected: [...selectedSkills],
+      className: activeClassLabel
+    });
+
+    classSelect.addEventListener('change', render);
+    render();
+  }
   function appendSubclasses(records) {
     const select = byId('creator-subclass');
     const classSelect = byId('creator-character-class');
