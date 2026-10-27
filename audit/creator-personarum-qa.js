@@ -66,6 +66,8 @@ assert.match(page, /id="creator-preview-origin-row"/, 'Selected origin must be r
 assert.match(runtime, /fvtt-JournalEntry-atlas-revisado\.json/, 'Origin choices must be loaded from the canonical Atlas export');
 assert.match(runtime, /function parseAtlasRegions\(atlas\)/, 'Atlas parsing must be a distinct testable transformation');
 assert.match(runtime, /function getSelectedOriginRegion\(\)/, 'The selected region should resolve to canonical details');
+assert.match(runtime, /atlasLoading/, 'The Atlas loading state must not be confused with an Atlas fetch failure');
+assert.match(runtime, /restoreDraft\(\);\s*updateOriginDetails\(\);/, 'Restoring a draft must refresh the origin summary');
 assert.match(runtime, /originRegionName: values\.originRegionName/, 'Saved/exported drafts must preserve origin metadata');
 assert.match(atlasText, /Imperium Ravum \(el Imperio Gris\)/, 'Origin data must include the Grey Empire as named in the Atlas');
 assert.match(atlasText, /El Gran Bosque \(interior de Rala\)/, 'Origin data must include the Great Forest zone');
