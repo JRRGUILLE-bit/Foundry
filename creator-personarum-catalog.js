@@ -796,6 +796,37 @@
           item.speed != null
         ) || lineage;
       }
+      let sizeRecord = lineage;
+      if (sizeRecord.size == null && lineage.parent_name) {
+        const parentKey = normalize(lineage.parent_name);
+        sizeRecord = records.find(item =>
+          item.category === 'species' &&
+          normalize(item.name) === parentKey &&
+          item.source === lineage.source &&
+          item.size != null
+        ) || records.find(item =>
+          item.category === 'species' &&
+          normalize(item.name) === parentKey &&
+          item.size != null
+        ) || lineage;
+      }
+      const sizeLabels = {
+        T: 'Diminuto',
+        S: 'Pequeño',
+        M: 'Mediano',
+        L: 'Grande',
+        H: 'Enorme',
+        G: 'Gargantuesco'
+      };
+      const sizes = Array.isArray(sizeRecord.size)
+        ? [...new Set(sizeRecord.size.filter(size => typeof size === 'string').map(size => sizeLabels[size] || size))]
+        : [];
+      const sizeItem = document.createElement('li');
+      sizeItem.textContent = sizes.length
+        ? 'Tamaño registrado: ' + sizes.join(' o ') + '.'
+        : 'El catálogo no registra un tamaño para este linaje.';
+      details.appendChild(sizeItem);
+
       const speed = movementRecord.speed;
       const speedEntries = typeof speed === 'number'
         ? [['walk', speed]]
