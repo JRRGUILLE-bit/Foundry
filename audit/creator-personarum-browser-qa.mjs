@@ -144,15 +144,15 @@ try {
   assert.match(await page.locator('#creator-preview-origin').innerText(), /Imperium Ravum/);
 
   await page.locator('#creator-draft-form button[type="submit"]').click();
-  await page.waitForFunction((expectedSubclass) => {
+  await page.waitForFunction(({ expectedSubclass, expectedFeat }) => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
     return draft && draft.originRegion === 'abigur-imperium-ravum-el-imperio-gris'
       && draft.originRegionName === 'Imperium Ravum (el Imperio Gris)'
       && draft.lineage === 'Tortuga viajera'
       && draft.lineageChoice === 'Otro / personalizado'
       && draft.subclass === expectedSubclass
-      && draft.feat === selectedFeat;
-  }, fighterSubclassValue, selectedFeatValue);
+      && draft.feat === expectedFeat;
+  }, { expectedSubclass: fighterSubclassValue, expectedFeat: selectedFeatValue });
   const [knownDownload] = await Promise.all([
     page.waitForEvent('download'),
     page.locator('#creator-export-draft').click()
