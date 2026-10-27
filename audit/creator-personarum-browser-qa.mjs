@@ -782,6 +782,12 @@ try {
   ]);
   assert.equal(explorerDownload.suggestedFilename(), 'creator-personarum-exploracion.json');
   const explorerExport = JSON.parse(fs.readFileSync(await explorerDownload.path(), 'utf8'));
+  assert.equal(explorerExport.deity, 'inferno', 'Export should preserve the selected divine-power ID');
+  assert.equal(
+    explorerExport.deityName,
+    'El Infierno — Asmodeus y los Nueve Señores',
+    'Export should preserve the canonical name of the selected divine power'
+  );
   assert.equal(
     explorerExport.originStory,
     explorerStoryProposal,
