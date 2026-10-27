@@ -80,6 +80,10 @@ assert.match(page, /Genasi de agua/, 'Creator must include water genasi from the
 assert.match(page, /Gnomo profundo \(Svirfneblin\)/, 'Creator must include deep gnomes from the campaign Atlas');
 assert.match(page, /Forjado/, 'Creator must include the Forged lineage named in the Atlas');
 assert.match(page, /Hombre lagarto/, 'Creator must include lizardfolk from the campaign Atlas');
+assert.match(page, /id="creator-custom-lineage"/, 'Players must be able to enter a custom lineage not listed in the Atlas');
+assert.match(runtime, /function updateCustomLineageField\(\)/, 'The custom lineage field must respond to the lineage selector');
+assert.match(runtime, /lineageChoice: values\.lineageChoice/, 'Drafts must preserve the choice between catalog and custom lineage');
+assert.match(runtime, /customLineage: values\.customLineage/, 'Drafts and exports must preserve the actual custom lineage name');
 assert.match(page, /creator-warlock-canon-note/, 'Warlocks must receive the campaign-specific Abyss restriction note');
 assert.match(runtime, /selectedClass !== 'Brujo'/, 'The Abyss restriction note must be shown only for warlocks');
 assert.doesNotMatch(page, /<option[^>]*>[^<]*Abismo[^<]*<\/option>/i, 'The Abyss must not be selectable as a creator option');
