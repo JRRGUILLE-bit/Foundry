@@ -110,6 +110,14 @@ try {
     { 'group-0': ['str', 'dex'] },
     'Ability selections should be mirrored into the hidden draft field'
   );
+  const previewAbilityRow = page.locator('#creator-preview-lineage-abilities-row');
+  const previewAbilityText = page.locator('#creator-preview-lineage-abilities');
+  assert.equal(await previewAbilityRow.evaluate(element => element.hidden), false, 'Preview should show selected lineage abilities');
+  assert.equal(await previewAbilityText.innerText(), 'Fuerza, Destreza', 'Preview should list selected lineage abilities');
+  await halfElfAbilityChoices.nth(1).uncheck();
+  assert.equal(await previewAbilityText.innerText(), 'Fuerza', 'Preview should update when a lineage ability is deselected');
+  await halfElfAbilityChoices.nth(1).check();
+  assert.equal(await previewAbilityText.innerText(), 'Fuerza, Destreza', 'Preview should update when a lineage ability is selected again');
   assert.match(await lineageLanguages.innerText(), /Elegí 1 idioma entre estas opciones/, 'Half-Elf should offer one optional language');
   const halfElfLanguages = lineageLanguages.locator('input[type="checkbox"]');
   const availableHalfElfLanguages = await halfElfLanguages.evaluateAll(inputs => inputs.map(input => input.value));
