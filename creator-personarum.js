@@ -977,7 +977,7 @@
       .filter(Boolean))];
     const foundrySkills = Object.fromEntries(foundrySkillKeys.map(key => [key, { value: 1 }]));
     const normalizedClassName = typeof draft.characterClass === 'string'
-      ? draft.characterClass.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').trim()
+      ? draft.characterClass.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim()
       : '';
     const savingThrowsByClass = {
       barbarian: ['str', 'con'],
