@@ -578,6 +578,68 @@
     if (pendingRestoredSpells !== null) applyRestoredSpells();
   }
 
+  function appendClassFeatures(records) {
+    const classSelect = byId('creator-character-class');
+    const levelInput = byId('creator-level');
+    const featureList = byId('creator-class-features-list');
+    const status = byId('creator-class-features-status');
+    if (!classSelect || !levelInput || !featureList || !status) return;
+
+    const rows = records.filter(item =>
+      item.category === 'class_feature' &&
+      item.class_key &&
+      Number.isInteger(Number(item.level)) &&
+      Number(item.level) >= 1
+    );
+
+    const refresh = () => {
+      const selectedClass = normalize(classSelect.value);
+      const classKey = Object.entries(CLASS_LABELS)
+        .find(([, label]) => normalize(label) === selectedClass)?.[0] || '';
+      const level = Number(levelInput.value || 1);
+      featureList.replaceChildren();
+
+      if (!classKey) {
+        const item = document.createElement('li');
+        item.textContent = 'Elegí una clase para consultar sus rasgos.';
+        featureList.appendChild(item);
+        status.textContent = 'Los rasgos se actualizan al cambiar de clase o nivel.';
+        return;
+      }
+      if (!Number.isInteger(level) || level < 1 || level > 20) {
+        const item = document.createElement('li');
+        item.textContent = 'Ingresá un nivel entre 1 y 20.';
+        featureList.appendChild(item);
+        status.textContent = 'El nivel elegido todavía no es válido.';
+        return;
+      }
+
+      const available = rows
+        .filter(item => normalize(item.class_key) === normalize(classKey) && Number(item.level) <= level)
+        .sort((a, b) => Number(a.level) - Number(b.level) ||
+          String(a.name).localeCompare(String(b.name)) ||
+          String(a.source).localeCompare(String(b.source)));
+      const seen = new Set();
+      for (const feature of available) {
+        const key = String(feature.level) + '|' + normalize(feature.name);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const item = document.createElement('li');
+        item.textContent = 'Nivel ' + feature.level + ': ' + feature.name +
+          (feature.source ? ' · ' + feature.source : '');
+        featureList.appendChild(item);
+      }
+      status.textContent = available.length
+        ? available.length + ' rasgos de clase registrados hasta el nivel ' + level + '.'
+        : 'El catálogo no contiene rasgos de clase para esta combinación.';
+    };
+
+    classSelect.addEventListener('change', refresh);
+    levelInput.addEventListener('input', refresh);
+    levelInput.addEventListener('change', refresh);
+    refresh();
+  }
+
   async function loadCatalog() {
     try {
       const response = await fetch(CATALOG_URL, { cache: 'no-store' });
@@ -591,6 +653,7 @@
       appendSubclasses(catalog.records);
       appendFeats(catalog.records);
       appendSpells(catalog.records);
+      appendClassFeatures(catalog.records);
       document.documentElement.dataset.creatorCatalogState = 'loaded';
       document.documentElement.dataset.creatorCatalogCount = String(catalog.totals?.included_records || catalog.records.length);
     } catch (error) {

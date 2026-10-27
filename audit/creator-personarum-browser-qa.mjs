@@ -110,6 +110,15 @@ try {
 
   const subclassSelect = page.locator('#creator-subclass');
   await page.locator('#creator-character-class').selectOption({ label: 'Bárbaro' });
+  const levelInput = page.locator('#creator-level');
+  const classFeatureList = page.locator('#creator-class-features-list');
+  await levelInput.fill('1');
+  assert.match(await classFeatureList.innerText(), /Rage/, 'Level 1 Barbarian should list Rage');
+  assert.doesNotMatch(await classFeatureList.innerText(), /Reckless Attack/, 'Level 1 Barbarian should not list the level 2 Reckless Attack');
+  await levelInput.fill('2');
+  assert.match(await classFeatureList.innerText(), /Reckless Attack/, 'Level 2 Barbarian should unlock Reckless Attack');
+  await levelInput.fill('1');
+
   const barbarianSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
   assert.ok(barbarianSubclasses.some(name => /berserker/i.test(name)), 'Barbarian selection should expose its allowed Berserker subclass');
 
