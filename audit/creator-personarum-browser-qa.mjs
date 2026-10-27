@@ -207,10 +207,10 @@ try {
   const lineageSkills = page.locator('#creator-lineage-skills-list');
   await lineageSelect.selectOption({ label: 'Humano — Variante' });
   assert.match(await lineageSkills.innerText(), /Elegí 1 habilidad entre estas opciones/, 'Variant Human should offer one selectable skill');
-  const humanVariantSkills = lineageSkills.locator('input[type="checkbox"]');
+  const humanVariantSkills = lineageSkills.locator('input[data-lineage-skill-choice]');
   assert.ok(await humanVariantSkills.count() > 1, 'Variant Human should expose selectable skills');
   await humanVariantSkills.nth(0).check();
-  assert.equal(await lineageSkills.locator('input[type="checkbox"]:checked').count(), 1, 'Variant Human should allow exactly one selected skill');
+  assert.equal(await lineageSkills.locator('input[data-lineage-skill-choice]:checked').count(), 1, 'Variant Human should allow exactly one selected skill');
   assert.equal(await humanVariantSkills.nth(1).isDisabled(), true, 'Variant Human should disable extra skills at its limit');
   assert.equal(JSON.parse(await page.locator('#creator-selected-lineage-skills').inputValue()).length, 1, 'Lineage choices should be mirrored into the draft field');
   await lineageSelect.selectOption({ label: 'Otro / personalizado' });
