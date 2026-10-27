@@ -10,6 +10,7 @@
   let pendingRestoredBackgroundSkills = null;
   let pendingRestoredLineageSkills = null;
   let pendingRestoredLineageLanguages = null;
+  let pendingRestoredLineageAbilities = null;
   let selectedSpells = [];
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
@@ -114,6 +115,28 @@
     pendingRestoredLineageLanguages = null;
     if (typeof window.creatorPersonarumApplyRestoredLineageLanguages === 'function') {
       window.creatorPersonarumApplyRestoredLineageLanguages({});
+    }
+  });
+
+  window.addEventListener('creator-personarum:restore-lineage-abilities', (event) => {
+    const detail = event.detail || {};
+    const selections = detail.selectedByChoice && typeof detail.selectedByChoice === 'object'
+      && !Array.isArray(detail.selectedByChoice)
+      ? detail.selectedByChoice
+      : {};
+    pendingRestoredLineageAbilities = {
+      lineage: String(detail.lineage || ''),
+      selectedByChoice: selections
+    };
+    if (typeof window.creatorPersonarumApplyRestoredLineageAbilities === 'function') {
+      window.creatorPersonarumApplyRestoredLineageAbilities();
+    }
+  });
+
+  window.addEventListener('creator-personarum:reset-lineage-abilities', () => {
+    pendingRestoredLineageAbilities = null;
+    if (typeof window.creatorPersonarumApplyRestoredLineageAbilities === 'function') {
+      window.creatorPersonarumApplyRestoredLineageAbilities({});
     }
   });
 
@@ -464,6 +487,19 @@
     const syncLineageAbilitySelection = () => {
       if (abilitySelectionInput) abilitySelectionInput.value = JSON.stringify(selectedAbilityChoices);
     };
+    const applyPendingRestoredLineageAbilities = () => {
+      if (!pendingRestoredLineageAbilities ||
+          normalize(pendingRestoredLineageAbilities.lineage) !== normalize(select.value)) return false;
+
+      for (const key of Object.keys(selectedAbilityChoices)) delete selectedAbilityChoices[key];
+      for (const [key, values] of Object.entries(pendingRestoredLineageAbilities.selectedByChoice || {})) {
+        if (Array.isArray(values)) {
+          selectedAbilityChoices[key] = [...new Set(values.filter(value => typeof value === 'string').map(normalize))];
+        }
+      }
+      pendingRestoredLineageAbilities = null;
+      return true;
+    };
 
     const syncHiddenValue = () => {
       hiddenInput.value = JSON.stringify(selectedSkills);
@@ -771,6 +807,10 @@
         for (const key of Object.keys(selectedAbilityChoices)) delete selectedAbilityChoices[key];
         activeAbilityLineageValue = lineageValue;
         syncLineageAbilitySelection();
+      }
+      if (pendingRestoredLineageAbilities &&
+          normalize(pendingRestoredLineageAbilities.lineage) === normalize(select.value)) {
+        applyPendingRestoredLineageAbilities();
       }
       activeLineageName = lineage?.name || '';
       activeSource = lineage?.source || '';
@@ -1209,6 +1249,15 @@
       selectedByChoice: JSON.parse(JSON.stringify(selectedAbilityChoices)),
       selected: [...new Set(Object.values(selectedAbilityChoices).flat())]
     });
+    window.creatorPersonarumApplyRestoredLineageAbilities = (selections) => {
+      if (selections && typeof selections === 'object' && !Array.isArray(selections)) {
+        pendingRestoredLineageAbilities = {
+          lineage: select.value,
+          selectedByChoice: selections
+        };
+      }
+      if (applyPendingRestoredLineageAbilities()) render();
+    };
 
     window.creatorPersonarumRefreshLineageSkills = () => render();
     window.creatorPersonarumApplyRestoredLineageSkills = (skills) => {
