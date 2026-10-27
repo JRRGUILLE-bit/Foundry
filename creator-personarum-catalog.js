@@ -640,6 +640,123 @@
     refresh();
   }
 
+  function subclassNameAliases(name) {
+    const prefixes = [
+      'path of the ', 'path of ',
+      'college of ', 'circle of the ', 'circle of ',
+      'oath of ', 'way of the ', 'way of ',
+      'school of ', 'domain of the ', 'domain of ',
+      'otherworldly patron: ', 'roguish archetype: ',
+      'martial archetype: ', 'arcane tradition: ',
+      'sacred oath: ', 'monastic tradition: ',
+      'primal path: ', 'ranger archetype: ',
+      'sorcerous origin: ', 'bard college: ',
+      'cleric domain: ', 'the '
+    ];
+    const aliases = new Set();
+    const queue = [String(name || '').trim()];
+    while (queue.length) {
+      const current = queue.shift();
+      const key = normalize(current);
+      if (!key || aliases.has(key)) continue;
+      aliases.add(key);
+      const lower = current.toLowerCase();
+      for (const prefix of prefixes) {
+        if (lower.startsWith(prefix)) {
+          const stripped = current.slice(prefix.length).trim();
+          if (stripped && !aliases.has(normalize(stripped))) queue.push(stripped);
+        }
+      }
+    }
+    return aliases;
+  }
+
+  function appendSubclassFeatures(records) {
+    const classSelect = byId('creator-character-class');
+    const subclassSelect = byId('creator-subclass');
+    const levelInput = byId('creator-level');
+    const featureList = byId('creator-subclass-features-list');
+    const status = byId('creator-subclass-features-status');
+    if (!classSelect || !subclassSelect || !levelInput || !featureList || !status) return;
+
+    const subclasses = records.filter(item => item.category === 'subclass' && item.class_key);
+    const features = records.filter(item =>
+      item.category === 'subclass_feature' &&
+      item.class_key &&
+      item.subclassShortName &&
+      Number.isInteger(Number(item.level)) &&
+      Number(item.level) >= 1
+    );
+
+    const refresh = () => {
+      const className = normalize(classSelect.value);
+      const classKey = Object.entries(CLASS_LABELS)
+        .find(([, label]) => normalize(label) === className)?.[0] || '';
+      const selectedLevel = Number(levelInput.value || 1);
+      const selectedSubclass = String(subclassSelect.value || '');
+      featureList.replaceChildren();
+
+      if (!classKey || !selectedSubclass) {
+        const item = document.createElement('li');
+        item.textContent = !classKey
+          ? 'Elegí una clase para consultar los rasgos de subclase.'
+          : 'Elegí una subclase para consultar sus rasgos.';
+        featureList.appendChild(item);
+        status.textContent = 'La lista se actualiza al cambiar de clase, subclase o nivel.';
+        return;
+      }
+      if (!Number.isInteger(selectedLevel) || selectedLevel < 1 || selectedLevel > 20) {
+        const item = document.createElement('li');
+        item.textContent = 'Ingresá un nivel entre 1 y 20.';
+        featureList.appendChild(item);
+        status.textContent = 'El nivel elegido todavía no es válido.';
+        return;
+      }
+
+      const subclassRecord = subclasses.find(item =>
+        normalize(item.class_key) === normalize(classKey) &&
+        normalize(item.name) === normalize(selectedSubclass)
+      );
+      if (!subclassRecord) {
+        const item = document.createElement('li');
+        item.textContent = 'No se encontró la subclase elegida dentro del catálogo permitido.';
+        featureList.appendChild(item);
+        status.textContent = 'No se pueden mostrar rasgos para una opción fuera del catálogo.';
+        return;
+      }
+
+      const aliases = subclassNameAliases(subclassRecord.name);
+      const available = features
+        .filter(item =>
+          normalize(item.class_key) === normalize(classKey) &&
+          aliases.has(normalize(item.subclassShortName)) &&
+          Number(item.level) <= selectedLevel
+        )
+        .sort((a, b) => Number(a.level) - Number(b.level) ||
+          String(a.name).localeCompare(String(b.name)) ||
+          String(a.source).localeCompare(String(b.source)));
+      const seen = new Set();
+      for (const feature of available) {
+        const key = String(feature.level) + '|' + normalize(feature.name);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const item = document.createElement('li');
+        item.textContent = 'Nivel ' + feature.level + ': ' + feature.name +
+          (feature.source ? ' · ' + feature.source : '');
+        featureList.appendChild(item);
+      }
+      status.textContent = available.length
+        ? available.length + ' rasgos de subclase registrados hasta el nivel ' + selectedLevel + '.'
+        : 'El catálogo no contiene rasgos de esta subclase hasta el nivel elegido.';
+    };
+
+    classSelect.addEventListener('change', refresh);
+    subclassSelect.addEventListener('change', refresh);
+    levelInput.addEventListener('input', refresh);
+    levelInput.addEventListener('change', refresh);
+    refresh();
+  }
+
   async function loadCatalog() {
     try {
       const response = await fetch(CATALOG_URL, { cache: 'no-store' });
@@ -654,6 +771,7 @@
       appendFeats(catalog.records);
       appendSpells(catalog.records);
       appendClassFeatures(catalog.records);
+      appendSubclassFeatures(catalog.records);
       document.documentElement.dataset.creatorCatalogState = 'loaded';
       document.documentElement.dataset.creatorCatalogCount = String(catalog.totals?.included_records || catalog.records.length);
     } catch (error) {

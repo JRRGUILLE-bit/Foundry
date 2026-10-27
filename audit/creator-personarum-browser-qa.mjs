@@ -121,6 +121,13 @@ try {
 
   const barbarianSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
   assert.ok(barbarianSubclasses.some(name => /berserker/i.test(name)), 'Barbarian selection should expose its allowed Berserker subclass');
+  await subclassSelect.selectOption({ label: 'Path of the Berserker' });
+  const subclassFeatureList = page.locator('#creator-subclass-features-list');
+  assert.doesNotMatch(await subclassFeatureList.innerText(), /Frenzy/, 'Level 1 Berserker should not show its level 3 Frenzy feature');
+  await levelInput.fill('3');
+  assert.match(await subclassFeatureList.innerText(), /Frenzy/, 'Level 3 Berserker should show Frenzy');
+  assert.doesNotMatch(await subclassFeatureList.innerText(), /Ancestral Protectors|Form of the Beast|Divine Fury/, 'Berserker must not show features from other Barbarian subclasses');
+  await levelInput.fill('1');
 
   await page.locator('#creator-character-class').selectOption({ label: 'Mago' });
   const wizardSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
