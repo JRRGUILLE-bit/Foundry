@@ -275,7 +275,7 @@ La rama de trabajo `feat/new-campaign-origin-picker` no se considera parte de `m
 ### Cambios preparados
 - Selector opcional de procedencia que lee `fvtt-JournalEntry-atlas-revisado.json` directamente, agrupa regiones oficiales de Abigur, Rala y Tomun, zonas salvajes nombradas y archipiélagos, y presenta un resumen extraído de la entrada fuente.
 - La región y su continente se guardan en el borrador y se exportan; la vista previa muestra la procedencia elegida.
-- Se amplía el selector de linajes con pueblos presentes en el Atlas. El origen regional no restringe linajes; para el Imperio Gris, todas las razas continúan disponibles conforme al canon del usuario.
+- Se amplía el selector de linajes con pueblos presentes en el Atlas y se habilita el nombre libre al elegir «Otro / personalizado», con persistencia en borrador/exportación. El origen regional no restringe linajes; para el Imperio Gris, todas las razas continúan disponibles conforme al canon del usuario.
 - Al elegir **Brujo**, se muestra la regla explícita de que el Abismo y los demonios son enemigos, no patrones jugables. No existe todavía una lista de patrones de brujo, por lo que no se improvisa una.
 - La opción del Infierno permanece distinta de cualquier opción abisal.
 
