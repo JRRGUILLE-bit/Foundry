@@ -7,6 +7,7 @@ on:
       - "creator-personarum.html"
       - "creator-personarum.css"
       - "creator-personarum.js"
+      - "creator-personarum-catalog.js"
       - "creator-personarum-final-frame.png"
       - "creador *.mp4"
       - "audit/creator-personarum-qa.js"
@@ -71,6 +72,7 @@ jobs:
       - name: Check Creator Personarum flow and assets
         run: |
           node --check creator-personarum.js
+          node --check creator-personarum-catalog.js
           node audit/creator-personarum-qa.js
           node --check audit/creator-personarum-browser-qa.mjs
 
