@@ -802,6 +802,21 @@ try {
   );
   await page.locator('#creator-explore-continue').click();
   assert.equal(
+    await page.locator('#creator-deity').inputValue(),
+    'inferno',
+    'Saved divine power should be restored after reload'
+  );
+  assert.equal(
+    await page.locator('#creator-preview-deity-row').evaluate(element => element.hidden),
+    false,
+    'Restored divine power should remain visible in the character preview'
+  );
+  assert.equal(
+    await page.locator('#creator-preview-deity').innerText(),
+    'El Infierno — Asmodeus y los Nueve Señores',
+    'Restored preview should show the canonical divine power name'
+  );
+  assert.equal(
     await page.locator('#creator-origin-story').inputValue(),
     explorerStoryProposal,
     'Saved origin story should be restored exactly after reload'
