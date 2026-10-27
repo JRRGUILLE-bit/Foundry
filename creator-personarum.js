@@ -539,19 +539,19 @@
       wis: 'Sabiduría',
       cha: 'Carisma'
     };
-    const lineageAbilityChoices = values.selectedLineageAbilities &&
-      typeof values.selectedLineageAbilities === 'object' &&
-      !Array.isArray(values.selectedLineageAbilities)
-      ? values.selectedLineageAbilities
-      : {};
-    const selectedLineageAbilityNames = [...new Set(
-      Object.values(lineageAbilityChoices).flat()
-        .filter(key => typeof key === 'string')
-        .map(key => abilityLabels[key])
-        .filter(Boolean)
-    )];
-    document.getElementById('creator-preview-lineage-abilities-row').hidden = selectedLineageAbilityNames.length === 0;
-    document.getElementById('creator-preview-lineage-abilities').textContent = selectedLineageAbilityNames.join(', ');
+    const lineageAbilitySelection = typeof window.creatorPersonarumGetLineageAbilitySelection === 'function'
+      ? window.creatorPersonarumGetLineageAbilitySelection()
+      : null;
+    const currentLineageAbilityBonuses = lineageAbilitySelection &&
+      lineageAbilitySelection.lineageValue === lineageSelect.value &&
+      Array.isArray(lineageAbilitySelection.bonuses)
+      ? lineageAbilitySelection.bonuses
+      : [];
+    const lineageAbilityBonusLabels = currentLineageAbilityBonuses
+      .filter(bonus => bonus && abilityLabels[bonus.key] && Number.isFinite(bonus.amount) && bonus.amount > 0)
+      .map(bonus => '+' + bonus.amount + ' ' + abilityLabels[bonus.key]);
+    document.getElementById('creator-preview-lineage-abilities-row').hidden = lineageAbilityBonusLabels.length === 0;
+    document.getElementById('creator-preview-lineage-abilities').textContent = lineageAbilityBonusLabels.join(', ');
     document.getElementById('creator-preview-class').textContent = values.characterClass || 'Sin definir';
     document.getElementById('creator-preview-subclass-row').hidden = !values.subclass;
     document.getElementById('creator-preview-subclass').textContent = values.subclass || 'A definir';
