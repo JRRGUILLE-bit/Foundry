@@ -1756,11 +1756,10 @@
       const matching = rows.filter(item => {
         const className = translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS);
         if (!selectedClass || normalize(className) !== selectedClass) return false;
-        if (isWarlock) {
-          const subclassName = normalize(item.name);
-          // Campaign canon: Infernal patrons are allowed; Abyssal/demonic patrons are not.
-          if (/(^| )(abyss|abyssal|abismo|abismal|demon|demonic|demonio|demoniaca|demoniaco)( |$)/.test(subclassName)) return false;
-        }
+        const subclassName = normalize(item.name);
+        // Campaign canon: no subclass may involve the Abyss; Infernal patrons remain allowed.
+        if (/(^| )(abyss|abyssal|abismo|abismal)( |$)/.test(subclassName)) return false;
+        if (isWarlock && /(^| )(demon|demonic|demonio|demoniaca|demoniaco)( |$)/.test(subclassName)) return false;
         return true;
       }).sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
         String(a.source).localeCompare(String(b.source)));
