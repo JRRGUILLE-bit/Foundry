@@ -957,8 +957,7 @@
     if (values.feat) paragraphs.push('Una de mis aptitudes destacadas es la dote ' + values.feat + '.');
     if (values.deityName) paragraphs.push('Mi fe o ideal se vincula con ' + values.deityName + '.');
     if (values.concept) {
-      const concept = values.concept.length > 420 ? values.concept.slice(0, 417).trimEnd() + '…' : values.concept;
-      paragraphs.push('Hay algo que guía mis pasos: ' + concept);
+      paragraphs.push('Hay algo que guía mis pasos: ' + values.concept);
     }
     paragraphs.push('El resto de mi historia todavía está por escribirse.');
 

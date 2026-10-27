@@ -689,6 +689,11 @@ try {
   await page.locator('#creator-origin-story-draft').click();
   const explorerStoryProposal = await page.locator('#creator-origin-story').inputValue();
   assert.ok(explorerStoryProposal.length <= 2000, 'Generated origin story should respect the textarea limit');
+  assert.equal(explorerStoryProposal.length, 2000, 'Long-concept QA should exercise the story length limit');
+  assert.ok(
+    explorerStoryProposal.includes('C'.repeat(1200)),
+    'The complete long player concept should survive when the Atlas summary is shortened first'
+  );
   assert.ok(
     explorerStoryProposal.endsWith('El resto de mi historia todavía está por escribirse.'),
     'Generated origin story should preserve its closing sentence instead of cutting off at the field limit'
