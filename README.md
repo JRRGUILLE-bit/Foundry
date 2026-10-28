@@ -447,9 +447,10 @@ QA previsto: `node --check creator-personarum.js`, `node audit/creator-personaru
 - En las formas especiales de `Pact of the Chain`, el imp infernal está permitido y el quasit demoníaco/abisal está prohibido; pseudodragon y sprite no se excluyen por esta regla. La selección genérica de tipo `fiend` para un familiar queda permitida únicamente con origen infernal; nunca puede representar un demonio del Abismo (decisión de campaña del 28/10/2026). El creador todavía no tiene selector de pactos/familiares.
 - Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
 
-## Creator Personarum — criterio de campaña para Abismo y rasgos (28/10/2026)
+## Creator Personarum — revisión global de invocaciones y rasgos (28/10/2026)
 
-- El índice incluye 245 registros `class_feature` y 762 `subclass_feature`, pero solo metadatos; no incluye el texto completo de cada regla.
-- Todo `The Fiend` y sus rasgos están permitidos con patrono infernal; `Hurl Through Hell` queda permitido. Ninguna clase puede invocar demonios del Abismo. Un rasgo que afecte o beneficie a demonios no queda prohibido solo por eso.
-- `Aura of Hate` (Oathbreaker) queda permitida por decisión de campaña del 28/10/2026 aunque beneficie a criaturas `fiend`, incluidos demonios; no se considera una fuente de poder del Abismo.
-- Solo se contrastaron estos candidatos dirigidos; no se declara completada la revisión de todos los textos de rasgos. No se modificó código ni se ejecutó QA.- Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
+- Todo `The Fiend` y sus rasgos están permitidos con patrono infernal. `Hurl Through Hell` y `Aura of Hate` están permitidos; afectar o beneficiar a demonios no equivale a invocarlos.
+- Se inspeccionaron los 506 registros de conjuros. `Summon Lesser Demons` y `Summon Greater Demon` invocan directamente demonios del Abismo y quedan bloqueados para todas las clases. `Summon Fiend` permanece fuera del selector por ahora porque el creador no registra la forma elegida; esto impide seleccionar la forma Demon sin prohibir por canon Devil/Yugoloth.
+- `Gate` puede atraer una criatura nombrada desde otro plano, pero no puede usarse para traer un demonio del Abismo. En `Planar Ally`, cualquier elección de tipo `fiend` debe ser infernal. `Infernal Calling` invoca un diablo de los Nueve Infiernos y no cae bajo la prohibición.
+- La nota general de campaña ahora aparece con cualquier clase elegida. Los nombres de rasgos se inspeccionaron en el catálogo, pero los metadatos no contienen el texto completo de los 1.007 rasgos; no se afirma una lectura completa de todos los manuales.
+- El JavaScript pasó una comprobación sintáctica estática. No se ejecutó QA de navegador. Detalle y fuentes: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md).
