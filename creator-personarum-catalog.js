@@ -2019,6 +2019,7 @@
           remove.addEventListener('click', () => {
             selectedSpells = selectedSpells.filter((_, selectedIndex) => selectedIndex !== index);
             renderSelectedSpells();
+            updateAddButton();
           });
           row.append(label, remove);
           selectedList.appendChild(row);
