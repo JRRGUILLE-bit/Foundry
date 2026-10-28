@@ -299,5 +299,5 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 
 - `player-options.json` contiene metadatos para 245 `class_feature` y 762 `subclass_feature`, no el texto completo de las reglas; el escaneo de nombres no sustituye la lectura de fuentes.
 - `Hurl Through Hell` de `The Fiend` (nivel 14) queda permitido por decisión de campaña del 28/10/2026 siempre que el patrono no sea abisal; conforme a la regla vigente de `The Fiend`, debe ser infernal.
-- `Aura of Hate` de Oathbreaker mejora el daño de criaturas `fiend`, lo que incluye demonios, aunque no declara una fuente de poder abismal. Queda como caso independiente, sin exclusión automática.
+- `Aura of Hate` de Oathbreaker queda permitida por decisión expresa de campaña del 28/10/2026 aunque beneficie a criaturas `fiend`, incluidos demonios; el rasgo no declara que obtenga poder del Abismo.
 - No se tocó el código ni se hizo QA. Ver `docs/creator-personarum-campaign-audit.md` para alcance y referencias.- Continuidad detallada: `docs/creator-personarum-campaign-audit.md` y la checklist de `JRRGUILLE-bit/Firmamentum-Velatum`.
