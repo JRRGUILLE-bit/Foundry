@@ -295,9 +295,10 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - Creator Personarum aún no implementa selector individual de invocaciones ni de pactos/familiares. No se ejecutó navegador/QA de usuario en esta revisión.
 - Continuidad detallada: `docs/creator-personarum-campaign-audit.md` y la checklist de `JRRGUILLE-bit/Firmamentum-Velatum`.
 
-### Primera revisión de rasgos de clase/subclase (28/10/2026)
+### Revisión global de invocaciones y rasgos (28/10/2026)
 
-- `player-options.json` contiene metadatos para 245 `class_feature` y 762 `subclass_feature`, no el texto completo de las reglas; el escaneo de nombres no sustituye la lectura de fuentes.
-- Toda la subclase `The Fiend` y sus rasgos están permitidos con patrono infernal. `Hurl Through Hell` también está permitido. Un rasgo no se excluye por el mero hecho de afectar o beneficiar a criaturas `fiend`.
-- `Aura of Hate` de Oathbreaker queda permitida por decisión expresa de campaña del 28/10/2026 aunque beneficie a criaturas `fiend`, incluidos demonios; el rasgo no declara que obtenga poder del Abismo.
-- No se tocó el código ni se hizo QA. Ver `docs/creator-personarum-campaign-audit.md` para alcance y referencias.- Continuidad detallada: `docs/creator-personarum-campaign-audit.md` y la checklist de `JRRGUILLE-bit/Firmamentum-Velatum`.
+- Todo `The Fiend` y sus rasgos están permitidos con patrono infernal. `Hurl Through Hell` y `Aura of Hate` están permitidos aunque afecten o beneficien a demonios; esto no equivale a invocarlos.
+- El catálogo contiene 506 registros de conjuros. `Summon Lesser Demons` y `Summon Greater Demon` invocan demonios del Abismo y se bloquean globalmente para todas las clases.
+- `Summon Fiend` puede elegir Demon, Devil o Yugoloth. Como el borrador no almacena esa elección, permanece fuera del selector hasta que se pueda guardar la forma y excluir Demon; Devil/Yugoloth no quedan prohibidos por esta regla.
+- `Gate` no puede usarse para traer un demonio del Abismo; `Planar Ally` puede seguir usándose con celestial, elemental o un `fiend` infernal. `Infernal Calling` invoca un diablo de los Nueve Infiernos y está permitido por esta regla.
+- La nota de campaña se muestra para todas las clases. Se verificó sintaxis JS y contenido documental; no se ejecutó QA de navegador. Referencias y límites: `docs/creator-personarum-campaign-audit.md`.
