@@ -450,6 +450,6 @@ QA previsto: `node --check creator-personarum.js`, `node audit/creator-personaru
 ## Creator Personarum — primera revisión de rasgos de clase/subclase (28/10/2026)
 
 - El índice incluye 245 registros `class_feature` y 762 `subclass_feature`, pero solo metadatos; no incluye el texto completo de cada regla.
-- `Hurl Through Hell` (Brujo, The Fiend, nivel 14) transporta al objetivo por los «Planos Inferiores» sin especificar cuál. Queda pendiente definir si se permite bajo patrono infernal interpretando el viaje como infernal, o se excluye.
+- `Hurl Through Hell` (Brujo, The Fiend, nivel 14) queda permitido por decisión de campaña del 28/10/2026, siempre que el patrono no sea abisal; la regla actual de campaña exige patrono infernal.
 - `Aura of Hate` (Oathbreaker) beneficia también a criaturas `fiend`, incluidos demonios, pero no atribuye su poder al Abismo. Se deja como caso separado para decidir, no como exclusión automática.
 - Solo se contrastaron estos candidatos dirigidos; no se declara completada la revisión de todos los textos de rasgos. No se modificó código ni se ejecutó QA.- Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
