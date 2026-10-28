@@ -446,3 +446,10 @@ QA previsto: `node --check creator-personarum.js`, `node audit/creator-personaru
 - `Chains of Carceri` queda permitida por decisión de campaña: puede afectar a criaturas `fiend`, incluidos demonios y diablos, pero no invoca demonios ni obtiene poder del Abismo.
 - En las formas especiales de `Pact of the Chain`, el imp infernal está permitido y el quasit demoníaco/abisal está prohibido; pseudodragon y sprite no se excluyen por esta regla. La selección genérica de tipo `fiend` para un familiar queda permitida únicamente con origen infernal; nunca puede representar un demonio del Abismo (decisión de campaña del 28/10/2026). El creador todavía no tiene selector de pactos/familiares.
 - Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
+
+## Creator Personarum — primera revisión de rasgos de clase/subclase (28/10/2026)
+
+- El índice incluye 245 registros `class_feature` y 762 `subclass_feature`, pero solo metadatos; no incluye el texto completo de cada regla.
+- `Hurl Through Hell` (Brujo, The Fiend, nivel 14) transporta al objetivo por los «Planos Inferiores» sin especificar cuál. Queda pendiente definir si se permite bajo patrono infernal interpretando el viaje como infernal, o se excluye.
+- `Aura of Hate` (Oathbreaker) beneficia también a criaturas `fiend`, incluidos demonios, pero no atribuye su poder al Abismo. Se deja como caso separado para decidir, no como exclusión automática.
+- Solo se contrastaron estos candidatos dirigidos; no se declara completada la revisión de todos los textos de rasgos. No se modificó código ni se ejecutó QA.- Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
