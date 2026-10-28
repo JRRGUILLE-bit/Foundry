@@ -47,6 +47,10 @@ Las acciones «Exportar JSON» y «Exportar actor base» toman una instantánea 
 
 La validación específica del linaje «Otro / personalizado» ahora se ejecuta antes de la validación HTML general del formulario, para que el campo vacío muestre el aviso específico al guardar o exportar. La corrección se inspeccionó estáticamente; la comprobación integrada en navegador queda pendiente.
 
+### Finalización local del personaje
+
+El formulario incluye «Sí, terminé mi personaje». El botón aplica las validaciones actuales y, si pasan, guarda el borrador en el navegador con `status: "ready"` y `finalizedAt` en formato ISO. La pantalla muestra la fecha, bloquea los campos de selección y permite exportar el JSON o el actor base. «Volver a editar» desbloquea los campos, conserva las selecciones, cambia el estado a `draft` y borra la fecha de finalización. Al reabrir un registro `ready` guardado, el formulario vuelve a abrirse finalizado. Esto es almacenamiento local, no sincronización con Google Sheets. La inspección estática está hecha; la prueba integrada de navegación, guardado y restauración queda pendiente.
+
 El campo admite hasta 2.000 caracteres. El cambio para conservar la frase final al generar una propuesta larga está en el commit `349a188e58956ddf8de978456f9d41863afcaa37`; **su QA automatizado estaba en cola en la última consulta**, por lo que todavía no debe darse por validado.
 
 ## Límites actuales
