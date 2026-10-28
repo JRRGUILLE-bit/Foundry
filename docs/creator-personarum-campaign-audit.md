@@ -45,6 +45,8 @@ La historia aparece en la vista previa y se guarda en el borrador local y en el 
 
 Las acciones «Exportar JSON» y «Exportar actor base» toman una instantánea de los valores actuales del formulario y ejecutan las mismas validaciones de campos requeridos, nivel y selecciones obligatorias que «Guardar borrador». Ya no dependen de que exista una versión guardada previamente ni exportan una instantánea anterior después de editar el formulario. Exportar no persiste automáticamente esos valores en `localStorage`; para eso sigue existiendo «Guardar borrador». La corrección se verificó por lectura del código y documentación; no se ejecutó la prueba integral del navegador.
 
+La validación específica del linaje «Otro / personalizado» ahora se ejecuta antes de la validación HTML general del formulario, para que el campo vacío muestre el aviso específico al guardar o exportar. La corrección se inspeccionó estáticamente; la comprobación integrada en navegador queda pendiente.
+
 El campo admite hasta 2.000 caracteres. El cambio para conservar la frase final al generar una propuesta larga está en el commit `349a188e58956ddf8de978456f9d41863afcaa37`; **su QA automatizado estaba en cola en la última consulta**, por lo que todavía no debe darse por validado.
 
 ## Límites actuales
