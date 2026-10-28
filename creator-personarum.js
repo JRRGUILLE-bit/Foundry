@@ -74,6 +74,7 @@
   const lineageSelect = document.getElementById('creator-lineage');
   const classSelect = document.getElementById('creator-character-class');
   const subclassSelect = document.getElementById('creator-subclass');
+  const chainFamiliarSelect = document.getElementById('creator-chain-familiar');
   const featSelect = document.getElementById('creator-feat');
   const customLineageField = document.getElementById('creator-custom-lineage-field');
   const customLineageInput = document.getElementById('creator-custom-lineage');
@@ -202,6 +203,12 @@
     deityDetails.textContent = option
       ? option.kind + ' · Ámbitos sugeridos: ' + option.domains + ' · Alineamiento: ' + option.alignment + '. ' + option.summary
       : 'Al elegir una opción, vas a ver sus ámbitos y una síntesis de su tradición.';
+  }
+
+  function updateChainFamiliarSection() {
+    const level = Number(document.getElementById('creator-level').value || 1);
+    const field = document.getElementById('creator-chain-familiar-field');
+    if (field) field.hidden = !(classSelect.value === 'Brujo' && level >= 3);
   }
 
   function updateDivineSection() {
@@ -570,6 +577,9 @@
       customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
       characterClass: classSelect.value,
       subclass: subclassSelect.value,
+      selectedChainFamiliar: classSelect.value === 'Brujo' && Number(document.getElementById('creator-level').value || 1) >= 3
+        ? chainFamiliarSelect.value
+        : '',
       feat: featSelect.value,
       selectedSpells,
       selectedClassSkills,
@@ -625,6 +635,8 @@
     const spellNames = selectedSpells.map(spell => spell && spell.name).filter(Boolean);
     document.getElementById('creator-preview-spells').textContent = spellNames.slice(0, 3).join(', ')
       + (spellNames.length > 3 ? ' (+' + (spellNames.length - 3) + ' más)' : '');
+    document.getElementById('creator-preview-chain-familiar-row').hidden = !values.selectedChainFamiliar;
+    document.getElementById('creator-preview-chain-familiar').textContent = values.selectedChainFamiliar || 'A definir';
     document.getElementById('creator-preview-level').textContent = String(values.level || 1);
     document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
     const skillLanguage = values.skillLanguage === 'en' ? 'en' : 'es';
@@ -787,6 +799,12 @@
         }
       }));
       document.getElementById('creator-level').value = String(draft.level || 1);
+      chainFamiliarSelect.value = draft.characterClass === 'Brujo'
+        && Number(draft.level || 1) >= 3
+        && ['Imp', 'Pseudodragon', 'Sprite'].includes(draft.selectedChainFamiliar)
+        ? draft.selectedChainFamiliar
+        : '';
+      updateChainFamiliarSection();
       document.getElementById('creator-concept').value = draft.concept || '';
       document.getElementById('creator-origin-story').value = typeof draft.originStory === 'string' ? draft.originStory : '';
       exportDraftButton.disabled = false;
@@ -841,6 +859,7 @@
       customLineage: values.customLineage,
       characterClass: values.characterClass,
       subclass: values.subclass,
+      selectedChainFamiliar: values.selectedChainFamiliar,
       feat: values.feat,
       selectedSpells: values.selectedSpells,
       selectedClassSkills: values.selectedClassSkills,
@@ -1266,6 +1285,7 @@
       ['Idiomas elegidos', selectedLineageLanguages.join(', ')],
       ['Características elegidas para el linaje', selectedLineageAbilityChoices.join(', ')],
       ['Conjuros elegidos', spellChoices.join(', ')],
+      ['Familiar del Pacto de la Cadena', draft.selectedChainFamiliar],
       ['Fuente del Atlas', draft.originRegionContext && draft.originRegionContext.sourcePage]
     ].filter(([, value]) => typeof value === 'string' && value.trim());
     const biography = [
@@ -1471,7 +1491,11 @@
     }
   });
 
-  classSelect.addEventListener('change', updateDivineSection);
+  classSelect.addEventListener('change', () => {
+    updateDivineSection();
+    updateChainFamiliarSection();
+  });
+  document.getElementById('creator-level').addEventListener('input', updateChainFamiliarSection);
   lineageSelect.addEventListener('change', () => {
     updateCustomLineageField();
     renderPreview(readFormValues());
