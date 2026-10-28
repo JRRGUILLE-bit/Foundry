@@ -444,5 +444,5 @@ QA previsto: `node --check creator-personarum.js`, `node audit/creator-personaru
 
 - Se revisaron 54 registros de invocaciones del catálogo Legacy/2014 y sus descripciones en una transcripción comunitaria. No se encontró una invocación que convoque directamente demonios del Abismo o declare obtener poder de él; no se excluyeron opciones por el nombre solamente.
 - `Chains of Carceri` queda pendiente de decisión porque puede afectar a cualquier criatura de tipo `fiend`, categoría que incluye demonios y diablos, sin ser específica del Abismo.
-- Las formas especiales de `Pact of the Chain` incluyen al quasit (demonio). La elección de pactos/familiares se auditará aparte; el creador todavía no tiene selector individual de invocaciones ni selector de pactos/familiares.
+- En las formas especiales de `Pact of the Chain`, el imp infernal está permitido y el quasit demoníaco/abisal está prohibido; pseudodragon y sprite no se excluyen por esta regla. La selección genérica de un familiar de tipo `fiend` queda pendiente porque la categoría incluye demonios y diablos. El creador todavía no tiene selector de pactos/familiares.
 - Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
