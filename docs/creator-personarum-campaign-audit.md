@@ -13,6 +13,8 @@ Esta auditoría describe el estado que se observa en `main`. No modifica ni reem
 
 El creador ofrece un recorrido para quien ya sabe qué quiere jugar y otro para explorar el mundo a partir de una pista de interés. Los borradores de ambos recorridos se guardan por separado en el almacenamiento local del navegador.
 
+Antes de iniciar, el jugador debe ingresar su nombre. El nombre se recuerda en el navegador y se incluye en el JSON del borrador; esto identifica el registro local, pero no implica todavía guardado remoto en una Google Spreadsheet.
+
 ### Procedencia conectada al Atlas
 
 El selector lee `fvtt-JournalEntry-atlas-revisado.json`, extrae las regiones reconocidas y muestra el resumen canónico de la región seleccionada. La región, el continente y el contexto de la fuente se conservan en el borrador y en el JSON exportado; la procedencia aparece también en la vista previa. Si el Atlas no se puede cargar, el creador deja continuar sin inventar una región.
