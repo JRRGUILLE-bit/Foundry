@@ -294,3 +294,10 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - Las formas especiales de `Pact of the Chain` están clasificadas: imp (`fiend/devil`) permitido como infernal; quasit (`fiend/demon`) prohibido por abismal; pseudodragon y sprite no se excluyen por esta regla. La elección genérica de tipo `fiend` para formas normales de `Find Familiar` queda permitida solo con origen infernal; nunca puede representar un demonio del Abismo (decisión confirmada el 28/10/2026). El creador todavía no tiene selector de pactos/familiares.
 - Creator Personarum aún no implementa selector individual de invocaciones ni de pactos/familiares. No se ejecutó navegador/QA de usuario en esta revisión.
 - Continuidad detallada: `docs/creator-personarum-campaign-audit.md` y la checklist de `JRRGUILLE-bit/Firmamentum-Velatum`.
+
+### Primera revisión de rasgos de clase/subclase (28/10/2026)
+
+- `player-options.json` contiene metadatos para 245 `class_feature` y 762 `subclass_feature`, no el texto completo de las reglas; el escaneo de nombres no sustituye la lectura de fuentes.
+- `Hurl Through Hell` de `The Fiend` (nivel 14) mueve al objetivo por los «Planos Inferiores» sin nombrar un plano; queda pendiente decidir si se permite bajo patrono infernal, entendido narrativamente como los Nueve Infiernos, o se excluye.
+- `Aura of Hate` de Oathbreaker mejora el daño de criaturas `fiend`, lo que incluye demonios, aunque no declara una fuente de poder abismal. Queda como caso independiente, sin exclusión automática.
+- No se tocó el código ni se hizo QA. Ver `docs/creator-personarum-campaign-audit.md` para alcance y referencias.- Continuidad detallada: `docs/creator-personarum-campaign-audit.md` y la checklist de `JRRGUILLE-bit/Firmamentum-Velatum`.
