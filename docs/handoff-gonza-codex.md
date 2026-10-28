@@ -299,6 +299,6 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 
 - Todo `The Fiend` y sus rasgos están permitidos con patrono infernal. `Hurl Through Hell` y `Aura of Hate` están permitidos aunque afecten o beneficien a demonios; esto no equivale a invocarlos.
 - El catálogo contiene 506 registros de conjuros. `Summon Lesser Demons` y `Summon Greater Demon` invocan demonios del Abismo y se bloquean globalmente para todas las clases.
-- `Summon Fiend` puede elegir Demon, Devil o Yugoloth. Como el borrador no almacena esa elección, permanece fuera del selector hasta que se pueda guardar la forma y excluir Demon; Devil/Yugoloth no quedan prohibidos por esta regla.
+- `Summon Fiend` (TCE, opcional para Brujo y Mago) ahora aparece en ambas listas. El selector pide una forma y solo ofrece `Devil` o `Yugoloth`; no muestra `Demon`. Guarda la forma en `selectedSpells[].summonForm`, por lo que se conserva en borrador/restauración y JSON exportado; los registros restaurados sin forma permitida se descartan.
 - `Gate` no puede usarse para traer un demonio del Abismo; `Planar Ally` puede seguir usándose con celestial, elemental o un `fiend` infernal. `Infernal Calling` invoca un diablo de los Nueve Infiernos y está permitido por esta regla.
 - La nota de campaña se muestra para todas las clases. Se verificó sintaxis JS y contenido documental; no se ejecutó QA de navegador. Referencias y límites: `docs/creator-personarum-campaign-audit.md`.
