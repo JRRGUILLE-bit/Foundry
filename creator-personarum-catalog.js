@@ -476,15 +476,16 @@
     ].map(normalize))
   };
 
+  // Tasha's Cauldron of Everything lists Summon Fiend as an optional spell for Warlock and Wizard.
+  // The UI below records Devil or Yugoloth and intentionally does not offer the Demon form.
+  SPELL_CLASS_NAME_INDEX.brujo.add(normalize('Summon Fiend'));
+  SPELL_CLASS_NAME_INDEX.mago.add(normalize('Summon Fiend'));
+
   // Direct Abyss-summoning spells are not player options for this campaign.
   const CAMPAIGN_BLOCKED_ABYSSAL_SPELLS = new Set([
     'summon greater demon',
     'summon lesser demons'
   ]);
-  // Summon Fiend's Demon/Devil/Yugoloth form choice cannot be stored by the current draft.
-  // Keep it out until the UI can record that choice and disallow the Demon form.
-  const CAMPAIGN_UNMODELED_FIEND_FORM_SPELLS = new Set(['summon fiend']);
-
   function addOption(select, label, source, category, aliases = []) {
     if (!select || !label) return false;
     const keys = new Set([label, ...aliases].map(normalize).filter(Boolean));
@@ -1954,7 +1955,9 @@
     const selectedList = byId('creator-selected-spells-list');
     const status = byId('creator-spell-status');
     const classSelect = byId('creator-character-class');
-    if (!levelSelect || !spellSelect || !addButton || !selectedInput || !selectedList || !status || !classSelect) return;
+    const summonFiendFormField = byId('creator-summon-fiend-form-field');
+    const summonFiendFormSelect = byId('creator-summon-fiend-form');
+    if (!levelSelect || !spellSelect || !addButton || !selectedInput || !selectedList || !status || !classSelect || !summonFiendFormField || !summonFiendFormSelect) return;
 
     const byName = new Map();
     const rows = records.filter(item => item.category === 'spell' && String(item.name || '').trim())
@@ -1976,11 +1979,21 @@
       const mappedSpellNames = SPELL_CLASS_NAME_INDEX[selectedClass];
       return Array.from(byName.values()).filter(item => {
         const spellName = normalize(item.name);
-        if (CAMPAIGN_BLOCKED_ABYSSAL_SPELLS.has(spellName) ||
-            CAMPAIGN_UNMODELED_FIEND_FORM_SPELLS.has(spellName)) return false;
+        if (CAMPAIGN_BLOCKED_ABYSSAL_SPELLS.has(spellName)) return false;
         return item.classes.some(name => normalize(name) === selectedClass) ||
           (mappedSpellNames && mappedSpellNames.has(spellName));
       });
+    }
+
+    function updateAddButton() {
+      const selectedName = normalize(spellSelect.value);
+      const needsFiendForm = selectedName === 'summon fiend';
+      summonFiendFormField.hidden = !needsFiendForm;
+      summonFiendFormSelect.disabled = !needsFiendForm;
+      if (!needsFiendForm) summonFiendFormSelect.value = '';
+      const validFiendForm = ['devil', 'yugoloth'].includes(normalize(summonFiendFormSelect.value));
+      const alreadySelected = selectedSpells.some(spell => normalize(spell.name) === selectedName);
+      addButton.disabled = spellSelect.disabled || !spellSelect.value || alreadySelected || (needsFiendForm && !validFiendForm);
     }
 
     function renderSelectedSpells() {
@@ -1994,7 +2007,10 @@
           row.className = 'creator-selected-option';
           row.dataset.selectedSpell = spell.name;
           const label = document.createElement('span');
-          label.textContent = spell.name + ' · nivel ' + spell.level + (spell.source ? ' · ' + spell.source : '');
+          const formLabel = normalize(spell.name) === 'summon fiend' && spell.summonForm
+            ? ' · forma ' + spell.summonForm
+            : '';
+          label.textContent = spell.name + ' · nivel ' + spell.level + (spell.source ? ' · ' + spell.source : '') + formLabel;
           const remove = document.createElement('button');
           remove.type = 'button';
           remove.className = 'creator-secondary-button';
@@ -2032,14 +2048,13 @@
       });
       spellSelect.disabled = !visible.length;
       levelSelect.disabled = !className || !classSpells.length;
-      addButton.disabled = spellSelect.disabled || !spellSelect.value;
-
       if (pruneInvalidSelections) {
         const validNames = new Set(classSpells.map(item => normalize(item.name)));
         const before = selectedSpells.length;
         selectedSpells = selectedSpells.filter(spell => validNames.has(normalize(spell.name)));
         if (selectedSpells.length !== before) renderSelectedSpells();
       }
+      updateAddButton();
       status.textContent = !className
         ? 'Elegí una clase para explorar sus conjuros permitidos.'
         : !classSpells.length
@@ -2051,8 +2066,16 @@
       const requested = Array.isArray(pendingRestoredSpells) ? pendingRestoredSpells : [];
       const valid = availableForClass(classSelect.value);
       const validByName = new Map(valid.map(item => [normalize(item.name), item]));
-      selectedSpells = requested.map(spell => validByName.get(normalize(spell && spell.name)))
-        .filter(Boolean);
+      selectedSpells = requested.map(spell => {
+        const restored = validByName.get(normalize(spell && spell.name));
+        if (!restored) return null;
+        if (normalize(restored.name) === 'summon fiend') {
+          const form = normalize(spell && spell.summonForm);
+          if (form !== 'devil' && form !== 'yugoloth') return null;
+          return { ...restored, summonForm: form === 'devil' ? 'Devil' : 'Yugoloth' };
+        }
+        return restored;
+      }).filter(Boolean);
       pendingRestoredSpells = null;
       renderSelectedSpells();
     }
@@ -2060,17 +2083,30 @@
     window.creatorPersonarumApplyRestoredSpells = applyRestoredSpells;
     classSelect.addEventListener('change', () => refreshSpellOptions(true));
     levelSelect.addEventListener('change', () => refreshSpellOptions(false));
-    spellSelect.addEventListener('change', () => {
-      addButton.disabled = spellSelect.disabled || !spellSelect.value;
-    });
+    spellSelect.addEventListener('change', updateAddButton);
+    summonFiendFormSelect.addEventListener('change', updateAddButton);
     addButton.addEventListener('click', () => {
       const selected = byName.get(normalize(spellSelect.value));
       if (!selected || selectedSpells.some(spell => normalize(spell.name) === normalize(selected.name))) return;
-      selectedSpells.push({ name: selected.name, source: selected.source, level: selected.level });
+      const isSummonFiend = normalize(selected.name) === 'summon fiend';
+      const form = normalize(summonFiendFormSelect.value);
+      if (isSummonFiend && form !== 'devil' && form !== 'yugoloth') {
+        status.textContent = 'Elegí Devil o Yugoloth. La forma Demon está prohibida por la regla de campaña.';
+        updateAddButton();
+        return;
+      }
+      const newSpell = { name: selected.name, source: selected.source, level: selected.level };
+      if (isSummonFiend) newSpell.summonForm = form === 'devil' ? 'Devil' : 'Yugoloth';
+      selectedSpells.push(newSpell);
       renderSelectedSpells();
       refreshSpellOptions(false);
-      spellSelect.value = selected.name;
-      addButton.disabled = true;
+      if (isSummonFiend) {
+        spellSelect.value = '';
+        summonFiendFormSelect.value = '';
+      } else {
+        spellSelect.value = selected.name;
+      }
+      updateAddButton();
     });
 
     window.addEventListener('creator-personarum:restore-spells', () => {
@@ -2084,6 +2120,7 @@
 
     renderSelectedSpells();
     refreshSpellOptions(false);
+    updateAddButton();
     if (pendingRestoredSpells !== null) applyRestoredSpells();
   }
 
