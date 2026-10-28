@@ -477,11 +477,13 @@
   };
 
   // Direct Abyss-summoning spells are not player options for this campaign.
-  // Keep this guard even though the current class spell index does not expose them.
   const CAMPAIGN_BLOCKED_ABYSSAL_SPELLS = new Set([
     'summon greater demon',
     'summon lesser demons'
   ]);
+  // Summon Fiend's Demon/Devil/Yugoloth form choice cannot be stored by the current draft.
+  // Keep it out until the UI can record that choice and disallow the Demon form.
+  const CAMPAIGN_UNMODELED_FIEND_FORM_SPELLS = new Set(['summon fiend']);
 
   function addOption(select, label, source, category, aliases = []) {
     if (!select || !label) return false;
@@ -1973,10 +1975,11 @@
       if (!selectedClass) return [];
       const mappedSpellNames = SPELL_CLASS_NAME_INDEX[selectedClass];
       return Array.from(byName.values()).filter(item => {
-        // Campaign canon: these spells explicitly summon demons from the Abyss.
-        if (CAMPAIGN_BLOCKED_ABYSSAL_SPELLS.has(normalize(item.name))) return false;
+        const spellName = normalize(item.name);
+        if (CAMPAIGN_BLOCKED_ABYSSAL_SPELLS.has(spellName) ||
+            CAMPAIGN_UNMODELED_FIEND_FORM_SPELLS.has(spellName)) return false;
         return item.classes.some(name => normalize(name) === selectedClass) ||
-          (mappedSpellNames && mappedSpellNames.has(normalize(item.name)));
+          (mappedSpellNames && mappedSpellNames.has(spellName));
       });
     }
 
