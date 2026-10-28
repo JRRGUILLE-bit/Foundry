@@ -77,7 +77,7 @@
   const featSelect = document.getElementById('creator-feat');
   const customLineageField = document.getElementById('creator-custom-lineage-field');
   const customLineageInput = document.getElementById('creator-custom-lineage');
-  const warlockCanonNote = document.getElementById('creator-warlock-canon-note');
+  const campaignCanonNote = document.getElementById('creator-campaign-canon-note');
   const originRegionSelect = document.getElementById('creator-origin-region');
   const originDetails = document.getElementById('creator-origin-details');
   const divineSection = document.getElementById('creator-divine-section');
@@ -215,7 +215,7 @@
     } else if (isPaladin) {
       deityGuidance.textContent = 'Para paladines, la veneración es opcional: el juramento puede ser el centro del personaje. Si sigue una divinidad o potencia, elegila aquí.';
     }
-    warlockCanonNote.hidden = selectedClass !== 'Brujo';
+    campaignCanonNote.hidden = false;
     updateDeityDetails();
   }
 
