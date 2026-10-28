@@ -447,7 +447,7 @@ QA previsto: `node --check creator-personarum.js`, `node audit/creator-personaru
 - En las formas especiales de `Pact of the Chain`, el imp infernal está permitido y el quasit demoníaco/abisal está prohibido; pseudodragon y sprite no se excluyen por esta regla. La selección genérica de tipo `fiend` para un familiar queda permitida únicamente con origen infernal; nunca puede representar un demonio del Abismo (decisión de campaña del 28/10/2026). El creador todavía no tiene selector de pactos/familiares.
 - Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
 
-## Creator Personarum — primera revisión de rasgos de clase/subclase (28/10/2026)
+## Creator Personarum — criterio de campaña para Abismo y rasgos (28/10/2026)
 
 - El índice incluye 245 registros `class_feature` y 762 `subclass_feature`, pero solo metadatos; no incluye el texto completo de cada regla.
 - `Hurl Through Hell` (Brujo, The Fiend, nivel 14) queda permitido por decisión de campaña del 28/10/2026, siempre que el patrono no sea abisal; la regla actual de campaña exige patrono infernal.
