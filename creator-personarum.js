@@ -88,10 +88,14 @@
   const draftStatus = document.getElementById('creator-draft-status');
   const exportDraftButton = document.getElementById('creator-export-draft');
   const exportFoundryActorButton = document.getElementById('creator-export-foundry-actor');
+  const draftFields = document.getElementById('creator-draft-fields');
+  const saveDraftButton = document.getElementById('creator-save-draft');
+  const finishCharacterButton = document.getElementById('creator-finish-character');
 
   let currentMode = null;
   let explorationFocus = '';
   let savedDraft = null;
+  let isCharacterFinalized = false;
   const inMemoryDrafts = Object.create(null);
   let atlasRegions = [];
   let atlasLoaded = false;
@@ -268,6 +272,7 @@
     lineageSelect.required = currentMode !== CREATION_MODES.explore;
     classSelect.required = currentMode !== CREATION_MODES.explore;
     savedDraft = null;
+    setCharacterFinalized(false);
     exportDraftButton.disabled = false;
     exportFoundryActorButton.disabled = false;
     draftStatus.textContent = currentMode === CREATION_MODES.explore
@@ -786,9 +791,18 @@
       document.getElementById('creator-origin-story').value = typeof draft.originStory === 'string' ? draft.originStory : '';
       exportDraftButton.disabled = false;
       exportFoundryActorButton.disabled = false;
-      setDraftStatus(memoryDraft
-        ? 'VOLVISTE A ESTE CAMINO: CONSERVAMOS LOS DATOS DE ESTA SESIÓN. «GUARDAR BORRADOR» LOS GUARDA EN ESTE NAVEGADOR.'
-        : 'BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', memoryDraft ? 'idle' : 'saved');
+      setCharacterFinalized(draft.status === 'ready');
+      if (draft.status === 'ready') {
+        const finalizedDate = draft.finalizedAt ? new Date(draft.finalizedAt) : null;
+        const finalizedLabel = finalizedDate && Number.isFinite(finalizedDate.getTime())
+          ? ' EL ' + finalizedDate.toLocaleString('es-UY')
+          : '';
+        setDraftStatus('PERSONAJE FINALIZADO' + finalizedLabel + '. PODÉS VOLVER A EDITARLO CUANDO QUIERAS.', 'saved');
+      } else {
+        setDraftStatus(memoryDraft
+          ? 'VOLVISTE A ESTE CAMINO: CONSERVAMOS LOS DATOS DE ESTA SESIÓN. «GUARDAR BORRADOR» LOS GUARDA EN ESTE NAVEGADOR.'
+          : 'BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', memoryDraft ? 'idle' : 'saved');
+      }
     } catch (error) {
       savedDraft = null;
       exportDraftButton.disabled = false;
@@ -812,6 +826,10 @@
       schemaVersion: 1,
       playerName: values.playerName,
       updatedAt: new Date().toISOString(),
+      status: savedDraft && savedDraft.mode === currentMode && savedDraft.status === 'ready' ? 'ready' : 'draft',
+      finalizedAt: savedDraft && savedDraft.mode === currentMode && savedDraft.status === 'ready'
+        ? savedDraft.finalizedAt || null
+        : null,
       mode: currentMode,
       modeLabel: currentMode === CREATION_MODES.explore ? 'Explorar el mundo' : 'Ya sé lo que quiero jugar',
       explorationFocus,
@@ -959,11 +977,74 @@
     return true;
   }
 
+  function setCharacterFinalized(finalized) {
+    isCharacterFinalized = Boolean(finalized);
+    draftFields.disabled = isCharacterFinalized;
+    saveDraftButton.disabled = isCharacterFinalized;
+    finishCharacterButton.textContent = isCharacterFinalized
+      ? 'VOLVER A EDITAR'
+      : 'SÍ, TERMINÉ MI PERSONAJE';
+    finishCharacterButton.setAttribute('aria-pressed', String(isCharacterFinalized));
+    formModeLabel.textContent = isCharacterFinalized
+      ? 'PERSONAJE FINALIZADO'
+      : (currentMode === CREATION_MODES.explore ? 'EXPLORACIÓN' : 'IDEA PROPIA');
+  }
+
+  function finishCharacter() {
+    const values = readFormValues();
+    if (!validateCurrentDraft(values)) return;
+
+    const draft = buildDraftRecord(values);
+    draft.status = 'ready';
+    draft.finalizedAt = new Date().toISOString();
+
+    try {
+      window.localStorage.setItem(storageKeyForMode(currentMode), JSON.stringify(draft));
+      savedDraft = draft;
+      inMemoryDrafts[currentMode] = draft;
+      setCharacterFinalized(true);
+      renderPreview(draft);
+      setDraftStatus(
+        'PERSONAJE FINALIZADO EL ' + new Date(draft.finalizedAt).toLocaleString('es-UY') +
+        '. PODÉS VOLVER A EDITARLO CUANDO QUIERAS.',
+        'saved'
+      );
+    } catch (error) {
+      setDraftStatus('No se pudo guardar la finalización en este navegador. El personaje sigue editable.', 'error');
+    }
+  }
+
+  function reopenCharacterForEditing() {
+    setCharacterFinalized(false);
+    const draft = buildDraftRecord(readFormValues());
+    draft.status = 'draft';
+    draft.finalizedAt = null;
+    savedDraft = draft;
+    inMemoryDrafts[currentMode] = draft;
+
+    try {
+      window.localStorage.setItem(storageKeyForMode(currentMode), JSON.stringify(draft));
+      setDraftStatus('VOLVISTE A EDITAR EL PERSONAJE. LOS CAMBIOS SE GUARDAN AL PULSAR «GUARDAR BORRADOR».', 'idle');
+    } catch (error) {
+      setDraftStatus('Podés editar el personaje, pero no se pudo actualizar el estado local. Guardá el borrador para conservarlo.', 'error');
+    }
+  }
+
+  function toggleCharacterFinalization() {
+    if (isCharacterFinalized) {
+      reopenCharacterForEditing();
+      return;
+    }
+    finishCharacter();
+  }
+
   function saveDraft(event) {
     event.preventDefault();
     const values = readFormValues();
     if (!validateCurrentDraft(values)) return;
     const draft = buildDraftRecord(values);
+    draft.status = 'draft';
+    draft.finalizedAt = null;
 
     try {
       window.localStorage.setItem(storageKeyForMode(currentMode), JSON.stringify(draft));
@@ -1375,6 +1456,7 @@
   });
 
   draftForm.addEventListener('submit', saveDraft);
+  finishCharacterButton.addEventListener('click', toggleCharacterFinalization);
   exportDraftButton.addEventListener('click', exportDraft);
   exportFoundryActorButton.addEventListener('click', exportFoundryActorBase);
   draftForm.addEventListener('input', () => renderPreview(readFormValues()));
