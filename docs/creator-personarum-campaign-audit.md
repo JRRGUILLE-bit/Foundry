@@ -31,9 +31,20 @@ El catálogo aporta clases, subclases, trasfondos, dotes, conjuros y datos de co
 
 ### Regla de Brujo, Infierno y Abismo
 
-Al elegir Brujo, el creador muestra la regla de campaña que excluye al Abismo y a sus demonios como opción jugable. El Infierno —Asmodeus y los Nueve Señores— permanece diferenciado del Abismo y de los demonios.
+Al elegir Brujo, el creador muestra la regla de campaña que excluye al Abismo y a sus demonios como opción jugable. El Infierno —Asmodeus y los Nueve Señores— permanece diferenciado del Abismo y de los demonios. Los patronos infernales están permitidos; si se elige «The Fiend», su patrono debe ser infernal, nunca un demonio del Abismo.
 
 El catálogo de subclases disponible no debe interpretarse por sí solo como una lista de patronos aprobados por la campaña. Antes de dar por cerrado el Brujo, se debe confirmar el conjunto canónico permitido con el responsable de la campaña.
+
+#### Revisión estática de las subclases (28/10/2026)
+
+Se revisaron las 115 fichas `category: "subclass"` de `creator-personarum-data/player-options.json` y se aplicó al conjunto la lógica actual de `appendSubclasses()`. El resultado excluye exactamente:
+
+- `Sorcerer: Aberrant Mind` (TCE, p. 66), por decisión explícita de campaña.
+- `Warlock: The Great Old One` (PHB, p. 109), por decisión explícita de campaña.
+
+Ningún otro nombre de subclase del catálogo activa los términos de filtro abismales/demoníacos. Entre las ocho subclases de Hechicero no hay una ficha llamada `Abyssal Sorcerer` ni `Abyssal Sorcerous Origin`. `The Fiend` (PHB, p. 109) permanece como opción genérica únicamente con patrono infernal; el mensaje del creador ahora explicita esa restricción.
+
+**Alcance:** el índice web contiene metadatos y referencias, no el texto completo de las 115 subclases. Esta pasada valida el inventario de nombres y la lógica del selector actual; no certifica una lectura exhaustiva de cada párrafo de los manuales ni cierra la auditoría de conjuros, rasgos, linajes y otras opciones. La comprobación en navegador sigue pendiente.
 
 ### Historia de origen propuesta
 
