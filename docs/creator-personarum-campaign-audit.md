@@ -1,6 +1,6 @@
 # Auditoría de Creator Personarum — campaña nueva
 
-**Última actualización:** 27/10/2026  
+**Última actualización:** 28/10/2026  
 **Rama:** `main`  
 **Repositorio:** `JRRGUILLE-bit/Foundry`  
 **Alcance:** creador de personajes y borradores de la campaña nueva.
@@ -11,7 +11,9 @@ Esta auditoría describe el estado que se observa en `main`. No modifica ni reem
 
 ### Dos recorridos de creación
 
-El creador ofrece un recorrido para quien ya sabe qué quiere jugar y otro para explorar el mundo a partir de una pista de interés. Los borradores de ambos recorridos se guardan por separado en el almacenamiento local del navegador.
+El creador ofrece un recorrido para quien ya sabe qué quiere jugar y otro para explorar el mundo a partir de una pista de interés. Los borradores guardados de ambos recorridos se mantienen por separado en el almacenamiento local del navegador.
+
+Al volver desde el formulario a la elección de camino, el estado todavía no guardado de ese recorrido se conserva en memoria durante la sesión y se restaura si se vuelve a entrar. No se escribe automáticamente en el almacenamiento local: al recargar o cerrar la página, solo se recupera el último borrador guardado manualmente. Esto no es el guardado remoto en Google Sheets, que sigue pendiente.
 
 Antes de iniciar, el jugador debe ingresar su nombre. El nombre se recuerda en el navegador y se incluye en el JSON del borrador; esto identifica el registro local, pero no implica todavía guardado remoto en una Google Spreadsheet.
 
