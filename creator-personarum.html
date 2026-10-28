@@ -288,7 +288,7 @@
 
           <section id="creator-campaign-canon-note" class="creator-divine-section creator-field-wide creator-campaign-canon-note" aria-label="Regla de campaña sobre el Abismo">
             <span class="creator-divine-kicker">REGLA DE CAMPAÑA // TODAS LAS CLASES</span>
-            <p>Todo «The Fiend» y sus rasgos están permitidos con patrono infernal, nunca un demonio del Abismo. Ningún personaje, de ninguna clase, puede invocar demonios del Abismo. Los rasgos que afecten o beneficien a demonios siguen permitidos: eso no equivale a invocarlos. Las elecciones genéricas de familiar o aliado de tipo «fiend» deben ser infernales; «Gate» no puede usarse para traer un demonio del Abismo. «Summon Fiend» queda fuera del selector hasta que pueda registrar la forma elegida y excluir «Demon» sin bloquear «Devil» o «Yugoloth». En el Pacto de la Cadena, el imp (diablo infernal) está permitido y el quasit (demonio del Abismo) está prohibido; pseudodragón y sprite no se excluyen por esta regla. El creador aún no tiene selector de pactos ni familiares.</p>
+            <p>Todo «The Fiend» y sus rasgos están permitidos con patrono infernal, nunca un demonio del Abismo. Ningún personaje, de ninguna clase, puede invocar demonios del Abismo. Los rasgos que afecten o beneficien a demonios siguen permitidos: eso no equivale a invocarlos. Las elecciones genéricas de familiar o aliado de tipo «fiend» deben ser infernales; «Gate» no puede usarse para traer un demonio del Abismo. Para «Summon Fiend», elegí «Devil» o «Yugoloth»; la forma «Demon» no está disponible en esta campaña. En el Pacto de la Cadena, el imp (diablo infernal) está permitido y el quasit (demonio del Abismo) está prohibido; pseudodragón y sprite no se excluyen por esta regla. El creador aún no tiene selector de pactos ni familiares.</p>
           </section>
 
           <section id="creator-class-skills-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-class-skills-title">
@@ -346,6 +346,15 @@
               <select id="creator-spell-choice" name="spellChoice" disabled>
                 <option value="">Primero elegí una clase…</option>
               </select>
+            </label>
+            <label id="creator-summon-fiend-form-field" class="creator-field creator-field-wide" for="creator-summon-fiend-form" hidden>
+              <span>FORMA DE SUMMON FIEND (DEMON PROHIBIDO)</span>
+              <select id="creator-summon-fiend-form" name="summonFiendForm" disabled>
+                <option value="">Elegí una forma permitida…</option>
+                <option value="Devil">Devil — diablo infernal</option>
+                <option value="Yugoloth">Yugoloth</option>
+              </select>
+              <p class="creator-deity-guidance">Esta elección se guarda junto al conjuro en el borrador. La forma Demon no se ofrece.</p>
             </label>
             <button type="button" id="creator-spell-add" class="creator-secondary-button" disabled>AGREGAR CONJURO</button>
             <input type="hidden" id="creator-selected-spells" name="selectedSpells" value="[]">
@@ -511,6 +520,6 @@
   </main>
 
   <script src="creator-personarum.js?v=20261028-32"></script>
-  <script src="creator-personarum-catalog.js?v=20261028-26"></script>
+  <script src="creator-personarum-catalog.js?v=20261028-27"></script>
 </body>
 </html>
