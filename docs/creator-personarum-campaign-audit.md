@@ -46,6 +46,18 @@ Ningún otro nombre de subclase del catálogo activa los términos de filtro abi
 
 **Alcance:** el índice web contiene metadatos y referencias, no el texto completo de las 115 subclases. Esta pasada valida el inventario de nombres y la lógica del selector actual; no certifica una lectura exhaustiva de cada párrafo de los manuales ni cierra la auditoría de conjuros, rasgos, linajes y otras opciones. La comprobación en navegador sigue pendiente.
 
+#### Brujo: revisión del selector de conjuros
+
+Se revisó la lista de conjuros que `SPELL_CLASS_NAME_INDEX.brujo` permite mostrar y cómo se cruza con el catálogo. Dentro del índice visible actual, `Hellish Rebuke` es el único nombre que alude al Infierno; se conserva porque el canon permite lo infernal. No hay conjuros de invocación de demonios en la lista visible actual de Brujo.
+
+El catálogo de metadatos sí contiene `Summon Lesser Demons` (XGtE, p. 167) y `Summon Greater Demon` (XGtE, p. 166). Sus reglas describen la invocación directa de demonios desde el Abismo. Aunque ambos ya están fuera del índice actual de clases, se añadió una exclusión explícita por nombre normalizado en `creator-personarum-catalog.js`, antes de construir las opciones del selector, para evitar que aparezcan si se amplía ese índice en el futuro.
+
+`Summon Fiend` (TCE, p. 112) también existe como ficha de conjuro en el catálogo, pero no está en el índice de clases permitido y no aparece en el selector. Su regla contempla elegir una forma de demonio, diablo o yugoloth; el creador solo registra el nombre del conjuro y no tiene un control para registrar cuál forma fue elegida. No se agregó: antes de ofrecerlo, habría que poder representar la elección de forma sin permitir la forma demoníaca. Esto no declara prohibida su forma de diablo; mantiene fuera del selector una opción que actualmente no puede expresar la restricción necesaria.
+
+El aviso de Brujo restringe `The Fiend` a un patrono infernal. `Infernal Calling` no se agregó al índice por este trabajo: que las opciones infernales estén permitidas no autoriza ampliar el alcance del catálogo en este paso. Las invocaciones de Brujo (`optional_feature`) no tienen un selector propio en la interfaz actual; este pase no certifica la revisión completa del texto de cada invocación.
+
+**Alcance y verificación:** comprobación estática del índice de clases, del catálogo de metadatos y de la lógica del selector. No se ejecutó el navegador. La auditoría transversal de conjuros, invocaciones y rasgos de todas las clases sigue pendiente.
+
 ### Historia de origen propuesta
 
 El botón **«Proponer historia desde mis elecciones»** prepara un borrador editable cuando hay una región seleccionada y el campo de historia está vacío. La propuesta puede incluir el nombre, la región y su grupo, la pista de exploración, el resumen del Atlas claramente identificado como fuente canónica, linaje, clase/subclase, trasfondo, dote, divinidad o potencia y concepto del jugador. No reemplaza una historia ya escrita.
