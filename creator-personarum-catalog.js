@@ -476,6 +476,13 @@
     ].map(normalize))
   };
 
+  // Direct Abyss-summoning spells are not player options for this campaign.
+  // Keep this guard even though the current class spell index does not expose them.
+  const CAMPAIGN_BLOCKED_ABYSSAL_SPELLS = new Set([
+    'summon greater demon',
+    'summon lesser demons'
+  ]);
+
   function addOption(select, label, source, category, aliases = []) {
     if (!select || !label) return false;
     const keys = new Set([label, ...aliases].map(normalize).filter(Boolean));
@@ -1965,10 +1972,12 @@
       const selectedClass = normalize(className);
       if (!selectedClass) return [];
       const mappedSpellNames = SPELL_CLASS_NAME_INDEX[selectedClass];
-      return Array.from(byName.values()).filter(item =>
-        item.classes.some(name => normalize(name) === selectedClass) ||
-        (mappedSpellNames && mappedSpellNames.has(normalize(item.name)))
-      );
+      return Array.from(byName.values()).filter(item => {
+        // Campaign canon: these spells explicitly summon demons from the Abyss.
+        if (CAMPAIGN_BLOCKED_ABYSSAL_SPELLS.has(normalize(item.name))) return false;
+        return item.classes.some(name => normalize(name) === selectedClass) ||
+          (mappedSpellNames && mappedSpellNames.has(normalize(item.name)));
+      });
     }
 
     function renderSelectedSpells() {
