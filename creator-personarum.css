@@ -204,6 +204,37 @@
   text-shadow: 0 2px 22px rgba(0, 0, 0, 0.92), 0 0 45px rgba(0, 0, 0, 0.28);
 }
 
+.creator-welcome-player-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: min(100%, 24rem);
+  color: #e5d4ae;
+  text-align: left;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+}
+
+.creator-welcome-player-field input {
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.68rem 0.8rem;
+  border: 1px solid rgba(110, 82, 41, 0.7);
+  border-radius: 2px;
+  background: rgba(255, 252, 241, 0.94);
+  color: #21190e;
+  font: 1.1rem "Cormorant Garamond", Georgia, serif;
+  letter-spacing: normal;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.35);
+}
+
+.creator-welcome-player-field input:focus-visible {
+  border-color: #f1d28d;
+  outline: 2px solid #f1d28d;
+  outline-offset: 2px;
+}
+
 .creator-primary-button,
 .creator-secondary-button {
   display: inline-flex;
