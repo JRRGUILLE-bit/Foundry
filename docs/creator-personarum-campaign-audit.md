@@ -132,6 +132,13 @@ El commit `349a188e58956ddf8de978456f9d41863afcaa37`, que elimina el recorte pre
 - **Resultado verificado:** Desktop QA pasó; la auditoría estática y el smoke test de Creator Personarum pasaron; Browser Mobile QA terminó con éxito, incluido el QA completo de navegador; GitHub Pages construyó y desplegó correctamente. Enlaces: [Desktop QA](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563004184), [Browser Mobile QA](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563004270), [publicación](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40563003754).
 - **Alcance preservado:** se modificó un solo archivo, `creator-personarum.html`. La corrección no crea un actor completo de Foundry, no define los patronos pendientes ni modifica el mapa o el generador del Atlas asignados a Claude.
 
+## Selector de familiar del Pacto de la Cadena (implementación 2026-10-28)
+
+- Creator Personarum muestra este selector solo para Brujo de nivel 3 o superior.
+- Opciones disponibles: Imp (diablo infernal), Pseudodragón y Sprite. Quasit no se ofrece por ser un demonio del Abismo.
+- La elección se guarda como `selectedChainFamiliar` en el borrador y en el JSON; se restaura solo si el personaje es Brujo de nivel 3+ y el valor pertenece a las opciones permitidas. También se muestra en la vista previa y en la biografía del actor base exportado.
+- Esto no implementa el selector general para elegir entre pactos de Brujo. Se verificó estáticamente la sintaxis JS y la presencia/exclusión de opciones; no se ejecutó QA de navegador.
+
 ## Guardrails
 
 - Usar el Atlas y el Codex como fuentes primarias; no inventar regiones, ciudades, cultos, patronos ni historia geopolítica.
