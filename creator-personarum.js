@@ -92,6 +92,7 @@
   let currentMode = null;
   let explorationFocus = '';
   let savedDraft = null;
+  const inMemoryDrafts = Object.create(null);
   let atlasRegions = [];
   let atlasLoaded = false;
   let atlasLoading = true;
@@ -145,18 +146,24 @@
     draftStep.hidden = true;
 
     // Recover the last exploration interest without carrying character details
-    // from the other creation path.
+    // from the other creation path. Prefer this page session over a saved draft.
     if (!getSelectedExplorationFocus()) try {
-      const raw = window.localStorage.getItem(storageKeyForMode(CREATION_MODES.explore));
-      if (raw) {
-        const draft = JSON.parse(raw);
-        if (draft && typeof draft.explorationFocus === 'string') {
-          const savedChoice = exploreStep.querySelector('input[name="creator-exploration-focus"][value="' + draft.explorationFocus + '"]');
-          if (savedChoice) savedChoice.checked = true;
+      const memoryDraft = inMemoryDrafts[CREATION_MODES.explore];
+      if (memoryDraft && typeof memoryDraft.explorationFocus === 'string' && memoryDraft.explorationFocus) {
+        const savedChoice = exploreStep.querySelector('input[name="creator-exploration-focus"][value="' + memoryDraft.explorationFocus + '"]');
+        if (savedChoice) savedChoice.checked = true;
+      } else {
+        const raw = window.localStorage.getItem(storageKeyForMode(CREATION_MODES.explore));
+        if (raw) {
+          const draft = JSON.parse(raw);
+          if (draft && typeof draft.explorationFocus === 'string') {
+            const savedChoice = exploreStep.querySelector('input[name="creator-exploration-focus"][value="' + draft.explorationFocus + '"]');
+            if (savedChoice) savedChoice.checked = true;
+          }
         }
       }
     } catch (error) {
-      // The exploration path remains usable if local storage is unavailable.
+      // The exploration path remains usable if browser storage is unavailable.
     }
 
     exploreStatus.textContent = getSelectedExplorationFocus()
@@ -676,11 +683,15 @@
   }
 
   function restoreDraft() {
+    let memoryDraft = null;
     try {
-      const raw = window.localStorage.getItem(storageKeyForMode(currentMode));
-      if (!raw) return;
-
-      const draft = JSON.parse(raw);
+      memoryDraft = inMemoryDrafts[currentMode] || null;
+      let draft = memoryDraft;
+      if (!draft) {
+        const raw = window.localStorage.getItem(storageKeyForMode(currentMode));
+        if (!raw) return;
+        draft = JSON.parse(raw);
+      }
       if (!draft || draft.schemaVersion !== 1 || typeof draft.name !== 'string') {
         setDraftStatus('Se encontró un borrador con formato no reconocido; guardá uno nuevo para reemplazarlo.', 'error');
         return;
@@ -775,13 +786,66 @@
       document.getElementById('creator-origin-story').value = typeof draft.originStory === 'string' ? draft.originStory : '';
       exportDraftButton.disabled = false;
       exportFoundryActorButton.disabled = false;
-      setDraftStatus('BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', 'saved');
+      setDraftStatus(memoryDraft
+        ? 'VOLVISTE A ESTE CAMINO: CONSERVAMOS LOS DATOS DE ESTA SESIÓN. «GUARDAR BORRADOR» LOS GUARDA EN ESTE NAVEGADOR.'
+        : 'BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', memoryDraft ? 'idle' : 'saved');
     } catch (error) {
       savedDraft = null;
       exportDraftButton.disabled = true;
       exportFoundryActorButton.disabled = true;
       setDraftStatus('El navegador no permitió leer el borrador local. Podés continuar y volver a intentar guardar.', 'error');
     }
+  }
+
+  function buildDraftRecord(values = readFormValues()) {
+    const lineageLanguageSelection = typeof window.creatorPersonarumGetLineageLanguageSelection === 'function'
+      ? window.creatorPersonarumGetLineageLanguageSelection()
+      : null;
+    const selectedLineageLanguages = lineageLanguageSelection &&
+      lineageLanguageSelection.lineageValue === lineageSelect.value &&
+      lineageLanguageSelection.selectedByChoice &&
+      typeof lineageLanguageSelection.selectedByChoice === 'object'
+      ? JSON.parse(JSON.stringify(lineageLanguageSelection.selectedByChoice))
+      : {};
+
+    return {
+      schemaVersion: 1,
+      playerName: values.playerName,
+      updatedAt: new Date().toISOString(),
+      mode: currentMode,
+      modeLabel: currentMode === CREATION_MODES.explore ? 'Explorar el mundo' : 'Ya sé lo que quiero jugar',
+      explorationFocus,
+      explorationLabel: explorationFocus ? getExplorationLabel(explorationFocus) : '',
+      name: values.name,
+      skillLanguage: values.skillLanguage === 'en' ? 'en' : 'es',
+      lineage: values.lineage,
+      lineageChoice: values.lineageChoice,
+      customLineage: values.customLineage,
+      characterClass: values.characterClass,
+      subclass: values.subclass,
+      feat: values.feat,
+      selectedSpells: values.selectedSpells,
+      selectedClassSkills: values.selectedClassSkills,
+      selectedBackgroundSkills: values.selectedBackgroundSkills,
+      selectedLineageSkills: values.selectedLineageSkills,
+      selectedLineageLanguages,
+      selectedLineageAbilities: values.selectedLineageAbilities,
+      originRegion: values.originRegion,
+      originRegionName: values.originRegionName,
+      originContinent: values.originContinent,
+      originRegionContext: values.originRegionContext,
+      originStory: values.originStory,
+      deity: values.deity,
+      deityName: values.deityName,
+      background: values.background,
+      level: values.level,
+      concept: values.concept
+    };
+  }
+
+  function rememberCurrentDraft() {
+    if (!currentMode || draftStep.hidden) return;
+    inMemoryDrafts[currentMode] = buildDraftRecord(readFormValues());
   }
 
   function saveDraft(event) {
@@ -894,53 +958,12 @@
       return;
     }
 
-    const lineageLanguageSelection = typeof window.creatorPersonarumGetLineageLanguageSelection === 'function'
-      ? window.creatorPersonarumGetLineageLanguageSelection()
-      : null;
-    const selectedLineageLanguages = lineageLanguageSelection &&
-      lineageLanguageSelection.lineageValue === lineageSelect.value &&
-      lineageLanguageSelection.selectedByChoice &&
-      typeof lineageLanguageSelection.selectedByChoice === 'object'
-      ? JSON.parse(JSON.stringify(lineageLanguageSelection.selectedByChoice))
-      : {};
-
-    const draft = {
-      schemaVersion: 1,
-      playerName: values.playerName,
-      updatedAt: new Date().toISOString(),
-      mode: currentMode,
-      modeLabel: currentMode === CREATION_MODES.explore ? 'Explorar el mundo' : 'Ya sé lo que quiero jugar',
-      explorationFocus,
-      explorationLabel: explorationFocus ? getExplorationLabel(explorationFocus) : '',
-      name: values.name,
-      skillLanguage: values.skillLanguage === 'en' ? 'en' : 'es',
-      lineage: values.lineage,
-      lineageChoice: values.lineageChoice,
-      customLineage: values.customLineage,
-      characterClass: values.characterClass,
-      subclass: values.subclass,
-      feat: values.feat,
-      selectedSpells: values.selectedSpells,
-      selectedClassSkills: values.selectedClassSkills,
-      selectedBackgroundSkills: values.selectedBackgroundSkills,
-      selectedLineageSkills: values.selectedLineageSkills,
-      selectedLineageLanguages,
-      selectedLineageAbilities: values.selectedLineageAbilities,
-      originRegion: values.originRegion,
-      originRegionName: values.originRegionName,
-      originContinent: values.originContinent,
-      originRegionContext: values.originRegionContext,
-      originStory: values.originStory,
-      deity: values.deity,
-      deityName: values.deityName,
-      background: values.background,
-      level: values.level,
-      concept: values.concept
-    };
+    const draft = buildDraftRecord(values);
 
     try {
       window.localStorage.setItem(storageKeyForMode(currentMode), JSON.stringify(draft));
       savedDraft = draft;
+      inMemoryDrafts[currentMode] = draft;
       exportDraftButton.disabled = false;
       exportFoundryActorButton.disabled = false;
       renderPreview(draft);
@@ -1304,7 +1327,10 @@
   knownPathButton.addEventListener('click', () => showDraftStep(CREATION_MODES.known, ''));
   explorePathButton.addEventListener('click', showExploreStep);
   backFromExploreButton.addEventListener('click', showPathChoice);
-  backFromDraftButton.addEventListener('click', showPathChoice);
+  backFromDraftButton.addEventListener('click', () => {
+    rememberCurrentDraft();
+    showPathChoice();
+  });
   exploreContinueButton.addEventListener('click', continueExploration);
   document.getElementById('creator-origin-story-draft')?.addEventListener('click', prepareOriginStoryDraft);
 
