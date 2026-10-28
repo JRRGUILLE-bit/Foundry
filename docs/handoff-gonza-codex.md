@@ -286,3 +286,11 @@ La rama de trabajo `feat/new-campaign-origin-picker` no se considera parte de `m
 4. Ejecutar `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js`, `node --check audit/creator-personarum-browser-qa.mjs`, `node audit/creator-personarum-browser-qa.mjs` y Browser Mobile QA. Revisar los resultados antes de integrar.
 
 Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-codex-divinitatum-revisado.json`.
+
+## Creator Personarum — revisión de invocaciones de Brujo (28/10/2026)
+
+- El catálogo contiene 54 registros de invocaciones sobrenaturales Legacy/2014. Se revisaron los metadatos y las descripciones disponibles en una transcripción comunitaria; no se identificó una invocación que invoque directamente demonios del Abismo o declare derivar poder de él. No se excluyeron invocaciones solo por su nombre y no se cotejó esta pasada contra los manuales físicos.
+- `Chains of Carceri` permanece en `pending_review`: su efecto puede apuntar a cualquier `fiend`, lo que incluye demonios y diablos, aunque no es específico del Abismo.
+- El Pacto de la Cadena ofrece quasit entre las formas familiares especiales; quasit es un demonio. Es una decisión de pacto/familiar, no una invocación y se debe auditar antes de implementar ese selector.
+- Creator Personarum aún no implementa selector individual de invocaciones ni de pactos/familiares. No se ejecutó navegador/QA de usuario en esta revisión.
+- Continuidad detallada: `docs/creator-personarum-campaign-audit.md` y la checklist de `JRRGUILLE-bit/Firmamentum-Velatum`.
