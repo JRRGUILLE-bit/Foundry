@@ -990,9 +990,41 @@
       : (currentMode === CREATION_MODES.explore ? 'EXPLORACIÓN' : 'IDEA PROPIA');
   }
 
+  function validateCharacterIdentityForFinalization(values) {
+    if (!values.name.trim()) {
+      nameInput.setCustomValidity('Para finalizar, escribí el nombre del aventurero.');
+      nameInput.reportValidity();
+      nameInput.setCustomValidity('');
+      return false;
+    }
+
+    if (!values.lineageChoice) {
+      lineageSelect.setCustomValidity('Para finalizar, elegí un linaje.');
+      lineageSelect.reportValidity();
+      lineageSelect.setCustomValidity('');
+      return false;
+    }
+
+    if (values.lineageChoice === 'Otro / personalizado' && !values.customLineage.trim()) {
+      customLineageInput.setCustomValidity('Para finalizar, especificá el nombre del linaje personalizado.');
+      customLineageInput.reportValidity();
+      customLineageInput.setCustomValidity('');
+      return false;
+    }
+
+    if (!values.characterClass) {
+      classSelect.setCustomValidity('Para finalizar, elegí una clase.');
+      classSelect.reportValidity();
+      classSelect.setCustomValidity('');
+      return false;
+    }
+
+    return true;
+  }
+
   function finishCharacter() {
     const values = readFormValues();
-    if (!validateCurrentDraft(values)) return;
+    if (!validateCharacterIdentityForFinalization(values) || !validateCurrentDraft(values)) return;
 
     const draft = buildDraftRecord(values);
     draft.status = 'ready';
