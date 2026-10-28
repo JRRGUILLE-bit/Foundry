@@ -182,6 +182,7 @@
             <span id="creator-form-step-label">01 / IDENTIDAD</span>
             <span id="creator-form-mode-label">BORRADOR LOCAL</span>
           </header>
+          <fieldset id="creator-draft-fields" class="creator-draft-fields" aria-label="Opciones del personaje">
 
           <label class="creator-field creator-field-wide" for="creator-character-name">
             <span>NOMBRE DEL AVENTURERO</span>
@@ -462,9 +463,12 @@
             <p class="creator-deity-guidance">Este relato pertenece a tu personaje. No agrega ni modifica hechos canónicos del Atlas.</p>
           </section>
 
+          </fieldset>
+
           <p class="creator-preview-note creator-field-wide">«Exportar actor base» crea un Actor de Foundry con estas elecciones en la biografía. Todavía no convierte clases, linajes, dotes ni conjuros en elementos mecánicos del sistema; conservá también el JSON del borrador.</p>
           <div class="creator-form-actions">
-            <button type="submit" class="creator-primary-button">GUARDAR BORRADOR</button>
+            <button type="submit" id="creator-save-draft" class="creator-primary-button">GUARDAR BORRADOR</button>
+            <button type="button" id="creator-finish-character" class="creator-primary-button">SÍ, TERMINÉ MI PERSONAJE</button>
             <button type="button" id="creator-export-draft" class="creator-secondary-button" disabled>EXPORTAR JSON</button>
             <button type="button" id="creator-export-foundry-actor" class="creator-secondary-button" disabled>EXPORTAR ACTOR BASE</button>
           </div>
