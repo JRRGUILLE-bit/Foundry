@@ -439,3 +439,10 @@ La rama `feat/new-campaign-origin-picker` prepara estos cambios; **no se conside
 - El trabajo del mapa interactivo sigue separado: esta auditoría no modifica el mapa ni reemplaza la tarea de Claude.
 
 QA previsto: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js`, `node --check audit/creator-personarum-browser-qa.mjs`, `node audit/creator-personarum-browser-qa.mjs` y Browser Mobile QA (Chromium/WebKit). La rama debe permanecer sin merge hasta revisar esos resultados.
+
+## Creator Personarum — invocaciones de Brujo (28/10/2026)
+
+- Se revisaron 54 registros de invocaciones del catálogo Legacy/2014 y sus descripciones en una transcripción comunitaria. No se encontró una invocación que convoque directamente demonios del Abismo o declare obtener poder de él; no se excluyeron opciones por el nombre solamente.
+- `Chains of Carceri` queda pendiente de decisión porque puede afectar a cualquier criatura de tipo `fiend`, categoría que incluye demonios y diablos, sin ser específica del Abismo.
+- Las formas especiales de `Pact of the Chain` incluyen al quasit (demonio). La elección de pactos/familiares se auditará aparte; el creador todavía no tiene selector individual de invocaciones ni selector de pactos/familiares.
+- Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
