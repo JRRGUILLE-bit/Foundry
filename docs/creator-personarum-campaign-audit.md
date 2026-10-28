@@ -46,17 +46,20 @@ Ningún otro nombre de subclase del catálogo activa los términos de filtro abi
 
 **Alcance:** el índice web contiene metadatos y referencias, no el texto completo de las 115 subclases. Esta pasada valida el inventario de nombres y la lógica del selector actual; no certifica una lectura exhaustiva de cada párrafo de los manuales ni cierra la auditoría de conjuros, rasgos, linajes y otras opciones. La comprobación en navegador sigue pendiente.
 
-#### Brujo: revisión del selector de conjuros
+#### Conjuros: revisión global de invocaciones (todas las clases)
 
-Se revisó la lista de conjuros que `SPELL_CLASS_NAME_INDEX.brujo` permite mostrar y cómo se cruza con el catálogo. Dentro del índice visible actual, `Hellish Rebuke` es el único nombre que alude al Infierno; se conserva porque el canon permite lo infernal. No hay conjuros de invocación de demonios en la lista visible actual de Brujo.
+Se inspeccionaron los 506 registros de conjuros del catálogo y se contrastaron los candidatos de invocación/llamada con sus reglas publicadas. El selector aplica los bloqueos de campaña antes de comprobar la lista de clase, por lo que las restricciones no se limitan al Brujo.
 
-El catálogo de metadatos sí contiene `Summon Lesser Demons` (XGtE, p. 167) y `Summon Greater Demon` (XGtE, p. 166). Sus reglas describen la invocación directa de demonios desde el Abismo. Aunque ambos ya están fuera del índice actual de clases, se añadió una exclusión explícita por nombre normalizado en `creator-personarum-catalog.js`, antes de construir las opciones del selector, para evitar que aparezcan si se amplía ese índice en el futuro.
+- **Prohibidos globalmente:** `Summon Lesser Demons` (XGtE, p. 167) y `Summon Greater Demon` (XGtE, p. 166) invocan demonios desde el Abismo. `creator-personarum-catalog.js` los filtra por nombre normalizado para cualquier clase, incluso si se amplía una futura lista de conjuros.
+- **`Summon Fiend` (TCE, p. 112):** el conjuro permite elegir Demon, Devil o Yugoloth. Solo la forma Demon está prohibida por el canon; las otras formas no se prohíben por esta regla. El creador aún no guarda esa elección, por lo que el conjuro permanece fuera del selector hasta que la interfaz pueda registrar la forma y excluir Demon. Esto es una limitación de la interfaz, no una prohibición general de las formas Devil/Yugoloth.
+- **`Gate` (PHB, p. 244):** puede atraer por el portal a una criatura nombrada de otro plano, por lo que no puede utilizarse para traer un demonio del Abismo. El conjuro sigue permitido para otros usos.
+- **`Planar Ally` (PHB, p. 265):** puede hacer aparecer un celestial, elemental o `fiend`. La opción `fiend` debe ser infernal y nunca un demonio del Abismo. El conjuro sigue permitido para las opciones no abismales.
+- **`Infernal Calling`** (XGtE, p. 158) invoca un diablo de los Nueve Infiernos y no infringe esta regla; no se añadió al índice de conjuros en esta tarea.
+- **No son invocaciones abismales por nombre:** `Find Familiar` (la opción genérica `fiend` debe ser infernal), conjuros que invocan animales, celestiales, elementales, feéricos, constructos, espíritus dracónicos, sombras o no muertos, y `Planar Binding`, que no convoca por sí mismo a la criatura que afecta. Los usos condicionales de `Gate` y `Planar Ally` quedan limitados por la regla global, no por la eliminación entera de esos conjuros.
 
-`Summon Fiend` (TCE, p. 112) también existe como ficha de conjuro en el catálogo, pero no está en el índice de clases permitido. Se añadió una exclusión preventiva explícita para mantenerlo fuera del selector: sus reglas permiten elegir una forma de demonio, diablo o yugoloth, y el creador solo registra el nombre del conjuro, sin un control para guardar cuál forma fue elegida. Antes de ofrecerlo, habría que poder representar esa elección y excluir la forma demoníaca. Esto no declara prohibida su forma de diablo; la mantiene fuera de esta interfaz hasta que pueda expresar la restricción necesaria.
+La regla se muestra ahora en Creator Personarum independientemente de la clase elegida. Los nombres `Summon Lesser Demons` y `Summon Greater Demon` ya están bloqueados globalmente en código; `Summon Fiend` sigue fuera del selector hasta que pueda registrarse la forma elegida. La comprobación de código fue estática y el JavaScript se validó sintácticamente; no se ejecutó QA de navegador.
 
-El aviso de Brujo restringe `The Fiend` a un patrono infernal. `Infernal Calling` no se agregó al índice por este trabajo: que las opciones infernales estén permitidas no autoriza ampliar el alcance del catálogo en este paso. Las invocaciones de Brujo (`optional_feature`) no tienen un selector propio en la interfaz actual; este pase no certifica la revisión completa del texto de cada invocación.
-
-**Alcance y verificación:** comprobación estática del índice de clases, del catálogo de metadatos y de la lógica del selector. No se ejecutó el navegador. La auditoría transversal de conjuros, invocaciones y rasgos de todas las clases sigue pendiente.
+**Límite:** este paso cubre el inventario de nombres del catálogo y las opciones concretas de invocación identificadas en los textos consultados. El catálogo no contiene el texto completo de los 245 rasgos de clase y 762 rasgos de subclase, por lo que no equivale a una lectura completa de cada manual. En los rasgos inspeccionados por nombre no se encontró otro rasgo que convoque específicamente demonios del Abismo; no se excluyen rasgos solo por afectar o beneficiar a demonios.
 
 #### Brujo: revisión de invocaciones sobrenaturales (28/10/2026)
 
