@@ -449,7 +449,7 @@ QA previsto: `node --check creator-personarum.js`, `node audit/creator-personaru
 
 ## Creator Personarum — revisión global de invocaciones y rasgos (28/10/2026)
 
-- Todo `The Fiend` y sus rasgos están permitidos con patrono infernal. `Hurl Through Hell` y `Aura of Hate` están permitidos; afectar o beneficiar a demonios no equivale a invocarlos.
+- Todo `The Fiend` y sus rasgos están permitidos con patrono infernal. Ninguna clase puede invocar demonios del Abismo. `Hurl Through Hell` y `Aura of Hate` están permitidos; afectar o beneficiar a demonios no equivale a invocarlos.
 - Se inspeccionaron los 506 registros de conjuros. `Summon Lesser Demons` y `Summon Greater Demon` invocan directamente demonios del Abismo y quedan bloqueados para todas las clases. `Summon Fiend` permanece fuera del selector por ahora porque el creador no registra la forma elegida; esto impide seleccionar la forma Demon sin prohibir por canon Devil/Yugoloth.
 - `Gate` puede atraer una criatura nombrada desde otro plano, pero no puede usarse para traer un demonio del Abismo. En `Planar Ally`, cualquier elección de tipo `fiend` debe ser infernal. `Infernal Calling` invoca un diablo de los Nueve Infiernos y no cae bajo la prohibición.
 - La nota general de campaña ahora aparece con cualquier clase elegida. Los nombres de rasgos se inspeccionaron en el catálogo, pero los metadatos no contienen el texto completo de los 1.007 rasgos; no se afirma una lectura completa de todos los manuales.
