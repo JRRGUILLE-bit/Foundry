@@ -31,9 +31,7 @@ El catálogo aporta clases, subclases, trasfondos, dotes, conjuros y datos de co
 
 ### Regla de Brujo, Infierno y Abismo
 
-Al elegir Brujo, el creador muestra la regla de campaña que excluye al Abismo y a sus demonios como opción jugable. El Infierno —Asmodeus y los Nueve Señores— permanece diferenciado del Abismo y de los demonios. Los patronos infernales están permitidos; si se elige «The Fiend», su patrono debe ser infernal, nunca un demonio del Abismo.
-
-El catálogo de subclases disponible no debe interpretarse por sí solo como una lista de patronos aprobados por la campaña. Antes de dar por cerrado el Brujo, se debe confirmar el conjunto canónico permitido con el responsable de la campaña.
+El selector existente cambia su etiqueta a «PATRÓN» y su indicación a «Elegí tu patrón…» al elegir Brujo. Las opciones vinculadas al Abismo o a demonios, junto con «The Great Old One», se filtran de la lista; «The Fiend» permanece disponible. No se añade un aviso visible ni un selector general de pactos. El patrono de «The Fiend» debe ser infernal, nunca un demonio del Abismo. El Infierno —Asmodeus y los Nueve Señores— permanece diferenciado del Abismo y de los demonios.
 
 #### Revisión estática de las subclases (28/10/2026)
 
