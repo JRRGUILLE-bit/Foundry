@@ -268,8 +268,8 @@
     lineageSelect.required = currentMode !== CREATION_MODES.explore;
     classSelect.required = currentMode !== CREATION_MODES.explore;
     savedDraft = null;
-    exportDraftButton.disabled = true;
-      exportFoundryActorButton.disabled = true;
+    exportDraftButton.disabled = false;
+    exportFoundryActorButton.disabled = false;
     draftStatus.textContent = currentMode === CREATION_MODES.explore
       ? 'Todavía no hace falta que tengas todas las respuestas.'
       : 'Los cambios se guardan cuando pulsás «Guardar borrador».';
@@ -791,8 +791,8 @@
         : 'BORRADOR RECUPERADO DE ESTE CAMINO EN ESTE NAVEGADOR.', memoryDraft ? 'idle' : 'saved');
     } catch (error) {
       savedDraft = null;
-      exportDraftButton.disabled = true;
-      exportFoundryActorButton.disabled = true;
+      exportDraftButton.disabled = false;
+      exportFoundryActorButton.disabled = false;
       setDraftStatus('El navegador no permitió leer el borrador local. Podés continuar y volver a intentar guardar.', 'error');
     }
   }
@@ -848,12 +848,10 @@
     inMemoryDrafts[currentMode] = buildDraftRecord(readFormValues());
   }
 
-  function saveDraft(event) {
-    event.preventDefault();
-    const values = readFormValues();
+  function validateCurrentDraft(values) {
     const levelInput = document.getElementById('creator-level');
 
-    if (!draftForm.reportValidity()) return;
+    if (!draftForm.reportValidity()) return false;
 
     if (currentMode !== CREATION_MODES.explore
         && lineageSelect.value === 'Otro / personalizado'
@@ -861,14 +859,14 @@
       customLineageInput.setCustomValidity('Especificá el nombre del linaje personalizado.');
       customLineageInput.reportValidity();
       customLineageInput.setCustomValidity('');
-      return;
+      return false;
     }
 
     if (!Number.isInteger(values.level) || values.level < 1 || values.level > 20) {
       levelInput.setCustomValidity('El nivel debe estar entre 1 y 20.');
       levelInput.reportValidity();
       levelInput.setCustomValidity('');
-      return;
+      return false;
     }
 
     const lineageSkillSelection = typeof window.creatorPersonarumGetLineageSkillSelection === 'function'
@@ -888,7 +886,7 @@
         const firstChoice = lineageSkillList.querySelector('input[type="checkbox"]');
         if (firstChoice) firstChoice.focus();
       }
-      return;
+      return false;
     }
 
     const lineageAbilitySelection = typeof window.creatorPersonarumGetLineageAbilitySelection === 'function'
@@ -910,7 +908,7 @@
           lineageAbilityList.querySelector('input[data-lineage-ability-choice]');
         if (firstChoice) firstChoice.focus();
       }
-      return;
+      return false;
     }
 
     const backgroundSkillSelection = typeof window.creatorPersonarumGetBackgroundSkillSelection === 'function'
@@ -930,7 +928,7 @@
         const firstChoice = backgroundSkillList.querySelector('input[type="checkbox"]');
         if (firstChoice) firstChoice.focus();
       }
-      return;
+      return false;
     }
 
     const classSkillSelection = typeof window.creatorPersonarumGetClassSkillSelection === 'function'
@@ -950,14 +948,21 @@
         const firstChoice = classSkillList.querySelector('input[type="checkbox"]');
         if (firstChoice) firstChoice.focus();
       }
-      return;
+      return false;
     }
 
     if (currentMode === CREATION_MODES.explore && !explorationFocus) {
       setDraftStatus('Volvé a elegir una pista del mundo para continuar con este camino.', 'error');
-      return;
+      return false;
     }
 
+    return true;
+  }
+
+  function saveDraft(event) {
+    event.preventDefault();
+    const values = readFormValues();
+    if (!validateCurrentDraft(values)) return;
     const draft = buildDraftRecord(values);
 
     try {
@@ -973,9 +978,20 @@
     }
   }
 
+  function getValidatedCurrentDraftForExport() {
+    if (!currentMode || draftStep.hidden) return null;
+    const values = readFormValues();
+    if (!validateCurrentDraft(values)) return null;
+    const draft = buildDraftRecord(values);
+    inMemoryDrafts[currentMode] = draft;
+    renderPreview(draft);
+    return draft;
+  }
+
   function exportDraft() {
-    if (!savedDraft) return;
-    const file = new Blob([JSON.stringify(savedDraft, null, 2)], { type: 'application/json;charset=utf-8' });
+    const draft = getValidatedCurrentDraftForExport();
+    if (!draft) return;
+    const file = new Blob([JSON.stringify(draft, null, 2)], { type: 'application/json;charset=utf-8' });
     const url = URL.createObjectURL(file);
     const link = document.createElement('a');
     link.href = url;
@@ -1197,8 +1213,9 @@
   }
 
   function exportFoundryActorBase() {
-    if (!savedDraft) return;
-    const actorSource = buildFoundryActorBase(savedDraft);
+    const draft = getValidatedCurrentDraftForExport();
+    if (!draft) return;
+    const actorSource = buildFoundryActorBase(draft);
     const file = new Blob([JSON.stringify(actorSource, null, 2)], { type: 'application/json;charset=utf-8' });
     const url = URL.createObjectURL(file);
     const link = document.createElement('a');
