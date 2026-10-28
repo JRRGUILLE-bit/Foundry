@@ -58,6 +58,20 @@ El aviso de Brujo restringe `The Fiend` a un patrono infernal. `Infernal Calling
 
 **Alcance y verificación:** comprobación estática del índice de clases, del catálogo de metadatos y de la lógica del selector. No se ejecutó el navegador. La auditoría transversal de conjuros, invocaciones y rasgos de todas las clases sigue pendiente.
 
+#### Brujo: revisión de invocaciones sobrenaturales (28/10/2026)
+
+Se inspeccionaron los 54 registros `optional_feature` cuyo `featureType` incluye `EI` en `creator-personarum-data/player-options.json`. Los registros del archivo son metadatos (nombre, fuente, página y requisitos); para revisar efectos se contrastó la lista con la transcripción comunitaria de [Eldritch Invocations — D&D 5th Edition](https://dnd5e.wikidot.com/warlock:eldritch-invocations). No se cotejó esta pasada directamente contra los manuales físicos.
+
+**Resultado:** no se identificó una invocación cuyo texto convoque demonios desde el Abismo o declare obtener poder de él. No se excluyó ninguna invocación solo por su nombre.
+
+Casos relevantes:
+
+- **`Chains of Carceri`** (PHB, p. 110): permite lanzar `hold monster` contra una criatura de tipo celestial, fiend o elemental. `Fiend` es una categoría amplia y puede incluir demonios además de diablos; la descripción no vincula la invocación al Abismo ni convoca demonios. Por ese alcance amplio se deja **`pending_review`** para decisión de campaña; no debe habilitarse automáticamente si se incorpora un selector de invocaciones.
+- **`Minions of Chaos`** (PHB, p. 111): permite lanzar `conjure elemental`. Su objeto son elementales, no demonios; no se excluye por el nombre.
+- **`Devil's Sight`** (PHB, p. 110) y **`Fiendish Vigor`** (PHB, p. 111): los títulos pueden sonar infernales, pero los efectos consultados son visión en oscuridad y lanzamiento de `false life`; el texto no establece vínculo con el Abismo. No se excluyen por el nombre.
+- Las invocaciones que requieren **Pact of the Chain** se aplican a ese familiar en general; el rasgo de Pacto de la Cadena ofrece entre sus formas especiales al **quasit**, que es un demonio. La selección del familiar es una opción distinta de la invocación, y este creador todavía no ofrece un selector de pactos/familiares. Debe revisarse por separado antes de implementar esa elección; este paso no cambia ni inventa restricciones para todo el Pacto de la Cadena.
+
+**Límite de la revisión:** Creator Personarum todavía no tiene selector individual de invocaciones; solo se revisó el inventario y las descripciones consultadas. La verificación contra fuentes primarias y el comportamiento en navegador siguen pendientes. No se añadieron ni retiraron invocaciones del selector porque ese selector no existe aún.
 ### Historia de origen propuesta
 
 El botón **«Proponer historia desde mis elecciones»** prepara un borrador editable cuando hay una región seleccionada y el campo de historia está vacío. La propuesta puede incluir el nombre, la región y su grupo, la pista de exploración, el resumen del Atlas claramente identificado como fuente canónica, linaje, clase/subclase, trasfondo, dote, divinidad o potencia y concepto del jugador. No reemplaza una historia ya escrita.
