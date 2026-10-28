@@ -851,8 +851,6 @@
   function validateCurrentDraft(values) {
     const levelInput = document.getElementById('creator-level');
 
-    if (!draftForm.reportValidity()) return false;
-
     if (currentMode !== CREATION_MODES.explore
         && lineageSelect.value === 'Otro / personalizado'
         && !customLineageInput.value.trim()) {
@@ -861,6 +859,8 @@
       customLineageInput.setCustomValidity('');
       return false;
     }
+
+    if (!draftForm.reportValidity()) return false;
 
     if (!Number.isInteger(values.level) || values.level < 1 || values.level > 20) {
       levelInput.setCustomValidity('El nivel debe estar entre 1 y 20.');
