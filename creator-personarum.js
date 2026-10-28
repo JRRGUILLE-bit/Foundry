@@ -2,6 +2,7 @@
   'use strict';
 
   const DRAFT_STORAGE_KEY = 'banda.creator-personarum.draft.v1';
+  const PLAYER_NAME_STORAGE_KEY = 'banda.creator-personarum.player-name.v1';
   const ATLAS_SOURCE_FILE = 'fvtt-JournalEntry-atlas-revisado.json';
   const ATLAS_REGION_SOURCES = [
     { page: 'Continente de Abigur', tag: 'h2', group: 'Abigur' },
@@ -51,6 +52,7 @@
   const finalFrame = document.getElementById('creator-final-frame');
   const welcomePanel = document.getElementById('creator-welcome-panel');
   const startButton = document.getElementById('creator-start-button');
+  const playerNameInput = document.getElementById('creator-player-name');
   const skipAnimationButton = document.getElementById('creator-skip-animation');
   const workspace = document.getElementById('creator-workspace');
   const pathChoice = document.getElementById('creator-path-choice');
@@ -95,6 +97,13 @@
   let atlasLoading = true;
 
   function showWelcome() {
+    if (playerNameInput && !playerNameInput.value.trim()) {
+      try {
+        playerNameInput.value = window.localStorage.getItem(PLAYER_NAME_STORAGE_KEY) || '';
+      } catch (error) {
+        // The creator remains usable when browser storage is unavailable.
+      }
+    }
     introVideo.pause();
     introVideo.hidden = true;
     outroVideo.pause();
@@ -276,6 +285,25 @@
     if (playPromise && typeof playPromise.catch === 'function') {
       playPromise.catch(() => showWelcome());
     }
+  }
+
+  function beginCreator() {
+    const playerName = playerNameInput.value.trim();
+    if (!playerName) {
+      playerNameInput.setCustomValidity('Ingresá tu nombre de jugador antes de empezar.');
+      playerNameInput.reportValidity();
+      playerNameInput.focus();
+      return;
+    }
+
+    playerNameInput.setCustomValidity('');
+    playerNameInput.value = playerName;
+    try {
+      window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, playerName);
+    } catch (error) {
+      // The player's name will still be included in the character draft.
+    }
+    playOutro();
   }
 
   function playOutro() {
@@ -522,6 +550,7 @@
         }
       : savedOriginContext;
     return {
+      playerName: playerNameInput.value.trim(),
       name: nameInput.value.trim(),
       skillLanguage: document.getElementById('creator-skill-language')?.value === 'en' ? 'en' : 'es',
       lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
@@ -659,6 +688,14 @@
       if (draft.mode && draft.mode !== currentMode) return;
 
       savedDraft = draft;
+      if (!playerNameInput.value.trim() && typeof draft.playerName === 'string' && draft.playerName.trim()) {
+        playerNameInput.value = draft.playerName.trim();
+        try {
+          window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, playerNameInput.value);
+        } catch (error) {
+          // Draft restoration does not depend on storing the player name separately.
+        }
+      }
       if (!explorationFocus) explorationFocus = draft.explorationFocus || '';
       const skillLanguageSelect = document.getElementById('creator-skill-language');
       if (skillLanguageSelect) skillLanguageSelect.value = draft.skillLanguage === 'en' ? 'en' : 'es';
@@ -869,6 +906,7 @@
 
     const draft = {
       schemaVersion: 1,
+      playerName: values.playerName,
       updatedAt: new Date().toISOString(),
       mode: currentMode,
       modeLabel: currentMode === CREATION_MODES.explore ? 'Explorar el mundo' : 'Ya sé lo que quiero jugar',
@@ -1251,7 +1289,17 @@
   outroVideo.addEventListener('error', showWorkspace);
 
   skipAnimationButton.addEventListener('click', skipAnimation);
-  startButton.addEventListener('click', playOutro);
+  startButton.addEventListener('click', beginCreator);
+  playerNameInput.addEventListener('input', () => {
+    playerNameInput.setCustomValidity('');
+    const playerName = playerNameInput.value.trim();
+    try {
+      if (playerName) window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, playerName);
+      else window.localStorage.removeItem(PLAYER_NAME_STORAGE_KEY);
+    } catch (error) {
+      // The required name is still validated at the start button.
+    }
+  });
 
   knownPathButton.addEventListener('click', () => showDraftStep(CREATION_MODES.known, ''));
   explorePathButton.addEventListener('click', showExploreStep);
