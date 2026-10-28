@@ -368,6 +368,14 @@
   padding: clamp(1rem, 2.6vw, 1.8rem);
 }
 
+.creator-draft-fields {
+  display: contents;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 .creator-form-heading {
   display: flex;
   justify-content: space-between;
