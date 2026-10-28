@@ -450,6 +450,6 @@ QA previsto: `node --check creator-personarum.js`, `node audit/creator-personaru
 ## Creator Personarum — criterio de campaña para Abismo y rasgos (28/10/2026)
 
 - El índice incluye 245 registros `class_feature` y 762 `subclass_feature`, pero solo metadatos; no incluye el texto completo de cada regla.
-- `Hurl Through Hell` (Brujo, The Fiend, nivel 14) queda permitido por decisión de campaña del 28/10/2026, siempre que el patrono no sea abisal; la regla actual de campaña exige patrono infernal.
+- Todo `The Fiend` y sus rasgos están permitidos con patrono infernal; `Hurl Through Hell` queda permitido. Ninguna clase puede invocar demonios del Abismo. Un rasgo que afecte o beneficie a demonios no queda prohibido solo por eso.
 - `Aura of Hate` (Oathbreaker) queda permitida por decisión de campaña del 28/10/2026 aunque beneficie a criaturas `fiend`, incluidos demonios; no se considera una fuente de poder del Abismo.
 - Solo se contrastaron estos candidatos dirigidos; no se declara completada la revisión de todos los textos de rasgos. No se modificó código ni se ejecutó QA.- Detalle y límites de verificación: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md). No se ejecutó QA de navegador en este paso.
