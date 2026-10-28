@@ -1847,6 +1847,8 @@
     const refresh = () => {
       const selectedClass = normalize(classSelect.value);
       const isWarlock = selectedClass === 'brujo' || selectedClass === 'warlock';
+      const label = byId('creator-subclass-label');
+      if (label) label.textContent = isWarlock ? 'PATRÓN' : 'SUBCLASE';
       const matching = rows.filter(item => {
         const className = translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS);
         if (!selectedClass || normalize(className) !== selectedClass) return false;
@@ -1862,7 +1864,7 @@
         String(a.source).localeCompare(String(b.source)));
 
       select.replaceChildren(new Option(
-        !selectedClass ? 'Elegí una clase primero…' : matching.length ? 'Elegí una subclase…' : 'No hay subclases permitidas para esta clase',
+        !selectedClass ? 'Elegí una clase primero…' : matching.length ? (isWarlock ? 'Elegí tu patrón…' : 'Elegí una subclase…') : 'No hay subclases permitidas para esta clase',
         ''
       ));
       const seen = new Set();
