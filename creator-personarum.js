@@ -1117,6 +1117,11 @@
       return false;
     }
 
+    if (currentMode !== CREATION_MODES.explore && !zodiacalMarksData) {
+      setDraftStatus('No se pudieron cargar las marcas zodiacales canónicas; no se puede finalizar sin esa selección.', 'error');
+      return false;
+    }
+
     if (!draftForm.reportValidity()) return false;
 
     const selectedZodiacMark = getSelectedZodiacMark();
