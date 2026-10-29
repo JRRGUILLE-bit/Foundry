@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IM+Fell+English&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="creator-personarum.css?v=20261028-3">
+  <link rel="stylesheet" href="creator-personarum.css?v=20261029-1">
 </head>
 <body class="creator-personarum-page">
   <main id="creator-app">
@@ -367,6 +367,23 @@
             <p id="creator-background-skills-status" class="creator-deity-guidance" role="status" aria-live="polite">Las elecciones se guardan en el borrador.</p>
           </section>
 
+          <section id="creator-zodiac-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-zodiac-title">
+            <div class="creator-divine-heading">
+              <span class="creator-divine-kicker">MARCA ZODIACAL // NUEVE HIJOS DE LA LUNA</span>
+              <h2 id="creator-zodiac-title">ELEGÍ TU MARCA ZODIACAL</h2>
+              <p>Elegí una de las nueve marcas. El don correspondiente y sus decisiones mecánicas se registran con el personaje. Cada truco concedido tiene su propia característica de lanzamiento fija.</p>
+            </div>
+            <label class="creator-field creator-field-wide" for="creator-zodiac-mark">
+              <span>MARCA ZODIACAL</span>
+              <select id="creator-zodiac-mark" name="zodiacalMark" disabled>
+                <option value="">Cargando las nueve marcas canónicas…</option>
+              </select>
+            </label>
+            <p id="creator-zodiac-details" class="creator-deity-details" role="status" aria-live="polite">Cargando las marcas zodiacales canónicas…</p>
+            <div id="creator-zodiac-choice-fields" class="creator-zodiac-choice-fields"></div>
+            <p class="creator-deity-guidance">El Cenit Solar, el Nadir de las Sombras y el Plenilunio son marcas cósmicas excepcionales con condiciones de nacimiento propias; no se incluyen como elecciones libres en esta lista zodiacal.</p>
+          </section>
+
           <label class="creator-field" for="creator-level">
             <span>NIVEL INICIAL</span>
             <input id="creator-level" name="level" type="number" min="1" max="20" step="1" value="1" required>
@@ -461,6 +478,7 @@
             <div id="creator-preview-spells-row" hidden><dt>CONJUROS</dt><dd id="creator-preview-spells">A definir</dd></div>
             <div id="creator-preview-chain-familiar-row" hidden><dt>FAMILIAR</dt><dd id="creator-preview-chain-familiar">A definir</dd></div>
             <div id="creator-preview-deity-row" hidden><dt>FE / IDEAL</dt><dd id="creator-preview-deity">A definir</dd></div>
+            <div id="creator-preview-zodiac-row" hidden><dt>MARCA ZODIACAL</dt><dd id="creator-preview-zodiac">A definir</dd></div>
             <div id="creator-preview-origin-row" hidden><dt>PROCEDENCIA</dt><dd id="creator-preview-origin">A definir</dd></div>
             <div id="creator-preview-origin-story-row" hidden><dt>HISTORIA DE ORIGEN</dt><dd id="creator-preview-origin-story">A definir</dd></div>
             <div><dt>NIVEL</dt><dd id="creator-preview-level">1</dd></div>
@@ -481,7 +499,7 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261029-1"></script>
+  <script src="creator-personarum.js?v=20261029-2"></script>
   <script src="creator-personarum-catalog.js?v=20261029-1"></script>
   <script src="creator-personarum-sheets-config.js?v=20261029-2"></script>
   <script src="creator-personarum-sheets.js?v=20261029-1"></script>
