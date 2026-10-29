@@ -104,7 +104,6 @@ function doPost(event) {
     const previous = rowNumber
       ? register.getRange(rowNumber, 1, 1, CREATOR_PERSONARUM_SHEETS.headers.length).getValues()[0]
       : null;
-    const createdAt = previous ? String(previous[1] || now) : now;
     let tabName = previous ? String(previous[9] || "") : "";
     let characterTab = tabName ? spreadsheet.getSheetByName(tabName) : null;
 
@@ -113,7 +112,7 @@ function doPost(event) {
       characterTab = spreadsheet.insertSheet(tabName);
     }
 
-    writeCharacterTab_(characterTab, record, createdAt, now, fullJson);
+    writeCharacterTab_(characterTab, record, now, fullJson);
     const registryValues = [
       record.creationId,
       now,
@@ -241,9 +240,14 @@ function findSubmissionRow_(register, creationId) {
 }
 
 function makeCharacterTabName_(spreadsheet, record) {
-  const invalid = /[\\\\/:?*\\[\\]]/g;
-  const player = record.playerName.replace(invalid, " ").replace(/\\s+/g, " ").trim() || "Jugador";
-  const character = (record.characterName || "Personaje sin nombre").replace(invalid, " ").replace(/\\s+/g, " ").trim();
+  const invalidCharacters = String.fromCharCode(92) + "/:?*[]";
+  const sanitize = function (value) {
+    return Array.from(String(value || ""), function (character) {
+      return invalidCharacters.indexOf(character) >= 0 ? " " : character;
+    }).join("").replace(/\s+/g, " ").trim();
+  };
+  const player = sanitize(record.playerName) || "Jugador";
+  const character = sanitize(record.characterName || "Personaje sin nombre");
   const id = record.creationId.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
 
   for (const length of [8, 10, 12, 16]) {
@@ -255,7 +259,7 @@ function makeCharacterTabName_(spreadsheet, record) {
   throw fail_("SHEET_NAME_COLLISION", "No se pudo generar un nombre único para la pestaña.");
 }
 
-function writeCharacterTab_(sheet, record, createdAt, updatedAt, fullJson) {
+function writeCharacterTab_(sheet, record, updatedAt, fullJson) {
   const rows = [
     ["CREATOR PERSONARUM — REGISTRO DE PERSONAJE", ""],
     ["Campo", "Valor"],
@@ -264,7 +268,6 @@ function writeCharacterTab_(sheet, record, createdAt, updatedAt, fullJson) {
     ["Estado", record.status === "ready" ? "Terminado" : "Borrador"],
     ["Camino", record.mode || "Sin especificar"],
     ["ID de creación", record.creationId],
-    ["Creado", createdAt],
     ["Última actualización", updatedAt],
     ["", ""],
     ["SELECCIONES DESGLOSADAS", ""],
@@ -295,7 +298,7 @@ function writeCharacterTab_(sheet, record, createdAt, updatedAt, fullJson) {
   sheet.setColumnWidth(1, 280);
   sheet.setColumnWidth(2, 520);
   sheet.getRange(1, 1, 1, 2).setFontWeight("bold");
-  sheet.getRange(11, 1, 1, 2).setFontWeight("bold");
+  sheet.getRange(10, 1, 1, 2).setFontWeight("bold");
 }
 
 function flatten_(value, path, output, depth) {
@@ -356,7 +359,7 @@ function scalar_(value) {
 
 function safeCell_(value) {
   if (typeof value !== "string") return value;
-  return /^[=+\\-@]/.test(value) ? "'" + value : value;
+  return value.length && "=+-@".indexOf(value.charAt(0)) >= 0 ? "'" + value : value;
 }
 
 function enforceRateLimit_() {
