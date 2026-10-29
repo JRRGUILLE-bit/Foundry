@@ -222,7 +222,7 @@
     } else if (isPaladin) {
       deityGuidance.textContent = 'Para paladines, la veneración es opcional: el juramento puede ser el centro del personaje. Si sigue una divinidad o potencia, elegila aquí.';
     }
-    campaignCanonNote.hidden = false;
+    if (campaignCanonNote) campaignCanonNote.hidden = false;
     updateDeityDetails();
   }
 
