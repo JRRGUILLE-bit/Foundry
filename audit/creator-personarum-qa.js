@@ -14,6 +14,7 @@ for (const name of [
   'creator-personarum-catalog.js',
   'creator-personarum-data/player-options.json',
   'creator-personarum-data/campaign-options.json',
+  'creator-personarum-data/zodiacal-marks.json',
   'creator-personarum-final-frame.png',
   'creador intro.mp4',
   'creador outro.mp4'
@@ -27,6 +28,7 @@ const runtime = read('creator-personarum.js');
 const catalogRuntime = read('creator-personarum-catalog.js');
 const playerOptionsCatalog = JSON.parse(read('creator-personarum-data/player-options.json'));
 const campaignOptionsCatalog = JSON.parse(read('creator-personarum-data/campaign-options.json'));
+const zodiacalMarksCatalog = JSON.parse(read('creator-personarum-data/zodiacal-marks.json'));
 const styles = read('creator-personarum.css');
 const workflow = read('.github/workflows/browser-mobile-qa.yml');
 const atlas = JSON.parse(read('fvtt-JournalEntry-atlas-revisado.json'));
@@ -149,5 +151,43 @@ assert.match(runtime, /creator-personarum-exploracion\.json/, 'Exploration draft
 assert.match(styles, /\.creator-path-cards/, 'Both paths must have dedicated styling');
 assert.match(styles, /\.creator-interest-grid/, 'Exploration interests must have dedicated styling');
 assert.match(workflow, /creator-personarum-qa\.js/, 'Browser QA workflow must run the Creator Personarum checks');
+
+assert.equal(zodiacalMarksCatalog.source_of_truth.repository, 'JRRGUILLE-bit/Firmamentum-Velatum', 'Zodiac marks must cite the campaign repository as source of truth');
+assert.equal(zodiacalMarksCatalog.source_of_truth.status, 'campaign_canon', 'Zodiac marks must be marked as campaign canon');
+assert.equal(zodiacalMarksCatalog.assignment_method, 'player_choice', 'Players choose one of the nine ordinary zodiacal marks');
+assert.equal(zodiacalMarksCatalog.signs.length, 9, 'Only the nine Children of the Moon belong to the ordinary zodiac selector');
+assert.deepEqual(zodiacalMarksCatalog.signs.map(sign => sign.id), [
+  'zodiac.stag', 'zodiac.raven', 'zodiac.whale', 'zodiac.fox', 'zodiac.turtle',
+  'zodiac.horse', 'zodiac.dragon', 'zodiac.rat', 'zodiac.serpent'
+], 'The nine zodiac marks must preserve their canonical order and IDs');
+assert.deepEqual(zodiacalMarksCatalog.spellcasting_ability.choices.map(choice => choice.value),
+  ['intelligence', 'wisdom', 'charisma'], 'Granted cantrips must offer Intelligence, Wisdom, or Charisma');
+assert.equal(zodiacalMarksCatalog.spellcasting_ability.remains_fixed, true, 'The selected spellcasting ability remains fixed');
+assert.deepEqual(zodiacalMarksCatalog.signs.find(sign => sign.id === 'zodiac.dragon').cantrip_choices,
+  ['Fire Bolt', 'Frostbite', 'Poison Spray', 'Ray of Frost', 'Produce Flame', 'Shocking Grasp', 'Thunderclap'],
+  'The Dragon must offer the exact seven damaging cantrips');
+assert.deepEqual(zodiacalMarksCatalog.signs.find(sign => sign.id === 'zodiac.serpent').cantrip_choices,
+  ['Vicious Mockery', 'Acid Splash'], 'The Serpent must offer the two canonical cantrips');
+assert.equal(zodiacalMarksCatalog.signs.find(sign => sign.id === 'zodiac.turtle').tool_proficiency_count, 2,
+  'The Turtle must require two tool proficiencies');
+assert.equal(zodiacalMarksCatalog.tool_options.length, 39, 'The Turtle selector must use the stored Legacy tool options');
+const ratMark = zodiacalMarksCatalog.signs.find(sign => sign.id === 'zodiac.rat');
+assert.equal(ratMark.special_spell.name, 'Find Familiar', 'The Rat must store Find Familiar');
+assert.equal(ratMark.special_spell.casting_time, '1 hour 10 minutes', 'The Rat ritual duration must be preserved exactly');
+assert.match(ratMark.summary_es, /exclusivamente.*rata/i, 'The Rat must require a rat familiar');
+assert.match(page, /id="creator-zodiac-section"/, 'The creator must include a zodiac mark section');
+assert.match(page, /id="creator-zodiac-mark"/, 'Players must be able to choose the zodiac mark');
+assert.match(page, /id="creator-zodiac-choice-fields"/, 'The mark-specific mechanical choices need a dedicated area');
+assert.match(page, /id="creator-preview-zodiac"/, 'The selected zodiac mark must appear in the character preview');
+assert.match(runtime, /function loadZodiacalMarks\(\)/, 'The creator must load the campaign-approved zodiac data');
+assert.match(runtime, /zodiacalMark: values\.zodiacalMark/, 'Draft data must preserve the selected zodiac mark');
+assert.match(runtime, /zodiacalChoices: values\.zodiacalChoices/, 'Draft data must preserve cantrip, ability, and tool choices');
+assert.match(runtime, /creator-zodiac-spellcasting-ability/, 'Each granted cantrip must have a spellcasting ability selector');
+assert.match(runtime, /Las dos herramientas deben ser distintas/, 'The Turtle choices must reject duplicate tool proficiencies');
+assert.match(runtime, /['"]Marca zodiacal y don['"]/, 'The Foundry actor-base biography must preserve the selected mark and its benefit');
+assert.match(styles, /\.creator-zodiac-choice-fields/, 'Zodiac choices must have dedicated styling');
+assert.doesNotMatch(page, /<option[^>]*>[^<]*(Cenit Solar|Nadir de las Sombras|Plenilunio)[^<]*<\/option>/i,
+  'Exceptional cosmic marks must not appear as freely selectable ordinary zodiac signs');
+
 
 console.log('Creator Personarum QA: campaign Atlas regions, canon lineages, warlock Abyss restriction, cinematic flow and draft persistence checks passed.');
