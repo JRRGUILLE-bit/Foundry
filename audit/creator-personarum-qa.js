@@ -117,7 +117,7 @@ assert.match(runtime, /function alignInfernalExplorationOrigin\(force\)/, 'Infer
 assert.match(runtime, /region\.name === 'Imperium Ravum \(el Imperio Gris\)'/, 'Infernal exploration association must resolve to the Atlas Grey Empire entry');
 assert.match(runtime, /alignInfernalExplorationOrigin\(true\)/, 'Choosing the Inferno option in exploration should select its Grey Empire origin');
 assert.match(runtime, /atlasLoading/, 'The Atlas loading state must not be confused with an Atlas fetch failure');
-assert.match(runtime, /restoreDraft\(\);\s*alignInfernalExplorationOrigin\(false\);\s*updateOriginDetails\(\);/, 'Restoring a draft must refresh the origin summary and canonical infernal association');
+assert.match(runtime, /restoreDraft\(\);\s*setKnownCharacterWizardStep\(currentKnownWizardStep, false\);\s*alignInfernalExplorationOrigin\(false\);\s*updateOriginDetails\(\);/, 'Restoring a draft must restore the wizard stage and refresh the origin summary and canonical infernal association');
 assert.match(runtime, /originRegionName: values\.originRegionName/, 'Saved/exported drafts must preserve origin metadata');
 assert.match(atlasText, /Imperium Ravum \(el Imperio Gris\)/, 'Origin data must include the Grey Empire as named in the Atlas');
 assert.match(atlasText, /El Gran Bosque \(interior de Rala\)/, 'Origin data must include the Great Forest zone');
