@@ -310,6 +310,8 @@ La portada enlaza a `creator-personarum.html`, una secuencia independiente para 
 - Siguen pendientes los selectores funcionales de subclases, dotes, conjuros y elecciones por nivel, la progresión mecánica completa y la creación de actores. Esta etapa no calcula todavía la ficha completa ni crea un actor de Foundry.
 - QA: `node --check creator-personarum.js`, `node audit/creator-personarum-qa.js` y `node audit/creator-personarum-browser-qa.mjs`, además del Browser Mobile QA.
 
+Contrato de asignación previa definido en `docs/creator-personarum-player-assignment.schema.json`: nivel del Director y pool de seis resultados sin asignar. El selector de jugadores, la carga de asignaciones y el reparto de atributos aún no consumen el contrato. La multiclase para nivel 2+ queda como requisito pendiente, limitada a clases cuyos prerrequisitos cumpla el personaje.
+
 ---
 
 ## Pendientes conocidos
