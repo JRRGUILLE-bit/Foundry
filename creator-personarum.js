@@ -1487,7 +1487,17 @@
       return false;
     }
 
-    if (!draftForm.reportValidity()) return false;
+    if (options.allowIncomplete !== true) {
+      const invalidControl = Array.from(draftForm.elements).find(control =>
+        typeof control.checkValidity === 'function' && !control.checkValidity()
+      );
+      if (invalidControl) {
+        focusCreatorWizardControl(invalidControl);
+        invalidControl.reportValidity();
+        return false;
+      }
+      if (!draftForm.reportValidity()) return false;
+    }
 
     const selectedZodiacMark = getSelectedZodiacMark();
     if (currentMode !== CREATION_MODES.explore && selectedZodiacMark
