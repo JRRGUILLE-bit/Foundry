@@ -101,7 +101,13 @@ assert.match(atlasText, /Archipiélago de Anáhuac/, 'Origin data must include t
 assert.ok(campaignOptionsCatalog.records.some(record => record.category === 'species' && record.name === 'Alto humano'), 'The approved High Human option must come from campaign canon');
 assert.ok(campaignOptionsCatalog.records.some(record => record.category === 'species' && record.name === 'Genasi del agua'), 'The approved Water Genasi option must come from campaign canon');
 assert.ok(campaignOptionsCatalog.records.some(record => record.category === 'species' && record.name === 'Forjado estándar'), 'The approved Warforged option must come from campaign canon');
-assert.ok(!campaignOptionsCatalog.records.some(record => record.category === 'species' && /Svirfneblin|Hombre lagarto|Orco|Drow|Aasimar (Azote|Caído)/i.test(record.name)), 'Explicitly excluded race options must not be offered');
+const excludedRaceRecordIds = new Set([
+  'race.orc', 'race.lizardfolk', 'race.dwarf.deep', 'race.gnome.deep',
+  'race.elf.drow', 'race.aasimar.scourge', 'race.aasimar.fallen'
+]);
+assert.ok(!campaignOptionsCatalog.records.some(record =>
+  record.category === 'species' && (record.record_ids || []).some(id => excludedRaceRecordIds.has(id))
+), 'Explicitly excluded race records must not be offered');
 assert.doesNotMatch(page, /<option[^>]*>Otro \/ personalizado<\/option>/, 'An unapproved custom lineage must not bypass the campaign race allowlist');
 assert.match(page, /id="creator-custom-lineage"/, 'The legacy custom-lineage input may remain in markup but is not offered by the selector');
 assert.match(runtime, /function updateCustomLineageField\(\)/, 'The custom lineage field must respond to the lineage selector');
