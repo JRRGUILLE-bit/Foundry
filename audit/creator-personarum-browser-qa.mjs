@@ -55,6 +55,11 @@ try {
   const page = await browser.newPage({ acceptDownloads: true });
   const pageErrors = [];
   page.on('pageerror', error => pageErrors.push(error.message));
+  const campaignOptionsCatalog = JSON.parse(fs.readFileSync(
+    path.join(root, 'creator-personarum-data/campaign-options.json'),
+    'utf8'
+  ));
+  const runLegacyFullSuite = process.env.CREATOR_PERSONARUM_RUN_LEGACY_QA === 'true';
 
   const baseUrl = 'http://127.0.0.1:' + server.address().port;
   const greyEmpireId = 'abigur-imperium-ravum-el-imperio-gris';
@@ -87,6 +92,61 @@ try {
 
   await gotoCreator();
 
+  if (!runLegacyFullSuite) {
+    await page.locator('#creator-known-path-button').click();
+
+    const raceLabels = await page.locator('#creator-lineage option').evaluateAll(options =>
+      options.slice(1).map(option => option.textContent.trim())
+    );
+    const classLabels = await page.locator('#creator-character-class option').evaluateAll(options =>
+      options.slice(1).map(option => option.textContent.trim())
+    );
+    assert.equal(raceLabels.length, campaignOptionsCatalog.records.filter(record => record.category === 'species').length,
+      'The race selector must contain only entries from the campaign-canon catalogue');
+    assert.ok(raceLabels.includes('Alto humano'), 'The approved High Human option must be present');
+    assert.ok(raceLabels.includes('Genasi del agua'), 'The approved Water Genasi option must be present');
+    assert.ok(raceLabels.includes('Forjado estándar'), 'The approved Warforged option must be present');
+    assert.ok(!raceLabels.some(label => /Svirfneblin|Hombre lagarto|\\bOrco\\b|\\bDrow\\b|Aasimar (Azote|Caído)/i.test(label)),
+      'Explicitly excluded races must not appear');
+    assert.doesNotMatch(await page.locator('#creator-lineage').innerText(), /Otro \/ personalizado/,
+      'An unapproved custom race must not bypass the campaign-canon allowlist');
+
+    assert.equal(classLabels.length, campaignOptionsCatalog.records.filter(record => record.category === 'class').length,
+      'The class selector must contain only campaign-canon-approved classes');
+    assert.deepEqual(classLabels, [
+      'Artífice', 'Bárbaro', 'Bardo', 'Brujo', 'Clérigo', 'Druida', 'Explorador',
+      'Guerrero', 'Hechicero', 'Mago', 'Monje', 'Paladín', 'Pícaro'
+    ], 'The available class list must match the approved campaign catalogue');
+
+    await page.locator('#creator-character-class').selectOption({ label: 'Bárbaro' });
+    let subclasses = await page.locator('#creator-subclass option').evaluateAll(options =>
+      options.slice(1).map(option => option.textContent.trim())
+    );
+    assert.ok(subclasses.includes('Senda del Berserker'), 'Approved Barbarian subclass should appear');
+    await page.locator('#creator-character-class').selectOption({ label: 'Brujo' });
+    subclasses = await page.locator('#creator-subclass option').evaluateAll(options =>
+      options.slice(1).map(option => option.textContent.trim())
+    );
+    assert.ok(subclasses.includes('El Infernario'), 'The approved infernal patron should remain available');
+    assert.ok(!subclasses.some(label => /Gran Antiguo|Great Old One|Aberrant Mind|Mente aberrante/i.test(label)),
+      'Explicitly prohibited subclasses must not appear');
+
+    for (const id of [
+      'creator-background-field', 'creator-background-skills-section',
+      'creator-feat-field', 'creator-feat-details',
+      'creator-spells-section', 'creator-class-features-section'
+    ]) {
+      assert.equal(await page.locator('#' + id).evaluate(element => element.hidden), true,
+        id + ' must remain hidden until the campaign canon supplies approved data for that category');
+    }
+    assert.equal(document.documentElement?.dataset?.creatorCatalogState, undefined,
+      'The browser document is isolated; the page owns its catalog status');
+    assert.equal(await page.locator('html').getAttribute('data-creator-catalog-state'), 'loaded',
+      'Creator Personarum must load its generated campaign-canon catalogue');
+    assert.deepEqual(pageErrors, [], 'Campaign-canon option gating must not raise browser JavaScript exceptions');
+    console.log('Creator Personarum browser smoke QA passed: campaign-canon race/class/subclass gating and omission of unapproved categories.');
+  } else {
+  // Legacy full-form suite; opt in only after canonical backgrounds, feats, spells and class features are available.
   // Open the character form before interacting with its controls.
   await page.locator('#creator-known-path-button').click();
   assert.match(await page.locator('#creator-origin-promise').innerText(), /elegí una región oficial del Atlas/i);
@@ -947,7 +1007,8 @@ try {
   );
 
   assert.deepEqual(pageErrors, [], 'Creator Personarum should not raise runtime JavaScript exceptions');
-  console.log('Creator Personarum browser QA passed: Atlas loading, warlock restriction, origin preview/persistence/export, Inferno→Grey Empire association and editable exploration origin.');
+  console.log('Legacy Creator Personarum browser QA passed: Atlas loading, warlock restriction, origin preview/persistence/export, Inferno→Grey Empire association and editable exploration origin.');
+  }
 } finally {
   if (browser) await browser.close();
   await new Promise(resolve => server.close(resolve));
