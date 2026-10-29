@@ -113,8 +113,9 @@ assert.match(page, /id="creator-custom-lineage"/, 'The legacy custom-lineage inp
 assert.match(runtime, /function updateCustomLineageField\(\)/, 'The custom lineage field must respond to the lineage selector');
 assert.match(runtime, /lineageChoice: values\.lineageChoice/, 'Drafts must preserve the choice between catalog and custom lineage');
 assert.match(runtime, /customLineage: values\.customLineage/, 'Drafts and exports must preserve the actual custom lineage name');
-assert.match(page, /creator-warlock-canon-note/, 'Warlocks must receive the campaign-specific Abyss restriction note');
-assert.match(runtime, /selectedClass !== 'Brujo'/, 'The Abyss restriction note must be shown only for warlocks');
+assert.doesNotMatch(page, /creator-warlock-canon-note|creator-campaign-canon-note/, 'Campaign restrictions must filter unavailable options without adding a visible warning');
+assert.match(catalogRuntime, /subclassName === 'the great old one'/, 'The prohibited Great Old One patron must be filtered from the canonical subclass selector');
+assert.match(catalogRuntime, /subclassName === 'aberrant mind'/, 'The prohibited Aberrant Mind origin must be filtered from the canonical subclass selector');
 assert.doesNotMatch(page, /<option[^>]*>[^<]*Abismo[^<]*<\/option>/i, 'The Abyss must not be selectable as a creator option');
 assert.doesNotMatch(runtime, /value:\s*['"]abismo['"]|name:\s*['"][^'"]*patrón abisal/i, 'The Abyss must not be introduced as a selectable patron');
 assert.match(runtime, /knownPathButton\.addEventListener\('click'/, 'Known-character choice must enter its own path');
