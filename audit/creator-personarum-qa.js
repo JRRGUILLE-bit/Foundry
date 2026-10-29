@@ -206,6 +206,7 @@ assert.match(page, /id="creator-cosmic-mark-section"/, 'Exceptional cosmic marks
 assert.match(page, /id="creator-cosmic-mark-conditions"/, 'The interface must register applicable birth conditions');
 assert.match(page, /id="creator-preview-cosmic"/, 'Exceptional marks must appear in the preview');
 assert.match(runtime, /function renderCosmicMarkConditions\(/, 'Cosmic conditions must render separately from ordinary zodiac choices');
+assert.match(runtime, /zodiacMarkSelect\.value = typeof draft\.zodiacalMark[\s\S]*?renderCosmicMarkConditions\(\s*Array\.isArray\(draft\.cosmicMarks\)/, 'Restored drafts must restore cosmic birth conditions and choices when canonical data is already loaded');
 assert.match(runtime, /data-cosmic-spell-ability-mark/, 'Each cosmic-granted cantrip must have its own spellcasting ability choice');
 assert.match(runtime, /El canon no especifica cómo resolver marcas cósmicas superpuestas/, 'Overlapping exceptional conditions must not be resolved by inference');
 assert.match(runtime, /cosmicMarks: values\.cosmicMarks/, 'Cosmic condition matches must persist in the draft');

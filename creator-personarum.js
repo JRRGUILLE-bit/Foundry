@@ -1138,6 +1138,10 @@
       backgroundSelect.value = draft.background || '';
       zodiacMarkSelect.value = typeof draft.zodiacalMark === 'string' ? draft.zodiacalMark : '';
       updateZodiacMarkDetails(draft.zodiacalChoices || {});
+      renderCosmicMarkConditions(
+        Array.isArray(draft.cosmicMarks) ? draft.cosmicMarks : [],
+        draft.cosmicMarkChoices && typeof draft.cosmicMarkChoices === 'object' ? draft.cosmicMarkChoices : {}
+      );
       backgroundSelect.dispatchEvent(new Event('change', { bubbles: true }));
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-background-skills', {
         detail: {
