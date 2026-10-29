@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const CATALOG_URL = 'creator-personarum-data/player-options.json';
+  const CATALOG_URL = 'creator-personarum-data/campaign-options.json';
   const byId = (id) => document.getElementById(id);
   const SKILL_LABELS_EN = {
     acrobatics: 'Acrobatics',
@@ -514,6 +514,7 @@
 
   function appendLineages(records) {
     const select = byId('creator-lineage');
+    select.replaceChildren(new Option('Elegí una opción racial aprobada por la campaña…', ''));
     const species = records.filter(item => item.category === 'species')
       .sort((a, b) => String(a.name).localeCompare(String(b.name)));
     const variants = records.filter(item => item.category === 'species_variant')
@@ -1437,6 +1438,7 @@
   }
   function appendClasses(records) {
     const select = byId('creator-character-class');
+    select.replaceChildren(new Option('Elegí una clase aprobada por la campaña…', ''));
     const seen = new Set();
     const rows = records.filter((item) => item.category === 'class')
       .sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
@@ -1466,6 +1468,10 @@
     const rows = records.filter(item => item.category === 'background')
       .sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
         String(a.source).localeCompare(String(b.source)));
+    const backgroundField = byId('creator-background-field');
+    const backgroundSkillsSection = byId('creator-background-skills-section');
+    if (backgroundField) backgroundField.hidden = rows.length === 0;
+    if (backgroundSkillsSection) backgroundSkillsSection.hidden = rows.length === 0;
     const selectedRows = [];
     for (const item of rows) {
       const key = normalize(item.name);
@@ -1701,23 +1707,22 @@
       survival: 'Supervivencia'
     };
     const anySkills = Object.keys(skillLabels);
-    const choices = {
-      barbarian: { count: 2, skills: ['animal handling', 'athletics', 'intimidation', 'nature', 'perception', 'survival'] },
-      bard: { count: 3, skills: anySkills, any: true },
-      cleric: { count: 2, skills: ['history', 'insight', 'medicine', 'persuasion', 'religion'] },
-      druid: { count: 2, skills: ['arcana', 'animal handling', 'insight', 'medicine', 'nature', 'perception', 'religion', 'survival'] },
-      fighter: { count: 2, skills: ['acrobatics', 'animal handling', 'athletics', 'history', 'insight', 'intimidation', 'perception', 'survival'] },
-      monk: { count: 2, skills: ['acrobatics', 'athletics', 'history', 'insight', 'religion', 'stealth'] },
-      paladin: { count: 2, skills: ['athletics', 'insight', 'intimidation', 'medicine', 'persuasion', 'religion'] },
-      ranger: { count: 3, skills: ['animal handling', 'athletics', 'insight', 'investigation', 'nature', 'perception', 'stealth', 'survival'] },
-      rogue: { count: 4, skills: ['acrobatics', 'athletics', 'deception', 'insight', 'intimidation', 'investigation', 'perception', 'performance', 'persuasion', 'sleight of hand', 'stealth'] },
-      sorcerer: { count: 2, skills: ['arcana', 'deception', 'insight', 'intimidation', 'persuasion', 'religion'] },
-      warlock: { count: 2, skills: ['arcana', 'deception', 'history', 'intimidation', 'investigation', 'nature', 'religion'] },
-      wizard: { count: 2, skills: ['arcana', 'history', 'insight', 'investigation', 'medicine', 'religion'] },
-      artificer: { count: 2, skills: ['arcana', 'history', 'investigation', 'medicine', 'nature', 'perception', 'sleight of hand'], source: 'TCE' }
-    };
-
     const classRows = records.filter(item => item.category === 'class');
+    const choices = Object.fromEntries(classRows.map(row => {
+      const canonical = row.skillChoices && typeof row.skillChoices === 'object' ? row.skillChoices : {};
+      const count = Number(canonical.count || 0);
+      const rawSkills = Array.isArray(canonical.skills) ? canonical.skills : [];
+      const skills = canonical.any
+        ? anySkills
+        : rawSkills.map(normalize).filter(skill => Object.prototype.hasOwnProperty.call(skillLabels, skill));
+      return [String(row.class_key || ''), {
+        count,
+        skills: [...new Set(skills)],
+        any: Boolean(canonical.any),
+        source: row.source || ''
+      }];
+    }).filter(([classKey, data]) => classKey && Number.isInteger(data.count) && data.count > 0));
+
     let selectedSkills = [];
     let activeClassKey = '';
     let activeChoiceData = null;
@@ -1768,8 +1773,8 @@
         return;
       }
 
-      const row = classRows.find(item => normalize(item.name) === normalize(classKey));
-      const source = data.source || row?.source || 'PHB';
+      const row = classRows.find(item => normalize(item.class_key) === normalize(classKey));
+      const source = data.source || row?.source || 'Canon de campaña';
       const heading = document.createElement('li');
       heading.textContent = 'Marcá ' + data.count + (data.count === 1 ? ' habilidad' : ' habilidades') +
         (data.any ? ' cualesquiera de estas opciones:' : ' de esta lista:');
@@ -1895,6 +1900,9 @@
 
     const rows = records.filter(item => item.category === 'feat')
       .sort((a, b) => String(a.name).localeCompare(String(b.name)) || String(a.source).localeCompare(String(b.source)));
+    const featField = byId('creator-feat-field');
+    if (featField) featField.hidden = rows.length === 0;
+    details.hidden = rows.length === 0;
     const byName = new Map();
     select.replaceChildren(new Option(rows.length ? 'Elegí una dote…' : 'No hay dotes permitidas en el catálogo', ''));
 
@@ -1964,6 +1972,8 @@
     const byName = new Map();
     const rows = records.filter(item => item.category === 'spell' && String(item.name || '').trim())
       .sort((a, b) => String(a.name).localeCompare(String(b.name)) || String(a.source).localeCompare(String(b.source)));
+    const spellSection = byId('creator-spells-section');
+    if (spellSection) spellSection.hidden = rows.length === 0;
     for (const item of rows) {
       const key = normalize(item.name);
       if (!key || byName.has(key)) continue;
@@ -2140,6 +2150,8 @@
       Number.isInteger(Number(item.level)) &&
       Number(item.level) >= 1
     );
+    const classFeaturesSection = byId('creator-class-features-section');
+    if (classFeaturesSection) classFeaturesSection.hidden = rows.length === 0;
 
     const refresh = () => {
       const selectedClass = normalize(classSelect.value);
@@ -2325,9 +2337,23 @@
       document.documentElement.dataset.creatorCatalogState = 'loaded';
       document.documentElement.dataset.creatorCatalogCount = String(catalog.totals?.included_records || catalog.records.length);
     } catch (error) {
-      // Keep the existing campaign-specific options as a working fallback.
-      document.documentElement.dataset.creatorCatalogState = 'fallback';
-      console.warn('No se pudo cargar el catálogo filtrado de Creator Personarum; se mantienen las opciones del mundo.', error);
+      // Fail closed: no generic D&D choices are shown when campaign-canon data is unavailable.
+      document.documentElement.dataset.creatorCatalogState = 'error';
+      for (const id of [
+        'creator-lineage', 'creator-character-class', 'creator-subclass',
+        'creator-background', 'creator-feat', 'creator-spell-choice', 'creator-spell-add'
+      ]) {
+        const control = byId(id);
+        if (control) control.disabled = true;
+      }
+      for (const id of [
+        'creator-class-features-section', 'creator-background-skills-section',
+        'creator-feat-field', 'creator-feat-details', 'creator-spells-section'
+      ]) {
+        const section = byId(id);
+        if (section) section.hidden = true;
+      }
+      console.error('No se pudo cargar el catálogo de opciones aprobadas por el canon de campaña. No se muestran opciones genéricas.', error);
     }
   }
 
