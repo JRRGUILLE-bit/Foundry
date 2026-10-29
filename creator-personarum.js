@@ -378,6 +378,11 @@
         zodiacMarkSelect.value = restoredDraft.zodiacalMark;
       }
       updateZodiacMarkDetails(restoredDraft && restoredDraft.zodiacalChoices ? restoredDraft.zodiacalChoices : {});
+      if (currentMode && !draftStep.hidden) {
+        const restoredValues = readFormValues();
+        renderPreview(restoredValues);
+        publishCreatorPersonarumDraftChange(restoredValues);
+      }
     } catch (error) {
       zodiacMarkSelect.disabled = true;
       zodiacDetails.textContent = 'No se pudieron cargar las marcas zodiacales canónicas. No se mostrarán opciones genéricas.';
