@@ -161,8 +161,21 @@ try {
       'The missing-background notice must not appear during the class stage');
     assert.equal(await page.locator('html').getAttribute('data-creator-catalog-state'), 'loaded',
       'Creator Personarum must load its generated campaign-canon catalogue');
-    assert.deepEqual(pageErrors, [], 'Campaign-canon option gating and wizard navigation must not raise browser JavaScript exceptions');
-    console.log('Creator Personarum browser smoke QA passed: sequential race-to-class wizard and campaign-canon race/class/subclass gating.');
+
+    await page.locator('#creator-level').evaluate(element => {
+      element.value = '2';
+      element.dispatchEvent(new Event('input', { bubbles: true }));
+      element.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await page.locator('#creator-export-draft').click();
+    assert.match(await page.locator('#creator-draft-status').innerText(),
+      /No se puede finalizar ni exportar un personaje de nivel superior a 1/i,
+      'Known-character export must stay blocked until level-by-level progression is implemented');
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 5 DE 5',
+      'The level progression guard must direct the player to the level step');
+
+    assert.deepEqual(pageErrors, [], 'Campaign-canon option gating, wizard navigation and the level progression guard must not raise browser JavaScript exceptions');
+    console.log('Creator Personarum browser smoke QA passed: sequential race-to-class wizard, canon gating and higher-level completion guard.');
   } else {
   // Legacy full-form suite; opt in only after canonical backgrounds, feats, spells and class features are available.
   // Open the character form before interacting with its controls.
