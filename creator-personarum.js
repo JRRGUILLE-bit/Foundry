@@ -99,8 +99,24 @@
   const draftFields = document.getElementById('creator-draft-fields');
   const saveDraftButton = document.getElementById('creator-save-draft');
   const finishCharacterButton = document.getElementById('creator-finish-character');
+  const creatorWizardNavigation = document.getElementById('creator-known-wizard-navigation');
+  const creatorWizardBackButton = document.getElementById('creator-wizard-back');
+  const creatorWizardNextButton = document.getElementById('creator-wizard-next');
+  const creatorWizardProgress = document.getElementById('creator-wizard-progress');
+  const creatorWizardTitle = document.getElementById('creator-wizard-title');
+  const creatorWizardDescription = document.getElementById('creator-wizard-description');
+  const raceSelect = document.getElementById('creator-race');
+  const subraceSelect = document.getElementById('creator-subrace');
+  const KNOWN_CREATOR_WIZARD_STEPS = [
+    { title: 'Raza y variante', description: 'Elegí una raza aprobada y completá sus decisiones obligatorias antes de seguir.' },
+    { title: 'Clase y opciones de clase', description: 'Elegí la clase y completá sus habilidades y opciones disponibles para el personaje.' },
+    { title: 'Trasfondo y habilidades', description: 'Revisá las opciones de trasfondo aprobadas y completá sus elecciones cuando estén disponibles.' },
+    { title: 'Marca zodiacal y cósmica', description: 'Elegí una de las nueve marcas zodiacales y registrá solo las condiciones cósmicas que correspondan.' },
+    { title: 'Nivel y resto del personaje', description: 'Terminá los datos restantes. La progresión obligatoria nivel por nivel todavía requiere una etapa posterior.' }
+  ];
 
   let currentMode = null;
+  let currentKnownWizardStep = 1;
   let explorationFocus = '';
   let savedDraft = null;
   let isCharacterFinalized = false;
@@ -573,6 +589,138 @@
     }
     if (campaignCanonNote) campaignCanonNote.hidden = false;
     updateDeityDetails();
+  }
+
+  function setKnownCharacterWizardStep(step, focusFirstControl = true) {
+    const candidate = Number(step);
+    currentKnownWizardStep = Number.isInteger(candidate)
+      ? Math.min(KNOWN_CREATOR_WIZARD_STEPS.length, Math.max(1, candidate))
+      : 1;
+    const isKnownCharacter = currentMode === CREATION_MODES.known;
+    creatorWizardNavigation.hidden = !isKnownCharacter;
+    const stagedElements = Array.from(draftFields.querySelectorAll('[data-creator-wizard-step]'));
+    for (const element of stagedElements) {
+      if (isKnownCharacter && Number(element.dataset.creatorWizardStep) !== currentKnownWizardStep) {
+        element.dataset.creatorWizardInactive = 'true';
+      } else {
+        delete element.dataset.creatorWizardInactive;
+      }
+    }
+    if (!isKnownCharacter) return;
+
+    const metadata = KNOWN_CREATOR_WIZARD_STEPS[currentKnownWizardStep - 1];
+    creatorWizardProgress.textContent = 'PASO ' + currentKnownWizardStep + ' DE ' + KNOWN_CREATOR_WIZARD_STEPS.length;
+    creatorWizardTitle.textContent = metadata.title;
+    creatorWizardDescription.textContent = metadata.description;
+    creatorWizardBackButton.disabled = currentKnownWizardStep === 1 || isCharacterFinalized;
+    creatorWizardNextButton.hidden = currentKnownWizardStep === KNOWN_CREATOR_WIZARD_STEPS.length;
+    creatorWizardNextButton.disabled = isCharacterFinalized;
+    formStepLabel.textContent = String(currentKnownWizardStep).padStart(2, '0') + ' / ' + metadata.title.toLocaleUpperCase('es-UY');
+
+    if (focusFirstControl) {
+      const controls = stagedElements
+        .filter(element => Number(element.dataset.creatorWizardStep) === currentKnownWizardStep)
+        .flatMap(element => Array.from(element.querySelectorAll('input:not([type="hidden"]), select, textarea, button')));
+      const firstControl = controls.find(control =>
+        !control.disabled &&
+        !control.hidden &&
+        !control.closest('[hidden]') &&
+        !control.closest('[data-creator-wizard-inactive="true"]') &&
+        control.getAttribute('aria-hidden') !== 'true'
+      );
+      (firstControl || creatorWizardTitle).focus();
+    }
+  }
+
+  function focusCreatorWizardControl(control) {
+    if (!control) return;
+    const stagedField = control.closest('[data-creator-wizard-step]');
+    if (currentMode === CREATION_MODES.known && stagedField) {
+      setKnownCharacterWizardStep(Number(stagedField.dataset.creatorWizardStep), false);
+    }
+    if (typeof control.focus === 'function') control.focus();
+    if (typeof control.scrollIntoView === 'function') control.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function validateKnownCharacterWizardStep(step) {
+    if (step === 1) {
+      if (!raceSelect.value) {
+        setDraftStatus('Elegí una raza aprobada por la campaña antes de continuar.', 'error');
+        focusCreatorWizardControl(raceSelect);
+        return false;
+      }
+      if (!lineageSelect.value) {
+        const missingChoice = subraceSelect && !subraceSelect.disabled && !subraceSelect.value ? subraceSelect : raceSelect;
+        setDraftStatus(
+          missingChoice === subraceSelect
+            ? 'Elegí la subraza, variante o ascendencia dracónica antes de continuar.'
+            : 'La opción racial elegida no tiene una variante seleccionada o un registro canónico listo.',
+          'error'
+        );
+        focusCreatorWizardControl(missingChoice);
+        return false;
+      }
+      const values = readFormValues();
+      const lineageSkills = typeof window.creatorPersonarumGetLineageSkillSelection === 'function'
+        ? window.creatorPersonarumGetLineageSkillSelection()
+        : null;
+      if (lineageSkills && lineageSkills.requiredCount > 0 && values.selectedLineageSkills.length !== lineageSkills.requiredCount) {
+        setDraftStatus('Completá las ' + lineageSkills.requiredCount + ' habilidades obligatorias del linaje antes de continuar.', 'error');
+        const firstChoice = document.querySelector('#creator-lineage-skills-list input[type="checkbox"]');
+        focusCreatorWizardControl(firstChoice || document.getElementById('creator-lineage-skills-list'));
+        return false;
+      }
+      const lineageAbilities = typeof window.creatorPersonarumGetLineageAbilitySelection === 'function'
+        ? window.creatorPersonarumGetLineageAbilitySelection()
+        : null;
+      if (lineageAbilities && lineageAbilities.requiredCount > 0 && lineageAbilities.selected.length !== lineageAbilities.requiredCount) {
+        setDraftStatus('Completá las elecciones de características obligatorias del linaje antes de continuar.', 'error');
+        const firstChoice = document.querySelector('#creator-lineage-skills-list input[data-lineage-ability-choice]');
+        focusCreatorWizardControl(firstChoice || document.getElementById('creator-lineage-skills-list'));
+        return false;
+      }
+    }
+
+    if (step === 2) {
+      if (!classSelect.value) {
+        setDraftStatus('Elegí una clase aprobada por la campaña antes de continuar.', 'error');
+        focusCreatorWizardControl(classSelect);
+        return false;
+      }
+      const values = readFormValues();
+      const classSkills = typeof window.creatorPersonarumGetClassSkillSelection === 'function'
+        ? window.creatorPersonarumGetClassSkillSelection()
+        : null;
+      if (classSkills && classSkills.requiredCount > 0 && values.selectedClassSkills.length !== classSkills.requiredCount) {
+        setDraftStatus('Elegí exactamente ' + classSkills.requiredCount + ' habilidades para ' + classSkills.className + ' antes de continuar.', 'error');
+        const firstChoice = document.querySelector('#creator-class-skills-list input[type="checkbox"]');
+        focusCreatorWizardControl(firstChoice || document.getElementById('creator-class-skills-list'));
+        return false;
+      }
+    }
+
+    if (step === 4) {
+      if (!zodiacalMarksData) {
+        setDraftStatus('Las marcas canónicas todavía se están cargando. No avances sin sus opciones.', 'error');
+        focusCreatorWizardControl(zodiacMarkSelect);
+        return false;
+      }
+      if (!zodiacMarkSelect.value) {
+        setDraftStatus('Elegí una de las nueve marcas zodiacales ordinarias antes de continuar.', 'error');
+        focusCreatorWizardControl(zodiacMarkSelect);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function continueKnownCharacterWizard() {
+    if (currentMode !== CREATION_MODES.known || currentKnownWizardStep >= KNOWN_CREATOR_WIZARD_STEPS.length) return;
+    if (!validateKnownCharacterWizardStep(currentKnownWizardStep)) return;
+    setKnownCharacterWizardStep(currentKnownWizardStep + 1);
+    renderPreview(readFormValues());
+    publishCreatorPersonarumDraftChange();
+    setDraftStatus('Etapa completada en la sesión. Podés volver al paso anterior para revisar tus elecciones.', 'idle');
   }
 
   function showDraftStep(mode, focus) {
