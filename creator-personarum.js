@@ -1489,6 +1489,20 @@
     }
     if (options.allowIncomplete === true && currentMode === CREATION_MODES.known) return true;
 
+    if (options.allowIncomplete !== true
+        && currentMode === CREATION_MODES.known
+        && Number.isInteger(values.level)
+        && values.level > 1
+        && values.level <= 20) {
+      setKnownCharacterWizardStep(5, false);
+      setDraftStatus(
+        'No se puede finalizar ni exportar un personaje de nivel superior a 1: primero hay que completar la base de nivel 1 y las decisiones de cada nivel. La progresión aún no está implementada.',
+        'error'
+      );
+      focusCreatorWizardControl(levelInput);
+      return false;
+    }
+
     if (options.allowIncomplete !== true) {
       const invalidControl = Array.from(draftForm.elements).find(control =>
         typeof control.checkValidity === 'function' && !control.checkValidity()
