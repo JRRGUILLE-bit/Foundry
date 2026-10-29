@@ -215,16 +215,19 @@ function ensureRegisterSheet_(spreadsheet) {
   if (!sheet) sheet = spreadsheet.insertSheet(CREATOR_PERSONARUM_SHEETS.registrySheetName, 0);
 
   const headers = CREATOR_PERSONARUM_SHEETS.headers;
-  if (sheet.getLastRow() === 0) {
+  const lastRow = sheet.getLastRow();
+  const existing = lastRow > 0
+    ? sheet.getRange(1, 1, 1, headers.length).getDisplayValues()[0]
+    : [];
+  const firstRowHasContent = existing.some(function (value) { return String(value).trim() !== ""; });
+
+  if (lastRow === 0 || (lastRow === 1 && !firstRowHasContent)) {
     sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     sheet.setFrozenRows(1);
     sheet.getRange(1, 1, 1, headers.length).setFontWeight("bold").setWrap(true);
     sheet.setRowHeight(1, 36);
-  } else {
-    const existing = sheet.getRange(1, 1, 1, headers.length).getDisplayValues()[0];
-    if (!headers.every(function (header, index) { return existing[index] === header; })) {
-      throw fail_("REGISTRY_HEADER_MISMATCH", "REGISTRO tiene encabezados distintos; no se sobrescribió.");
-    }
+  } else if (!headers.every(function (header, index) { return existing[index] === header; })) {
+    throw fail_("REGISTRY_HEADER_MISMATCH", "REGISTRO tiene encabezados distintos; no se sobrescribió.");
   }
   return sheet;
 }
@@ -299,6 +302,7 @@ function writeCharacterTab_(sheet, record, updatedAt, fullJson) {
   sheet.setColumnWidth(2, 520);
   sheet.getRange(1, 1, 1, 2).setFontWeight("bold");
   sheet.getRange(10, 1, 1, 2).setFontWeight("bold");
+  sheet.getRange(11, 1, 1, 2).setFontWeight("bold");
 }
 
 function flatten_(value, path, output, depth) {
