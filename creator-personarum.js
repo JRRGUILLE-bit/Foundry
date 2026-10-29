@@ -1262,6 +1262,7 @@
       if (draft.mode && draft.mode !== currentMode) return;
 
       savedDraft = draft;
+      currentKnownWizardStep = Number.isInteger(draft.creationStep) ? draft.creationStep : 1;
       if (!playerNameInput.value.trim() && typeof draft.playerName === 'string' && draft.playerName.trim()) {
         playerNameInput.value = draft.playerName.trim();
         try {
@@ -1605,6 +1606,8 @@
   function setCharacterFinalized(finalized) {
     isCharacterFinalized = Boolean(finalized);
     draftFields.disabled = isCharacterFinalized;
+    if (creatorWizardBackButton) creatorWizardBackButton.disabled = isCharacterFinalized || currentKnownWizardStep === 1;
+    if (creatorWizardNextButton) creatorWizardNextButton.disabled = isCharacterFinalized;
     saveDraftButton.disabled = isCharacterFinalized;
     finishCharacterButton.textContent = isCharacterFinalized
       ? 'VOLVER A EDITAR'
