@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Creator Personarum — asignación previa por jugador",
+  "description": "Contrato de los datos que el Director prepara antes de que un jugador cree el personaje. No es el borrador del personaje ni implica que el selector o el guardado remoto estén implementados.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "assignmentId",
+    "playerId",
+    "playerName",
+    "level",
+    "abilityRolls"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "assignmentId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identificador estable y único de esta asignación. No usar el nombre del jugador como clave."
+    },
+    "playerId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identificador estable del jugador seleccionado en el registro de jugadores."
+    },
+    "playerName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Nombre que se muestra en el selector. No se usa como identificador único."
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20,
+      "description": "Nivel establecido previamente por el Director."
+    },
+    "abilityRolls": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "$ref": "#/$defs/abilityRoll"
+      },
+      "description": "Pool de seis resultados cargados tras tirar los dados presencialmente. Se conservan como resultados sin asignar a atributos. Cada rollId debe ser único dentro de esta asignación; la validación de unicidad de rollId se debe hacer en la lógica consumidora."
+    },
+    "abilityAssignments": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Distribución opcional que el jugador elige al crear el personaje. Cada valor es el rollId de un resultado de abilityRolls, no el valor numérico. Durante un borrador puede faltar alguna característica o tener null. Al finalizar, las seis características deben apuntar a seis rollId existentes y no repetidos; esa validación corresponde a la lógica consumidora.",
+      "properties": {
+        "str": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "dex": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "con": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "int": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "wis": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "cha": {
+          "type": ["string", "null"],
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "$defs": {
+    "abilityRoll": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rollId", "value"],
+      "properties": {
+        "rollId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "integer",
+          "description": "Resultado que cargó el Director. No se impone un rango porque el método exacto de tirada no está especificado en este contrato."
+        }
+      }
+    }
+  }
+}
