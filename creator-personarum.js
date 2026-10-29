@@ -1703,7 +1703,7 @@
   function saveDraft(event) {
     event.preventDefault();
     const values = readFormValues();
-    if (!validateCurrentDraft(values, { allowUnresolvedCosmicOverlap: true })) return;
+    if (!validateCurrentDraft(values, { allowUnresolvedCosmicOverlap: true, allowIncomplete: true })) return;
     const draft = buildDraftRecord(values);
     draft.status = 'draft';
     draft.finalizedAt = null;
