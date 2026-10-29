@@ -13,6 +13,7 @@ for (const name of [
   'creator-personarum.js',
   'creator-personarum-catalog.js',
   'creator-personarum-data/player-options.json',
+  'creator-personarum-data/campaign-options.json',
   'creator-personarum-final-frame.png',
   'creador intro.mp4',
   'creador outro.mp4'
@@ -25,6 +26,7 @@ const page = read('creator-personarum.html');
 const runtime = read('creator-personarum.js');
 const catalogRuntime = read('creator-personarum-catalog.js');
 const playerOptionsCatalog = JSON.parse(read('creator-personarum-data/player-options.json'));
+const campaignOptionsCatalog = JSON.parse(read('creator-personarum-data/campaign-options.json'));
 const styles = read('creator-personarum.css');
 const workflow = read('.github/workflows/browser-mobile-qa.yml');
 const atlas = JSON.parse(read('fvtt-JournalEntry-atlas-revisado.json'));
@@ -32,7 +34,16 @@ const atlasText = JSON.stringify(atlas);
 
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
 assert.match(page, /creator-personarum-catalog\.js/, 'Creator Personarum must load its filtered player-options catalog adapter');
-assert.match(catalogRuntime, /creator-personarum-data\/player-options\.json/, 'Catalog adapter must load the generated filtered catalog');
+assert.match(catalogRuntime, /creator-personarum-data\/campaign-options\.json/, 'Catalog adapter must load campaign-canon-approved options, not generic candidates');
+assert.equal(campaignOptionsCatalog.source_of_truth.repository, 'JRRGUILLE-bit/Firmamentum-Velatum', 'Runtime catalogue must identify Firmamentum Velatum as its source of truth');
+assert.equal(campaignOptionsCatalog.source_of_truth.status, 'campaign_canon', 'Runtime catalogue must be marked as campaign canon');
+assert.equal(campaignOptionsCatalog.ruleset_id, 'dnd5e_2014', 'Runtime catalogue must use Legacy/2014 rules');
+assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'species').length, 26, 'Only campaign-approved race options with ready rule data may be offered');
+assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'class').length, 13, 'Only approved campaign classes may be offered');
+assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'subclass').length, 39, 'Only approved and verified subclasses may be offered');
+assert.ok(campaignOptionsCatalog.records.every(record => record.campaign_status === 'approved'), 'Every runtime option must be canonically approved');
+assert.ok(!campaignOptionsCatalog.records.some(record => /^(background|feat|spell|class_feature)$/.test(record.category)), 'Categories with no approved campaign rules data must not be populated from generic D&D sources');
+assert.ok(!campaignOptionsCatalog.records.some(record => /Aberrant Mind|The Great Old One|Mente aberrante|Gran Antiguo/i.test(record.name)), 'Explicitly excluded subclasses must never enter the runtime catalog');
 assert.ok(playerOptionsCatalog.records.length > 1000, 'Filtered catalog must contain the existing broad player-option index');
 for (const category of ['species', 'species_variant', 'class', 'subclass', 'background', 'feat', 'spell', 'skill']) {
   assert.ok(playerOptionsCatalog.totals.included_by_category[category] > 0, 'Filtered catalog must contain category: ' + category);
@@ -87,12 +98,12 @@ assert.match(runtime, /originRegionName: values\.originRegionName/, 'Saved/expor
 assert.match(atlasText, /Imperium Ravum \(el Imperio Gris\)/, 'Origin data must include the Grey Empire as named in the Atlas');
 assert.match(atlasText, /El Gran Bosque \(interior de Rala\)/, 'Origin data must include the Great Forest zone');
 assert.match(atlasText, /Archipiélago de Anáhuac/, 'Origin data must include the Anáhuac archipelago');
-assert.match(page, /Alto humano/, 'Creator must include the high-human lineage named in the Atlas');
-assert.match(page, /Genasi de agua/, 'Creator must include water genasi from the campaign Atlas');
-assert.match(page, /Gnomo profundo \(Svirfneblin\)/, 'Creator must include deep gnomes from the campaign Atlas');
-assert.match(page, /Forjado/, 'Creator must include the Forged lineage named in the Atlas');
-assert.match(page, /Hombre lagarto/, 'Creator must include lizardfolk from the campaign Atlas');
-assert.match(page, /id="creator-custom-lineage"/, 'Players must be able to enter a custom lineage not listed in the Atlas');
+assert.ok(campaignOptionsCatalog.records.some(record => record.category === 'species' && record.name === 'Alto humano'), 'The approved High Human option must come from campaign canon');
+assert.ok(campaignOptionsCatalog.records.some(record => record.category === 'species' && record.name === 'Genasi del agua'), 'The approved Water Genasi option must come from campaign canon');
+assert.ok(campaignOptionsCatalog.records.some(record => record.category === 'species' && record.name === 'Forjado estándar'), 'The approved Warforged option must come from campaign canon');
+assert.ok(!campaignOptionsCatalog.records.some(record => record.category === 'species' && /Svirfneblin|Hombre lagarto|Orco|Drow|Aasimar (Azote|Caído)/i.test(record.name)), 'Explicitly excluded race options must not be offered');
+assert.doesNotMatch(page, /<option[^>]*>Otro \/ personalizado<\/option>/, 'An unapproved custom lineage must not bypass the campaign race allowlist');
+assert.match(page, /id="creator-custom-lineage"/, 'The legacy custom-lineage input may remain in markup but is not offered by the selector');
 assert.match(runtime, /function updateCustomLineageField\(\)/, 'The custom lineage field must respond to the lineage selector');
 assert.match(runtime, /lineageChoice: values\.lineageChoice/, 'Drafts must preserve the choice between catalog and custom lineage');
 assert.match(runtime, /customLineage: values\.customLineage/, 'Drafts and exports must preserve the actual custom lineage name');
@@ -123,6 +134,8 @@ assert.match(runtime, /deityName: values\.deityName/, 'Saved/exported drafts mus
 assert.match(styles, /\.creator-divine-section/, 'Pantheon selector must have dedicated styling');
 
 assert.match(runtime, /banda\.creator-personarum\.draft\.v1/, 'Drafts must use a versioned local storage key');
+assert.doesNotMatch(catalogRuntime, /Keep the existing campaign-specific options as a working fallback/, 'Catalog failure must fail closed rather than restore generic D&D options');
+assert.match(catalogRuntime, /No se muestran opciones genéricas/, 'Catalog load failure must not show unapproved options');
 assert.match(runtime, /localStorage\.setItem/, 'The form must save a local draft');
 assert.match(runtime, /creator-personarum-personaje\.json/, 'Known-character drafts must be exportable as JSON');
 assert.match(runtime, /creator-personarum-exploracion\.json/, 'Exploration drafts must be exportable as JSON');
