@@ -725,6 +725,7 @@
 
   function showDraftStep(mode, focus) {
     currentMode = mode;
+    currentKnownWizardStep = 1;
     if (typeof focus === 'string') explorationFocus = focus;
     pathChoice.hidden = true;
     exploreStep.hidden = true;
@@ -732,7 +733,8 @@
 
     const isExplorer = currentMode === CREATION_MODES.explore;
     nameInput.required = !isExplorer;
-    lineageSelect.required = !isExplorer;
+    lineageSelect.required = false;
+    raceSelect.required = !isExplorer;
     classSelect.required = !isExplorer;
     zodiacMarkSelect.required = !isExplorer;
 
@@ -756,6 +758,7 @@
 
     resetFormFields();
     restoreDraft();
+    setKnownCharacterWizardStep(currentKnownWizardStep, false);
     alignInfernalExplorationOrigin(false);
     updateOriginDetails();
     updateDivineSection();
@@ -2081,6 +2084,13 @@
       // The required name is still validated at the start button.
     }
   });
+
+  creatorWizardBackButton?.addEventListener('click', () => {
+    if (currentMode !== CREATION_MODES.known || currentKnownWizardStep <= 1) return;
+    setKnownCharacterWizardStep(currentKnownWizardStep - 1);
+    setDraftStatus('Volviste al paso anterior. Tus elecciones siguen en el formulario.', 'idle');
+  });
+  creatorWizardNextButton?.addEventListener('click', continueKnownCharacterWizard);
 
   knownPathButton.addEventListener('click', () => showDraftStep(CREATION_MODES.known, ''));
   explorePathButton.addEventListener('click', showExploreStep);
