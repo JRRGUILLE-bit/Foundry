@@ -309,4 +309,11 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - Los resultados se conservan sin asignar a atributos. `abilityAssignments` permite guardar la distribución libre del jugador usando identificadores de resultado; al finalizar, la lógica consumidora debe comprobar que los seis `rollId` existen y no se reutilizan.
 - La comprobación de estructura JSON pasó al crear y releer el archivo. El contrato todavía no está conectado al formulario: no se añadieron el selector/registro de jugadores, la carga de asignaciones ni la persistencia de esos datos. No se modificó `SESSION_LIVE`.
 - Requisito adicional pendiente: para personajes de nivel 2 o superior, mostrar opciones de multiclase solo cuando el personaje cumpla sus prerrequisitos. Esto requiere consultar las reglas Legacy/2014 y comprobar las características del personaje; no forma parte del contrato de asignación inicial.
+## Creator Personarum — catálogo estrictamente canónico y flujo pendiente (29/10/2026)
+
+- La UI consume `creator-personarum-data/campaign-options.json`, generado desde `JRRGUILLE-bit/Firmamentum-Velatum` por `scripts/build-creator-personarum-campaign-options.mjs` y el workflow `.github/workflows/build-creator-personarum-campaign-options.yml`.
+- El índice actual tiene 26 opciones raciales con reglas listas, 13 clases aprobadas, 39 subclases aprobadas/verificadas y 237 rasgos de subclase. No se usa `player-options.json` genérico como fuente de opciones visibles.
+- El formulario falla cerrado si no carga el catálogo canónico. Trasfondos, dotes, conjuros, rasgos de clase y marca zodiacal no se publican como opciones porque sus catálogos aprobados no están listos en el canon.
+- Siguiente trabajo: completar los datos canónicos faltantes; luego construir el asistente secuencial (raza/subraza, clase y elecciones de nivel 1, trasfondo, marca; después progresión hasta el nivel asignado) y conectar el selector de jugador con la asignación de nivel y seis tiradas. El reparto de resultados debe ser uno-a-uno entre los seis atributos. No reutilizar `SESSION_LIVE`.
+- Sigue pendiente implementar la multiclase desde nivel 2 según prerrequisitos Legacy/2014. No se ejecutó QA del navegador en este cambio.
 
