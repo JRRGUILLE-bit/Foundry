@@ -1,6 +1,6 @@
 # Auditoría de Creator Personarum — campaña nueva
 
-**Última actualización:** 28/10/2026  
+**Última actualización:** 29/10/2026  
 **Rama:** `main`  
 **Repositorio:** `JRRGUILLE-bit/Foundry`  
 **Alcance:** creador de personajes y borradores de la campaña nueva.
@@ -13,7 +13,7 @@ Esta auditoría describe el estado que se observa en `main`. No modifica ni reem
 
 El creador ofrece un recorrido para quien ya sabe qué quiere jugar y otro para explorar el mundo a partir de una pista de interés. Los borradores guardados de ambos recorridos se mantienen por separado en el almacenamiento local del navegador.
 
-Al volver desde el formulario a la elección de camino, el estado todavía no guardado de ese recorrido se conserva en memoria durante la sesión y se restaura si se vuelve a entrar. No se escribe automáticamente en el almacenamiento local: al recargar o cerrar la página, solo se recupera el último borrador guardado manualmente. Esto no es el guardado remoto en Google Sheets, que sigue pendiente.
+Al volver desde el formulario a la elección de camino, el estado todavía no guardado de ese recorrido se conserva en memoria durante la sesión y se restaura si se vuelve a entrar. El guardado local persistente sigue siendo manual. La página ya emite instantáneas de cambios al adaptador de Google Sheets, pero la sincronización remota no está activa: `creator-personarum-sheets-config.js` conserva `endpoint: ""` hasta que se despliegue y configure el Web App independiente.
 
 Antes de iniciar, el jugador debe ingresar su nombre. El nombre se recuerda en el navegador y se incluye en el JSON del borrador; esto identifica el registro local, pero no implica todavía guardado remoto en una Google Spreadsheet.
 
@@ -152,8 +152,16 @@ El commit `349a188e58956ddf8de978456f9d41863afcaa37`, que elimina el recorte pre
 - El índice actual contiene 26 opciones raciales con reglas listas para implementación (aprobadas y con `ready`, `verified` o `mapped_core_ancestries`), 13 clases aprobadas, 39 subclases aprobadas/verificadas y 237 rasgos de subclase procedentes de las fichas canónicas. Excluye los registros no aprobados o con reglas pendientes y mantiene fuera las dos subclases prohibidas.
 - El formulario retira las listas estáticas genéricas de razas, clases y trasfondos. Si no puede cargar el índice de campaña, falla cerrado y no repone las opciones genéricas.
 - Todavía no existe un catálogo canónico completo listo para el creador de trasfondos, dotes, conjuros y rasgos de clase, ni un índice canónico de marcas zodiacales. Estos controles no se rellenan con el catálogo genérico. Hasta que esas categorías estén aprobadas y estructuradas en Firmamentum Velatum, la creación completa sigue pendiente.
-- QA está pendiente para esta integración; no se considera probado el flujo de navegador ni el asistente secuencial de creación.
+- Verificación de las restricciones del catálogo canónico: el QA estático y el smoke test de navegador pasaron en el commit [`972a4d3`](https://github.com/JRRGUILLE-bit/Foundry/commit/972a4d3fa414207e17f9182a6f2ed3bcb88fc02e). [Desktop QA](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40819004179) y [Browser Mobile QA](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40819004109) terminaron con éxito. No se ha validado el asistente secuencial, el selector de asignaciones ni la distribución de atributos.
 - El workflow que regenera el índice desde la repo de canon privada necesita el secret de Actions `FIRMAMENTUM_VELATUM_READ_TOKEN` con permiso de lectura. Si falta, omite el checkout/build sin reemplazar el índice ya publicado; el secret no se guarda en el repositorio.
+
+
+## Puente de guardado a Google Sheets — estado al 29/10/2026
+
+- El formulario emite instantáneas mediante `creator-personarum:draft-changed` y carga `creator-personarum-sheets.js` junto a `creator-personarum-sheets-config.js`.
+- El backend independiente está versionado en `apps-script/creator-personarum/Code.gs`. Es write-only; su `doGet` solo responde un health check. No lee asignaciones del Director ni se conecta al backend `SESSION_LIVE`.
+- `endpoint: ""` está vacío a propósito. No se realizó ningún envío real a Google Sheets; el guardado remoto debe considerarse pendiente hasta desplegar el Web App de Creator Personarum, poner su URL `/exec` en la configuración y verificar una escritura en `REGISTRO` y en la pestaña propia de la creación. El Apps Script Backend QA pasó en [run 40819073175](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40819073175), pero esa prueba no sustituye el despliegue real ni el envío de extremo a extremo.
+- El puente de escritura no es una fuente de lectura para las asignaciones del Director. No usarlo para revelar el nivel y las tiradas de otros jugadores; la ruta de carga de asignaciones requiere un diseño separado.
 
 ## Guardrails
 
