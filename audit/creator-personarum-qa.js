@@ -51,6 +51,7 @@ assert.equal(campaignOptionsCatalog.records.filter(record => record.category ===
 assert.match(page, /id="creator-race"/, 'The creator must ask for the race family first');
 assert.match(page, /id="creator-subrace"/, 'Variants must appear in a second selector after choosing a race family');
 assert.match(page, /id="creator-known-wizard-navigation"/, 'Known-character creation must use a dedicated step navigator');
+assert.match(page, /id="creator-draft-form" class="creator-draft-form" novalidate/, 'Draft save must allow incomplete wizard stages; full validation is handled when finalizing');
 assert.match(page, /data-creator-wizard-step="1"/, 'Race and variant decisions must belong to the first creation step');
 assert.match(page, /data-creator-wizard-step="2"/, 'Class and class choices must belong to the second creation step');
 assert.match(page, /data-creator-wizard-step="3"/, 'Background choices must have a dedicated third step');
