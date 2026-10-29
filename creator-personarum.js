@@ -1537,6 +1537,7 @@
         (lineageSkillSelection.requiredCount === 1 ? ' habilidad' : ' habilidades') +
         ' para el linaje ' + lineageSkillSelection.lineageName + ' antes de guardar.', 'error');
       const lineageSkillList = document.getElementById('creator-lineage-skills-list');
+      focusCreatorWizardControl(lineageSkillList);
       if (lineageSkillList) {
         lineageSkillList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         const firstChoice = lineageSkillList.querySelector('input[type="checkbox"]');
@@ -1558,6 +1559,7 @@
         (lineageAbilitySelection.requiredCount === 1 ? ' característica' : ' características') +
         ' para el linaje ' + values.lineage + ' antes de guardar.', 'error');
       const lineageAbilityList = document.getElementById('creator-lineage-skills-list');
+      focusCreatorWizardControl(lineageAbilityList);
       if (lineageAbilityList) {
         lineageAbilityList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         const firstChoice = lineageAbilityList.querySelector('input[data-lineage-ability-choice]:not(:disabled)') ||
@@ -1579,6 +1581,7 @@
         (backgroundSkillSelection.requiredCount === 1 ? ' habilidad' : ' habilidades') +
         ' para el trasfondo ' + backgroundSkillSelection.backgroundName + ' antes de guardar.', 'error');
       const backgroundSkillList = document.getElementById('creator-background-skills-list');
+      focusCreatorWizardControl(backgroundSkillList);
       if (backgroundSkillList) {
         backgroundSkillList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         const firstChoice = backgroundSkillList.querySelector('input[type="checkbox"]');
@@ -1599,6 +1602,7 @@
         (classSkillSelection.requiredCount === 1 ? ' habilidad' : ' habilidades') +
         ' para ' + classSkillSelection.className + ' antes de guardar.', 'error');
       const classSkillList = document.getElementById('creator-class-skills-list');
+      focusCreatorWizardControl(classSkillList);
       if (classSkillList) {
         classSkillList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         const firstChoice = classSkillList.querySelector('input[type="checkbox"]');
