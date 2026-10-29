@@ -71,7 +71,7 @@ assert.doesNotMatch(page, /creator-cinematic-label|creator-sequence|SECUENCIA I|
 assert.doesNotMatch(runtime, /cinematicLabel|SECUENCIA I|SECUENCIA II/, 'Runtime must not depend on the removed title/sequence overlay');
 assert.match(runtime, /else\s*\{\s*playIntro\(\);\s*\}/, 'Intro must start automatically on page open unless reduced motion is preferred');
 assert.match(runtime, /introVideo\.addEventListener\('ended'/, 'Intro completion must reveal the welcome frame');
-assert.match(runtime, /startButton\.addEventListener\('click', playOutro\)/, 'The cinematic CTA must trigger the outro');
+assert.match(runtime, /startButton\.addEventListener\('click', beginCreator\)/, 'The cinematic CTA must validate the player name before starting the outro');
 assert.match(runtime, /outroVideo\.addEventListener\('ended', showWorkspace\)/, 'The workspace must appear when the outro ends');
 
 assert.match(page, /id="creator-path-choice"/, 'The post-cinematic workspace must start with a path chooser');
