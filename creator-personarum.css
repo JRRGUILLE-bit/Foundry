@@ -1461,3 +1461,17 @@
     transition: none;
   }
 }
+
+
+/* Zodiacal mark choice controls, scoped to Creator Personarum. */
+.creator-personarum-page .creator-zodiac-choice-fields {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+}
+.creator-personarum-page .creator-zodiac-choice-fields .creator-field {
+  min-width: 0;
+}
+.creator-personarum-page #creator-zodiac-details {
+  white-space: normal;
+}
