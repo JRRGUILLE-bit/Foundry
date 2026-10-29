@@ -207,32 +207,7 @@
           <label class="creator-field" for="creator-lineage">
             <span>LINAJE / RAZA</span>
             <select id="creator-lineage" name="lineage">
-              <option value="">Elegí un linaje…</option>
-              <option>Alto humano</option>
-              <option>Humano</option>
-              <option>Elfo</option>
-              <option>Enano</option>
-              <option>Mediano</option>
-              <option>Gnomo</option>
-              <option>Gnomo profundo (Svirfneblin)</option>
-              <option>Dracónido</option>
-              <option>Semielfo</option>
-              <option value="Tiefling">Tiflin (Tiefling)</option>
-              <option>Semiorco</option>
-              <option>Aasimar</option>
-              <option>Genasi</option>
-              <option>Genasi de aire</option>
-              <option>Genasi de agua</option>
-              <option>Genasi de fuego</option>
-              <option>Goblin</option>
-              <option>Goliat</option>
-              <option>Orco</option>
-              <option>Tabaxi</option>
-              <option>Leonin</option>
-              <option>Cambiante</option>
-              <option>Forjado</option>
-              <option>Hombre lagarto</option>
-              <option>Otro / personalizado</option>
+              <option value="">Cargando opciones aprobadas por el canon de campaña…</option>
             </select>
           </label>
 
@@ -269,26 +244,13 @@
           <label class="creator-field" for="creator-character-class">
             <span>CLASE</span>
             <select id="creator-character-class" name="characterClass">
-              <option value="">Elegí una clase…</option>
-              <option>Bárbaro</option>
-              <option>Bardo</option>
-              <option>Brujo</option>
-              <option>Clérigo</option>
-              <option>Druida</option>
-              <option>Explorador</option>
-              <option>Guerrero</option>
-              <option>Hechicero</option>
-              <option>Mago</option>
-              <option>Monje</option>
-              <option>Paladín</option>
-              <option>Pícaro</option>
-              <option>Artífice</option>
+              <option value="">Cargando clases aprobadas por el canon de campaña…</option>
             </select>
           </label>
 
           <section id="creator-class-skills-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-class-skills-title">
             <div class="creator-divine-heading">
-              <span class="creator-divine-kicker">D&D 5E LEGACY // PHB 2014</span>
+              <span class="creator-divine-kicker">CANON DE CAMPAÑA // LEGACY/2014</span>
               <h2 id="creator-class-skills-title">HABILIDADES DISPONIBLES POR CLASE</h2>
               <p>Marcá las habilidades que querés para tu personaje. La lista respeta las opciones y la cantidad permitida por la clase; estas elecciones son independientes de las del trasfondo.</p>
             </div>
@@ -317,17 +279,17 @@
             <p class="creator-deity-guidance">El quasit no está disponible: es un demonio del Abismo. Esta selección se conserva en el borrador y en el JSON exportado.</p>
           </label>
 
-          <label class="creator-field creator-field-wide" for="creator-feat">
+          <label id="creator-feat-field" class="creator-field creator-field-wide" for="creator-feat" hidden>
             <span>DOTE (SI CORRESPONDE POR LAS REGLAS DEL PERSONAJE)</span>
             <select id="creator-feat" name="feat" disabled>
               <option value="">Cargando dotes permitidas…</option>
             </select>
           </label>
-          <p id="creator-feat-details" class="creator-deity-details creator-field-wide" role="status" aria-live="polite">Las dotes se cargarán desde el catálogo permitido; al elegir una se mostrarán su fuente y sus requisitos registrados.</p>
+          <p id="creator-feat-details" class="creator-deity-details creator-field-wide" role="status" aria-live="polite" hidden>Solo se muestran dotes aprobadas explícitamente en el canon de campaña.</p>
 
           <section id="creator-spells-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-spells-title">
             <div class="creator-divine-heading">
-              <span class="creator-divine-kicker">CATÁLOGO PERMITIDO // D&D 5E LEGACY</span>
+              <span class="creator-divine-kicker">CANON DE CAMPAÑA</span>
               <h2 id="creator-spells-title">CONJUROS</h2>
               <p>Explorá los conjuros disponibles para la clase elegida, filtrá por nivel del conjuro y agregá los que quieras considerar para este borrador.</p>
             </div>
@@ -385,26 +347,16 @@
             <p id="creator-deity-guidance" class="creator-deity-guidance">Para clérigos, elegir una divinidad es parte central del concepto. Para paladines, esta elección es opcional: también pueden definir su camino a partir de un juramento.</p>
           </section>
 
-          <label class="creator-field" for="creator-background">
+          <label id="creator-background-field" class="creator-field" for="creator-background" hidden>
             <span>TRASFONDO</span>
             <select id="creator-background" name="background">
-              <option value="">A definir…</option>
-              <option>Acólito</option>
-              <option>Artesano de gremio</option>
-              <option>Criminal</option>
-              <option>Ermitaño</option>
-              <option>Héroe del pueblo</option>
-              <option>Marinero</option>
-              <option>Noble</option>
-              <option>Sabio</option>
-              <option>Soldado</option>
-              <option>Personalizado</option>
+              <option value="">Sin opciones aprobadas en el canon de campaña</option>
             </select>
           </label>
 
           <section id="creator-background-skills-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-background-skills-title">
             <div class="creator-divine-heading">
-              <span class="creator-divine-kicker">CATÁLOGO PERMITIDO // D&D 5E LEGACY</span>
+              <span class="creator-divine-kicker">CANON DE CAMPAÑA</span>
               <h2 id="creator-background-skills-title">HABILIDADES DEL TRASFONDO</h2>
               <p>Al elegir un trasfondo, se muestran las habilidades que concede y las opciones que podés seleccionar. Cuando el trasfondo permite elegir habilidades, marcá la cantidad indicada.</p>
             </div>
@@ -527,6 +479,6 @@
   </main>
 
   <script src="creator-personarum.js?v=20261028-33"></script>
-  <script src="creator-personarum-catalog.js?v=20261028-29"></script>
+  <script src="creator-personarum-catalog.js?v=20261029-1"></script>
 </body>
 </html>
