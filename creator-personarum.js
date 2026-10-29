@@ -107,6 +107,14 @@
   const creatorWizardDescription = document.getElementById('creator-wizard-description');
   const raceSelect = document.getElementById('creator-race');
   const subraceSelect = document.getElementById('creator-subrace');
+  const assignmentSection = document.getElementById('creator-assignment-section');
+  const assignmentPlayerSelect = document.getElementById('creator-assignment-player');
+  const assignmentAccessCodeInput = document.getElementById('creator-assignment-access-code');
+  const assignmentLoadButton = document.getElementById('creator-assignment-load');
+  const assignmentStatus = document.getElementById('creator-assignment-status');
+  const assignmentSummary = document.getElementById('creator-assignment-summary');
+  const assignmentLevel = document.getElementById('creator-assignment-level');
+  const assignmentRollList = document.getElementById('creator-assignment-rolls');
   const KNOWN_CREATOR_WIZARD_STEPS = [
     { title: 'Raza y variante', description: 'Elegí una raza aprobada y completá sus decisiones obligatorias antes de seguir.' },
     { title: 'Clase y opciones de clase', description: 'Elegí la clase y completá sus habilidades y opciones disponibles para el personaje.' },
@@ -125,6 +133,9 @@
   let atlasLoaded = false;
   let atlasLoading = true;
   let zodiacalMarksData = null;
+  let loadedPlayerAssignment = null;
+  let assignmentRosterReady = false;
+  let draftAssignmentSnapshot = null;
 
   function showWelcome() {
     if (playerNameInput && !playerNameInput.value.trim()) {
@@ -644,6 +655,11 @@
 
   function validateKnownCharacterWizardStep(step) {
     if (step === 1) {
+      if (!loadedPlayerAssignment) {
+        setDraftStatus('Primero cargá y verificá la asignación del Director: nivel y seis resultados.', 'error');
+        focusCreatorWizardControl(assignmentPlayerSelect);
+        return false;
+      }
       if (!raceSelect.value) {
         setDraftStatus('Elegí una raza aprobada por la campaña antes de continuar.', 'error');
         focusCreatorWizardControl(raceSelect);
@@ -723,6 +739,183 @@
     setDraftStatus('Etapa completada en la sesión. Podés volver al paso anterior para revisar tus elecciones.', 'idle');
   }
 
+  function creatorAssignmentsEndpoint() {
+    const endpoint = String((window.CREATOR_PERSONARUM_SHEETS_CONFIG || {}).endpoint || '').trim();
+    try {
+      const url = new URL(endpoint);
+      return url.protocol === 'https:' && url.hostname === 'script.google.com'
+        && /^\/macros\/s\/[^/]+\/exec\/?$/.test(url.pathname) ? endpoint : '';
+    } catch (_) {
+      return '';
+    }
+  }
+
+  async function requestCreatorAssignmentService(action, payload = {}) {
+    const endpoint = creatorAssignmentsEndpoint();
+    if (!endpoint) throw new Error('Falta una URL válida del Web App de Creator Personarum.');
+    const response = await window.fetch(endpoint, {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'omit',
+      redirect: 'follow',
+      cache: 'no-store',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action, protocolVersion: 1, ...payload })
+    });
+    if (!response.ok) throw new Error('El servicio respondió HTTP ' + response.status + '.');
+    let result;
+    try {
+      result = await response.json();
+    } catch (_) {
+      throw new Error('El servicio no devolvió JSON legible.');
+    }
+    if (!result || result.ok !== true) {
+      throw new Error(String(result && result.error || 'No se pudo completar la consulta.'));
+    }
+    return result;
+  }
+
+  function setAssignmentStatus(message, state = 'idle') {
+    if (!assignmentStatus) return;
+    assignmentStatus.textContent = message;
+    assignmentStatus.dataset.state = state;
+  }
+
+  function renderAssignmentRolls(assignment) {
+    assignmentRollList.replaceChildren();
+    assignment.abilityRolls.forEach((roll, index) => {
+      const item = document.createElement('li');
+      item.textContent = 'Resultado ' + (index + 1) + ': ' + roll.value;
+      assignmentRollList.appendChild(item);
+    });
+    assignmentLevel.textContent = String(assignment.level);
+    assignmentSummary.hidden = false;
+  }
+
+  function clearLoadedPlayerAssignment(message, state = 'idle') {
+    loadedPlayerAssignment = null;
+    const levelInput = document.getElementById('creator-level');
+    if (levelInput) {
+      levelInput.value = '1';
+      levelInput.readOnly = currentMode === CREATION_MODES.known;
+    }
+    assignmentSummary.hidden = true;
+    assignmentRollList.replaceChildren();
+    assignmentLevel.textContent = '—';
+    assignmentAccessCodeInput.required = currentMode === CREATION_MODES.known;
+    assignmentAccessCodeInput.value = '';
+    setAssignmentStatus(message, state);
+  }
+
+  async function loadAssignmentPlayers() {
+    if (currentMode !== CREATION_MODES.known || !assignmentPlayerSelect) return;
+    assignmentRosterReady = false;
+    assignmentPlayerSelect.disabled = true;
+    assignmentLoadButton.disabled = true;
+    assignmentPlayerSelect.replaceChildren(new Option('Cargando jugadores asignados…', ''));
+    setAssignmentStatus('Consultando la lista de jugadores asignados…', 'pending');
+    try {
+      const result = await requestCreatorAssignmentService('listPlayers');
+      if (!Array.isArray(result.players)) throw new Error('La respuesta no contiene una lista de jugadores.');
+      assignmentPlayerSelect.replaceChildren(new Option('Elegí tu nombre…', ''));
+      result.players.forEach(player => {
+        if (!player || typeof player.playerId !== 'string' || typeof player.playerName !== 'string') return;
+        assignmentPlayerSelect.add(new Option(player.playerName, player.playerId));
+      });
+      if (assignmentPlayerSelect.options.length <= 1) {
+        assignmentRosterReady = true;
+        assignmentPlayerSelect.disabled = true;
+        setAssignmentStatus('Todavía no hay asignaciones activas completas en ASIGNACIONES. Consultá a la dirección.', 'error');
+        return;
+      }
+      const preferredPlayerId = draftAssignmentSnapshot && typeof draftAssignmentSnapshot.playerId === 'string'
+        ? draftAssignmentSnapshot.playerId
+        : '';
+      if (preferredPlayerId && Array.from(assignmentPlayerSelect.options).some(option => option.value === preferredPlayerId)) {
+        assignmentPlayerSelect.value = preferredPlayerId;
+        setAssignmentStatus('Se recuperó el jugador del borrador. Volvé a ingresar tu código privado para verificar la asignación.', 'pending');
+      } else {
+        setAssignmentStatus('Elegí tu nombre y escribí el código privado que te dio la dirección.', 'idle');
+      }
+      assignmentRosterReady = true;
+      assignmentPlayerSelect.disabled = false;
+      assignmentLoadButton.disabled = false;
+    } catch (error) {
+      assignmentPlayerSelect.replaceChildren(new Option('No se pudo cargar la lista', ''));
+      assignmentPlayerSelect.disabled = true;
+      assignmentLoadButton.disabled = true;
+      setAssignmentStatus(
+        'No se pudo conectar con el servicio de asignaciones. La dirección debe actualizar y desplegar el Apps Script de Creator Personarum. ' +
+        (error && error.message ? error.message : ''),
+        'error'
+      );
+    }
+  }
+
+  async function loadSelectedPlayerAssignment() {
+    if (currentMode !== CREATION_MODES.known) return;
+    const playerId = assignmentPlayerSelect.value;
+    const accessCode = assignmentAccessCodeInput.value.trim();
+    if (!playerId) {
+      setAssignmentStatus('Elegí tu nombre antes de cargar la asignación.', 'error');
+      assignmentPlayerSelect.focus();
+      return;
+    }
+    if (!/^[A-Za-z0-9_-]{12,80}$/.test(accessCode)) {
+      setAssignmentStatus('Ingresá el código privado de 12 a 80 caracteres que te dio la dirección.', 'error');
+      assignmentAccessCodeInput.focus();
+      return;
+    }
+
+    assignmentLoadButton.disabled = true;
+    setAssignmentStatus('Verificando la asignación…', 'pending');
+    try {
+      const result = await requestCreatorAssignmentService('lookupAssignment', { playerId, accessCode });
+      const assignment = result.assignment;
+      if (!assignment || assignment.playerId !== playerId
+          || typeof assignment.assignmentId !== 'string'
+          || !Number.isInteger(assignment.level) || assignment.level < 1 || assignment.level > 20
+          || !Array.isArray(assignment.abilityRolls) || assignment.abilityRolls.length !== 6
+          || assignment.abilityRolls.some(roll => !roll || typeof roll.rollId !== 'string' || !Number.isInteger(roll.value))
+          || new Set(assignment.abilityRolls.map(roll => roll.rollId)).size !== 6) {
+        throw new Error('La asignación recibida no cumple el contrato esperado.');
+      }
+
+      loadedPlayerAssignment = {
+        schemaVersion: 1,
+        assignmentId: assignment.assignmentId,
+        playerId: assignment.playerId,
+        playerName: String(assignment.playerName || ''),
+        level: assignment.level,
+        abilityRolls: assignment.abilityRolls.map(roll => ({ rollId: roll.rollId, value: roll.value }))
+      };
+      draftAssignmentSnapshot = JSON.parse(JSON.stringify(loadedPlayerAssignment));
+      assignmentAccessCodeInput.value = '';
+      assignmentAccessCodeInput.required = false;
+      assignmentPlayerSelect.disabled = false;
+      document.getElementById('creator-level').value = String(loadedPlayerAssignment.level);
+      document.getElementById('creator-level').readOnly = true;
+      playerNameInput.value = loadedPlayerAssignment.playerName;
+      try {
+        window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, loadedPlayerAssignment.playerName);
+      } catch (_) {
+        // The player identity remains available in this page session.
+      }
+      renderAssignmentRolls(loadedPlayerAssignment);
+      setAssignmentStatus('Asignación verificada. Nivel ' + loadedPlayerAssignment.level + ' y seis resultados cargados desde la hoja de campaña.', 'saved');
+      renderPreview(readFormValues());
+      publishCreatorPersonarumDraftChange(readFormValues());
+    } catch (error) {
+      clearLoadedPlayerAssignment(
+        'No se pudo validar la asignación. Revisá el jugador, el código y que la fila esté ACTIVA en ASIGNACIONES. ' +
+        (error && error.message ? error.message : ''),
+        'error'
+      );
+    } finally {
+      assignmentLoadButton.disabled = !assignmentRosterReady;
+    }
+  }
+
   function showDraftStep(mode, focus) {
     currentMode = mode;
     currentKnownWizardStep = 1;
@@ -732,6 +925,10 @@
     draftStep.hidden = false;
 
     const isExplorer = currentMode === CREATION_MODES.explore;
+    assignmentSection.hidden = isExplorer;
+    if (isExplorer) {
+      clearLoadedPlayerAssignment('La asignación del Director se usa en «Ya sé lo que quiero jugar».', 'idle');
+    }
     nameInput.required = !isExplorer;
     lineageSelect.required = false;
     raceSelect.required = !isExplorer;
@@ -759,6 +956,7 @@
     resetFormFields();
     restoreDraft();
     setKnownCharacterWizardStep(currentKnownWizardStep, false);
+    if (!isExplorer) void loadAssignmentPlayers();
     alignInfernalExplorationOrigin(false);
     updateOriginDetails();
     updateDivineSection();
@@ -782,6 +980,20 @@
     updateZodiacMarkDetails({});
     renderCosmicMarkConditions([], {});
     document.getElementById('creator-level').value = '1';
+    document.getElementById('creator-level').readOnly = currentMode === CREATION_MODES.known;
+    loadedPlayerAssignment = null;
+    assignmentRosterReady = false;
+    draftAssignmentSnapshot = null;
+    assignmentSection.hidden = currentMode !== CREATION_MODES.known;
+    assignmentPlayerSelect.replaceChildren(new Option('Cargando jugadores asignados…', ''));
+    assignmentPlayerSelect.disabled = true;
+    assignmentLoadButton.disabled = true;
+    assignmentAccessCodeInput.required = currentMode === CREATION_MODES.known;
+    assignmentAccessCodeInput.value = '';
+    assignmentSummary.hidden = true;
+    assignmentRollList.replaceChildren();
+    assignmentLevel.textContent = '—';
+    setAssignmentStatus('Las asignaciones se consultan en la hoja privada de la campaña.', 'idle');
     nameInput.required = currentMode !== CREATION_MODES.explore;
     const raceSelect = document.getElementById('creator-race');
     const subraceSelect = document.getElementById('creator-subrace');
@@ -1097,6 +1309,9 @@
     const cosmicMarksSummary = buildCosmicMarkSummary(cosmicSelection);
     return {
       playerName: playerNameInput.value.trim(),
+      playerAssignment: loadedPlayerAssignment
+        ? JSON.parse(JSON.stringify(loadedPlayerAssignment))
+        : (draftAssignmentSnapshot ? JSON.parse(JSON.stringify(draftAssignmentSnapshot)) : null),
       name: nameInput.value.trim(),
       skillLanguage: document.getElementById('creator-skill-language')?.value === 'en' ? 'en' : 'es',
       lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
@@ -1125,7 +1340,9 @@
       cosmicMarks: cosmicSelection.marks,
       cosmicMarkChoices: cosmicSelection.choices,
       cosmicMarksSummary,
-      level: Number(document.getElementById('creator-level').value || 1),
+      level: loadedPlayerAssignment && currentMode === CREATION_MODES.known
+        ? loadedPlayerAssignment.level
+        : Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
       deity: deitySelect.value,
       deityName: getSelectedDeity() ? getSelectedDeity().name : '',
@@ -1358,7 +1575,20 @@
             : {}
         }
       }));
-      document.getElementById('creator-level').value = String(draft.level || 1);
+      draftAssignmentSnapshot = draft.playerAssignment && typeof draft.playerAssignment === 'object'
+        ? JSON.parse(JSON.stringify(draft.playerAssignment))
+        : null;
+      document.getElementById('creator-level').value = String(
+        currentMode === CREATION_MODES.known
+          ? (draftAssignmentSnapshot && Number.isInteger(draftAssignmentSnapshot.level) ? draftAssignmentSnapshot.level : 1)
+          : (draft.level || 1)
+      );
+      document.getElementById('creator-level').readOnly = currentMode === CREATION_MODES.known;
+      assignmentSummary.hidden = true;
+      if (draftAssignmentSnapshot && currentMode === CREATION_MODES.known) {
+        assignmentAccessCodeInput.required = true;
+        setAssignmentStatus('El borrador conserva la asignación anterior, pero para validarla de nuevo necesitás el código privado.', 'pending');
+      }
       chainFamiliarSelect.value = draft.characterClass === 'Brujo'
         && Number(draft.level || 1) >= 3
         && ['Imp', 'Pseudodragon', 'Sprite'].includes(draft.selectedChainFamiliar)
@@ -1403,6 +1633,7 @@
     return {
       schemaVersion: 1,
       playerName: values.playerName,
+      playerAssignment: values.playerAssignment || null,
       updatedAt: new Date().toISOString(),
       status: savedDraft && savedDraft.mode === currentMode && savedDraft.status === 'ready' ? 'ready' : 'draft',
       finalizedAt: savedDraft && savedDraft.mode === currentMode && savedDraft.status === 'ready'
@@ -1488,6 +1719,13 @@
       return false;
     }
     if (options.allowIncomplete === true && currentMode === CREATION_MODES.known) return true;
+
+    if (options.allowIncomplete !== true && currentMode === CREATION_MODES.known && !loadedPlayerAssignment) {
+      setKnownCharacterWizardStep(1, false);
+      setDraftStatus('Cargá y verificá la asignación del Director antes de finalizar o exportar el personaje.', 'error');
+      focusCreatorWizardControl(assignmentPlayerSelect);
+      return false;
+    }
 
     if (options.allowIncomplete !== true
         && currentMode === CREATION_MODES.known
@@ -2130,6 +2368,12 @@
     setDraftStatus('Volviste al paso anterior. Tus elecciones siguen en el formulario.', 'idle');
   });
   creatorWizardNextButton?.addEventListener('click', continueKnownCharacterWizard);
+  assignmentLoadButton?.addEventListener('click', loadSelectedPlayerAssignment);
+  assignmentPlayerSelect?.addEventListener('change', () => {
+    draftAssignmentSnapshot = null;
+    clearLoadedPlayerAssignment('Ingresá el código privado del jugador seleccionado y volvé a cargar la asignación.', 'pending');
+    assignmentLoadButton.disabled = !assignmentRosterReady;
+  });
 
   knownPathButton.addEventListener('click', () => showDraftStep(CREATION_MODES.known, ''));
   explorePathButton.addEventListener('click', showExploreStep);

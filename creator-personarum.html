@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IM+Fell+English&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="creator-personarum.css?v=20261029-1">
+  <link rel="stylesheet" href="creator-personarum.css?v=20261029-2">
 </head>
 <body class="creator-personarum-page">
   <main id="creator-app">
@@ -192,6 +192,32 @@
             <button type="button" id="creator-wizard-next" class="creator-primary-button">CONTINUAR</button>
           </nav>
           <fieldset id="creator-draft-fields" class="creator-draft-fields" aria-label="Opciones del personaje">
+
+          <section id="creator-assignment-section" data-creator-wizard-step="1" class="creator-divine-section creator-field-wide creator-assignment-section" aria-labelledby="creator-assignment-title" hidden>
+            <div class="creator-divine-heading">
+              <span class="creator-divine-kicker">ASIGNACIÓN DEL DIRECTOR // APPENDIX</span>
+              <h2 id="creator-assignment-title">CARGÁ TU ASIGNACIÓN</h2>
+              <p>Elegí tu nombre y escribí el código privado que te dio la dirección. El nivel y los seis resultados se cargan desde la hoja de campaña.</p>
+            </div>
+            <label class="creator-field creator-field-wide" for="creator-assignment-player">
+              <span>JUGADOR</span>
+              <select id="creator-assignment-player" autocomplete="off" required disabled>
+                <option value="">Cargando jugadores asignados…</option>
+              </select>
+            </label>
+            <label class="creator-field creator-field-wide" for="creator-assignment-access-code">
+              <span>CÓDIGO PRIVADO DE ASIGNACIÓN</span>
+              <input id="creator-assignment-access-code" type="password" minlength="12" maxlength="80" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+            </label>
+            <button type="button" id="creator-assignment-load" class="creator-secondary-button" disabled>CARGAR NIVEL Y RESULTADOS</button>
+            <p id="creator-assignment-status" class="creator-deity-guidance" role="status" aria-live="polite">Las asignaciones se consultan en la hoja privada de la campaña.</p>
+            <div id="creator-assignment-summary" class="creator-assignment-summary" hidden>
+              <p><strong>Nivel asignado por el Director:</strong> <span id="creator-assignment-level">—</span></p>
+              <p><strong>Seis resultados sin asignar a atributos:</strong></p>
+              <ol id="creator-assignment-rolls"></ol>
+              <p class="creator-deity-guidance">Todavía no se distribuyeron entre las características. Esa selección se realizará en la siguiente etapa del creador.</p>
+            </div>
+          </section>
 
           <label class="creator-field creator-field-wide" for="creator-character-name" data-creator-wizard-step="1">
             <span>NOMBRE DEL AVENTURERO</span>
@@ -532,7 +558,7 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261029-8"></script>
+  <script src="creator-personarum.js?v=20261029-9"></script>
   <script src="creator-personarum-catalog.js?v=20261029-3"></script>
   <script src="creator-personarum-sheets-config.js?v=20261029-2"></script>
   <script src="creator-personarum-sheets.js?v=20261029-1"></script>

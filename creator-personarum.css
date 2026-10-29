@@ -1572,3 +1572,47 @@
   color: #65583f;
   line-height: 1.3;
 }
+
+
+/* Director assignment selection and unassigned ability-roll pool. */
+.creator-personarum-page .creator-assignment-section {
+  border-color: rgba(177, 138, 72, 0.7);
+}
+.creator-personarum-page .creator-assignment-section > .creator-field,
+.creator-personarum-page .creator-assignment-summary {
+  margin-top: 0.8rem;
+}
+.creator-personarum-page .creator-assignment-section > button {
+  margin-top: 0.65rem;
+}
+.creator-personarum-page .creator-assignment-summary {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--cp-gold);
+  background: rgba(255, 252, 240, 0.55);
+  color: var(--cp-ink);
+}
+.creator-personarum-page .creator-assignment-summary[hidden] {
+  display: none;
+}
+.creator-personarum-page .creator-assignment-summary p {
+  margin: 0;
+  line-height: 1.25;
+}
+.creator-personarum-page .creator-assignment-summary ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem 1.2rem;
+  margin: 0;
+  padding-left: 1.6rem;
+}
+.creator-personarum-page .creator-assignment-summary li {
+  padding: 0.25rem 0;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 520px) {
+  .creator-personarum-page .creator-assignment-summary ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

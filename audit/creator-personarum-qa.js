@@ -48,6 +48,16 @@ const dragonbornSpecies = approvedSpecies.find(record => record.family_id === 'd
 assert.equal(dragonbornSpecies.ancestry_choices.length, 10, 'Dragonborn must expose all ten approved draconic ancestries as second-stage choices');
 assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'class').length, 13, 'Only approved campaign classes may be offered');
 assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'subclass').length, 39, 'Only approved and verified subclasses may be offered');
+assert.match(page, /id="creator-assignment-player"/, 'The known-character path must expose the Director-assigned player selector');
+assert.match(page, /id="creator-assignment-access-code"/, 'The player must authenticate their assignment with a private code');
+assert.match(page, /id="creator-assignment-load"/, 'The player must explicitly load their assigned level and roll pool');
+assert.match(page, /id="creator-assignment-rolls"/, 'The loaded six roll results must be displayed before ability assignment');
+assert.match(runtime, /function loadAssignmentPlayers\(\)/, 'The creator must load the assigned player roster');
+assert.match(runtime, /function loadSelectedPlayerAssignment\(\)/, 'The creator must retrieve an assignment using the per-player code');
+assert.match(runtime, /if \(!loadedPlayerAssignment\)/, 'Known-character progression and finalization must require a freshly verified assignment');
+assert.match(runtime, /playerAssignment: values\.playerAssignment \|\| null/, 'Drafts must preserve the assigned level and six roll results without storing the access code');
+assert.match(page, /creator-personarum.js\?v=20261029-9/, 'The assignment integration must invalidate the runtime script cache');
+assert.match(page, /creator-personarum.css\?v=20261029-2/, 'The assignment panel must invalidate the stylesheet cache');
 assert.match(page, /id="creator-race"/, 'The creator must ask for the race family first');
 assert.match(page, /id="creator-subrace"/, 'Variants must appear in a second selector after choosing a race family');
 assert.match(page, /id="creator-known-wizard-navigation"/, 'Known-character creation must use a dedicated step navigator');
@@ -172,9 +182,125 @@ assert.match(runtime, /localStorage\.setItem/, 'The form must save a local draft
 assert.match(runtime, /creator-personarum-personaje\.json/, 'Known-character drafts must be exportable as JSON');
 assert.match(runtime, /creator-personarum-exploracion\.json/, 'Exploration drafts must be exportable as JSON');
 assert.match(runtime, /No se puede finalizar ni exportar un personaje de nivel superior a 1/, 'Higher-level known-character export/finalization must stay blocked while level-by-level progression is incomplete');
+assert.match(styles, /\.creator-assignment-section/, 'The Director assignment panel must be styled');
 assert.match(styles, /\.creator-path-cards/, 'Both paths must have dedicated styling');
 assert.match(styles, /\.creator-interest-grid/, 'Exploration interests must have dedicated styling');
 assert.match(workflow, /creator-personarum-qa\.js/, 'Browser QA workflow must run the Creator Personarum checks');
+const assignmentBackend = read('apps-script/creator-personarum/Code.gs');
+assert.match(assignmentBackend, /function setupCreatorAssignments\(\)/, 'The Director must be able to create the ASIGNACIONES tab from the linked spreadsheet');
+assert.match(assignmentBackend, /function readActiveAssignments_\(\)/, 'The Apps Script must read active assignments from the dedicated tab');
+assert.match(assignmentBackend, /ASSIGNMENT_AUTH_FAILED/, 'An invalid per-player code must fail without disclosing any rolls');
+
+const assignmentVm = require('node:vm');
+const assignmentCache = new Map();
+const assignmentProperties = new Map();
+class AssignmentMockRange {
+  constructor(sheet, row, col, rows, cols) { Object.assign(this, { sheet, row, col, rows, cols }); }
+  getValues() {
+    return Array.from({ length: this.rows }, (_, r) =>
+      Array.from({ length: this.cols }, (_, c) => this.sheet.valueAt(this.row + r, this.col + c)));
+  }
+  getDisplayValues() {
+    return this.getValues().map(row => row.map(value => value == null ? '' : String(value)));
+  }
+  setValues(values) {
+    values.forEach((row, r) => row.forEach((value, c) => this.sheet.setValue(this.row + r, this.col + c, value)));
+    return this;
+  }
+  setFontWeight() { return this; }
+  setWrap() { return this; }
+}
+class AssignmentMockSheet {
+  constructor(name) { this.name = name; this.data = []; }
+  getName() { return this.name; }
+  valueAt(row, col) { return this.data[row - 1]?.[col - 1] ?? ''; }
+  setValue(row, col, value) {
+    while (this.data.length < row) this.data.push([]);
+    while (this.data[row - 1].length < col) this.data[row - 1].push('');
+    this.data[row - 1][col - 1] = value;
+  }
+  getLastRow() {
+    for (let i = this.data.length - 1; i >= 0; i -= 1) {
+      if (this.data[i].some(value => value !== '' && value != null)) return i + 1;
+    }
+    return 0;
+  }
+  getLastColumn() { return Math.max(0, ...this.data.map(row => row.length)); }
+  getRange(row, col, rows = 1, cols = 1) { return new AssignmentMockRange(this, row, col, rows, cols); }
+  setFrozenRows() {}
+  setRowHeight() {}
+  setColumnWidth() {}
+  appendRow(values) { this.data.push([...values]); }
+}
+class AssignmentMockSpreadsheet {
+  constructor() { this.sheets = new Map(); this.id = 'creator-test-spreadsheet'; }
+  getId() { return this.id; }
+  getSheetByName(name) { return this.sheets.get(name) || null; }
+  insertSheet(name) {
+    if (this.sheets.has(name)) throw new Error('Sheet already exists: ' + name);
+    const sheet = new AssignmentMockSheet(name);
+    this.sheets.set(name, sheet);
+    return sheet;
+  }
+}
+class AssignmentMockTextOutput {
+  constructor(value) { this.value = value; }
+  setMimeType() { return this; }
+  getContent() { return this.value; }
+}
+const assignmentSpreadsheet = new AssignmentMockSpreadsheet();
+const assignmentSandbox = {
+  console, JSON, Math, Number, String, Object, Array, Boolean, Error, Date, RegExp, Set,
+  SpreadsheetApp: {
+    getActiveSpreadsheet: () => assignmentSpreadsheet,
+    openById: id => id === assignmentSpreadsheet.id ? assignmentSpreadsheet : null
+  },
+  PropertiesService: {
+    getScriptProperties: () => ({
+      getProperty: key => assignmentProperties.get(key) || null,
+      setProperty: (key, value) => assignmentProperties.set(key, String(value))
+    })
+  },
+  LockService: { getScriptLock: () => ({ tryLock: () => true, releaseLock() {} }) },
+  CacheService: {
+    getScriptCache: () => ({
+      get: key => assignmentCache.get(key) || null,
+      put: (key, value) => assignmentCache.set(key, String(value))
+    })
+  },
+  ContentService: {
+    MimeType: { JSON: 'application/json' },
+    createTextOutput: value => new AssignmentMockTextOutput(value)
+  }
+};
+assignmentVm.createContext(assignmentSandbox);
+assignmentVm.runInContext(assignmentBackend, assignmentSandbox, { filename: 'apps-script/creator-personarum/Code.gs', timeout: 10000 });
+assert.equal(assignmentSandbox.setupCreatorAssignments().ok, true, 'Setup must create the Director assignment table');
+const assignmentsSheet = assignmentSpreadsheet.getSheetByName('ASIGNACIONES');
+assert.equal(assignmentsSheet.getLastRow(), 1, 'Setup must not invent any player assignment');
+assignmentsSheet.appendRow(['ACTIVA', 'appendix-p1', 'player-1', 'Jugador uno', 'APPENDIX-PRIVATE-CODE-1', 3, 16, 15, 14, 12, 10, 8]);
+assignmentsSheet.appendRow(['INACTIVA', 'appendix-p2', 'player-2', 'Jugador dos', 'APPENDIX-PRIVATE-CODE-2', 1, 10, 10, 10, 10, 10, 10]);
+const assignmentPost = payload => JSON.parse(assignmentSandbox.doPost({
+  postData: { contents: JSON.stringify({ protocolVersion: 1, ...payload }) }
+}).getContent());
+const publicRoster = assignmentPost({ action: 'listPlayers' });
+assert.equal(publicRoster.ok, true);
+assert.deepEqual(JSON.parse(JSON.stringify(publicRoster.players)), [{ playerId: 'player-1', playerName: 'Jugador uno' }]);
+assert.equal('level' in publicRoster.players[0], false);
+assert.equal('abilityRolls' in publicRoster.players[0], false);
+assert.equal('accessCode' in publicRoster.players[0], false);
+const validAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'player-1', accessCode: 'APPENDIX-PRIVATE-CODE-1' });
+assert.equal(validAssignment.ok, true);
+assert.equal(validAssignment.assignment.level, 3);
+assert.deepEqual(JSON.parse(JSON.stringify(validAssignment.assignment.abilityRolls.map(roll => roll.value))), [16, 15, 14, 12, 10, 8]);
+assert.equal(new Set(validAssignment.assignment.abilityRolls.map(roll => roll.rollId)).size, 6);
+assert.equal('accessCode' in validAssignment.assignment, false);
+const invalidAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'player-1', accessCode: 'APPENDIX-WRONG-CODE' });
+assert.equal(invalidAssignment.ok, false);
+assert.equal(invalidAssignment.code, 'ASSIGNMENT_AUTH_FAILED');
+assert.equal('assignment' in invalidAssignment, false);
+const inactiveAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'player-2', accessCode: 'APPENDIX-PRIVATE-CODE-2' });
+assert.equal(inactiveAssignment.code, 'ASSIGNMENT_AUTH_FAILED');
 
 assert.equal(zodiacalMarksCatalog.source_of_truth.repository, 'JRRGUILLE-bit/Firmamentum-Velatum', 'Zodiac marks must cite the campaign repository as source of truth');
 assert.equal(zodiacalMarksCatalog.source_of_truth.status, 'campaign_canon', 'Zodiac marks must be marked as campaign canon');

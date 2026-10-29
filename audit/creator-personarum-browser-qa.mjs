@@ -61,6 +61,51 @@ try {
   ));
   const runLegacyFullSuite = process.env.CREATOR_PERSONARUM_RUN_LEGACY_QA === 'true';
 
+  await page.route('https://script.google.com/macros/s/**', async route => {
+    let requestBody = {};
+    try { requestBody = route.request().postDataJSON() || {}; } catch (_) {}
+    let result;
+    if (requestBody.action === 'listPlayers') {
+      result = { ok: true, protocolVersion: 1, players: [{ playerId: 'appendix-player-1', playerName: 'Ariadna QA' }] };
+    } else if (requestBody.action === 'lookupAssignment') {
+      if (requestBody.playerId === 'appendix-player-1' && requestBody.accessCode === 'APPENDIX-QA-CODE-26') {
+        result = {
+          ok: true,
+          protocolVersion: 1,
+          assignment: {
+            schemaVersion: 1,
+            assignmentId: 'appendix-assignment-1',
+            playerId: 'appendix-player-1',
+            playerName: 'Ariadna QA',
+            level: 3,
+            abilityRolls: [
+              { rollId: 'appendix-assignment-1-roll-1', value: 16 },
+              { rollId: 'appendix-assignment-1-roll-2', value: 15 },
+              { rollId: 'appendix-assignment-1-roll-3', value: 14 },
+              { rollId: 'appendix-assignment-1-roll-4', value: 12 },
+              { rollId: 'appendix-assignment-1-roll-5', value: 10 },
+              { rollId: 'appendix-assignment-1-roll-6', value: 8 }
+            ]
+          }
+        };
+      } else {
+        result = { ok: false, code: 'ASSIGNMENT_AUTH_FAILED', error: 'No se pudo validar la asignación. Revisá el jugador y el código privado.' };
+      }
+    } else {
+      result = { ok: false, code: 'UNSUPPORTED_ACTION', error: 'La acción solicitada no está disponible.' };
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: JSON.stringify(result)
+    });
+  });
+
   const baseUrl = 'http://127.0.0.1:' + server.address().port;
   const greyEmpireId = 'abigur-imperium-ravum-el-imperio-gris';
   const tomunAetheloriaId = 'tomun-aetheloria';
@@ -94,6 +139,24 @@ try {
 
   if (!runLegacyFullSuite) {
     await page.locator('#creator-known-path-button').click();
+    await page.waitForFunction(() => {
+      const select = document.getElementById('creator-assignment-player');
+      return select && Array.from(select.options).some(option => option.value === 'appendix-player-1');
+    }, null, { timeout: 10000 });
+    await page.locator('#creator-assignment-player').selectOption('appendix-player-1');
+    await page.locator('#creator-assignment-access-code').fill('APPENDIX-QA-CODE-26');
+    await page.locator('#creator-assignment-load').click();
+    await page.waitForFunction(() => document.getElementById('creator-assignment-level')?.textContent === '3');
+    assert.equal(await page.locator('#creator-level').inputValue(), '3',
+      'The player level must be supplied by the verified Director assignment');
+    assert.equal(await page.locator('#creator-level').getAttribute('readonly'), '',
+      'The assigned level cannot be manually changed');
+    assert.equal(await page.locator('#creator-assignment-rolls li').count(), 6,
+      'All six unassigned results must be loaded from the verified assignment');
+    assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\nResultado 2: 15\nResultado 3: 14\nResultado 4: 12\nResultado 5: 10\nResultado 6: 8',
+      'The exact six pre-assigned results must be displayed');
+    assert.equal(await page.locator('#creator-assignment-access-code').inputValue(), '',
+      'The private assignment code must not remain in the form after successful verification');
 
     const raceLabels = await page.locator('#creator-lineage option').evaluateAll(options =>
       options.slice(1).map(option => option.textContent.trim())
@@ -162,11 +225,6 @@ try {
     assert.equal(await page.locator('html').getAttribute('data-creator-catalog-state'), 'loaded',
       'Creator Personarum must load its generated campaign-canon catalogue');
 
-    await page.locator('#creator-level').evaluate(element => {
-      element.value = '2';
-      element.dispatchEvent(new Event('input', { bubbles: true }));
-      element.dispatchEvent(new Event('change', { bubbles: true }));
-    });
     await page.locator('#creator-export-draft').click();
     assert.match(await page.locator('#creator-draft-status').innerText(),
       /No se puede finalizar ni exportar un personaje de nivel superior a 1/i,

@@ -5,6 +5,21 @@ const CREATOR_PERSONARUM_SHEETS = Object.freeze({
   spreadsheetIdProperty: "CREATOR_SPREADSHEET_ID",
   legacySpreadsheetIdProperty: "CREATOR_PERSONARUM_SPREADSHEET_ID",
   registrySheetName: "REGISTRO",
+  assignmentsSheetName: "ASIGNACIONES",
+  assignmentHeaders: Object.freeze([
+    "Estado",
+    "ID de asignación",
+    "ID de jugador",
+    "Nombre del jugador",
+    "Código privado de acceso",
+    "Nivel asignado",
+    "Resultado 1",
+    "Resultado 2",
+    "Resultado 3",
+    "Resultado 4",
+    "Resultado 5",
+    "Resultado 6"
+  ]),
   maxPayloadLength: 250000,
   maxRowsPerCharacter: 4000,
   maxCreations: 150,
@@ -30,6 +45,7 @@ const CREATOR_PERSONARUM_SHEETS = Object.freeze({
 function onOpen() {
   SpreadsheetApp.getUi().createMenu("Creator Personarum")
     .addItem("Preparar conexión del creador", "setupCreatorSubmissions")
+    .addItem("Preparar pestaña de asignaciones", "setupCreatorAssignments")
     .addToUi();
 }
 
@@ -55,6 +71,28 @@ function setupCreatorSubmissions() {
   return result;
 }
 
+/** Create the Director's assignment tab without clearing any existing data. */
+function setupCreatorAssignments() {
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  if (!spreadsheet) {
+    throw new Error("Abrí este proyecto desde la hoja Firmamentum Velatum - Creaciones.");
+  }
+  const sheet = ensureAssignmentsSheet_(spreadsheet);
+  PropertiesService.getScriptProperties().setProperty(
+    CREATOR_PERSONARUM_SHEETS.spreadsheetIdProperty,
+    spreadsheet.getId()
+  );
+  const result = {
+    ok: true,
+    service: "Creator Personarum",
+    assignmentsSheet: sheet.getName(),
+    headers: CREATOR_PERSONARUM_SHEETS.assignmentHeaders.slice(),
+    note: "Completá las filas en la hoja privada; los códigos no se devuelven al navegador."
+  };
+  console.log(JSON.stringify(result));
+  return result;
+}
+
 /** Public health check. This endpoint does not return sheet data. */
 function doGet() {
   return output_({
@@ -62,7 +100,7 @@ function doGet() {
     service: "Creator Personarum",
     protocolVersion: CREATOR_PERSONARUM_SHEETS.version,
     acceptsMethod: "POST",
-    readAccess: false
+    readAccess: "Solo POST; la consulta de tiradas exige el código privado de cada jugador"
   });
 }
 
@@ -74,11 +112,10 @@ function doPost(event) {
   }
 
   try {
-    enforceRateLimit_();
     const body = event && event.postData ? String(event.postData.contents || "") : "";
     if (!body) throw fail_("EMPTY_BODY", "El cuerpo de la petición está vacío.");
     if (body.length > CREATOR_PERSONARUM_SHEETS.maxPayloadLength) {
-      throw fail_("PAYLOAD_TOO_LARGE", "La creación supera el tamaño máximo admitido.");
+      throw fail_("PAYLOAD_TOO_LARGE", "La petición supera el tamaño máximo admitido.");
     }
 
     let input;
@@ -87,6 +124,54 @@ function doPost(event) {
     } catch (_) {
       throw fail_("INVALID_JSON", "El cuerpo no contiene JSON válido.");
     }
+    if (!input || typeof input !== "object" || Array.isArray(input)) {
+      throw fail_("INVALID_RECORD", "La raíz debe ser un objeto JSON.");
+    }
+    if (Number(input.protocolVersion) !== CREATOR_PERSONARUM_SHEETS.version) {
+      throw fail_("UNSUPPORTED_PROTOCOL", "Versión de protocolo no compatible.");
+    }
+
+    const action = String(input.action || "").trim().toLowerCase();
+    if (action === "listplayers") {
+      enforceAssignmentReadRateLimit_("roster", "");
+      const players = readActiveAssignments_().map(function (assignment) {
+        return { playerId: assignment.playerId, playerName: assignment.playerName };
+      });
+      return output_({
+        ok: true,
+        protocolVersion: CREATOR_PERSONARUM_SHEETS.version,
+        players: players
+      });
+    }
+
+    if (action === "lookupassignment") {
+      const playerId = text_(input.playerId, "playerId", 1, 80, true);
+      enforceAssignmentReadRateLimit_("lookup", playerId);
+      const accessCode = String(input.accessCode || "").trim();
+      const assignment = readActiveAssignments_().find(function (item) {
+        return item.playerId === playerId;
+      });
+      if (!assignment || !validAssignmentAccessCode_(assignment.accessCode, accessCode)) {
+        throw fail_("ASSIGNMENT_AUTH_FAILED", "No se pudo validar la asignación. Revisá el jugador y el código privado.");
+      }
+      return output_({
+        ok: true,
+        protocolVersion: CREATOR_PERSONARUM_SHEETS.version,
+        assignment: {
+          schemaVersion: 1,
+          assignmentId: assignment.assignmentId,
+          playerId: assignment.playerId,
+          playerName: assignment.playerName,
+          level: assignment.level,
+          abilityRolls: assignment.abilityRolls
+        }
+      });
+    }
+
+    if (action !== "save") {
+      throw fail_("UNSUPPORTED_ACTION", "La acción solicitada no está disponible.");
+    }
+    enforceRateLimit_();
     const record = validateSubmission_(input);
     const fullJson = JSON.stringify(record, null, 2);
     if (fullJson.length > CREATOR_PERSONARUM_SHEETS.maxPayloadLength) {
@@ -208,6 +293,142 @@ function getCreatorSpreadsheet_() {
     throw fail_("NOT_INITIALIZED", "Ejecutá setupCreatorSubmissions desde la hoja de cálculo antes de recibir envíos.");
   }
   return SpreadsheetApp.openById(spreadsheetId);
+}
+
+function ensureAssignmentsSheet_(spreadsheet) {
+  let sheet = spreadsheet.getSheetByName(CREATOR_PERSONARUM_SHEETS.assignmentsSheetName);
+  if (!sheet) sheet = spreadsheet.insertSheet(CREATOR_PERSONARUM_SHEETS.assignmentsSheetName);
+
+  const headers = CREATOR_PERSONARUM_SHEETS.assignmentHeaders;
+  const lastRow = sheet.getLastRow();
+  const existing = lastRow > 0
+    ? sheet.getRange(1, 1, 1, headers.length).getDisplayValues()[0]
+    : [];
+  const firstRowHasContent = existing.some(function (value) { return String(value).trim() !== ""; });
+
+  if (lastRow === 0 || (lastRow === 1 && !firstRowHasContent)) {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    sheet.setFrozenRows(1);
+    sheet.getRange(1, 1, 1, headers.length).setFontWeight("bold").setWrap(true);
+    sheet.setRowHeight(1, 36);
+  } else if (!headers.every(function (header, index) { return existing[index] === header; })) {
+    throw fail_("ASSIGNMENTS_HEADER_MISMATCH", "ASIGNACIONES tiene encabezados distintos; no se sobrescribió.");
+  }
+  return sheet;
+}
+
+function readActiveAssignments_() {
+  const spreadsheet = getCreatorSpreadsheet_();
+  const sheet = spreadsheet.getSheetByName(CREATOR_PERSONARUM_SHEETS.assignmentsSheetName);
+  if (!sheet) {
+    throw fail_("ASSIGNMENTS_NOT_INITIALIZED", "Falta ASIGNACIONES. Ejecutá setupCreatorAssignments desde la hoja de cálculo.");
+  }
+
+  const headers = CREATOR_PERSONARUM_SHEETS.assignmentHeaders;
+  if (sheet.getLastColumn() < headers.length) {
+    throw fail_("ASSIGNMENTS_HEADER_MISMATCH", "ASIGNACIONES no tiene los encabezados requeridos.");
+  }
+  const current = sheet.getRange(1, 1, 1, headers.length).getDisplayValues()[0];
+  if (!headers.every(function (header, index) { return current[index] === header; })) {
+    throw fail_("ASSIGNMENTS_HEADER_MISMATCH", "ASIGNACIONES no tiene los encabezados requeridos.");
+  }
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return [];
+  const rows = sheet.getRange(2, 1, lastRow - 1, headers.length).getValues();
+  const assignments = [];
+  rows.forEach(function (row, index) {
+    if (String(row[0] || "").trim().toUpperCase() !== "ACTIVA") return;
+    assignments.push(validateAssignmentRow_(row, index + 2));
+  });
+
+  const assignmentIds = new Set();
+  const playerIds = new Set();
+  const accessCodes = new Set();
+  assignments.forEach(function (assignment) {
+    if (assignmentIds.has(assignment.assignmentId)
+        || playerIds.has(assignment.playerId)
+        || accessCodes.has(assignment.accessCode)) {
+      throw fail_("DUPLICATE_ACTIVE_ASSIGNMENT", "Hay IDs o códigos duplicados entre las filas activas de ASIGNACIONES.");
+    }
+    assignmentIds.add(assignment.assignmentId);
+    playerIds.add(assignment.playerId);
+    accessCodes.add(assignment.accessCode);
+  });
+  return assignments;
+}
+
+function validateAssignmentRow_(row, rowNumber) {
+  const assignmentId = text_(row[1], "assignmentId", 1, 80, true);
+  const playerId = text_(row[2], "playerId", 1, 80, true);
+  const playerName = text_(row[3], "playerName", 2, 80, true);
+  const accessCode = String(row[4] == null ? "" : row[4]).trim();
+  if (!/^[A-Za-z0-9_-]{12,80}$/.test(accessCode)) {
+    throw fail_("INVALID_ASSIGNMENT_ROW", "La fila " + rowNumber + " de ASIGNACIONES necesita un código de 12 a 80 caracteres (letras, números, guion o guion bajo).");
+  }
+  if (!/^[A-Za-z0-9_-]{1,80}$/.test(assignmentId) || !/^[A-Za-z0-9_-]{1,80}$/.test(playerId)) {
+    throw fail_("INVALID_ASSIGNMENT_ROW", "Los IDs de la fila " + rowNumber + " solo pueden usar letras, números, guion o guion bajo.");
+  }
+
+  const level = Number(row[5]);
+  if (row[5] === "" || row[5] == null || !Number.isInteger(level) || level < 1 || level > 20) {
+    throw fail_("INVALID_ASSIGNMENT_ROW", "El nivel de la fila " + rowNumber + " debe ser un entero entre 1 y 20.");
+  }
+
+  const abilityRolls = [];
+  for (let index = 0; index < 6; index += 1) {
+    const rawValue = row[index + 6];
+    const value = Number(rawValue);
+    if (rawValue === "" || rawValue == null || !Number.isInteger(value)) {
+      throw fail_("INVALID_ASSIGNMENT_ROW", "La fila " + rowNumber + " necesita seis resultados enteros.");
+    }
+    abilityRolls.push({
+      rollId: assignmentId + "-roll-" + (index + 1),
+      value: value
+    });
+  }
+
+  return {
+    assignmentId: assignmentId,
+    playerId: playerId,
+    playerName: playerName,
+    accessCode: accessCode,
+    level: level,
+    abilityRolls: abilityRolls
+  };
+}
+
+function validAssignmentAccessCode_(expected, received) {
+  const left = String(expected || "");
+  const right = String(received || "");
+  let mismatch = left.length ^ right.length;
+  const length = Math.max(left.length, right.length);
+  for (let index = 0; index < length; index += 1) {
+    const a = index < left.length ? left.charCodeAt(index) : 0;
+    const b = index < right.length ? right.charCodeAt(index) : 0;
+    mismatch |= a ^ b;
+  }
+  return mismatch === 0 && /^[A-Za-z0-9_-]{12,80}$/.test(right);
+}
+
+function enforceAssignmentReadRateLimit_(kind, playerId) {
+  const cache = CacheService.getScriptCache();
+  const minute = Math.floor(Date.now() / 60000);
+  const globalKey = "creator-assignment-read-global-" + minute;
+  const globalCount = Number(cache.get(globalKey) || 0);
+  if (globalCount >= 60) {
+    throw fail_("RATE_LIMITED", "Hay demasiadas consultas; reintentá dentro de un minuto.");
+  }
+  cache.put(globalKey, String(globalCount + 1), 120);
+
+  if (kind === "lookup" && playerId) {
+    const playerKey = "creator-assignment-read-" + playerId + "-" + minute;
+    const playerCount = Number(cache.get(playerKey) || 0);
+    if (playerCount >= 8) {
+      throw fail_("RATE_LIMITED", "Se alcanzó el límite de intentos para esta asignación; reintentá dentro de un minuto.");
+    }
+    cache.put(playerKey, String(playerCount + 1), 120);
+  }
 }
 
 function ensureRegisterSheet_(spreadsheet) {
