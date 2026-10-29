@@ -204,12 +204,22 @@
             </select>
           </label>
 
-          <label class="creator-field" for="creator-lineage">
-            <span>LINAJE / RAZA</span>
-            <select id="creator-lineage" name="lineage">
-              <option value="">Cargando opciones aprobadas por el canon de campaña…</option>
+          <label class="creator-field" for="creator-race">
+            <span>RAZA / SPECIES</span>
+            <select id="creator-race" name="raceFamily">
+              <option value="">Cargando razas aprobadas por el canon de campaña…</option>
             </select>
           </label>
+          <label id="creator-subrace-field" class="creator-field" for="creator-subrace" hidden>
+            <span id="creator-subrace-label">SUBRAZA / VARIANTE</span>
+            <select id="creator-subrace" name="subrace" disabled>
+              <option value="">Elegí una raza primero…</option>
+            </select>
+          </label>
+          <input type="hidden" id="creator-dragonborn-ancestry" name="dragonbornAncestry" value="">
+          <select id="creator-lineage" name="lineage" hidden aria-hidden="true">
+            <option value="">Cargando opciones aprobadas por el canon de campaña…</option>
+          </select>
 
           <section id="creator-lineage-skills-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-lineage-skills-title">
             <div class="creator-divine-heading">
@@ -482,6 +492,7 @@
           <dl class="creator-preview-list">
             <div><dt>NOMBRE</dt><dd id="creator-preview-name">Sin definir</dd></div>
             <div><dt>LINAJE</dt><dd id="creator-preview-lineage">Sin definir</dd></div>
+            <div id="creator-preview-dragonborn-row" hidden><dt>ASCENDENCIA DRACÓNICA</dt><dd id="creator-preview-dragonborn">A definir</dd></div>
             <div id="creator-preview-lineage-abilities-row" hidden><dt>INCREMENTOS DE CARACTERÍSTICAS</dt><dd id="creator-preview-lineage-abilities">A definir</dd></div>
             <div><dt>CLASE</dt><dd id="creator-preview-class">Sin definir</dd></div>
             <div id="creator-preview-subclass-row" hidden><dt>SUBCLASE</dt><dd id="creator-preview-subclass">A definir</dd></div>
@@ -511,8 +522,8 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261029-5"></script>
-  <script src="creator-personarum-catalog.js?v=20261029-1"></script>
+  <script src="creator-personarum.js?v=20261029-6"></script>
+  <script src="creator-personarum-catalog.js?v=20261029-2"></script>
   <script src="creator-personarum-sheets-config.js?v=20261029-2"></script>
   <script src="creator-personarum-sheets.js?v=20261029-1"></script>
 </body>

@@ -37,6 +37,8 @@
   let pendingRestoredLineageSkills = null;
   let pendingRestoredLineageLanguages = null;
   let pendingRestoredLineageAbilities = null;
+  let pendingRestoredLineageSelectors = null;
+  let applyLineageSelectorState = null;
   let selectedSpells = [];
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
@@ -164,6 +166,16 @@
     if (typeof window.creatorPersonarumApplyRestoredLineageAbilities === 'function') {
       window.creatorPersonarumApplyRestoredLineageAbilities({});
     }
+  });
+
+  window.addEventListener('creator-personarum:restore-lineage-selectors', (event) => {
+    pendingRestoredLineageSelectors = event.detail && typeof event.detail === 'object' ? event.detail : {};
+    if (typeof applyLineageSelectorState === 'function') applyLineageSelectorState(pendingRestoredLineageSelectors);
+  });
+
+  window.addEventListener('creator-personarum:reset-lineage-selectors', () => {
+    pendingRestoredLineageSelectors = { raceFamily: '', lineageChoice: '', dragonbornAncestry: '' };
+    if (typeof applyLineageSelectorState === 'function') applyLineageSelectorState(pendingRestoredLineageSelectors);
   });
 
   const CLASS_LABELS = {
@@ -512,25 +524,135 @@
     return true;
   }
 
+  const RACE_FAMILY_LABELS = {
+    dwarf:{es:'Enano',en:'Dwarf'}, elf:{es:'Elfo',en:'Elf'}, halfling:{es:'Mediano',en:'Halfling'},
+    human:{es:'Humano',en:'Human'}, gnome:{es:'Gnomo',en:'Gnome'}, dragonborn:{es:'Dracónido',en:'Dragonborn'},
+    aasimar:{es:'Aasimar',en:'Aasimar'}, genasi:{es:'Genasi',en:'Genasi'}, warforged:{es:'Forjado',en:'Warforged'},
+    tiefling:{es:'Tiflin',en:'Tiefling'}, half_elf:{es:'Semielfo',en:'Half-Elf'}, half_orc:{es:'Semiorco',en:'Half-Orc'},
+    goblin:{es:'Goblin',en:'Goblin'}, goliath:{es:'Goliat',en:'Goliath'}, leonin:{es:'Leonino',en:'Leonin'},
+    tabaxi:{es:'Tabaxi',en:'Tabaxi'}
+  };
+
   function appendLineages(records) {
     const select = byId('creator-lineage');
+    const raceSelect = byId('creator-race');
+    const subraceField = byId('creator-subrace-field');
+    const subraceLabel = byId('creator-subrace-label');
+    const subraceSelect = byId('creator-subrace');
+    const dragonbornAncestryInput = byId('creator-dragonborn-ancestry');
+    if (!select || !raceSelect || !subraceField || !subraceLabel || !subraceSelect || !dragonbornAncestryInput) return;
+
     select.replaceChildren(new Option('Elegí una opción racial aprobada por la campaña…', ''));
     const species = records.filter(item => item.category === 'species')
-      .sort((a, b) => String(a.name).localeCompare(String(b.name)));
+      .sort((a,b)=>String(a.name).localeCompare(String(b.name)));
     const variants = records.filter(item => item.category === 'species_variant')
-      .sort((a, b) => String(a.parent_name || '').localeCompare(String(b.parent_name || '')) ||
-        String(a.name).localeCompare(String(b.name)));
-
+      .sort((a,b)=>String(a.parent_name||'').localeCompare(String(b.parent_name||''))||String(a.name).localeCompare(String(b.name)));
     for (const item of species) {
-      addOption(select, translate(item.name, LINEAGE_LABELS), item.source, item.category, [item.name]);
+      const canonicalLabel = translate(item.name, LINEAGE_LABELS);
+      addOption(select, canonicalLabel, item.source, item.category, [item.name]);
+      const option = Array.from(select.options).find(candidate =>
+        normalize(candidate.value) === normalize(canonicalLabel) &&
+        candidate.dataset.creatorCatalogCategory === item.category &&
+        (!item.source || candidate.dataset.creatorCatalogSource === item.source)
+      );
+      if (option && item.id) {
+        option.dataset.creatorCatalogId = item.id;
+        option.dataset.creatorCatalogFamily = String(item.family_id || '');
+      }
     }
     for (const item of variants) {
-      const child = translate(item.name, LINEAGE_LABELS);
-      const parent = translate(item.parent_name || '', LINEAGE_LABELS);
-      const label = parent && normalize(parent) !== normalize(child) ? parent + ' — ' + child : child;
-      addOption(select, label, item.source, item.category, [child, item.name]);
+      const child=translate(item.name,LINEAGE_LABELS), parent=translate(item.parent_name||'',LINEAGE_LABELS);
+      const label=parent&&normalize(parent)!==normalize(child)?parent+' — '+child:child;
+      addOption(select,label,item.source,item.category,[child,item.name]);
     }
 
+    const language=()=>byId('creator-skill-language')?.value==='en'?'en':'es';
+    const familyRecords=new Map();
+    species.forEach(item=>{
+      const familyId=String(item.family_id||'').trim();
+      if(!familyId)return;
+      if(!familyRecords.has(familyId))familyRecords.set(familyId,[]);
+      familyRecords.get(familyId).push(item);
+    });
+    const familyName=(familyId)=>RACE_FAMILY_LABELS[familyId]?RACE_FAMILY_LABELS[familyId][language()]:familyId;
+    const lineageDisplayName=(item)=>language()==='en'?String(item.name_en||item.name||''):translate(item.name,LINEAGE_LABELS);
+    const canonicalOptionFor=(item)=>Array.from(select.options).find(option=>option.dataset.creatorCatalogId===item.id);
+    const savedSpeciesForChoice=(choice)=>{
+      const value=String(choice||'');
+      return species.find(item=>normalize(translate(item.name,LINEAGE_LABELS))===normalize(value)||
+        normalize(item.name_en||'')===normalize(value)||item.id===value)||null;
+    };
+    const writeCanonicalLineage=(item)=>{
+      const option=item?canonicalOptionFor(item):null;
+      select.value=option?option.value:'';
+      select.dispatchEvent(new Event('change',{bubbles:true}));
+    };
+    const clearSubraceChoice=()=>{
+      subraceSelect.replaceChildren(new Option(language()==='en'?'Choose a race first…':'Elegí una raza primero…',''));
+      subraceSelect.value='';subraceSelect.disabled=true;subraceSelect.required=false;subraceField.hidden=true;
+      subraceLabel.textContent=language()==='en'?'SUBRACE / VARIANT':'SUBRAZA / VARIANTE';
+      dragonbornAncestryInput.value='';
+    };
+    const populateRaceOptions=(selectedFamily='')=>{
+      raceSelect.replaceChildren(new Option(language()==='en'?'Choose an approved race…':'Elegí una raza aprobada…',''));
+      const families=Array.from(familyRecords.keys()).sort((a,b)=>familyName(a).localeCompare(familyName(b),language()==='en'?'en':'es'));
+      families.forEach(familyId=>raceSelect.appendChild(new Option(familyName(familyId),familyId)));
+      raceSelect.value=selectedFamily;
+    };
+    const applySubraceSelection=()=>{
+      const familyId=raceSelect.value, rows=familyRecords.get(familyId)||[];
+      const dragonbornChoices=familyId==='dragonborn'&&rows.length===1&&Array.isArray(rows[0].ancestry_choices)?rows[0].ancestry_choices:[];
+      if(dragonbornChoices.length>1){
+        const choice=dragonbornChoices.find(item=>item.id===subraceSelect.value);
+        dragonbornAncestryInput.value=choice?choice.id:'';
+        writeCanonicalLineage(choice?rows[0]:null);
+        return;
+      }
+      const row=rows.find(item=>item.id===subraceSelect.value);
+      dragonbornAncestryInput.value='';
+      writeCanonicalLineage(row||null);
+    };
+    const renderFamilySelection=(familyId,preferredLineageId='',preferredDragonbornAncestry='')=>{
+      const rows=familyRecords.get(familyId)||[];
+      if(!familyId||!rows.length){clearSubraceChoice();writeCanonicalLineage(null);return;}
+      const dragonbornChoices=familyId==='dragonborn'&&rows.length===1&&Array.isArray(rows[0].ancestry_choices)?rows[0].ancestry_choices:[];
+      const usesDragonbornChoices=dragonbornChoices.length>1;
+      const needsSubrace=usesDragonbornChoices||rows.length>1;
+      if(!needsSubrace){clearSubraceChoice();writeCanonicalLineage(rows[0]);return;}
+      subraceField.hidden=false;
+      subraceLabel.textContent=usesDragonbornChoices?(language()==='en'?'DRACONIC ANCESTRY':'ASCENDENCIA DRACÓNICA'):(language()==='en'?'SUBRACE / VARIANT':'SUBRAZA / VARIANTE');
+      subraceSelect.replaceChildren(new Option(
+        usesDragonbornChoices?(language()==='en'?'Choose a draconic ancestry…':'Elegí una ascendencia dracónica…'):(language()==='en'?'Choose a subrace or variant…':'Elegí una subraza o variante…'),''));
+      (usesDragonbornChoices?dragonbornChoices:rows).forEach(item=>{
+        const label=usesDragonbornChoices?(language()==='en'?String(item.name_en||item.name||''):String(item.name||'')):lineageDisplayName(item);
+        subraceSelect.appendChild(new Option(label,item.id));
+      });
+      subraceSelect.disabled=false;
+      subraceSelect.required=Boolean(raceSelect.required);
+      subraceSelect.value=usesDragonbornChoices?preferredDragonbornAncestry:preferredLineageId;
+      if(subraceSelect.value)applySubraceSelection();
+      else{dragonbornAncestryInput.value='';writeCanonicalLineage(null);}
+    };
+
+    applyLineageSelectorState=(detail={})=>{
+      const lineageChoice=String(detail.lineageChoice||detail.lineage||'');
+      const savedRow=savedSpeciesForChoice(lineageChoice);
+      const requestedFamily=String(detail.raceFamily||'');
+      const familyId=familyRecords.has(requestedFamily)?requestedFamily:(savedRow?.family_id||'');
+      populateRaceOptions(familyId);
+      renderFamilySelection(familyId,savedRow?.id||'',String(detail.dragonbornAncestry||''));
+      pendingRestoredLineageSelectors=null;
+    };
+    raceSelect.addEventListener('change',()=>renderFamilySelection(raceSelect.value,'',''));
+    subraceSelect.addEventListener('change',applySubraceSelection);
+    byId('creator-skill-language')?.addEventListener('change',()=>{
+      const familyId=raceSelect.value,savedRow=savedSpeciesForChoice(select.value),dragonbornChoice=dragonbornAncestryInput.value;
+      populateRaceOptions(familyId);
+      renderFamilySelection(familyId,savedRow?.id||'',dragonbornChoice);
+    });
+    populateRaceOptions('');
+    if(pendingRestoredLineageSelectors)applyLineageSelectorState(pendingRestoredLineageSelectors);
+    else renderFamilySelection('','','');
     const details = byId('creator-lineage-skills-list');
     const status = byId('creator-lineage-skills-status');
     const languageDetails = byId('creator-lineage-languages-list');

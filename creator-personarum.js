@@ -623,6 +623,7 @@
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-class-skills'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-background-skills'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-lineage-skills'));
+    window.dispatchEvent(new CustomEvent('creator-personarum:reset-lineage-selectors'));
     classSelect.dispatchEvent(new Event('change', { bubbles: true }));
     updateCustomLineageField();
     zodiacMarkSelect.value = '';
@@ -631,7 +632,14 @@
     renderCosmicMarkConditions([], {});
     document.getElementById('creator-level').value = '1';
     nameInput.required = currentMode !== CREATION_MODES.explore;
-    lineageSelect.required = currentMode !== CREATION_MODES.explore;
+    const raceSelect = document.getElementById('creator-race');
+    const subraceSelect = document.getElementById('creator-subrace');
+    if (raceSelect) raceSelect.required = currentMode !== CREATION_MODES.explore;
+    if (subraceSelect) {
+      const subraceField = document.getElementById('creator-subrace-field');
+      subraceSelect.required = Boolean(subraceField && !subraceField.hidden) && currentMode !== CREATION_MODES.explore;
+    }
+    lineageSelect.required = false;
     classSelect.required = currentMode !== CREATION_MODES.explore;
     savedDraft = null;
     setCharacterFinalized(false);
@@ -864,6 +872,14 @@
 
   function readFormValues() {
     const lineageChoice = lineageSelect.value;
+    const raceFamily = document.getElementById('creator-race')?.value || '';
+    const subraceSelect = document.getElementById('creator-subrace');
+    const dragonbornAncestry = raceFamily === 'dragonborn'
+      ? (document.getElementById('creator-dragonborn-ancestry')?.value || '')
+      : '';
+    const dragonbornAncestryName = dragonbornAncestry && subraceSelect && subraceSelect.selectedOptions[0]
+      ? subraceSelect.selectedOptions[0].textContent.trim()
+      : '';
     let selectedSpells = [];
     try {
       const parsedSpells = JSON.parse(document.getElementById('creator-selected-spells').value || '[]');
@@ -934,6 +950,9 @@
       skillLanguage: document.getElementById('creator-skill-language')?.value === 'en' ? 'en' : 'es',
       lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
       lineageChoice,
+      raceFamily,
+      dragonbornAncestry,
+      dragonbornAncestryName,
       customLineage: lineageChoice === 'Otro / personalizado' ? customLineage : '',
       characterClass: classSelect.value,
       subclass: subclassSelect.value,
@@ -972,6 +991,10 @@
     const name = values.name || 'Sin definir';
     document.getElementById('creator-preview-name').textContent = name;
     document.getElementById('creator-preview-lineage').textContent = values.lineage || 'Sin definir';
+    const dragonbornRow = document.getElementById('creator-preview-dragonborn-row');
+    if (dragonbornRow) dragonbornRow.hidden = !values.dragonbornAncestryName;
+    const dragonbornPreview = document.getElementById('creator-preview-dragonborn');
+    if (dragonbornPreview) dragonbornPreview.textContent = values.dragonbornAncestryName || 'A definir';
     const abilityLabels = {
       str: 'Fuerza',
       dex: 'Destreza',
@@ -1106,6 +1129,13 @@
         ? savedLineage
         : (savedLineage ? 'Otro / personalizado' : ''));
       lineageSelect.value = savedLineageChoice;
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-lineage-selectors', {
+        detail: {
+          raceFamily: typeof draft.raceFamily === 'string' ? draft.raceFamily : '',
+          lineageChoice: savedLineageChoice,
+          dragonbornAncestry: typeof draft.dragonbornAncestry === 'string' ? draft.dragonbornAncestry : ''
+        }
+      }));
       customLineageInput.value = savedLineageChoice === 'Otro / personalizado'
         ? (typeof draft.customLineage === 'string'
           ? draft.customLineage
@@ -1234,6 +1264,9 @@
       skillLanguage: values.skillLanguage === 'en' ? 'en' : 'es',
       lineage: values.lineage,
       lineageChoice: values.lineageChoice,
+      raceFamily: values.raceFamily,
+      dragonbornAncestry: values.dragonbornAncestry,
+      dragonbornAncestryName: values.dragonbornAncestryName,
       customLineage: values.customLineage,
       characterClass: values.characterClass,
       subclass: values.subclass,
@@ -1697,6 +1730,7 @@
       .join(' · ');
     const details = [
       ['Linaje', draft.lineage],
+      ['Ascendencia dracónica', draft.dragonbornAncestryName],
       ['Clase', draft.characterClass],
       ['Subclase', draft.subclass],
       ['Nivel elegido', Number.isInteger(draft.level) ? String(draft.level) : ''],
@@ -1744,7 +1778,7 @@
           }
         },
         details: {
-          race: typeof draft.lineage === 'string' && draft.lineage.trim() ? draft.lineage.trim() : null,
+          race: [draft.lineage, draft.dragonbornAncestryName].filter(value => typeof value === 'string' && value.trim()).join(' — ') || null,
           background: typeof draft.background === 'string' && draft.background.trim() ? draft.background.trim() : null,
           biography: {
             value: biography,
