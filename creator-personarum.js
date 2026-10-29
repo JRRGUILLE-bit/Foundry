@@ -1483,9 +1483,11 @@
     }
 
     if ((values.cosmicMarks || []).length > 1 && options.allowUnresolvedCosmicOverlap !== true) {
+      if (currentMode === CREATION_MODES.known) setKnownCharacterWizardStep(4, false);
       setDraftStatus('El canon no especifica cómo resolver marcas cósmicas superpuestas. El borrador puede guardarse, pero consultá a la dirección antes de finalizar o exportar.', 'error');
       return false;
     }
+    if (options.allowIncomplete === true && currentMode === CREATION_MODES.known) return true;
 
     if (options.allowIncomplete !== true) {
       const invalidControl = Array.from(draftForm.elements).find(control =>
