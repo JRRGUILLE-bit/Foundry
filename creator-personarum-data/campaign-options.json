@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "title": "Creator Personarum — opciones explícitamente aprobadas por el canon de Firmamentum Velatum",
+  "title": "Creator Personarum — options approved by Firmamentum Velatum canon",
   "source_of_truth": {
     "repository": "JRRGUILLE-bit/Firmamentum-Velatum",
     "branch": "main",
@@ -318,7 +318,10 @@
       "size": [
         "M"
       ],
-      "speed": 30,
+      "speed": {
+        "walk": 30,
+        "swim": 30
+      },
       "darkvision": 60,
       "ability": [
         {
@@ -1400,7 +1403,10 @@
       "size": [
         "M"
       ],
-      "speed": 30,
+      "speed": {
+        "walk": 30,
+        "swim": 30
+      },
       "darkvision": 0,
       "ability": [
         {
@@ -1459,6 +1465,9 @@
       "speed": 30,
       "darkvision": 0,
       "ability": [
+        {
+          "con": 2
+        },
         {
           "choose": {
             "count": 1,
@@ -1576,6 +1585,9 @@
       "speed": 30,
       "darkvision": 60,
       "ability": [
+        {
+          "cha": 2
+        },
         {
           "choose": {
             "count": 2,
