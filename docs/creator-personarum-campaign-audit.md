@@ -153,6 +153,7 @@ El commit `349a188e58956ddf8de978456f9d41863afcaa37`, que elimina el recorte pre
 - El formulario retira las listas estáticas genéricas de razas, clases y trasfondos. Si no puede cargar el índice de campaña, falla cerrado y no repone las opciones genéricas.
 - Todavía no existe un catálogo canónico completo listo para el creador de trasfondos, dotes, conjuros y rasgos de clase, ni un índice canónico de marcas zodiacales. Estos controles no se rellenan con el catálogo genérico. Hasta que esas categorías estén aprobadas y estructuradas en Firmamentum Velatum, la creación completa sigue pendiente.
 - QA está pendiente para esta integración; no se considera probado el flujo de navegador ni el asistente secuencial de creación.
+- El workflow que regenera el índice desde la repo de canon privada necesita el secret de Actions `FIRMAMENTUM_VELATUM_READ_TOKEN` con permiso de lectura. Si falta, omite el checkout/build sin reemplazar el índice ya publicado; el secret no se guarda en el repositorio.
 
 ## Guardrails
 
