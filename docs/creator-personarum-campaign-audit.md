@@ -137,6 +137,14 @@ El commit `349a188e58956ddf8de978456f9d41863afcaa37`, que elimina el recorte pre
 - La elección se guarda como `selectedChainFamiliar` en el borrador y en el JSON; se restaura solo si el personaje es Brujo de nivel 3+ y el valor pertenece a las opciones permitidas. También se muestra en la vista previa y en la biografía del actor base exportado.
 - Esto no implementa el selector general para elegir entre pactos de Brujo. Se verificó estáticamente la sintaxis JS y la presencia/exclusión de opciones; no se ejecutó QA de navegador.
 
+
+## Creator Personarum — asignación previa por jugador y multiclase (29/10/2026)
+
+- Contrato de asignación previa: `docs/creator-personarum-player-assignment.schema.json`. Define `assignmentId`, `playerId`, `playerName`, el nivel asignado por el Director y un pool de exactamente seis resultados con `rollId` y valor numérico.
+- Los resultados se conservan sin asignar a atributos. `abilityAssignments` permite guardar la distribución libre del jugador usando identificadores de resultado; al finalizar, la lógica consumidora debe comprobar que los seis `rollId` existen y no se reutilizan.
+- La comprobación de estructura JSON pasó al crear y releer el archivo. El contrato todavía no está conectado al formulario: no se añadieron el selector/registro de jugadores, la carga de asignaciones ni la persistencia de esos datos. No se modificó `SESSION_LIVE`.
+- Requisito adicional pendiente: para personajes de nivel 2 o superior, mostrar opciones de multiclase solo cuando el personaje cumpla sus prerrequisitos. Esto requiere consultar las reglas Legacy/2014 y comprobar las características del personaje; no forma parte del contrato de asignación inicial.
+
 ## Guardrails
 
 - Usar el Atlas y el Codex como fuentes primarias; no inventar regiones, ciudades, cultos, patronos ni historia geopolítica.
