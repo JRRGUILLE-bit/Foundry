@@ -50,6 +50,16 @@ assert.equal(campaignOptionsCatalog.records.filter(record => record.category ===
 assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'subclass').length, 39, 'Only approved and verified subclasses may be offered');
 assert.match(page, /id="creator-race"/, 'The creator must ask for the race family first');
 assert.match(page, /id="creator-subrace"/, 'Variants must appear in a second selector after choosing a race family');
+assert.match(page, /id="creator-known-wizard-navigation"/, 'Known-character creation must use a dedicated step navigator');
+assert.match(page, /data-creator-wizard-step="1"/, 'Race and variant decisions must belong to the first creation step');
+assert.match(page, /data-creator-wizard-step="2"/, 'Class and class choices must belong to the second creation step');
+assert.match(page, /data-creator-wizard-step="3"/, 'Background choices must have a dedicated third step');
+assert.match(page, /data-creator-wizard-step="4"/, 'Zodiac and cosmic marks must have a dedicated fourth step');
+assert.match(page, /data-creator-wizard-step="5"/, 'The remaining character details must have a dedicated fifth step');
+assert.ok(runtime.includes('function continueKnownCharacterWizard()'), 'The wizard must validate each completed stage before advancing');
+assert.ok(runtime.includes("creatorWizardBackButton?.addEventListener('click'"), 'Players must be able to return to previous creation steps');
+assert.ok(runtime.includes('allowIncomplete: true'), 'Saving a draft must not require every later wizard stage to be complete');
+assert.ok(catalogRuntime.includes('backgroundStageStatus.hidden = rows.length > 0'), 'Missing background data must be disclosed instead of replaced by generic options');
 assert.match(page, /id="creator-preview-dragonborn"/, 'Dragonborn ancestry must appear in the character preview');
 assert.match(catalogRuntime, /RACE_FAMILY_LABELS/, 'The race-family selector must use explicit campaign display labels');
 assert.match(catalogRuntime, /creator-personarum:restore-lineage-selectors/, 'Race and subrace selectors must restore saved character choices');
