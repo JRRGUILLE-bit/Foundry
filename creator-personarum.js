@@ -262,6 +262,7 @@
     updateOriginDetails();
     updateDivineSection();
     renderPreview(readFormValues());
+    publishCreatorPersonarumDraftChange();
     const heading = document.getElementById('creator-workspace-title');
     if (heading) heading.focus();
   }
@@ -880,6 +881,14 @@
     };
   }
 
+  function publishCreatorPersonarumDraftChange(values = readFormValues()) {
+    if (!currentMode || draftStep.hidden) return;
+    const draft = buildDraftRecord(values);
+    window.dispatchEvent(new CustomEvent('creator-personarum:draft-changed', {
+      detail: { draft }
+    }));
+  }
+
   function rememberCurrentDraft() {
     if (!currentMode || draftStep.hidden) return;
     inMemoryDrafts[currentMode] = buildDraftRecord(readFormValues());
@@ -1060,6 +1069,7 @@
         '. PODÉS VOLVER A EDITARLO CUANDO QUIERAS.',
         'saved'
       );
+      publishCreatorPersonarumDraftChange(values);
     } catch (error) {
       setDraftStatus('No se pudo guardar la finalización en este navegador. El personaje sigue editable.', 'error');
     }
@@ -1079,6 +1089,7 @@
     } catch (error) {
       setDraftStatus('Podés editar el personaje, pero no se pudo actualizar el estado local. Guardá el borrador para conservarlo.', 'error');
     }
+    publishCreatorPersonarumDraftChange();
   }
 
   function toggleCharacterFinalization() {
@@ -1108,6 +1119,7 @@
     } catch (error) {
       setDraftStatus('No se pudo guardar en el navegador. Revisá el espacio disponible o los permisos de almacenamiento.', 'error');
     }
+    publishCreatorPersonarumDraftChange(values);
   }
 
   function getValidatedCurrentDraftForExport() {
@@ -1515,8 +1527,16 @@
   finishCharacterButton.addEventListener('click', toggleCharacterFinalization);
   exportDraftButton.addEventListener('click', exportDraft);
   exportFoundryActorButton.addEventListener('click', exportFoundryActorBase);
-  draftForm.addEventListener('input', () => renderPreview(readFormValues()));
-  draftForm.addEventListener('change', () => renderPreview(readFormValues()));
+  draftForm.addEventListener('input', () => {
+    const values = readFormValues();
+    renderPreview(values);
+    publishCreatorPersonarumDraftChange(values);
+  });
+  draftForm.addEventListener('change', () => {
+    const values = readFormValues();
+    renderPreview(values);
+    publishCreatorPersonarumDraftChange(values);
+  });
 
   initialiseDivineOptions();
   void loadAtlasRegions();
