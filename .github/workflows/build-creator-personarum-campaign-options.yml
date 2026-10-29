@@ -23,25 +23,43 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Check access to the private campaign canon
+        id: campaign-access
+        shell: bash
+        env:
+          CAMPAIGN_CANON_READ_TOKEN: ${{ secrets.FIRMAMENTUM_VELATUM_READ_TOKEN }}
+        run: |
+          if [[ -z "$CAMPAIGN_CANON_READ_TOKEN" ]]; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Set the repository Actions secret FIRMAMENTUM_VELATUM_READ_TOKEN (read access to JRRGUILLE-bit/Firmamentum-Velatum) to enable automatic catalog refresh. The currently committed campaign-canon index remains in use."
+          else
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout Firmamentum Velatum campaign canon
+        if: steps.campaign-access.outputs.available == 'true'
         uses: actions/checkout@v4
         with:
           repository: JRRGUILLE-bit/Firmamentum-Velatum
           ref: main
           path: campaign-canon
+          token: ${{ secrets.FIRMAMENTUM_VELATUM_READ_TOKEN }}
 
       - name: Set up Node.js
+        if: steps.campaign-access.outputs.available == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Build only campaign-approved player options
+        if: steps.campaign-access.outputs.available == 'true'
         run: >-
           node scripts/build-creator-personarum-campaign-options.mjs
           --campaign-root campaign-canon
           --output creator-personarum-data/campaign-options.json
 
       - name: Commit refreshed campaign-canon index
+        if: steps.campaign-access.outputs.available == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
