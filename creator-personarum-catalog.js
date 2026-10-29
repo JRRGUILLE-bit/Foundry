@@ -1592,8 +1592,10 @@
         String(a.source).localeCompare(String(b.source)));
     const backgroundField = byId('creator-background-field');
     const backgroundSkillsSection = byId('creator-background-skills-section');
+    const backgroundStageStatus = byId('creator-background-stage-status');
     if (backgroundField) backgroundField.hidden = rows.length === 0;
     if (backgroundSkillsSection) backgroundSkillsSection.hidden = rows.length === 0;
+    if (backgroundStageStatus) backgroundStageStatus.hidden = rows.length > 0;
     const selectedRows = [];
     for (const item of rows) {
       const key = normalize(item.name);

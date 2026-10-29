@@ -182,9 +182,18 @@
             <span id="creator-form-step-label">01 / IDENTIDAD</span>
             <span id="creator-form-mode-label">BORRADOR LOCAL</span>
           </header>
+          <nav id="creator-known-wizard-navigation" class="creator-wizard-navigation" aria-label="Pasos de creación" hidden>
+            <button type="button" id="creator-wizard-back" class="creator-secondary-button">ANTERIOR</button>
+            <div class="creator-wizard-progress" aria-live="polite">
+              <p id="creator-wizard-progress">PASO 1 DE 5</p>
+              <h2 id="creator-wizard-title" tabindex="-1">Raza y variante</h2>
+              <p id="creator-wizard-description">Elegí una raza aprobada y completá sus elecciones antes de seguir.</p>
+            </div>
+            <button type="button" id="creator-wizard-next" class="creator-primary-button">CONTINUAR</button>
+          </nav>
           <fieldset id="creator-draft-fields" class="creator-draft-fields" aria-label="Opciones del personaje">
 
-          <label class="creator-field creator-field-wide" for="creator-character-name">
+          <label class="creator-field creator-field-wide" for="creator-character-name" data-creator-wizard-step="1">
             <span>NOMBRE DEL AVENTURERO</span>
             <input
               id="creator-character-name"
@@ -196,7 +205,7 @@
             >
           </label>
 
-          <label class="creator-field creator-field-wide" for="creator-skill-language">
+          <label class="creator-field creator-field-wide" for="creator-skill-language" data-creator-wizard-step="1">
             <span>IDIOMA DE LAS HABILIDADES / SKILL LANGUAGE</span>
             <select id="creator-skill-language" name="skillLanguage">
               <option value="es" selected>Español</option>
@@ -204,24 +213,24 @@
             </select>
           </label>
 
-          <label class="creator-field" for="creator-race">
+          <label class="creator-field" for="creator-race" data-creator-wizard-step="1">
             <span>RAZA / SPECIES</span>
             <select id="creator-race" name="raceFamily">
               <option value="">Cargando razas aprobadas por el canon de campaña…</option>
             </select>
           </label>
-          <label id="creator-subrace-field" class="creator-field" for="creator-subrace" hidden>
+          <label id="creator-subrace-field" class="creator-field" for="creator-subrace" data-creator-wizard-step="1" hidden>
             <span id="creator-subrace-label">SUBRAZA / VARIANTE</span>
             <select id="creator-subrace" name="subrace" disabled>
               <option value="">Elegí una raza primero…</option>
             </select>
           </label>
-          <input type="hidden" id="creator-dragonborn-ancestry" name="dragonbornAncestry" value="">
-          <select id="creator-lineage" name="lineage" hidden aria-hidden="true">
+          <input type="hidden" id="creator-dragonborn-ancestry" name="dragonbornAncestry" value="" data-creator-wizard-step="1">
+          <select id="creator-lineage" name="lineage" data-creator-wizard-step="1" hidden aria-hidden="true">
             <option value="">Cargando opciones aprobadas por el canon de campaña…</option>
           </select>
 
-          <section id="creator-lineage-skills-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-lineage-skills-title">
+          <section id="creator-lineage-skills-section" data-creator-wizard-step="1" class="creator-divine-section creator-field-wide" aria-labelledby="creator-lineage-skills-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">CATÁLOGO PERMITIDO // D&D 5E LEGACY</span>
               <h2 id="creator-lineage-skills-title">HABILIDADES DEL LINAJE</h2>
@@ -234,7 +243,7 @@
             <p id="creator-lineage-skills-status" class="creator-deity-guidance" role="status" aria-live="polite">La selección se guarda en el borrador.</p>
           </section>
 
-          <section id="creator-lineage-languages-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-lineage-languages-title">
+          <section id="creator-lineage-languages-section" data-creator-wizard-step="1" class="creator-divine-section creator-field-wide" aria-labelledby="creator-lineage-languages-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">CATÁLOGO PERMITIDO // D&D 5E LEGACY</span>
               <h2 id="creator-lineage-languages-title">IDIOMAS DEL LINAJE</h2>
@@ -246,19 +255,19 @@
             <p id="creator-lineage-languages-status" class="creator-deity-guidance" role="status" aria-live="polite">Los datos proceden del catálogo permitido.</p>
           </section>
 
-          <label id="creator-custom-lineage-field" class="creator-field creator-field-wide" for="creator-custom-lineage" hidden>
+          <label id="creator-custom-lineage-field" data-creator-wizard-step="1" class="creator-field creator-field-wide" for="creator-custom-lineage" hidden>
             <span>NOMBRE DEL LINAJE PERSONALIZADO</span>
             <input id="creator-custom-lineage" name="customLineage" type="text" maxlength="80" autocomplete="off" placeholder="Escribí cualquier otro linaje permitido por la campaña">
           </label>
 
-          <label class="creator-field" for="creator-character-class">
+          <label class="creator-field" for="creator-character-class" data-creator-wizard-step="2">
             <span>CLASE</span>
             <select id="creator-character-class" name="characterClass">
               <option value="">Cargando clases aprobadas por el canon de campaña…</option>
             </select>
           </label>
 
-          <section id="creator-class-skills-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-class-skills-title">
+          <section id="creator-class-skills-section" data-creator-wizard-step="2" class="creator-divine-section creator-field-wide" aria-labelledby="creator-class-skills-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">CANON DE CAMPAÑA // LEGACY/2014</span>
               <h2 id="creator-class-skills-title">HABILIDADES DISPONIBLES POR CLASE</h2>
@@ -271,14 +280,14 @@
             <p id="creator-class-skills-status" class="creator-deity-guidance" role="status" aria-live="polite">Las elecciones se guardan en el borrador.</p>
           </section>
 
-          <label class="creator-field" for="creator-subclass">
+          <label class="creator-field" for="creator-subclass" data-creator-wizard-step="2">
             <span id="creator-subclass-label">SUBCLASE</span>
             <select id="creator-subclass" name="subclass" disabled>
               <option value="">Elegí una clase primero…</option>
             </select>
           </label>
 
-          <label id="creator-chain-familiar-field" class="creator-field creator-field-wide" for="creator-chain-familiar" hidden>
+          <label id="creator-chain-familiar-field" data-creator-wizard-step="2" class="creator-field creator-field-wide" for="creator-chain-familiar" hidden>
             <span>FAMILIAR DEL PACTO DE LA CADENA (BRUJO, NIVEL 3+)</span>
             <select id="creator-chain-familiar" name="selectedChainFamiliar">
               <option value="">Aún sin elegir (opcional)</option>
@@ -289,15 +298,15 @@
             <p class="creator-deity-guidance">El quasit no está disponible: es un demonio del Abismo. Esta selección se conserva en el borrador y en el JSON exportado.</p>
           </label>
 
-          <label id="creator-feat-field" class="creator-field creator-field-wide" for="creator-feat" hidden>
+          <label id="creator-feat-field" data-creator-wizard-step="2" class="creator-field creator-field-wide" for="creator-feat" hidden>
             <span>DOTE (SI CORRESPONDE POR LAS REGLAS DEL PERSONAJE)</span>
             <select id="creator-feat" name="feat" disabled>
               <option value="">Cargando dotes permitidas…</option>
             </select>
           </label>
-          <p id="creator-feat-details" class="creator-deity-details creator-field-wide" role="status" aria-live="polite" hidden>Solo se muestran dotes aprobadas explícitamente en el canon de campaña.</p>
+          <p id="creator-feat-details" data-creator-wizard-step="2" class="creator-deity-details creator-field-wide" role="status" aria-live="polite" hidden>Solo se muestran dotes aprobadas explícitamente en el canon de campaña.</p>
 
-          <section id="creator-spells-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-spells-title">
+          <section id="creator-spells-section" data-creator-wizard-step="2" class="creator-divine-section creator-field-wide" aria-labelledby="creator-spells-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">CANON DE CAMPAÑA</span>
               <h2 id="creator-spells-title">CONJUROS</h2>
@@ -341,7 +350,7 @@
           </section>
 
 
-          <section id="creator-divine-section" class="creator-divine-section creator-field-wide" hidden aria-labelledby="creator-divine-title">
+          <section id="creator-divine-section" data-creator-wizard-step="2" class="creator-divine-section creator-field-wide" hidden aria-labelledby="creator-divine-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">PANTEÓN DEL CODEX DIVINITATUM</span>
               <h2 id="creator-divine-title">¿A qué divinidad o potencia seguís?</h2>
@@ -357,14 +366,15 @@
             <p id="creator-deity-guidance" class="creator-deity-guidance">Para clérigos, elegir una divinidad es parte central del concepto. Para paladines, esta elección es opcional: también pueden definir su camino a partir de un juramento.</p>
           </section>
 
-          <label id="creator-background-field" class="creator-field" for="creator-background" hidden>
+          <p id="creator-background-stage-status" data-creator-wizard-step="3" class="creator-wizard-stage-note" role="status" aria-live="polite">El catálogo canónico de campaña todavía no contiene trasfondos aprobados; no se van a mostrar opciones genéricas.</p>
+          <label id="creator-background-field" data-creator-wizard-step="3" class="creator-field" for="creator-background" hidden>
             <span>TRASFONDO</span>
             <select id="creator-background" name="background">
               <option value="">Sin opciones aprobadas en el canon de campaña</option>
             </select>
           </label>
 
-          <section id="creator-background-skills-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-background-skills-title">
+          <section id="creator-background-skills-section" data-creator-wizard-step="3" class="creator-divine-section creator-field-wide" aria-labelledby="creator-background-skills-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">CANON DE CAMPAÑA</span>
               <h2 id="creator-background-skills-title">HABILIDADES DEL TRASFONDO</h2>
@@ -377,7 +387,7 @@
             <p id="creator-background-skills-status" class="creator-deity-guidance" role="status" aria-live="polite">Las elecciones se guardan en el borrador.</p>
           </section>
 
-          <section id="creator-zodiac-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-zodiac-title">
+          <section id="creator-zodiac-section" data-creator-wizard-step="4" class="creator-divine-section creator-field-wide" aria-labelledby="creator-zodiac-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">MARCA ZODIACAL // NUEVE HIJOS DE LA LUNA</span>
               <h2 id="creator-zodiac-title">ELEGÍ TU MARCA ZODIACAL</h2>
@@ -394,7 +404,7 @@
             <p class="creator-deity-guidance">El Cenit Solar, el Nadir de las Sombras y el Plenilunio son marcas cósmicas excepcionales con condiciones de nacimiento propias; no se incluyen como elecciones libres en esta lista zodiacal.</p>
           </section>
 
-          <section id="creator-cosmic-mark-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-cosmic-mark-title">
+          <section id="creator-cosmic-mark-section" data-creator-wizard-step="4" class="creator-divine-section creator-field-wide" aria-labelledby="creator-cosmic-mark-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">MARCAS CÓSMICAS EXCEPCIONALES // PRIMORDIALES</span>
               <h2 id="creator-cosmic-mark-title">CONDICIONES DE NACIMIENTO EXCEPCIONALES</h2>
@@ -405,12 +415,12 @@
             <div id="creator-cosmic-mark-choice-fields" class="creator-cosmic-mark-choice-fields"></div>
           </section>
 
-          <label class="creator-field" for="creator-level">
+          <label class="creator-field" for="creator-level" data-creator-wizard-step="5">
             <span>NIVEL INICIAL</span>
             <input id="creator-level" name="level" type="number" min="1" max="20" step="1" value="1" required>
           </label>
 
-          <section id="creator-class-features-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-class-features-title">
+          <section id="creator-class-features-section" data-creator-wizard-step="5" class="creator-divine-section creator-field-wide" aria-labelledby="creator-class-features-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">PROGRESIÓN LEGACY/2014</span>
               <h2 id="creator-class-features-title">RASGOS DE CLASE HASTA ESTE NIVEL</h2>
@@ -422,7 +432,7 @@
             <p id="creator-class-features-status" class="creator-deity-guidance" role="status" aria-live="polite">Los rasgos se actualizan al cambiar de clase o nivel.</p>
           </section>
 
-          <section id="creator-subclass-features-section" class="creator-divine-section creator-field-wide" aria-labelledby="creator-subclass-features-title">
+          <section id="creator-subclass-features-section" data-creator-wizard-step="5" class="creator-divine-section creator-field-wide" aria-labelledby="creator-subclass-features-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">PROGRESIÓN LEGACY/2014</span>
               <h2 id="creator-subclass-features-title">RASGOS DE SUBCLASE HASTA ESTE NIVEL</h2>
@@ -434,7 +444,7 @@
             <p id="creator-subclass-features-status" class="creator-deity-guidance" role="status" aria-live="polite">La lista se actualiza al cambiar de clase, subclase o nivel.</p>
           </section>
 
-          <label class="creator-field creator-field-wide" for="creator-concept">
+          <label class="creator-field creator-field-wide" for="creator-concept" data-creator-wizard-step="5">
             <span>CONCEPTO / NOTAS</span>
             <textarea
               id="creator-concept"
@@ -445,7 +455,7 @@
             ></textarea>
           </label>
 
-          <section id="creator-origin-section" class="creator-divine-section creator-field-wide creator-origin-section" aria-labelledby="creator-origin-title">
+          <section id="creator-origin-section" data-creator-wizard-step="5" class="creator-divine-section creator-field-wide creator-origin-section" aria-labelledby="creator-origin-title">
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">ATLAS CANÓNICO // PROCEDENCIA</span>
               <h2 id="creator-origin-title">¿De qué región viene tu personaje?</h2>
