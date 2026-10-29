@@ -22,7 +22,8 @@ JavaScript · HTML · CSS · Google Apps Script · Google Sheets · Playwright �
 
 - Seis personajes con datos estáticos auditados.
 - Vistas desktop y mobile funcionales.
-- Sincronización remota segura desplegada, pendiente de verificaciones finales documentadas en la issue #69.
+- Sincronización remota segura de las fichas desplegada, pendiente de verificaciones finales documentadas en la issue #69.
+- Creator Personarum tiene el adaptador de guardado a Sheets y el backend de escritura versionados; la sincronización de personajes no se declara activa hasta configurar y comprobar su propio Web App.
 - Sin PRs abiertos al 11 de agosto de 2026.
 - No se publican tokens, URLs privadas de Google Sheets ni credenciales.
 - Acceso opcional **Behind the Screen**: atajo local de Foundry, con URL guardada únicamente en el navegador y nunca en el repo.
