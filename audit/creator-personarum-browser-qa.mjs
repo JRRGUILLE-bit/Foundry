@@ -98,11 +98,14 @@ try {
     const raceLabels = await page.locator('#creator-lineage option').evaluateAll(options =>
       options.slice(1).map(option => option.textContent.trim())
     );
+    const raceFamilyLabels = await page.locator('#creator-race option').evaluateAll(options =>
+      options.slice(1).map(option => option.textContent.trim())
+    );
     const classLabels = await page.locator('#creator-character-class option').evaluateAll(options =>
       options.slice(1).map(option => option.textContent.trim())
     );
     assert.equal(raceLabels.length, campaignOptionsCatalog.records.filter(record => record.category === 'species').length,
-      'The race selector must contain only entries from the campaign-canon catalogue');
+      'The canonical lineage bridge must contain only campaign-approved race options');
     assert.ok(raceLabels.includes('Alto humano'), 'The approved High Human option must be present');
     assert.ok(raceLabels.includes('Genasi del agua'), 'The approved Water Genasi option must be present');
     assert.ok(raceLabels.includes('Forjado estándar'), 'The approved Warforged option must be present');
@@ -111,9 +114,13 @@ try {
       .map(record => record.name)
       .sort((a, b) => String(a).localeCompare(String(b)));
     assert.deepEqual(raceLabels, approvedRaceLabels,
-      'The race selector must match the approved campaign list exactly and cannot leak excluded race records');
+      'The race choices must match the approved campaign list exactly and cannot leak excluded records');
     assert.doesNotMatch(await page.locator('#creator-lineage').innerText(), /Otro \/ personalizado/,
       'An unapproved custom race must not bypass the campaign-canon allowlist');
+    assert.equal(raceFamilyLabels.length, new Set(campaignOptionsCatalog.records
+      .filter(record => record.category === 'species')
+      .map(record => record.family_id)).size,
+    'The first wizard step must group approved variants by their canonical race family');
 
     assert.equal(classLabels.length, campaignOptionsCatalog.records.filter(record => record.category === 'class').length,
       'The class selector must contain only campaign-canon-approved classes');
@@ -121,6 +128,13 @@ try {
       'Artífice', 'Bárbaro', 'Bardo', 'Brujo', 'Clérigo', 'Druida', 'Explorador',
       'Guerrero', 'Hechicero', 'Mago', 'Monje', 'Paladín', 'Pícaro'
     ], 'The available class list must match the approved campaign catalogue');
+
+    await page.locator('#creator-race').selectOption({ label: 'Aasimar' });
+    await page.locator('#creator-wizard-next').click();
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 2 DE 5',
+      'The known-character wizard must advance from race to class only after the race selection is valid');
+    assert.equal(await page.locator('#creator-character-class').isVisible(), true,
+      'The class selector must become visible at the class stage');
 
     await page.locator('#creator-character-class').selectOption({ label: 'Bárbaro' });
     let subclasses = await page.locator('#creator-subclass option').evaluateAll(options =>
@@ -143,10 +157,12 @@ try {
       assert.equal(await page.locator('#' + id).evaluate(element => element.hidden), true,
         id + ' must remain hidden until the campaign canon supplies approved data for that category');
     }
+    assert.equal(await page.locator('#creator-background-stage-status').isVisible(), false,
+      'The missing-background notice must not appear during the class stage');
     assert.equal(await page.locator('html').getAttribute('data-creator-catalog-state'), 'loaded',
       'Creator Personarum must load its generated campaign-canon catalogue');
-    assert.deepEqual(pageErrors, [], 'Campaign-canon option gating must not raise browser JavaScript exceptions');
-    console.log('Creator Personarum browser smoke QA passed: campaign-canon race/class/subclass gating and omission of unapproved categories.');
+    assert.deepEqual(pageErrors, [], 'Campaign-canon option gating and wizard navigation must not raise browser JavaScript exceptions');
+    console.log('Creator Personarum browser smoke QA passed: sequential race-to-class wizard and campaign-canon race/class/subclass gating.');
   } else {
   // Legacy full-form suite; opt in only after canonical backgrounds, feats, spells and class features are available.
   // Open the character form before interacting with its controls.
