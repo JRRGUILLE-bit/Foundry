@@ -1446,7 +1446,8 @@
       cosmicMarkChoices: values.cosmicMarkChoices,
       cosmicMarksSummary: values.cosmicMarksSummary,
       level: values.level,
-      concept: values.concept
+      concept: values.concept,
+      creationStep: currentMode === CREATION_MODES.known ? currentKnownWizardStep : null
     };
   }
 
