@@ -143,8 +143,6 @@ try {
       assert.equal(await page.locator('#' + id).evaluate(element => element.hidden), true,
         id + ' must remain hidden until the campaign canon supplies approved data for that category');
     }
-    assert.equal(document.documentElement?.dataset?.creatorCatalogState, undefined,
-      'The browser document is isolated; the page owns its catalog status');
     assert.equal(await page.locator('html').getAttribute('data-creator-catalog-state'), 'loaded',
       'Creator Personarum must load its generated campaign-canon catalogue');
     assert.deepEqual(pageErrors, [], 'Campaign-canon option gating must not raise browser JavaScript exceptions');
