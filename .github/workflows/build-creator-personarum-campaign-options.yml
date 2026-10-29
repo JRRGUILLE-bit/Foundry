@@ -1,0 +1,54 @@
+name: Build Creator Personarum campaign-canon options
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/build-creator-personarum-campaign-options.yml"
+      - "scripts/build-creator-personarum-campaign-options.mjs"
+  workflow_dispatch:
+  schedule:
+    - cron: "41 6 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  build-campaign-options:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Creator Personarum
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Checkout Firmamentum Velatum campaign canon
+        uses: actions/checkout@v4
+        with:
+          repository: JRRGUILLE-bit/Firmamentum-Velatum
+          ref: main
+          path: campaign-canon
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build only campaign-approved player options
+        run: >-
+          node scripts/build-creator-personarum-campaign-options.mjs
+          --campaign-root campaign-canon
+          --output creator-personarum-data/campaign-options.json
+
+      - name: Commit refreshed campaign-canon index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add creator-personarum-data/campaign-options.json
+          if git diff --cached --quiet; then
+            echo "Campaign-canon options are already up to date."
+            exit 0
+          fi
+          git commit -m "chore: refresh campaign-canon Creator Personarum options"
+          git push origin main
