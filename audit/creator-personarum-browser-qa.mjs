@@ -106,8 +106,12 @@ try {
     assert.ok(raceLabels.includes('Alto humano'), 'The approved High Human option must be present');
     assert.ok(raceLabels.includes('Genasi del agua'), 'The approved Water Genasi option must be present');
     assert.ok(raceLabels.includes('Forjado estándar'), 'The approved Warforged option must be present');
-    assert.ok(!raceLabels.some(label => /Svirfneblin|Hombre lagarto|\\bOrco\\b|\\bDrow\\b|Aasimar (Azote|Caído)/i.test(label)),
-      'Explicitly excluded races must not appear');
+    const approvedRaceLabels = campaignOptionsCatalog.records
+      .filter(record => record.category === 'species')
+      .map(record => record.name)
+      .sort((a, b) => String(a).localeCompare(String(b)));
+    assert.deepEqual(raceLabels, approvedRaceLabels,
+      'The race selector must match the approved campaign list exactly and cannot leak excluded race records');
     assert.doesNotMatch(await page.locator('#creator-lineage').innerText(), /Otro \/ personalizado/,
       'An unapproved custom race must not bypass the campaign-canon allowlist');
 
