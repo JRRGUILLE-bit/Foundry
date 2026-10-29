@@ -190,5 +190,29 @@ assert.match(styles, /\.creator-zodiac-choice-fields/, 'Zodiac choices must have
 assert.doesNotMatch(page, /<option[^>]*>[^<]*(Cenit Solar|Nadir de las Sombras|Plenilunio)[^<]*<\/option>/i,
   'Exceptional cosmic marks must not appear as freely selectable ordinary zodiac signs');
 
+assert.equal(zodiacalMarksCatalog.cosmic_mark_assignment_method, 'birth_condition', 'Exceptional cosmic marks must be condition-based, not freely chosen');
+assert.equal(zodiacalMarksCatalog.cosmic_mark_overlap_policy, 'not_specified', 'The implementation must not invent a cosmic-mark overlap rule');
+assert.equal(zodiacalMarksCatalog.cosmic_marks.length, 3, 'All three exceptional cosmic marks must be available to condition-check');
+assert.deepEqual(zodiacalMarksCatalog.cosmic_marks.map(mark => mark.id), ['cosmic.solar_zenith', 'cosmic.shadow_nadir', 'cosmic.full_moon'], 'Exceptional marks must preserve their canonical IDs and order');
+assert.equal(zodiacalMarksCatalog.cosmic_marks[0].condition_es, 'Nacidos de día, exactamente al mediodía del solsticio de verano.', 'Solar Zenith keeps its exact birth condition');
+assert.deepEqual(zodiacalMarksCatalog.cosmic_marks[0].fixed_cantrips, ['Light'], 'Solar Zenith grants Light');
+assert.deepEqual(zodiacalMarksCatalog.cosmic_marks[0].cantrip_choices, ['Produce Flame', 'Fire Bolt'], 'Solar Zenith keeps its two extra cantrip choices');
+assert.equal(zodiacalMarksCatalog.cosmic_marks[1].condition_es, 'Nacidos a medianoche durante la noche más larga del año.', 'Shadow Nadir keeps its exact birth condition');
+assert.deepEqual(zodiacalMarksCatalog.cosmic_marks[1].fixed_cantrips, ['Thaumaturgy'], 'Shadow Nadir grants Thaumaturgy');
+assert.deepEqual(zodiacalMarksCatalog.cosmic_marks[1].cantrip_choices, ['Chill Touch', 'Ray of Frost'], 'Shadow Nadir keeps its two extra cantrip choices');
+assert.equal(zodiacalMarksCatalog.cosmic_marks[2].condition_es, 'Nacidos de noche bajo la luz de la luna llena.', 'Full Moon keeps its exact birth condition');
+assert.deepEqual(zodiacalMarksCatalog.cosmic_marks[2].fixed_cantrips, ['Minor Illusion', 'Guidance'], 'Full Moon grants both fixed cantrips');
+assert.match(page, /id="creator-cosmic-mark-section"/, 'Exceptional cosmic marks need their own section');
+assert.match(page, /id="creator-cosmic-mark-conditions"/, 'The interface must register applicable birth conditions');
+assert.match(page, /id="creator-preview-cosmic"/, 'Exceptional marks must appear in the preview');
+assert.match(runtime, /function renderCosmicMarkConditions\(/, 'Cosmic conditions must render separately from ordinary zodiac choices');
+assert.match(runtime, /data-cosmic-spell-ability-mark/, 'Each cosmic-granted cantrip must have its own spellcasting ability choice');
+assert.match(runtime, /El canon no especifica cómo resolver marcas cósmicas superpuestas/, 'Overlapping exceptional conditions must not be resolved by inference');
+assert.match(runtime, /cosmicMarks: values\.cosmicMarks/, 'Cosmic condition matches must persist in the draft');
+assert.match(runtime, /cosmicMarkChoices: values\.cosmicMarkChoices/, 'Cosmic cantrip and ability choices must persist in the draft');
+assert.match(runtime, /Marcas cósmicas excepcionales/, 'The Foundry actor-base biography must include exceptional marks');
+assert.match(styles, /\.creator-cosmic-mark-conditions/, 'Cosmic condition controls must have dedicated styling');
+
+
 
 console.log('Creator Personarum QA: campaign Atlas regions, canon lineages, warlock Abyss restriction, cinematic flow and draft persistence checks passed.');

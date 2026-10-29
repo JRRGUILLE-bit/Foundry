@@ -1475,3 +1475,57 @@
 .creator-personarum-page #creator-zodiac-details {
   white-space: normal;
 }
+
+
+/* Exceptional cosmic marks are birth-condition based, not free zodiac choices. */
+.creator-personarum-page .creator-cosmic-mark-conditions,
+.creator-personarum-page .creator-cosmic-mark-choice-fields {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 0;
+}
+.creator-personarum-page .creator-cosmic-condition {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0.7rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(110, 82, 41, 0.38);
+  background: rgba(255, 252, 240, 0.58);
+  color: var(--cp-ink);
+  cursor: pointer;
+}
+.creator-personarum-page .creator-cosmic-condition input {
+  margin-top: 0.28rem;
+  accent-color: var(--cp-green);
+}
+.creator-personarum-page .creator-cosmic-condition-copy {
+  display: grid;
+  gap: 0.3rem;
+  line-height: 1.28;
+}
+.creator-personarum-page .creator-cosmic-condition-copy strong {
+  color: var(--cp-green);
+  font-size: 1.15rem;
+}
+.creator-personarum-page .creator-cosmic-condition-copy span {
+  color: #65583f;
+  font-size: 1.02rem;
+}
+.creator-personarum-page .creator-cosmic-mark-detail {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  border-left: 3px solid var(--cp-gold);
+  background: rgba(255, 252, 240, 0.55);
+}
+.creator-personarum-page .creator-cosmic-mark-detail h3 {
+  margin: 0;
+  color: var(--cp-green);
+  font-size: 1.35rem;
+}
+.creator-personarum-page .creator-cosmic-mark-detail p {
+  margin: 0;
+  color: #65583f;
+  line-height: 1.3;
+}

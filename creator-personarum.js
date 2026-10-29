@@ -89,6 +89,9 @@
   const zodiacMarkSelect = document.getElementById('creator-zodiac-mark');
   const zodiacDetails = document.getElementById('creator-zodiac-details');
   const zodiacChoiceFields = document.getElementById('creator-zodiac-choice-fields');
+  const cosmicMarkConditions = document.getElementById('creator-cosmic-mark-conditions');
+  const cosmicMarkStatus = document.getElementById('creator-cosmic-mark-status');
+  const cosmicMarkChoiceFields = document.getElementById('creator-cosmic-mark-choice-fields');
   const draftForm = document.getElementById('creator-draft-form');
   const draftStatus = document.getElementById('creator-draft-status');
   const exportDraftButton = document.getElementById('creator-export-draft');
@@ -348,6 +351,150 @@
     }
   }
 
+  function readCosmicMarkSelection() {
+    if (!zodiacalMarksData || !Array.isArray(zodiacalMarksData.cosmic_marks)) return { marks: [], choices: {} };
+    const marks = Array.from(cosmicMarkConditions.querySelectorAll('input[data-cosmic-mark-id]:checked'))
+      .map(input => input.dataset.cosmicMarkId)
+      .filter(id => zodiacalMarksData.cosmic_marks.some(mark => mark.id === id));
+    const choices = {};
+    marks.forEach(markId => {
+      const cantripSelect = Array.from(cosmicMarkChoiceFields.querySelectorAll('select[data-cosmic-cantrip-choice]'))
+        .find(select => select.dataset.cosmicCantripChoice === markId);
+      const spellcastingAbilities = {};
+      Array.from(cosmicMarkChoiceFields.querySelectorAll('select[data-cosmic-spell-ability-mark]'))
+        .filter(select => select.dataset.cosmicSpellAbilityMark === markId)
+        .forEach(select => { if (select.dataset.cosmicSpell) spellcastingAbilities[select.dataset.cosmicSpell] = select.value; });
+      choices[markId] = { selectedCantrip: cantripSelect ? cantripSelect.value : '', spellcastingAbilities };
+    });
+    return { marks, choices };
+  }
+
+  function appendCosmicSelectField(container, id, labelText, options, selectedValue, required, placeholderText, datasets = {}) {
+    const label = document.createElement('label');
+    label.className = 'creator-field creator-field-wide';
+    label.htmlFor = id;
+    const title = document.createElement('span');
+    title.textContent = labelText;
+    label.appendChild(title);
+    const select = document.createElement('select');
+    select.id = id;
+    select.required = Boolean(required);
+    Object.entries(datasets).forEach(([key,value]) => { select.dataset[key] = value; });
+    if (placeholderText) {
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = placeholderText;
+      select.appendChild(placeholder);
+    }
+    options.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.value;
+      option.textContent = item.label;
+      select.appendChild(option);
+    });
+    select.value = selectedValue || '';
+    label.appendChild(select);
+    container.appendChild(label);
+    return select;
+  }
+
+  function renderCosmicMarkChoiceFields(savedChoices = {}) {
+    if (!zodiacalMarksData) return;
+    const selectedIds = Array.from(cosmicMarkConditions.querySelectorAll('input[data-cosmic-mark-id]:checked'))
+      .map(input => input.dataset.cosmicMarkId);
+    cosmicMarkChoiceFields.replaceChildren();
+    if (!selectedIds.length) {
+      cosmicMarkStatus.textContent = 'No se registró una marca cósmica excepcional. Solo marcá condiciones de nacimiento establecidas para el personaje.';
+      return;
+    }
+    cosmicMarkStatus.textContent = selectedIds.length > 1
+      ? 'Hay varias condiciones marcadas. El canon no especifica cómo resolver marcas cósmicas superpuestas; consultá a la dirección antes de finalizar o exportar.'
+      : 'Condición de nacimiento registrada. Completá la característica de lanzamiento de cada truco concedido.';
+    const isExplorer = currentMode === CREATION_MODES.explore;
+    selectedIds.forEach(markId => {
+      const mark = zodiacalMarksData.cosmic_marks.find(candidate => candidate.id === markId);
+      if (!mark) return;
+      const prior = savedChoices[markId] && typeof savedChoices[markId] === 'object' ? savedChoices[markId] : {};
+      const section = document.createElement('section');
+      section.className = 'creator-cosmic-mark-detail';
+      const heading = document.createElement('h3');
+      heading.textContent = mark.name_es;
+      section.appendChild(heading);
+      const condition = document.createElement('p');
+      condition.className = 'creator-cosmic-mark-condition';
+      condition.textContent = 'Condición: ' + mark.condition_es;
+      section.appendChild(condition);
+      if (mark.fixed_cantrips.length) {
+        const granted = document.createElement('p');
+        granted.textContent = 'Trucos concedidos: ' + mark.fixed_cantrips.join(', ') + '.';
+        section.appendChild(granted);
+      }
+      const chosenCantrip = prior.selectedCantrip || '';
+      if (mark.cantrip_choices.length) {
+        appendCosmicSelectField(section,'creator-cosmic-'+mark.id.replace(/[^a-z0-9]+/gi,'-')+'-cantrip',
+          'ELEGÍ EL TRUCO ADICIONAL CONCEDIDO',
+          mark.cantrip_choices.map(spell=>({value:spell,label:spell})),chosenCantrip,!isExplorer,
+          'Elegí uno de los trucos permitidos…',{cosmicCantripChoice:mark.id});
+      }
+      const spellsForAbility=[...mark.fixed_cantrips,...(chosenCantrip?[chosenCantrip]:[])];
+      spellsForAbility.forEach(spell=>{
+        const abilityId='creator-cosmic-'+mark.id.replace(/[^a-z0-9]+/gi,'-')+'-ability-'+spell.replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'');
+        const priorAbility=prior.spellcastingAbilities&&typeof prior.spellcastingAbilities==='object'
+          ? prior.spellcastingAbilities[spell]||'' : '';
+        appendCosmicSelectField(section,abilityId,'CARACTERÍSTICA DE LANZAMIENTO PARA '+spell.toUpperCase(),
+          zodiacalMarksData.spellcasting_ability.choices.map(option=>({value:option.value,label:option.label_es})),
+          priorAbility,!isExplorer,'Elegí Inteligencia, Sabiduría o Carisma…',
+          {cosmicSpellAbilityMark:mark.id,cosmicSpell:spell});
+      });
+      cosmicMarkChoiceFields.appendChild(section);
+    });
+  }
+
+  function renderCosmicMarkConditions(savedMarks=[],savedChoices={}) {
+    if (!zodiacalMarksData || !Array.isArray(zodiacalMarksData.cosmic_marks)) return;
+    const selected=new Set(Array.isArray(savedMarks)?savedMarks:[]);
+    cosmicMarkConditions.replaceChildren();
+    zodiacalMarksData.cosmic_marks.forEach(mark=>{
+      const label=document.createElement('label');
+      label.className='creator-cosmic-condition';
+      const input=document.createElement('input');
+      input.type='checkbox';
+      input.dataset.cosmicMarkId=mark.id;
+      input.value=mark.id;
+      input.checked=selected.has(mark.id);
+      const copy=document.createElement('span');
+      copy.className='creator-cosmic-condition-copy';
+      const title=document.createElement('strong');
+      title.textContent=mark.name_es;
+      const condition=document.createElement('span');
+      condition.textContent=mark.condition_es;
+      copy.appendChild(title);
+      copy.appendChild(condition);
+      label.appendChild(input);
+      label.appendChild(copy);
+      cosmicMarkConditions.appendChild(label);
+    });
+    renderCosmicMarkChoiceFields(savedChoices);
+  }
+
+  function buildCosmicMarkSummary(selection) {
+    if (!zodiacalMarksData || !selection || !Array.isArray(selection.marks)) return '';
+    const parts=[];
+    selection.marks.forEach(markId=>{
+      const mark=zodiacalMarksData.cosmic_marks.find(candidate=>candidate.id===markId);
+      if(!mark)return;
+      const choices=selection.choices&&selection.choices[markId]?selection.choices[markId]:{};
+      parts.push(mark.name_es+' (condición de nacimiento: '+mark.condition_es+')');
+      const spells=[...mark.fixed_cantrips,...(choices.selectedCantrip?[choices.selectedCantrip]:[])];
+      spells.forEach(spell=>{
+        const value=choices.spellcastingAbilities&&choices.spellcastingAbilities[spell];
+        const ability=zodiacalMarksData.spellcasting_ability.choices.find(option=>option.value===value);
+        parts.push(spell+': '+(ability?ability.label_es:'característica de lanzamiento pendiente'));
+      });
+    });
+    return parts.join('. ')+(parts.length?'.':'');
+  }
+
   async function loadZodiacalMarks() {
     try {
       const response = await fetch(ZODIACAL_MARKS_SOURCE_FILE, { cache: 'no-cache' });
@@ -355,7 +502,8 @@
       const data = await response.json();
       if (!data || !Array.isArray(data.signs) || data.signs.length !== 9
           || !data.spellcasting_ability || !Array.isArray(data.spellcasting_ability.choices)
-          || !Array.isArray(data.tool_options)) {
+          || !Array.isArray(data.tool_options)
+          || !Array.isArray(data.cosmic_marks) || data.cosmic_marks.length !== 3) {
         throw new Error('Unexpected zodiac data structure');
       }
       zodiacalMarksData = data;
@@ -378,6 +526,11 @@
         zodiacMarkSelect.value = restoredDraft.zodiacalMark;
       }
       updateZodiacMarkDetails(restoredDraft && restoredDraft.zodiacalChoices ? restoredDraft.zodiacalChoices : {});
+      renderCosmicMarkConditions(
+        restoredDraft && Array.isArray(restoredDraft.cosmicMarks) ? restoredDraft.cosmicMarks : [],
+        restoredDraft && restoredDraft.cosmicMarkChoices && typeof restoredDraft.cosmicMarkChoices === 'object'
+          ? restoredDraft.cosmicMarkChoices : {}
+      );
       if (currentMode && !draftStep.hidden) {
         const restoredValues = readFormValues();
         renderPreview(restoredValues);
@@ -386,6 +539,7 @@
     } catch (error) {
       zodiacMarkSelect.disabled = true;
       zodiacDetails.textContent = 'No se pudieron cargar las marcas zodiacales canónicas. No se mostrarán opciones genéricas.';
+      cosmicMarkStatus.textContent = 'No se pudieron cargar las marcas cósmicas canónicas.';
     }
   }
 
@@ -474,6 +628,7 @@
     zodiacMarkSelect.value = '';
     zodiacMarkSelect.required = currentMode !== CREATION_MODES.explore;
     updateZodiacMarkDetails({});
+    renderCosmicMarkConditions([], {});
     document.getElementById('creator-level').value = '1';
     nameInput.required = currentMode !== CREATION_MODES.explore;
     lineageSelect.required = currentMode !== CREATION_MODES.explore;
@@ -771,6 +926,8 @@
     const selectedZodiacMark = getSelectedZodiacMark();
     const zodiacalChoices = readZodiacalChoices();
     const zodiacalMarkSummary = buildZodiacalMarkSummary(selectedZodiacMark, zodiacalChoices);
+    const cosmicSelection = readCosmicMarkSelection();
+    const cosmicMarksSummary = buildCosmicMarkSummary(cosmicSelection);
     return {
       playerName: playerNameInput.value.trim(),
       name: nameInput.value.trim(),
@@ -795,6 +952,9 @@
       zodiacalMarkDomain: selectedZodiacMark ? selectedZodiacMark.domain_es : '',
       zodiacalMarkSummary,
       zodiacalChoices,
+      cosmicMarks: cosmicSelection.marks,
+      cosmicMarkChoices: cosmicSelection.choices,
+      cosmicMarksSummary,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
       deity: deitySelect.value,
@@ -885,6 +1045,8 @@
     document.getElementById('creator-preview-deity').textContent = values.deityName || 'A definir';
     document.getElementById('creator-preview-zodiac-row').hidden = !values.zodiacalMarkName;
     document.getElementById('creator-preview-zodiac').textContent = values.zodiacalMarkSummary || values.zodiacalMarkName || 'A definir';
+    document.getElementById('creator-preview-cosmic-row').hidden = !values.cosmicMarksSummary;
+    document.getElementById('creator-preview-cosmic').textContent = values.cosmicMarksSummary || 'A definir';
     const originName = values.originRegionName || (getSelectedOriginRegion() ? getSelectedOriginRegion().name : '');
     const originGroup = values.originContinent || (getSelectedOriginRegion() ? getSelectedOriginRegion().group : '');
     document.getElementById('creator-preview-origin-row').hidden = !originName;
@@ -1092,6 +1254,9 @@
       zodiacalMarkDomain: values.zodiacalMarkDomain,
       zodiacalMarkSummary: values.zodiacalMarkSummary,
       zodiacalChoices: values.zodiacalChoices,
+      cosmicMarks: values.cosmicMarks,
+      cosmicMarkChoices: values.cosmicMarkChoices,
+      cosmicMarksSummary: values.cosmicMarksSummary,
       level: values.level,
       concept: values.concept
     };
@@ -1110,7 +1275,7 @@
     inMemoryDrafts[currentMode] = buildDraftRecord(readFormValues());
   }
 
-  function validateCurrentDraft(values) {
+  function validateCurrentDraft(values, options = {}) {
     const levelInput = document.getElementById('creator-level');
 
     if (currentMode !== CREATION_MODES.explore
@@ -1124,6 +1289,11 @@
 
     if (currentMode !== CREATION_MODES.explore && !zodiacalMarksData) {
       setDraftStatus('No se pudieron cargar las marcas zodiacales canónicas; no se puede finalizar sin esa selección.', 'error');
+      return false;
+    }
+
+    if ((values.cosmicMarks || []).length > 1 && options.allowUnresolvedCosmicOverlap !== true) {
+      setDraftStatus('El canon no especifica cómo resolver marcas cósmicas superpuestas. El borrador puede guardarse, pero consultá a la dirección antes de finalizar o exportar.', 'error');
       return false;
     }
 
@@ -1341,7 +1511,7 @@
   function saveDraft(event) {
     event.preventDefault();
     const values = readFormValues();
-    if (!validateCurrentDraft(values)) return;
+    if (!validateCurrentDraft(values, { allowUnresolvedCosmicOverlap: true })) return;
     const draft = buildDraftRecord(values);
     draft.status = 'draft';
     draft.finalizedAt = null;
@@ -1528,6 +1698,7 @@
       ['Nivel elegido', Number.isInteger(draft.level) ? String(draft.level) : ''],
       ['Trasfondo', draft.background],
       ['Marca zodiacal y don', draft.zodiacalMarkSummary || draft.zodiacalMarkName],
+      ['Marcas cósmicas excepcionales', draft.cosmicMarksSummary],
       ['Dote', draft.feat],
       ['Fe o ideal', draft.deityName],
       ['Procedencia', origin],
@@ -1768,6 +1939,22 @@
     } else if (event.target && event.target.hasAttribute('data-zodiac-tool-choice')) {
       updateZodiacToolChoiceAvailability();
     }
+  });
+  cosmicMarkConditions.addEventListener('change', event => {
+    if (!event.target || !event.target.matches('input[data-cosmic-mark-id]')) return;
+    const current = readCosmicMarkSelection();
+    renderCosmicMarkChoiceFields(current.choices);
+    const values = readFormValues();
+    renderPreview(values);
+    publishCreatorPersonarumDraftChange(values);
+  });
+  cosmicMarkChoiceFields.addEventListener('change', event => {
+    if (event.target && event.target.matches('select[data-cosmic-cantrip-choice]')) {
+      renderCosmicMarkChoiceFields(readCosmicMarkSelection().choices);
+    }
+    const values = readFormValues();
+    renderPreview(values);
+    publishCreatorPersonarumDraftChange(values);
   });
 
   draftForm.addEventListener('submit', saveDraft);

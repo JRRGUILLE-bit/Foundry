@@ -347,5 +347,55 @@
       "label_es": "Vehículos acuáticos",
       "label_en": "Water Vehicles"
     }
-  ]
+  ],
+  "cosmic_marks": [
+    {
+      "id": "cosmic.solar_zenith",
+      "name_es": "El Cenit Solar",
+      "name_en": "The Solar Zenith",
+      "associated_entity_es": "Sol",
+      "associated_entity_en": "Sol",
+      "condition_es": "Nacidos de día, exactamente al mediodía del solsticio de verano.",
+      "condition_en": "Born during the day, exactly at noon on the summer solstice.",
+      "fixed_cantrips": [
+        "Light"
+      ],
+      "cantrip_choices": [
+        "Produce Flame",
+        "Fire Bolt"
+      ]
+    },
+    {
+      "id": "cosmic.shadow_nadir",
+      "name_es": "El Nadir de las Sombras",
+      "name_en": "The Shadow Nadir",
+      "associated_entity_es": "Tenebrae",
+      "associated_entity_en": "Tenebrae",
+      "condition_es": "Nacidos a medianoche durante la noche más larga del año.",
+      "condition_en": "Born at midnight during the longest night of the year.",
+      "fixed_cantrips": [
+        "Thaumaturgy"
+      ],
+      "cantrip_choices": [
+        "Chill Touch",
+        "Ray of Frost"
+      ]
+    },
+    {
+      "id": "cosmic.full_moon",
+      "name_es": "El Plenilunio",
+      "name_en": "The Full Moon",
+      "associated_entity_es": "Luna",
+      "associated_entity_en": "Luna",
+      "condition_es": "Nacidos de noche bajo la luz de la luna llena.",
+      "condition_en": "Born at night under the light of the full moon.",
+      "fixed_cantrips": [
+        "Minor Illusion",
+        "Guidance"
+      ],
+      "cantrip_choices": []
+    }
+  ],
+  "cosmic_mark_overlap_policy": "not_specified",
+  "cosmic_mark_assignment_method": "birth_condition"
 }
