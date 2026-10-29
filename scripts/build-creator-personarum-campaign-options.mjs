@@ -63,18 +63,25 @@ const sourceOf = record => record?.source_refs?.[0]?.source_id ?? "";
 
 function abilityGroups(mechanics) {
   const raw = mechanics?.ability_score_increase ?? {};
+  const fixed = Object.fromEntries(
+    Object.entries(raw)
+      .filter(([key, value]) => shortAbility[key] && Number.isFinite(value) && value > 0)
+      .map(([key, value]) => [shortAbility[key], value])
+  );
+  const groups = [];
+  if (Object.keys(fixed).length) groups.push(fixed);
+
   if (Number.isInteger(raw.choice_count) && Number.isInteger(raw.choice_amount)) {
-    return [{
+    groups.push({
       choose: {
         count: raw.choice_count,
         amount: raw.choice_amount,
         from: Object.values(shortAbility)
       }
-    }];
-  }
-  if (raw.choose && typeof raw.choose === "object") {
+    });
+  } else if (raw.choose && typeof raw.choose === "object") {
     const choice = raw.choose;
-    return [{
+    groups.push({
       choose: {
         count: Number.isInteger(choice.count) ? choice.count : 1,
         amount: Number.isInteger(choice.amount) ? choice.amount : 1,
@@ -82,14 +89,20 @@ function abilityGroups(mechanics) {
           ? choice.from.map(key => shortAbility[key] ?? key).filter(key => Object.values(shortAbility).includes(key))
           : []
       }
-    }];
+    });
   }
-  const fixed = Object.fromEntries(
-    Object.entries(raw)
-      .filter(([key, value]) => shortAbility[key] && Number.isFinite(value) && value > 0)
-      .map(([key, value]) => [shortAbility[key], value])
-  );
-  return Object.keys(fixed).length ? [fixed] : [];
+  return groups;
+}
+
+function speedData(mechanics) {
+  const speed = mechanics?.speed ?? null;
+  if (speed && typeof speed === "object") return speed;
+  if (!Number.isFinite(speed)) return speed;
+  const modes = { walk: speed };
+  for (const [field, mode] of [["fly_speed", "fly"], ["swim_speed", "swim"], ["climb_speed", "climb"], ["burrow_speed", "burrow"]]) {
+    if (Number.isFinite(mechanics[field])) modes[mode] = mechanics[field];
+  }
+  return Object.keys(modes).length === 1 ? speed : modes;
 }
 
 const records = [];
@@ -118,7 +131,7 @@ for (const option of origins.playable_options ?? []) {
     campaign_status: "approved",
     data_quality: option.rules_data_status,
     size: mechanics.size && sizeCode[mechanics.size] ? [sizeCode[mechanics.size]] : [],
-    speed: mechanics.speed ?? null,
+    speed: speedData(mechanics),
     darkvision: mechanics.darkvision ?? null,
     ability: abilityGroups(mechanics),
     languageProficiencies: languages.length
