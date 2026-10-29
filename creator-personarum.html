@@ -440,7 +440,10 @@
             <button type="button" id="creator-export-foundry-actor" class="creator-secondary-button" disabled>EXPORTAR ACTOR BASE</button>
           </div>
           <p id="creator-draft-status" class="creator-draft-status" role="status" aria-live="polite">
-            Los cambios se guardan cuando pulsás «Guardar borrador».
+            «Guardar borrador» conserva una copia en este navegador.
+          </p>
+          <p id="creator-sheets-sync-status" class="creator-draft-status" role="status" aria-live="polite" data-state="pending">
+            Google Sheets pendiente: falta configurar la URL del Web App de Creator Personarum.
           </p>
         </form>
 
@@ -478,7 +481,9 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261028-33"></script>
+  <script src="creator-personarum.js?v=20261029-1"></script>
   <script src="creator-personarum-catalog.js?v=20261029-1"></script>
+  <script src="creator-personarum-sheets-config.js?v=20261029-1"></script>
+  <script src="creator-personarum-sheets.js?v=20261029-1"></script>
 </body>
 </html>
