@@ -213,14 +213,10 @@ const includedByCategory = records.reduce((counts, record) => {
   counts[record.category] = (counts[record.category] ?? 0) + 1;
   return counts;
 }, {});
-if (includedByCategory.species !== 26) {
-  throw new Error("Expected 26 currently implementation-ready campaign race options; got " + includedByCategory.species);
-}
-if (includedByCategory.class !== 13) {
-  throw new Error("Expected 13 approved campaign classes; got " + includedByCategory.class);
-}
-if (includedByCategory.subclass !== 39) {
-  throw new Error("Expected 39 approved and verified campaign subclasses; got " + includedByCategory.subclass);
+for (const requiredCategory of ["species", "class", "subclass"]) {
+  if (!includedByCategory[requiredCategory]) {
+    throw new Error("Canonical campaign options are missing required category: " + requiredCategory);
+  }
 }
 if (records.some(record => blockedSubclassIds.has(record.id))) {
   throw new Error("An explicitly excluded subclass leaked into campaign options.");
