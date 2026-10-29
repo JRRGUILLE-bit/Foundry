@@ -145,6 +145,15 @@ El commit `349a188e58956ddf8de978456f9d41863afcaa37`, que elimina el recorte pre
 - La comprobación de estructura JSON pasó al crear y releer el archivo. El contrato todavía no está conectado al formulario: no se añadieron el selector/registro de jugadores, la carga de asignaciones ni la persistencia de esos datos. No se modificó `SESSION_LIVE`.
 - Requisito adicional pendiente: para personajes de nivel 2 o superior, mostrar opciones de multiclase solo cuando el personaje cumpla sus prerrequisitos. Esto requiere consultar las reglas Legacy/2014 y comprobar las características del personaje; no forma parte del contrato de asignación inicial.
 
+
+## Catálogo del creador limitado al canon de campaña (29/10/2026)
+
+- La interfaz consume `creator-personarum-data/campaign-options.json`, generado por `scripts/build-creator-personarum-campaign-options.mjs` a partir de `JRRGUILLE-bit/Firmamentum-Velatum`. El índice genérico de candidatos D&D ya no se usa como fuente de opciones del formulario.
+- El índice actual contiene 26 opciones raciales con reglas listas para implementación (aprobadas y con `ready`, `verified` o `mapped_core_ancestries`), 13 clases aprobadas, 39 subclases aprobadas/verificadas y 237 rasgos de subclase procedentes de las fichas canónicas. Excluye los registros no aprobados o con reglas pendientes y mantiene fuera las dos subclases prohibidas.
+- El formulario retira las listas estáticas genéricas de razas, clases y trasfondos. Si no puede cargar el índice de campaña, falla cerrado y no repone las opciones genéricas.
+- Todavía no existe un catálogo canónico completo listo para el creador de trasfondos, dotes, conjuros y rasgos de clase, ni un índice canónico de marcas zodiacales. Estos controles no se rellenan con el catálogo genérico. Hasta que esas categorías estén aprobadas y estructuradas en Firmamentum Velatum, la creación completa sigue pendiente.
+- QA está pendiente para esta integración; no se considera probado el flujo de navegador ni el asistente secuencial de creación.
+
 ## Guardrails
 
 - Usar el Atlas y el Codex como fuentes primarias; no inventar regiones, ciudades, cultos, patronos ni historia geopolítica.
