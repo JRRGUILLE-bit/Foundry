@@ -312,6 +312,8 @@ La portada enlaza a `creator-personarum.html`, una secuencia independiente para 
 
 Contrato de asignación previa definido en `docs/creator-personarum-player-assignment.schema.json`: nivel del Director y pool de seis resultados sin asignar. El selector de jugadores, la carga de asignaciones y el reparto de atributos aún no consumen el contrato. La multiclase para nivel 2+ queda como requisito pendiente, limitada a clases cuyos prerrequisitos cumpla el personaje.
 
+El formulario ya consume `creator-personarum-data/campaign-options.json`, generado desde el canon de `JRRGUILLE-bit/Firmamentum-Velatum`; no usa el catálogo genérico de candidatos como fuente de opciones. El índice actual cubre 26 opciones raciales listas para uso, 13 clases, 39 subclases y sus 237 rasgos registrados. Trasfondos, dotes, conjuros, rasgos de clase y marca zodiacal permanecen ocultos hasta contar con datos canónicos aprobados. El creador todavía no tiene el asistente secuencial ni el selector de asignación de jugador/nivel/tiradas.
+
 ---
 
 ## Pendientes conocidos
