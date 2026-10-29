@@ -142,7 +142,7 @@ for (const record of classes) {
   records.push({
     category: "class",
     id: record.id,
-    class_key: record.id.replace(/^class\\./, ""),
+    class_key: record.id.replace(/^class\./, ""),
     name: record.name.es,
     name_en: record.name.en,
     source: sourceOf(record),
@@ -170,7 +170,7 @@ for (const subclass of subclasses) {
   const parent = classById.get(subclass.class_id);
   if (!parent || parent.campaign_status !== "approved" || parent.data_quality !== "verified") continue;
 
-  const classKey = subclass.class_id.replace(/^class\\./, "");
+  const classKey = subclass.class_id.replace(/^class\./, "");
   const source = sourceOf(subclass);
   records.push({
     category: "subclass",
@@ -251,5 +251,5 @@ const result = {
 };
 
 fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + "\\n", "utf8");
+fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + "\n", "utf8");
 console.log(JSON.stringify({ output: outputPath, totals: result.totals }, null, 2));
