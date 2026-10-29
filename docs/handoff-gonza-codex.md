@@ -302,3 +302,11 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - `Summon Fiend` (TCE, opcional para Brujo y Mago) ahora aparece en ambas listas. El selector pide una forma y solo ofrece `Devil` o `Yugoloth`; no muestra `Demon`. Guarda la forma en `selectedSpells[].summonForm`, por lo que se conserva en borrador/restauración y JSON exportado; los registros restaurados sin forma permitida se descartan.
 - `Gate` no puede usarse para traer un demonio del Abismo; `Planar Ally` puede seguir usándose con celestial, elemental o un `fiend` infernal. `Infernal Calling` invoca un diablo de los Nueve Infiernos y está permitido por esta regla.
 - La nota de campaña se muestra para todas las clases. Se verificó sintaxis JS y contenido documental; no se ejecutó QA de navegador. Referencias y límites: `docs/creator-personarum-campaign-audit.md`.
+
+## Creator Personarum — asignación previa por jugador y multiclase (29/10/2026)
+
+- Contrato de asignación previa: `docs/creator-personarum-player-assignment.schema.json`. Define `assignmentId`, `playerId`, `playerName`, el nivel asignado por el Director y un pool de exactamente seis resultados con `rollId` y valor numérico.
+- Los resultados se conservan sin asignar a atributos. `abilityAssignments` permite guardar la distribución libre del jugador usando identificadores de resultado; al finalizar, la lógica consumidora debe comprobar que los seis `rollId` existen y no se reutilizan.
+- La comprobación de estructura JSON pasó al crear y releer el archivo. El contrato todavía no está conectado al formulario: no se añadieron el selector/registro de jugadores, la carga de asignaciones ni la persistencia de esos datos. No se modificó `SESSION_LIVE`.
+- Requisito adicional pendiente: para personajes de nivel 2 o superior, mostrar opciones de multiclase solo cuando el personaje cumpla sus prerrequisitos. Esto requiere consultar las reglas Legacy/2014 y comprobar las características del personaje; no forma parte del contrato de asignación inicial.
+
