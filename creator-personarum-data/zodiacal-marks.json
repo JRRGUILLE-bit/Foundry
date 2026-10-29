@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "ruleset_id": "dnd5e_2014",
+  "source_of_truth": {
+    "repository": "JRRGUILLE-bit/Firmamentum-Velatum",
+    "path": "character-data/campaign/zodiacal-marks-viride.json",
+    "status": "campaign_canon"
+  },
+  "assignment_method": "player_choice",
+  "spellcasting_ability": {
+    "choices": [
+      {
+        "value": "intelligence",
+        "label_es": "Inteligencia",
+        "label_en": "Intelligence"
+      },
+      {
+        "value": "wisdom",
+        "label_es": "Sabiduría",
+        "label_en": "Wisdom"
+      },
+      {
+        "value": "charisma",
+        "label_es": "Carisma",
+        "label_en": "Charisma"
+      }
+    ],
+    "choice_scope": "per_granted_cantrip",
+    "remains_fixed": true
+  },
+  "signs": [
+    {
+      "id": "zodiac.stag",
+      "name_es": "El Ciervo",
+      "name_en": "The Deer",
+      "domain_es": "Vida",
+      "domain_en": "Life",
+      "summary_es": "Obtenés el truco Spare the Dying y competencia en Medicina.",
+      "cantrip": "Spare the Dying",
+      "skill_proficiencies": [
+        "Medicine"
+      ]
+    },
+    {
+      "id": "zodiac.raven",
+      "name_es": "El Cuervo",
+      "name_en": "The Raven",
+      "domain_es": "Conocimiento",
+      "domain_en": "Knowledge",
+      "summary_es": "Obtenés competencia en Arcanos e Historia.",
+      "skill_proficiencies": [
+        "Arcana",
+        "History"
+      ]
+    },
+    {
+      "id": "zodiac.whale",
+      "name_es": "La Ballena",
+      "name_en": "The Whale",
+      "domain_es": "Tempestad",
+      "domain_en": "Tempest",
+      "summary_es": "Obtenés el truco Gust y una velocidad de nado igual a tu velocidad de movimiento base.",
+      "cantrip": "Gust",
+      "swim_speed": "equal_to_base_movement_speed"
+    },
+    {
+      "id": "zodiac.fox",
+      "name_es": "El Zorro",
+      "name_en": "The Fox",
+      "domain_es": "Engaño",
+      "domain_en": "Trickery",
+      "summary_es": "Obtenés competencia en Sigilo y Acrobacias.",
+      "skill_proficiencies": [
+        "Stealth",
+        "Acrobatics"
+      ]
+    },
+    {
+      "id": "zodiac.turtle",
+      "name_es": "La Tortuga",
+      "name_en": "The Turtle",
+      "domain_es": "Forja",
+      "domain_en": "Forge",
+      "summary_es": "Obtenés competencia con dos herramientas a tu elección.",
+      "tool_proficiency_count": 2
+    },
+    {
+      "id": "zodiac.horse",
+      "name_es": "El Caballo",
+      "name_en": "The Horse",
+      "domain_es": "Guerra",
+      "domain_en": "War",
+      "summary_es": "Tu velocidad de movimiento base aumenta en 5 pies y obtenés competencia en Atletismo.",
+      "skill_proficiencies": [
+        "Athletics"
+      ],
+      "base_speed_bonus_ft": 5
+    },
+    {
+      "id": "zodiac.dragon",
+      "name_es": "El Dragón",
+      "name_en": "The Dragon",
+      "domain_es": "Arcano",
+      "domain_en": "Arcane",
+      "summary_es": "Obtenés competencia en Arcanos y elegís un truco dañino entre las opciones indicadas.",
+      "skill_proficiencies": [
+        "Arcana"
+      ],
+      "cantrip_choices": [
+        "Fire Bolt",
+        "Frostbite",
+        "Poison Spray",
+        "Ray of Frost",
+        "Produce Flame",
+        "Shocking Grasp",
+        "Thunderclap"
+      ]
+    },
+    {
+      "id": "zodiac.rat",
+      "name_es": "La Rata",
+      "name_en": "The Rat",
+      "domain_es": "Tumba",
+      "domain_en": "Grave",
+      "summary_es": "Obtenés la capacidad de lanzar Find Familiar gratuitamente, sin coste de componentes ni oro. Se lanza como ritual (1 hora y 10 minutos), exclusivamente para convocar una rata y solo durante el mes en que domina la constelación de la Rata. Si el familiar muere, no podés convocar otro hasta el siguiente mes de la Rata.",
+      "special_spell": {
+        "name": "Find Familiar",
+        "free": true,
+        "components_cost": 0,
+        "gold_cost": 0,
+        "ritual": true,
+        "casting_time": "1 hour 10 minutes",
+        "familiar_form": "rat_only",
+        "availability_condition": "rat_month_only",
+        "resummon_condition": "next_rat_month"
+      }
+    },
+    {
+      "id": "zodiac.serpent",
+      "name_es": "La Serpiente",
+      "name_en": "The Serpent",
+      "domain_es": "Muerte",
+      "domain_en": "Death",
+      "summary_es": "Obtenés competencia en Intimidación y elegís Vicious Mockery o Acid Splash.",
+      "skill_proficiencies": [
+        "Intimidation"
+      ],
+      "cantrip_choices": [
+        "Vicious Mockery",
+        "Acid Splash"
+      ]
+    }
+  ],
+  "tool_options": [
+    {
+      "id": "alchemist-supplies",
+      "label_es": "Suministros de alquimista",
+      "label_en": "Alchemist's Supplies"
+    },
+    {
+      "id": "brewer-supplies",
+      "label_es": "Suministros de cervecero",
+      "label_en": "Brewer's Supplies"
+    },
+    {
+      "id": "calligrapher-supplies",
+      "label_es": "Suministros de calígrafo",
+      "label_en": "Calligrapher's Supplies"
+    },
+    {
+      "id": "carpenter-tools",
+      "label_es": "Herramientas de carpintero",
+      "label_en": "Carpenter's Tools"
+    },
+    {
+      "id": "cartographer-tools",
+      "label_es": "Herramientas de cartógrafo",
+      "label_en": "Cartographer's Tools"
+    },
+    {
+      "id": "cobbler-tools",
+      "label_es": "Herramientas de zapatero",
+      "label_en": "Cobbler's Tools"
+    },
+    {
+      "id": "cook-utensils",
+      "label_es": "Utensilios de cocinero",
+      "label_en": "Cook's Utensils"
+    },
+    {
+      "id": "glassblower-tools",
+      "label_es": "Herramientas de soplador de vidrio",
+      "label_en": "Glassblower's Tools"
+    },
+    {
+      "id": "jeweler-tools",
+      "label_es": "Herramientas de joyero",
+      "label_en": "Jeweler's Tools"
+    },
+    {
+      "id": "leatherworker-tools",
+      "label_es": "Herramientas de curtidor",
+      "label_en": "Leatherworker's Tools"
+    },
+    {
+      "id": "mason-tools",
+      "label_es": "Herramientas de albañil",
+      "label_en": "Mason's Tools"
+    },
+    {
+      "id": "painter-supplies",
+      "label_es": "Suministros de pintor",
+      "label_en": "Painter's Supplies"
+    },
+    {
+      "id": "potter-tools",
+      "label_es": "Herramientas de alfarero",
+      "label_en": "Potter's Tools"
+    },
+    {
+      "id": "smith-tools",
+      "label_es": "Herramientas de herrero",
+      "label_en": "Smith's Tools"
+    },
+    {
+      "id": "tinker-tools",
+      "label_es": "Herramientas de hojalatero",
+      "label_en": "Tinker's Tools"
+    },
+    {
+      "id": "weaver-tools",
+      "label_es": "Herramientas de tejedor",
+      "label_en": "Weaver's Tools"
+    },
+    {
+      "id": "woodcarver-tools",
+      "label_es": "Herramientas de tallista de madera",
+      "label_en": "Woodcarver's Tools"
+    },
+    {
+      "id": "disguise-kit",
+      "label_es": "Kit de disfraz",
+      "label_en": "Disguise Kit"
+    },
+    {
+      "id": "forgery-kit",
+      "label_es": "Kit de falsificación",
+      "label_en": "Forgery Kit"
+    },
+    {
+      "id": "herbalism-kit",
+      "label_es": "Kit de herborista",
+      "label_en": "Herbalism Kit"
+    },
+    {
+      "id": "navigator-tools",
+      "label_es": "Herramientas de navegante",
+      "label_en": "Navigator's Tools"
+    },
+    {
+      "id": "poisoner-kit",
+      "label_es": "Kit de envenenador",
+      "label_en": "Poisoner's Kit"
+    },
+    {
+      "id": "thieves-tools",
+      "label_es": "Herramientas de ladrón",
+      "label_en": "Thieves' Tools"
+    },
+    {
+      "id": "dice-set",
+      "label_es": "Juego de dados",
+      "label_en": "Dice Set"
+    },
+    {
+      "id": "dragonchess-set",
+      "label_es": "Juego de ajedrez dragón",
+      "label_en": "Dragonchess Set"
+    },
+    {
+      "id": "playing-card-set",
+      "label_es": "Baraja",
+      "label_en": "Playing Card Set"
+    },
+    {
+      "id": "three-dragon-ante-set",
+      "label_es": "Juego de apuesta de Tres Dragones",
+      "label_en": "Three-Dragon Ante Set"
+    },
+    {
+      "id": "bagpipes",
+      "label_es": "Gaita",
+      "label_en": "Bagpipes"
+    },
+    {
+      "id": "drum",
+      "label_es": "Tambor",
+      "label_en": "Drum"
+    },
+    {
+      "id": "dulcimer",
+      "label_es": "Dulcémele",
+      "label_en": "Dulcimer"
+    },
+    {
+      "id": "flute",
+      "label_es": "Flauta",
+      "label_en": "Flute"
+    },
+    {
+      "id": "lute",
+      "label_es": "Laúd",
+      "label_en": "Lute"
+    },
+    {
+      "id": "lyre",
+      "label_es": "Lira",
+      "label_en": "Lyre"
+    },
+    {
+      "id": "horn",
+      "label_es": "Cuerno",
+      "label_en": "Horn"
+    },
+    {
+      "id": "pan-flute",
+      "label_es": "Flauta de Pan",
+      "label_en": "Pan Flute"
+    },
+    {
+      "id": "shawm",
+      "label_es": "Chirimía",
+      "label_en": "Shawm"
+    },
+    {
+      "id": "viol",
+      "label_es": "Viola",
+      "label_en": "Viol"
+    },
+    {
+      "id": "land-vehicles",
+      "label_es": "Vehículos terrestres",
+      "label_en": "Land Vehicles"
+    },
+    {
+      "id": "water-vehicles",
+      "label_es": "Vehículos acuáticos",
+      "label_en": "Water Vehicles"
+    }
+  ]
+}
