@@ -1636,16 +1636,20 @@
 
   function validateCharacterIdentityForFinalization(values) {
     if (!values.name.trim()) {
+      focusCreatorWizardControl(nameInput);
       nameInput.setCustomValidity('Para finalizar, escribí el nombre del aventurero.');
       nameInput.reportValidity();
       nameInput.setCustomValidity('');
       return false;
     }
 
-    if (!values.lineageChoice) {
-      lineageSelect.setCustomValidity('Para finalizar, elegí un linaje.');
-      lineageSelect.reportValidity();
-      lineageSelect.setCustomValidity('');
+    if (!values.lineageChoice || !raceSelect.value) {
+      setKnownCharacterWizardStep(1, false);
+      const control = !raceSelect.value ? raceSelect : (subraceSelect && !subraceSelect.value ? subraceSelect : raceSelect);
+      control.setCustomValidity('Para finalizar, elegí la raza y su variante cuando corresponda.');
+      control.reportValidity();
+      control.setCustomValidity('');
+      focusCreatorWizardControl(control);
       return false;
     }
 
@@ -1657,6 +1661,7 @@
     }
 
     if (!values.characterClass) {
+      focusCreatorWizardControl(classSelect);
       classSelect.setCustomValidity('Para finalizar, elegí una clase.');
       classSelect.reportValidity();
       classSelect.setCustomValidity('');
