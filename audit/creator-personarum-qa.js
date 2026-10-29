@@ -171,6 +171,7 @@ assert.match(catalogRuntime, /No se muestran opciones genéricas/, 'Catalog load
 assert.match(runtime, /localStorage\.setItem/, 'The form must save a local draft');
 assert.match(runtime, /creator-personarum-personaje\.json/, 'Known-character drafts must be exportable as JSON');
 assert.match(runtime, /creator-personarum-exploracion\.json/, 'Exploration drafts must be exportable as JSON');
+assert.match(runtime, /No se puede finalizar ni exportar un personaje de nivel superior a 1/, 'Higher-level known-character export/finalization must stay blocked while level-by-level progression is incomplete');
 assert.match(styles, /\.creator-path-cards/, 'Both paths must have dedicated styling');
 assert.match(styles, /\.creator-interest-grid/, 'Exploration interests must have dedicated styling');
 assert.match(workflow, /creator-personarum-qa\.js/, 'Browser QA workflow must run the Creator Personarum checks');
