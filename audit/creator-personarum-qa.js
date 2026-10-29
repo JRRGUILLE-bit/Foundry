@@ -180,6 +180,7 @@ assert.match(page, /id="creator-zodiac-mark"/, 'Players must be able to choose t
 assert.match(page, /id="creator-zodiac-choice-fields"/, 'The mark-specific mechanical choices need a dedicated area');
 assert.match(page, /id="creator-preview-zodiac"/, 'The selected zodiac mark must appear in the character preview');
 assert.match(runtime, /function loadZodiacalMarks\(\)/, 'The creator must load the campaign-approved zodiac data');
+assert.match(runtime, /if \(currentMode && !draftStep\.hidden\) \{\s*const restoredValues = readFormValues\(\);\s*renderPreview\(restoredValues\);\s*publishCreatorPersonarumDraftChange\(restoredValues\);/s, 'Restored zodiac values must refresh the preview and autosave when canonical data loads asynchronously');
 assert.match(runtime, /zodiacalMark: values\.zodiacalMark/, 'Draft data must preserve the selected zodiac mark');
 assert.match(runtime, /zodiacalChoices: values\.zodiacalChoices/, 'Draft data must preserve cantrip, ability, and tool choices');
 assert.match(runtime, /creator-zodiac-spellcasting-ability/, 'Each granted cantrip must have a spellcasting ability selector');
