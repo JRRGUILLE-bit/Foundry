@@ -4,6 +4,7 @@
   const DRAFT_STORAGE_KEY = 'banda.creator-personarum.draft.v1';
   const PLAYER_NAME_STORAGE_KEY = 'banda.creator-personarum.player-name.v1';
   const ATLAS_SOURCE_FILE = 'fvtt-JournalEntry-atlas-revisado.json';
+  const ZODIACAL_MARKS_SOURCE_FILE = 'creator-personarum-data/zodiacal-marks.json';
   const ATLAS_REGION_SOURCES = [
     { page: 'Continente de Abigur', tag: 'h2', group: 'Abigur' },
     { page: 'Continente de Rala', tag: 'h2', group: 'Rala' },
@@ -85,6 +86,9 @@
   const deitySelect = document.getElementById('creator-deity');
   const deityDetails = document.getElementById('creator-deity-details');
   const deityGuidance = document.getElementById('creator-deity-guidance');
+  const zodiacMarkSelect = document.getElementById('creator-zodiac-mark');
+  const zodiacDetails = document.getElementById('creator-zodiac-details');
+  const zodiacChoiceFields = document.getElementById('creator-zodiac-choice-fields');
   const draftForm = document.getElementById('creator-draft-form');
   const draftStatus = document.getElementById('creator-draft-status');
   const exportDraftButton = document.getElementById('creator-export-draft');
@@ -101,6 +105,7 @@
   let atlasRegions = [];
   let atlasLoaded = false;
   let atlasLoading = true;
+  let zodiacalMarksData = null;
 
   function showWelcome() {
     if (playerNameInput && !playerNameInput.value.trim()) {
@@ -194,6 +199,191 @@
     });
   }
 
+  function getSelectedZodiacMark() {
+    return zodiacalMarksData && Array.isArray(zodiacalMarksData.signs)
+      ? zodiacalMarksData.signs.find(sign => sign.id === zodiacMarkSelect.value) || null
+      : null;
+  }
+
+  function readZodiacalChoices() {
+    const mark = getSelectedZodiacMark();
+    if (!mark) return { cantrip: '', spellcastingAbility: '', tools: [] };
+    const cantripSelect = document.getElementById('creator-zodiac-cantrip-choice');
+    const abilitySelect = document.getElementById('creator-zodiac-spellcasting-ability');
+    const tools = Array.from(zodiacChoiceFields.querySelectorAll('select[data-zodiac-tool-choice]'))
+      .map(select => select.value)
+      .filter(Boolean);
+    return {
+      cantrip: mark.cantrip || (cantripSelect ? cantripSelect.value : ''),
+      spellcastingAbility: abilitySelect ? abilitySelect.value : '',
+      tools
+    };
+  }
+
+  function buildZodiacalMarkSummary(mark, choices) {
+    if (!mark) return '';
+    const parts = [mark.name_es + ': ' + mark.summary_es];
+    const cantrip = choices && choices.cantrip;
+    if (cantrip) {
+      parts.push('Truco elegido: ' + cantrip + '.');
+      const ability = zodiacalMarksData.spellcasting_ability.choices
+        .find(option => option.value === choices.spellcastingAbility);
+      if (ability) parts.push('Característica de lanzamiento fija: ' + ability.label_es + '.');
+    }
+    if (mark.tool_proficiency_count === 2 && choices && Array.isArray(choices.tools)) {
+      const names = choices.tools.map(id => {
+        const tool = zodiacalMarksData.tool_options.find(option => option.id === id);
+        return tool ? tool.label_es : '';
+      }).filter(Boolean);
+      if (names.length) parts.push('Herramientas elegidas: ' + names.join(', ') + '.');
+    }
+    return parts.join(' ');
+  }
+
+  function appendZodiacSelectField(id, labelText, options, selectedValue, required, placeholderText, dataAttribute) {
+    const label = document.createElement('label');
+    label.className = 'creator-field creator-field-wide';
+    label.htmlFor = id;
+    const title = document.createElement('span');
+    title.textContent = labelText;
+    label.appendChild(title);
+    const select = document.createElement('select');
+    select.id = id;
+    select.required = Boolean(required);
+    if (dataAttribute) select.setAttribute(dataAttribute, 'true');
+    if (placeholderText) {
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = placeholderText;
+      select.appendChild(placeholder);
+    }
+    options.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.value;
+      option.textContent = item.label;
+      select.appendChild(option);
+    });
+    select.value = selectedValue || '';
+    label.appendChild(select);
+    zodiacChoiceFields.appendChild(label);
+    return select;
+  }
+
+  function updateZodiacToolChoiceAvailability() {
+    const selects = Array.from(zodiacChoiceFields.querySelectorAll('select[data-zodiac-tool-choice]'));
+    selects.forEach(select => {
+      const other = selects.find(candidate => candidate !== select);
+      Array.from(select.options).forEach(option => {
+        if (!option.value) return;
+        option.disabled = Boolean(other && other.value === option.value && select.value !== option.value);
+      });
+    });
+  }
+
+  function updateZodiacMarkDetails(savedChoices = {}) {
+    if (!zodiacalMarksData) return;
+    const mark = getSelectedZodiacMark();
+    zodiacChoiceFields.replaceChildren();
+    if (!mark) {
+      zodiacDetails.textContent = 'Elegí una marca para consultar el don y las elecciones que corresponden.';
+      return;
+    }
+    zodiacDetails.textContent = mark.summary_es;
+    const isExplorer = currentMode === CREATION_MODES.explore;
+    const choices = savedChoices && typeof savedChoices === 'object' ? savedChoices : {};
+    let chosenCantrip = mark.cantrip || '';
+
+    if (Array.isArray(mark.cantrip_choices) && mark.cantrip_choices.length) {
+      appendZodiacSelectField(
+        'creator-zodiac-cantrip-choice',
+        'ELEGÍ EL TRUCO CONCEDIDO',
+        mark.cantrip_choices.map(spell => ({ value: spell, label: spell })),
+        choices.cantrip,
+        !isExplorer,
+        'Elegí uno de los trucos permitidos…'
+      );
+      chosenCantrip = choices.cantrip || '';
+    }
+
+    if (chosenCantrip) {
+      appendZodiacSelectField(
+        'creator-zodiac-spellcasting-ability',
+        'CARACTERÍSTICA DE LANZAMIENTO PARA ' + chosenCantrip.toUpperCase(),
+        zodiacalMarksData.spellcasting_ability.choices.map(option => ({
+          value: option.value,
+          label: option.label_es
+        })),
+        choices.spellcastingAbility,
+        !isExplorer,
+        'Elegí Inteligencia, Sabiduría o Carisma…'
+      );
+    }
+
+    if (mark.tool_proficiency_count === 2) {
+      const language = document.getElementById('creator-skill-language')?.value === 'en' ? 'en' : 'es';
+      const toolOptions = zodiacalMarksData.tool_options.map(tool => ({
+        value: tool.id,
+        label: language === 'en' ? tool.label_en : tool.label_es
+      }));
+      const selectedTools = Array.isArray(choices.tools) ? choices.tools : [];
+      appendZodiacSelectField(
+        'creator-zodiac-tool-1',
+        'PRIMERA HERRAMIENTA',
+        toolOptions,
+        selectedTools[0],
+        !isExplorer,
+        'Elegí una herramienta…',
+        'data-zodiac-tool-choice'
+      );
+      appendZodiacSelectField(
+        'creator-zodiac-tool-2',
+        'SEGUNDA HERRAMIENTA',
+        toolOptions,
+        selectedTools[1],
+        !isExplorer,
+        'Elegí otra herramienta distinta…',
+        'data-zodiac-tool-choice'
+      );
+      updateZodiacToolChoiceAvailability();
+    }
+  }
+
+  async function loadZodiacalMarks() {
+    try {
+      const response = await fetch(ZODIACAL_MARKS_SOURCE_FILE, { cache: 'no-cache' });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const data = await response.json();
+      if (!data || !Array.isArray(data.signs) || data.signs.length !== 9
+          || !data.spellcasting_ability || !Array.isArray(data.spellcasting_ability.choices)
+          || !Array.isArray(data.tool_options)) {
+        throw new Error('Unexpected zodiac data structure');
+      }
+      zodiacalMarksData = data;
+      zodiacMarkSelect.replaceChildren();
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = 'Elegí tu marca zodiacal…';
+      zodiacMarkSelect.appendChild(placeholder);
+      data.signs.forEach(sign => {
+        if (!sign.id || !sign.name_es || !sign.summary_es) throw new Error('Incomplete zodiac mark');
+        const option = document.createElement('option');
+        option.value = sign.id;
+        option.textContent = sign.name_es + ' — ' + sign.domain_es;
+        zodiacMarkSelect.appendChild(option);
+      });
+      zodiacMarkSelect.disabled = false;
+      zodiacMarkSelect.required = Boolean(currentMode && currentMode !== CREATION_MODES.explore);
+      const restoredDraft = savedDraft || (currentMode ? inMemoryDrafts[currentMode] : null);
+      if (restoredDraft && typeof restoredDraft.zodiacalMark === 'string') {
+        zodiacMarkSelect.value = restoredDraft.zodiacalMark;
+      }
+      updateZodiacMarkDetails(restoredDraft && restoredDraft.zodiacalChoices ? restoredDraft.zodiacalChoices : {});
+    } catch (error) {
+      zodiacMarkSelect.disabled = true;
+      zodiacDetails.textContent = 'No se pudieron cargar las marcas zodiacales canónicas. No se mostrarán opciones genéricas.';
+    }
+  }
+
   function getSelectedDeity() {
     return DIVINE_OPTIONS.find(item => item.value === deitySelect.value) || null;
   }
@@ -237,6 +427,7 @@
     nameInput.required = !isExplorer;
     lineageSelect.required = !isExplorer;
     classSelect.required = !isExplorer;
+    zodiacMarkSelect.required = !isExplorer;
 
     if (isExplorer) {
       draftEyebrow.textContent = 'CAMINO 02 // EXPLORAR EL MUNDO';
@@ -275,6 +466,9 @@
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-lineage-skills'));
     classSelect.dispatchEvent(new Event('change', { bubbles: true }));
     updateCustomLineageField();
+    zodiacMarkSelect.value = '';
+    zodiacMarkSelect.required = currentMode !== CREATION_MODES.explore;
+    updateZodiacMarkDetails({});
     document.getElementById('creator-level').value = '1';
     nameInput.required = currentMode !== CREATION_MODES.explore;
     lineageSelect.required = currentMode !== CREATION_MODES.explore;
@@ -569,6 +763,9 @@
           summary: selectedOriginRegion.summary
         }
       : savedOriginContext;
+    const selectedZodiacMark = getSelectedZodiacMark();
+    const zodiacalChoices = readZodiacalChoices();
+    const zodiacalMarkSummary = buildZodiacalMarkSummary(selectedZodiacMark, zodiacalChoices);
     return {
       playerName: playerNameInput.value.trim(),
       name: nameInput.value.trim(),
@@ -588,6 +785,11 @@
       selectedLineageSkills,
       selectedLineageAbilities,
       background: document.getElementById('creator-background').value,
+      zodiacalMark: selectedZodiacMark ? selectedZodiacMark.id : '',
+      zodiacalMarkName: selectedZodiacMark ? selectedZodiacMark.name_es : '',
+      zodiacalMarkDomain: selectedZodiacMark ? selectedZodiacMark.domain_es : '',
+      zodiacalMarkSummary,
+      zodiacalChoices,
       level: Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
       deity: deitySelect.value,
@@ -676,6 +878,8 @@
       skillLanguage === 'en' ? 'SELECTED SKILLS' : 'HABILIDADES ELEGIDAS';
     document.getElementById('creator-preview-deity-row').hidden = !values.deityName;
     document.getElementById('creator-preview-deity').textContent = values.deityName || 'A definir';
+    document.getElementById('creator-preview-zodiac-row').hidden = !values.zodiacalMarkName;
+    document.getElementById('creator-preview-zodiac').textContent = values.zodiacalMarkSummary || values.zodiacalMarkName || 'A definir';
     const originName = values.originRegionName || (getSelectedOriginRegion() ? getSelectedOriginRegion().name : '');
     const originGroup = values.originContinent || (getSelectedOriginRegion() ? getSelectedOriginRegion().group : '');
     document.getElementById('creator-preview-origin-row').hidden = !originName;
@@ -765,6 +969,8 @@
       deitySelect.value = draft.deity || '';
       const backgroundSelect = document.getElementById('creator-background');
       backgroundSelect.value = draft.background || '';
+      zodiacMarkSelect.value = typeof draft.zodiacalMark === 'string' ? draft.zodiacalMark : '';
+      updateZodiacMarkDetails(draft.zodiacalChoices || {});
       backgroundSelect.dispatchEvent(new Event('change', { bubbles: true }));
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-background-skills', {
         detail: {
@@ -876,6 +1082,11 @@
       deity: values.deity,
       deityName: values.deityName,
       background: values.background,
+      zodiacalMark: values.zodiacalMark,
+      zodiacalMarkName: values.zodiacalMarkName,
+      zodiacalMarkDomain: values.zodiacalMarkDomain,
+      zodiacalMarkSummary: values.zodiacalMarkSummary,
+      zodiacalChoices: values.zodiacalChoices,
       level: values.level,
       concept: values.concept
     };
@@ -907,6 +1118,23 @@
     }
 
     if (!draftForm.reportValidity()) return false;
+
+    const selectedZodiacMark = getSelectedZodiacMark();
+    if (currentMode !== CREATION_MODES.explore && selectedZodiacMark
+        && selectedZodiacMark.tool_proficiency_count === 2) {
+      const chosenTools = values.zodiacalChoices && Array.isArray(values.zodiacalChoices.tools)
+        ? values.zodiacalChoices.tools : [];
+      if (chosenTools.length !== 2 || chosenTools[0] === chosenTools[1]) {
+        setDraftStatus('Elegí dos herramientas distintas para la marca de la Tortuga.', 'error');
+        const secondTool = document.getElementById('creator-zodiac-tool-2');
+        if (secondTool) {
+          secondTool.setCustomValidity('Las dos herramientas deben ser distintas.');
+          secondTool.reportValidity();
+          secondTool.setCustomValidity('');
+        }
+        return false;
+      }
+    }
 
     if (!Number.isInteger(values.level) || values.level < 1 || values.level > 20) {
       levelInput.setCustomValidity('El nivel debe estar entre 1 y 20.');
@@ -1289,6 +1517,7 @@
       ['Subclase', draft.subclass],
       ['Nivel elegido', Number.isInteger(draft.level) ? String(draft.level) : ''],
       ['Trasfondo', draft.background],
+      ['Marca zodiacal y don', draft.zodiacalMarkSummary || draft.zodiacalMarkName],
       ['Dote', draft.feat],
       ['Fe o ideal', draft.deityName],
       ['Procedencia', origin],
@@ -1522,6 +1751,14 @@
     updateDeityDetails();
     renderPreview(readFormValues());
   });
+  zodiacMarkSelect.addEventListener('change', () => updateZodiacMarkDetails({}));
+  zodiacChoiceFields.addEventListener('change', event => {
+    if (event.target && event.target.id === 'creator-zodiac-cantrip-choice') {
+      updateZodiacMarkDetails(readZodiacalChoices());
+    } else if (event.target && event.target.hasAttribute('data-zodiac-tool-choice')) {
+      updateZodiacToolChoiceAvailability();
+    }
+  });
 
   draftForm.addEventListener('submit', saveDraft);
   finishCharacterButton.addEventListener('click', toggleCharacterFinalization);
@@ -1540,6 +1777,7 @@
 
   initialiseDivineOptions();
   void loadAtlasRegions();
+  void loadZodiacalMarks();
   introVideo.muted = true;
   outroVideo.muted = true;
   renderPreview(null);
