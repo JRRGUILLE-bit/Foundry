@@ -143,5 +143,5 @@
     queueDraft(event.detail && event.detail.draft);
   });
 
-  setStatus('Google Sheets conectado; esperando cambios del personaje.', 'idle');
+  setStatus('URL de Google Sheets configurada; esperando cambios del personaje.', 'idle');
 })();
