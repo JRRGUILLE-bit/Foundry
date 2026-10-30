@@ -990,6 +990,7 @@
     if (levelInput) {
       levelInput.value = '1';
       levelInput.readOnly = currentMode === CREATION_MODES.known;
+      levelInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
     assignmentSummary.hidden = true;
     assignmentRollList.replaceChildren();
@@ -1076,8 +1077,10 @@
       };
       draftAssignmentSnapshot = JSON.parse(JSON.stringify(loadedPlayerAssignment));
       assignmentPlayerSelect.disabled = false;
-      document.getElementById('creator-level').value = String(loadedPlayerAssignment.level);
-      document.getElementById('creator-level').readOnly = true;
+      const assignedLevelInput = document.getElementById('creator-level');
+      assignedLevelInput.value = String(loadedPlayerAssignment.level);
+      assignedLevelInput.readOnly = true;
+      assignedLevelInput.dispatchEvent(new Event('input', { bubbles: true }));
       playerNameInput.value = loadedPlayerAssignment.playerName;
       try {
         window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, loadedPlayerAssignment.playerName);
