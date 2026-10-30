@@ -10,14 +10,10 @@ Este repositorio fue trabajado anteriormente desde otra cuenta de ChatGPT. El hi
 2. Leé `AGENTS.md` completo.
 3. Leé `README.md` completo.
 4. Leé `docs/handoff-gonza-codex.md`.
-5. Verificá el estado actual de `main`, PRs abiertos/cerrados e issues abiertas/cerradas. No asumas que una fecha escrita en la documentación sigue siendo el estado más reciente.
-6. Recién después respondé a Gonza con un resumen corto de:
-   - qué está efectivamente terminado;
-   - qué sigue pendiente;
-   - si hay PRs abiertos;
-   - qué issues siguen activas;
-   - qué QA existe y cuál corresponde al próximo cambio.
-7. No hagas cambios hasta que Gonza te diga qué quiere hacer.
+5. Leé **`docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md` completo**. Este documento contiene la orden vigente para continuar Creator Personarum.
+6. Verificá el estado actual de `main`, PRs abiertos/cerrados e issues abiertas/cerradas. No asumas que una fecha escrita en la documentación sigue siendo el estado más reciente.
+7. Si el usuario dice «revisá lo que hay para hacer en la repo» o equivalente, interpretá esa indicación junto con la orden de Creator Personarum: revisá el estado real y **continuá el trabajo de implementación mecánica** descrito allí. No te limites a entregar una auditoría o una lista de sugerencias.
+8. No hagas cambios ajenos a esa orden. Para Creator Personarum, verificá cada cambio y documentá qué quedó hecho y qué sigue pendiente.
 
 ## Contexto mínimo que tenés que saber
 
