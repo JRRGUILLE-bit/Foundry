@@ -2542,32 +2542,49 @@
     }
 
     const values = readFormValues();
+    const english = getCreatorLanguage() === 'en';
+    const displayValue = select => select?.selectedOptions?.[0]?.textContent || select?.value || '';
+    const lineageDisplay = values.lineageChoice === 'Otro / personalizado'
+      ? values.customLineage
+      : displayValue(lineageSelect) || values.lineage;
+    const classDisplay = displayValue(classSelect) || values.characterClass;
+    const subclassDisplay = displayValue(subclassSelect) || values.subclass;
+    const backgroundDisplay = displayValue(document.getElementById('creator-background')) || values.background;
+    const featDisplay = displayValue(featSelect) || values.feat;
     const paragraphs = [];
-    if (values.name) paragraphs.push('Me llamo ' + values.name + '.');
-    paragraphs.push('Mi historia comienza en ' + region.name + ', en ' + region.group + '.');
+    if (values.name) paragraphs.push(english ? 'My name is ' + values.name + '.' : 'Me llamo ' + values.name + '.');
+    paragraphs.push(english
+      ? 'My story begins in ' + region.name + ', in ' + region.group + '.'
+      : 'Mi historia comienza en ' + region.name + ', en ' + region.group + '.');
     const explorationLabel = explorationFocus ? getExplorationLabel(explorationFocus) : '';
     if (explorationLabel) {
-      paragraphs.push('La primera pista que despertó mi curiosidad fue: ' + explorationLabel + '.');
+      const translatedClue = english && window.creatorPersonarumTranslateText
+        ? window.creatorPersonarumTranslateText(explorationLabel) : explorationLabel;
+      paragraphs.push(english ? 'The first clue that sparked my curiosity was: ' + translatedClue + '.' :
+        'La primera pista que despertó mi curiosidad fue: ' + explorationLabel + '.');
     }
-    if (region.summary) {
-      paragraphs.push('El registro canónico de la ciudad indica: ' + region.summary);
+    const citySummary = english ? (region.summaryEn || region.summary) : region.summary;
+    if (citySummary) {
+      paragraphs.push(english ? 'The canonical city record states: ' + citySummary :
+        'El registro canónico de la ciudad indica: ' + citySummary);
     }
-    if (values.lineage) paragraphs.push('Mi linaje es ' + values.lineage + '.');
-    if (values.characterClass) {
-      paragraphs.push('He elegido el camino de ' + values.characterClass +
-        (values.subclass ? ', por la senda de ' + values.subclass : '') + '.');
+    if (lineageDisplay) paragraphs.push(english ? 'My lineage is ' + lineageDisplay + '.' : 'Mi linaje es ' + lineageDisplay + '.');
+    if (classDisplay) {
+      paragraphs.push(english ? 'I have chosen the path of ' + classDisplay +
+        (subclassDisplay ? ', following the way of ' + subclassDisplay : '') + '.' :
+        'He elegido el camino de ' + classDisplay + (subclassDisplay ? ', por la senda de ' + subclassDisplay : '') + '.');
     }
-    if (values.background) paragraphs.push('Mi trasfondo es ' + values.background + '.');
-    if (values.feat) paragraphs.push('Una de mis aptitudes destacadas es la dote ' + values.feat + '.');
-    if (values.deityName) paragraphs.push('Mi fe o ideal se vincula con ' + values.deityName + '.');
-    if (values.concept) {
-      paragraphs.push('Hay algo que guía mis pasos: ' + values.concept);
-    }
-    paragraphs.push('El resto de mi historia todavía está por escribirse.');
+    if (backgroundDisplay) paragraphs.push(english ? 'My background is ' + backgroundDisplay + '.' : 'Mi trasfondo es ' + backgroundDisplay + '.');
+    if (featDisplay) paragraphs.push(english ? 'One of my notable talents is the feat ' + featDisplay + '.' :
+      'Una de mis aptitudes destacadas es la dote ' + featDisplay + '.');
+    if (values.deityName) paragraphs.push(english ? 'My faith or ideals are connected to ' + values.deityName + '.' :
+      'Mi fe o ideal se vincula con ' + values.deityName + '.');
+    if (values.concept) paragraphs.push(english ? 'Something guides my steps: ' + values.concept : 'Hay algo que guía mis pasos: ' + values.concept);
+    paragraphs.push(english ? 'The rest of my story has yet to be written.' : 'El resto de mi historia todavía está por escribirse.');
 
     const maxStoryLength = storyField.maxLength > 0 ? storyField.maxLength : 2000;
-    const atlasParagraphPrefix = 'El registro canónico de la ciudad indica: ';
-    const conceptParagraphPrefix = 'Hay algo que guía mis pasos: ';
+    const atlasParagraphPrefix = english ? 'The canonical city record states: ' : 'El registro canónico de la ciudad indica: ';
+    const conceptParagraphPrefix = english ? 'Something guides my steps: ' : 'Hay algo que guía mis pasos: ';
     let proposedStory = paragraphs.join('\n\n');
 
     // If the proposal exceeds the field limit, shorten descriptive prose first
