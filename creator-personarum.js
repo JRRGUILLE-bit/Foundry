@@ -1044,6 +1044,10 @@
     assignmentRosterReady = true;
     assignmentPlayerSelect.disabled = false;
     assignmentLoadButton.disabled = !assignmentPlayerSelect.value;
+    if (preferredPlayerId) {
+      restoreDraft(preferredPlayerId);
+      setKnownCharacterWizardStep(currentKnownWizardStep, false);
+    }
     restoreOriginCityForCurrentPlayer();
   }
 
