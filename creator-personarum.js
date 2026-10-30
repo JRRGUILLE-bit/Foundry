@@ -1834,6 +1834,12 @@
           skills: Array.isArray(draft.selectedBackgroundSkills) ? draft.selectedBackgroundSkills : []
         }
       }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:restore-background-equipment', {
+        detail: {
+          selected: draft.selectedBackgroundEquipment && typeof draft.selectedBackgroundEquipment === 'object' && !Array.isArray(draft.selectedBackgroundEquipment)
+            ? draft.selectedBackgroundEquipment : {}
+        }
+      }));
       lineageSelect.dispatchEvent(new Event('change', { bubbles: true }));
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-lineage-skills', {
         detail: {
