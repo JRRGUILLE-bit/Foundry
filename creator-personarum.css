@@ -322,6 +322,31 @@
   text-decoration: underline;
 }
 
+.creator-language-toggle {
+  border: 1px solid var(--cp-rule, #9c875b);
+  border-radius: 2px;
+  padding: 0.48rem 0.85rem;
+  color: var(--cp-ink, #29251b);
+  background: transparent;
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.creator-language-toggle:hover,
+.creator-language-toggle:focus-visible {
+  color: #f5ecd6;
+  background: #3c4935;
+  border-color: #3c4935;
+}
+
+.creator-language-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
 .creator-workspace-intro {
   max-width: 1240px;
   margin: clamp(2rem, 6vh, 4.3rem) auto 1.8rem;
