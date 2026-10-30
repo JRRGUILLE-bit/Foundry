@@ -14,7 +14,8 @@
     "character-data/rules/subclasses/subclasses.json",
     "character-data/campaign/excluded-subclass-records.json",
     "character-data/rules/backgrounds/backgrounds.json",
-    "character-data/campaign/background-decisions.json"
+    "character-data/campaign/background-decisions.json",
+    "character-data/rules/languages/languages.json"
   ],
   "policy": {
     "only_approved_campaign_options": true,
@@ -34,16 +35,19 @@
     ],
     "categories_without_canonical_approval_data_are_omitted": true,
     "background_options_require_explicit_campaign_decisions": true,
-    "background_mechanics_quality_is_preserved_without_auto_verification": true
+    "background_mechanics_quality_is_preserved_without_auto_verification": true,
+    "language_options_require_canonical_approval": true,
+    "abyssal_available_to_players": true
   },
   "totals": {
-    "included_records": 372,
+    "included_records": 392,
     "included_by_category": {
       "background": 53,
       "class": 13,
       "species": 30,
       "subclass": 39,
-      "subclass_feature": 237
+      "subclass_feature": 237,
+      "language": 20
     }
   },
   "records": [
@@ -23302,6 +23306,448 @@
       ],
       "campaign_status": "approved",
       "data_quality": "verified"
+    },
+    {
+      "category": "language",
+      "id": "language.common",
+      "name": "Common",
+      "name_en": "Common",
+      "name_es": "Común",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.dwarvish",
+      "name": "Dwarvish",
+      "name_en": "Dwarvish",
+      "name_es": "Enano",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.elvish",
+      "name": "Elvish",
+      "name_en": "Elvish",
+      "name_es": "Élfico",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.giant",
+      "name": "Giant",
+      "name_en": "Giant",
+      "name_es": "Gigante",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.gnomish",
+      "name": "Gnomish",
+      "name_en": "Gnomish",
+      "name_es": "Gnómico",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.goblin",
+      "name": "Goblin",
+      "name_en": "Goblin",
+      "name_es": "Goblin",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.halfling",
+      "name": "Halfling",
+      "name_en": "Halfling",
+      "name_es": "Mediano",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.orc",
+      "name": "Orc",
+      "name_en": "Orc",
+      "name_es": "Orco",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.draconic",
+      "name": "Draconic",
+      "name_en": "Draconic",
+      "name_es": "Dracónico",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.infernal",
+      "name": "Infernal",
+      "name_en": "Infernal",
+      "name_es": "Infernal",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar",
+      "planar_affinity": [
+        "infernal"
+      ],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.celestial",
+      "name": "Celestial",
+      "name_en": "Celestial",
+      "name_es": "Celestial",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar",
+      "planar_affinity": [
+        "celestial"
+      ],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.primordial",
+      "name": "Primordial",
+      "name_en": "Primordial",
+      "name_es": "Primordial",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar",
+      "planar_affinity": [
+        "elemental"
+      ],
+      "dialect_of": null,
+      "dialect_family_id": "language.primordial",
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.aquan",
+      "name": "Aquan",
+      "name_en": "Aquan",
+      "name_es": "Acuano",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        },
+        {
+          "source_id": "source.mtof.2018",
+          "page": 63
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar_dialect",
+      "planar_affinity": [
+        "elemental"
+      ],
+      "dialect_of": "language.primordial",
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.auran",
+      "name": "Auran",
+      "name_en": "Auran",
+      "name_es": "Auran",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar_dialect",
+      "planar_affinity": [
+        "elemental"
+      ],
+      "dialect_of": "language.primordial",
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.ignan",
+      "name": "Ignan",
+      "name_en": "Ignan",
+      "name_es": "Ignano",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar_dialect",
+      "planar_affinity": [
+        "elemental"
+      ],
+      "dialect_of": "language.primordial",
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.terran",
+      "name": "Terran",
+      "name_en": "Terran",
+      "name_es": "Terrano",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar_dialect",
+      "planar_affinity": [
+        "elemental"
+      ],
+      "dialect_of": "language.primordial",
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.sylvan",
+      "name": "Sylvan",
+      "name_en": "Sylvan",
+      "name_es": "Silvano",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar",
+      "planar_affinity": [
+        "fey"
+      ],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.abyssal",
+      "name": "Abyssal",
+      "name_en": "Abyssal",
+      "name_es": "Abisal",
+      "source": "source.phb.2014",
+      "source_refs": [
+        {
+          "source_id": "source.phb.2014",
+          "page": 123
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "planar",
+      "planar_affinity": [
+        "abyss"
+      ],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": {
+        "available_to_players": true,
+        "abyss_ban_applies_to_language": false
+      }
+    },
+    {
+      "category": "language",
+      "id": "language.leonin",
+      "name": "Leonin",
+      "name_en": "Leonin",
+      "name_es": "Leonino",
+      "source": "source.moot.2020",
+      "source_refs": [
+        {
+          "source_id": "source.moot.2020",
+          "page": 20
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "verified",
+      "language_category": "racial",
+      "planar_affinity": [],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
+    },
+    {
+      "category": "language",
+      "id": "language.shadow",
+      "name": "Shadow",
+      "name_en": "Shadow",
+      "name_es": "Sombra",
+      "source": "Firmamentum Velatum",
+      "source_refs": [],
+      "campaign_status": "approved",
+      "data_quality": "campaign_defined",
+      "language_category": "campaign_defined_planar",
+      "planar_affinity": [
+        "shadow"
+      ],
+      "dialect_of": null,
+      "dialect_family_id": null,
+      "campaign_rules": null
     }
   ]
 }
