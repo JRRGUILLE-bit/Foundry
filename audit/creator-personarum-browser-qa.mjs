@@ -305,6 +305,39 @@ try {
 
     const classSelect = page.locator('#creator-character-class');
     const classSkillList = page.locator('#creator-class-skills-list');
+    const subclassField = page.locator('label[for="creator-subclass"]');
+    await classSelect.selectOption({ label: 'Bárbaro' });
+    assert.equal(await subclassField.isVisible(), false,
+      'Barbarian must not expose its level 3 subclass while the character is still level 1');
+    assert.equal(await page.locator('#creator-subclass option').count(), 1,
+      'Locked Barbarian subclasses must not appear as selectable or unavailable choices');
+
+    await classSelect.selectOption({ label: 'Clérigo' });
+    assert.equal(await subclassField.isVisible(), true,
+      'Cleric must expose its subclass because its Legacy/2014 choice is made at level 1');
+    assert.equal(await page.locator('#creator-subclass option').count(), 8,
+      'Cleric must show its seven approved level 1 domains');
+
+    await classSelect.selectOption({ label: 'Druida' });
+    assert.equal(await subclassField.isVisible(), false,
+      'Druid must not expose its level 2 circle while the character is level 1');
+
+    await classSelect.selectOption({ label: 'Hechicero' });
+    assert.equal(await subclassField.isVisible(), true,
+      'Sorcerer must expose its approved level 1 origins');
+    assert.equal(await page.locator('#creator-subclass option').count(), 3,
+      'Sorcerer must show only its two approved level 1 origins');
+
+    await classSelect.selectOption({ label: 'Brujo' });
+    assert.equal(await subclassField.isVisible(), true,
+      'Warlock must expose its approved level 1 patron');
+    let subclasses = await page.locator('#creator-subclass option').evaluateAll(options =>
+      options.slice(1).map(option => option.textContent.trim())
+    );
+    assert.ok(subclasses.includes('El Infernario'), 'The approved infernal patron should remain available');
+    assert.ok(!subclasses.some(label => /Gran Antiguo|Great Old One|Aberrant Mind|Mente aberrante/i.test(label)),
+      'Explicitly prohibited subclasses must not appear');
+
     await classSelect.selectOption({ label: 'Bárbaro' });
     assert.match(await classSkillList.innerText(), /Marcá 2 habilidades/i,
       'Barbarian must show its Legacy/2014 class skill choices');
@@ -332,15 +365,7 @@ try {
     assert.equal(await barbarianSkillChoices.nth(2).isDisabled(), true,
       'Further class skills must be disabled at the allowed limit');
 
-    await classSelect.selectOption({ label: 'Brujo' });
-    let subclasses = await page.locator('#creator-subclass option').evaluateAll(options =>
-      options.slice(1).map(option => option.textContent.trim())
-    );
-    assert.ok(subclasses.includes('El Infernario'), 'The approved infernal patron should remain available');
-    assert.ok(!subclasses.some(label => /Gran Antiguo|Great Old One|Aberrant Mind|Mente aberrante/i.test(label)),
-      'Explicitly prohibited subclasses must not appear');
-    await classSelect.selectOption({ label: 'Bárbaro' });
-    barbarianSkillChoices = classSkillList.locator('input[data-class-skill-choice]');
+
     await barbarianSkillChoices.nth(0).check();
     await barbarianSkillChoices.nth(1).check();
 
@@ -361,6 +386,11 @@ try {
       'The player level must be supplied by the verified Director assignment');
     assert.equal(await page.locator('#creator-level').getAttribute('readonly'), '',
       'The assigned level cannot be manually changed');
+    await page.waitForFunction(() => !document.querySelector('label[for="creator-subclass"]')?.hidden
+      && Array.from(document.getElementById('creator-subclass')?.options || []).length > 1);
+    assert.ok(await page.locator('#creator-subclass option').evaluateAll(options =>
+      options.slice(1).some(option => /Berserker/i.test(option.textContent))
+    ), 'The level 3 assignment must unlock the Barbarian subclass choices');
     assert.equal(await page.locator('#creator-assignment-rolls li').count(), 6,
       'All six unassigned results must be loaded from the verified assignment');
     assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\nResultado 2: 15\nResultado 3: 14\nResultado 4: 12\nResultado 5: 10\nResultado 6: 8',
