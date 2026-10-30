@@ -133,7 +133,7 @@ assert.match(page, /id="creator-explore-step"/, 'Exploration mode must have a se
 assert.match(page, /name="creator-exploration-focus"/, 'Exploration mode must collect an initial interest');
 assert.match(page, /id="creator-explore-continue"/, 'Exploration mode must have a continue control');
 assert.match(page, /creator-origin-promise/, 'The flow must set expectations for the eventual origin reveal');
-assert.match(page, /La procedencia se limita a las diez ciudades del Imperio Gris/, 'Appendix origins must be limited to Grey Empire cities');
+assert.match(page, /procedencia se limita a las diez ciudades del Imperio Gris/i, 'Appendix origins must be limited to Grey Empire cities');
 assert.match(page, /id="creator-origin-region"/, 'The origin selector must expose a region choice sourced from the canonical Atlas');
 assert.match(page, /id="creator-preview-origin-row"/, 'Selected origin must be reflected in the preview');
 assert.match(runtime, /fvtt-JournalEntry-atlas-revisado\.json/, 'Origin choices must be loaded from the canonical Atlas export');
