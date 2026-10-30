@@ -679,8 +679,6 @@
       populateRaceOptions(familyId);
       renderFamilySelection(familyId,savedRow?.id||'',dragonbornChoice);
       renderLineageLanguages(getSelectedLineageRecord());
-      const selectedBackground = records.find(item => item.category === 'background' && item.id === byId('creator-background')?.selectedOptions[0]?.dataset.creatorCatalogId);
-      renderBackgroundEquipment(selectedBackground || null);
     });
     refreshLineageLabels();
     populateRaceOptions('');
@@ -937,7 +935,7 @@
     })();
     let activeBackgroundEquipmentValue = select.value || '';
     const equipmentItemLabels = {
-      'abacus|phb':'ábaco','backpack|phb':'mochila','blanket|phb':'manta','book|phb':'libro',
+      'horror trinket|vrgr':'amuleto de horror','abacus|phb':'ábaco','backpack|phb':'mochila','blanket|phb':'manta','book|phb':'libro',
       'bullseye lantern|phb':'linterna de ojo de buey',"carpenter's tools|phb":'herramientas de carpintero',
       'cart|phb':'carro','club|phb':'garrote','common clothes|phb':'ropa común',
       'costume clothes|phb':'ropa de disfraz','crowbar|phb':'palanca','dagger|phb':'daga',
@@ -1000,6 +998,16 @@
     const syncBackgroundEquipmentValue = () => {
       if (backgroundEquipmentInput) backgroundEquipmentInput.value = JSON.stringify(selectedBackgroundEquipment);
     };
+    window.addEventListener('creator-personarum:restore-background-equipment', (event) => {
+      const restored = event.detail?.selected && typeof event.detail.selected === 'object' && !Array.isArray(event.detail.selected)
+        ? event.detail.selected : {};
+      Object.keys(selectedBackgroundEquipment).forEach(key => delete selectedBackgroundEquipment[key]);
+      Object.assign(selectedBackgroundEquipment, restored);
+      activeBackgroundEquipmentValue = select.value || '';
+      const selectedOption = select.options[select.selectedIndex];
+      const background = selectedRows.find(item => item.id === selectedOption?.dataset.creatorCatalogId);
+      renderBackgroundEquipment(background || null);
+    });
     const renderBackgroundEquipment = (background) => {
       if (!backgroundEquipmentDetails || !backgroundEquipmentStatus || !backgroundEquipmentInput) return;
       backgroundEquipmentDetails.replaceChildren();
@@ -1042,7 +1050,8 @@
           }
           if (entry.special) {
             const translated = equipmentSpecialLabels[entry.special] || entry.special;
-            const base = english ? entry.special : translated;
+            let base = english ? entry.special : translated;
+            if (entry.containsValue) base += english ? ' (contains ' + (entry.containsValue / 100) + ' gp)' : ' (contiene ' + (entry.containsValue / 100) + ' po)';
             const quantity = Number.isInteger(entry.quantity) && entry.quantity > 1 ? entry.quantity + ' × ' : '';
             if (/weapon of your choice/.test(entry.special)) {
               const wrap = document.createElement('label'); wrap.className = 'creator-field creator-field-wide';
@@ -2372,6 +2381,7 @@
       if (backgroundSkillsSection) backgroundSkillsSection.hidden = !visible;
       if (backgroundLanguagesSection) backgroundLanguagesSection.hidden = !visible;
       if (backgroundToolsSection) backgroundToolsSection.hidden = !visible;
+      if (backgroundEquipmentSection) backgroundEquipmentSection.hidden = !visible;
       if (backgroundStageStatus) backgroundStageStatus.hidden = !directMode || rows.length > 0;
       select.disabled = !visible;
     };
