@@ -239,8 +239,18 @@ try {
       await chooseCanonicalRace(allowedSpecies, allowedRaceId);
       await page.locator('#creator-wizard-next').click();
       const featSelect = page.locator('#creator-feat');
+      const wizardState = await page.evaluate(() => ({
+        progress: document.getElementById('creator-wizard-progress')?.innerText || '',
+        status: document.getElementById('creator-draft-status')?.innerText || '',
+        race: document.getElementById('creator-race')?.value || '',
+        subrace: document.getElementById('creator-subrace')?.value || '',
+        lineage: document.getElementById('creator-lineage')?.value || '',
+        wizardStep: document.getElementById('creator-draft-fields')?.querySelector('[data-creator-wizard-step="2"]')?.dataset.creatorWizardInactive || ''
+      }));
+      assert.equal(wizardState.progress, 'PASO 2 DE 5',
+        'Race choice must advance the wizard before feat selection: ' + featRecord.name + '; state=' + JSON.stringify(wizardState));
       assert.equal(await featSelect.isVisible(), true,
-        'The feat selector must be tested on wizard step 2');
+        'The feat selector must be tested on wizard step 2: ' + featRecord.name + '; state=' + JSON.stringify(wizardState));
       const allowedFeatOption = await featSelect.locator('option').evaluateAll((options, featName) =>
         options.some(option => option.value === featName), featRecord.name
       );
