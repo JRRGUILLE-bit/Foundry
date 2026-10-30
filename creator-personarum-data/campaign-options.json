@@ -10532,7 +10532,23 @@
         }
       ],
       "languageProficiencies": [],
-      "startingEquipment": [],
+      "startingEquipment": [
+        {
+          "_": [
+            {
+              "special": "an inexpensive but unusual weapon of your choice (for example, a trident or net)"
+            },
+            {
+              "special": "the favor of an admirer (love letter, lock of hair, or trinket)"
+            },
+            "costume clothes|phb",
+            {
+              "item": "pouch|phb",
+              "containsValue": 1500
+            }
+          ]
+        }
+      ],
       "startingEquipmentText": "An inexpensive but unusual weapon, such as a {@item trident|phb} or {@item net|phb} (one of your choice), the favor of an admirer (love letter, lock of hair, or trinket), {@item costume clothes|phb}, and a belt {@item pouch|phb} containing 15 gp",
       "startingEquipmentLanguage": "en",
       "startingEquipmentOverriddenFromBase": true,
@@ -10568,7 +10584,23 @@
         ],
         "languages": [],
         "language_choices": [],
-        "starting_equipment": [],
+        "starting_equipment": [
+          {
+            "_": [
+              {
+                "special": "an inexpensive but unusual weapon of your choice (for example, a trident or net)"
+              },
+              {
+                "special": "the favor of an admirer (love letter, lock of hair, or trinket)"
+              },
+              "costume clothes|phb",
+              {
+                "item": "pouch|phb",
+                "containsValue": 1500
+              }
+            ]
+          }
+        ],
         "starting_equipment_text": "An inexpensive but unusual weapon, such as a {@item trident|phb} or {@item net|phb} (one of your choice), the favor of an admirer (love letter, lock of hair, or trinket), {@item costume clothes|phb}, and a belt {@item pouch|phb} containing 15 gp",
         "starting_equipment_language": "en",
         "starting_equipment_overridden_from_base": true,
@@ -10668,7 +10700,7 @@
             {
               "_": [
                 {
-                  "equipmentType": "instrumentMusical"
+                  "special": "an inexpensive but unusual weapon of your choice (for example, a trident or net)"
                 },
                 {
                   "special": "the favor of an admirer (love letter, lock of hair, or trinket)"
@@ -10766,7 +10798,31 @@
           "anyStandard": 1
         }
       ],
-      "startingEquipment": [],
+      "startingEquipment": [
+        {
+          "a": [
+            {
+              "equipmentType": "toolArtisan"
+            }
+          ],
+          "b": [
+            "mule|phb",
+            "cart|phb"
+          ]
+        },
+        {
+          "_": [
+            {
+              "special": "letter of introduction from your guild"
+            },
+            "traveler's clothes|phb",
+            {
+              "item": "pouch|phb",
+              "containsValue": 1500
+            }
+          ]
+        }
+      ],
       "startingEquipmentText": "A set of {@filter artisan's tools|items|source=phb|miscellaneous=mundane|type=artisan's tools} (one of your choice) or a {@item mule|phb} and {@item cart|phb}, a letter of introduction from your guild, a set of {@item traveler's clothes|phb}, and a belt {@item pouch|phb} containing 15 gp",
       "startingEquipmentLanguage": "en",
       "startingEquipmentOverriddenFromBase": true,
@@ -10810,7 +10866,31 @@
             ]
           }
         ],
-        "starting_equipment": [],
+        "starting_equipment": [
+          {
+            "a": [
+              {
+                "equipmentType": "toolArtisan"
+              }
+            ],
+            "b": [
+              "mule|phb",
+              "cart|phb"
+            ]
+          },
+          {
+            "_": [
+              {
+                "special": "letter of introduction from your guild"
+              },
+              "traveler's clothes|phb",
+              {
+                "item": "pouch|phb",
+                "containsValue": 1500
+              }
+            ]
+          }
+        ],
         "starting_equipment_text": "A set of {@filter artisan's tools|items|source=phb|miscellaneous=mundane|type=artisan's tools} (one of your choice) or a {@item mule|phb} and {@item cart|phb}, a letter of introduction from your guild, a set of {@item traveler's clothes|phb}, and a belt {@item pouch|phb} containing 15 gp",
         "starting_equipment_language": "en",
         "starting_equipment_overridden_from_base": true,
@@ -10958,10 +11038,18 @@
           ],
           "starting_equipment": [
             {
-              "_": [
+              "a": [
                 {
                   "equipmentType": "toolArtisan"
-                },
+                }
+              ],
+              "b": [
+                "mule|phb",
+                "cart|phb"
+              ]
+            },
+            {
+              "_": [
                 {
                   "special": "letter of introduction from your guild"
                 },
