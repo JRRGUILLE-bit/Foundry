@@ -4,53 +4,36 @@
 **Rama de trabajo:** `main`  
 **Propósito:** dejar instrucciones persistentes para que una nueva sesión de ChatGPT pueda retomar el trabajo sin depender del historial del chat.
 
-#
+## 0. Instrucción del Director — autoría humana y acceso
 
-## 0. Auditoría cruzada obligatoria: Foundry contra Firmamentum Velatum
+**Este encargo fue dictado y redactado por Guillermo, el Director humano de la campaña, mediante speech-to-text. Las decisiones y requisitos de este documento provienen del Director, no son propuestas, inferencias ni contenido inventado por ChatGPT.** La cuenta de ChatGPT/Codex que retome el trabajo ya tiene acceso a las cuentas y repositorios necesarios, incluidos ambos repositorios indicados abajo. No pedir acceso a Firmamentum ni detener el trabajo planteando esa posibilidad.
 
-**Esta es una condición central del trabajo, no una consulta opcional.** El creador está implementado en `JRRGUILLE-bit/Foundry`, pero las reglas de campaña, el mundo, el canon, las decisiones de contenido y las listas de opciones aprobadas/excluidas están documentadas en `JRRGUILLE-bit/Firmamentum-Velatum`.
+## 1. Repositorios y autoridad
 
-La auditoría debe abarcar **todo el trabajo existente de Creator Personarum en Foundry** y contrastarlo con la repo Firmamentum. No alcanza con leer el código de Foundry, revisar si compila o comprobar que las opciones existen en D&D. Una opción puede ser oficial y técnicamente correcta y aun así no estar permitida en esta campaña.
+- **Campaña:** Firmamentum Velatum.
+- **Repositorio de reglas, mecánicas, mundo, canon y decisiones:** [JRRGUILLE-bit/Firmamentum-Velatum](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum).
+- **Repositorio donde está implementado el creador:** [JRRGUILLE-bit/Foundry](https://github.com/JRRGUILLE-bit/Foundry).
+- Guillermo es el Director de la campaña; Gonzalo juega en ella. Este creador es para la próxima campaña.
 
-### Repositorios y autoridad
+Leé los documentos de canon y reglas de Firmamentum, las decisiones del Director y los datos vigentes que correspondan. Después contrastá con el código, los datos y los selectores reales de Creator Personarum en Foundry. Ambas repos están accesibles: no supongas falta de permisos ni solicites que se habiliten.
 
-- **Repo de implementación:** [JRRGUILLE-bit/Foundry](https://github.com/JRRGUILLE-bit/Foundry). Aquí se inspecciona y desarrolla Creator Personarum.
-- **Repo de canon y decisiones:** [JRRGUILLE-bit/Firmamentum-Velatum](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum). Aquí se consulta el mundo, las reglas de campaña, los datasets canónicos, las aprobaciones, las exclusiones y las decisiones vigentes.
-- Leer primero el [AI_HANDOFF](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/AI_HANDOFF.md), y después, como mínimo:
-  - [CANON_AND_RULES.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/CANON_AND_RULES.md)
-  - [DECISIONS_AND_OPEN_QUESTIONS.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/DECISIONS_AND_OPEN_QUESTIONS.md)
-  - [PROJECT_STATUS.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/PROJECT_STATUS.md)
-  - [MASTER_CHECKLIST.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/MASTER_CHECKLIST.md)
-  - [world-overview.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/lore/world-overview.md)
-  - [geography-and-geopolitics.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/lore/geography-and-geopolitics.md)
-  - [cosmology-and-pantheon.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/lore/cosmology-and-pantheon.md)
-  - Los archivos JSON actuales de campaña para razas/procedencias, backgrounds, feats, clases, subclases y exclusiones, además de los informes de auditoría vinculados desde esos documentos.
-- La información viva de GitHub manda sobre resúmenes antiguos: verificar `main` en ambas repos antes de concluir.
+La revisión debe abarcar el creador completo y continuar con su implementación. No alcanza con leer documentación anterior ni confiar en lo que diga una auditoría previa: comprobá el estado actual de los archivos y las opciones efectivamente disponibles en la interfaz y sus datos.
 
-**Si la sesión no tiene acceso de lectura a Firmamentum-Velatum**, debe decirlo claramente y pedir que se habilite. No debe sustituir esa auditoría por una revisión parcial basada solo en Foundry, ni inventar el canon a partir de recuerdos o resúmenes.
+## 2. Reglas de contenido indicadas por el Director
 
-### Qué hay que contrastar
+- Usar D&D 5e Legacy/2014.
+- Ofrecer las razas que sean canónicas según Firmamentum. Hay razas que no son canónicas: no asumir que todas las razas oficiales de D&D están permitidas. La lista racial aprobada en Firmamentum es la autoridad; no volver a seleccionarla ni modificarla por iniciativa propia.
+- Incluir los feats raciales correspondientes a las razas permitidas y los feats generales de D&D que sean válidos para la campaña.
+- No ofrecer absolutamente nada de Critical Role / Exandria.
+- No ofrecer opciones específicas de un setting. Esto incluye, entre otros, contenido propio de Eberron y de Forgotten Realms/Faerûn: por ejemplo, Waterdhavian Noble, Uthgardt Tribe Member, trasfondos, dotes u opciones ligadas a una ciudad, organización, facción, orden o región exclusiva de un escenario.
+- El contenido oficial genérico de D&D no queda excluido por aparecer en un suplemento. La exclusión depende de las reglas anteriores y de las decisiones de Firmamentum.
+- Respetar las exclusiones y la ban list de Firmamentum. No reintroducir opciones que el Director ya hizo retirar.
 
-Para cada opción mecánica que el creador muestra, guarda, restaura o permite seleccionar, comprobar:
-1. que su fuente y edición correspondan a D&D 5e 2014 / Legacy;
-2. que sea genérica y no específica de un setting;
-3. que no pertenezca a Critical Role / Exandria;
-4. que no esté en la ban list ni en las exclusiones de campaña;
-5. que sus requisitos, disponibilidad y restricciones coincidan con las decisiones de Firmamentum;
-6. que cualquier conexión con el mundo, regiones, reinos, culturas, religiones, panteón o cosmología respete el canon y no invente hechos.
+### Verificación de feats y backgrounds existentes
 
-No limitar la auditoría a backgrounds y feats: revisar el conjunto del creador y sus datos visibles —razas (sin reabrir la lista aprobada), clases, subclases, backgrounds, feats, habilidades, idiomas, herramientas, conjuros, rasgos, invocaciones, pactos, marcas, procedencias, elecciones por nivel, multiclase, textos y recorridos— en la medida en que existan en la implementación.
+El trabajo de feats se considera previamente realizado, pero **no debe darse por correcto ni terminado sin comprobarlo**. El Director indicó expresamente que no confía en los estados o resúmenes previos porque ya se volvió a trabajar con backgrounds que había ordenado retirar por ser específicos de Forgotten Realms. Revisá los registros, fuentes, filtros y opciones visibles reales. Aplicá las decisiones ya registradas y verificá que las opciones excluidas no reaparezcan.
 
-### Resultado exigido de la auditoría
-
-Dejar una matriz trazable de las categorías y opciones revisadas, indicando fuente, decisión de Firmamentum, estado en Foundry y discrepancia/acción necesaria. Separar:
-- correcto y alineado;
-- presente pero debe excluirse;
-- ausente y debe incorporarse por ser genérico, oficial y permitido;
-- pendiente de verificación de fuente;
-- bloqueado por una decisión de canon realmente abierta.
-
-No marcar como auditado un conjunto que no se revisó registro por registro o con una validación equivalente y reproducible. Corregir las discrepancias autorizadas por decisiones ya existentes. Si una decisión realmente no está tomada en Firmamentum, documentar el punto exacto y consultar antes de inventar una respuesta.
+Hacé la misma comprobación de backgrounds y de las demás categorías mecánicas que el creador ya ofrezca. No confíes ciegamente en etiquetas de aprobado, informes anteriores, memoria de chats ni en el nombre de una opción: comprobá su procedencia y su correspondencia con las reglas del Director.
 
 
 # Objetivo
@@ -64,7 +47,7 @@ El jugador debe poder:
 4. Acceder a las opciones válidas de multiclase cuando cumpla los requisitos de D&D 5e 2014.
 5. Completar todas las decisiones mecánicas en una secuencia clara, una elección detrás de la otra, mostrando únicamente las opciones que correspondan.
 
-## Dos modalidades del creador
+## 4. Dos modalidades del creador
 
 La experiencia se organiza en dos modalidades:
 
@@ -85,7 +68,7 @@ La sesión de ChatGPT que retome esta tarea debe:
 - no duplicar ni reemplazar ese desarrollo;
 - concentrarse en la revisión y finalización del creador mecánico, además de la integración general que sea necesaria para que ambas modalidades convivan.
 
-## Reglas obligatorias para las opciones de D&D
+## 5. Reglas adicionales de contenido ya establecidas
 
 El contenido de referencia es **D&D 5e Legacy/2014**.
 
@@ -118,7 +101,7 @@ No confundir lo infernal con lo abismal. La prohibición del Abismo debe seguir 
 
 La lista de razas permitidas ya está aprobada y **queda cerrada**. No volver a seleccionar, ampliar, reducir ni modificar esa lista sin una instrucción explícita posterior del usuario.
 
-## Revisión de contenido existente
+## 6. Revisión de contenido existente
 
 Revisar lo ya incorporado y las decisiones documentadas, especialmente:
 
@@ -133,7 +116,7 @@ Comprobar la procedencia de las opciones y aplicar las reglas anteriores. Las op
 
 La revisión debe contrastar los datos reales del repositorio, sus fuentes y la lógica efectiva de los selectores. No declarar una categoría auditada por completo si solo se revisó una parte de sus registros o nombres.
 
-## Desarrollo mecánico requerido
+## 7. Desarrollo mecánico requerido
 
 ### Creación de nivel 1
 
@@ -164,13 +147,13 @@ Las decisiones deben presentarse ordenadamente, una después de la otra. Cada pa
 
 No basta con mostrar un catálogo completo: el flujo debe guiar al jugador y aplicar las reglas.
 
-## Prioridad de implementación y estética
+## 8. Prioridad de implementación y estética
 
 La prioridad es completar y verificar la funcionalidad mecánica de creación y progresión.
 
 Una vez resuelto ese trabajo, si queda tiempo, mejorar la estética y la presentación general del creador. Las mejoras visuales no deben sustituir ni postergar el trabajo mecánico pendiente.
 
-## Cómo retomar esta tarea
+## 9. Cómo retomar esta tarea
 
 Cuando el usuario diga algo equivalente a **«revisá lo que hay para hacer en la repo»**, esta orden es la instrucción de trabajo para Creator Personarum.
 
