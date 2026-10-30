@@ -1621,9 +1621,10 @@
     if (!isCustomLineage) customLineageInput.setCustomValidity('');
   }
 
-  function restoreDraft() {
+  function restoreDraft(playerId) {
     let memoryDraft = null;
-    const storageKey = storageKeyForMode(currentMode);
+    const activePlayerId = playerId || getCurrentAppendixPlayerId();
+    const storageKey = storageKeyForMode(currentMode, activePlayerId);
     if (!storageKey) {
       setDraftStatus('Elegí tu nombre para recuperar o guardar tu personaje.', 'idle');
       return;
@@ -1638,7 +1639,7 @@
           const legacyRaw = window.localStorage.getItem(DRAFT_STORAGE_KEY);
           const legacyDraft = legacyRaw ? JSON.parse(legacyRaw) : null;
           const legacyPlayerId = legacyDraft?.playerAssignment?.playerId || appendixPlayerIdFromName(legacyDraft?.playerName);
-          if (legacyDraft && legacyPlayerId === getCurrentAppendixPlayerId()) {
+          if (legacyDraft && legacyPlayerId === activePlayerId) {
             draft = legacyDraft;
             window.localStorage.setItem(storageKey, JSON.stringify(legacyDraft));
           }
@@ -2613,7 +2614,7 @@
       assignmentPlayerSelect.disabled = false;
       assignmentRosterReady = true;
       playerNameInput.value = selectedPlayer.playerName;
-      restoreDraft();
+      restoreDraft(playerId);
       setKnownCharacterWizardStep(currentKnownWizardStep, false);
     }
     restoreOriginCityForCurrentPlayer();
