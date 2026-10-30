@@ -2444,6 +2444,7 @@
       'college of ', 'circle of the ', 'circle of ',
       'oath of ', 'way of the ', 'way of ',
       'school of ', 'domain of the ', 'domain of ',
+      'order of ',
       'otherworldly patron: ', 'roguish archetype: ',
       'martial archetype: ', 'arcane tradition: ',
       'sacred oath: ', 'monastic tradition: ',
@@ -2451,6 +2452,7 @@
       'sorcerous origin: ', 'bard college: ',
       'cleric domain: ', 'the '
     ];
+    const suffixes = [' domain', ' sorcery', ' magic'];
     const aliases = new Set();
     const queue = [String(name || '').trim()];
     while (queue.length) {
@@ -2462,6 +2464,12 @@
       for (const prefix of prefixes) {
         if (lower.startsWith(prefix)) {
           const stripped = current.slice(prefix.length).trim();
+          if (stripped && !aliases.has(normalize(stripped))) queue.push(stripped);
+        }
+      }
+      for (const suffix of suffixes) {
+        if (lower.endsWith(suffix)) {
+          const stripped = current.slice(0, -suffix.length).trim();
           if (stripped && !aliases.has(normalize(stripped))) queue.push(stripped);
         }
       }
