@@ -148,6 +148,10 @@ assert.ok(runtime.includes("assignedLevelInput.dispatchEvent(new Event('input'")
 assert.ok(runtime.includes('progressionLevel: Number(window.creatorPersonarumGetProgressionLevel?.() || 1)'), 'Drafts must save the current progression level separately from the Director target level');
 assert.ok(runtime.includes("detail: { level: 1 }"), 'A new character draft must always begin at progression level one');
 assert.ok(catalogRuntime.includes("field.dataset.creatorWizardStep = selectedLevel > 1 ? '5' : '2';"), 'Subclasses beyond level one must move to the progression wizard stage');
+assert.ok(catalogRuntime.includes("const selectedLevel = Number(window.creatorPersonarumGetProgressionLevel?.() || 1);"), 'Subclass feature display must use the current progression stage, not the Director target level');
+assert.ok(catalogRuntime.includes("window.addEventListener('creator-personarum:progression-level-changed', refresh);"), 'Class and subclass feature summaries must refresh when progression advances');
+assert.ok(catalogRuntime.includes("item.category === 'subclass_feature' &&\n      item.campaign_status === 'approved' &&\n      item.data_quality === 'verified'"), 'Only approved and verified subclass features may be displayed');
+assert.ok(catalogRuntime.includes("item.category === 'class_feature' &&\n      item.campaign_status === 'approved' &&\n      item.data_quality === 'verified'"), 'Only approved and verified class features may be displayed');
 assert.ok(!campaignOptionsCatalog.records.some(record => /^(background|feat|spell|class_feature)$/.test(record.category)), 'Categories with no approved campaign rules data must not be populated from generic D&D sources');
 assert.ok(!campaignOptionsCatalog.records.some(record => /Aberrant Mind|The Great Old One|Mente aberrante|Gran Antiguo/i.test(record.name)), 'Explicitly excluded subclasses must never enter the runtime catalog');
 assert.ok(playerOptionsCatalog.records.length > 1000, 'Filtered catalog must contain the existing broad player-option index');
