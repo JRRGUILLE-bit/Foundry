@@ -843,8 +843,8 @@
         if (!key || catalogLanguageMap.has(key)) return;
         catalogLanguageMap.set(key, {
           key,
-          nameEs: LANGUAGE_LABELS[key] || item.name.trim(),
-          nameEn: item.name.trim(),
+          nameEs: String(item.name_es || LANGUAGE_LABELS[key] || item.name.trim()),
+          nameEn: String(item.name_en || item.name.trim()),
           source: item.source || ''
         });
       });
@@ -853,10 +853,8 @@
       'common', 'dwarvish', 'elvish', 'giant',
       'gnomish', 'goblin', 'halfling', 'orc'
     ];
-    const exoticLanguageKeys = [
-      'abyssal', 'celestial', 'draconic', 'deep speech',
-      'infernal', 'primordial', 'sylvan', 'undercommon'
-    ];
+    const exoticLanguageKeys = [...catalogLanguageMap.keys()]
+      .filter(key => !standardLanguageKeys.includes(key));
     const selectedLanguageChoices = {};
     let activeLanguageLineageValue = '';
     let activeLanguageLineageName = '';
