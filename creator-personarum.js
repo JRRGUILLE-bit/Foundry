@@ -288,20 +288,22 @@
 
   function buildZodiacalMarkSummary(mark, choices) {
     if (!mark) return '';
-    const parts = [mark.name_es + ': ' + mark.summary_es];
+    const english = getCreatorLanguage() === 'en';
+    const parts = [((english ? mark.name_en : mark.name_es) || mark.name_es) + ': ' +
+      ((english ? mark.summary_en : mark.summary_es) || mark.summary_es)];
     const cantrip = choices && choices.cantrip;
     if (cantrip) {
-      parts.push('Truco elegido: ' + cantrip + '.');
-      const ability = zodiacalMarksData.spellcasting_ability.choices
-        .find(option => option.value === choices.spellcastingAbility);
-      if (ability) parts.push('Característica de lanzamiento fija: ' + ability.label_es + '.');
+      parts.push(creatorText('Truco elegido: ', 'Chosen cantrip: ') + cantrip + '.');
+      const ability = zodiacalMarksData.spellcasting_ability.choices.find(option => option.value === choices.spellcastingAbility);
+      if (ability) parts.push(creatorText('Característica de lanzamiento fija: ', 'Fixed spellcasting ability: ') +
+        (english ? ability.label_en : ability.label_es) + '.');
     }
     if (mark.tool_proficiency_count === 2 && choices && Array.isArray(choices.tools)) {
       const names = choices.tools.map(id => {
         const tool = zodiacalMarksData.tool_options.find(option => option.id === id);
-        return tool ? tool.label_es : '';
+        return tool ? (english ? tool.label_en : tool.label_es) : '';
       }).filter(Boolean);
-      if (names.length) parts.push('Herramientas elegidas: ' + names.join(', ') + '.');
+      if (names.length) parts.push(creatorText('Herramientas elegidas: ', 'Chosen tools: ') + names.join(', ') + '.');
     }
     return parts.join(' ');
   }
@@ -354,7 +356,7 @@
       zodiacDetails.textContent = 'Elegí una marca para consultar el don y las elecciones que corresponden.';
       return;
     }
-    zodiacDetails.textContent = mark.summary_es;
+    zodiacDetails.textContent = creatorText(mark.summary_es, mark.summary_en || mark.summary_es);
     const isExplorer = currentMode === CREATION_MODES.explore;
     const choices = savedChoices && typeof savedChoices === 'object' ? savedChoices : {};
     let chosenCantrip = mark.cantrip || '';
@@ -362,11 +364,11 @@
     if (Array.isArray(mark.cantrip_choices) && mark.cantrip_choices.length) {
       appendZodiacSelectField(
         'creator-zodiac-cantrip-choice',
-        'ELEGÍ EL TRUCO CONCEDIDO',
+        creatorText('ELEGÍ EL TRUCO CONCEDIDO', 'CHOOSE THE GRANTED CANTRIP'),
         mark.cantrip_choices.map(spell => ({ value: spell, label: spell })),
         choices.cantrip,
         !isExplorer,
-        'Elegí uno de los trucos permitidos…'
+        creatorText('Elegí uno de los trucos permitidos…', 'Choose one of the permitted cantrips…')
       );
       chosenCantrip = choices.cantrip || '';
     }
@@ -374,14 +376,14 @@
     if (chosenCantrip) {
       appendZodiacSelectField(
         'creator-zodiac-spellcasting-ability',
-        'CARACTERÍSTICA DE LANZAMIENTO PARA ' + chosenCantrip.toUpperCase(),
+        creatorText('CARACTERÍSTICA DE LANZAMIENTO PARA ', 'SPELLCASTING ABILITY FOR ') + chosenCantrip.toUpperCase(),
         zodiacalMarksData.spellcasting_ability.choices.map(option => ({
           value: option.value,
-          label: option.label_es
+          label: getCreatorLanguage() === 'en' ? option.label_en : option.label_es
         })),
         choices.spellcastingAbility,
         !isExplorer,
-        'Elegí Inteligencia, Sabiduría o Carisma…'
+        creatorText('Elegí Inteligencia, Sabiduría o Carisma…', 'Choose Intelligence, Wisdom, or Charisma…')
       );
     }
 
@@ -394,20 +396,20 @@
       const selectedTools = Array.isArray(choices.tools) ? choices.tools : [];
       appendZodiacSelectField(
         'creator-zodiac-tool-1',
-        'PRIMERA HERRAMIENTA',
+        creatorText('PRIMERA HERRAMIENTA', 'FIRST TOOL'),
         toolOptions,
         selectedTools[0],
         !isExplorer,
-        'Elegí una herramienta…',
+        creatorText('Elegí una herramienta…', 'Choose a tool…'),
         'data-zodiac-tool-choice'
       );
       appendZodiacSelectField(
         'creator-zodiac-tool-2',
-        'SEGUNDA HERRAMIENTA',
+        creatorText('SEGUNDA HERRAMIENTA', 'SECOND TOOL'),
         toolOptions,
         selectedTools[1],
         !isExplorer,
-        'Elegí otra herramienta distinta…',
+        creatorText('Elegí otra herramienta distinta…', 'Choose a different tool…'),
         'data-zodiac-tool-choice'
       );
       updateZodiacToolChoiceAvailability();
@@ -481,15 +483,15 @@
       const section = document.createElement('section');
       section.className = 'creator-cosmic-mark-detail';
       const heading = document.createElement('h3');
-      heading.textContent = mark.name_es;
+      heading.textContent = creatorText(mark.name_es, mark.name_en || mark.name_es);
       section.appendChild(heading);
       const condition = document.createElement('p');
       condition.className = 'creator-cosmic-mark-condition';
-      condition.textContent = 'Condición: ' + mark.condition_es;
+      condition.textContent = creatorText('Condición: ', 'Condition: ') + (getCreatorLanguage() === 'en' ? mark.condition_en : mark.condition_es);
       section.appendChild(condition);
       if (mark.fixed_cantrips.length) {
         const granted = document.createElement('p');
-        granted.textContent = 'Trucos concedidos: ' + mark.fixed_cantrips.join(', ') + '.';
+        granted.textContent = creatorText('Trucos concedidos: ', 'Granted cantrips: ') + mark.fixed_cantrips.join(', ') + '.';
         section.appendChild(granted);
       }
       const chosenCantrip = prior.selectedCantrip || '';
@@ -497,7 +499,7 @@
         appendCosmicSelectField(section,'creator-cosmic-'+mark.id.replace(/[^a-z0-9]+/gi,'-')+'-cantrip',
           'ELEGÍ EL TRUCO ADICIONAL CONCEDIDO',
           mark.cantrip_choices.map(spell=>({value:spell,label:spell})),chosenCantrip,!isExplorer,
-          'Elegí uno de los trucos permitidos…',{cosmicCantripChoice:mark.id});
+          creatorText('Elegí uno de los trucos permitidos…', 'Choose one of the permitted cantrips…'),{cosmicCantripChoice:mark.id});
       }
       const spellsForAbility=[...mark.fixed_cantrips,...(chosenCantrip?[chosenCantrip]:[])];
       spellsForAbility.forEach(spell=>{
@@ -506,7 +508,7 @@
           ? prior.spellcastingAbilities[spell]||'' : '';
         appendCosmicSelectField(section,abilityId,'CARACTERÍSTICA DE LANZAMIENTO PARA '+spell.toUpperCase(),
           zodiacalMarksData.spellcasting_ability.choices.map(option=>({value:option.value,label:option.label_es})),
-          priorAbility,!isExplorer,'Elegí Inteligencia, Sabiduría o Carisma…',
+          priorAbility,!isExplorer,creatorText('Elegí Inteligencia, Sabiduría o Carisma…', 'Choose Intelligence, Wisdom, or Charisma…'),
           {cosmicSpellAbilityMark:mark.id,cosmicSpell:spell});
       });
       cosmicMarkChoiceFields.appendChild(section);
@@ -528,9 +530,9 @@
       const copy=document.createElement('span');
       copy.className='creator-cosmic-condition-copy';
       const title=document.createElement('strong');
-      title.textContent=mark.name_es;
+      title.textContent=creatorText(mark.name_es,mark.name_en||mark.name_es);
       const condition=document.createElement('span');
-      condition.textContent=mark.condition_es;
+      condition.textContent=getCreatorLanguage()==='en'?(mark.condition_en||mark.condition_es):mark.condition_es;
       copy.appendChild(title);
       copy.appendChild(condition);
       label.appendChild(input);
@@ -547,12 +549,12 @@
       const mark=zodiacalMarksData.cosmic_marks.find(candidate=>candidate.id===markId);
       if(!mark)return;
       const choices=selection.choices&&selection.choices[markId]?selection.choices[markId]:{};
-      parts.push(mark.name_es+' (condición de nacimiento: '+mark.condition_es+')');
+      parts.push((getCreatorLanguage()==='en'?(mark.name_en||mark.name_es):mark.name_es)+(getCreatorLanguage()==='en'?' (birth condition: ':' (condición de nacimiento: ')+(getCreatorLanguage()==='en'?(mark.condition_en||mark.condition_es):mark.condition_es)+')');
       const spells=[...mark.fixed_cantrips,...(choices.selectedCantrip?[choices.selectedCantrip]:[])];
       spells.forEach(spell=>{
         const value=choices.spellcastingAbilities&&choices.spellcastingAbilities[spell];
         const ability=zodiacalMarksData.spellcasting_ability.choices.find(option=>option.value===value);
-        parts.push(spell+': '+(ability?ability.label_es:'característica de lanzamiento pendiente'));
+        parts.push(spell+': '+(ability?(getCreatorLanguage()==='en'?ability.label_en:ability.label_es):creatorText('característica de lanzamiento pendiente','spellcasting ability pending')));
       });
     });
     return parts.join('. ')+(parts.length?'.':'');
@@ -573,13 +575,13 @@
       zodiacMarkSelect.replaceChildren();
       const placeholder = document.createElement('option');
       placeholder.value = '';
-      placeholder.textContent = 'Elegí tu marca zodiacal…';
+      placeholder.textContent = creatorText('Elegí tu marca zodiacal…', 'Choose your zodiacal mark…');
       zodiacMarkSelect.appendChild(placeholder);
       data.signs.forEach(sign => {
         if (!sign.id || !sign.name_es || !sign.summary_es) throw new Error('Incomplete zodiac mark');
         const option = document.createElement('option');
         option.value = sign.id;
-        option.textContent = sign.name_es + ' — ' + sign.domain_es;
+        option.textContent = creatorText(sign.name_es + ' — ' + sign.domain_es,(sign.name_en || sign.name_es) + ' — ' + (sign.domain_en || sign.domain_es));
         zodiacMarkSelect.appendChild(option);
       });
       zodiacMarkSelect.disabled = false;
