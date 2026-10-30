@@ -1715,8 +1715,15 @@
     const backgroundLanguageInput = byId('creator-selected-background-languages');
     const languageRecords = new Map(records.filter(item => item.category === 'language')
       .map(item => [normalize(item.name), item]));
-    let selectedBackgroundLanguages = {};
-    let activeBackgroundLanguageValue = '';
+    let selectedBackgroundLanguages = (() => {
+      try {
+        const parsed = JSON.parse(backgroundLanguageInput?.value || '{}');
+        return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+      } catch {
+        return {};
+      }
+    })();
+    let activeBackgroundLanguageValue = select.value || '';
 
     const syncBackgroundLanguageValue = () => {
       if (backgroundLanguageInput) backgroundLanguageInput.value = JSON.stringify(selectedBackgroundLanguages);
