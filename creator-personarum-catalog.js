@@ -2376,9 +2376,12 @@
 
     const rows = records.filter(item =>
       item.category === 'class_feature' &&
+      item.campaign_status === 'approved' &&
+      item.data_quality === 'verified' &&
       item.class_key &&
       Number.isInteger(Number(item.level)) &&
-      Number(item.level) >= 1
+      Number(item.level) >= 1 &&
+      Number(item.level) <= 20
     );
     const classFeaturesSection = byId('creator-class-features-section');
     if (classFeaturesSection) classFeaturesSection.hidden = rows.length === 0;
@@ -2387,7 +2390,7 @@
       const selectedClass = normalize(classSelect.value);
       const classKey = Object.entries(CLASS_LABELS)
         .find(([, label]) => normalize(label) === selectedClass)?.[0] || '';
-      const level = Number(levelInput.value || 1);
+      const level = Number(window.creatorPersonarumGetProgressionLevel?.() || 1);
       featureList.replaceChildren();
 
       if (!classKey) {
@@ -2426,8 +2429,7 @@
     };
 
     classSelect.addEventListener('change', refresh);
-    levelInput.addEventListener('input', refresh);
-    levelInput.addEventListener('change', refresh);
+    window.addEventListener('creator-personarum:progression-level-changed', refresh);
     refresh();
   }
 
@@ -2470,20 +2472,28 @@
     const status = byId('creator-subclass-features-status');
     if (!classSelect || !subclassSelect || !levelInput || !featureList || !status) return;
 
-    const subclasses = records.filter(item => item.category === 'subclass' && item.class_key);
+    const subclasses = records.filter(item =>
+      item.category === 'subclass' &&
+      item.campaign_status === 'approved' &&
+      item.data_quality === 'verified' &&
+      item.class_key
+    );
     const features = records.filter(item =>
       item.category === 'subclass_feature' &&
+      item.campaign_status === 'approved' &&
+      item.data_quality === 'verified' &&
       item.class_key &&
       item.subclassShortName &&
       Number.isInteger(Number(item.level)) &&
-      Number(item.level) >= 1
+      Number(item.level) >= 1 &&
+      Number(item.level) <= 20
     );
 
     const refresh = () => {
       const className = normalize(classSelect.value);
       const classKey = Object.entries(CLASS_LABELS)
         .find(([, label]) => normalize(label) === className)?.[0] || '';
-      const selectedLevel = Number(levelInput.value || 1);
+      const selectedLevel = Number(window.creatorPersonarumGetProgressionLevel?.() || 1);
       const selectedSubclass = String(subclassSelect.value || '');
       featureList.replaceChildren();
 
@@ -2543,8 +2553,7 @@
 
     classSelect.addEventListener('change', refresh);
     subclassSelect.addEventListener('change', refresh);
-    levelInput.addEventListener('input', refresh);
-    levelInput.addEventListener('change', refresh);
+    window.addEventListener('creator-personarum:progression-level-changed', refresh);
     refresh();
   }
 
