@@ -4,7 +4,56 @@
 **Rama de trabajo:** `main`  
 **Propósito:** dejar instrucciones persistentes para que una nueva sesión de ChatGPT pueda retomar el trabajo sin depender del historial del chat.
 
-## Objetivo
+#
+
+## 0. Auditoría cruzada obligatoria: Foundry contra Firmamentum Velatum
+
+**Esta es una condición central del trabajo, no una consulta opcional.** El creador está implementado en `JRRGUILLE-bit/Foundry`, pero las reglas de campaña, el mundo, el canon, las decisiones de contenido y las listas de opciones aprobadas/excluidas están documentadas en `JRRGUILLE-bit/Firmamentum-Velatum`.
+
+La auditoría debe abarcar **todo el trabajo existente de Creator Personarum en Foundry** y contrastarlo con la repo Firmamentum. No alcanza con leer el código de Foundry, revisar si compila o comprobar que las opciones existen en D&D. Una opción puede ser oficial y técnicamente correcta y aun así no estar permitida en esta campaña.
+
+### Repositorios y autoridad
+
+- **Repo de implementación:** [JRRGUILLE-bit/Foundry](https://github.com/JRRGUILLE-bit/Foundry). Aquí se inspecciona y desarrolla Creator Personarum.
+- **Repo de canon y decisiones:** [JRRGUILLE-bit/Firmamentum-Velatum](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum). Aquí se consulta el mundo, las reglas de campaña, los datasets canónicos, las aprobaciones, las exclusiones y las decisiones vigentes.
+- Leer primero el [AI_HANDOFF](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/AI_HANDOFF.md), y después, como mínimo:
+  - [CANON_AND_RULES.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/CANON_AND_RULES.md)
+  - [DECISIONS_AND_OPEN_QUESTIONS.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/DECISIONS_AND_OPEN_QUESTIONS.md)
+  - [PROJECT_STATUS.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/PROJECT_STATUS.md)
+  - [MASTER_CHECKLIST.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/docs/MASTER_CHECKLIST.md)
+  - [world-overview.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/lore/world-overview.md)
+  - [geography-and-geopolitics.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/lore/geography-and-geopolitics.md)
+  - [cosmology-and-pantheon.md](https://github.com/JRRGUILLE-bit/Firmamentum-Velatum/blob/main/lore/cosmology-and-pantheon.md)
+  - Los archivos JSON actuales de campaña para razas/procedencias, backgrounds, feats, clases, subclases y exclusiones, además de los informes de auditoría vinculados desde esos documentos.
+- La información viva de GitHub manda sobre resúmenes antiguos: verificar `main` en ambas repos antes de concluir.
+
+**Si la sesión no tiene acceso de lectura a Firmamentum-Velatum**, debe decirlo claramente y pedir que se habilite. No debe sustituir esa auditoría por una revisión parcial basada solo en Foundry, ni inventar el canon a partir de recuerdos o resúmenes.
+
+### Qué hay que contrastar
+
+Para cada opción mecánica que el creador muestra, guarda, restaura o permite seleccionar, comprobar:
+1. que su fuente y edición correspondan a D&D 5e 2014 / Legacy;
+2. que sea genérica y no específica de un setting;
+3. que no pertenezca a Critical Role / Exandria;
+4. que no esté en la ban list ni en las exclusiones de campaña;
+5. que sus requisitos, disponibilidad y restricciones coincidan con las decisiones de Firmamentum;
+6. que cualquier conexión con el mundo, regiones, reinos, culturas, religiones, panteón o cosmología respete el canon y no invente hechos.
+
+No limitar la auditoría a backgrounds y feats: revisar el conjunto del creador y sus datos visibles —razas (sin reabrir la lista aprobada), clases, subclases, backgrounds, feats, habilidades, idiomas, herramientas, conjuros, rasgos, invocaciones, pactos, marcas, procedencias, elecciones por nivel, multiclase, textos y recorridos— en la medida en que existan en la implementación.
+
+### Resultado exigido de la auditoría
+
+Dejar una matriz trazable de las categorías y opciones revisadas, indicando fuente, decisión de Firmamentum, estado en Foundry y discrepancia/acción necesaria. Separar:
+- correcto y alineado;
+- presente pero debe excluirse;
+- ausente y debe incorporarse por ser genérico, oficial y permitido;
+- pendiente de verificación de fuente;
+- bloqueado por una decisión de canon realmente abierta.
+
+No marcar como auditado un conjunto que no se revisó registro por registro o con una validación equivalente y reproducible. Corregir las discrepancias autorizadas por decisiones ya existentes. Si una decisión realmente no está tomada en Firmamentum, documentar el punto exacto y consultar antes de inventar una respuesta.
+
+
+# Objetivo
 
 Revisar integralmente el Creator Personarum existente y **continuar su desarrollo hasta completar el creador mecánico**. No limitarse a auditar, enumerar pendientes o redactar recomendaciones: hay que implementar y verificar el trabajo que corresponda.
 
