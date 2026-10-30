@@ -139,7 +139,7 @@ assert.ok(runtimeSubclasses.length > 0 && runtimeSubclasses.every(record =>
   Number(record.level) === Number(record.mechanics?.subclass_level)
 ), 'Every runtime subclass must have verified rules data and an explicit, consistent unlock level');
 assert.ok(catalogRuntime.includes('const selectedLevel = currentProgressionLevel;'), 'Subclasses must be gated by the current progression stage, not the Director target level');
-assert.ok(catalogRuntime.includes('if (field) field.hidden = !matching.length;'), 'The subclass field must stay hidden when the class has no unlocked subclass');
+assert.ok(catalogRuntime.includes('field.hidden = !matching.length;'), 'The subclass field must stay hidden when the class has no unlocked subclass');
 assert.ok(catalogRuntime.includes('const previousSelection = select.value;'), 'Refreshing the subclass selector must capture its current selection');
 assert.ok(catalogRuntime.includes('if (previousSelection && Array.from(select.options).some(option => option.value === previousSelection))'), 'A still-valid subclass selection must survive progression and language refreshes');
 assert.ok(catalogRuntime.includes("window.addEventListener('creator-personarum:progression-level-changed'"), 'Subclasses must advance only when the current progression stage changes');
