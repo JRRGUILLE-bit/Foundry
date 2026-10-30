@@ -1,8 +1,10 @@
 # PRIMERA VEZ — CHATGPT / CODEX DE GONZA
 
-Si estás leyendo esto desde la cuenta de ChatGPT/Codex de Gonzalo (`gonzalosellanesvera-art`), **no empieces a modificar código todavía**.
+Este archivo inicia la continuidad de trabajo de Creator Personarum para la campaña nueva **Firmamentum Velatum**. El encargo que sigue fue dictado y redactado por Guillermo, el Director humano, mediante speech-to-text: sus requisitos provienen del usuario y no son invenciones ni propuestas de ChatGPT.
 
-Este repositorio fue trabajado anteriormente desde otra cuenta de ChatGPT. El historial de esos chats no está disponible para vos, así que **GitHub es la fuente de continuidad**.
+La cuenta de ChatGPT/Codex que inicia esta tarea ya tiene acceso a las cuentas y repositorios necesarios, incluidos `JRRGUILLE-bit/Foundry` y `JRRGUILLE-bit/Firmamentum-Velatum`. No pedir acceso ni detener el trabajo alegando que falta permiso.
+
+El historial de conversaciones anteriores puede no estar disponible; la continuidad está documentada en GitHub. Leé la orden principal y ejecutá el trabajo indicado.
 
 ## Hacé esto primero
 
