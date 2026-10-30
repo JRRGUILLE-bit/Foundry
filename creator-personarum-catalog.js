@@ -2110,6 +2110,7 @@
       if (!Number.isInteger(nextLevel) || nextLevel < 1 || nextLevel > 20) return false;
       currentProgressionLevel = nextLevel;
       refresh();
+      levelInput.dispatchEvent(new Event('input', { bubbles: true }));
       return true;
     };
     window.creatorPersonarumGetProgressionLevel = () => currentProgressionLevel;
