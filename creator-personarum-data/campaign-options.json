@@ -42,7 +42,7 @@
     "tool_options_require_canonical_approval": true
   },
   "totals": {
-    "included_records": 425,
+    "included_records": 428,
     "included_by_category": {
       "background": 53,
       "class": 13,
@@ -50,7 +50,7 @@
       "subclass": 39,
       "subclass_feature": 237,
       "language": 20,
-      "tool": 33
+      "tool": 36
     }
   },
   "records": [
@@ -24147,6 +24147,42 @@
       "campaign_status": "approved",
       "data_quality": "verified_campaign_reference",
       "tool_category": "vehicles"
+    },
+    {
+      "category": "tool",
+      "id": "tool.disguise-kit",
+      "name": "Disguise Kit",
+      "name_en": "Disguise Kit",
+      "name_es": "Kit de disfraz",
+      "source": "PHB",
+      "source_ref": "character-data/rules/backgrounds/backgrounds.json",
+      "campaign_status": "approved",
+      "data_quality": "verified_campaign_reference",
+      "tool_category": "other"
+    },
+    {
+      "category": "tool",
+      "id": "tool.forgery-kit",
+      "name": "Forgery Kit",
+      "name_en": "Forgery Kit",
+      "name_es": "Kit de falsificación",
+      "source": "PHB",
+      "source_ref": "character-data/rules/backgrounds/backgrounds.json",
+      "campaign_status": "approved",
+      "data_quality": "verified_campaign_reference",
+      "tool_category": "other"
+    },
+    {
+      "category": "tool",
+      "id": "tool.herbalism-kit",
+      "name": "Herbalism Kit",
+      "name_en": "Herbalism Kit",
+      "name_es": "Kit de herboristería",
+      "source": "PHB",
+      "source_ref": "character-data/rules/backgrounds/backgrounds.json",
+      "campaign_status": "approved",
+      "data_quality": "verified_campaign_reference",
+      "tool_category": "other"
     }
   ]
 }
