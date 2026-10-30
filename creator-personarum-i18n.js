@@ -144,7 +144,7 @@
     'Elegí una opción del panteón…': 'Choose an option from the pantheon…',
     'Al elegir una opción, vas a ver sus ámbitos y una síntesis de su tradición.': 'Choose an option to see its domains and a summary of its tradition.',
     'Para clérigos, elegir una divinidad es parte central del concepto. Para paladines, esta elección es opcional: también pueden definir su camino a partir de un juramento.': 'For clerics, choosing a deity is central to the character concept. For paladins, this choice is optional: they can define their path through an oath instead.',
-    'El catálogo canónico de campaña todavía no contiene trasfondos aprobados; no se van a mostrar opciones genéricas.': 'The campaign canon catalog does not yet contain approved backgrounds; generic options will not be shown.',
+    'No se pudieron cargar las opciones aprobadas de trasfondo. No se mostrarán opciones genéricas.': 'Approved background options could not be loaded. Generic options will not be shown.',
     'TRASFONDO': 'BACKGROUND',
     'Sin opciones aprobadas en el canon de campaña': 'No backgrounds approved by campaign canon',
     'HABILIDADES DEL TRASFONDO': 'BACKGROUND SKILLS',
