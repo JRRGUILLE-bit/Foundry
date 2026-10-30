@@ -194,8 +194,38 @@ try {
 
     await page.locator('#creator-race').selectOption({ label: 'Aasimar' });
     await page.locator('#creator-wizard-next').click();
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 1 DE 5',
+      'The known-character wizard must not leave the first step before all six roll results are assigned');
+    assert.match(await page.locator('#creator-draft-status').innerText(),
+      /Asigná cada uno de los seis resultados a una característica distinta/i,
+      'An incomplete ability allocation must give a specific validation message');
+
+    const rollIds = Array.from({ length: 6 }, (_, index) => 'appendix-assignment-1-roll-' + (index + 1));
+    const abilityKeys = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+    assert.equal(await page.locator('#creator-ability-assignment').isVisible(), true,
+      'The ability allocation controls must appear after the verified assignment is loaded');
+    for (const key of abilityKeys) {
+      assert.equal(await page.locator('#creator-ability-assignment-' + key).isEnabled(), true,
+        'Each base ability must allow its result to be chosen: ' + key);
+    }
+    await page.locator('#creator-ability-assignment-str').selectOption(rollIds[0]);
+    assert.equal(await page.locator('#creator-ability-assignment-dex option[value="' + rollIds[0] + '"]').isDisabled(), true,
+      'A roll selected for Strength must not be available for Dexterity');
+    for (let index = 1; index < abilityKeys.length; index += 1) {
+      await page.locator('#creator-ability-assignment-' + abilityKeys[index]).selectOption(rollIds[index]);
+    }
+    assert.match(await page.locator('#creator-ability-assignment-status').innerText(),
+      /Las seis tiradas están asignadas, una por característica/i,
+      'Six distinct assignments must be accepted');
+    assert.equal(await page.locator('#creator-preview-ability-scores-row').evaluate(element => element.hidden), false,
+      'The preview must show the assigned base scores');
+    assert.equal(await page.locator('#creator-preview-ability-scores').innerText(),
+      'Fuerza 16 · Destreza 15 · Constitución 14 · Inteligencia 12 · Sabiduría 10 · Carisma 8',
+      'Each assigned roll must be reflected in the matching ability');
+
+    await page.locator('#creator-wizard-next').click();
     assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 2 DE 5',
-      'The known-character wizard must advance from race to class only after the race selection is valid');
+      'The known-character wizard must advance to class only after the race and six distinct ability scores are valid');
     assert.equal(await page.locator('#creator-character-class').isVisible(), true,
       'The class selector must become visible at the class stage');
 
