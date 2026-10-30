@@ -2653,6 +2653,10 @@
         const section = byId(id);
         if (section) section.hidden = true;
       }
+      const backgroundField = byId('creator-background-field');
+      const backgroundStageStatus = byId('creator-background-stage-status');
+      if (backgroundField) backgroundField.hidden = true;
+      if (backgroundStageStatus) backgroundStageStatus.hidden = activeCreatorMode !== 'known-character';
       console.error('No se pudo cargar el catálogo de opciones aprobadas por el canon de campaña. No se muestran opciones genéricas.', error);
     }
   }
