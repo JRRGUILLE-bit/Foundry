@@ -440,6 +440,7 @@
     'VOLVISTE A EDITAR EL PERSONAJE. LOS CAMBIOS SE GUARDAN AL PULSAR «GUARDAR BORRADOR».': 'YOU RETURNED TO EDITING THE CHARACTER. CHANGES ARE SAVED WHEN YOU PRESS “SAVE DRAFT”.',
     'Elegí tu nombre para recuperar o guardar tu personaje.': 'Choose your name to restore or save your character.',
     'No se pudo guardar la finalización en este navegador. El personaje sigue editable.': 'The character could not be finalized in this browser. It remains editable.',
+    'ELEGÍ EL TRUCO ADICIONAL CONCEDIDO': 'CHOOSE THE ADDITIONAL GRANTED CANTRIP',
     'Elegí una raza aprobada y completá sus decisiones obligatorias antes de seguir.': 'Choose an approved species and complete its required choices before continuing.',
     'Clase y opciones de clase': 'Class and class options',
     'Elegí la clase y completá sus habilidades y opciones disponibles para el personaje.': 'Choose a class and complete its available skills and options for the character.',
@@ -535,6 +536,16 @@
     translated = translated.replace(/^Quitar conjuro (.+)$/, 'Remove spell $1');
     translated = translated.replace(/^Marcá (\d+) habilidad(es)?$/, 'Select $1 skill(s)');
     translated = translated.replace(/^Elegí exactamente (\d+) habilidades? permitidas?\.$/, 'Choose exactly $1 permitted skill(s).');
+    translated = translated.replace(/^PERSONAJE FINALIZADO EL (.+)\. PODÉS VOLVER A EDITARLO CUANDO QUIERAS\.$/, 'CHARACTER FINALIZED ON $1. YOU CAN RETURN TO EDIT IT AT ANY TIME.');
+    translated = translated.replace(/^Elegí exactamente (\d+) habilidades? de (.+)\.$/, 'Choose exactly $1 skill(s) from $2.');
+    translated = translated.replace(/^Elegí (\d+) habilidades? para el linaje (.+)\.$/, 'Choose $1 skill(s) for the lineage $2.');
+    translated = translated.replace(/^Completá las (\d+) características obligatorias para el linaje (.+)\.$/, 'Complete the $1 required ability score choice(s) for the lineage $2.');
+    translated = translated.replace(/^Incrementos de características registrados: (.+)$/, 'Ability score increases recorded: $1');
+    translated = translated.replace(/^Elegiste todas las habilidades del linaje\.$/, 'You selected all lineage skills.');
+    translated = translated.replace(/^Elegiste todas las habilidades que permite este trasfondo\.$/, 'You selected all skills allowed by this background.');
+    translated = translated.replace(/^Concede automáticamente (.+)$/, 'Automatically grants $1');
+    translated = translated.replace(/^Tamaño registrado: (.+)$/, 'Recorded size: $1');
+    translated = translated.replace(/^\s*· nivel (\d+)$/, ' · level $1');
     return translated;
   }
 
@@ -589,9 +600,11 @@
       button.setAttribute('aria-label', getLanguage() === 'en' ? 'Switch language to Spanish' : 'Switch language to English');
       button.title = getLanguage() === 'en' ? 'Switch language to Spanish' : 'Switch language to English';
     }
-    document.title = getLanguage() === 'en'
-      ? 'Creator Personarum | El Foundry de la Banda'
-      : 'Creator Personarum | El Foundry de la Banda';
+    document.title = 'Creator Personarum | El Foundry de la Banda';
+    const description = document.querySelector('meta[name="description"]');
+    if (description) description.content = getLanguage() === 'en'
+      ? 'Creator Personarum: open the book and begin creating your next adventurer.'
+      : 'Creator Personarum: abrí el libro y empezá a crear tu próximo aventurero.';
   }
 
   function setLanguage(language) {
