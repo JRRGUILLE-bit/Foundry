@@ -4,6 +4,9 @@ Fecha de verificación: **11 de agosto de 2026**.
 
 Objetivo: permitir que Gonzalo (`gonzalosellanesvera-art`) trabaje desde su propia cuenta de ChatGPT Plus/Codex sin depender del historial de conversación usado para construir este proyecto.
 
+
+> **Orden vigente para Creator Personarum (30/10/2026):** antes de continuar el creador, leer `docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md`. Esa orden establece que la tarea no es solo auditar: hay que revisar lo existente y continuar la implementación del creador mecánico (nivel 1, progresión y multiclase), respetando las reglas de contenido, las aprobaciones y la ban list. El mapa interactivo como interfaz principal del Modo creativo y la creación de tokens siguen en desarrollo por Claude/Cloud; no duplicar ese trabajo. Si el usuario pide «revisá lo que hay para hacer en la repo», este documento de orden define qué trabajo retomar.
+
 ## 1. Qué repo es este
 
 Repo de la web/fichas:
