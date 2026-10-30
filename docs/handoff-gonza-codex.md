@@ -357,4 +357,6 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - El idioma predeterminado para un jugador sin preferencia guardada es español. No se migra la antigua preferencia global porque no identifica de forma fiable a qué jugador pertenecía.
 - El selector de idioma de la interfaz no modifica el borrador de otro jugador. La persistencia del personaje continúa en su clave de autosave independiente.
 - Alcance: Creator Personarum de escritorio; no se modificó la experiencia móvil, SESSION_LIVE, Apps Script ni otras fichas.
-- QA automatizado y de navegador: pendiente de ejecución posterior, según la secuencia acordada.
+- QA estático y de navegador de escritorio: aprobado en GitHub Actions, ejecución `40993496833` (commit `e54c1b61425936b19cf7d92304486c1f86c9c548`). Incluye `node --check`, catálogo/canon y smoke tests Playwright.
+- Durante QA se corrigió `refreshDivineOptions()`: `HTMLOptGroupElement` no expone `options`; ahora busca las opciones con `group.querySelectorAll('option')`. El navegador ya completa la carga de las diez ciudades del Appendix.
+- No se hicieron cambios en la interfaz móvil. QA móvil queda fuera de este paso.
