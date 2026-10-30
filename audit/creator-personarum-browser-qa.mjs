@@ -157,13 +157,6 @@ try {
     'Pantheon options must use English names');
   await page.waitForFunction(() => Array.from(document.getElementById('creator-zodiac-mark')?.options || [])
     .some(option => option.textContent.trim() === 'The Deer — Life'), null, { timeout: 10000 });
-  await page.reload({ waitUntil: 'domcontentloaded' });
-  await waitForAppendixCities();
-  await exposeWorkspace();
-  assert.equal(await page.evaluate(() => document.documentElement.lang), 'en',
-    'The selected language must persist after reloading the creator');
-  assert.equal(await page.locator('#creator-language-toggle').textContent(), 'ESPAÑOL',
-    'The language button must reflect the persisted language after reload');
   await page.locator('#creator-language-toggle').click();
   await page.waitForFunction(() => document.documentElement.lang === 'es'
     && document.getElementById('creator-language-toggle')?.textContent.trim() === 'ENGLISH');
@@ -188,12 +181,19 @@ try {
       'Selected player ID must be saved in browser storage');
     assert.equal(await page.locator('#creator-ability-assignment').isVisible(), false,
       'Ability rolls must remain optional during class selection until the Director assignment is loaded');
+    await page.locator('#creator-language-toggle').click();
+    assert.equal(await page.evaluate(() => localStorage.getItem('banda.creator-personarum.language.v1.player.maite')), 'en',
+      'The language preference must be stored under the active player');
     await page.reload({ waitUntil: 'domcontentloaded' });
     await waitForAppendixCities();
     await exposeWorkspace();
+    assert.equal(await page.evaluate(() => document.documentElement.lang), 'en',
+      'The selected player language must persist after reloading the creator');
     await page.locator('#creator-known-path-button').click();
     assert.equal(await page.locator('#creator-assignment-player').inputValue(), 'maite',
       'The browser must remember the chosen player after reload');
+    await page.locator('#creator-language-toggle').click();
+    await page.waitForFunction(() => document.documentElement.lang === 'es');
     await page.locator('#creator-character-name').fill('Personaje de Maite');
     assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.maite')).name), 'Personaje de Maite',
       'Character changes must autosave under the selected player');
