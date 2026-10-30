@@ -9,6 +9,7 @@ const read = (name) => fs.readFileSync(path.join(root, name), 'utf8');
 
 for (const name of [
   'creator-personarum.html',
+  'creator-personarum-i18n.js',
   'creator-personarum.css',
   'creator-personarum.js',
   'creator-personarum-catalog.js',
@@ -26,6 +27,7 @@ for (const name of [
 const homepage = read('index.html');
 const page = read('creator-personarum.html');
 const runtime = read('creator-personarum.js');
+const i18nRuntime = read('creator-personarum-i18n.js');
 const catalogRuntime = read('creator-personarum-catalog.js');
 const playerOptionsCatalog = JSON.parse(read('creator-personarum-data/player-options.json'));
 const campaignOptionsCatalog = JSON.parse(read('creator-personarum-data/campaign-options.json'));
@@ -37,6 +39,12 @@ const atlas = JSON.parse(read('fvtt-JournalEntry-atlas-revisado.json'));
 const atlasText = JSON.stringify(atlas);
 
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
+assert.match(page, /creator-personarum-i18n\.js\?v=20261030-2/, 'Creator Personarum must load its global language layer before the creator runtime');
+assert.match(page, /creator-personarum\.js\?v=20261030-5/, 'Creator Personarum runtime cache must be refreshed for global language support');
+assert.match(page, /creator-personarum-catalog\.js\?v=20261030-1/, 'Catalog cache must be refreshed for English character options');
+assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
+assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
+assert.match(i18nRuntime, /creator-personarum:language-changed/, 'The global language switch must notify dynamic character selectors');
 assert.match(page, /creator-personarum-catalog\.js/, 'Creator Personarum must load its filtered player-options catalog adapter');
 assert.match(catalogRuntime, /creator-personarum-data\/campaign-options\.json/, 'Catalog adapter must load campaign-canon-approved options, not generic candidates');
 assert.equal(campaignOptionsCatalog.source_of_truth.repository, 'JRRGUILLE-bit/Firmamentum-Velatum', 'Runtime catalogue must identify Firmamentum Velatum as its source of truth');
@@ -58,15 +66,19 @@ assert.equal(appendixCitiesCatalog.campaign_scope.id, 'appendix', 'The city sour
 assert.deepEqual(appendixCitiesCatalog.players_local.map(p => [p.id,p.name]), [['gonza','Gonza'],['maite','Maite'],['nico','Nico'],['rulo','Rulo'],['santi','Santi']], 'The Appendix player roster must remain local and alphabetical');
 assert.deepEqual(appendixCitiesCatalog.cities.map(c => c.name), ['Aetheluria','Valeriam','Arkenum','Sancturia','Portus Varia','Praetorix','Lucisburgum','Archivaea','Ferrum-Corvinium','Aequitania'], 'The Appendix data file must contain the ten canon city records');
 assert.ok(appendixCitiesCatalog.cities.every(c => c.canonical_information && c.cartographic_notice && c.chronicle_excerpt), 'Each city must include its three official text blocks');
+assert.ok(appendixCitiesCatalog.cities.every(c => c.canonical_information_en && c.cartographic_notice_en && c.chronicle_excerpt_en), 'Each city must include English versions of its canonical text blocks');
+assert.ok(campaignOptionsCatalog.records.every(record => record.name_en), 'Every approved character option must have an English display name');
+assert.ok(zodiacalMarksCatalog.signs.every(mark => mark.name_en && mark.domain_en && mark.summary_en), 'Every zodiacal mark must have English name, domain, and summary');
+assert.ok(zodiacalMarksCatalog.cosmic_marks.every(mark => mark.name_en && mark.condition_en), 'Every cosmic mark must have English name and birth condition');
 assert.ok(runtime.includes("APPENDIX_CITY_DATA_FILE = 'creator-personarum-data/appendix-grey-empire-cities.json'"), 'Runtime must load the canonical Appendix city data file');
 assert.ok(runtime.includes('function parseAppendixCities(data)'), 'Appendix city data must use a dedicated strict parser');
 assert.ok(runtime.includes('APPENDIX_CITY_STORAGE_KEY_PREFIX'), 'Each player city choice must use its own local storage key');
 assert.ok(runtime.includes('function restoreOriginCityForCurrentPlayer()'), 'The selected city must restore for the active Appendix player');
 assert.ok(runtime.includes('function persistOriginCityForCurrentPlayer()'), 'The selected city must persist independently for the active Appendix player');
-assert.ok(runtime.includes('canonicalInformation: selectedOriginRegion.canonicalInformation'), 'The full city record must be retained in the saved origin context');
-assert.ok(runtime.includes("appendOriginDetailBlock('INFORMACIÓN CANÓNICA'"), 'The Appendix UI must show canonical city information');
-assert.ok(runtime.includes("appendOriginDetailBlock('AVISO CARTOGRÁFICO'"), 'The Appendix UI must show the cartographic notice');
-assert.ok(runtime.includes("appendOriginDetailBlock('CRÓNICA DE LA CIUDAD'"), 'The Appendix UI must show the city chronicle');
+assert.ok(runtime.includes("canonicalInformation: getCreatorLanguage()==='en'?selectedOriginRegion.canonicalInformationEn:selectedOriginRegion.canonicalInformation"), 'The full city record must be retained in the saved origin context in the selected language');
+assert.ok(runtime.includes("appendOriginDetailBlock(creatorText('INFORMACIÓN CANÓNICA','CANONICAL INFORMATION')"), 'The Appendix UI must show canonical city information in the selected language');
+assert.ok(runtime.includes("appendOriginDetailBlock(creatorText('AVISO CARTOGRÁFICO','CARTOGRAPHIC NOTICE')"), 'The Appendix UI must show the cartographic notice in the selected language');
+assert.ok(runtime.includes("appendOriginDetailBlock(creatorText('CRÓNICA DE LA CIUDAD','CITY CHRONICLE')"), 'The Appendix UI must show the city chronicle in the selected language');
 assert.match(page, /¿De qué ciudad del Imperio Gris viene tu personaje\?/, 'The origin UI must offer Grey Empire cities only');
 assert.match(page, /id="creator-assignment-load"/, 'The player must explicitly load their assigned level and roll pool');
 assert.match(page, /id="creator-assignment-rolls"/, 'The six director-assigned roll results must be displayed');
