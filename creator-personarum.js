@@ -1301,8 +1301,11 @@
     return APPENDIX_CITY_DISPLAY_ORDER.map((name,index)=>{
       const city=byName.get(name);
       return {id:slugifyRegion('Imperio Gris-'+city.name),sourceCityId:city.id,name:city.name,group:'Imperio Gris',
-        summary:city.canonical_information,sourcePage:data.source.path,canonicalInformation:city.canonical_information,
-        cartographicNotice:city.cartographic_notice,chronicleExcerpt:city.chronicle_excerpt,order:index+1};
+        summary:city.canonical_information,summaryEn:city.canonical_information_en||city.canonical_information,
+        sourcePage:data.source.path,canonicalInformation:city.canonical_information,
+        canonicalInformationEn:city.canonical_information_en||city.canonical_information,
+        cartographicNotice:city.cartographic_notice,cartographicNoticeEn:city.cartographic_notice_en||city.cartographic_notice,
+        chronicleExcerpt:city.chronicle_excerpt,chronicleExcerptEn:city.chronicle_excerpt_en||city.chronicle_excerpt,order:index+1};
     });
   }
   function populateOriginRegions(cities){
@@ -1368,9 +1371,10 @@
     originDetails.replaceChildren();const city=getSelectedOriginRegion();
     if(city){
       const source=document.createElement('p');source.className='creator-origin-source';source.textContent='Registro canónico: '+city.sourcePage;originDetails.appendChild(source);
-      appendOriginDetailBlock('INFORMACIÓN CANÓNICA',city.canonicalInformation);
-      appendOriginDetailBlock('AVISO CARTOGRÁFICO',city.cartographicNotice);
-      appendOriginDetailBlock('CRÓNICA DE LA CIUDAD',city.chronicleExcerpt);return;
+      const english=getCreatorLanguage()==='en';
+      appendOriginDetailBlock(creatorText('INFORMACIÓN CANÓNICA','CANONICAL INFORMATION'),english?city.canonicalInformationEn:city.canonicalInformation);
+      appendOriginDetailBlock(creatorText('AVISO CARTOGRÁFICO','CARTOGRAPHIC NOTICE'),english?city.cartographicNoticeEn:city.cartographicNotice);
+      appendOriginDetailBlock(creatorText('CRÓNICA DE LA CIUDAD','CITY CHRONICLE'),english?city.chronicleExcerptEn:city.chronicleExcerpt);return;
     }
     const message=document.createElement('p');message.className='creator-origin-empty';
     if(appendixCitiesLoading)message.textContent='Cargando las diez ciudades del Appendix…';
@@ -1479,10 +1483,10 @@
           name: selectedOriginRegion.name,
           continent: selectedOriginRegion.group,
           sourcePage: selectedOriginRegion.sourcePage,
-          summary: selectedOriginRegion.summary,
-          canonicalInformation: selectedOriginRegion.canonicalInformation,
-          cartographicNotice: selectedOriginRegion.cartographicNotice,
-          chronicleExcerpt: selectedOriginRegion.chronicleExcerpt
+          summary: getCreatorLanguage()==='en'?selectedOriginRegion.summaryEn:selectedOriginRegion.summary,
+          canonicalInformation: getCreatorLanguage()==='en'?selectedOriginRegion.canonicalInformationEn:selectedOriginRegion.canonicalInformation,
+          cartographicNotice: getCreatorLanguage()==='en'?selectedOriginRegion.cartographicNoticeEn:selectedOriginRegion.cartographicNotice,
+          chronicleExcerpt: getCreatorLanguage()==='en'?selectedOriginRegion.chronicleExcerptEn:selectedOriginRegion.chronicleExcerpt
         }
       : savedOriginContext;
     const selectedZodiacMark = getSelectedZodiacMark();
@@ -1521,8 +1525,8 @@
       selectedLineageAbilities,
       background: document.getElementById('creator-background').value,
       zodiacalMark: selectedZodiacMark ? selectedZodiacMark.id : '',
-      zodiacalMarkName: selectedZodiacMark ? selectedZodiacMark.name_es : '',
-      zodiacalMarkDomain: selectedZodiacMark ? selectedZodiacMark.domain_es : '',
+      zodiacalMarkName: selectedZodiacMark ? (getCreatorLanguage()==='en'?(selectedZodiacMark.name_en||selectedZodiacMark.name_es):selectedZodiacMark.name_es) : '',
+      zodiacalMarkDomain: selectedZodiacMark ? (getCreatorLanguage()==='en'?(selectedZodiacMark.domain_en||selectedZodiacMark.domain_es):selectedZodiacMark.domain_es) : '',
       zodiacalMarkSummary,
       zodiacalChoices,
       cosmicMarks: cosmicSelection.marks,
@@ -1709,7 +1713,7 @@
       }
       if (!explorationFocus) explorationFocus = draft.explorationFocus || '';
       const skillLanguageSelect = document.getElementById('creator-skill-language');
-      if (skillLanguageSelect) skillLanguageSelect.value = draft.skillLanguage === 'en' ? 'en' : 'es';
+      if (skillLanguageSelect) skillLanguageSelect.value = getCreatorLanguage();
       nameInput.value = draft.name || '';
       const savedLineage = typeof draft.lineage === 'string' ? draft.lineage : '';
       const lineageOptionValues = Array.from(lineageSelect.options).map(option => option.value);
