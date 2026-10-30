@@ -2016,6 +2016,7 @@
       const isWarlock = selectedClass === 'brujo' || selectedClass === 'warlock';
       const selectedLevel = currentProgressionLevel;
       const validLevel = Number.isInteger(selectedLevel) && selectedLevel >= 1 && selectedLevel <= 20;
+      const previousSelection = select.value;
       const label = byId('creator-subclass-label');
       if (label) label.textContent = isWarlock ? 'PATRÓN' : 'SUBCLASE';
 
@@ -2064,6 +2065,10 @@
         if (added) added.textContent = byId('creator-skill-language')?.value === 'en'
           ? String(item.name_en || item.name)
           : item.name;
+      }
+
+      if (previousSelection && Array.from(select.options).some(option => option.value === previousSelection)) {
+        select.value = previousSelection;
       }
 
       if (field) {
