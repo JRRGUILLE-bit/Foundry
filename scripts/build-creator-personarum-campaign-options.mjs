@@ -369,7 +369,7 @@ const toolById = new Map();
 const toolByName = new Map();
 for (const tool of toolsDataset.tools) {
   if (!tool.id || !tool.name_en || !tool.name_es || tool.campaign_status !== "approved" ||
-      tool.data_quality !== "verified_srd_2014" || toolById.has(tool.id) ||
+      !["verified_srd_2014", "verified_campaign_reference"].includes(tool.data_quality) || toolById.has(tool.id) ||
       toolByName.has(tool.name_en.toLowerCase())) {
     throw new Error("Tool dataset contains an incomplete, duplicate, or unapproved record.");
   }
