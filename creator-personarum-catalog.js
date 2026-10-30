@@ -2107,7 +2107,9 @@
     byId('creator-skill-language')?.addEventListener('change', refresh);
     const setProgressionLevel = value => {
       const nextLevel = Number(value);
-      if (!Number.isInteger(nextLevel) || nextLevel < 1 || nextLevel > 20) return false;
+      const assignedTargetLevel = Number(levelInput.value || 1);
+      if (!Number.isInteger(nextLevel) || nextLevel < 1 || nextLevel > 20 ||
+          !Number.isInteger(assignedTargetLevel) || nextLevel > assignedTargetLevel) return false;
       currentProgressionLevel = nextLevel;
       refresh();
       levelInput.dispatchEvent(new Event('input', { bubbles: true }));
