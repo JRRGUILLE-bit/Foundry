@@ -228,7 +228,9 @@ try {
 
     for (const featRecord of restrictedFeats) {
       const allowedRaceIds = featRecord.campaign_eligibility.allowed_race_option_ids;
-      const allowedRaceId = allowedRaceIds[0];
+      const allowedRaceId = featRecord.id === 'feat.prodigy' && allowedRaceIds.includes('race.human.standard')
+        ? 'race.human.standard'
+        : allowedRaceIds[0];
       const allowedSpecies = campaignSpecies.find(record => (record.record_ids || []).includes(allowedRaceId));
       assert.ok(allowedSpecies, 'Every feat allowlist ID must resolve to one campaign species option: ' + allowedRaceId);
       const blockedSpecies = campaignSpecies.find(record =>
