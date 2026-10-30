@@ -1859,6 +1859,7 @@
         normalize(item.name_es || '') === selectedValue ||
         normalize(item.name) === selectedValue
       );
+      renderBackgroundLanguages(background || null);
 
       if (!selectedValue || !background) {
         selectedSkills = [];
@@ -2016,6 +2017,7 @@
       const visible = directMode && rows.length > 0;
       if (backgroundField) backgroundField.hidden = !visible;
       if (backgroundSkillsSection) backgroundSkillsSection.hidden = !visible;
+      if (backgroundLanguagesSection) backgroundLanguagesSection.hidden = !visible;
       if (backgroundStageStatus) backgroundStageStatus.hidden = !directMode || rows.length > 0;
       select.disabled = !visible;
     };
