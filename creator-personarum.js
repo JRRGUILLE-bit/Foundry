@@ -115,6 +115,20 @@
   const assignmentSummary = document.getElementById('creator-assignment-summary');
   const assignmentLevel = document.getElementById('creator-assignment-level');
   const assignmentRollList = document.getElementById('creator-assignment-rolls');
+  const abilityAssignmentSection = document.getElementById('creator-ability-assignment');
+  const abilityAssignmentStatus = document.getElementById('creator-ability-assignment-status');
+  const ABILITY_ROLL_ASSIGNMENT_KEYS = [
+    { key: 'str', labels: { es: 'Fuerza', en: 'Strength' } },
+    { key: 'dex', labels: { es: 'Destreza', en: 'Dexterity' } },
+    { key: 'con', labels: { es: 'Constitución', en: 'Constitution' } },
+    { key: 'int', labels: { es: 'Inteligencia', en: 'Intelligence' } },
+    { key: 'wis', labels: { es: 'Sabiduría', en: 'Wisdom' } },
+    { key: 'cha', labels: { es: 'Carisma', en: 'Charisma' } }
+  ];
+  const abilityAssignmentSelects = Object.fromEntries(ABILITY_ROLL_ASSIGNMENT_KEYS.map(({ key }) => [
+    key,
+    document.getElementById('creator-ability-assignment-' + key)
+  ]));
   const KNOWN_CREATOR_WIZARD_STEPS = [
     { title: 'Raza y variante', description: 'Elegí una raza aprobada y completá sus decisiones obligatorias antes de seguir.' },
     { title: 'Clase y opciones de clase', description: 'Elegí la clase y completá sus habilidades y opciones disponibles para el personaje.' },
@@ -660,6 +674,11 @@
         focusCreatorWizardControl(assignmentPlayerSelect);
         return false;
       }
+      if (!isAbilityRollAssignmentComplete()) {
+        setDraftStatus('Asigná cada uno de los seis resultados a una característica distinta antes de continuar.', 'error');
+        focusFirstUnassignedAbility();
+        return false;
+      }
       if (!raceSelect.value) {
         setDraftStatus('Elegí una raza aprobada por la campaña antes de continuar.', 'error');
         focusCreatorWizardControl(raceSelect);
@@ -781,6 +800,144 @@
     assignmentStatus.dataset.state = state;
   }
 
+  function assignmentsMatch(left, right) {
+    return Boolean(left && right
+      && typeof left.assignmentId === 'string'
+      && typeof right.assignmentId === 'string'
+      && left.assignmentId === right.assignmentId
+      && left.playerId === right.playerId);
+  }
+
+  function normalizeAbilityRollAssignments(assignment, candidates) {
+    if (!assignment || !Array.isArray(assignment.abilityRolls)
+        || !candidates || typeof candidates !== 'object' || Array.isArray(candidates)) return {};
+    const allowedRollIds = new Set(assignment.abilityRolls.map(roll => roll.rollId));
+    const usedRollIds = new Set();
+    const normalized = {};
+    ABILITY_ROLL_ASSIGNMENT_KEYS.forEach(({ key }) => {
+      const rollId = candidates[key];
+      if (typeof rollId === 'string' && allowedRollIds.has(rollId) && !usedRollIds.has(rollId)) {
+        normalized[key] = rollId;
+        usedRollIds.add(rollId);
+      }
+    });
+    return normalized;
+  }
+
+  function getSavedAbilityRollAssignments(assignment) {
+    return savedDraft && assignmentsMatch(assignment, savedDraft.playerAssignment)
+      ? savedDraft.abilityRollAssignments
+      : {};
+  }
+
+  function getCurrentAbilityAssignment() {
+    if (loadedPlayerAssignment) return loadedPlayerAssignment;
+    if (draftAssignmentSnapshot && savedDraft
+        && assignmentsMatch(draftAssignmentSnapshot, savedDraft.playerAssignment)) {
+      return draftAssignmentSnapshot;
+    }
+    return null;
+  }
+
+  function readAbilityRollAssignments() {
+    if (loadedPlayerAssignment) {
+      const candidates = Object.fromEntries(ABILITY_ROLL_ASSIGNMENT_KEYS.map(({ key }) => [
+        key,
+        abilityAssignmentSelects[key] ? abilityAssignmentSelects[key].value : ''
+      ]));
+      return normalizeAbilityRollAssignments(loadedPlayerAssignment, candidates);
+    }
+    const savedAssignment = getCurrentAbilityAssignment();
+    return savedAssignment
+      ? normalizeAbilityRollAssignments(savedAssignment, savedDraft && savedDraft.abilityRollAssignments)
+      : {};
+  }
+
+  function getAssignedAbilityScores(assignment, rollAssignments) {
+    if (!assignment || !Array.isArray(assignment.abilityRolls)) return {};
+    const valuesByRollId = new Map(assignment.abilityRolls.map(roll => [roll.rollId, roll.value]));
+    const scores = {};
+    ABILITY_ROLL_ASSIGNMENT_KEYS.forEach(({ key }) => {
+      const rollId = rollAssignments && rollAssignments[key];
+      if (typeof rollId === 'string' && valuesByRollId.has(rollId)) {
+        const value = valuesByRollId.get(rollId);
+        if (Number.isInteger(value)) scores[key] = value;
+      }
+    });
+    return scores;
+  }
+
+  function isAbilityRollAssignmentComplete() {
+    if (!loadedPlayerAssignment) return false;
+    const assignments = readAbilityRollAssignments();
+    const selectedRollIds = ABILITY_ROLL_ASSIGNMENT_KEYS
+      .map(({ key }) => assignments[key])
+      .filter(value => typeof value === 'string' && value);
+    return selectedRollIds.length === 6 && new Set(selectedRollIds).size === 6;
+  }
+
+  function focusFirstUnassignedAbility() {
+    const assignments = readAbilityRollAssignments();
+    const missing = ABILITY_ROLL_ASSIGNMENT_KEYS.find(({ key }) => !assignments[key]);
+    focusCreatorWizardControl(missing ? abilityAssignmentSelects[missing.key] : assignmentPlayerSelect);
+  }
+
+  function updateAbilityRollAssignmentOptions() {
+    const selectedByKey = Object.fromEntries(ABILITY_ROLL_ASSIGNMENT_KEYS.map(({ key }) => [
+      key,
+      abilityAssignmentSelects[key] ? abilityAssignmentSelects[key].value : ''
+    ]));
+    ABILITY_ROLL_ASSIGNMENT_KEYS.forEach(({ key }) => {
+      const select = abilityAssignmentSelects[key];
+      if (!select) return;
+      const usedByOthers = new Set(ABILITY_ROLL_ASSIGNMENT_KEYS
+        .filter(other => other.key !== key)
+        .map(other => selectedByKey[other.key])
+        .filter(Boolean));
+      Array.from(select.options).forEach(option => {
+        if (option.value) option.disabled = usedByOthers.has(option.value) && option.value !== select.value;
+      });
+    });
+
+    if (!abilityAssignmentStatus) return;
+    const assignedCount = ABILITY_ROLL_ASSIGNMENT_KEYS.filter(({ key }) => selectedByKey[key]).length;
+    abilityAssignmentStatus.textContent = assignedCount === 6 && isAbilityRollAssignmentComplete()
+      ? 'Las seis tiradas están asignadas, una por característica.'
+      : 'Asignadas: ' + assignedCount + ' de 6. Cada resultado se puede usar una sola vez.';
+  }
+
+  function renderAbilityRollAssignments(assignment, candidates = {}) {
+    if (!abilityAssignmentSection) return;
+    if (!assignment || !Array.isArray(assignment.abilityRolls)) {
+      abilityAssignmentSection.hidden = true;
+      ABILITY_ROLL_ASSIGNMENT_KEYS.forEach(({ key }) => {
+        const select = abilityAssignmentSelects[key];
+        if (!select) return;
+        select.replaceChildren(new Option('Cargá la asignación primero…', ''));
+        select.value = '';
+        select.disabled = true;
+      });
+      if (abilityAssignmentStatus) {
+        abilityAssignmentStatus.textContent = 'Cargá y verificá tu asignación para distribuir las seis tiradas.';
+      }
+      return;
+    }
+
+    abilityAssignmentSection.hidden = false;
+    const normalized = normalizeAbilityRollAssignments(assignment, candidates);
+    ABILITY_ROLL_ASSIGNMENT_KEYS.forEach(({ key }) => {
+      const select = abilityAssignmentSelects[key];
+      if (!select) return;
+      select.replaceChildren(new Option('Elegí un resultado…', ''));
+      assignment.abilityRolls.forEach((roll, index) => {
+        select.add(new Option('Resultado ' + (index + 1) + ': ' + roll.value, roll.rollId));
+      });
+      select.value = normalized[key] || '';
+      select.disabled = false;
+    });
+    updateAbilityRollAssignmentOptions();
+  }
+
   function renderAssignmentRolls(assignment) {
     assignmentRollList.replaceChildren();
     assignment.abilityRolls.forEach((roll, index) => {
@@ -802,6 +959,7 @@
     assignmentSummary.hidden = true;
     assignmentRollList.replaceChildren();
     assignmentLevel.textContent = '—';
+    renderAbilityRollAssignments(null);
     assignmentAccessCodeInput.required = currentMode === CREATION_MODES.known;
     assignmentAccessCodeInput.value = '';
     setAssignmentStatus(message, state);
@@ -902,7 +1060,8 @@
         // The player identity remains available in this page session.
       }
       renderAssignmentRolls(loadedPlayerAssignment);
-      setAssignmentStatus('Asignación verificada. Nivel ' + loadedPlayerAssignment.level + ' y seis resultados cargados desde la hoja de campaña.', 'saved');
+      renderAbilityRollAssignments(loadedPlayerAssignment, getSavedAbilityRollAssignments(loadedPlayerAssignment));
+      setAssignmentStatus('Asignación verificada. Nivel ' + loadedPlayerAssignment.level + ' y seis resultados cargados. Distribuí cada tirada entre una característica distinta.', 'saved');
       renderPreview(readFormValues());
       publishCreatorPersonarumDraftChange(readFormValues());
     } catch (error) {
@@ -1307,11 +1466,16 @@
     const zodiacalMarkSummary = buildZodiacalMarkSummary(selectedZodiacMark, zodiacalChoices);
     const cosmicSelection = readCosmicMarkSelection();
     const cosmicMarksSummary = buildCosmicMarkSummary(cosmicSelection);
+    const abilityAssignment = getCurrentAbilityAssignment();
+    const abilityRollAssignments = readAbilityRollAssignments();
+    const abilityScores = getAssignedAbilityScores(abilityAssignment, abilityRollAssignments);
     return {
       playerName: playerNameInput.value.trim(),
       playerAssignment: loadedPlayerAssignment
         ? JSON.parse(JSON.stringify(loadedPlayerAssignment))
         : (draftAssignmentSnapshot ? JSON.parse(JSON.stringify(draftAssignmentSnapshot)) : null),
+      abilityRollAssignments,
+      abilityScores,
       name: nameInput.value.trim(),
       skillLanguage: document.getElementById('creator-skill-language')?.value === 'en' ? 'en' : 'es',
       lineage: lineageChoice === 'Otro / personalizado' ? customLineage : lineageChoice,
@@ -1383,6 +1547,23 @@
       .filter(bonus => bonus && abilityLabels[bonus.key] && Number.isFinite(bonus.amount) && bonus.amount > 0)
       .map(bonus => '+' + bonus.amount + ' ' + abilityLabels[bonus.key]);
     document.getElementById('creator-preview-lineage-abilities-row').hidden = lineageAbilityBonusLabels.length === 0;
+    const previewAbilityScores = values.abilityScores && typeof values.abilityScores === 'object'
+      ? values.abilityScores
+      : {};
+    const previewAbilityScoreLabels = values.skillLanguage === 'en'
+      ? { str: 'Strength', dex: 'Dexterity', con: 'Constitution', int: 'Intelligence', wis: 'Wisdom', cha: 'Charisma' }
+      : abilityLabels;
+    const assignedAbilityScores = ABILITY_ROLL_ASSIGNMENT_KEYS
+      .filter(({ key }) => Number.isInteger(previewAbilityScores[key]))
+      .map(({ key }) => previewAbilityScoreLabels[key] + ' ' + previewAbilityScores[key]);
+    const previewAbilityScoresRow = document.getElementById('creator-preview-ability-scores-row');
+    const previewAbilityScoresLabel = document.getElementById('creator-preview-ability-scores-label');
+    const previewAbilityScoresValue = document.getElementById('creator-preview-ability-scores');
+    if (previewAbilityScoresRow && previewAbilityScoresLabel && previewAbilityScoresValue) {
+      previewAbilityScoresRow.hidden = assignedAbilityScores.length === 0;
+      previewAbilityScoresLabel.textContent = values.skillLanguage === 'en' ? 'BASE ABILITY SCORES' : 'ATRIBUTOS BASE';
+      previewAbilityScoresValue.textContent = assignedAbilityScores.join(' · ');
+    }
     document.getElementById('creator-preview-lineage-abilities').textContent = lineageAbilityBonusLabels.join(', ');
     document.getElementById('creator-preview-class').textContent = values.characterClass || 'Sin definir';
     document.getElementById('creator-preview-subclass-row').hidden = !values.subclass;
@@ -1634,6 +1815,8 @@
       schemaVersion: 1,
       playerName: values.playerName,
       playerAssignment: values.playerAssignment || null,
+      abilityRollAssignments: values.abilityRollAssignments || {},
+      abilityScores: values.abilityScores || {},
       updatedAt: new Date().toISOString(),
       status: savedDraft && savedDraft.mode === currentMode && savedDraft.status === 'ready' ? 'ready' : 'draft',
       finalizedAt: savedDraft && savedDraft.mode === currentMode && savedDraft.status === 'ready'
@@ -1724,6 +1907,15 @@
       setKnownCharacterWizardStep(1, false);
       setDraftStatus('Cargá y verificá la asignación del Director antes de finalizar o exportar el personaje.', 'error');
       focusCreatorWizardControl(assignmentPlayerSelect);
+      return false;
+    }
+
+    if (options.allowIncomplete !== true
+        && currentMode === CREATION_MODES.known
+        && !isAbilityRollAssignmentComplete()) {
+      setKnownCharacterWizardStep(1, false);
+      setDraftStatus('Asigná las seis tiradas, una por característica, antes de finalizar o exportar.', 'error');
+      focusFirstUnassignedAbility();
       return false;
     }
 
@@ -2369,6 +2561,9 @@
   });
   creatorWizardNextButton?.addEventListener('click', continueKnownCharacterWizard);
   assignmentLoadButton?.addEventListener('click', loadSelectedPlayerAssignment);
+  ABILITY_ROLL_ASSIGNMENT_KEYS.forEach(({ key }) => {
+    abilityAssignmentSelects[key]?.addEventListener('change', updateAbilityRollAssignmentOptions);
+  });
   assignmentPlayerSelect?.addEventListener('change', () => {
     draftAssignmentSnapshot = null;
     clearLoadedPlayerAssignment('Ingresá el código privado del jugador seleccionado y volvé a cargar la asignación.', 'pending');

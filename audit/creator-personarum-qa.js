@@ -51,13 +51,24 @@ assert.equal(campaignOptionsCatalog.records.filter(record => record.category ===
 assert.match(page, /id="creator-assignment-player"/, 'The known-character path must expose the Director-assigned player selector');
 assert.match(page, /id="creator-assignment-access-code"/, 'The player must authenticate their assignment with a private code');
 assert.match(page, /id="creator-assignment-load"/, 'The player must explicitly load their assigned level and roll pool');
-assert.match(page, /id="creator-assignment-rolls"/, 'The loaded six roll results must be displayed before ability assignment');
+assert.match(page, /id="creator-assignment-rolls"/, 'The six director-assigned roll results must be displayed');
+for (const key of ['str', 'dex', 'con', 'int', 'wis', 'cha']) {
+  assert.match(page, new RegExp('id="creator-ability-assignment-' + key + '"'), 'Each D&D ability must have a roll-selection control: ' + key);
+}
+assert.match(page, /id="creator-ability-assignment-status"/, 'The player must see whether all six ability scores have been assigned');
+assert.match(page, /id="creator-preview-ability-scores-row"/, 'The selected base ability scores must appear in the preview');
+assert.match(runtime, /function normalizeAbilityRollAssignments\(assignment, candidates\)/, 'Chosen rolls must belong to the verified assignment');
+assert.match(runtime, /!usedRollIds\.has\(rollId\)/, 'A roll result must never be assigned to more than one ability');
+assert.match(runtime, /function isAbilityRollAssignmentComplete\(\)/, 'The runtime must verify all six abilities have unique assigned rolls');
+assert.match(runtime, /if \(!isAbilityRollAssignmentComplete\(\)\)/, 'The first wizard step must reject incomplete ability allocation');
+assert.match(runtime, /abilityRollAssignments: values\.abilityRollAssignments \|\| \{\}/, 'Drafts must preserve which roll ID was assigned to each ability');
+assert.match(runtime, /abilityScores: values\.abilityScores \|\| \{\}/, 'Drafts must preserve each selected raw ability score');
 assert.match(runtime, /function loadAssignmentPlayers\(\)/, 'The creator must load the assigned player roster');
 assert.match(runtime, /function loadSelectedPlayerAssignment\(\)/, 'The creator must retrieve an assignment using the per-player code');
 assert.match(runtime, /if \(!loadedPlayerAssignment\)/, 'Known-character progression and finalization must require a freshly verified assignment');
 assert.match(runtime, /playerAssignment: values\.playerAssignment \|\| null/, 'Drafts must preserve the assigned level and six roll results without storing the access code');
-assert.match(page, /creator-personarum.js\?v=20261029-9/, 'The assignment integration must invalidate the runtime script cache');
-assert.match(page, /creator-personarum.css\?v=20261029-2/, 'The assignment panel must invalidate the stylesheet cache');
+assert.match(page, /creator-personarum.js\?v=20261029-10/, 'The ability-allocation changes must invalidate the runtime script cache');
+assert.match(page, /creator-personarum.css\?v=20261029-3/, 'The ability-allocation panel must invalidate the stylesheet cache');
 assert.match(page, /id="creator-race"/, 'The creator must ask for the race family first');
 assert.match(page, /id="creator-subrace"/, 'Variants must appear in a second selector after choosing a race family');
 assert.match(page, /id="creator-known-wizard-navigation"/, 'Known-character creation must use a dedicated step navigator');

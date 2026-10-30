@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IM+Fell+English&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="creator-personarum.css?v=20261029-2">
+  <link rel="stylesheet" href="creator-personarum.css?v=20261029-3">
 </head>
 <body class="creator-personarum-page">
   <main id="creator-app">
@@ -213,9 +213,21 @@
             <p id="creator-assignment-status" class="creator-deity-guidance" role="status" aria-live="polite">Las asignaciones se consultan en la hoja privada de la campaña.</p>
             <div id="creator-assignment-summary" class="creator-assignment-summary" hidden>
               <p><strong>Nivel asignado por el Director:</strong> <span id="creator-assignment-level">—</span></p>
-              <p><strong>Seis resultados sin asignar a atributos:</strong></p>
+              <p><strong>Seis resultados asignados por el Director:</strong></p>
               <ol id="creator-assignment-rolls"></ol>
-              <p class="creator-deity-guidance">Todavía no se distribuyeron entre las características. Esa selección se realizará en la siguiente etapa del creador.</p>
+              <section id="creator-ability-assignment" class="creator-ability-assignment" aria-labelledby="creator-ability-assignment-title" hidden>
+                <h3 id="creator-ability-assignment-title">ASIGNÁ TUS SEIS CARACTERÍSTICAS</h3>
+                <p class="creator-deity-guidance">Elegí un resultado distinto para cada característica. Son valores base: todavía no incluyen incrementos raciales ni otros modificadores.</p>
+                <div class="creator-ability-assignment-grid">
+                  <label class="creator-field" for="creator-ability-assignment-str"><span>Fuerza / Strength</span><select id="creator-ability-assignment-str" autocomplete="off" disabled><option value="">Cargá la asignación primero…</option></select></label>
+                  <label class="creator-field" for="creator-ability-assignment-dex"><span>Destreza / Dexterity</span><select id="creator-ability-assignment-dex" autocomplete="off" disabled><option value="">Cargá la asignación primero…</option></select></label>
+                  <label class="creator-field" for="creator-ability-assignment-con"><span>Constitución / Constitution</span><select id="creator-ability-assignment-con" autocomplete="off" disabled><option value="">Cargá la asignación primero…</option></select></label>
+                  <label class="creator-field" for="creator-ability-assignment-int"><span>Inteligencia / Intelligence</span><select id="creator-ability-assignment-int" autocomplete="off" disabled><option value="">Cargá la asignación primero…</option></select></label>
+                  <label class="creator-field" for="creator-ability-assignment-wis"><span>Sabiduría / Wisdom</span><select id="creator-ability-assignment-wis" autocomplete="off" disabled><option value="">Cargá la asignación primero…</option></select></label>
+                  <label class="creator-field" for="creator-ability-assignment-cha"><span>Carisma / Charisma</span><select id="creator-ability-assignment-cha" autocomplete="off" disabled><option value="">Cargá la asignación primero…</option></select></label>
+                </div>
+                <p id="creator-ability-assignment-status" class="creator-deity-guidance" role="status" aria-live="polite">Cargá y verificá tu asignación para distribuir las seis tiradas.</p>
+              </section>
             </div>
           </section>
 
@@ -530,6 +542,7 @@
             <div><dt>LINAJE</dt><dd id="creator-preview-lineage">Sin definir</dd></div>
             <div id="creator-preview-dragonborn-row" hidden><dt>ASCENDENCIA DRACÓNICA</dt><dd id="creator-preview-dragonborn">A definir</dd></div>
             <div id="creator-preview-lineage-abilities-row" hidden><dt>INCREMENTOS DE CARACTERÍSTICAS</dt><dd id="creator-preview-lineage-abilities">A definir</dd></div>
+            <div id="creator-preview-ability-scores-row" hidden><dt id="creator-preview-ability-scores-label">ATRIBUTOS BASE</dt><dd id="creator-preview-ability-scores">A definir</dd></div>
             <div><dt>CLASE</dt><dd id="creator-preview-class">Sin definir</dd></div>
             <div id="creator-preview-subclass-row" hidden><dt>SUBCLASE</dt><dd id="creator-preview-subclass">A definir</dd></div>
             <div id="creator-preview-feat-row" hidden><dt>DOTE</dt><dd id="creator-preview-feat">A definir</dd></div>
@@ -545,7 +558,7 @@
             <div id="creator-preview-skills-row" hidden><dt id="creator-preview-skills-label">HABILIDADES ELEGIDAS</dt><dd id="creator-preview-skills">A definir</dd></div>
           </dl>
           <p class="creator-preview-note">
-            Esta etapa registra la identidad inicial. Atributos, competencias, equipo, hechizos y creación de actores en Foundry quedan para la siguiente fase.
+            Esta etapa registra la identidad inicial y las tiradas asignadas a características. La aplicación de incrementos raciales, competencias, equipo, hechizos y la integración mecánica completa con Foundry quedan para fases posteriores.
           </p>
         </aside>
       </div>
@@ -558,7 +571,7 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261029-9"></script>
+  <script src="creator-personarum.js?v=20261029-10"></script>
   <script src="creator-personarum-catalog.js?v=20261029-3"></script>
   <script src="creator-personarum-sheets-config.js?v=20261029-2"></script>
   <script src="creator-personarum-sheets.js?v=20261029-1"></script>
