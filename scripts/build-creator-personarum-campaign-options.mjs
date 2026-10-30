@@ -279,7 +279,7 @@ if (phbFeatRows.length !== 42 || phbFeatRows.some(feat => feat.campaign_status !
 if (supplementFeatRows.length !== 38 || approvedSupplementDecisions.length !== 38) {
   throw new Error("General supplement feat datasets and campaign decisions must each contain exactly 38 records.");
 }
-const matchFeatText = value => String(value ?? "").normalize("NFKC").trim().toLocaleLowerCase("en-US").replace(/\\s+/g, " ");
+const matchFeatText = value => String(value ?? "").normalize("NFKC").trim().toLocaleLowerCase("en-US").replace(/\s+/g, " ");
 const matchedSupplementIds = new Set();
 const approvedSupplementRows = [];
 for (const decision of approvedSupplementDecisions) {
