@@ -994,6 +994,9 @@
     if (levelInput) {
       levelInput.value = '1';
       levelInput.readOnly = currentMode === CREATION_MODES.known;
+      window.dispatchEvent(new CustomEvent('creator-personarum:progression-level-changed', {
+        detail: { level: 1 }
+      }));
       levelInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
     assignmentSummary.hidden = true;
@@ -1084,6 +1087,12 @@
       const assignedLevelInput = document.getElementById('creator-level');
       assignedLevelInput.value = String(loadedPlayerAssignment.level);
       assignedLevelInput.readOnly = true;
+      const currentProgressionLevel = Number(window.creatorPersonarumGetProgressionLevel?.() || 1);
+      if (currentProgressionLevel > loadedPlayerAssignment.level) {
+        window.dispatchEvent(new CustomEvent('creator-personarum:progression-level-changed', {
+          detail: { level: loadedPlayerAssignment.level }
+        }));
+      }
       assignedLevelInput.dispatchEvent(new Event('input', { bubbles: true }));
       playerNameInput.value = loadedPlayerAssignment.playerName;
       try {
@@ -1776,11 +1785,6 @@
       updateCustomLineageField();
       classSelect.value = draft.characterClass || '';
       classSelect.dispatchEvent(new Event('change', { bubbles: true }));
-      window.dispatchEvent(new CustomEvent('creator-personarum:progression-level-changed', {
-        detail: {
-          level: Number.isInteger(draft.progressionLevel) ? draft.progressionLevel : 1
-        }
-      }));
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-subclass', {
         detail: { value: typeof draft.subclass === 'string' ? draft.subclass : '' }
       }));
@@ -1846,6 +1850,11 @@
           : (draft.level || 1)
       );
       document.getElementById('creator-level').readOnly = currentMode === CREATION_MODES.known;
+      window.dispatchEvent(new CustomEvent('creator-personarum:progression-level-changed', {
+        detail: {
+          level: Number.isInteger(draft.progressionLevel) ? draft.progressionLevel : 1
+        }
+      }));
       assignmentSummary.hidden = true;
       if (draftAssignmentSnapshot && currentMode === CREATION_MODES.known) {
         setAssignmentStatus('El borrador conserva la asignación anterior. Elegí tu nombre para volver a cargar el nivel y las tiradas; no necesitás ingresar ningún código.', 'pending');
