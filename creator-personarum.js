@@ -2709,13 +2709,22 @@
     abilityAssignmentSelects[key]?.addEventListener('change', updateAbilityRollAssignmentOptions);
   });
   assignmentPlayerSelect?.addEventListener('change', () => {
-    rememberCurrentDraft();
-    autosaveCurrentDraft(readFormValues());
+    const previousPlayerId = appendixPlayerIdFromName(playerNameInput.value);
+    const playerId = assignmentPlayerSelect.value;
+    if (previousPlayerId && previousPlayerId !== playerId) {
+      const previousStorageKey = storageKeyForMode(currentMode, previousPlayerId);
+      if (previousStorageKey) {
+        const previousDraft = buildDraftRecord(readFormValues());
+        inMemoryDrafts[previousStorageKey] = previousDraft;
+        try {
+          window.localStorage.setItem(previousStorageKey, JSON.stringify(previousDraft));
+        } catch (_) {}
+      }
+    }
     const previousResetState = isResettingDraft;
     isResettingDraft = true;
     try {
-      const playerId = assignmentPlayerSelect.value;
-    const selectedPlayer = APPENDIX_PLAYERS.find(player => player.playerId === playerId);
+      const selectedPlayer = APPENDIX_PLAYERS.find(player => player.playerId === playerId);
     window.creatorPersonarumSetPlayer?.(selectedPlayer ? playerId : '');
     draftAssignmentSnapshot = null;
     try {
