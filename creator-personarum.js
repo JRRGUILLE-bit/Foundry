@@ -517,8 +517,8 @@
         const abilityId='creator-cosmic-'+mark.id.replace(/[^a-z0-9]+/gi,'-')+'-ability-'+spell.replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'');
         const priorAbility=prior.spellcastingAbilities&&typeof prior.spellcastingAbilities==='object'
           ? prior.spellcastingAbilities[spell]||'' : '';
-        appendCosmicSelectField(section,abilityId,'CARACTERÍSTICA DE LANZAMIENTO PARA '+spell.toUpperCase(),
-          zodiacalMarksData.spellcasting_ability.choices.map(option=>({value:option.value,label:option.label_es})),
+        appendCosmicSelectField(section,abilityId,creatorText('CARACTERÍSTICA DE LANZAMIENTO PARA ', 'SPELLCASTING ABILITY FOR ')+spell.toUpperCase(),
+          zodiacalMarksData.spellcasting_ability.choices.map(option=>({value:option.value,label:getCreatorLanguage()==='en'?option.label_en:option.label_es})),
           priorAbility,!isExplorer,creatorText('Elegí Inteligencia, Sabiduría o Carisma…', 'Choose Intelligence, Wisdom, or Charisma…'),
           {cosmicSpellAbilityMark:mark.id,cosmicSpell:spell});
       });
