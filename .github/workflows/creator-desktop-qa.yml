@@ -10,6 +10,7 @@ on:
       - "creator-personarum.js"
       - "creator-personarum-catalog.js"
       - "creator-personarum-data/player-options.json"
+      - "creator-personarum-data/campaign-options.json"
       - "creator-personarum-data/appendix-grey-empire-cities.json"
       - "creator-personarum-final-frame.png"
       - "creador *.mp4"
