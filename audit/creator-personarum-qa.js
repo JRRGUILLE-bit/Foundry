@@ -40,8 +40,8 @@ const atlasText = JSON.stringify(atlas);
 
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
 assert.match(page, /creator-personarum-i18n\.js\?v=20261030-3/, 'Creator Personarum must load its global language layer before the creator runtime');
-assert.match(page, /creator-personarum\.js\?v=20261030-15/, 'Creator Personarum runtime cache must be refreshed for global language support');
-assert.match(page, /creator-personarum-catalog\.js\?v=20261030-8/, 'Catalog cache must be refreshed for English character options');
+assert.match(page, /creator-personarum\.js\?v=20261030-17/, 'Creator Personarum runtime cache must be refreshed for global language support');
+assert.match(page, /creator-personarum-catalog\.js\?v=20261030-18/, 'Catalog cache must be refreshed for English character options');
 assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
 assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
 assert.match(i18nRuntime, /STORAGE_KEY \+ '\.player\.' \+ playerId/, 'Language preferences must be stored independently for each player');
@@ -49,6 +49,8 @@ assert.match(i18nRuntime, /function setPlayer\(playerId\)/, 'Changing the select
 assert.match(i18nRuntime, /creator-personarum:language-changed/, 'The global language switch must notify dynamic character selectors');
 assert.match(page, /creator-personarum-catalog\.js/, 'Creator Personarum must load its filtered player-options catalog adapter');
 assert.match(catalogRuntime, /creator-personarum-data\/campaign-options\.json/, 'Catalog adapter must load campaign-canon-approved options, not generic candidates');
+assert.ok(catalogRuntime.includes('allowed_race_option_ids') && catalogRuntime.includes('creator-dragonborn-ancestry'), 'The feat selector must apply canonical racial eligibility, including draconic ancestry IDs');
+assert.ok(catalogRuntime.includes("lineageSelect?.addEventListener('change', refreshAvailableFeats);"), 'Changing the canonical lineage must refresh eligible feats');
 assert.equal(campaignOptionsCatalog.source_of_truth.repository, 'JRRGUILLE-bit/Firmamentum-Velatum', 'Runtime catalogue must identify Firmamentum Velatum as its source of truth');
 assert.equal(campaignOptionsCatalog.source_of_truth.status, 'campaign_canon', 'Runtime catalogue must be marked as campaign canon');
 assert.equal(campaignOptionsCatalog.ruleset_id, 'dnd5e_2014', 'Runtime catalogue must use Legacy/2014 rules');
@@ -160,7 +162,13 @@ assert.ok(catalogRuntime.includes("const selectedLevel = Number(window.creatorPe
 assert.ok(catalogRuntime.includes("window.addEventListener('creator-personarum:progression-level-changed', refresh);"), 'Class and subclass feature summaries must refresh when progression advances');
 assert.ok(catalogRuntime.includes("item.category === 'subclass_feature' &&\n      item.campaign_status === 'approved' &&\n      item.data_quality === 'verified'"), 'Only approved and verified subclass features may be displayed');
 assert.ok(catalogRuntime.includes("item.category === 'class_feature' &&\n      item.campaign_status === 'approved' &&\n      item.data_quality === 'verified'"), 'Only approved and verified class features may be displayed');
-assert.ok(!campaignOptionsCatalog.records.some(record => /^(background|feat|spell|class_feature)$/.test(record.category)), 'Categories with no approved campaign rules data must not be populated from generic D&D sources');
+const campaignFeats = campaignOptionsCatalog.records.filter(record => record.category === 'feat');
+assert.equal(campaignFeats.length, 80, 'Campaign catalog must include the 42 PHB 2014 baseline feats and 38 approved general supplement feats');
+assert.equal(new Set(campaignFeats.map(record => record.id)).size, 80, 'Approved feat IDs must be unique');
+assert.ok(campaignFeats.every(record => record.campaign_status === 'approved' && record.ruleset_id === 'dnd5e_2014'), 'Only approved Legacy/2014 feats may enter the selector');
+assert.ok(campaignFeats.every(record => Array.isArray(record.prerequisites) && Array.isArray(record.mechanics?.effects) && record.source_record), 'Feat catalog must preserve prerequisites, effects and source records');
+assert.equal(campaignFeats.filter(record => record.campaign_eligibility?.allowed_race_option_ids?.length).length, 14, 'All 14 racially restricted feats must retain their canonical race allowlists');
+assert.ok(!campaignOptionsCatalog.records.some(record => ['spell', 'class_feature'].includes(record.category)), 'Categories without approved campaign rules data must remain omitted');
 assert.ok(!campaignOptionsCatalog.records.some(record => /Aberrant Mind|The Great Old One|Mente aberrante|Gran Antiguo/i.test(record.name)), 'Explicitly excluded subclasses must never enter the runtime catalog');
 assert.ok(playerOptionsCatalog.records.length > 1000, 'Filtered catalog must contain the existing broad player-option index');
 for (const category of ['species', 'species_variant', 'class', 'subclass', 'background', 'feat', 'spell', 'skill']) {
