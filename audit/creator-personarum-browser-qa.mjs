@@ -495,8 +495,10 @@ try {
       'The current progression level must be restored from the player draft');
     assert.equal(await page.locator('#creator-subclass').inputValue(),selectedBarbarianSubclassValue,
       'The subclass selected at its unlocked level must be restored from the player draft');
-    assert.equal(await page.locator('label[for="creator-subclass"]').isVisible(), false,
-      'The restored future-level subclass must remain hidden before the level progression stage');
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 5 DE 5',
+      'The player must return to the last saved progression step');
+    assert.equal(await page.locator('label[for="creator-subclass"]').isVisible(), true,
+      'The restored level 3 subclass must be visible again on its saved progression step');
     assert.equal(await page.locator('#creator-origin-region').inputValue(),greyEmpireId,'Maite city survives reload.');
     assert.equal(await page.evaluate(()=>localStorage.getItem('banda.creator-personarum.appendix-city.v1.gonza')),gonzaCityId,'Gonza city remains separate.');
 
