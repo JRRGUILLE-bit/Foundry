@@ -13,11 +13,11 @@ El historial de conversaciones anteriores puede no estar disponible; la continui
 3. Leé `README.md` completo.
 4. Leé `docs/handoff-gonza-codex.md`.
 5. Leé **`docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md` completo**. Este documento contiene la orden vigente para continuar Creator Personarum.
-6. Verificá el estado actual de `main`, PRs abiertos/cerrados e issues abiertas/cerradas en `Foundry` y `Firmamentum-Velatum`. No asumas que una fecha escrita en la documentación sigue siendo el estado más reciente.
-7. **La auditoría de Creator Personarum es cruzada y obligatoria:** el código está en `Foundry`, pero las reglas, el mundo, el canon, las aprobaciones y las exclusiones están en `JRRGUILLE-bit/Firmamentum-Velatum`. Leé su `docs/AI_HANDOFF.md`, `docs/CANON_AND_RULES.md`, `docs/DECISIONS_AND_OPEN_QUESTIONS.md`, `docs/PROJECT_STATUS.md`, `docs/MASTER_CHECKLIST.md` y los documentos `lore/` relevantes. Revisá también los datasets y decisiones JSON vigentes. No audites el creador usando solo el contenido de `Foundry`.
-8. Si no tenés acceso de lectura a `Firmamentum-Velatum`, informalo y pedí acceso; no simules una auditoría ni supongas el canon.
-9. Si el usuario dice «revisá lo que hay para hacer en la repo» o equivalente, interpretá esa indicación como: verificar ambas repos, auditar todo Creator Personarum contra el canon y las decisiones de Firmamentum, identificar y corregir discrepancias ya resueltas por Dirección, y continuar la implementación mecánica descrita en la orden. No te limites a una lista de sugerencias.
-10. No hagas cambios ajenos a esa orden. Verificá cada cambio y documentá qué quedó hecho y qué sigue pendiente.
+6. Verificá el estado actual del código, los datos y la documentación de Creator Personarum en `Foundry`, y contrastalos con el canon, las reglas y las decisiones vigentes de `Firmamentum-Velatum`. Ambas repos están accesibles; no pidas acceso.
+7. Comprobá las opciones reales que se muestran y las fuentes de cada registro. No confíes en informes previos ni en etiquetas de aprobado: verificá especialmente razas canónicas, feats raciales, feats generales y backgrounds.
+8. Aplicá las exclusiones indicadas por el Director: nada de Critical Role/Exandria ni contenido específico de settings como Eberron o Forgotten Realms/Faerûn. No reintroduzcas opciones que el Director ordenó retirar.
+9. Continuá la implementación del creador mecánico: creación desde nivel 1, progresión hasta el nivel asignado por el Director y multiclase solo cuando se cumplan los prerrequisitos de características de D&D 5e 2014. Mostrá únicamente las clases válidas para multiclase.
+10. No te limites a informar pendientes ni esperes otra orden para comenzar. Trabajá según `docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md`, verificá cada cambio y documentá lo efectivamente completado.
 
 ## Contexto mínimo que tenés que saber
 
@@ -45,6 +45,6 @@ Después de leer y verificar todo, respondé aproximadamente con esta estructura
 
 No copies información vieja sin verificarla primero en GitHub.
 
-## Si no tenés permiso para escribir
+## Acceso a GitHub
 
-El repositorio es público, así que podés leerlo. Para crear ramas y hacer `push` directo, `gonzalosellanesvera-art` necesita permiso de escritura como collaborator. Si podés leer pero no pushear, comprobá permisos de GitHub antes de asumir que hay un problema con Codex.
+El usuario confirma que la cuenta ChatGPT/Codex que retoma esta tarea ya dispone de acceso a las cuentas y repositorios necesarios. No solicitar nuevamente acceso a `Firmamentum-Velatum` ni condicionar la auditoría a un permiso que el usuario ya confirmó. Si una operación concreta devuelve un error real de permisos, informar únicamente ese error puntual y continuar con las tareas que sí estén disponibles.
