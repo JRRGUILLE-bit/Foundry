@@ -34,9 +34,9 @@
     "categories_without_canonical_approval_data_are_omitted": true
   },
   "totals": {
-    "included_records": 315,
+    "included_records": 319,
     "included_by_category": {
-      "species": 26,
+      "species": 30,
       "class": 13,
       "subclass": 39,
       "subclass_feature": 237
@@ -1436,6 +1436,194 @@
         {
           "name": "Call to the Wave",
           "effect": "You know the Shape Water cantrip. Once you reach 3rd level, you can cast Create or Destroy Water as a 2nd-level spell once with this trait, without material components, and regain the ability to do so when you finish a long rest. Constitution is your spellcasting ability for these spells."
+        }
+      ],
+      "ancestry_choices": []
+    },
+    {
+      "category": "species",
+      "id": "option.race.shifter.beasthide",
+      "record_ids": [
+        "race.shifter.beasthide"
+      ],
+      "family_id": "shifter",
+      "name": "Cambiante: piel de bestia",
+      "name_en": "Beasthide Shifter",
+      "source": "Firmamentum Velatum — canon aprobado",
+      "source_refs": [
+        {
+          "source_id": "source.erftlw.2019",
+          "page": 34,
+          "url": "https://dnd5e.wikidot.com/lineage:shifter-beasthide"
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "ready",
+      "size": [
+        "M"
+      ],
+      "speed": 30,
+      "darkvision": 60,
+      "ability": [
+        {
+          "con": 2,
+          "str": 1
+        }
+      ],
+      "languageProficiencies": [
+        {
+          "common": true
+        }
+      ],
+      "traits": [
+        {
+          "name": "Shifting",
+          "effect": "As a bonus action, assume a more bestial appearance for up to 1 minute, until you die, or until you revert to your normal appearance as a bonus action. When you shift, gain temporary hit points equal to your character level + Constitution modifier (minimum 1). You cannot shift again until you finish a short or long rest. Whenever you shift, you also gain 1d6 additional temporary hit points; while shifted, you have a +1 bonus to AC."
+        },
+        {
+          "name": "Natural Athlete",
+          "effect": "Proficiency in the Athletics skill."
+        }
+      ],
+      "ancestry_choices": []
+    },
+    {
+      "category": "species",
+      "id": "option.race.shifter.longtooth",
+      "record_ids": [
+        "race.shifter.longtooth"
+      ],
+      "family_id": "shifter",
+      "name": "Cambiante: colmillo largo",
+      "name_en": "Longtooth Shifter",
+      "source": "Firmamentum Velatum — canon aprobado",
+      "source_refs": [
+        {
+          "source_id": "source.erftlw.2019",
+          "page": 34,
+          "url": "https://dnd5e.wikidot.com/lineage:shifter-longtooth"
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "ready",
+      "size": [
+        "M"
+      ],
+      "speed": 30,
+      "darkvision": 60,
+      "ability": [
+        {
+          "str": 2,
+          "dex": 1
+        }
+      ],
+      "languageProficiencies": [
+        {
+          "common": true
+        }
+      ],
+      "traits": [
+        {
+          "name": "Shifting",
+          "effect": "As a bonus action, assume a more bestial appearance for up to 1 minute, until you die, or until you revert to your normal appearance as a bonus action. When you shift, gain temporary hit points equal to your character level + Constitution modifier (minimum 1). You cannot shift again until you finish a short or long rest. While shifted, you can use your elongated fangs to make an unarmed strike as a bonus action. On a hit, it deals piercing damage equal to 1d6 + your Strength modifier instead of the bludgeoning damage normal for an unarmed strike."
+        },
+        {
+          "name": "Fierce",
+          "effect": "Proficiency in the Intimidation skill."
+        }
+      ],
+      "ancestry_choices": []
+    },
+    {
+      "category": "species",
+      "id": "option.race.shifter.swiftstride",
+      "record_ids": [
+        "race.shifter.swiftstride"
+      ],
+      "family_id": "shifter",
+      "name": "Cambiante: paso veloz",
+      "name_en": "Swiftstride Shifter",
+      "source": "Firmamentum Velatum — canon aprobado",
+      "source_refs": [
+        {
+          "source_id": "source.erftlw.2019",
+          "page": 34,
+          "url": "https://dnd5e.wikidot.com/lineage:shifter-swiftstride"
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "ready",
+      "size": [
+        "M"
+      ],
+      "speed": 30,
+      "darkvision": 60,
+      "ability": [
+        {
+          "dex": 2,
+          "cha": 1
+        }
+      ],
+      "languageProficiencies": [
+        {
+          "common": true
+        }
+      ],
+      "traits": [
+        {
+          "name": "Graceful",
+          "effect": "Proficiency in the Acrobatics skill."
+        },
+        {
+          "name": "Shifting",
+          "effect": "As a bonus action, assume a more bestial appearance for up to 1 minute, until you die, or until you revert to your normal appearance as a bonus action. When you shift, gain temporary hit points equal to your character level + Constitution modifier (minimum 1). You cannot shift again until you finish a short or long rest. While shifted, your walking speed increases by 10 feet. Additionally, you can move up to 10 feet as a reaction when a creature ends its turn within 5 feet of you. This reactive movement does not provoke opportunity attacks."
+        }
+      ],
+      "ancestry_choices": []
+    },
+    {
+      "category": "species",
+      "id": "option.race.shifter.wildhunt",
+      "record_ids": [
+        "race.shifter.wildhunt"
+      ],
+      "family_id": "shifter",
+      "name": "Cambiante: caza salvaje",
+      "name_en": "Wildhunt Shifter",
+      "source": "Firmamentum Velatum — canon aprobado",
+      "source_refs": [
+        {
+          "source_id": "source.erftlw.2019",
+          "page": 34,
+          "url": "https://dnd5e.wikidot.com/lineage:shifter-wildhunt"
+        }
+      ],
+      "campaign_status": "approved",
+      "data_quality": "ready",
+      "size": [
+        "M"
+      ],
+      "speed": 30,
+      "darkvision": 60,
+      "ability": [
+        {
+          "wis": 2,
+          "dex": 1
+        }
+      ],
+      "languageProficiencies": [
+        {
+          "common": true
+        }
+      ],
+      "traits": [
+        {
+          "name": "Shifting",
+          "effect": "As a bonus action, assume a more bestial appearance for up to 1 minute, until you die, or until you revert to your normal appearance as a bonus action. When you shift, gain temporary hit points equal to your character level + Constitution modifier (minimum 1). You cannot shift again until you finish a short or long rest. While shifted, you have advantage on Wisdom checks, and no creature within 30 feet of you can make an attack roll with advantage against you unless you are incapacitated."
+        },
+        {
+          "name": "Natural Tracker",
+          "effect": "Proficiency in the Survival skill."
         }
       ],
       "ancestry_choices": []
