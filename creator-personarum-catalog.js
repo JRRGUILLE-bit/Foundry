@@ -777,6 +777,147 @@
       return true;
     };
 
+    const backgroundToolDetails = byId('creator-background-tools-list');
+    const backgroundToolStatus = byId('creator-background-tools-status');
+    const backgroundToolsSection = byId('creator-background-tools-section');
+    const backgroundToolInput = byId('creator-selected-background-tools');
+    const toolRecords = records.filter(item => item.category === 'tool' && item.campaign_status === 'approved');
+    const toolByName = new Map(toolRecords.map(item => [normalize(item.name_en || item.name), item]));
+    const selectedBackgroundTools = (() => {
+      try {
+        const parsed = JSON.parse(backgroundToolInput?.value || '{}');
+        return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+      } catch {
+        return {};
+      }
+    })();
+    let activeBackgroundToolValue = select.value || '';
+    const syncBackgroundToolValue = () => {
+      if (backgroundToolInput) backgroundToolInput.value = JSON.stringify(selectedBackgroundTools);
+    };
+    const renderBackgroundTools = (background) => {
+      if (!backgroundToolDetails || !backgroundToolStatus || !backgroundToolInput) return;
+      backgroundToolDetails.replaceChildren();
+      if (activeBackgroundToolValue !== (select.value || '')) {
+        Object.keys(selectedBackgroundTools).forEach(key => delete selectedBackgroundTools[key]);
+        activeBackgroundToolValue = select.value || '';
+      }
+      const mechanics = background?.backgroundMechanics || {};
+      const isCustomBackground = background?.id === 'background.custom_background';
+      const fixedNames = isCustomBackground ? [] : (Array.isArray(mechanics.tool_proficiencies) ? mechanics.tool_proficiencies : []);
+      const fixed = [...new Set(fixedNames.map(name => toolByName.get(normalize(name))).filter(Boolean))];
+      const definitions = [];
+      const expandCategory = (category) => toolRecords.filter(tool => tool.tool_category === ({
+        anyArtisansTool: 'artisan',
+        anyGamingSet: 'gaming_set',
+        anyMusicalInstrument: 'musical_instrument'
+      })[category]);
+      const resolveChoice = (choice, groupIndex, choiceIndex) => {
+        const names = Array.isArray(choice.from) ? choice.from : [];
+        const categories = Array.isArray(choice.from_categories) ? choice.from_categories : [];
+        const options = new Map();
+        for (const name of names) {
+          const compact = String(name).replace(/\\s+/g, '');
+          if (['anyArtisansTool','anyGamingSet','anyMusicalInstrument'].includes(compact)) {
+            for (const tool of expandCategory(compact)) options.set(tool.id, tool);
+          } else {
+            const tool = toolByName.get(normalize(name));
+            if (tool) options.set(tool.id, tool);
+          }
+        }
+        for (const category of categories) {
+          for (const tool of expandCategory(category)) options.set(tool.id, tool);
+        }
+        return {
+          key: 'tool-group-' + groupIndex + '-' + choiceIndex,
+          count: Number.isInteger(Number(choice.count)) && Number(choice.count) > 0 ? Number(choice.count) : 1,
+          options: [...options.values()].filter(tool => !fixed.some(item => item.id === tool.id))
+        };
+      };
+      if (!isCustomBackground) {
+        (Array.isArray(mechanics.tool_choices) ? mechanics.tool_choices : []).forEach((choice, index) => {
+          definitions.push(resolveChoice(choice, index, 0));
+        });
+      }
+      if (fixed.length) {
+        const item = document.createElement('li');
+        item.textContent = (byId('creator-skill-language')?.value === 'en' ? 'Granted automatically: ' : 'Concede automáticamente: ') +
+          fixed.map(tool => byId('creator-skill-language')?.value === 'en' ? tool.name_en : tool.name_es).join(', ') + '.';
+        backgroundToolDetails.appendChild(item);
+      }
+      const used = new Set(fixed.map(tool => tool.id));
+      definitions.forEach(definition => {
+        const values = Array.isArray(selectedBackgroundTools[definition.key])
+          ? selectedBackgroundTools[definition.key].filter(id => definition.options.some(tool => tool.id === id) && !used.has(id)).slice(0, definition.count)
+          : [];
+        selectedBackgroundTools[definition.key] = values;
+        const heading = document.createElement('li');
+        heading.textContent = (byId('creator-skill-language')?.value === 'en' ? 'Choose ' : 'Elegí ') +
+          definition.count + (definition.count === 1
+            ? (byId('creator-skill-language')?.value === 'en' ? ' tool proficiency:' : ' competencia con herramientas:')
+            : (byId('creator-skill-language')?.value === 'en' ? ' tool proficiencies:' : ' competencias con herramientas:'));
+        backgroundToolDetails.appendChild(heading);
+        definition.options.forEach(tool => {
+          const label = document.createElement('label');
+          label.className = 'creator-lineage-language-choice';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = 'backgroundTools';
+          checkbox.value = tool.id;
+          checkbox.checked = values.includes(tool.id);
+          checkbox.disabled = used.has(tool.id) || (values.length >= definition.count && !checkbox.checked);
+          label.append(checkbox, document.createTextNode(' ' +
+            (byId('creator-skill-language')?.value === 'en' ? tool.name_en : tool.name_es)));
+          const item = document.createElement('li');
+          item.appendChild(label);
+          backgroundToolDetails.appendChild(item);
+          checkbox.addEventListener('change', () => {
+            const next = [...(selectedBackgroundTools[definition.key] || [])];
+            if (checkbox.checked) {
+              if (next.length >= definition.count) { checkbox.checked = false; return; }
+              next.push(tool.id);
+            } else {
+              const index = next.indexOf(tool.id);
+              if (index >= 0) next.splice(index, 1);
+            }
+            selectedBackgroundTools[definition.key] = next;
+            syncBackgroundToolValue();
+            renderBackgroundTools(background);
+          });
+        });
+        values.forEach(id => used.add(id));
+      });
+      if (!background) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'Choose a background to view its tool proficiencies.'
+          : 'Elegí un trasfondo para consultar sus competencias con herramientas.';
+        backgroundToolDetails.appendChild(item);
+      } else if (isCustomBackground) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'Custom Background has no special tool choices in this campaign.'
+          : 'Trasfondo personalizado no tiene elecciones especiales de herramientas en esta campaña.';
+        backgroundToolDetails.appendChild(item);
+      } else if (!fixed.length && !definitions.length) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'No tool proficiencies are recorded for this background.'
+          : 'Este trasfondo no tiene competencias con herramientas registradas.';
+        backgroundToolDetails.appendChild(item);
+      }
+      const selectedCount = Object.values(selectedBackgroundTools).reduce((sum, values) => sum + values.length, 0);
+      const requiredCount = definitions.reduce((sum, definition) => sum + definition.count, 0);
+      backgroundToolStatus.textContent = requiredCount
+        ? (byId('creator-skill-language')?.value === 'en'
+            ? 'Selected ' + selectedCount + ' of ' + requiredCount + ' optional tool proficiencies.'
+            : 'Elegiste ' + selectedCount + ' de ' + requiredCount + ' competencias opcionales.')
+        : fixed.length
+          ? (byId('creator-skill-language')?.value === 'en' ? 'Automatic tool proficiencies recorded.' : 'Competencias automáticas registradas.')
+          : '';
+      syncBackgroundToolValue();
+    };
+
     const syncHiddenValue = () => {
       hiddenInput.value = JSON.stringify(selectedSkills);
     };
