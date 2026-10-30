@@ -539,7 +539,7 @@
   }
 
   function translateTextNode(node) {
-    if (!node || !node.parentElement || node.parentElement.closest('script,style,textarea,input,select,option#creator-skill-language-es')) return;
+    if (!node || !node.parentElement || node.parentElement.closest('script,style,textarea,input')) return;
     if (node.parentElement.closest('#creator-preview-name,#creator-preview-origin-story,#creator-origin-story,#creator-concept,#creator-character-name,#creator-player-name')) return;
     const current = node.nodeValue;
     let state = textStates.get(node);
