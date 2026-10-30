@@ -810,7 +810,9 @@
       const expandCategory = (category) => toolRecords.filter(tool => tool.tool_category === ({
         anyArtisansTool: 'artisan',
         anyGamingSet: 'gaming_set',
-        anyMusicalInstrument: 'musical_instrument'
+        anyMusicalInstrument: 'musical_instrument',
+        'gaming set': 'gaming_set',
+        'musical instrument': 'musical_instrument'
       })[category]);
       const resolveChoice = (choice, groupIndex, choiceIndex) => {
         const names = Array.isArray(choice.from) ? choice.from : [];
@@ -820,6 +822,8 @@
           const compact = String(name).replace(/\\s+/g, '');
           if (['anyArtisansTool','anyGamingSet','anyMusicalInstrument'].includes(compact)) {
             for (const tool of expandCategory(compact)) options.set(tool.id, tool);
+          } else if (['gaming set','musical instrument'].includes(normalize(name))) {
+            for (const tool of expandCategory(normalize(name))) options.set(tool.id, tool);
           } else {
             const tool = toolByName.get(normalize(name));
             if (tool) options.set(tool.id, tool);
