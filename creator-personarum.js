@@ -1018,6 +1018,7 @@
 
     if (preferredPlayerId) {
       assignmentPlayerSelect.value = preferredPlayerId;
+      window.creatorPersonarumSetPlayer?.(preferredPlayerId);
       const player = APPENDIX_PLAYERS.find(item => item.playerId === preferredPlayerId);
       if (player) {
         playerNameInput.value = player.playerName;
@@ -1028,6 +1029,7 @@
         setAssignmentStatus('Se recordó tu elección: ' + player.playerName + '. No necesitás ingresar ningún código.', 'idle');
       }
     } else {
+      window.creatorPersonarumSetPlayer?.('');
       setAssignmentStatus('Elegí tu nombre. El navegador recordará tu elección; no necesitás ingresar ningún código.', 'idle');
     }
 
@@ -2683,6 +2685,7 @@
   assignmentPlayerSelect?.addEventListener('change', () => {
     const playerId = assignmentPlayerSelect.value;
     const selectedPlayer = APPENDIX_PLAYERS.find(player => player.playerId === playerId);
+    window.creatorPersonarumSetPlayer?.(selectedPlayer ? playerId : '');
     draftAssignmentSnapshot = null;
     try {
       if (selectedPlayer) {

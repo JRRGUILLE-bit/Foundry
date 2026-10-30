@@ -2,6 +2,9 @@
   'use strict';
 
   const STORAGE_KEY = 'banda.creator-personarum.language.v1';
+  const PLAYER_ASSIGNMENT_STORAGE_KEY = 'banda.creator-personarum.assignment-player-id.v1';
+  const PLAYER_IDS = new Set(['gonza', 'maite', 'nico', 'rulo', 'santi']);
+  let currentPlayerId = '';
   const TEXT = {
     'SALTAR INTRO': 'SKIP INTRO',
     'NOMBRE DEL JUGADOR / PLAYER NAME': 'PLAYER NAME',
@@ -530,6 +533,30 @@
     return document.documentElement.dataset.creatorLanguage === 'en' ? 'en' : 'es';
   }
 
+  function getPlayerLanguage(playerId) {
+    if (!PLAYER_IDS.has(playerId)) return 'es';
+    try {
+      return window.localStorage.getItem(STORAGE_KEY + '.player.' + playerId) === 'en' ? 'en' : 'es';
+    } catch (_) {
+      return 'es';
+    }
+  }
+
+  function setPlayer(playerId) {
+    currentPlayerId = PLAYER_IDS.has(playerId) ? playerId : '';
+    const next = getPlayerLanguage(currentPlayerId);
+    document.documentElement.dataset.creatorLanguage = next;
+    document.documentElement.lang = next;
+    const skillLanguage = document.getElementById('creator-skill-language');
+    if (skillLanguage && skillLanguage.value !== next) {
+      skillLanguage.value = next;
+      skillLanguage.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    applyTranslations();
+    window.dispatchEvent(new CustomEvent('creator-personarum:language-changed', { detail: { language: next, playerId: currentPlayerId } }));
+    return next;
+  }
+
   function translateText(value) {
     const exact = TEXT[value.trim()];
     if (exact) return value.replace(value.trim(), exact);
@@ -657,20 +684,25 @@
   function setLanguage(language) {
     const next = language === 'en' ? 'en' : 'es';
     document.documentElement.dataset.creatorLanguage = next;
-    try { window.localStorage.setItem(STORAGE_KEY, next); } catch (_) {}
+    if (currentPlayerId) {
+      try { window.localStorage.setItem(STORAGE_KEY + '.player.' + currentPlayerId, next); } catch (_) {}
+    }
     const skillLanguage = document.getElementById('creator-skill-language');
     if (skillLanguage && skillLanguage.value !== next) {
       skillLanguage.value = next;
       skillLanguage.dispatchEvent(new Event('change', { bubbles: true }));
     }
     applyTranslations();
-    window.dispatchEvent(new CustomEvent('creator-personarum:language-changed', { detail: { language: next } }));
+    window.dispatchEvent(new CustomEvent('creator-personarum:language-changed', { detail: { language: next, playerId: currentPlayerId } }));
   }
 
-  let initialLanguage = 'es';
   try {
-    initialLanguage = window.localStorage.getItem(STORAGE_KEY) === 'en' ? 'en' : 'es';
-  } catch (_) {}
+    const rememberedPlayerId = window.localStorage.getItem(PLAYER_ASSIGNMENT_STORAGE_KEY) || '';
+    currentPlayerId = PLAYER_IDS.has(rememberedPlayerId) ? rememberedPlayerId : '';
+  } catch (_) {
+    currentPlayerId = '';
+  }
+  const initialLanguage = getPlayerLanguage(currentPlayerId);
   document.documentElement.dataset.creatorLanguage = initialLanguage;
   document.documentElement.lang = initialLanguage;
 
@@ -678,6 +710,7 @@
   window.creatorPersonarumTranslate = (spanish, english) => getLanguage() === 'en' ? english : spanish;
   window.creatorPersonarumTranslateText = translateText;
   window.creatorPersonarumSetLanguage = setLanguage;
+  window.creatorPersonarumSetPlayer = setPlayer;
 
   const button = document.getElementById('creator-language-toggle');
   if (button) button.addEventListener('click', () => setLanguage(getLanguage() === 'en' ? 'es' : 'en'));

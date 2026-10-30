@@ -348,3 +348,13 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - Las pestañas/filas se identifican por `creationId`; se actualiza la misma creación sin reemplazar la de otro jugador. Hasta que una escritura real se compruebe, no declarar activo el guardado remoto.
 - Canon de idiomas confirmado por el usuario: ofrecer los idiomas otorgados por razas y los idiomas de los planos/mundos Fey, Shadow, Elemental, Infernal, Celestial y Abyssal, sujetos al canon de campaña. **Abyssal puede ser conocido por los jugadores como idioma**; la prohibición del Abismo no se aplica al idioma, sino a las opciones de personaje/contenido prohibidas.
 - No se ejecutó QA de navegador ni se hizo un envío real a Sheets. El JSON del actor de Foundry continúa fuera de esta etapa.
+
+
+## Creator Personarum — idioma global persistido por jugador (30/10/2026)
+
+- El botón **ENGLISH / ESPAÑOL** del encabezado de Creator Personarum cambia la presentación completa de la página, incluidos textos, etiquetas, atributos accesibles y opciones dinámicas observadas/renderizadas; no se limita al selector de habilidades.
+- La preferencia se guarda por jugador en `banda.creator-personarum.language.v1.player.<playerId>`. Al recuperar o cambiar el jugador, se restaura su idioma sin afectar a los demás.
+- El idioma predeterminado para un jugador sin preferencia guardada es español. No se migra la antigua preferencia global porque no identifica de forma fiable a qué jugador pertenecía.
+- El selector de idioma de la interfaz no modifica el borrador de otro jugador. La persistencia del personaje continúa en su clave de autosave independiente.
+- Alcance: Creator Personarum de escritorio; no se modificó la experiencia móvil, SESSION_LIVE, Apps Script ni otras fichas.
+- QA automatizado y de navegador: pendiente de ejecución posterior, según la secuencia acordada.

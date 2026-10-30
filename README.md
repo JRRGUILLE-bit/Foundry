@@ -460,3 +460,8 @@ QA previsto: `node --check creator-personarum.js`, `node audit/creator-personaru
 - `Gate` puede atraer una criatura nombrada desde otro plano, pero no puede usarse para traer un demonio del Abismo. En `Planar Ally`, cualquier elección de tipo `fiend` debe ser infernal. `Infernal Calling` invoca un diablo de los Nueve Infiernos y no cae bajo la prohibición.
 - La nota general de campaña ahora aparece con cualquier clase elegida. Los nombres de rasgos se inspeccionaron en el catálogo, pero los metadatos no contienen el texto completo de los 1.007 rasgos; no se afirma una lectura completa de todos los manuales.
 - El JavaScript pasó una comprobación sintáctica estática. No se ejecutó QA de navegador. Detalle y fuentes: [auditoría Creator Personarum de campaña](docs/creator-personarum-campaign-audit.md).
+
+
+## Creator Personarum — idioma global por jugador (30/10/2026)
+
+El botón de idioma del encabezado alterna español e inglés para toda la interfaz de Creator Personarum, incluidos textos y opciones dinámicas. La preferencia se persiste por jugador en `banda.creator-personarum.language.v1.player.<playerId>` y se restaura al seleccionar nuevamente a esa persona. Si no existe preferencia individual, se usa español. No se hereda la antigua preferencia global sin identidad de jugador. El autosave de cada personaje permanece independiente. La experiencia móvil y las demás fichas no se modificaron. QA automatizado/de navegador queda pendiente.
