@@ -440,6 +440,24 @@
     'VOLVISTE A EDITAR EL PERSONAJE. LOS CAMBIOS SE GUARDAN AL PULSAR «GUARDAR BORRADOR».': 'YOU RETURNED TO EDITING THE CHARACTER. CHANGES ARE SAVED WHEN YOU PRESS “SAVE DRAFT”.',
     'Elegí tu nombre para recuperar o guardar tu personaje.': 'Choose your name to restore or save your character.',
     'No se pudo guardar la finalización en este navegador. El personaje sigue editable.': 'The character could not be finalized in this browser. It remains editable.',
+    'Dracónido': 'Dragonborn',
+    'Enano de las montañas': 'Mountain Dwarf',
+    'Kóbold': 'Kobold',
+    'Sátiro': 'Satyr',
+    'Tritón': 'Triton',
+    'Común': 'Common',
+    'Dracónico': 'Draconic',
+    'Druídico': 'Druidic',
+    'Élfico': 'Elvish',
+    'Gnómico': 'Gnomish',
+    'Ígneo': 'Ignan',
+    'Infracomún': 'Undercommon',
+    'Engaño': 'Deception',
+    'Canon de campaña': 'Campaign canon',
+    'opciones del trasfondo': 'background options',
+    'cualquier habilidad': 'any skill',
+    'clase personalizada': 'custom class',
+    'El catálogo no registra habilidades concretas para este trasfondo.': 'The catalog does not record specific skills for this background.',
     'Introducción cinematográfica de Creator Personarum': 'Creator Personarum cinematic introduction',
     'Introducción cinematográfica del libro': 'Cinematic introduction to the book',
     'Transición cinematográfica hacia el creador de personajes': 'Cinematic transition to the character creator',
@@ -556,6 +574,25 @@
     translated = translated.replace(/^Concede automáticamente (.+)$/, 'Automatically grants $1');
     translated = translated.replace(/^Tamaño registrado: (.+)$/, 'Recorded size: $1');
     translated = translated.replace(/^\s*· nivel (\d+)$/, ' · level $1');
+    translated = translated.replace(/^Velocidad base registrada: (.+)$/, 'Recorded base speed: $1');
+    translated = translated.replace(/^\((según rasgo de especie)\)$/, '(as listed in the species trait)');
+    translated = translated.replace(/^\((ya concedida por clase o trasfondo)\)$/, '(already granted by class or background)');
+    translated = translated.replace(/^elegí (\d+) competencia entre (\d+) competencias con herramientas; las opciones concretas no están registradas$/, 'choose $1 proficiency from $2 tool proficiencies; the specific options are not recorded');
+    translated = translated.replace(/^elegir (\d+) competencia con arma permitida por el catálogo$/, 'choose $1 weapon proficiency allowed by the catalog');
+    translated = translated.replace(/^(\d+) competencias con armas permitidas por el catálogo$/, '$1 weapon proficiencies permitted by the catalog');
+    translated = translated.replace(/^(\d+) habilidades permitidas\. Desmarcá una para cambiar la selección\.$/, '$1 skills are allowed. Uncheck one to change your selection.');
+    translated = translated.replace(/^(\d+) idiomas permitidos en este grupo\. Desmarcá uno para cambiar la selección\.$/, '$1 languages are allowed in this group. Uncheck one to change your selection.');
+    translated = translated.replace(/^Elegí (\d+) habilidad entre estas opciones:$/, 'Choose $1 skill from these options:');
+    translated = translated.replace(/^Elegí (\d+) habilidades entre estas opciones:$/, 'Choose $1 skills from these options:');
+    translated = translated.replace(/^Marcá (\d+) habilidad$/, 'Select $1 skill');
+    translated = translated.replace(/^Marcá (\d+) habilidades$/, 'Select $1 skills');
+    translated = translated.replace(/^Elegí (\d+) característica entre estas opciones:$/, 'Choose $1 ability score from these options:');
+    translated = translated.replace(/^Elegí (\d+) características entre estas opciones:$/, 'Choose $1 ability scores from these options:');
+    translated = translated.replace(/^Elegiste (\d+) de (\d+) habilidades permitidas\.$/, 'You selected $1 of $2 permitted skills.');
+    translated = translated.replace(/^Elegiste (\d+) de (\d+) características permitidas\.$/, 'You selected $1 of $2 permitted ability scores.');
+    translated = translated.replace(/^Elegiste (\d+) de (\d+) herramientas permitidas\.$/, 'You selected $1 of $2 permitted tools.');
+    translated = translated.replace(/^\s*(\d+) rasgos de clase registrados hasta el nivel (\d+)$/, '$1 class features recorded through level $2');
+    translated = translated.replace(/^\s*(\d+) rasgos de subclase registrados hasta el nivel (\d+)$/, '$1 subclass features recorded through level $2');
     return translated;
   }
 
