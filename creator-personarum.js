@@ -1631,10 +1631,9 @@
     }
     try {
       memoryDraft = inMemoryDrafts[storageKey] || null;
-      let draft = memoryDraft;
+      const raw = window.localStorage.getItem(storageKey);
+      let draft = raw ? JSON.parse(raw) : memoryDraft;
       if (!draft) {
-        const raw = window.localStorage.getItem(storageKey);
-        if (raw) draft = JSON.parse(raw);
         if (!draft && currentMode === CREATION_MODES.known) {
           const legacyRaw = window.localStorage.getItem(DRAFT_STORAGE_KEY);
           const legacyDraft = legacyRaw ? JSON.parse(legacyRaw) : null;
