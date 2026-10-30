@@ -55,7 +55,7 @@ try {
   const page = await browser.newPage({ acceptDownloads: true });
   const pageErrors = [];
   const browserDiagnostics = [];
-  page.on('pageerror', error => pageErrors.push(error.message));
+  page.on('pageerror', error => pageErrors.push(error.stack || error.message));
   page.on('console', message => {
     if (message.type() === 'error') browserDiagnostics.push('console: ' + message.text());
   });
