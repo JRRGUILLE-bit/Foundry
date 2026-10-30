@@ -141,6 +141,9 @@ assert.ok(runtimeSubclasses.length > 0 && runtimeSubclasses.every(record =>
 assert.ok(catalogRuntime.includes('const selectedLevel = currentProgressionLevel;'), 'Subclasses must be gated by the current progression stage, not the Director target level');
 assert.ok(catalogRuntime.includes('if (field) field.hidden = !matching.length;'), 'The subclass field must stay hidden when the class has no unlocked subclass');
 assert.ok(catalogRuntime.includes("window.addEventListener('creator-personarum:progression-level-changed'"), 'Subclasses must advance only when the current progression stage changes');
+assert.ok(catalogRuntime.includes('nextLevel > assignedTargetLevel'), 'The current progression level must not exceed the Director-assigned target');
+assert.ok(catalogRuntime.includes('window.creatorPersonarumSetProgressionLevel = setProgressionLevel;'), 'The progression stage must have an explicit setter for the level-by-level wizard');
+assert.ok(runtime.includes('window.creatorPersonarumRefreshWizardStage = () =>'), 'Moving the subclass picker between wizard stages must refresh stage visibility');
 assert.ok(runtime.includes("assignedLevelInput.dispatchEvent(new Event('input'"), 'Loading the Director assignment must refresh level-dependent class mechanics');
 assert.ok(runtime.includes('progressionLevel: Number(window.creatorPersonarumGetProgressionLevel?.() || 1)'), 'Drafts must save the current progression level separately from the Director target level');
 assert.ok(runtime.includes("detail: { level: 1 }"), 'A new character draft must always begin at progression level one');
