@@ -31,7 +31,10 @@
       "name": "Aetheluria",
       "canonical_information": "Es la Capital Imperial del Imperio Gris y la sede central del Consejo Tripartito. En la cartografía de Abigur, la ciudad se sitúa a lo largo del curso del río Flumen Augustus, entre Aequitania y Portus Varia.",
       "cartographic_notice": "Aviso de registro: Respecto a la distribución urbana interna, distritos ceremoniales, barrios residenciales o especificaciones arquitectónicas detalladas, no constan registros adicionales en el compendio oficial.",
-      "chronicle_excerpt": "Aetheluria se yergue como la cima del orden imperial, donde las tres ramas del Consejo Tripartito imponen la voluntad de Abigur. Bañada por las aguas del Flumen Augustus, la ciudad combina la solemnidad de los palacios gubernamentales con la presencia constante de juristas, archimagos y altos mandos militares. Para cualquier embajador o visitante autorizado, el horizonte de Aetheluria es un recordatorio abrumador de la centralización y el poderío indiscutible del Imperio Gris."
+      "chronicle_excerpt": "Aetheluria se yergue como la cima del orden imperial, donde las tres ramas del Consejo Tripartito imponen la voluntad de Abigur. Bañada por las aguas del Flumen Augustus, la ciudad combina la solemnidad de los palacios gubernamentales con la presencia constante de juristas, archimagos y altos mandos militares. Para cualquier embajador o visitante autorizado, el horizonte de Aetheluria es un recordatorio abrumador de la centralización y el poderío indiscutible del Imperio Gris.",
+      "canonical_information_en": "It is the Imperial Capital of the Grey Empire and the central seat of the Tripartite Council. On the map of Abigur, the city lies along the course of the Flumen Augustus, between Aequitania and Portus Varia.",
+      "cartographic_notice_en": "Registry notice: No additional records exist in the official compendium regarding the internal urban layout, ceremonial districts, residential quarters, or detailed architectural specifications.",
+      "chronicle_excerpt_en": "Aetheluria rises as the pinnacle of imperial order, where the three branches of the Tripartite Council impose the will of Abigur. Bathed by the waters of the Flumen Augustus, the city combines the solemnity of government palaces with the constant presence of jurists, archmages, and senior military commanders. For any ambassador or authorized visitor, Aetheluria’s skyline is an overwhelming reminder of the Grey Empire’s centralization and undisputed might."
     },
     {
       "id": "valeriam",
@@ -39,7 +42,10 @@
       "name": "Valeriam",
       "canonical_information": "Es el bastión militar principal del Imperio Gris y funciona como el cuartel general de las fuerzas armadas y las legiones imperiales.",
       "cartographic_notice": "Aviso de registro: A nivel de geografía específica, emplazamiento de fortines exteriores y planos estructurales de la ciudadela, la administración cartográfica no dispone de mayor documentación.",
-      "chronicle_excerpt": "Valeriam es el corazón latente de la maquinaria bélica de Abigur, donde el Imperator y los legados trazan las estrategias de defensa y control fronterizo. Entre fortalezas de piedra gris y patios de maniobras ininterrumpidos, las legiones imperiales entrenan bajo una disciplina inflexible. Quien se aproxima a Valeriam no encuentra una metrópoli civil, sino una fortaleza inexpugnable diseñada exclusivamente para la guerra."
+      "chronicle_excerpt": "Valeriam es el corazón latente de la maquinaria bélica de Abigur, donde el Imperator y los legados trazan las estrategias de defensa y control fronterizo. Entre fortalezas de piedra gris y patios de maniobras ininterrumpidos, las legiones imperiales entrenan bajo una disciplina inflexible. Quien se aproxima a Valeriam no encuentra una metrópoli civil, sino una fortaleza inexpugnable diseñada exclusivamente para la guerra.",
+      "canonical_information_en": "It is the Grey Empire’s principal military stronghold and serves as the headquarters of the armed forces and imperial legions.",
+      "cartographic_notice_en": "Registry notice: The cartographic administration holds no further documentation regarding the precise geography, placement of outer forts, or structural plans of the citadel.",
+      "chronicle_excerpt_en": "Valeriam is the beating heart of Abigur’s war machine, where the Imperator and the legates devise strategies for defense and border control. Between grey-stone fortresses and ceaseless training yards, the imperial legions drill under inflexible discipline. Those approaching Valeriam find not a civilian metropolis, but an impregnable fortress designed exclusively for war."
     },
     {
       "id": "arkenum",
@@ -47,7 +53,10 @@
       "name": "Arkenum",
       "canonical_information": "Es el centro supremo de investigación arcana y el complejo principal de laboratorios mágicos del Imperio Gris.",
       "cartographic_notice": "Aviso de registro: La topografía detallada del terreno, las defensas perimetrales y la disposición geomántica de sus torres permanecen fuera de los registros públicos documentados.",
-      "chronicle_excerpt": "En los salones herméticos de Arkenum, los eruditos y archimagos del Imperio desentrañan los secretos de las escuelas de la magia sin las restricciones que imponen otras naciones. Sus laboratorios albergan experimentos arcanos de escala continental, concentrando el conocimiento místico más avanzado y peligroso de Abigur. La atmósfera en Arkenum vibra con el flujo constante de energía arcana, convirtiéndola en la capital del saber mágico imperial."
+      "chronicle_excerpt": "En los salones herméticos de Arkenum, los eruditos y archimagos del Imperio desentrañan los secretos de las escuelas de la magia sin las restricciones que imponen otras naciones. Sus laboratorios albergan experimentos arcanos de escala continental, concentrando el conocimiento místico más avanzado y peligroso de Abigur. La atmósfera en Arkenum vibra con el flujo constante de energía arcana, convirtiéndola en la capital del saber mágico imperial.",
+      "canonical_information_en": "It is the supreme center of arcane research and the Grey Empire’s principal complex of magical laboratories.",
+      "cartographic_notice_en": "Registry notice: The detailed topography, perimeter defenses, and geomantic arrangement of its towers remain outside the documented public records.",
+      "chronicle_excerpt_en": "Within Arkenum’s sealed halls, the Empire’s scholars and archmages unravel the secrets of the schools of magic without the restrictions imposed by other nations. Its laboratories house arcane experiments on a continental scale, concentrating Abigur’s most advanced and dangerous mystical knowledge. The atmosphere in Arkenum hums with the constant flow of arcane energy, making it the capital of imperial magical scholarship."
     },
     {
       "id": "sancturia",
@@ -55,7 +64,10 @@
       "name": "Sancturia",
       "canonical_information": "Es el complejo teológico central del Imperio Gris, compuesto por observatorios astronómicos y los grandes templos de la fe imperial. En el mapa de Abigur se vincula al entorno espiritual del continente y a la cuenca del Lago Sanctus.",
       "cartographic_notice": "Aviso de registro: No se hallan catalogados en los archivos centrales los santuarios particulares, jerarquías conventuales internas ni las órdenes monásticas específicas que custodian el recinto.",
-      "chronicle_excerpt": "Sancturia se alza como el nexo entre el cosmos y el dogma imperial, un lugar donde la observación del firmamento y el culto a las deidades celestiales se fusionan. Sus imponentes observatorios alinean sus lentes con las constelaciones vivas mientras los sacerdotes rinden culto a los Primordiales en templos monumentales. En esta ciudad sagrada, el fervor religioso del Consejo Tripartito se manifiesta en piedra y oraciones solemnes cerca de las aguas del Lago Sanctus."
+      "chronicle_excerpt": "Sancturia se alza como el nexo entre el cosmos y el dogma imperial, un lugar donde la observación del firmamento y el culto a las deidades celestiales se fusionan. Sus imponentes observatorios alinean sus lentes con las constelaciones vivas mientras los sacerdotes rinden culto a los Primordiales en templos monumentales. En esta ciudad sagrada, el fervor religioso del Consejo Tripartito se manifiesta en piedra y oraciones solemnes cerca de las aguas del Lago Sanctus.",
+      "canonical_information_en": "It is the Grey Empire’s central theological complex, composed of astronomical observatories and the great temples of the imperial faith. On the map of Abigur, it is associated with the continent’s spiritual heartland and the basin of Lake Sanctus.",
+      "cartographic_notice_en": "Registry notice: The central archives contain no catalogued records of individual sanctuaries, internal convent hierarchies, or the specific monastic orders that guard the precinct.",
+      "chronicle_excerpt_en": "Sancturia stands as the link between the cosmos and imperial dogma, where observation of the heavens and worship of the celestial deities become one. Its imposing observatories align their lenses with living constellations while priests worship the Primordials in monumental temples. In this sacred city, the Tripartite Council’s religious fervor is made manifest in stone and solemn prayer beside the waters of Lake Sanctus."
     },
     {
       "id": "portus-varia",
@@ -63,7 +75,10 @@
       "name": "Portus Varia",
       "canonical_information": "Es el único puerto comercial de entrada autorizado al Imperio Gris, fuertemente regulado por las autoridades imperiales. Se ubica en la costa de Abigur, en la desembocadura del río Flumen Augustus.",
       "cartographic_notice": "Aviso de registro: No constan planos oficiales concernientes al trazado de sus dársenas, muelles de amarre o a la subdivisión funcional de los distritos de aduana y almacenaje.",
-      "chronicle_excerpt": "Ubicada en la desembocadura del Flumen Augustus, Portus Varia representa el único resquicio por el cual el mundo exterior puede atisbar el interior del Imperio Gris. Bajo la mirada vigilante de inspectores y guardias imperiales, las pocas naves extranjeras con salvoconducto desembarcan en sus muelles. Es un puerto fuertemente custodiado, donde el comercio internacional se filtra con un rigor burocrático absoluto."
+      "chronicle_excerpt": "Ubicada en la desembocadura del Flumen Augustus, Portus Varia representa el único resquicio por el cual el mundo exterior puede atisbar el interior del Imperio Gris. Bajo la mirada vigilante de inspectores y guardias imperiales, las pocas naves extranjeras con salvoconducto desembarcan en sus muelles. Es un puerto fuertemente custodiado, donde el comercio internacional se filtra con un rigor burocrático absoluto.",
+      "canonical_information_en": "It is the only authorized commercial port of entry into the Grey Empire, tightly regulated by imperial authorities. It lies on the coast of Abigur, at the mouth of the Flumen Augustus.",
+      "cartographic_notice_en": "Registry notice: No official plans are recorded for the layout of its docks, moorings, or the functional division of customs and storage districts.",
+      "chronicle_excerpt_en": "Located at the mouth of the Flumen Augustus, Portus Varia is the only narrow opening through which the outside world may glimpse the Grey Empire. Under the watchful eyes of imperial inspectors and guards, the few foreign vessels granted safe-conduct unload at its piers. It is a heavily guarded port where international trade is filtered through absolute bureaucratic rigor."
     },
     {
       "id": "praetorix",
@@ -71,7 +86,10 @@
       "name": "Praetorix",
       "canonical_information": "Ubicada en la zona norte del continente de Abigur, es la fortaleza septentrional del imperio y alberga la academia de ingenieros de guerra.",
       "cartographic_notice": "Aviso de registro: En lo concerniente al relieve orográfico circundante, fosos perimetrales y arquitectura interna de la fortaleza, la información permanece sin documentar en los códices.",
-      "chronicle_excerpt": "Praetorix vigila los confines septentrionales de Abigur como un baluarte inexpugnable. Más que un asentamiento fortificado, es el epicentro del desarrollo tecnológico militar, donde los ingenieros imperiales diseñan balistas, armas de asedio y defensas de precisión. El retumbar de los talleres de prueba en Praetorix garantiza que la frontera norte permanezca impenetrable."
+      "chronicle_excerpt": "Praetorix vigila los confines septentrionales de Abigur como un baluarte inexpugnable. Más que un asentamiento fortificado, es el epicentro del desarrollo tecnológico militar, donde los ingenieros imperiales diseñan balistas, armas de asedio y defensas de precisión. El retumbar de los talleres de prueba en Praetorix garantiza que la frontera norte permanezca impenetrable.",
+      "canonical_information_en": "Located in the northern region of Abigur, it is the Empire’s northern fortress and houses the academy of military engineers.",
+      "cartographic_notice_en": "Registry notice: Information about the surrounding landforms, perimeter moats, and the fortress’s internal architecture remains undocumented in the codices.",
+      "chronicle_excerpt_en": "Praetorix watches over the northern reaches of Abigur as an impregnable bulwark. More than a fortified settlement, it is the center of military technological development, where imperial engineers design ballistae, siege weapons, and precision defenses. The rumble of testing workshops in Praetorix ensures that the northern border remains impenetrable."
     },
     {
       "id": "lucisburgum",
@@ -79,7 +97,10 @@
       "name": "Lucisburgum",
       "canonical_information": "Es la ciudad imperial orientada a la alquimia, el desarrollo tecnológico y la generación y gestión de energía.",
       "cartographic_notice": "Aviso de registro: La posición cartográfica exacta en el mapa continental de Abigur y la división de sus polígonos industriales y refinerías no se hallan documentadas en el registro general.",
-      "chronicle_excerpt": "En Lucisburgum, la ciencia, la alquimia y la tecnología se entrelazan para impulsar la infraestructura del Imperio Gris. Alambiques de precisión y redes de energía dominan el paisaje urbano de esta metrópoli donde alquimistas e inventores trabajan bajo mandato imperial. Es la cuna de las innovaciones mecánicas y energéticas de Abigur, produciendo compuestos y dispositivos de alto nivel."
+      "chronicle_excerpt": "En Lucisburgum, la ciencia, la alquimia y la tecnología se entrelazan para impulsar la infraestructura del Imperio Gris. Alambiques de precisión y redes de energía dominan el paisaje urbano de esta metrópoli donde alquimistas e inventores trabajan bajo mandato imperial. Es la cuna de las innovaciones mecánicas y energéticas de Abigur, produciendo compuestos y dispositivos de alto nivel.",
+      "canonical_information_en": "It is the imperial city devoted to alchemy, technological development, and the generation and management of energy.",
+      "cartographic_notice_en": "Registry notice: Its exact cartographic position on the continental map of Abigur and the division of its industrial zones and refineries are not documented in the general register.",
+      "chronicle_excerpt_en": "In Lucisburgum, science, alchemy, and technology intertwine to power the infrastructure of the Grey Empire. Precision alembics and energy networks dominate the urban landscape of this metropolis, where alchemists and inventors work under imperial mandate. It is the birthplace of Abigur’s mechanical and energy innovations, producing advanced compounds and devices."
     },
     {
       "id": "archivaea",
@@ -87,7 +108,10 @@
       "name": "Archivaea",
       "canonical_information": "Funciona como el centro cultural del Imperio Gris, albergando la biblioteca imperial y el archivo general de conocimiento de Abigur.",
       "cartographic_notice": "Aviso de registro: Sobre la configuración física del terreno, sus barrios circundantes o las defensas que protegen sus galerías de pergaminos, no existe información añadida en los registros vigentes.",
-      "chronicle_excerpt": "Archivaea es la memoria viviente del Imperio Gris, un santuario del saber donde se preservan tomos, mapas y registros históricos de todo el mundo conocido. En sus vastas galerías y bóvedas subterráneas, escribas y cronistas catalogan meticulosamente el conocimiento místico, militar y científico acumulado durante siglos. Para los eruditos imperiales, las salas de Archivaea son el recurso definitivo de consulta estratégica y cultural de Abigur."
+      "chronicle_excerpt": "Archivaea es la memoria viviente del Imperio Gris, un santuario del saber donde se preservan tomos, mapas y registros históricos de todo el mundo conocido. En sus vastas galerías y bóvedas subterráneas, escribas y cronistas catalogan meticulosamente el conocimiento místico, militar y científico acumulado durante siglos. Para los eruditos imperiales, las salas de Archivaea son el recurso definitivo de consulta estratégica y cultural de Abigur.",
+      "canonical_information_en": "It serves as the Grey Empire’s cultural center, housing the Imperial Library and the general archive of Abigur’s knowledge.",
+      "cartographic_notice_en": "Registry notice: No additional information exists in the current records regarding the physical layout of the terrain, surrounding districts, or defenses protecting its scroll galleries.",
+      "chronicle_excerpt_en": "Archivaea is the living memory of the Grey Empire, a sanctuary of knowledge where tomes, maps, and historical records from the known world are preserved. In its vast galleries and underground vaults, scribes and chroniclers meticulously catalogue the mystical, military, and scientific knowledge accumulated over centuries. For imperial scholars, the halls of Archivaea are the definitive resource for strategic and cultural research on Abigur."
     },
     {
       "id": "ferrum-corvinium",
@@ -95,7 +119,10 @@
       "name": "Ferrum-Corvinium",
       "canonical_information": "Es un asentamiento dedicado a la minería profunda y a la metalurgia de metales raros. En sus inmediaciones o territorio nace el río Flumen Augustus.",
       "cartographic_notice": "Aviso de registro: El sistema montañoso exacto que lo resguarda, la profundidad vertical de sus tiros mineros y la toponimia de sus galerías subterráneas no figuran en las actas cartográficas.",
-      "chronicle_excerpt": "Situada en el nacimiento del majestuoso Flumen Augustus, Ferrum-Corvinium extrae las riquezas minerales más profundas del continente de Abigur. Sus fundiciones y talleres procesan minerales y metales raros indispensables para las legiones y los laboratorios imperiales. El humo de sus forjas y el sonido de los picos en la profundidad de la tierra definen la vida de esta ciudad industrial."
+      "chronicle_excerpt": "Situada en el nacimiento del majestuoso Flumen Augustus, Ferrum-Corvinium extrae las riquezas minerales más profundas del continente de Abigur. Sus fundiciones y talleres procesan minerales y metales raros indispensables para las legiones y los laboratorios imperiales. El humo de sus forjas y el sonido de los picos en la profundidad de la tierra definen la vida de esta ciudad industrial.",
+      "canonical_information_en": "It is a settlement devoted to deep mining and the metallurgy of rare metals. The Flumen Augustus rises in its vicinity or territory.",
+      "cartographic_notice_en": "Registry notice: The exact mountain range that shelters it, the vertical depth of its mine shafts, and the names of its underground galleries do not appear in the cartographic records.",
+      "chronicle_excerpt_en": "Situated at the source of the majestic Flumen Augustus, Ferrum-Corvinium extracts the deepest mineral riches of the continent of Abigur. Its foundries and workshops process rare ores and metals essential to the legions and imperial laboratories. The smoke of its forges and the sound of picks deep underground define the life of this industrial city."
     },
     {
       "id": "aequitania",
@@ -103,7 +130,10 @@
       "name": "Aequitania",
       "canonical_information": "Es la metrópoli agrícola e hidrológica del Imperio Gris, responsable de la infraestructura de abastecimiento y la red de acueductos. Se ubica en el curso del río Flumen Augustus, entre Ferrum-Corvinium y Aetheluria.",
       "cartographic_notice": "Aviso de registro: No constan en los manuales de producción los tipos específicos de grano o cultivo primario, ni la delimitación de sus distritos de irrigación intensiva.",
-      "chronicle_excerpt": "Aequitania constituye el sostén alimentario e hídrico de todo el imperio, aprovechando el caudal del Flumen Augustus mediante una compleja red de acueductos e irrigación. Sus fértiles campos abastecen los graneros imperiales, mientras que sus ingenieros aseguran la distribución de agua hacia la capital. Sin el flujo constante de recursos que proviene de Aequitania, las metrópolis de Abigur no podrían subsistir."
+      "chronicle_excerpt": "Aequitania constituye el sostén alimentario e hídrico de todo el imperio, aprovechando el caudal del Flumen Augustus mediante una compleja red de acueductos e irrigación. Sus fértiles campos abastecen los graneros imperiales, mientras que sus ingenieros aseguran la distribución de agua hacia la capital. Sin el flujo constante de recursos que proviene de Aequitania, las metrópolis de Abigur no podrían subsistir.",
+      "canonical_information_en": "It is the Grey Empire’s agricultural and hydrological metropolis, responsible for supply infrastructure and the aqueduct network. It lies along the course of the Flumen Augustus, between Ferrum-Corvinium and Aetheluria.",
+      "cartographic_notice_en": "Registry notice: The production manuals do not specify the particular grains or primary crops, nor the boundaries of its intensive irrigation districts.",
+      "chronicle_excerpt_en": "Aequitania sustains the food and water supply of the entire Empire, harnessing the flow of the Flumen Augustus through a complex network of aqueducts and irrigation channels. Its fertile fields supply the imperial granaries, while its engineers ensure the distribution of water to the capital. Without the steady flow of resources from Aequitania, Abigur’s metropolises could not survive."
     }
   ],
   "players_local": [
