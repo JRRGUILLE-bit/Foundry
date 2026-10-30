@@ -1474,6 +1474,11 @@
     } catch (error) {
       selectedSpells = [];
     }
+    let selectedBackgroundEquipment = {};
+    try {
+      const parsedBackgroundEquipment = JSON.parse(document.getElementById('creator-selected-background-equipment')?.value || '{}');
+      if (parsedBackgroundEquipment && typeof parsedBackgroundEquipment === 'object' && !Array.isArray(parsedBackgroundEquipment)) selectedBackgroundEquipment = parsedBackgroundEquipment;
+    } catch (error) { selectedBackgroundEquipment = {}; }
     const customLineage = customLineageInput.value.trim();
     let selectedBackgroundSkills = [];
     try {
@@ -1562,6 +1567,7 @@
       selectedSpells,
       selectedClassSkills,
       selectedBackgroundSkills,
+      selectedBackgroundEquipment,
       selectedLineageSkills,
       selectedLineageAbilities,
       background: document.getElementById('creator-background').value,
@@ -1809,6 +1815,11 @@
       originRegionSelect.value = '';
       deitySelect.value = draft.deity || '';
       const backgroundSelect = document.getElementById('creator-background');
+      const backgroundEquipmentInput = document.getElementById('creator-selected-background-equipment');
+      if (backgroundEquipmentInput) backgroundEquipmentInput.value = JSON.stringify(
+        draft.selectedBackgroundEquipment && typeof draft.selectedBackgroundEquipment === 'object' && !Array.isArray(draft.selectedBackgroundEquipment)
+          ? draft.selectedBackgroundEquipment : {}
+      );
       backgroundSelect.value = draft.background || '';
       zodiacMarkSelect.value = typeof draft.zodiacalMark === 'string' ? draft.zodiacalMark : '';
       updateZodiacMarkDetails(draft.zodiacalChoices || {});
@@ -1939,6 +1950,7 @@
       selectedSpells: values.selectedSpells,
       selectedClassSkills: values.selectedClassSkills,
       selectedBackgroundSkills: values.selectedBackgroundSkills,
+      selectedBackgroundEquipment: values.selectedBackgroundEquipment || {},
       selectedLineageSkills: values.selectedLineageSkills,
       selectedLineageLanguages,
       selectedLineageAbilities: values.selectedLineageAbilities,
