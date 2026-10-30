@@ -40,7 +40,7 @@ const atlasText = JSON.stringify(atlas);
 
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
 assert.match(page, /creator-personarum-i18n\.js\?v=20261030-3/, 'Creator Personarum must load its global language layer before the creator runtime');
-assert.match(page, /creator-personarum\.js\?v=20261030-6/, 'Creator Personarum runtime cache must be refreshed for global language support');
+assert.match(page, /creator-personarum\.js\?v=20261030-7/, 'Creator Personarum runtime cache must be refreshed for global language support');
 assert.match(page, /creator-personarum-catalog\.js\?v=20261030-2/, 'Catalog cache must be refreshed for English character options');
 assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
 assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
@@ -109,7 +109,7 @@ assert.match(runtime, /function loadAssignmentPlayers\(\)/, 'The creator must lo
 assert.match(runtime, /function loadSelectedPlayerAssignment\(\)/, 'The creator must retrieve an assignment using the per-player code');
 assert.match(runtime, /if \(!loadedPlayerAssignment\)/, 'Known-character progression and finalization must require a freshly verified assignment');
 assert.match(runtime, /playerAssignment: values\.playerAssignment \|\| null/, 'Drafts must preserve the assigned level and six roll results without storing the access code');
-assert.match(page, /creator-personarum.js\?v=20261030-6/, 'The wizard navigation fix must invalidate the runtime script cache');
+assert.match(page, /creator-personarum.js\?v=20261030-7/, 'The wizard navigation fix must invalidate the runtime script cache');
 assert.match(page, /creator-personarum.css\?v=20261030-1/, 'The ability-allocation panel must invalidate the stylesheet cache');
 assert.match(page, /id="creator-race"/, 'The creator must ask for the race family first');
 assert.match(page, /id="creator-subrace"/, 'Variants must appear in a second selector after choosing a race family');
