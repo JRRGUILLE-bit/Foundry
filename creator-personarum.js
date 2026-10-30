@@ -1182,6 +1182,7 @@
   }
 
   function resetFormFields() {
+    const previousResetState = isResettingDraft;
     isResettingDraft = true;
     draftForm.reset();
     Array.from(draftForm.elements).forEach(control => {
@@ -1239,7 +1240,7 @@
       ? 'Todavía no hace falta que tengas todas las respuestas.'
       : 'Los cambios se guardan automáticamente. «Guardar borrador» también conserva una copia.';
     draftStatus.dataset.state = 'idle';
-    isResettingDraft = false;
+    isResettingDraft = previousResetState;
   }
 
   function playIntro() {
