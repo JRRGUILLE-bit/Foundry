@@ -2744,16 +2744,26 @@
       .sort((a, b) => String(a.name).localeCompare(String(b.name)) || String(a.source).localeCompare(String(b.source)));
     const featField = byId('creator-feat-field');
     const byName = new Map();
-    const selectedRaceOptionId = () => {
+    const selectedRaceOptionIds = () => {
       const dragonbornAncestryId = String(byId('creator-dragonborn-ancestry')?.value || '').trim();
+      if (dragonbornAncestryId) return [dragonbornAncestryId];
       const lineageOption = lineageSelect?.selectedOptions?.[0];
-      return dragonbornAncestryId || String(lineageOption?.dataset.creatorCatalogId || '').trim();
+      const lineageOptionId = String(lineageOption?.dataset.creatorCatalogId || '').trim();
+      if (!lineageOptionId) return [];
+      const speciesRecord = records.find(record =>
+        record.category === 'species' && record.id === lineageOptionId
+      );
+      const canonicalRaceIds = Array.isArray(speciesRecord?.record_ids)
+        ? speciesRecord.record_ids.filter(id => typeof id === 'string' && id.trim())
+        : [];
+      return canonicalRaceIds.length ? canonicalRaceIds : [lineageOptionId];
     };
     const isAvailableForSelectedRace = item => {
       if (item.campaign_eligibility == null) return true;
       const allowedRaceOptionIds = item.campaign_eligibility.allowed_race_option_ids;
-      const raceOptionId = selectedRaceOptionId();
-      return Boolean(raceOptionId && Array.isArray(allowedRaceOptionIds) && allowedRaceOptionIds.includes(raceOptionId));
+      if (!Array.isArray(allowedRaceOptionIds)) return false;
+      const selectedRaceIds = selectedRaceOptionIds();
+      return selectedRaceIds.some(id => allowedRaceOptionIds.includes(id));
     };
 
     const refreshDetails = () => {
