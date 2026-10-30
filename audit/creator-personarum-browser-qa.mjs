@@ -185,6 +185,16 @@ try {
     await page.locator('#creator-save-draft').click();
     assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.maite')).name), 'Personaje de Maite',
       'The manual Save Draft action must overwrite the current player autosave');
+    await page.evaluate(() => {
+      localStorage.removeItem('banda.creator-personarum.draft.v1.player.maite');
+      localStorage.removeItem('banda.creator-personarum.draft.v1.player.gonza');
+    });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await waitForAppendixCities();
+    await exposeWorkspace();
+    await page.locator('#creator-known-path-button').click();
+    assert.equal(await page.locator('#creator-assignment-player').inputValue(), 'maite',
+      'The autosave isolation test must leave the original player selected for the remaining browser checks');
 
     assert.deepEqual(
       await page.locator('#creator-origin-region option').evaluateAll(options => options.slice(1).map(option => option.textContent.trim())),
