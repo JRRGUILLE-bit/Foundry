@@ -2008,6 +2008,7 @@
         normalize(item.name) === selectedValue
       );
       renderBackgroundLanguages(background || null);
+      renderBackgroundTools(background || null);
 
       if (!selectedValue || !background) {
         selectedSkills = [];
@@ -2166,6 +2167,7 @@
       if (backgroundField) backgroundField.hidden = !visible;
       if (backgroundSkillsSection) backgroundSkillsSection.hidden = !visible;
       if (backgroundLanguagesSection) backgroundLanguagesSection.hidden = !visible;
+      if (backgroundToolsSection) backgroundToolsSection.hidden = !visible;
       if (backgroundStageStatus) backgroundStageStatus.hidden = !directMode || rows.length > 0;
       select.disabled = !visible;
     };
