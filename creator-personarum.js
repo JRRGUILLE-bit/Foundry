@@ -271,7 +271,7 @@
       const group = Array.from(deitySelect.querySelectorAll('optgroup')).find(item => item.dataset.kind === option.kind);
       if (!group) return;
       group.label = creatorText(option.kind, english.kind);
-      const element = Array.from(group.options).find(item => item.value === option.value);
+      const element = Array.from(group.querySelectorAll('option')).find(item => item.value === option.value);
       if (element) element.textContent = creatorText(option.name, english.name);
     });
   }
