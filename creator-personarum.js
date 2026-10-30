@@ -2802,6 +2802,16 @@
     refreshDivineOptions();
     updateDivineSection();
     if (zodiacalMarksData) {
+      const selectedZodiacId = zodiacMarkSelect.value;
+      zodiacMarkSelect.replaceChildren(new Option(creatorText('Elegí tu marca zodiacal…', 'Choose your zodiacal mark…'), ''));
+      zodiacalMarksData.signs.forEach(sign => {
+        const option = new Option(
+          creatorText(sign.name_es + ' — ' + sign.domain_es, (sign.name_en || sign.name_es) + ' — ' + (sign.domain_en || sign.domain_es)),
+          sign.id
+        );
+        zodiacMarkSelect.appendChild(option);
+      });
+      zodiacMarkSelect.value = selectedZodiacId;
       const zodiacChoices = readZodiacalChoices();
       updateZodiacMarkDetails(zodiacChoices);
       const cosmicSelection = readCosmicMarkSelection();
