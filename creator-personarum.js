@@ -2708,7 +2708,12 @@
     abilityAssignmentSelects[key]?.addEventListener('change', updateAbilityRollAssignmentOptions);
   });
   assignmentPlayerSelect?.addEventListener('change', () => {
-    const playerId = assignmentPlayerSelect.value;
+    rememberCurrentDraft();
+    autosaveCurrentDraft(readFormValues());
+    const previousResetState = isResettingDraft;
+    isResettingDraft = true;
+    try {
+      const playerId = assignmentPlayerSelect.value;
     const selectedPlayer = APPENDIX_PLAYERS.find(player => player.playerId === playerId);
     window.creatorPersonarumSetPlayer?.(selectedPlayer ? playerId : '');
     draftAssignmentSnapshot = null;
@@ -2741,7 +2746,10 @@
     restoreOriginCityForCurrentPlayer();
     updateOriginDetails();
     renderPreview(readFormValues());
-    assignmentLoadButton.disabled = !assignmentRosterReady || !playerId;
+      assignmentLoadButton.disabled = !assignmentRosterReady || !playerId;
+    } finally {
+      isResettingDraft = previousResetState;
+    }
   });
 
   knownPathButton.addEventListener('click', () => showDraftStep(CREATION_MODES.known, ''));
