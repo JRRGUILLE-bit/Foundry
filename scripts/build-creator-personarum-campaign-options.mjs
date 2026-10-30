@@ -35,6 +35,7 @@ const exclusionsPath = "character-data/campaign/excluded-subclass-records.json";
 const backgroundsPath = "character-data/rules/backgrounds/backgrounds.json";
 const backgroundDecisionsPath = "character-data/campaign/background-decisions.json";
 const languagesPath = "character-data/rules/languages/languages.json";
+const toolsPath = "character-data/rules/tools/tools.json";
 
 const origins = readJson(campaignRoot, originsPath);
 const races = readJson(campaignRoot, racesPath);
@@ -44,6 +45,7 @@ const exclusions = readJson(campaignRoot, exclusionsPath);
 const backgroundsDataset = readJson(campaignRoot, backgroundsPath);
 const backgroundDecisions = readJson(campaignRoot, backgroundDecisionsPath);
 const languagesDataset = readJson(campaignRoot, languagesPath);
+const toolsDataset = readJson(campaignRoot, toolsPath);
 
 if (origins.canonical_status !== "campaign_canon" || origins.source_of_truth !== true) {
   throw new Error("Canonical racial/origin source is not marked as campaign source of truth.");
@@ -358,6 +360,43 @@ if (abyssalLanguage?.campaign_rules?.available_to_players !== true ||
   throw new Error("Canonical language dataset must keep Abyssal and Shadow available to players.");
 }
 
+// Tool proficiencies are sourced from the campaign's canonical 2014 tool catalog.
+if (toolsDataset.source_of_truth !== true || toolsDataset.ruleset_id !== "dnd5e_2014" ||
+    !Array.isArray(toolsDataset.tools) || !toolsDataset.tools.length) {
+  throw new Error("Canonical player tool dataset is missing or uses another ruleset.");
+}
+const toolById = new Map();
+const toolByName = new Map();
+for (const tool of toolsDataset.tools) {
+  if (!tool.id || !tool.name_en || !tool.name_es || tool.campaign_status !== "approved" ||
+      tool.data_quality !== "verified_srd_2014" || toolById.has(tool.id) ||
+      toolByName.has(tool.name_en.toLowerCase())) {
+    throw new Error("Tool dataset contains an incomplete, duplicate, or unapproved record.");
+  }
+  toolById.set(tool.id, tool);
+  toolByName.set(tool.name_en.toLowerCase(), tool);
+  records.push({
+    category: "tool",
+    id: tool.id,
+    name: tool.name_en,
+    name_en: tool.name_en,
+    name_es: tool.name_es,
+    source: tool.source,
+    source_ref: tool.source_ref,
+    campaign_status: tool.campaign_status,
+    data_quality: tool.data_quality,
+    tool_category: tool.category
+  });
+}
+const backgroundToolRefs = backgroundRecords.flatMap(background => [
+  ...(background.mechanics?.tool_proficiencies ?? []),
+  ...(background.mechanics?.tool_choices ?? []).flatMap(choice => choice.from ?? [])
+]).filter(value => typeof value === "string" && !/^any/i.test(value));
+const missingToolRefs = [...new Set(backgroundToolRefs)].filter(name => !toolByName.has(name.toLowerCase()));
+if (missingToolRefs.length) {
+  throw new Error("Background tool proficiency references are missing from canonical tools: " + missingToolRefs.join(", "));
+}
+
 const includedByCategory = records.reduce((counts, record) => {
   counts[record.category] = (counts[record.category] ?? 0) + 1;
   return counts;
@@ -377,7 +416,7 @@ const result = {
     status: "campaign_canon"
   },
   ruleset_id: "dnd5e_2014",
-  generated_from: [originsPath, racesPath, classesPath, subclassesPath, exclusionsPath, backgroundsPath, backgroundDecisionsPath, languagesPath],
+  generated_from: [originsPath, racesPath, classesPath, subclassesPath, exclusionsPath, backgroundsPath, backgroundDecisionsPath, languagesPath, toolsPath],
   policy: {
     only_approved_campaign_options: true,
     race_requires_ready_or_verified_rule_data: true,
