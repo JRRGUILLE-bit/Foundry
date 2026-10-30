@@ -666,6 +666,7 @@
       refreshLineageLabels();
       populateRaceOptions(familyId);
       renderFamilySelection(familyId,savedRow?.id||'',dragonbornChoice);
+      renderLineageLanguages(getSelectedLineageRecord());
     });
     refreshLineageLabels();
     populateRaceOptions('');
@@ -827,7 +828,8 @@
         if (!key || catalogLanguageMap.has(key)) return;
         catalogLanguageMap.set(key, {
           key,
-          name: language()==='en' ? item.name.trim() : (LANGUAGE_LABELS[key] || item.name.trim()),
+          nameEs: LANGUAGE_LABELS[key] || item.name.trim(),
+          nameEn: item.name.trim(),
           source: item.source || ''
         });
       });
@@ -856,8 +858,12 @@
 
     const catalogLanguage = (key) => {
       const normalized = normalize(key);
-      return catalogLanguageMap.get(normalized) || null;
+      const record = catalogLanguageMap.get(normalized);
+      return record ? { ...record, name: language()==='en' ? record.nameEn : record.nameEs } : null;
     };
+    const displayLanguageName = key => language()==='en'
+      ? (catalogLanguage(key)?.name || String(key).split(' ').map(part=>part.charAt(0).toUpperCase()+part.slice(1)).join(' '))
+      : (LANGUAGE_LABELS[key] || catalogLanguage(key)?.name || key);
     const resolveLanguageOptions = (token) => {
       const key = normalize(token);
       const compact = key.replace(/\s+/g, '');
@@ -938,9 +944,7 @@
       if (fixedLanguages.length) {
         const item = document.createElement('li');
         item.textContent = 'Concede automáticamente: ' + fixedLanguages.map(language =>
-          LANGUAGE_LABELS[language] ||
-          catalogLanguage(language)?.name ||
-          (language.charAt(0).toUpperCase() + language.slice(1))
+          displayLanguageName(language)
         ).join(', ') + '.';
         languageDetails.appendChild(item);
       }
