@@ -1194,6 +1194,9 @@
     renderCosmicMarkConditions([], {});
     document.getElementById('creator-level').value = '1';
     document.getElementById('creator-level').readOnly = currentMode === CREATION_MODES.known;
+    window.dispatchEvent(new CustomEvent('creator-personarum:progression-level-changed', {
+      detail: { level: 1 }
+    }));
     loadedPlayerAssignment = null;
     assignmentRosterReady = false;
     draftAssignmentSnapshot = null;
