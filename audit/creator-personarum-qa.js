@@ -130,6 +130,18 @@ assert.match(catalogRuntime, /creator-personarum:restore-lineage-selectors/, 'Ra
 assert.match(runtime, /raceFamily: values\.raceFamily/, 'Draft JSON must preserve the selected race family');
 assert.match(runtime, /dragonbornAncestry: values\.dragonbornAncestry/, 'Draft JSON must preserve the selected draconic ancestry');
 assert.ok(campaignOptionsCatalog.records.every(record => record.campaign_status === 'approved'), 'Every runtime option must be canonically approved');
+const runtimeSubclasses = campaignOptionsCatalog.records.filter(record => record.category === 'subclass');
+assert.ok(runtimeSubclasses.length > 0 && runtimeSubclasses.every(record =>
+  record.data_quality === 'verified' &&
+  Number.isInteger(Number(record.level)) &&
+  Number(record.level) >= 1 &&
+  Number(record.level) <= 20 &&
+  Number(record.level) === Number(record.mechanics?.subclass_level)
+), 'Every runtime subclass must have verified rules data and an explicit, consistent unlock level');
+assert.match(catalogRuntime, /Number\\(item\\.level\\) > selectedLevel/, 'The subclass selector must exclude options above the character level');
+assert.match(catalogRuntime, /field\\.hidden = !matching\\.length/, 'The subclass field must stay hidden when the class has no unlocked subclass');
+assert.match(catalogRuntime, /levelInput\\.addEventListener\\('input', refresh\\)/, 'Changing the Director-assigned level must refresh subclass availability');
+assert.match(runtime, /assignedLevelInput\\.dispatchEvent\\(new Event\\('input'/, 'Loading the Director assignment must refresh level-based selections');
 assert.ok(!campaignOptionsCatalog.records.some(record => /^(background|feat|spell|class_feature)$/.test(record.category)), 'Categories with no approved campaign rules data must not be populated from generic D&D sources');
 assert.ok(!campaignOptionsCatalog.records.some(record => /Aberrant Mind|The Great Old One|Mente aberrante|Gran Antiguo/i.test(record.name)), 'Explicitly excluded subclasses must never enter the runtime catalog');
 assert.ok(playerOptionsCatalog.records.length > 1000, 'Filtered catalog must contain the existing broad player-option index');
