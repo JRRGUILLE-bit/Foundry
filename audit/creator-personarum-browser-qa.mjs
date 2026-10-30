@@ -179,7 +179,6 @@ try {
       ['Aetheluria', 'Portus Varia', 'Valeriam', 'Arkenum', 'Sancturia', 'Praetorix', 'Lucisburgum', 'Archivaea', 'Ferrum-Corvinium', 'Aequitania'],
       'The Appendix origin selector must offer only the ten Grey Empire cities'
     );
-    await page.locator('#creator-origin-region').selectOption({ value: 'imperio-gris-aetheluria' });
 
     const raceLabels = await page.locator('#creator-lineage option').evaluateAll(options =>
       options.slice(1).map(option => option.textContent.trim())
