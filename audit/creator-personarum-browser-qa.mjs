@@ -59,6 +59,7 @@ try {
     path.join(root, 'creator-personarum-data/campaign-options.json'),
     'utf8'
   ));
+  const appendixCitiesCatalog = JSON.parse(fs.readFileSync(path.join(root, 'creator-personarum-data/appendix-grey-empire-cities.json'), 'utf8'));
   const runLegacyFullSuite = process.env.CREATOR_PERSONARUM_RUN_LEGACY_QA === 'true';
 
   await page.route('https://script.google.com/macros/s/**', async route => {
@@ -112,7 +113,7 @@ try {
   let fighterSubclassValue = '';
   let selectedFeatValue = '';
 
-  const waitForAtlas = async () => {
+  const waitForAppendixCities = async () => {
     await page.waitForFunction(() => {
       const select = document.getElementById('creator-origin-region');
       if (!select) return false;
@@ -133,7 +134,7 @@ try {
 
   const gotoCreator = async () => {
     await page.goto(baseUrl + '/creator-personarum.html', { waitUntil: 'domcontentloaded' });
-    await waitForAtlas();
+    await waitForAppendixCities();
     await exposeWorkspace();
   };
 
@@ -166,7 +167,7 @@ try {
     assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\nResultado 2: 15\nResultado 3: 14\nResultado 4: 12\nResultado 5: 10\nResultado 6: 8',
       'The exact six pre-assigned results must be displayed');
     await page.reload({ waitUntil: 'domcontentloaded' });
-    await waitForAtlas();
+    await waitForAppendixCities();
     await exposeWorkspace();
     await page.locator('#creator-known-path-button').click();
     assert.equal(await page.locator('#creator-assignment-player').inputValue(), 'maite',
@@ -287,6 +288,29 @@ try {
       'Known-character export must stay blocked until level-by-level progression is implemented');
     assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 5 DE 5',
       'The level progression guard must direct the player to the level step');
+    const originSelect=page.locator('#creator-origin-region'),originDetails=page.locator('#creator-origin-details');
+    assert.equal(await originSelect.inputValue(),'','No Appendix city may be preselected.');
+    const maiteCity=appendixCitiesCatalog.cities.find(c=>c.name==='Aetheluria');
+    await originSelect.selectOption(greyEmpireId);
+    assert.equal(await page.evaluate(()=>localStorage.getItem('banda.creator-personarum.appendix-city.v1.maite')),greyEmpireId,'Maite choice saved under Maite key.');
+    const info=await originDetails.innerText();
+    assert.ok(info.includes(maiteCity.canonical_information),'Canonical city information appears.');
+    assert.ok(info.includes(maiteCity.cartographic_notice),'Cartographic notice appears.');
+    assert.ok(info.includes(maiteCity.chronicle_excerpt),'City chronicle appears.');
+    await page.locator('#creator-assignment-player').selectOption('gonza');
+    assert.equal(await originSelect.inputValue(),'','Gonza must not inherit Maite city.');
+    const gonzaCityId='imperio-gris-portus-varia';
+    await originSelect.selectOption(gonzaCityId);
+    assert.equal(await page.evaluate(()=>localStorage.getItem('banda.creator-personarum.appendix-city.v1.gonza')),gonzaCityId,'Gonza city saved under Gonza key.');
+    await page.locator('#creator-assignment-player').selectOption('maite');
+    assert.equal(await originSelect.inputValue(),greyEmpireId,'Switching back to Maite restores her city.');
+    await page.locator('#creator-assignment-load').click();
+    await page.waitForFunction(()=>document.getElementById('creator-assignment-level')?.textContent==='3');
+    await page.reload({waitUntil:'domcontentloaded'});await waitForAppendixCities();await exposeWorkspace();
+    await page.locator('#creator-known-path-button').click();
+    assert.equal(await page.locator('#creator-assignment-player').inputValue(),'maite','Player identity survives reload.');
+    assert.equal(await page.locator('#creator-origin-region').inputValue(),greyEmpireId,'Maite city survives reload.');
+    assert.equal(await page.evaluate(()=>localStorage.getItem('banda.creator-personarum.appendix-city.v1.gonza')),gonzaCityId,'Gonza city remains separate.');
 
     assert.deepEqual(pageErrors, [], 'Campaign-canon option gating, wizard navigation and the level progression guard must not raise browser JavaScript exceptions');
     console.log('Creator Personarum browser smoke QA passed: sequential race-to-class wizard, canon gating and higher-level completion guard.');
@@ -446,7 +470,7 @@ try {
   );
 
   await page.reload({ waitUntil: 'domcontentloaded' });
-  await waitForAtlas();
+  await waitForAppendixCities();
   await exposeWorkspace();
   await page.locator('#creator-known-path-button').click();
   await page.waitForFunction(() => {
@@ -549,7 +573,7 @@ try {
   // Return to a clean draft so the remaining browser checks stay independent.
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: 'domcontentloaded' });
-  await waitForAtlas();
+  await waitForAppendixCities();
   await exposeWorkspace();
   await page.locator('#creator-known-path-button').click();
 
@@ -899,7 +923,7 @@ try {
 
   // Reload and verify the chosen origin and class skills are restored.
   await page.reload({ waitUntil: 'domcontentloaded' });
-  await waitForAtlas();
+  await waitForAppendixCities();
   await exposeWorkspace();
   await page.locator('#creator-known-path-button').click();
   assert.equal(await page.locator('#creator-origin-region').inputValue(), greyEmpireId);
@@ -924,7 +948,7 @@ try {
   // but the user may subsequently choose another canonical region.
   await page.evaluate(() => localStorage.clear());
   await page.reload({ waitUntil: 'domcontentloaded' });
-  await waitForAtlas();
+  await waitForAppendixCities();
   await exposeWorkspace();
   await page.locator('#creator-explore-path-button').click();
   await page.locator('input[name="creator-exploration-focus"][value="ciudades-y-culturas"]').check();
@@ -1066,7 +1090,7 @@ try {
   assert.equal(explorerExport.selectedSpells[0].name, selectedSpellForDraft, 'Export should include the selected spell');
 
   await page.reload({ waitUntil: 'domcontentloaded' });
-  await waitForAtlas();
+  await waitForAppendixCities();
   await exposeWorkspace();
   await page.locator('#creator-explore-path-button').click();
   assert.equal(

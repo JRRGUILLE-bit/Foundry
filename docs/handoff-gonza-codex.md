@@ -309,6 +309,14 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - Los resultados se conservan sin asignar a atributos. `abilityAssignments` permite guardar la distribución libre del jugador usando identificadores de resultado; al finalizar, la lógica consumidora debe comprobar que los seis `rollId` existen y no se reutilizan.
 - La comprobación de estructura JSON pasó al crear y releer el archivo. El contrato todavía no está conectado al formulario: no se añadieron el selector/registro de jugadores, la carga de asignaciones ni la persistencia de esos datos. No se modificó `SESSION_LIVE`.
 - Requisito adicional pendiente: para personajes de nivel 2 o superior, mostrar opciones de multiclase solo cuando el personaje cumpla sus prerrequisitos. Esto requiere consultar las reglas Legacy/2014 y comprobar las características del personaje; no forma parte del contrato de asignación inicial.
+## Creator Personarum — Appendix: ciudades del Imperio Gris (30/10/2026)
+
+- Usa `creator-personarum-data/appendix-grey-empire-cities.json`, copia del registro canónico del Appendix en `JRRGUILLE-bit/Firmamentum-Velatum`.
+- Muestra las diez ciudades del Imperio Gris, cada una con información canónica, aviso cartográfico y crónica.
+- Roster local: Gonza, Maite, Nico, Rulo y Santi. La ciudad se guarda por jugador en `banda.creator-personarum.appendix-city.v1.<playerId>`; no hay selección automática y no se hereda al cambiar de jugador.
+- Persistencia independiente de asignación de nivel y tiradas. No modificar backend de asignaciones ni `SESSION_LIVE`.
+- Browser QA comprueba los tres textos, cambio de jugador y persistencia tras recargar.
+
 ## Creator Personarum — catálogo estrictamente canónico y flujo pendiente (29/10/2026)
 
 - La UI consume `creator-personarum-data/campaign-options.json`, generado desde `JRRGUILLE-bit/Firmamentum-Velatum` por `scripts/build-creator-personarum-campaign-options.mjs` y el workflow `.github/workflows/build-creator-personarum-campaign-options.yml`.

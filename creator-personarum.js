@@ -3,10 +3,13 @@
 
   const DRAFT_STORAGE_KEY = 'banda.creator-personarum.draft.v1';
   const PLAYER_NAME_STORAGE_KEY = 'banda.creator-personarum.player-name.v1';
-  const ATLAS_SOURCE_FILE = 'fvtt-JournalEntry-atlas-revisado.json';
+  const APPENDIX_CITY_DATA_FILE = 'creator-personarum-data/appendix-grey-empire-cities.json';
   const ZODIACAL_MARKS_SOURCE_FILE = 'creator-personarum-data/zodiacal-marks.json';
-  const ATLAS_EMPIRE_PAGE = 'Continente de Abigur';
-  const ATLAS_EMPIRE_CITY_HEADING = 'Las diez ciudades del Imperio';
+  const APPENDIX_CITY_STORAGE_KEY_PREFIX = 'banda.creator-personarum.appendix-city.v1.';
+  const APPENDIX_CITY_DISPLAY_ORDER = Object.freeze([
+    'Aetheluria', 'Portus Varia', 'Valeriam', 'Arkenum', 'Sancturia',
+    'Praetorix', 'Lucisburgum', 'Archivaea', 'Ferrum-Corvinium', 'Aequitania'
+  ]);
   const PLAYER_ASSIGNMENT_STORAGE_KEY = 'banda.creator-personarum.assignment-player-id.v1';
   const APPENDIX_PLAYERS = Object.freeze([
     { playerId: 'gonza', playerName: 'Gonza' },
@@ -136,9 +139,9 @@
   let savedDraft = null;
   let isCharacterFinalized = false;
   const inMemoryDrafts = Object.create(null);
-  let atlasRegions = [];
-  let atlasLoaded = false;
-  let atlasLoading = true;
+  let appendixCities = [];
+  let appendixCitiesLoaded = false;
+  let appendixCitiesLoading = true;
   let zodiacalMarksData = null;
   let loadedPlayerAssignment = null;
   let assignmentRosterReady = false;
@@ -972,7 +975,9 @@
     const draftPlayerId = draftAssignmentSnapshot && typeof draftAssignmentSnapshot.playerId === 'string'
       ? draftAssignmentSnapshot.playerId : '';
     const draftIsValid = APPENDIX_PLAYERS.some(player => player.playerId === draftPlayerId);
-    const preferredPlayerId = savedIsValid ? rememberedPlayerId : (draftIsValid ? draftPlayerId : '');
+    const typedPlayerId = appendixPlayerIdFromName(playerNameInput.value);
+    const typedIsValid = APPENDIX_PLAYERS.some(player => player.playerId === typedPlayerId);
+    const preferredPlayerId = savedIsValid ? rememberedPlayerId : (draftIsValid ? draftPlayerId : (typedIsValid ? typedPlayerId : ''));
 
     if (preferredPlayerId) {
       assignmentPlayerSelect.value = preferredPlayerId;
@@ -992,6 +997,7 @@
     assignmentRosterReady = true;
     assignmentPlayerSelect.disabled = false;
     assignmentLoadButton.disabled = !assignmentPlayerSelect.value;
+    restoreOriginCityForCurrentPlayer();
   }
 
   async function loadSelectedPlayerAssignment() {
@@ -1110,6 +1116,7 @@
     restoreDraft();
     setKnownCharacterWizardStep(currentKnownWizardStep, false);
     if (!isExplorer) void loadAssignmentPlayers();
+    restoreOriginCityForCurrentPlayer();
     alignInfernalExplorationOrigin(false);
     updateOriginDetails();
     updateDivineSection();
@@ -1244,65 +1251,67 @@
       .trim();
   }
 
-  function parseAtlasRegions(atlas) {
-    if (!atlas || !Array.isArray(atlas.pages)) throw new Error('El archivo no contiene páginas válidas del Atlas.');
-    const page = atlas.pages.find(item => item.name === ATLAS_EMPIRE_PAGE);
-    const content = page && page.text && typeof page.text.content === 'string' ? page.text.content : '';
-    if (!content) throw new Error('El Atlas no contiene la página de Abigur requerida para Appendix.');
-    const heading = Array.from(content.matchAll(/<h[1-6]\b[^>]*>[\s\S]*?<\/h[1-6]>/gi))
-      .find(match => stripAtlasMarkup(match[0]) === ATLAS_EMPIRE_CITY_HEADING);
-    if (!heading) throw new Error('El Atlas no contiene la lista canónica de las diez ciudades del Imperio Gris.');
-    const listMatch = content.slice(heading.index + heading[0].length).match(/<ul\b[^>]*>([\s\S]*?)<\/ul>/i);
-    if (!listMatch) throw new Error('El Atlas no contiene el listado de ciudades del Imperio Gris.');
-
-    const cities = Array.from(listMatch[1].matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/gi))
-      .map(match => {
-        const itemHtml = match[1];
-        const nameMatch = itemHtml.match(/<strong\b[^>]*>([\s\S]*?)<\/strong>/i);
-        if (!nameMatch) return null;
-        const name = stripAtlasMarkup(nameMatch[1]);
-        const summary = stripAtlasMarkup(itemHtml.slice(nameMatch.index + nameMatch[0].length).replace(/^\s*:\s*/, ''));
-        if (!name || !summary) return null;
-        return { id: slugifyRegion('Imperio Gris-' + name), name, group: 'Imperio Gris', summary, sourcePage: ATLAS_EMPIRE_PAGE };
-      }).filter(Boolean);
-
-    const expectedCities = [
-      'Aetheluria', 'Portus Varia', 'Valeriam', 'Arkenum', 'Sancturia',
-      'Praetorix', 'Lucisburgum', 'Archivaea', 'Ferrum-Corvinium', 'Aequitania'
-    ];
-    if (cities.length !== expectedCities.length || cities.some((city, index) => city.name !== expectedCities[index])) {
-      throw new Error('La lista de ciudades del Imperio Gris no coincide con las diez ciudades del canon del Atlas.');
+  function parseAppendixCities(data) {
+    if (!data || data.campaign_scope?.id !== 'appendix' || !Array.isArray(data.cities) || data.cities.length !== 10) throw new Error('El archivo de Appendix no contiene exactamente diez ciudades.');
+    if (!data.source?.path || !Array.isArray(data.players_local) || JSON.stringify(data.players_local.map(p=>[p.id,p.name])) !== JSON.stringify(APPENDIX_PLAYERS.map(p=>[p.playerId,p.playerName]))) throw new Error('La fuente de Appendix no coincide con el roster local.');
+    const byName=new Map();
+    for(const city of data.cities){
+      if(!city?.name||byName.has(city.name)||!city.canonical_information?.trim()||!city.cartographic_notice?.trim()||!city.chronicle_excerpt?.trim())throw new Error('Una ciudad está duplicada o carece de textos canónicos.');
+      byName.set(city.name,city);
     }
-    return cities;
-  }
-
-  function populateOriginRegions(regions) {
-    const previousValue = originRegionSelect.value;
-    originRegionSelect.replaceChildren(new Option('Elegí una ciudad del Imperio Gris…', ''));
-    let currentGroup = '';
-    let groupElement = null;
-
-    regions.forEach(region => {
-      if (region.group !== currentGroup) {
-        currentGroup = region.group;
-        groupElement = document.createElement('optgroup');
-        groupElement.label = currentGroup;
-        originRegionSelect.appendChild(groupElement);
-      }
-      const option = document.createElement('option');
-      option.value = region.id;
-      option.textContent = region.name;
-      groupElement.appendChild(option);
+    if(byName.size!==APPENDIX_CITY_DISPLAY_ORDER.length||APPENDIX_CITY_DISPLAY_ORDER.some(name=>!byName.has(name)))throw new Error('La lista no coincide con las diez ciudades del Imperio Gris.');
+    return APPENDIX_CITY_DISPLAY_ORDER.map((name,index)=>{
+      const city=byName.get(name);
+      return {id:slugifyRegion('Imperio Gris-'+city.name),sourceCityId:city.id,name:city.name,group:'Imperio Gris',
+        summary:city.canonical_information,sourcePage:data.source.path,canonicalInformation:city.canonical_information,
+        cartographicNotice:city.cartographic_notice,chronicleExcerpt:city.chronicle_excerpt,order:index+1};
     });
-
-    const savedValue = (savedDraft && savedDraft.originRegion) || previousValue;
-    if (savedValue && regions.some(region => region.id === savedValue)) {
-      originRegionSelect.value = savedValue;
-    }
   }
-
-  function getSelectedOriginRegion() {
-    return atlasRegions.find(region => region.id === originRegionSelect.value) || null;
+  function populateOriginRegions(cities){
+    originRegionSelect.replaceChildren(new Option('Elegí una ciudad del Imperio Gris…',''));
+    const group=document.createElement('optgroup');group.label='Imperio Gris';
+    cities.forEach(city=>{const option=document.createElement('option');option.value=city.id;option.textContent=city.name;group.appendChild(option);});
+    originRegionSelect.appendChild(group);originRegionSelect.disabled=false;originRegionSelect.value='';
+  }
+  function getSelectedOriginRegion(){return appendixCities.find(city=>city.id===originRegionSelect.value)||null;}
+  function appendixPlayerIdFromName(value){
+    const name=String(value||'').trim();if(!name)return '';
+    const known=APPENDIX_PLAYERS.find(p=>p.playerName.toLocaleLowerCase('es')===name.toLocaleLowerCase('es'));
+    return known?known.playerId:slugifyRegion(name);
+  }
+  function getCurrentAppendixPlayerId(){
+    const selected=assignmentPlayerSelect&&assignmentPlayerSelect.value;
+    if(currentMode===CREATION_MODES.known&&selected&&APPENDIX_PLAYERS.some(p=>p.playerId===selected))return selected;
+    return appendixPlayerIdFromName(playerNameInput&&playerNameInput.value);
+  }
+  function getDraftForOriginMigration(){
+    if(!currentMode)return null;if(savedDraft&&savedDraft.mode===currentMode)return savedDraft;
+    if(inMemoryDrafts[currentMode])return inMemoryDrafts[currentMode];
+    try{const raw=window.localStorage.getItem(storageKeyForMode(currentMode));return raw?JSON.parse(raw):null;}catch(_){return null;}
+  }
+  function restoreOriginCityForCurrentPlayer(){
+    originRegionSelect.value='';
+    if(!appendixCitiesLoaded){updateOriginDetails();return;}
+    const playerId=getCurrentAppendixPlayerId();
+    if(!playerId){updateOriginDetails();renderPreview(readFormValues());return;}
+    const key=APPENDIX_CITY_STORAGE_KEY_PREFIX+playerId;let cityId='';
+    try{
+      cityId=window.localStorage.getItem(key)||'';
+      if(!cityId){
+        const draft=getDraftForOriginMigration();
+        const draftPlayer=draft?.playerAssignment?.playerId||appendixPlayerIdFromName(draft&&draft.playerName);
+        const legacyId=draft&&typeof draft.originRegion==='string'?draft.originRegion:'';
+        if(draftPlayer===playerId&&appendixCities.some(city=>city.id===legacyId)){cityId=legacyId;window.localStorage.setItem(key,cityId);}
+      }
+      if(cityId&&!appendixCities.some(city=>city.id===cityId)){window.localStorage.removeItem(key);cityId='';}
+    }catch(_){cityId='';}
+    originRegionSelect.value=cityId;updateOriginDetails();renderPreview(readFormValues());
+  }
+  function persistOriginCityForCurrentPlayer(){
+    const playerId=getCurrentAppendixPlayerId();if(!playerId)return;
+    const key=APPENDIX_CITY_STORAGE_KEY_PREFIX+playerId;
+    try{if(appendixCities.some(city=>city.id===originRegionSelect.value))window.localStorage.setItem(key,originRegionSelect.value);else window.localStorage.removeItem(key);}
+    catch(_){/* Current page remains usable without browser storage. */}
   }
 
   function alignInfernalExplorationOrigin(force) {
@@ -1310,51 +1319,39 @@
     if (currentMode !== CREATION_MODES.explore || deitySelect.value !== 'inferno') return;
   }
 
-  function updateOriginDetails() {
-    const region = getSelectedOriginRegion();
-    if (region) {
-      originDetails.textContent = 'Fuente del Atlas: ' + region.sourcePage + '. ' + region.group + ' · ' + region.summary;
-      return;
-    }
-    if (atlasLoading) {
-      originDetails.textContent = 'Cargando las diez ciudades del Imperio Gris desde el Atlas…';
-      return;
-    }
-    if (!atlasLoaded) {
-      originDetails.textContent = 'No se pudo validar la lista de ciudades del Imperio Gris desde el Atlas.';
-      return;
-    }
-    originDetails.textContent = 'Elegí una de las diez ciudades del Imperio Gris. El Appendix no ofrece ciudades de otros territorios.';
+  function appendOriginDetailBlock(title,value){
+    const section=document.createElement('section');section.className='creator-origin-detail-block';
+    const heading=document.createElement('h3');heading.textContent=title;
+    const paragraph=document.createElement('p');paragraph.textContent=value;
+    section.append(heading,paragraph);originDetails.appendChild(section);
   }
-
-  async function loadAtlasRegions() {
-    atlasLoading = true;
-    originDetails.textContent = 'Cargando las diez ciudades del Imperio Gris desde el Atlas…';
-    try {
-      const response = await window.fetch(ATLAS_SOURCE_FILE, { cache: 'no-store' });
-      if (!response.ok) throw new Error('No se pudo leer el Atlas oficial.');
-      const atlas = await response.json();
-      atlasRegions = parseAtlasRegions(atlas);
-      atlasLoaded = true;
-      atlasLoading = false;
-      populateOriginRegions(atlasRegions);
-      alignInfernalExplorationOrigin(false);
-      updateOriginDetails();
-      renderPreview(readFormValues());
-    } catch (error) {
-      atlasRegions = [];
-      atlasLoaded = false;
-      atlasLoading = false;
-      const preservedId = savedDraft && savedDraft.originRegion ? savedDraft.originRegion : '';
-      originRegionSelect.replaceChildren(new Option(
-        preservedId && savedDraft.originRegionName
-          ? savedDraft.originRegionName + ' (borrador guardado; Atlas no disponible)'
-          : 'Atlas no disponible — ciudad pendiente',
-        preservedId
-      ));
-      originRegionSelect.value = preservedId;
-      updateOriginDetails();
-      renderPreview(readFormValues());
+  function updateOriginDetails(){
+    originDetails.replaceChildren();const city=getSelectedOriginRegion();
+    if(city){
+      const source=document.createElement('p');source.className='creator-origin-source';source.textContent='Registro canónico: '+city.sourcePage;originDetails.appendChild(source);
+      appendOriginDetailBlock('INFORMACIÓN CANÓNICA',city.canonicalInformation);
+      appendOriginDetailBlock('AVISO CARTOGRÁFICO',city.cartographicNotice);
+      appendOriginDetailBlock('CRÓNICA DE LA CIUDAD',city.chronicleExcerpt);return;
+    }
+    const message=document.createElement('p');message.className='creator-origin-empty';
+    if(appendixCitiesLoading)message.textContent='Cargando las diez ciudades del Appendix…';
+    else if(!appendixCitiesLoaded)message.textContent='No se pudo cargar el registro canónico de las ciudades del Imperio Gris.';
+    else message.textContent='Elegí una de las diez ciudades del Imperio Gris. No hay ninguna ciudad preseleccionada.';
+    originDetails.appendChild(message);
+  }
+  async function loadAppendixCities(){
+    appendixCitiesLoading=true;originRegionSelect.disabled=true;
+    originRegionSelect.replaceChildren(new Option('Cargando las diez ciudades del Imperio Gris…',''));updateOriginDetails();
+    try{
+      const response=await window.fetch(APPENDIX_CITY_DATA_FILE,{cache:'no-store'});
+      if(!response.ok)throw new Error('No se pudo leer el registro canónico del Appendix.');
+      appendixCities=parseAppendixCities(await response.json());appendixCitiesLoaded=true;appendixCitiesLoading=false;
+      populateOriginRegions(appendixCities);restoreOriginCityForCurrentPlayer();alignInfernalExplorationOrigin(false);
+      updateOriginDetails();renderPreview(readFormValues());
+    }catch(error){
+      appendixCities=[];appendixCitiesLoaded=false;appendixCitiesLoading=false;
+      originRegionSelect.replaceChildren(new Option('Appendix no disponible — ciudad pendiente',''));originRegionSelect.value='';originRegionSelect.disabled=true;
+      updateOriginDetails();renderPreview(readFormValues());
     }
   }
 
@@ -1439,10 +1436,14 @@
     const originRegionContext = selectedOriginRegion
       ? {
           id: selectedOriginRegion.id,
+          sourceCityId: selectedOriginRegion.sourceCityId,
           name: selectedOriginRegion.name,
           continent: selectedOriginRegion.group,
           sourcePage: selectedOriginRegion.sourcePage,
-          summary: selectedOriginRegion.summary
+          summary: selectedOriginRegion.summary,
+          canonicalInformation: selectedOriginRegion.canonicalInformation,
+          cartographicNotice: selectedOriginRegion.cartographicNotice,
+          chronicleExcerpt: selectedOriginRegion.chronicleExcerpt
         }
       : savedOriginContext;
     const selectedZodiacMark = getSelectedZodiacMark();
@@ -1690,13 +1691,7 @@
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-class-skills', {
         detail: { skills: Array.isArray(draft.selectedClassSkills) ? draft.selectedClassSkills : [] }
       }));
-      if (draft.originRegion && !Array.from(originRegionSelect.options).some(option => option.value === draft.originRegion) && draft.originRegionName) {
-        const savedOrigin = document.createElement('option');
-        savedOrigin.value = draft.originRegion;
-        savedOrigin.textContent = draft.originRegionName + ' (borrador guardado)';
-        originRegionSelect.appendChild(savedOrigin);
-      }
-      originRegionSelect.value = draft.originRegion || '';
+      originRegionSelect.value = '';
       deitySelect.value = draft.deity || '';
       const backgroundSelect = document.getElementById('creator-background');
       backgroundSelect.value = draft.background || '';
@@ -2366,8 +2361,8 @@
         ).join('') + '</dl>'
         : '',
       draft.originRegionContext && draft.originRegionContext.summary
-        ? '<h3>Referencia canónica del Atlas</h3>' +
-          actorBiographyParagraphs('Fuente: ' + (draft.originRegionContext.sourcePage || 'Atlas oficial')) +
+        ? '<h3>Registro canónico de la ciudad</h3>' +
+          actorBiographyParagraphs('Fuente: ' + (draft.originRegionContext.sourcePage || 'Registro canónico del Appendix')) +
           actorBiographyParagraphs(draft.originRegionContext.summary)
         : '',
       draft.concept ? '<h3>Concepto del jugador</h3>' + actorBiographyParagraphs(draft.concept) : '',
@@ -2443,7 +2438,7 @@
       return;
     }
     if (!region) {
-      storyStatus.textContent = 'Elegí una región oficial del Atlas antes de preparar la propuesta.';
+      storyStatus.textContent = 'Elegí una ciudad del Imperio Gris antes de preparar la propuesta.';
       return;
     }
 
@@ -2456,7 +2451,7 @@
       paragraphs.push('La primera pista que despertó mi curiosidad fue: ' + explorationLabel + '.');
     }
     if (region.summary) {
-      paragraphs.push('El Atlas describe esta región así: ' + region.summary);
+      paragraphs.push('El registro canónico de la ciudad indica: ' + region.summary);
     }
     if (values.lineage) paragraphs.push('Mi linaje es ' + values.lineage + '.');
     if (values.characterClass) {
@@ -2472,7 +2467,7 @@
     paragraphs.push('El resto de mi historia todavía está por escribirse.');
 
     const maxStoryLength = storyField.maxLength > 0 ? storyField.maxLength : 2000;
-    const atlasParagraphPrefix = 'El Atlas describe esta región así: ';
+    const atlasParagraphPrefix = 'El registro canónico de la ciudad indica: ';
     const conceptParagraphPrefix = 'Hay algo que guía mis pasos: ';
     let proposedStory = paragraphs.join('\n\n');
 
@@ -2564,6 +2559,7 @@
         playerNameInput.value = selectedPlayer.playerName;
       } else {
         window.localStorage.removeItem(PLAYER_ASSIGNMENT_STORAGE_KEY);
+        playerNameInput.value = '';
       }
     } catch (_) {}
     clearLoadedPlayerAssignment(
@@ -2572,6 +2568,7 @@
         : 'Elegí tu nombre. El navegador recordará tu elección; no necesitás ingresar ningún código.',
       'idle'
     );
+    restoreOriginCityForCurrentPlayer();
     assignmentLoadButton.disabled = !assignmentRosterReady || !playerId;
   });
 
@@ -2603,8 +2600,10 @@
   });
   customLineageInput.addEventListener('input', () => renderPreview(readFormValues()));
   originRegionSelect.addEventListener('change', () => {
+    persistOriginCityForCurrentPlayer();
     updateOriginDetails();
     renderPreview(readFormValues());
+    publishCreatorPersonarumDraftChange(readFormValues());
   });
   deitySelect.addEventListener('change', () => {
     alignInfernalExplorationOrigin(true);
@@ -2652,7 +2651,7 @@
   });
 
   initialiseDivineOptions();
-  void loadAtlasRegions();
+  void loadAppendixCities();
   void loadZodiacalMarks();
   introVideo.muted = true;
   outroVideo.muted = true;

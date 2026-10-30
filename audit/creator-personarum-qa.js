@@ -14,6 +14,7 @@ for (const name of [
   'creator-personarum-catalog.js',
   'creator-personarum-data/player-options.json',
   'creator-personarum-data/campaign-options.json',
+  'creator-personarum-data/appendix-grey-empire-cities.json',
   'creator-personarum-data/zodiacal-marks.json',
   'creator-personarum-final-frame.png',
   'creador intro.mp4',
@@ -28,6 +29,7 @@ const runtime = read('creator-personarum.js');
 const catalogRuntime = read('creator-personarum-catalog.js');
 const playerOptionsCatalog = JSON.parse(read('creator-personarum-data/player-options.json'));
 const campaignOptionsCatalog = JSON.parse(read('creator-personarum-data/campaign-options.json'));
+const appendixCitiesCatalog = JSON.parse(read('creator-personarum-data/appendix-grey-empire-cities.json'));
 const zodiacalMarksCatalog = JSON.parse(read('creator-personarum-data/zodiacal-marks.json'));
 const styles = read('creator-personarum.css');
 const workflow = read('.github/workflows/browser-mobile-qa.yml');
@@ -52,7 +54,19 @@ assert.match(page, /id="creator-assignment-player"/, 'The known-character path m
 assert.doesNotMatch(page, /creator-assignment-access-code|CÓDIGO PRIVADO DE ASIGNACIÓN/i, 'Players must not enter an assignment code');
 assert.match(runtime, /PLAYER_ASSIGNMENT_STORAGE_KEY/, 'The browser must remember the selected player ID');
 assert.match(runtime, /playerName: 'Gonza'[\s\S]*playerName: 'Maite'[\s\S]*playerName: 'Nico'[\s\S]*playerName: 'Rulo'[\s\S]*playerName: 'Santi'/, 'Appendix roster must be alphabetical');
-assert.match(runtime, /ATLAS_EMPIRE_CITY_HEADING = 'Las diez ciudades del Imperio'/, 'Appendix origin choices must come from the Atlas city list');
+assert.equal(appendixCitiesCatalog.campaign_scope.id, 'appendix', 'The city source must be scoped specifically to Appendix');
+assert.deepEqual(appendixCitiesCatalog.players_local.map(p => [p.id,p.name]), [['gonza','Gonza'],['maite','Maite'],['nico','Nico'],['rulo','Rulo'],['santi','Santi']], 'The Appendix player roster must remain local and alphabetical');
+assert.deepEqual(appendixCitiesCatalog.cities.map(c => c.name), ['Aetheluria','Valeriam','Arkenum','Sancturia','Portus Varia','Praetorix','Lucisburgum','Archivaea','Ferrum-Corvinium','Aequitania'], 'The Appendix data file must contain the ten canon city records');
+assert.ok(appendixCitiesCatalog.cities.every(c => c.canonical_information && c.cartographic_notice && c.chronicle_excerpt), 'Each city must include its three official text blocks');
+assert.match(runtime, /APPENDIX_CITY_DATA_FILE = 'creator-personarum-data\\/appendix-grey-empire-cities\\.json'/, 'Runtime must load the canonical Appendix city data file');
+assert.match(runtime, /function parseAppendixCities\\(data\\)/, 'Appendix city data must pass through a dedicated strict parser');
+assert.match(runtime, /APPENDIX_CITY_STORAGE_KEY_PREFIX/, 'Each player city choice must use its own local storage key');
+assert.match(runtime, /function restoreOriginCityForCurrentPlayer\\(\\)/, 'The selected city must restore for the active Appendix player');
+assert.match(runtime, /function persistOriginCityForCurrentPlayer\\(\\)/, 'The selected city must persist independently for the active Appendix player');
+assert.match(runtime, /canonicalInformation: selectedOriginRegion\\.canonicalInformation/, 'The full city record must be retained in the saved origin context');
+assert.match(page, /INFORMACIÓN CANÓNICA/, 'The Appendix UI must show canonical city information');
+assert.match(page, /AVISO CARTOGRÁFICO/, 'The Appendix UI must show the cartographic notice');
+assert.match(page, /CRÓNICA DE LA CIUDAD/, 'The Appendix UI must show the city chronicle');
 assert.match(page, /¿De qué ciudad del Imperio Gris viene tu personaje\?/, 'The origin UI must offer Grey Empire cities only');
 assert.match(page, /id="creator-assignment-load"/, 'The player must explicitly load their assigned level and roll pool');
 assert.match(page, /id="creator-assignment-rolls"/, 'The six director-assigned roll results must be displayed');
@@ -136,14 +150,11 @@ assert.match(page, /creator-origin-promise/, 'The flow must set expectations for
 assert.match(page, /procedencia se limita a las diez ciudades del Imperio Gris/i, 'Appendix origins must be limited to Grey Empire cities');
 assert.match(page, /id="creator-origin-region"/, 'The origin selector must expose a region choice sourced from the canonical Atlas');
 assert.match(page, /id="creator-preview-origin-row"/, 'Selected origin must be reflected in the preview');
-assert.match(runtime, /fvtt-JournalEntry-atlas-revisado\.json/, 'Origin choices must be loaded from the canonical Atlas export');
-assert.match(runtime, /function parseAtlasRegions\(atlas\)/, 'Atlas parsing must be a distinct testable transformation');
-assert.match(runtime, /function getSelectedOriginRegion\(\)/, 'The selected region should resolve to canonical details');
-assert.match(runtime, /function alignInfernalExplorationOrigin\(force\)/, 'Infernal faith must not select a city automatically');
+assert.match(runtime, /function getSelectedOriginRegion\\(\\)/, 'The selected city must resolve to its canonical detail record');
+assert.match(runtime, /function alignInfernalExplorationOrigin\\(force\\)/, 'Infernal faith must not select a city automatically');
 assert.match(runtime, /Choosing the Inferno does not choose a city/, 'Infernal faith must leave city choice to the player');
-assert.match(runtime, /function parseAtlasRegions\(atlas\)/, 'Only Atlas Grey Empire cities may be offered');
-assert.match(runtime, /atlasLoading/, 'The Atlas loading state must not be confused with an Atlas fetch failure');
-assert.match(runtime, /restoreDraft\(\);\s*setKnownCharacterWizardStep\(currentKnownWizardStep, false\);\s*(?:if \(!isExplorer\) void loadAssignmentPlayers\(\);\s*)?alignInfernalExplorationOrigin\(false\);\s*updateOriginDetails\(\);/, 'Restoring a draft must restore the wizard stage and refresh the origin summary and canonical infernal association');
+assert.match(runtime, /appendixCitiesLoading/, 'The Appendix loading state must be distinct from data load failure');
+assert.match(runtime, /restoreDraft\\(\\);\\s*setKnownCharacterWizardStep\\(currentKnownWizardStep, false\\);\\s*if \\(!isExplorer\\) void loadAssignmentPlayers\\(\\);\\s*restoreOriginCityForCurrentPlayer\\(\\);\\s*alignInfernalExplorationOrigin\\(false\\);\\s*updateOriginDetails\\(\\);/, 'Restoration must refresh the current player city selection');
 assert.match(runtime, /originRegionName: values\.originRegionName/, 'Saved/exported drafts must preserve origin metadata');
 assert.match(atlasText, /Imperium Ravum \(el Imperio Gris\)/, 'Origin data must include the Grey Empire as named in the Atlas');
 assert.match(atlasText, /El Gran Bosque \(interior de Rala\)/, 'Origin data must include the Great Forest zone');

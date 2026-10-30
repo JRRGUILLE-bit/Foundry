@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IM+Fell+English&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="creator-personarum.css?v=20261029-3">
+  <link rel="stylesheet" href="creator-personarum.css?v=20261030-1">
 </head>
 <body class="creator-personarum-page">
   <main id="creator-app">
@@ -493,15 +493,17 @@
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">APPENDIX // ORIGEN IMPERIAL</span>
               <h2 id="creator-origin-title">¿De qué ciudad del Imperio Gris viene tu personaje?</h2>
-              <p>Para esta mini campaña, la procedencia se limita a las diez ciudades del Imperio Gris. Los nombres y las descripciones se toman del Atlas revisado.</p>
+              <p>Para esta mini campaña, la procedencia se limita a las diez ciudades del Imperio Gris. La información, los avisos cartográficos y las crónicas proceden del registro canónico de ciudades del Appendix.</p>
             </div>
             <label class="creator-field" for="creator-origin-region">
               <span>CIUDAD DE ORIGEN</span>
-              <select id="creator-origin-region" name="originRegion">
+              <select id="creator-origin-region" name="originRegion" disabled>
                 <option value="">Cargando las diez ciudades del Imperio Gris…</option>
               </select>
             </label>
-            <p id="creator-origin-details" class="creator-deity-details" role="status" aria-live="polite">Cargando regiones oficiales del Atlas…</p>
+            <div id="creator-origin-details" class="creator-origin-details" role="status" aria-live="polite">
+              <p class="creator-origin-empty">Cargando las diez ciudades del Appendix…</p>
+            </div>
             <p class="creator-deity-guidance">Para Appendix solo se ofrecen ciudades del Imperio Gris. La ciudad de origen se elige por separado de la raza, la clase y las demás opciones del personaje.</p>
             <label class="creator-field creator-field-wide" for="creator-origin-story">
               <span>HISTORIA DE ORIGEN (OPCIONAL)</span>
@@ -567,7 +569,7 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261029-11"></script>
+  <script src="creator-personarum.js?v=20261030-1"></script>
   <script src="creator-personarum-catalog.js?v=20261029-3"></script>
   <script src="creator-personarum-sheets-config.js?v=20261029-2"></script>
   <script src="creator-personarum-sheets.js?v=20261029-1"></script>
