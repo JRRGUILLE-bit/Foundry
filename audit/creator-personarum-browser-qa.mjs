@@ -297,12 +297,15 @@ try {
     assert.ok(info.includes(maiteCity.canonical_information),'Canonical city information appears.');
     assert.ok(info.includes(maiteCity.cartographic_notice),'Cartographic notice appears.');
     assert.ok(info.includes(maiteCity.chronicle_excerpt),'City chronicle appears.');
-    await page.locator('#creator-assignment-player').selectOption('gonza');
+    assert.equal(await page.locator('#creator-assignment-player').isVisible(), false,
+      'The player selector belongs to wizard step 1 and must remain hidden on the final city step');
+    // Exercise the player-change handler while the step-1 selector is hidden; the visible wizard stage stays on the city step.
+    await page.locator('#creator-assignment-player').selectOption('gonza', { force: true });
     assert.equal(await originSelect.inputValue(),'','Gonza must not inherit Maite city.');
     const gonzaCityId='imperio-gris-portus-varia';
     await originSelect.selectOption(gonzaCityId);
     assert.equal(await page.evaluate(()=>localStorage.getItem('banda.creator-personarum.appendix-city.v1.gonza')),gonzaCityId,'Gonza city saved under Gonza key.');
-    await page.locator('#creator-assignment-player').selectOption('maite');
+    await page.locator('#creator-assignment-player').selectOption('maite', { force: true });
     assert.equal(await originSelect.inputValue(),greyEmpireId,'Switching back to Maite restores her city.');
     await page.locator('#creator-assignment-load').click();
     await page.waitForFunction(()=>document.getElementById('creator-assignment-level')?.textContent==='3');
