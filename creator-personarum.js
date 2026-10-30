@@ -146,6 +146,7 @@
   let loadedPlayerAssignment = null;
   let assignmentRosterReady = false;
   let draftAssignmentSnapshot = null;
+  let isResettingDraft = false;
 
   function showWelcome() {
     if (playerNameInput && !playerNameInput.value.trim()) {
@@ -1119,6 +1120,7 @@
   }
 
   function resetFormFields() {
+    isResettingDraft = true;
     draftForm.reset();
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-spells'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-class-skills'));
@@ -1160,8 +1162,9 @@
     exportFoundryActorButton.disabled = false;
     draftStatus.textContent = currentMode === CREATION_MODES.explore
       ? 'Todavía no hace falta que tengas todas las respuestas.'
-      : 'Los cambios se guardan cuando pulsás «Guardar borrador».';
+      : 'Los cambios se guardan automáticamente. «Guardar borrador» también conserva una copia.';
     draftStatus.dataset.state = 'idle';
+    isResettingDraft = false;
   }
 
   function playIntro() {
@@ -1868,7 +1871,7 @@
   }
 
   function autosaveCurrentDraft(values = readFormValues()) {
-    if (!currentMode || draftStep.hidden) return false;
+    if (isResettingDraft || !currentMode || draftStep.hidden) return false;
     const storageKey = storageKeyForMode(currentMode);
     if (!storageKey) return false;
     const draft = buildDraftRecord(values);
