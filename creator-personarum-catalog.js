@@ -2069,6 +2069,7 @@
       if (field) {
         field.hidden = !matching.length;
         field.dataset.creatorWizardStep = selectedLevel > 1 ? '5' : '2';
+        window.creatorPersonarumRefreshWizardStage?.();
       }
       select.disabled = !selectedClass || !validLevel || matching.length === 0;
 
