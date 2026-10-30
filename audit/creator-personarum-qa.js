@@ -44,6 +44,8 @@ assert.match(page, /creator-personarum\.js\?v=20261030-6/, 'Creator Personarum r
 assert.match(page, /creator-personarum-catalog\.js\?v=20261030-2/, 'Catalog cache must be refreshed for English character options');
 assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
 assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
+assert.match(i18nRuntime, /STORAGE_KEY \+ '\.player\.' \+ playerId/, 'Language preferences must be stored independently for each player');
+assert.match(i18nRuntime, /function setPlayer\(playerId\)/, 'Changing the selected player must restore that player’s language preference');
 assert.match(i18nRuntime, /creator-personarum:language-changed/, 'The global language switch must notify dynamic character selectors');
 assert.match(page, /creator-personarum-catalog\.js/, 'Creator Personarum must load its filtered player-options catalog adapter');
 assert.match(catalogRuntime, /creator-personarum-data\/campaign-options\.json/, 'Catalog adapter must load campaign-canon-approved options, not generic candidates');
