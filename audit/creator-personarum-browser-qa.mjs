@@ -156,24 +156,14 @@ try {
     await page.locator('#creator-assignment-player').selectOption('maite');
     assert.equal(await page.evaluate(() => localStorage.getItem('banda.creator-personarum.assignment-player-id.v1')), 'maite',
       'Selected player ID must be saved in browser storage');
-    await page.locator('#creator-assignment-load').click();
-    await page.waitForFunction(() => document.getElementById('creator-assignment-level')?.textContent === '3');
-    assert.equal(await page.locator('#creator-level').inputValue(), '3',
-      'The player level must be supplied by the verified Director assignment');
-    assert.equal(await page.locator('#creator-level').getAttribute('readonly'), '',
-      'The assigned level cannot be manually changed');
-    assert.equal(await page.locator('#creator-assignment-rolls li').count(), 6,
-      'All six unassigned results must be loaded from the verified assignment');
-    assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\nResultado 2: 15\nResultado 3: 14\nResultado 4: 12\nResultado 5: 10\nResultado 6: 8',
-      'The exact six pre-assigned results must be displayed');
+    assert.equal(await page.locator('#creator-ability-assignment').isVisible(), false,
+      'Ability rolls must remain optional during class selection until the Director assignment is loaded');
     await page.reload({ waitUntil: 'domcontentloaded' });
     await waitForAppendixCities();
     await exposeWorkspace();
     await page.locator('#creator-known-path-button').click();
     assert.equal(await page.locator('#creator-assignment-player').inputValue(), 'maite',
       'The browser must remember the chosen player after reload');
-    await page.locator('#creator-assignment-load').click();
-    await page.waitForFunction(() => document.getElementById('creator-assignment-level')?.textContent === '3');
 
     assert.deepEqual(
       await page.locator('#creator-origin-region option').evaluateAll(options => options.slice(1).map(option => option.textContent.trim())),
@@ -217,11 +207,82 @@ try {
 
     await page.locator('#creator-race').selectOption({ label: 'Aasimar' });
     await page.locator('#creator-wizard-next').click();
-    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 1 DE 5',
-      'The known-character wizard must not leave the first step before all six roll results are assigned');
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 2 DE 5',
+      'The wizard must reach class selection without requiring the Director assignment or ability allocation');
+    assert.equal(await page.locator('#creator-character-class').isVisible(), true,
+      'The class selector must become visible at the class stage');
+    assert.equal(await page.locator('#creator-ability-assignment').isVisible(), false,
+      'Class selection must remain available while the ability-roll assignment is not loaded');
+
+    await page.locator('#creator-wizard-next').click();
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 2 DE 5',
+      'The class stage must still require a class choice');
     assert.match(await page.locator('#creator-draft-status').innerText(),
-      /Asigná cada uno de los seis resultados a una característica distinta/i,
-      'An incomplete ability allocation must give a specific validation message');
+      /Elegí una clase aprobada por la campaña/i,
+      'Missing class choice must explain why the wizard cannot advance');
+
+    const classSelect = page.locator('#creator-character-class');
+    const classSkillList = page.locator('#creator-class-skills-list');
+    await classSelect.selectOption({ label: 'Bárbaro' });
+    assert.match(await classSkillList.innerText(), /Marcá 2 habilidades/i,
+      'Barbarian must show its Legacy/2014 class skill choices');
+    assert.ok(await classSkillList.locator('input[data-class-skill-choice]').count() >= 2,
+      'Class skills must be selectable checkboxes in the known-character wizard');
+    assert.match(await classSkillList.innerText(), /Atletismo/,
+      'Barbarian class choices must include Athletics');
+    assert.match(await classSkillList.innerText(), /Supervivencia/,
+      'Barbarian class choices must include Survival');
+    assert.doesNotMatch(await classSkillList.innerText(), /Arcanos/,
+      'Barbarian must not show skills outside its class list');
+
+    await page.locator('#creator-wizard-next').click();
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 2 DE 5',
+      'The class stage must not advance before all required class skills are selected');
+    assert.match(await page.locator('#creator-draft-status').innerText(),
+      /Elegí exactamente 2 habilidades para Bárbaro/i,
+      'Missing class skills must produce a specific validation message');
+
+    let barbarianSkillChoices = classSkillList.locator('input[data-class-skill-choice]');
+    await barbarianSkillChoices.nth(0).check();
+    await barbarianSkillChoices.nth(1).check();
+    assert.equal(await classSkillList.locator('input[data-class-skill-choice]:checked').count(), 2,
+      'Barbarian must accept exactly two class skills');
+    assert.equal(await barbarianSkillChoices.nth(2).isDisabled(), true,
+      'Further class skills must be disabled at the allowed limit');
+
+    await classSelect.selectOption({ label: 'Brujo' });
+    let subclasses = await page.locator('#creator-subclass option').evaluateAll(options =>
+      options.slice(1).map(option => option.textContent.trim())
+    );
+    assert.ok(subclasses.includes('El Infernario'), 'The approved infernal patron should remain available');
+    assert.ok(!subclasses.some(label => /Gran Antiguo|Great Old One|Aberrant Mind|Mente aberrante/i.test(label)),
+      'Explicitly prohibited subclasses must not appear');
+    await classSelect.selectOption({ label: 'Bárbaro' });
+    barbarianSkillChoices = classSkillList.locator('input[data-class-skill-choice]');
+    await barbarianSkillChoices.nth(0).check();
+    await barbarianSkillChoices.nth(1).check();
+
+    await page.locator('#creator-wizard-next').click();
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 3 DE 5',
+      'The wizard must advance after the class and its required skills are selected');
+
+    await page.locator('#creator-export-draft').click();
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 1 DE 5',
+      'A draft can reach class choices without assignment, but finalization must return to the assignment step');
+    assert.match(await page.locator('#creator-draft-status').innerText(),
+      /Cargá y verificá la asignación del Director antes de finalizar o exportar/i,
+      'Finalization must still require the Director assignment');
+
+    await page.locator('#creator-assignment-load').click();
+    await page.waitForFunction(() => document.getElementById('creator-assignment-level')?.textContent === '3');
+    assert.equal(await page.locator('#creator-level').inputValue(), '3',
+      'The player level must be supplied by the verified Director assignment');
+    assert.equal(await page.locator('#creator-level').getAttribute('readonly'), '',
+      'The assigned level cannot be manually changed');
+    assert.equal(await page.locator('#creator-assignment-rolls li').count(), 6,
+      'All six unassigned results must be loaded from the verified assignment');
+    assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\\nResultado 2: 15\\nResultado 3: 14\\nResultado 4: 12\\nResultado 5: 10\\nResultado 6: 8',
+      'The exact six pre-assigned results must be displayed');
 
     const rollIds = Array.from({ length: 6 }, (_, index) => 'appendix-assignment-1-roll-' + (index + 1));
     const abilityKeys = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
@@ -245,42 +306,21 @@ try {
       /Las seis tiradas están asignadas, una por característica/i,
       'Six distinct assignments must be accepted');
     assert.equal(await page.locator('#creator-preview-ability-scores-row').evaluate(element => element.hidden), false,
-      'The preview must show the assigned base scores');
+      'The preview must show the assigned base ability scores');
     assert.equal(await page.locator('#creator-preview-ability-scores').innerText(),
       'Fuerza 16 · Destreza 15 · Constitución 14 · Inteligencia 12 · Sabiduría 10 · Carisma 8',
       'Each assigned roll must be reflected in the matching ability');
 
     await page.locator('#creator-wizard-next').click();
     assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 2 DE 5',
-      'The known-character wizard must advance to class only after the race and six distinct ability scores are valid');
-    assert.equal(await page.locator('#creator-character-class').isVisible(), true,
-      'The class selector must become visible at the class stage');
-
-    await page.locator('#creator-character-class').selectOption({ label: 'Bárbaro' });
-    let subclasses = await page.locator('#creator-subclass option').evaluateAll(options =>
-      options.slice(1).map(option => option.textContent.trim())
-    );
-    assert.ok(subclasses.includes('Senda del Berserker'), 'Approved Barbarian subclass should appear');
-    await page.locator('#creator-character-class').selectOption({ label: 'Brujo' });
-    subclasses = await page.locator('#creator-subclass option').evaluateAll(options =>
-      options.slice(1).map(option => option.textContent.trim())
-    );
-    assert.ok(subclasses.includes('El Infernario'), 'The approved infernal patron should remain available');
-    assert.ok(!subclasses.some(label => /Gran Antiguo|Great Old One|Aberrant Mind|Mente aberrante/i.test(label)),
-      'Explicitly prohibited subclasses must not appear');
-
-    for (const id of [
-      'creator-background-field', 'creator-background-skills-section',
-      'creator-feat-field', 'creator-feat-details',
-      'creator-spells-section', 'creator-class-features-section'
-    ]) {
-      assert.equal(await page.locator('#' + id).evaluate(element => element.hidden), true,
-        id + ' must remain hidden until the campaign canon supplies approved data for that category');
-    }
-    assert.equal(await page.locator('#creator-background-stage-status').isVisible(), false,
-      'The missing-background notice must not appear during the class stage');
-    assert.equal(await page.locator('html').getAttribute('data-creator-catalog-state'), 'loaded',
-      'Creator Personarum must load its generated campaign-canon catalogue');
+      'The player can return to class choices after completing the Director assignment');
+    assert.equal(await classSelect.inputValue(), 'Bárbaro',
+      'The selected class must remain when the player returns to complete the assignment');
+    assert.equal(await classSkillList.locator('input[data-class-skill-choice]:checked').count(), 2,
+      'Selected class skills must remain when the player returns to complete the assignment');
+    await page.locator('#creator-wizard-next').click();
+    assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 3 DE 5',
+      'The assigned character can continue after class skill choices are complete');
 
     await page.locator('#creator-export-draft').click();
     assert.match(await page.locator('#creator-draft-status').innerText(),
@@ -314,7 +354,7 @@ try {
     assert.equal(await page.evaluate(()=>localStorage.getItem('banda.creator-personarum.appendix-city.v1.gonza')),gonzaCityId,'Gonza city remains separate.');
 
     assert.deepEqual(pageErrors, [], 'Campaign-canon option gating, wizard navigation and the level progression guard must not raise browser JavaScript exceptions');
-    console.log('Creator Personarum browser smoke QA passed: sequential race-to-class wizard, canon gating and higher-level completion guard.');
+    console.log('Creator Personarum browser smoke QA passed: class and class-skill selection before assignment, verified roll allocation for finalization, Appendix city persistence and higher-level completion guard.');
   } else {
   // Legacy full-form suite; opt in only after canonical backgrounds, feats, spells and class features are available.
   // Open the character form before interacting with its controls.

@@ -665,16 +665,8 @@
 
   function validateKnownCharacterWizardStep(step) {
     if (step === 1) {
-      if (!loadedPlayerAssignment) {
-        setDraftStatus('Primero cargá y verificá la asignación del Director: nivel y seis resultados.', 'error');
-        focusCreatorWizardControl(assignmentPlayerSelect);
-        return false;
-      }
-      if (!isAbilityRollAssignmentComplete()) {
-        setDraftStatus('Asigná cada uno de los seis resultados a una característica distinta antes de continuar.', 'error');
-        focusFirstUnassignedAbility();
-        return false;
-      }
+      // La asignación del Director puede completarse durante el borrador.
+      // Sigue siendo obligatoria, con seis resultados distintos, al finalizar o exportar.
       if (!raceSelect.value) {
         setDraftStatus('Elegí una raza aprobada por la campaña antes de continuar.', 'error');
         focusCreatorWizardControl(raceSelect);

@@ -326,6 +326,13 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - Siguiente trabajo: completar los datos canónicos faltantes; luego construir el asistente secuencial (raza/subraza, clase y elecciones de nivel 1, trasfondo, marca; después progresión hasta el nivel asignado) y conectar el selector de jugador con la asignación de nivel y seis tiradas. El reparto de resultados debe ser uno-a-uno entre los seis atributos. No reutilizar `SESSION_LIVE`.
 - Sigue pendiente implementar la multiclase desde nivel 2 según prerrequisitos Legacy/2014. No se ejecutó QA del navegador en este cambio.
 
+## Creator Personarum — navegación de clase independiente de la asignación (30/10/2026)
+
+- El primer paso del asistente valida raza, variante y elecciones obligatorias del linaje, pero ya no bloquea el acceso a clase por no haber cargado todavía la asignación del Director ni distribuido las seis tiradas.
+- El jugador puede seleccionar clase y completar las habilidades de clase durante el borrador. Los seis resultados continúan siendo únicos y deben asignarse a los seis atributos antes de finalizar o exportar.
+- La validación de asignación verificada y de progresión de nivel sigue activa en la finalización/exportación. No se modificaron el Apps Script, la hoja `ASIGNACIONES`, `SESSION_LIVE` ni la lógica de ciudades por jugador.
+- La Browser Desktop QA predeterminada prueba el acceso a clase y la selección de habilidades sin asignación cargada, el retorno al primer paso para completar la asignación y los bloqueos que siguen aplicándose al exportar.
+
 ## Creator Personarum — puente de guardado a Google Sheets (29/10/2026)
 
 - La página carga `creator-personarum-sheets-config.js` y `creator-personarum-sheets.js`. El formulario emite una instantánea del borrador completo después de abrir el recorrido, cambiar campos, guardar el borrador o finalizarlo; el adaptador envía snapshots POST con debounce.
