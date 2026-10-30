@@ -564,9 +564,25 @@
       const child=translate(item.name,LINEAGE_LABELS), parent=translate(item.parent_name||'',LINEAGE_LABELS);
       const label=parent&&normalize(parent)!==normalize(child)?parent+' — '+child:child;
       addOption(select,label,item.source,item.category,[child,item.name]);
+      const variantOption=Array.from(select.options).find(option=>normalize(option.value)===normalize(label)&&option.dataset.creatorCatalogCategory===item.category);
+      if(variantOption&&item.id)variantOption.dataset.creatorCatalogId=item.id;
     }
 
     const language=()=>byId('creator-skill-language')?.value==='en'?'en':'es';
+    const refreshLineageLabels=()=>{
+      Array.from(select.options).forEach(option=>{
+        if(!option.value){option.textContent=language()==='en'?'Choose an approved species option…':'Elegí una opción racial aprobada por la campaña…';return;}
+        const speciesRecord=species.find(item=>item.id&&item.id===option.dataset.creatorCatalogId);
+        const variantRecord=variants.find(item=>item.id&&item.id===option.dataset.creatorCatalogId);
+        if(speciesRecord)option.textContent=language()==='en'?String(speciesRecord.name_en||speciesRecord.name):translate(speciesRecord.name,LINEAGE_LABELS);
+        else if(variantRecord){
+          const childName=language()==='en'?String(variantRecord.name_en||variantRecord.name):translate(variantRecord.name,LINEAGE_LABELS);
+          const parentRecord=species.find(item=>normalize(item.name)===normalize(variantRecord.parent_name));
+          const parentName=variantRecord.parent_name?(language()==='en'?String(parentRecord?.name_en||variantRecord.parent_name):translate(variantRecord.parent_name,LINEAGE_LABELS)):'';
+          option.textContent=parentName&&normalize(parentName)!==normalize(childName)?parentName+' — '+childName:childName;
+        }
+      });
+    };
     const familyRecords=new Map();
     species.forEach(item=>{
       const familyId=String(item.family_id||'').trim();
@@ -647,6 +663,7 @@
     subraceSelect.addEventListener('change',applySubraceSelection);
     byId('creator-skill-language')?.addEventListener('change',()=>{
       const familyId=raceSelect.value,savedRow=savedSpeciesForChoice(select.value),dragonbornChoice=dragonbornAncestryInput.value;
+      refreshLineageLabels();
       populateRaceOptions(familyId);
       renderFamilySelection(familyId,savedRow?.id||'',dragonbornChoice);
     });
@@ -1571,7 +1588,17 @@
       if (!key || seen.has(key)) continue;
       seen.add(key);
       addOption(select, translate(item.name, CLASS_LABELS), item.source, item.category, [item.name]);
+      const option=Array.from(select.options).find(candidate=>normalize(candidate.value)===normalize(translate(item.name,CLASS_LABELS)));
+      if(option)option.textContent=byId('creator-skill-language')?.value==='en'?String(item.name_en||item.name):translate(item.name,CLASS_LABELS);
     }
+
+    byId('creator-skill-language')?.addEventListener('change',()=>{
+      Array.from(select.options).forEach(option=>{
+        if(!option.value){option.textContent=byId('creator-skill-language')?.value==='en'?'Choose a campaign-approved class…':'Elegí una clase aprobada por la campaña…';return;}
+        const record=rows.find(item=>normalize(translate(item.name,CLASS_LABELS))===normalize(option.value));
+        if(record)option.textContent=byId('creator-skill-language')?.value==='en'?String(record.name_en||record.name):translate(record.name,CLASS_LABELS);
+      });
+    });
 
     Array.from(select.options).forEach((option) => {
       if (normalize(option.value) === 'clase personalizada') option.remove();
@@ -2002,6 +2029,8 @@
         if (!key || seen.has(key)) continue;
         seen.add(key);
         addOption(select, item.name, item.source, item.category);
+        const added=Array.from(select.options).find(option=>option.value===item.name);
+        if(added)added.textContent=byId('creator-skill-language')?.value==='en'?String(item.name_en||item.name):item.name;
       }
       select.disabled = !selectedClass || matching.length === 0;
 
@@ -2014,6 +2043,7 @@
     };
 
     classSelect.addEventListener('change', refresh);
+    byId('creator-skill-language')?.addEventListener('change', refresh);
     refresh();
   }
 
