@@ -2264,6 +2264,7 @@
       );
       renderBackgroundLanguages(background || null);
       renderBackgroundTools(background || null);
+      renderBackgroundEquipment(background || null);
 
       if (!selectedValue || !background) {
         selectedSkills = [];
