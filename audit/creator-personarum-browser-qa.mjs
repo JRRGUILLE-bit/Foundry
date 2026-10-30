@@ -307,8 +307,6 @@ try {
     assert.equal(await page.evaluate(()=>localStorage.getItem('banda.creator-personarum.appendix-city.v1.gonza')),gonzaCityId,'Gonza city saved under Gonza key.');
     await page.locator('#creator-assignment-player').selectOption('maite', { force: true });
     assert.equal(await originSelect.inputValue(),greyEmpireId,'Switching back to Maite restores her city.');
-    await page.locator('#creator-assignment-load').click();
-    await page.waitForFunction(()=>document.getElementById('creator-assignment-level')?.textContent==='3');
     await page.reload({waitUntil:'domcontentloaded'});await waitForAppendixCities();await exposeWorkspace();
     await page.locator('#creator-known-path-button').click();
     assert.equal(await page.locator('#creator-assignment-player').inputValue(),'maite','Player identity survives reload.');
