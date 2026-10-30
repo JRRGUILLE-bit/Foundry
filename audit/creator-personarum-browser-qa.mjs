@@ -54,7 +54,14 @@ try {
   browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ acceptDownloads: true });
   const pageErrors = [];
+  const browserDiagnostics = [];
   page.on('pageerror', error => pageErrors.push(error.message));
+  page.on('console', message => {
+    if (message.type() === 'error') browserDiagnostics.push('console: ' + message.text());
+  });
+  page.on('requestfailed', request => {
+    browserDiagnostics.push('request failed: ' + request.url() + ' — ' + (request.failure()?.errorText || 'unknown'));
+  });
   const campaignOptionsCatalog = JSON.parse(fs.readFileSync(
     path.join(root, 'creator-personarum-data/campaign-options.json'),
     'utf8'
@@ -114,14 +121,28 @@ try {
   let selectedFeatValue = '';
 
   const waitForAppendixCities = async () => {
-    await page.waitForFunction(() => {
-      const select = document.getElementById('creator-origin-region');
-      if (!select) return false;
-      const values = Array.from(select.options).map(option => option.value);
-      return values.length === 11
-        && values.includes('imperio-gris-aetheluria')
-        && values.includes('imperio-gris-portus-varia');
-    }, null, { timeout: 15000 });
+    try {
+      await page.waitForFunction(() => {
+        const select = document.getElementById('creator-origin-region');
+        if (!select) return false;
+        const values = Array.from(select.options).map(option => option.value);
+        return values.length === 11
+          && values.includes('imperio-gris-aetheluria')
+          && values.includes('imperio-gris-portus-varia');
+      }, null, { timeout: 15000 });
+    } catch (error) {
+      const state = await page.evaluate(() => ({
+        readyState: document.readyState,
+        catalogState: document.documentElement.dataset.creatorCatalogState || null,
+        originSelectExists: Boolean(document.getElementById('creator-origin-region')),
+        originOptions: Array.from(document.getElementById('creator-origin-region')?.options || []).map(option => ({
+          value: option.value, text: option.textContent
+        })),
+        originDetails: document.getElementById('creator-origin-details')?.innerText || null,
+        language: document.documentElement.dataset.creatorLanguage || null
+      }));
+      throw new Error(error.message + '\\nAppendix browser diagnostics: ' + JSON.stringify({ state, pageErrors, browserDiagnostics }));
+    }
     await page.waitForFunction(() => document.documentElement.dataset.creatorCatalogState === 'loaded', null, { timeout: 15000 });
   };
 
