@@ -39,9 +39,9 @@ const atlas = JSON.parse(read('fvtt-JournalEntry-atlas-revisado.json'));
 const atlasText = JSON.stringify(atlas);
 
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
-assert.match(page, /creator-personarum-i18n\.js\?v=20261030-4/, 'Creator Personarum must load its global language layer before the creator runtime');
-assert.match(page, /creator-personarum\.js\?v=20261030-9/, 'Creator Personarum runtime cache must be refreshed for global language support');
-assert.match(page, /creator-personarum-catalog\.js\?v=20261030-4/, 'Catalog cache must be refreshed for English character options');
+assert.match(page, /creator-personarum-i18n\.js\?v=20261030-3/, 'Creator Personarum must load its global language layer before the creator runtime');
+assert.match(page, /creator-personarum\.js\?v=20261030-10/, 'Creator Personarum runtime cache must be refreshed for global language support');
+assert.match(page, /creator-personarum-catalog\.js\?v=20261030-5/, 'Catalog cache must be refreshed for English character options');
 assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
 assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
 assert.match(i18nRuntime, /STORAGE_KEY \+ '\.player\.' \+ playerId/, 'Language preferences must be stored independently for each player');
@@ -109,7 +109,7 @@ assert.match(runtime, /function loadAssignmentPlayers\(\)/, 'The creator must lo
 assert.match(runtime, /function loadSelectedPlayerAssignment\(\)/, 'The creator must retrieve an assignment using the per-player code');
 assert.match(runtime, /if \(!loadedPlayerAssignment\)/, 'Known-character progression and finalization must require a freshly verified assignment');
 assert.match(runtime, /playerAssignment: values\.playerAssignment \|\| null/, 'Drafts must preserve the assigned level and six roll results without storing the access code');
-assert.match(page, /creator-personarum.js\?v=20261030-9/, 'The wizard navigation fix must invalidate the runtime script cache');
+assert.match(page, /creator-personarum.js\?v=20261030-10/, 'The wizard navigation fix must invalidate the runtime script cache');
 assert.match(page, /creator-personarum.css\?v=20261030-1/, 'The ability-allocation panel must invalidate the stylesheet cache');
 assert.match(page, /id="creator-race"/, 'The creator must ask for the race family first');
 assert.match(page, /id="creator-subrace"/, 'Variants must appear in a second selector after choosing a race family');
@@ -140,7 +140,7 @@ assert.ok(runtimeSubclasses.length > 0 && runtimeSubclasses.every(record =>
 ), 'Every runtime subclass must have verified rules data and an explicit, consistent unlock level');
 assert.ok(catalogRuntime.includes('const selectedLevel = currentProgressionLevel;'), 'Subclasses must be gated by the current progression stage, not the Director target level');
 assert.ok(catalogRuntime.includes('if (field) field.hidden = !matching.length;'), 'The subclass field must stay hidden when the class has no unlocked subclass');
-assert.ok(catalogRuntime.includes("levelInput.addEventListener('input', refresh);"), 'Changing the Director-assigned level must refresh subclass availability');
+assert.ok(catalogRuntime.includes("window.addEventListener('creator-personarum:progression-level-changed'"), 'Subclasses must advance only when the current progression stage changes');
 assert.ok(runtime.includes("assignedLevelInput.dispatchEvent(new Event('input'"), 'Loading the Director assignment must refresh level-dependent class mechanics');
 assert.ok(runtime.includes('progressionLevel: Number(window.creatorPersonarumGetProgressionLevel?.() || 1)'), 'Drafts must save the current progression level separately from the Director target level');
 assert.ok(runtime.includes("detail: { level: 1 }"), 'A new character draft must always begin at progression level one');
