@@ -176,7 +176,7 @@ El índice de referencia guarda algunos rasgos con un `subclassShortName` abrevi
 - War Magic → `War`
 - Peace Domain → `Peace`
 
-El conjunto tiene rasgos en el índice de referencia, pero el comparador actual no los vincula a esos nombres completos. No se deben dar por integradas esas subclases hasta resolverlo.
+**Corrección aplicada en `Foundry/main`:** `subclassNameAliases()` ahora resuelve el prefijo `Order of` y los sufijos `Domain`, `Sorcery` y `Magic`. La comprobación dirigida de los 12 pares anteriores dio 12/12 coincidencias. Se actualizaron las aserciones estáticas de QA; el resultado del workflow Desktop QA todavía está pendiente. Esta corrección no agrega candidatas al selector ni cambia el estado canónico.
 
 ## Conclusión y siguiente trabajo
 
