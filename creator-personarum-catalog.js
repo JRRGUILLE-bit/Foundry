@@ -2431,6 +2431,12 @@
       if (backgroundLanguagesSection) backgroundLanguagesSection.hidden = !visible;
       if (backgroundToolsSection) backgroundToolsSection.hidden = !visible;
       if (backgroundEquipmentSection) backgroundEquipmentSection.hidden = !visible;
+      if (backgroundEquipmentSection) {
+        backgroundEquipmentSection.querySelectorAll('input:not([type="hidden"]), select').forEach(control => {
+          control.disabled = !visible;
+          if ('required' in control) control.required = visible;
+        });
+      }
       if (backgroundStageStatus) backgroundStageStatus.hidden = !directMode || rows.length > 0;
       select.disabled = !visible;
     };
