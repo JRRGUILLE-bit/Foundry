@@ -1709,6 +1709,141 @@
     let activeChoiceCount = 0;
     let activeBackgroundName = '';
     let activeSource = '';
+    const backgroundLanguageDetails = byId('creator-background-languages-list');
+    const backgroundLanguageStatus = byId('creator-background-languages-status');
+    const backgroundLanguagesSection = byId('creator-background-languages-section');
+    const backgroundLanguageInput = byId('creator-selected-background-languages');
+    const languageRecords = new Map(records.filter(item => item.category === 'language')
+      .map(item => [normalize(item.name), item]));
+    let selectedBackgroundLanguages = {};
+    let activeBackgroundLanguageValue = '';
+
+    const syncBackgroundLanguageValue = () => {
+      if (backgroundLanguageInput) backgroundLanguageInput.value = JSON.stringify(selectedBackgroundLanguages);
+    };
+    const renderBackgroundLanguages = (background) => {
+      if (!backgroundLanguageDetails || !backgroundLanguageStatus || !backgroundLanguageInput) return;
+      backgroundLanguageDetails.replaceChildren();
+      const currentValue = select.value;
+      if (activeBackgroundLanguageValue !== currentValue) {
+        selectedBackgroundLanguages = {};
+        activeBackgroundLanguageValue = currentValue;
+      }
+      const isCustomBackground = background?.id === 'background.custom_background';
+      const groups = isCustomBackground || !background
+        ? []
+        : Array.isArray(background.languageProficiencies) ? background.languageProficiencies : [];
+      const fixed = [...new Set(groups.flatMap(group =>
+        group && typeof group === 'object'
+          ? Object.entries(group).filter(([key, value]) =>
+              value === true && languageRecords.has(normalize(key))
+            ).map(([key]) => normalize(key))
+          : []
+      ))];
+      const definitions = [];
+      groups.forEach((group, groupIndex) => {
+        if (!group || typeof group !== 'object') return;
+        if (group.choose && typeof group.choose === 'object') {
+          const from = Array.isArray(group.choose.from) ? group.choose.from : [];
+          const options = [...new Set(from.map(normalize))]
+            .filter(key => languageRecords.has(key) && !fixed.includes(key));
+          definitions.push({ key: 'group-' + groupIndex + '-choose', count: Number(group.choose.count) > 0 ? Number(group.choose.count) : 1, options });
+        }
+        for (const [token, rawCount] of Object.entries(group)) {
+          const compact = normalize(token).replace(/\\s+/g, '');
+          if (!['anystandard', 'anyexotic', 'any', 'anylanguage'].includes(compact)) continue;
+          const count = Number(rawCount);
+          if (!Number.isInteger(count) || count < 1) continue;
+          const standard = ['common','dwarvish','elvish','giant','gnomish','goblin','halfling','orc'];
+          const options = [...languageRecords.keys()].filter(key =>
+            compact === 'anystandard' ? standard.includes(key) :
+            compact === 'anyexotic' ? !standard.includes(key) : true
+          ).filter(key => !fixed.includes(key));
+          definitions.push({ key: 'group-' + groupIndex + '-' + compact, count, options });
+        }
+      });
+      if (fixed.length) {
+        const item = document.createElement('li');
+        item.textContent = (byId('creator-skill-language')?.value === 'en' ? 'Granted automatically: ' : 'Concede automáticamente: ') +
+          fixed.map(key => {
+            const row = languageRecords.get(key);
+            return byId('creator-skill-language')?.value === 'en' ? row.name_en : row.name_es;
+          }).join(', ') + '.';
+        backgroundLanguageDetails.appendChild(item);
+      }
+      const used = new Set(fixed);
+      definitions.forEach(definition => {
+        const values = Array.isArray(selectedBackgroundLanguages[definition.key])
+          ? selectedBackgroundLanguages[definition.key].filter(key => definition.options.includes(key) && !used.has(key)).slice(0, definition.count)
+          : [];
+        selectedBackgroundLanguages[definition.key] = values;
+        const heading = document.createElement('li');
+        heading.textContent = (byId('creator-skill-language')?.value === 'en' ? 'Choose ' : 'Elegí ') +
+          definition.count + (definition.count === 1
+            ? (byId('creator-skill-language')?.value === 'en' ? ' language:' : ' idioma:')
+            : (byId('creator-skill-language')?.value === 'en' ? ' languages:' : ' idiomas:'));
+        backgroundLanguageDetails.appendChild(heading);
+        definition.options.forEach(key => {
+          const row = languageRecords.get(key);
+          const label = document.createElement('label');
+          label.className = 'creator-lineage-language-choice';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = 'backgroundLanguages';
+          checkbox.value = key;
+          checkbox.checked = values.includes(key);
+          checkbox.disabled = used.has(key) || (values.length >= definition.count && !checkbox.checked);
+          label.append(checkbox, document.createTextNode(' ' +
+            (byId('creator-skill-language')?.value === 'en' ? row.name_en : row.name_es)));
+          const item = document.createElement('li');
+          item.appendChild(label);
+          backgroundLanguageDetails.appendChild(item);
+          checkbox.addEventListener('change', () => {
+            const next = [...(selectedBackgroundLanguages[definition.key] || [])];
+            if (checkbox.checked) {
+              if (next.length >= definition.count) { checkbox.checked = false; return; }
+              next.push(key);
+            } else {
+              const index = next.indexOf(key);
+              if (index >= 0) next.splice(index, 1);
+            }
+            selectedBackgroundLanguages[definition.key] = next;
+            syncBackgroundLanguageValue();
+            renderBackgroundLanguages(background);
+          });
+        });
+        values.forEach(key => used.add(key));
+      });
+      if (!background) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'Choose a background to view its language proficiencies.'
+          : 'Elegí un trasfondo para consultar sus competencias lingüísticas.';
+        backgroundLanguageDetails.appendChild(item);
+      } else if (isCustomBackground) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'Custom Background has no special language choices in this campaign.'
+          : 'Trasfondo personalizado no tiene elecciones especiales de idiomas en esta campaña.';
+        backgroundLanguageDetails.appendChild(item);
+      } else if (!fixed.length && !definitions.length) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'No language proficiencies are recorded for this background.'
+          : 'Este trasfondo no tiene competencias lingüísticas registradas.';
+        backgroundLanguageDetails.appendChild(item);
+      }
+      const selectedCount = Object.values(selectedBackgroundLanguages).reduce((sum, values) => sum + values.length, 0);
+      const requiredCount = definitions.reduce((sum, definition) => sum + definition.count, 0);
+      backgroundLanguageStatus.textContent = requiredCount
+        ? (byId('creator-skill-language')?.value === 'en'
+            ? 'Selected ' + selectedCount + ' of ' + requiredCount + ' optional languages.'
+            : 'Elegiste ' + selectedCount + ' de ' + requiredCount + ' idiomas opcionales.')
+        : fixed.length
+          ? (byId('creator-skill-language')?.value === 'en' ? 'Automatic language proficiencies recorded.' : 'Competencias lingüísticas automáticas registradas.')
+          : '';
+      syncBackgroundLanguageValue();
+    };
 
     const syncHiddenValue = () => {
       hiddenInput.value = JSON.stringify(selectedSkills);
