@@ -265,6 +265,17 @@
     });
   }
 
+  function refreshDivineOptions() {
+    DIVINE_OPTIONS.forEach(option => {
+      const english = DIVINE_OPTIONS_EN[option.value];
+      const group = Array.from(deitySelect.querySelectorAll('optgroup')).find(item => item.dataset.kind === option.kind);
+      if (!group) return;
+      group.label = creatorText(option.kind, english.kind);
+      const element = Array.from(group.options).find(item => item.value === option.value);
+      if (element) element.textContent = creatorText(option.name, english.name);
+    });
+  }
+
   function getSelectedZodiacMark() {
     return zodiacalMarksData && Array.isArray(zodiacalMarksData.signs)
       ? zodiacalMarksData.signs.find(sign => sign.id === zodiacMarkSelect.value) || null
@@ -2753,6 +2764,19 @@
   });
 
   initialiseDivineOptions();
+  refreshDivineOptions();
+  window.addEventListener('creator-personarum:language-changed', () => {
+    refreshDivineOptions();
+    updateDivineSection();
+    if (zodiacalMarksData) {
+      const zodiacChoices = readZodiacalChoices();
+      updateZodiacMarkDetails(zodiacChoices);
+      const cosmicSelection = readCosmicMarkSelection();
+      renderCosmicMarkConditions(cosmicSelection.marks, cosmicSelection.choices);
+    }
+    updateOriginDetails();
+    renderPreview(readFormValues());
+  });
   void loadAppendixCities();
   void loadZodiacalMarks();
   introVideo.muted = true;
