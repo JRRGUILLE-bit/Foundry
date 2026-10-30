@@ -2737,23 +2737,24 @@
   function appendFeats(records) {
     const select = byId('creator-feat');
     const details = byId('creator-feat-details');
+    const lineageSelect = byId('creator-lineage');
     if (!select || !details) return;
 
     const rows = records.filter(item => item.category === 'feat')
       .sort((a, b) => String(a.name).localeCompare(String(b.name)) || String(a.source).localeCompare(String(b.source)));
     const featField = byId('creator-feat-field');
-    if (featField) featField.hidden = rows.length === 0;
-    details.hidden = rows.length === 0;
     const byName = new Map();
-    select.replaceChildren(new Option(rows.length ? 'Elegí una dote…' : 'No hay dotes permitidas en el catálogo', ''));
-
-    for (const item of rows) {
-      const key = normalize(item.name);
-      if (!key || byName.has(key)) continue;
-      byName.set(key, item);
-      addOption(select, item.name, item.source, item.category);
-    }
-    select.disabled = byName.size === 0;
+    const selectedRaceOptionId = () => {
+      const dragonbornAncestryId = String(byId('creator-dragonborn-ancestry')?.value || '').trim();
+      const lineageOption = lineageSelect?.selectedOptions?.[0];
+      return dragonbornAncestryId || String(lineageOption?.dataset.creatorCatalogId || '').trim();
+    };
+    const isAvailableForSelectedRace = item => {
+      if (item.campaign_eligibility == null) return true;
+      const allowedRaceOptionIds = item.campaign_eligibility.allowed_race_option_ids;
+      const raceOptionId = selectedRaceOptionId();
+      return Boolean(raceOptionId && Array.isArray(allowedRaceOptionIds) && allowedRaceOptionIds.includes(raceOptionId));
+    };
 
     const refreshDetails = () => {
       const item = byName.get(normalize(select.value));
@@ -2768,12 +2769,36 @@
         : 'Requisitos registrados: ' + (typeof prerequisites === 'string' ? prerequisites : JSON.stringify(prerequisites));
       details.textContent = sourceText + ' ' + prerequisiteText;
     };
-    select.addEventListener('change', refreshDetails);
-    if (pendingRestoredFeat) {
-      if (Array.from(select.options).some(option => option.value === pendingRestoredFeat)) select.value = pendingRestoredFeat;
+
+    const refreshAvailableFeats = () => {
+      const previousValue = select.value || pendingRestoredFeat;
+      const availableRows = rows.filter(isAvailableForSelectedRace);
+      byName.clear();
+      if (featField) featField.hidden = availableRows.length === 0;
+      details.hidden = availableRows.length === 0;
+      select.replaceChildren(new Option(
+        availableRows.length ? 'Elegí una dote…' : 'No hay dotes permitidas para esta opción racial',
+        ''
+      ));
+
+      for (const item of availableRows) {
+        const key = normalize(item.name);
+        if (!key || byName.has(key)) continue;
+        byName.set(key, item);
+        addOption(select, item.name, item.source, item.category);
+      }
+      select.disabled = byName.size === 0;
+
+      const restoredOption = Array.from(select.options).find(option => normalize(option.value) === normalize(previousValue));
+      select.value = restoredOption ? restoredOption.value : '';
+      if (previousValue && !restoredOption) select.dispatchEvent(new Event('change', { bubbles: true }));
       pendingRestoredFeat = '';
-    }
-    refreshDetails();
+      refreshDetails();
+    };
+
+    select.addEventListener('change', refreshDetails);
+    lineageSelect?.addEventListener('change', refreshAvailableFeats);
+    refreshAvailableFeats();
   }
 
   function spellClasses(item) {
