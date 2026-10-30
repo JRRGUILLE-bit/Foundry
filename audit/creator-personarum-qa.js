@@ -52,10 +52,12 @@ assert.match(catalogRuntime, /creator-personarum-data\/campaign-options\.json/, 
 assert.equal(campaignOptionsCatalog.source_of_truth.repository, 'JRRGUILLE-bit/Firmamentum-Velatum', 'Runtime catalogue must identify Firmamentum Velatum as its source of truth');
 assert.equal(campaignOptionsCatalog.source_of_truth.status, 'campaign_canon', 'Runtime catalogue must be marked as campaign canon');
 assert.equal(campaignOptionsCatalog.ruleset_id, 'dnd5e_2014', 'Runtime catalogue must use Legacy/2014 rules');
-assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'species').length, 26, 'Only campaign-approved race options with ready rule data may be offered');
+assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'species').length, 30, 'Only campaign-approved race options with ready rule data may be offered');
 const approvedSpecies = campaignOptionsCatalog.records.filter(record => record.category === 'species');
-assert.equal(new Set(approvedSpecies.map(record => record.family_id)).size, 16, 'Race selector groups approved options into the 16 canonical race families');
+assert.equal(new Set(approvedSpecies.map(record => record.family_id)).size, 17, 'Race selector groups approved options into the 17 canonical race families');
 assert.ok(approvedSpecies.every(record => record.family_id), 'Every approved race option must declare its canonical family');
+const approvedShifters = approvedSpecies.filter(record => record.family_id === 'shifter');
+assert.deepEqual(approvedShifters.map(record => record.id).sort(), ['option.race.shifter.beasthide','option.race.shifter.longtooth','option.race.shifter.swiftstride','option.race.shifter.wildhunt'], 'All four campaign-approved Shifter variants must be available');
 const dragonbornSpecies = approvedSpecies.find(record => record.family_id === 'dragonborn');
 assert.equal(dragonbornSpecies.ancestry_choices.length, 10, 'Dragonborn must expose all ten approved draconic ancestries as second-stage choices');
 assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'class').length, 13, 'Only approved campaign classes may be offered');
