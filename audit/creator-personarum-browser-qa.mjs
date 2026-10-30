@@ -164,6 +164,21 @@ try {
     await page.locator('#creator-known-path-button').click();
     assert.equal(await page.locator('#creator-assignment-player').inputValue(), 'maite',
       'The browser must remember the chosen player after reload');
+    await page.locator('#creator-character-name').fill('Personaje de Maite');
+    assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.maite')).name), 'Personaje de Maite',
+      'Character changes must autosave under the selected player');
+    await page.locator('#creator-assignment-player').selectOption('gonza');
+    assert.equal(await page.locator('#creator-character-name').inputValue(), '',
+      'Switching players must not carry the previous player character into the new draft');
+    await page.locator('#creator-character-name').fill('Personaje de Gonza');
+    assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.gonza')).name), 'Personaje de Gonza',
+      'A second player must receive an independent autosave');
+    await page.locator('#creator-assignment-player').selectOption('maite');
+    assert.equal(await page.locator('#creator-character-name').inputValue(), 'Personaje de Maite',
+      'Returning to a player must restore that player\'s last autosave');
+    await page.locator('#creator-save-draft').click();
+    assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.maite')).name), 'Personaje de Maite',
+      'The manual Save Draft action must overwrite the current player autosave');
 
     assert.deepEqual(
       await page.locator('#creator-origin-region option').evaluateAll(options => options.slice(1).map(option => option.textContent.trim())),
