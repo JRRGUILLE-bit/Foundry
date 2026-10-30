@@ -2010,12 +2010,12 @@
 
     const field = select.closest('label');
     const rows = records.filter(item => item.category === 'subclass');
+    let currentProgressionLevel = 1;
     const refresh = () => {
       const selectedClass = normalize(classSelect.value);
       const isWarlock = selectedClass === 'brujo' || selectedClass === 'warlock';
-      const requestedLevel = Number(levelInput.value || 1);
-      const validLevel = Number.isInteger(requestedLevel) && requestedLevel >= 1 && requestedLevel <= 20;
-      const selectedLevel = validLevel ? requestedLevel : 1;
+      const selectedLevel = currentProgressionLevel;
+      const validLevel = Number.isInteger(selectedLevel) && selectedLevel >= 1 && selectedLevel <= 20;
       const label = byId('creator-subclass-label');
       if (label) label.textContent = isWarlock ? 'PATRÓN' : 'SUBCLASE';
 
@@ -2066,7 +2066,10 @@
           : item.name;
       }
 
-      if (field) field.hidden = !matching.length;
+      if (field) {
+        field.hidden = !matching.length;
+        field.dataset.creatorWizardStep = selectedLevel > 1 ? '5' : '2';
+      }
       select.disabled = !selectedClass || !validLevel || matching.length === 0;
 
       if (pendingRestoredSubclass) {
@@ -2100,9 +2103,13 @@
     };
 
     classSelect.addEventListener('change', refresh);
-    levelInput.addEventListener('input', refresh);
-    levelInput.addEventListener('change', refresh);
     byId('creator-skill-language')?.addEventListener('change', refresh);
+    window.addEventListener('creator-personarum:progression-level-changed', event => {
+      const nextLevel = Number(event.detail?.level);
+      if (!Number.isInteger(nextLevel) || nextLevel < 1 || nextLevel > 20) return;
+      currentProgressionLevel = nextLevel;
+      refresh();
+    });
     refresh();
   }
 
