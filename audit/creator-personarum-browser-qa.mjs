@@ -906,8 +906,14 @@ try {
   assert.match(await classFeatureList.innerText(), /Reckless Attack/, 'Level 2 Barbarian should unlock Reckless Attack');
   await levelInput.fill('1');
 
+  assert.equal(await page.locator('label[for="creator-subclass"]').isVisible(), false,
+    'Level 1 Barbarian must hide its level 3 subclass selector');
+  assert.equal(await subclassSelect.locator('option').count(), 1,
+    'Level 1 Barbarian must not list future subclasses');
+
+  await levelInput.fill('3');
   const barbarianSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
-  assert.ok(barbarianSubclasses.some(name => /berserker/i.test(name)), 'Barbarian selection should expose its allowed Berserker subclass');
+  assert.ok(barbarianSubclasses.some(name => /berserker/i.test(name)), 'Level 3 Barbarian must expose its allowed Berserker subclass');
   await subclassSelect.selectOption({ label: 'Path of the Berserker' });
   await classSelect.selectOption({ label: 'Clérigo' });
   assert.equal(
@@ -923,23 +929,29 @@ try {
   );
   await subclassSelect.selectOption({ label: 'Path of the Berserker' });
   const subclassFeatureList = page.locator('#creator-subclass-features-list');
-  assert.doesNotMatch(await subclassFeatureList.innerText(), /Frenzy/, 'Level 1 Berserker should not show its level 3 Frenzy feature');
-  await levelInput.fill('3');
   assert.match(await subclassFeatureList.innerText(), /Frenzy/, 'Level 3 Berserker should show Frenzy');
   assert.doesNotMatch(await subclassFeatureList.innerText(), /Ancestral Protectors|Form of the Beast|Divine Fury/, 'Berserker must not show features from other Barbarian subclasses');
   await levelInput.fill('1');
+  assert.equal(await page.locator('label[for="creator-subclass"]').isVisible(), false,
+    'Returning to level 1 must hide a level 3 subclass selector');
 
   await page.locator('#creator-character-class').selectOption({ label: 'Mago' });
+  assert.equal(await page.locator('label[for="creator-subclass"]').isVisible(), false,
+    'Level 1 Wizard must not expose its level 2 school choice');
+  assert.equal(await subclassSelect.locator('option').count(), 1,
+    'Level 1 Wizard must not list future schools');
+  await levelInput.fill('2');
   const wizardSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
-  assert.ok(wizardSubclasses.length > 0, 'Wizard selection should expose subclasses from the filtered catalog');
+  assert.equal(wizardSubclasses.length, 8, 'Level 2 Wizard must expose its eight approved schools');
   assert.ok(!wizardSubclasses.some(name => /berserker/i.test(name)), 'Subclasses from another class must not leak into the Wizard choices');
 
   await page.locator('#creator-character-class').selectOption({ label: 'Guerrero' });
+  await levelInput.fill('3');
   const fighterClassSkillChoices = page.locator('#creator-class-skills-list input[type="checkbox"]');
   await fighterClassSkillChoices.nth(0).check();
   await fighterClassSkillChoices.nth(1).check();
   const fighterSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.value));
-  assert.ok(fighterSubclasses.length > 0, 'Fighter selection should expose allowed subclasses');
+  assert.ok(fighterSubclasses.length > 0, 'Level 3 Fighter must expose its approved subclasses');
   fighterSubclassValue = fighterSubclasses[0];
   await subclassSelect.selectOption(fighterSubclassValue);
 
