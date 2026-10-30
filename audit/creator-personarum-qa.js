@@ -41,7 +41,7 @@ const atlasText = JSON.stringify(atlas);
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
 assert.match(page, /creator-personarum-i18n\.js\?v=20261030-3/, 'Creator Personarum must load its global language layer before the creator runtime');
 assert.match(page, /creator-personarum\.js\?v=20261030-10/, 'Creator Personarum runtime cache must be refreshed for global language support');
-assert.match(page, /creator-personarum-catalog\.js\?v=20261030-6/, 'Catalog cache must be refreshed for English character options');
+assert.match(page, /creator-personarum-catalog\.js\?v=20261030-7/, 'Catalog cache must be refreshed for English character options');
 assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
 assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
 assert.match(i18nRuntime, /STORAGE_KEY \+ '\.player\.' \+ playerId/, 'Language preferences must be stored independently for each player');
@@ -140,6 +140,8 @@ assert.ok(runtimeSubclasses.length > 0 && runtimeSubclasses.every(record =>
 ), 'Every runtime subclass must have verified rules data and an explicit, consistent unlock level');
 assert.ok(catalogRuntime.includes('const selectedLevel = currentProgressionLevel;'), 'Subclasses must be gated by the current progression stage, not the Director target level');
 assert.ok(catalogRuntime.includes('if (field) field.hidden = !matching.length;'), 'The subclass field must stay hidden when the class has no unlocked subclass');
+assert.ok(catalogRuntime.includes('const previousSelection = select.value;'), 'Refreshing the subclass selector must capture its current selection');
+assert.ok(catalogRuntime.includes('if (previousSelection && Array.from(select.options).some(option => option.value === previousSelection))'), 'A still-valid subclass selection must survive progression and language refreshes');
 assert.ok(catalogRuntime.includes("window.addEventListener('creator-personarum:progression-level-changed'"), 'Subclasses must advance only when the current progression stage changes');
 assert.ok(catalogRuntime.includes('nextLevel > assignedTargetLevel'), 'The current progression level must not exceed the Director-assigned target');
 assert.ok(catalogRuntime.includes('window.creatorPersonarumSetProgressionLevel = setProgressionLevel;'), 'The progression stage must have an explicit setter for the level-by-level wizard');
