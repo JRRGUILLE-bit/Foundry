@@ -2105,11 +2105,17 @@
 
     classSelect.addEventListener('change', refresh);
     byId('creator-skill-language')?.addEventListener('change', refresh);
-    window.addEventListener('creator-personarum:progression-level-changed', event => {
-      const nextLevel = Number(event.detail?.level);
-      if (!Number.isInteger(nextLevel) || nextLevel < 1 || nextLevel > 20) return;
+    const setProgressionLevel = value => {
+      const nextLevel = Number(value);
+      if (!Number.isInteger(nextLevel) || nextLevel < 1 || nextLevel > 20) return false;
       currentProgressionLevel = nextLevel;
       refresh();
+      return true;
+    };
+    window.creatorPersonarumGetProgressionLevel = () => currentProgressionLevel;
+    window.creatorPersonarumSetProgressionLevel = setProgressionLevel;
+    window.addEventListener('creator-personarum:progression-level-changed', event => {
+      setProgressionLevel(event.detail?.level);
     });
     refresh();
   }
