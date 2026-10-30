@@ -238,8 +238,8 @@ try {
       assert.ok(blockedSpecies, 'Each restricted feat test must have a canonical incompatible race: ' + featRecord.name);
       await chooseCanonicalRace(allowedSpecies, allowedRaceId);
       const featSelect = page.locator('#creator-feat');
-      const allowedFeatOption = await featSelect.locator('option').evaluateAll(options =>
-        options.some(option => option.value === featRecord.name)
+      const allowedFeatOption = await featSelect.locator('option').evaluateAll((options, featName) =>
+        options.some(option => option.value === featName), featRecord.name
       );
       assert.equal(allowedFeatOption, true,
         'A restricted feat must appear for an explicitly allowed race: ' + featRecord.name);
@@ -247,12 +247,12 @@ try {
       const blockedRaceId = (blockedSpecies.record_ids || [])[0];
       assert.ok(blockedRaceId, 'The incompatible campaign race must expose its canonical rules ID');
       await chooseCanonicalRace(blockedSpecies, blockedRaceId);
-      const incompatibleFeatOption = await featSelect.locator('option').evaluateAll(options =>
-        options.some(option => option.value === featRecord.name)
+      const incompatibleFeatOption = await featSelect.locator('option').evaluateAll((options, featName) =>
+        options.some(option => option.value === featName), featRecord.name
       );
       assert.equal(incompatibleFeatOption, false,
         'A restricted feat must be omitted for an incompatible race: ' + featRecord.name);
-      assert.equal(featSelect.inputValue ? await featSelect.inputValue() : '', '',
+      assert.equal(await featSelect.inputValue(), '',
         'Changing to an incompatible race must clear the previously selected restricted feat: ' + featRecord.name);
     }
 
@@ -290,8 +290,6 @@ try {
     assert.equal(await page.locator('#creator-feat').inputValue(), '',
       'The cleaned test draft must not leave a feat selection behind');
 
-    assert.equal(await page.locator('#creator-ability-assignment').isVisible(), false,
-      'Ability rolls must remain optional during class selection until the Director assignment is loaded');
     assert.equal(await page.locator('#creator-ability-assignment').isVisible(), false,
       'Ability rolls must remain optional during class selection until the Director assignment is loaded');
     await page.locator('#creator-language-toggle').click();
