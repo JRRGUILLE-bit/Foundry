@@ -176,7 +176,7 @@ El índice de referencia guarda algunos rasgos con un `subclassShortName` abrevi
 - War Magic → `War`
 - Peace Domain → `Peace`
 
-**Corrección aplicada en `Foundry/main`:** `subclassNameAliases()` ahora resuelve el prefijo `Order of` y los sufijos `Domain`, `Sorcery` y `Magic`. La comprobación dirigida de los 12 pares anteriores dio 12/12 coincidencias. Se actualizaron las aserciones estáticas de QA; el resultado del workflow Desktop QA todavía está pendiente. Esta corrección no agrega candidatas al selector ni cambia el estado canónico.
+**Corrección aplicada en `Foundry/main`:** `subclassNameAliases()` ahora resuelve el prefijo `Order of` y los sufijos `Domain`, `Sorcery` y `Magic`. La comprobación dirigida de los 12 pares anteriores dio 12/12 coincidencias. Creator Personarum Desktop QA pasó en [run 40999441991](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40999441991): incluye las regresiones de disponibilidad por nivel, rasgos de progresión, persistencia al cambiar idioma, aislamiento de borradores por jugador y restauración del nivel/subclase tras recargar. Esta corrección no agrega candidatas al selector ni cambia el estado canónico.
 
 ## Conclusión y siguiente trabajo
 
