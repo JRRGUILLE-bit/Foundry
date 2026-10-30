@@ -40,7 +40,7 @@ const atlasText = JSON.stringify(atlas);
 
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
 assert.match(page, /creator-personarum-i18n\.js\?v=20261030-3/, 'Creator Personarum must load its global language layer before the creator runtime');
-assert.match(page, /creator-personarum\.js\?v=20261030-14/, 'Creator Personarum runtime cache must be refreshed for global language support');
+assert.match(page, /creator-personarum\.js\?v=20261030-15/, 'Creator Personarum runtime cache must be refreshed for global language support');
 assert.match(page, /creator-personarum-catalog\.js\?v=20261030-8/, 'Catalog cache must be refreshed for English character options');
 assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
 assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
@@ -65,6 +65,7 @@ assert.doesNotMatch(page, /creator-assignment-access-code|CÓDIGO PRIVADO DE ASI
 assert.match(runtime, /PLAYER_ASSIGNMENT_STORAGE_KEY/, 'The browser must remember the selected player ID');
 assert.ok(runtime.includes('const previousPlayerId = appendixPlayerIdFromName(playerNameInput.value);') && runtime.includes('const previousStorageKey = storageKeyForMode(currentMode, previousPlayerId);') && runtime.includes('window.localStorage.setItem(previousStorageKey, JSON.stringify(previousDraft));'), 'Switching players must save the outgoing character under the outgoing player ID before selecting the incoming player');
 assert.ok(runtime.includes('isResettingDraft = previousResetState;'), 'Form reset must preserve an outer player-transition draft-suppression state');
+assert.ok(runtime.includes('restoreDraft(preferredPlayerId);\n      setKnownCharacterWizardStep(currentKnownWizardStep, false);'), 'The remembered player draft must be restored after the roster has selected the player ID');
 assert.match(runtime, /playerName: 'Gonza'[\s\S]*playerName: 'Maite'[\s\S]*playerName: 'Nico'[\s\S]*playerName: 'Rulo'[\s\S]*playerName: 'Santi'/, 'Appendix roster must be alphabetical');
 assert.equal(appendixCitiesCatalog.campaign_scope.id, 'appendix', 'The city source must be scoped specifically to Appendix');
 assert.deepEqual(appendixCitiesCatalog.players_local.map(p => [p.id,p.name]), [['gonza','Gonza'],['maite','Maite'],['nico','Nico'],['rulo','Rulo'],['santi','Santi']], 'The Appendix player roster must remain local and alphabetical');
@@ -111,7 +112,7 @@ assert.match(runtime, /function loadAssignmentPlayers\(\)/, 'The creator must lo
 assert.match(runtime, /function loadSelectedPlayerAssignment\(\)/, 'The creator must retrieve an assignment using the per-player code');
 assert.match(runtime, /if \(!loadedPlayerAssignment\)/, 'Known-character progression and finalization must require a freshly verified assignment');
 assert.match(runtime, /playerAssignment: values\.playerAssignment \|\| null/, 'Drafts must preserve the assigned level and six roll results without storing the access code');
-assert.match(page, /creator-personarum.js\?v=20261030-14/, 'The wizard navigation fix must invalidate the runtime script cache');
+assert.match(page, /creator-personarum.js\?v=20261030-15/, 'The wizard navigation fix must invalidate the runtime script cache');
 assert.match(page, /creator-personarum.css\?v=20261030-1/, 'The ability-allocation panel must invalidate the stylesheet cache');
 assert.match(page, /id="creator-race"/, 'The creator must ask for the race family first');
 assert.match(page, /id="creator-subrace"/, 'Variants must appear in a second selector after choosing a race family');
