@@ -200,6 +200,98 @@ try {
     await page.locator('#creator-assignment-player').selectOption('maite');
     assert.equal(await page.evaluate(() => localStorage.getItem('banda.creator-personarum.assignment-player-id.v1')), 'maite',
       'Selected player ID must be saved in browser storage');
+
+    const campaignSpecies = campaignOptionsCatalog.records.filter(record => record.category === 'species');
+    const restrictedFeats = campaignOptionsCatalog.records.filter(record =>
+      record.category === 'feat' && record.campaign_eligibility?.allowed_race_option_ids?.length
+    );
+    assert.equal(restrictedFeats.length, 14, 'The browser test must cover all 14 racially restricted campaign feats');
+    const chooseCanonicalRace = async (speciesRecord, canonicalRaceId) => {
+      await page.locator('#creator-race').selectOption(speciesRecord.family_id);
+      const subraceValues = await page.locator('#creator-subrace option').evaluateAll(options =>
+        options.map(option => option.value)
+      );
+      if (speciesRecord.family_id === 'dragonborn') {
+        assert.ok(subraceValues.includes(canonicalRaceId), 'Dragonborn ancestry must be a selectable canonical second-stage value');
+        await page.locator('#creator-subrace').selectOption(canonicalRaceId);
+        assert.equal(await page.locator('#creator-dragonborn-ancestry').inputValue(), canonicalRaceId,
+          'Dragonborn feat eligibility must use the selected draconic ancestry ID');
+      } else if (subraceValues.includes(speciesRecord.id)) {
+        await page.locator('#creator-subrace').selectOption(speciesRecord.id);
+      }
+      assert.equal(
+        await page.locator('#creator-lineage').evaluate(select => select.selectedOptions[0]?.dataset.creatorCatalogId || ''),
+        speciesRecord.id,
+        'The visible lineage choice must resolve to the selected canonical campaign option'
+      );
+    };
+
+    for (const featRecord of restrictedFeats) {
+      const allowedRaceIds = featRecord.campaign_eligibility.allowed_race_option_ids;
+      const allowedRaceId = allowedRaceIds[0];
+      const allowedSpecies = campaignSpecies.find(record => (record.record_ids || []).includes(allowedRaceId));
+      assert.ok(allowedSpecies, 'Every feat allowlist ID must resolve to one campaign species option: ' + allowedRaceId);
+      const blockedSpecies = campaignSpecies.find(record =>
+        record.family_id !== allowedSpecies.family_id &&
+        !(record.record_ids || []).some(id => allowedRaceIds.includes(id))
+      );
+      assert.ok(blockedSpecies, 'Each restricted feat test must have a canonical incompatible race: ' + featRecord.name);
+      await chooseCanonicalRace(allowedSpecies, allowedRaceId);
+      const featSelect = page.locator('#creator-feat');
+      const allowedFeatOption = await featSelect.locator('option').evaluateAll(options =>
+        options.some(option => option.value === featRecord.name)
+      );
+      assert.equal(allowedFeatOption, true,
+        'A restricted feat must appear for an explicitly allowed race: ' + featRecord.name);
+      await featSelect.selectOption(featRecord.name);
+      const blockedRaceId = (blockedSpecies.record_ids || [])[0];
+      assert.ok(blockedRaceId, 'The incompatible campaign race must expose its canonical rules ID');
+      await chooseCanonicalRace(blockedSpecies, blockedRaceId);
+      const incompatibleFeatOption = await featSelect.locator('option').evaluateAll(options =>
+        options.some(option => option.value === featRecord.name)
+      );
+      assert.equal(incompatibleFeatOption, false,
+        'A restricted feat must be omitted for an incompatible race: ' + featRecord.name);
+      assert.equal(featSelect.inputValue ? await featSelect.inputValue() : '', '',
+        'Changing to an incompatible race must clear the previously selected restricted feat: ' + featRecord.name);
+    }
+
+    const restoreFeatRecord = restrictedFeats.find(record => record.id === 'feat.dwarven-fortitude');
+    assert.ok(restoreFeatRecord, 'Draft restoration test must find Dwarven Fortitude');
+    const restoreRaceId = restoreFeatRecord.campaign_eligibility.allowed_race_option_ids[0];
+    const restoreSpecies = campaignSpecies.find(record => (record.record_ids || []).includes(restoreRaceId));
+    assert.ok(restoreSpecies, 'Dwarven Fortitude allowlist must resolve to its canonical dwarf option');
+    await chooseCanonicalRace(restoreSpecies, restoreRaceId);
+    await page.locator('#creator-feat').selectOption(restoreFeatRecord.name);
+    await page.locator('#creator-save-draft').click();
+    const featDraftKey = 'banda.creator-personarum.draft.v1.player.maite';
+    await page.waitForFunction(({ key, featName, familyId }) => {
+      const draft = JSON.parse(localStorage.getItem(key) || 'null');
+      return draft && draft.feat === featName && draft.raceFamily === familyId;
+    }, { key: featDraftKey, featName: restoreFeatRecord.name, familyId: restoreSpecies.family_id });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await waitForAppendixCities();
+    await exposeWorkspace();
+    await page.locator('#creator-known-path-button').click();
+    await page.waitForFunction(expectedFeat => document.getElementById('creator-feat')?.value === expectedFeat,
+      restoreFeatRecord.name, { timeout: 10000 });
+    assert.equal(await page.locator('#creator-race').inputValue(), restoreSpecies.family_id,
+      'The saved race family must be restored before applying feat eligibility');
+    assert.equal(await page.locator('#creator-subrace').inputValue(), restoreSpecies.id,
+      'The saved dwarf variant must be restored with the player draft');
+    assert.equal(await page.locator('#creator-feat').inputValue(), restoreFeatRecord.name,
+      'A restricted feat must restore when its saved race is eligible');
+    await page.evaluate(key => localStorage.removeItem(key), featDraftKey);
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await waitForAppendixCities();
+    await exposeWorkspace();
+    await page.locator('#creator-known-path-button').click();
+    await page.waitForFunction(() => document.getElementById('creator-assignment-player')?.value === 'maite');
+    assert.equal(await page.locator('#creator-feat').inputValue(), '',
+      'The cleaned test draft must not leave a feat selection behind');
+
+    assert.equal(await page.locator('#creator-ability-assignment').isVisible(), false,
+      'Ability rolls must remain optional during class selection until the Director assignment is loaded');
     assert.equal(await page.locator('#creator-ability-assignment').isVisible(), false,
       'Ability rolls must remain optional during class selection until the Director assignment is loaded');
     await page.locator('#creator-language-toggle').click();
