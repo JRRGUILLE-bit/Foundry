@@ -24,6 +24,9 @@
     explore: 'world-explorer'
   };
 
+  const getCreatorLanguage = () => window.creatorPersonarumLanguage?.() === 'en' ? 'en' : 'es';
+  const creatorText = (spanish, english) => getCreatorLanguage() === 'en' ? english : spanish;
+
   // Canonical choices distilled from fvtt-JournalEntry-codex-divinitatum-revisado.json.
   const DIVINE_OPTIONS = [
     { value: 'tenebrae', name: 'Tenebrae, el Oscuro', kind: 'Semilla Divina / Primordial', domains: 'Arcano, Conocimiento, Vida, Muerte', alignment: 'No especificado en el Codex', summary: 'El Primer Nacido; frontera del mundo, gravedad y defensa contra el Vacío Exterior. Su culto busca comprender las leyes ocultas del universo.' },
@@ -43,6 +46,25 @@
     { value: 'purpureum', name: 'Purpureum, el Planeta Púrpura', kind: 'Planeta errante / potencia cósmica', domains: 'Muerte', alignment: 'Neutral', summary: 'Presagios, transiciones sombrías y finales de era. No tiene templos abiertos ni fiestas populares; sus servidores estudian los augurios.' },
     { value: 'inferno', name: 'El Infierno — Asmodeus y los Nueve Señores', kind: 'Infierno / jerarquía infernal', domains: 'Según el señor infernal y su piso', alignment: 'No hay un único alineamiento; los Nueve Señores tienen su propio alineamiento', summary: 'El Infierno es una jerarquía de hierro creada por Asmodeus para contener las hordas del Abismo. Sus nueve pisos están gobernados por Asmodeus y los otros ocho Señores; no debe confundirse con el Abismo ni con los demonios. En el camino de exploración del mundo, esta opción vincula el origen del personaje con el Imperio Gris; en creación directa puede elegirse como vínculo infernal sin fijar aún una región.' }
   ];
+
+  const DIVINE_OPTIONS_EN = {
+    tenebrae: { name: 'Tenebrae, the Dark One', kind: 'Divine Seed / Primordial', domains: 'Arcana, Knowledge, Life, Death', alignment: 'Not specified in the Codex', summary: 'The Firstborn; boundary of the world, gravity, and defense against the Outer Void. Its worship seeks to understand the hidden laws of the universe.' },
+    luna: { name: 'Luna', kind: 'Divine Seed / Primordial', domains: 'Arcana, Trickery, Nature, Twilight, Grave, Death', alignment: 'Not specified in the Codex', summary: 'The Second Seed, Mistress of the Night. She represents change, curiosity, adaptability, and the mysteries of night and the wild.' },
+    sol: { name: 'Sol', kind: 'Divine Seed / Primordial', domains: 'Life, Light, Nature, Order, Peace, War', alignment: 'Not specified in the Codex', summary: 'The Greater God, the Third Seed. He sustains life, cosmic law, honor, truth, and the active preservation of existence.' },
+    ciervo: { name: 'The Deer', kind: 'Child of the Moon', domains: 'Life', alignment: 'Chaotic Good', summary: 'Untamed life, natural renewal, and unbound freedom. Its followers include druids, hunters, and independent communities.' },
+    cuervo: { name: 'The Raven', kind: 'Child of the Moon', domains: 'Knowledge', alignment: 'Neutral', summary: 'Memory, history, and buried truths. Its followers preserve facts without judgment: chroniclers, archivists, judges, and historians.' },
+    ballena: { name: 'The Whale', kind: 'Child of the Moon', domains: 'Tempest', alignment: 'Chaotic Neutral', summary: 'Tides, typhoons, and open waters. Sailors, captains, and islanders offer prayers to cross the sea.' },
+    zorro: { name: 'The Fox', kind: 'Child of the Moon', domains: 'Trickery', alignment: 'Chaotic Neutral', summary: 'Ingenuity, cunning, indirect solutions, and survival through adaptability.' },
+    tortuga: { name: 'The Turtle', kind: 'Child of the Moon', domains: 'Forge', alignment: 'Lawful Neutral', summary: 'Perseverance, stone, metal, and dedicated craftsmanship. Dwarves call her the Old Mother.' },
+    caballo: { name: 'The Horse', kind: 'Child of the Moon', domains: 'War', alignment: 'Lawful Good', summary: 'Open combat, courage, fair competition, and improvement through effort.' },
+    dragon: { name: 'The Dragon', kind: 'Child of the Moon', domains: 'Arcana', alignment: 'Lawful Neutral', summary: 'First magic, rigorous study, arcane mastery, and ambition.' },
+    rata: { name: 'The Rat', kind: 'Child of the Moon', domains: 'Grave', alignment: 'Neutral', summary: 'Survival in hardship, shelter among ruins, and protection of the displaced and fallen.' },
+    serpiente: { name: 'The Serpent', kind: 'Child of the Moon', domains: 'Death', alignment: 'Neutral', summary: 'The inevitable rest of death and the natural ending of every story.' },
+    rubrum: { name: 'Rubrum, the Red God', kind: 'Wandering Planet / Cosmic Power', domains: 'Forge, Order, War, Knowledge', alignment: 'Lawful Neutral', summary: 'Stone, metal, technical discipline, and excellence in one’s craft. In dwarven tradition, the Turtle is the Old Mother and Rubrum is the Guide.' },
+    viride: { name: 'Viride, the Green Planet', kind: 'Wandering Planet / Cosmic Power', domains: 'War, Life, Light, Knowledge', alignment: 'Chaotic Neutral', summary: 'It has no church or hierarchy. Its light marks the Chosen and foretells destinies capable of changing the course of history; it is not an organized religion.' },
+    purpureum: { name: 'Purpureum, the Purple Planet', kind: 'Wandering Planet / Cosmic Power', domains: 'Death', alignment: 'Neutral', summary: 'Omen, dark transitions, and the end of an age. It has no open temples or popular festivals; its servants study portents.' },
+    inferno: { name: 'Hell — Asmodeus and the Nine Lords', kind: 'Hell / Infernal Hierarchy', domains: 'According to the infernal lord and his layer', alignment: 'There is no single alignment; each of the Nine Lords has its own alignment', summary: 'Hell is an iron hierarchy created by Asmodeus to contain the hordes of the Abyss. Its nine layers are ruled by Asmodeus and the other eight Lords; it must not be confused with the Abyss or its demons. In world exploration, this option links the character’s origin to the Grey Empire; in direct creation, it can be chosen as an infernal connection without fixing a region yet.' }
+  };
 
   const stage = document.getElementById('creator-stage');
   const introVideo = document.getElementById('creator-intro-video');
@@ -227,15 +249,18 @@
 
   function initialiseDivineOptions() {
     DIVINE_OPTIONS.forEach(option => {
-      let group = Array.from(deitySelect.querySelectorAll('optgroup')).find(item => item.label === option.kind);
+      const english = DIVINE_OPTIONS_EN[option.value];
+      const groupLabel = creatorText(option.kind, english.kind);
+      let group = Array.from(deitySelect.querySelectorAll('optgroup')).find(item => item.dataset.kind === option.kind);
       if (!group) {
         group = document.createElement('optgroup');
-        group.label = option.kind;
+        group.label = groupLabel;
+        group.dataset.kind = option.kind;
         deitySelect.appendChild(group);
       }
       const element = document.createElement('option');
       element.value = option.value;
-      element.textContent = option.name;
+      element.textContent = creatorText(option.name, english.name);
       group.appendChild(element);
     });
   }
@@ -588,8 +613,14 @@
   function updateDeityDetails() {
     const option = getSelectedDeity();
     deityDetails.textContent = option
-      ? option.kind + ' · Ámbitos sugeridos: ' + option.domains + ' · Alineamiento: ' + option.alignment + '. ' + option.summary
-      : 'Al elegir una opción, vas a ver sus ámbitos y una síntesis de su tradición.';
+      ? (() => {
+          const english = DIVINE_OPTIONS_EN[option.value];
+          return getCreatorLanguage() === 'en'
+            ? english.kind + ' · Suggested domains: ' + english.domains + ' · Alignment: ' + english.alignment + '. ' + english.summary
+            : option.kind + ' · Ámbitos sugeridos: ' + option.domains + ' · Alineamiento: ' + option.alignment + '. ' + option.summary;
+        })()
+      : creatorText('Al elegir una opción, vas a ver sus ámbitos y una síntesis de su tradición.',
+        'Choose an option to see its domains and a summary of its tradition.');
   }
 
   function updateChainFamiliarSection() {
@@ -1500,7 +1531,7 @@
         : Number(document.getElementById('creator-level').value || 1),
       concept: document.getElementById('creator-concept').value.trim(),
       deity: deitySelect.value,
-      deityName: getSelectedDeity() ? getSelectedDeity().name : '',
+      deityName: getSelectedDeity() ? (getCreatorLanguage()==='en'?DIVINE_OPTIONS_EN[getSelectedDeity().value].name:getSelectedDeity().name) : '',
       originRegion: originRegionSelect.value,
       originRegionName: selectedOriginRegion ? selectedOriginRegion.name : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originRegionName || '' : ''),
       originContinent: selectedOriginRegion ? selectedOriginRegion.group : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originContinent || '' : ''),
