@@ -24131,9 +24131,9 @@
       "name_en": "Vehicles (land)",
       "name_es": "Vehículos terrestres",
       "source": "PHB",
-      "source_ref": "5e-SRD-Equipment-Categories.json",
+      "source_ref": "character-data/rules/backgrounds/backgrounds.json",
       "campaign_status": "approved",
-      "data_quality": "verified_srd_2014",
+      "data_quality": "verified_campaign_reference",
       "tool_category": "vehicles"
     },
     {
@@ -24143,9 +24143,9 @@
       "name_en": "Vehicles (water)",
       "name_es": "Vehículos acuáticos",
       "source": "PHB",
-      "source_ref": "5e-SRD-Equipment-Categories.json",
+      "source_ref": "character-data/rules/backgrounds/backgrounds.json",
       "campaign_status": "approved",
-      "data_quality": "verified_srd_2014",
+      "data_quality": "verified_campaign_reference",
       "tool_category": "vehicles"
     }
   ]
