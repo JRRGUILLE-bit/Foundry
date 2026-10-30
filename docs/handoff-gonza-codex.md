@@ -315,7 +315,7 @@ Fuente de canon: `fvtt-JournalEntry-atlas-revisado.json` y `fvtt-JournalEntry-co
 - Muestra las diez ciudades del Imperio Gris, cada una con información canónica, aviso cartográfico y crónica.
 - Roster local: Gonza, Maite, Nico, Rulo y Santi. La ciudad se guarda por jugador en `banda.creator-personarum.appendix-city.v1.<playerId>`; no hay selección automática y no se hereda al cambiar de jugador.
 - Persistencia independiente de asignación de nivel y tiradas. No modificar backend de asignaciones ni `SESSION_LIVE`.
-- Browser QA comprueba los tres textos, cambio de jugador y persistencia tras recargar.
+- Browser QA comprueba los tres textos, cambio de jugador y persistencia tras recargar. En la versión `cdc7085ddacf8d505e19d93893c4da10c5bc9654`, Creator Personarum Desktop QA pasó completa el 30/10/2026 (workflow [40985020422](https://github.com/JRRGUILLE-bit/Foundry/actions/runs/40985020422)): validación estática y smoke test de navegador de escritorio.
 
 ## Creator Personarum — catálogo estrictamente canónico y flujo pendiente (29/10/2026)
 
