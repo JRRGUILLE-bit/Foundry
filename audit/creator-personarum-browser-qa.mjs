@@ -168,8 +168,14 @@ try {
     assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.maite')).name), 'Personaje de Maite',
       'Character changes must autosave under the selected player');
     await page.locator('#creator-assignment-player').selectOption('gonza');
-    assert.equal(await page.locator('#creator-character-name').inputValue(), '',
-      'Switching players must not carry the previous player character into the new draft');
+    const gonzaSwitchState = await page.evaluate(() => ({
+      selectedPlayer: document.getElementById('creator-assignment-player').value,
+      characterName: document.getElementById('creator-character-name').value,
+      maiteDraft: JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.maite') || 'null')?.name || null,
+      gonzaDraft: JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.gonza') || 'null')?.name || null
+    }));
+    assert.equal(gonzaSwitchState.characterName, '',
+      'Switching players must clear the previous character; state=' + JSON.stringify(gonzaSwitchState));
     await page.locator('#creator-character-name').fill('Personaje de Gonza');
     assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.gonza')).name), 'Personaje de Gonza',
       'A second player must receive an independent autosave');
