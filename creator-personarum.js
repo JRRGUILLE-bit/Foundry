@@ -1561,7 +1561,10 @@
     const values = draft || {};
     const name = values.name || 'Sin definir';
     document.getElementById('creator-preview-name').textContent = name;
-    document.getElementById('creator-preview-lineage').textContent = values.lineage || 'Sin definir';
+    const lineagePreview = values.lineageChoice === 'Otro / personalizado'
+      ? (values.customLineage || values.lineage)
+      : (getCreatorLanguage() === 'en' ? (lineageSelect.selectedOptions[0]?.textContent || values.lineage) : values.lineage);
+    document.getElementById('creator-preview-lineage').textContent = lineagePreview || 'Sin definir';
     const dragonbornRow = document.getElementById('creator-preview-dragonborn-row');
     if (dragonbornRow) dragonbornRow.hidden = !values.dragonbornAncestryName;
     const dragonbornPreview = document.getElementById('creator-preview-dragonborn');
@@ -1582,9 +1585,12 @@
       Array.isArray(lineageAbilitySelection.bonuses)
       ? lineageAbilitySelection.bonuses
       : [];
+    const previewAbilityNames = getCreatorLanguage() === 'en'
+      ? { str: 'Strength', dex: 'Dexterity', con: 'Constitution', int: 'Intelligence', wis: 'Wisdom', cha: 'Charisma' }
+      : abilityLabels;
     const lineageAbilityBonusLabels = currentLineageAbilityBonuses
-      .filter(bonus => bonus && abilityLabels[bonus.key] && Number.isFinite(bonus.amount) && bonus.amount > 0)
-      .map(bonus => '+' + bonus.amount + ' ' + abilityLabels[bonus.key]);
+      .filter(bonus => bonus && previewAbilityNames[bonus.key] && Number.isFinite(bonus.amount) && bonus.amount > 0)
+      .map(bonus => '+' + bonus.amount + ' ' + previewAbilityNames[bonus.key]);
     document.getElementById('creator-preview-lineage-abilities-row').hidden = lineageAbilityBonusLabels.length === 0;
     const previewAbilityScores = values.abilityScores && typeof values.abilityScores === 'object'
       ? values.abilityScores
@@ -1604,20 +1610,30 @@
       previewAbilityScoresValue.textContent = assignedAbilityScores.join(' · ');
     }
     document.getElementById('creator-preview-lineage-abilities').textContent = lineageAbilityBonusLabels.join(', ');
-    document.getElementById('creator-preview-class').textContent = values.characterClass || 'Sin definir';
+    document.getElementById('creator-preview-class').textContent = values.characterClass
+      ? (getCreatorLanguage() === 'en' ? (classSelect.selectedOptions[0]?.textContent || values.characterClass) : values.characterClass)
+      : 'Sin definir';
     document.getElementById('creator-preview-subclass-row').hidden = !values.subclass;
-    document.getElementById('creator-preview-subclass').textContent = values.subclass || 'A definir';
+    document.getElementById('creator-preview-subclass').textContent = values.subclass
+      ? (getCreatorLanguage() === 'en' ? (subclassSelect.selectedOptions[0]?.textContent || values.subclass) : values.subclass)
+      : 'A definir';
     document.getElementById('creator-preview-feat-row').hidden = !values.feat;
-    document.getElementById('creator-preview-feat').textContent = values.feat || 'A definir';
+    document.getElementById('creator-preview-feat').textContent = values.feat
+      ? (getCreatorLanguage() === 'en' ? (featSelect.selectedOptions[0]?.textContent || values.feat) : values.feat)
+      : 'A definir';
     const selectedSpells = Array.isArray(values.selectedSpells) ? values.selectedSpells : [];
     document.getElementById('creator-preview-spells-row').hidden = selectedSpells.length === 0;
     const spellNames = selectedSpells.map(spell => spell && spell.name).filter(Boolean);
     document.getElementById('creator-preview-spells').textContent = spellNames.slice(0, 3).join(', ')
-      + (spellNames.length > 3 ? ' (+' + (spellNames.length - 3) + ' más)' : '');
+      + (spellNames.length > 3 ? ' (+' + (spellNames.length - 3) + (getCreatorLanguage()==='en'?' more)':' más)') : '');
     document.getElementById('creator-preview-chain-familiar-row').hidden = !values.selectedChainFamiliar;
-    document.getElementById('creator-preview-chain-familiar').textContent = values.selectedChainFamiliar || 'A definir';
+    document.getElementById('creator-preview-chain-familiar').textContent = values.selectedChainFamiliar
+      ? (getCreatorLanguage() === 'en' ? (chainFamiliarSelect.selectedOptions[0]?.textContent || values.selectedChainFamiliar) : values.selectedChainFamiliar)
+      : 'A definir';
     document.getElementById('creator-preview-level').textContent = String(values.level || 1);
-    document.getElementById('creator-preview-background').textContent = values.background || 'A definir';
+    document.getElementById('creator-preview-background').textContent = values.background
+      ? (getCreatorLanguage() === 'en' ? (document.getElementById('creator-background').selectedOptions[0]?.textContent || values.background) : values.background)
+      : 'A definir';
     const skillLanguage = values.skillLanguage === 'en' ? 'en' : 'es';
     const previewSkillLabels = {
       acrobatics: { es: 'Acrobacias', en: 'Acrobatics' },
