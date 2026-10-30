@@ -667,6 +667,7 @@
       populateRaceOptions(familyId);
       renderFamilySelection(familyId,savedRow?.id||'',dragonbornChoice);
     });
+    refreshLineageLabels();
     populateRaceOptions('');
     if(pendingRestoredLineageSelectors)applyLineageSelectorState(pendingRestoredLineageSelectors);
     else renderFamilySelection('','','');
