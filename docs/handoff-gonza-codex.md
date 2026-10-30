@@ -5,12 +5,9 @@ Fecha de verificación: **11 de agosto de 2026**.
 Objetivo: permitir que Gonzalo (`gonzalosellanesvera-art`) trabaje desde su propia cuenta de ChatGPT Plus/Codex sin depender del historial de conversación usado para construir este proyecto.
 
 
-> **Auditoría cruzada obligatoria:** Creator Personarum se implementa en esta repo, pero debe auditarse contra el canon, las reglas, el mundo, las aprobaciones y las exclusiones de `JRRGUILLE-bit/Firmamentum-Velatum`. No alcanza con revisar Foundry aislado. Leer el `docs/AI_HANDOFF.md`, `docs/CANON_AND_RULES.md`, `docs/DECISIONS_AND_OPEN_QUESTIONS.md`, `docs/PROJECT_STATUS.md`, `docs/MASTER_CHECKLIST.md`, los documentos `lore/` y los datasets/decisiones JSON actuales de Firmamentum. Si falta acceso de lectura a esa repo, pedirlo antes de afirmar que la auditoría está hecha.
+> **Autoría y acceso:** la orden de Creator Personarum fue dictada y redactada por Guillermo, Director humano de la campaña, mediante speech-to-text. No es una propuesta ni una interpretación inventada por ChatGPT. El usuario confirma que la cuenta ChatGPT/Codex que retoma el trabajo ya tiene acceso a `JRRGUILLE-bit/Foundry` y `JRRGUILLE-bit/Firmamentum-Velatum`; no pedir acceso ni detenerse por esa cuestión.
 >
-> **La orden concreta y completa está en `docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md`.** Cuando Gonza diga «revisá lo que hay para hacer en la repo», verificar ambas repos, auditar todo el creador contra Firmamentum, corregir discrepancias ya resueltas por las decisiones de Dirección y continuar la implementación mecánica. No detenerse en una auditoría de estado.
-
-
-> **Orden vigente para Creator Personarum (30/10/2026):** antes de continuar el creador, leer `docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md`. Esa orden establece que la tarea no es solo auditar: hay que revisar lo existente y continuar la implementación del creador mecánico (nivel 1, progresión y multiclase), respetando las reglas de contenido, las aprobaciones y la ban list. El mapa interactivo como interfaz principal del Modo creativo y la creación de tokens siguen en desarrollo por Claude/Cloud; no duplicar ese trabajo. Si el usuario pide «revisá lo que hay para hacer en la repo», este documento de orden define qué trabajo retomar.
+> **Orden vigente:** leer `docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md` completa. Cuando el usuario diga «Revisá lo que hay para hacer en la repo. Hay un documento que dice lo que tenés que hacer», revisar el creador mecánico completo de Foundry contra las reglas, el canon y las decisiones de Firmamentum, verificar las opciones reales —sin confiar en auditorías anteriores— y continuar implementando creación desde nivel 1, progresión y multiclase. La orden del Director establece las restricciones de contenido. No detenerse en una auditoría ni pedir que el usuario repita la tarea.
 
 ## 1. Qué repo es este
 
@@ -231,7 +228,7 @@ Antes de iniciar cualquiera de estas tareas, comprobar que no exista trabajo má
 
 Prompt útil para empezar:
 
-> Trabajá sobre `JRRGUILLE-bit/Foundry`. Antes de cambiar nada, leé `00-START-HERE-GONZA.md`, `AGENTS.md`, `README.md` y `docs/handoff-gonza-codex.md`; después verificá el estado real de `main`, PRs e issues. No asumas contexto de chats anteriores. Decime qué está efectivamente terminado, qué está pendiente y qué QA corresponde a la tarea que te pida. No expongas ni escribas credenciales de SESSION_LIVE en GitHub.
+> Trabajá sobre `JRRGUILLE-bit/Foundry`. Leé `00-START-HERE-GONZA.md`, `AGENTS.md`, `README.md`, este handoff y `docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md`. Ya tenés acceso a `JRRGUILLE-bit/Firmamentum-Velatum`: contrastá ambas repos, verificá las opciones reales del creador y continuá el trabajo mecánico indicado por el Director. No confíes en auditorías previas ni vuelvas a pedir acceso.
 
 Ese flujo está pensado para que la cuenta de Gonza pueda orientarse únicamente con GitHub.
 
@@ -239,7 +236,7 @@ Ese flujo está pensado para que la cuenta de Gonza pueda orientarse únicamente
 
 El repo es público. Eso alcanza para que la cuenta de Gonza y Codex puedan leerlo.
 
-Para que `gonzalosellanesvera-art` pueda crear ramas y hacer `push` directamente a `JRRGUILLE-bit/Foundry`, Santiago/Guillermo debe agregarlo como collaborator con permiso de escritura. Si Codex puede leer pero no puede pushear, primero revisar permisos de GitHub.
+El usuario confirma que la cuenta ChatGPT/Codex que retoma esta tarea ya tiene acceso a las cuentas y repositorios necesarios, incluidos `Foundry` y `Firmamentum-Velatum`. No volver a solicitar acceso ni presentar la falta de permiso como una condición hipotética. Si una operación concreta devuelve un error real de permisos, informar ese error puntual.
 
 ## 9. Mantener el handoff vivo
 
