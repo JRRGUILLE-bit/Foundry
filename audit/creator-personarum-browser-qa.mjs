@@ -386,11 +386,12 @@ try {
       'The player level must be supplied by the verified Director assignment');
     assert.equal(await page.locator('#creator-level').getAttribute('readonly'), '',
       'The assigned level cannot be manually changed');
-    await page.waitForFunction(() => !document.querySelector('label[for="creator-subclass"]')?.hidden
-      && Array.from(document.getElementById('creator-subclass')?.options || []).length > 1);
-    assert.ok(await page.locator('#creator-subclass option').evaluateAll(options =>
-      options.slice(1).some(option => /Berserker/i.test(option.textContent))
-    ), 'The level 3 assignment must unlock the Barbarian subclass choices');
+    assert.equal(await page.locator('label[for="creator-subclass"]').evaluate(element => element.hidden), true,
+      'A level 3 target assignment must not reveal a level 3 subclass during the initial level 1 stage');
+    assert.equal(await page.locator('#creator-subclass option').count(), 1,
+      'Future subclass options must stay out of the initial level 1 choices');
+    assert.equal(await page.evaluate(() => window.creatorPersonarumGetProgressionLevel()), 1,
+      'Loading the Director target level must not skip the level 1 creation stage');
     assert.equal(await page.locator('#creator-assignment-rolls li').count(), 6,
       'All six unassigned results must be loaded from the verified assignment');
     assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\nResultado 2: 15\nResultado 3: 14\nResultado 4: 12\nResultado 5: 10\nResultado 6: 8',
@@ -440,6 +441,23 @@ try {
       'Known-character export must stay blocked until level-by-level progression is implemented');
     assert.equal(await page.locator('#creator-wizard-progress').innerText(), 'PASO 5 DE 5',
       'The level progression guard must direct the player to the level step');
+    await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(3));
+    assert.equal(await page.locator('#creator-subclass').evaluate(element => element.closest('label').dataset.creatorWizardStep), '5',
+      'Subclass choices after level 1 must be moved to the progression stage');
+    assert.equal(await page.locator('label[for="creator-subclass"]').isVisible(), true,
+      'The Barbarian subclass selector must appear only after the progression reaches level 3');
+    const selectedBarbarianSubclassValue = await page.locator('#creator-subclass option').evaluateAll(options =>
+      options.find(option => /Berserker/i.test(option.textContent))?.value || ''
+    );
+    assert.ok(selectedBarbarianSubclassValue, 'Level 3 Barbarian must expose its approved Berserker choice');
+    await page.locator('#creator-subclass').selectOption(selectedBarbarianSubclassValue);
+    const progressionDraft = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.maite') || 'null')
+    );
+    assert.equal(progressionDraft.progressionLevel, 3,
+      'The current progression level must be included in the player autosave');
+    assert.equal(progressionDraft.subclass, selectedBarbarianSubclassValue,
+      'The unlocked subclass choice must be included in the player autosave');
     const originSelect=page.locator('#creator-origin-region'),originDetails=page.locator('#creator-origin-details');
     assert.equal(await originSelect.inputValue(),'','No Appendix city may be preselected.');
     const maiteCity=appendixCitiesCatalog.cities.find(c=>c.name==='Aetheluria');
@@ -462,6 +480,12 @@ try {
     await page.reload({waitUntil:'domcontentloaded'});await waitForAppendixCities();await exposeWorkspace();
     await page.locator('#creator-known-path-button').click();
     assert.equal(await page.locator('#creator-assignment-player').inputValue(),'maite','Player identity survives reload.');
+    assert.equal(await page.evaluate(() => window.creatorPersonarumGetProgressionLevel()), 3,
+      'The current progression level must be restored from the player draft');
+    assert.equal(await page.locator('#creator-subclass').inputValue(),selectedBarbarianSubclassValue,
+      'The subclass selected at its unlocked level must be restored from the player draft');
+    assert.equal(await page.locator('label[for="creator-subclass"]').isVisible(), false,
+      'The restored future-level subclass must remain hidden before the level progression stage');
     assert.equal(await page.locator('#creator-origin-region').inputValue(),greyEmpireId,'Maite city survives reload.');
     assert.equal(await page.evaluate(()=>localStorage.getItem('banda.creator-personarum.appendix-city.v1.gonza')),gonzaCityId,'Gonza city remains separate.');
 
@@ -910,8 +934,7 @@ try {
     'Level 1 Barbarian must hide its level 3 subclass selector');
   assert.equal(await subclassSelect.locator('option').count(), 1,
     'Level 1 Barbarian must not list future subclasses');
-
-  await levelInput.fill('3');
+  await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(3));
   const barbarianSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
   assert.ok(barbarianSubclasses.some(name => /berserker/i.test(name)), 'Level 3 Barbarian must expose its allowed Berserker subclass');
   await subclassSelect.selectOption({ label: 'Path of the Berserker' });
@@ -931,6 +954,7 @@ try {
   const subclassFeatureList = page.locator('#creator-subclass-features-list');
   assert.match(await subclassFeatureList.innerText(), /Frenzy/, 'Level 3 Berserker should show Frenzy');
   assert.doesNotMatch(await subclassFeatureList.innerText(), /Ancestral Protectors|Form of the Beast|Divine Fury/, 'Berserker must not show features from other Barbarian subclasses');
+  await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(1));
   await levelInput.fill('1');
   assert.equal(await page.locator('label[for="creator-subclass"]').isVisible(), false,
     'Returning to level 1 must hide a level 3 subclass selector');
@@ -940,12 +964,14 @@ try {
     'Level 1 Wizard must not expose its level 2 school choice');
   assert.equal(await subclassSelect.locator('option').count(), 1,
     'Level 1 Wizard must not list future schools');
+  await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(2));
   await levelInput.fill('2');
   const wizardSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
   assert.equal(wizardSubclasses.length, 8, 'Level 2 Wizard must expose its eight approved schools');
   assert.ok(!wizardSubclasses.some(name => /berserker/i.test(name)), 'Subclasses from another class must not leak into the Wizard choices');
 
   await page.locator('#creator-character-class').selectOption({ label: 'Guerrero' });
+  await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(3));
   await levelInput.fill('3');
   const fighterClassSkillChoices = page.locator('#creator-class-skills-list input[type="checkbox"]');
   await fighterClassSkillChoices.nth(0).check();
