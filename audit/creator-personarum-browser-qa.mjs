@@ -237,16 +237,21 @@ try {
       );
       assert.ok(blockedSpecies, 'Each restricted feat test must have a canonical incompatible race: ' + featRecord.name);
       await chooseCanonicalRace(allowedSpecies, allowedRaceId);
+      await page.locator('#creator-wizard-next').click();
       const featSelect = page.locator('#creator-feat');
+      assert.equal(await featSelect.isVisible(), true,
+        'The feat selector must be tested on wizard step 2');
       const allowedFeatOption = await featSelect.locator('option').evaluateAll((options, featName) =>
         options.some(option => option.value === featName), featRecord.name
       );
       assert.equal(allowedFeatOption, true,
         'A restricted feat must appear for an explicitly allowed race: ' + featRecord.name);
       await featSelect.selectOption(featRecord.name);
+      await page.locator('#creator-wizard-back').click();
       const blockedRaceId = (blockedSpecies.record_ids || [])[0];
       assert.ok(blockedRaceId, 'The incompatible campaign race must expose its canonical rules ID');
       await chooseCanonicalRace(blockedSpecies, blockedRaceId);
+      await page.locator('#creator-wizard-next').click();
       const incompatibleFeatOption = await featSelect.locator('option').evaluateAll((options, featName) =>
         options.some(option => option.value === featName), featRecord.name
       );
@@ -254,6 +259,7 @@ try {
         'A restricted feat must be omitted for an incompatible race: ' + featRecord.name);
       assert.equal(await featSelect.inputValue(), '',
         'Changing to an incompatible race must clear the previously selected restricted feat: ' + featRecord.name);
+      await page.locator('#creator-wizard-back').click();
     }
 
     const restoreFeatRecord = restrictedFeats.find(record => record.id === 'feat.dwarven-fortitude');
@@ -262,6 +268,7 @@ try {
     const restoreSpecies = campaignSpecies.find(record => (record.record_ids || []).includes(restoreRaceId));
     assert.ok(restoreSpecies, 'Dwarven Fortitude allowlist must resolve to its canonical dwarf option');
     await chooseCanonicalRace(restoreSpecies, restoreRaceId);
+    await page.locator('#creator-wizard-next').click();
     await page.locator('#creator-feat').selectOption(restoreFeatRecord.name);
     await page.locator('#creator-save-draft').click();
     const featDraftKey = 'banda.creator-personarum.draft.v1.player.maite';
