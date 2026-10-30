@@ -1558,6 +1558,7 @@
       level: loadedPlayerAssignment && currentMode === CREATION_MODES.known
         ? loadedPlayerAssignment.level
         : Number(document.getElementById('creator-level').value || 1),
+      progressionLevel: Number(window.creatorPersonarumGetProgressionLevel?.() || 1),
       concept: document.getElementById('creator-concept').value.trim(),
       deity: deitySelect.value,
       deityName: getSelectedDeity() ? (getCreatorLanguage()==='en'?DIVINE_OPTIONS_EN[getSelectedDeity().value].name:getSelectedDeity().name) : '',
@@ -1775,6 +1776,11 @@
       updateCustomLineageField();
       classSelect.value = draft.characterClass || '';
       classSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      window.dispatchEvent(new CustomEvent('creator-personarum:progression-level-changed', {
+        detail: {
+          level: Number.isInteger(draft.progressionLevel) ? draft.progressionLevel : 1
+        }
+      }));
       window.dispatchEvent(new CustomEvent('creator-personarum:restore-subclass', {
         detail: { value: typeof draft.subclass === 'string' ? draft.subclass : '' }
       }));
