@@ -281,7 +281,7 @@ try {
       'The assigned level cannot be manually changed');
     assert.equal(await page.locator('#creator-assignment-rolls li').count(), 6,
       'All six unassigned results must be loaded from the verified assignment');
-    assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\\nResultado 2: 15\\nResultado 3: 14\\nResultado 4: 12\\nResultado 5: 10\\nResultado 6: 8',
+    assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\nResultado 2: 15\nResultado 3: 14\nResultado 4: 12\nResultado 5: 10\nResultado 6: 8',
       'The exact six pre-assigned results must be displayed');
 
     const rollIds = Array.from({ length: 6 }, (_, index) => 'appendix-assignment-1-roll-' + (index + 1));
