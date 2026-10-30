@@ -1122,6 +1122,15 @@
   function resetFormFields() {
     isResettingDraft = true;
     draftForm.reset();
+    Array.from(draftForm.elements).forEach(control => {
+      if (control.type === 'checkbox' || control.type === 'radio') {
+        control.checked = control.defaultChecked;
+      } else if (control.tagName === 'SELECT') {
+        control.selectedIndex = 0;
+      } else if ('value' in control) {
+        control.value = control.defaultValue;
+      }
+    });
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-spells'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-class-skills'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-background-skills'));
