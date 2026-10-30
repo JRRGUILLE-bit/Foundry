@@ -463,6 +463,27 @@
     translated = translated.replace(/^Elegiste (\d+) de (\d+); te falta(n)? (\d+)\.$/, 'You selected $1 of $2; $4 remaining.');
     translated = translated.replace(/ · nivel (\d+)/gi, ' · level $1');
     translated = translated.replace(/ \(nivel (\d+)\)/gi, ' (level $1)');
+    translated = translated.replace(/^Se recordó tu elección: (.+)\. No necesitás ingresar ningún código\.$/, 'Your choice was remembered: $1. No access code is needed.');
+    translated = translated.replace(/^Buscando la asignación de (.+)…$/, 'Looking up $1’s assignment…');
+    translated = translated.replace(/^Asignación de (.+) cargada: nivel (\d+) y seis resultados\. Distribuí cada tirada entre una característica distinta\.$/, 'Assignment for $1 loaded: level $2 and six rolls. Assign each roll to a different ability.');
+    translated = translated.replace(/^Tu elección quedó guardada\. La dirección todavía debe completar la fila de (.+) en ASIGNACIONES con el nivel y los seis resultados\.$/, 'Your choice was saved. The Director still needs to complete $1’s row in ASSIGNMENTS with the level and six rolls.');
+    translated = translated.replace(/^Tu elección quedó guardada, pero no se pudo consultar la asignación de (.+)\.$/, 'Your choice was saved, but $1’s assignment could not be retrieved.');
+    translated = translated.replace(/^Elección guardada en este navegador: (.+)\. Podés cambiarla después\.$/, 'Choice saved in this browser: $1. You can change it later.');
+    translated = translated.replace(/^Completá las (\d+) habilidades obligatorias del linaje antes de continuar\.$/, 'Complete the $1 required lineage skills before continuing.');
+    translated = translated.replace(/^Elegí (\d+) idioma entre estas opciones:$/, 'Choose $1 language from these options:');
+    translated = translated.replace(/^Elegí (\d+) idiomas entre estas opciones:$/, 'Choose $1 languages from these options:');
+    translated = translated.replace(/^(\d+) idiomas permitidos en este grupo\. Desmarcá uno para cambiar la selección\.$/, '$1 languages are allowed in this group. Uncheck one to change your selection.');
+    translated = translated.replace(/^Elegiste (\d+) de (\d+) idiomas opcionales\.$/, 'You selected $1 of $2 optional languages.');
+    translated = translated.replace(/^(\d+) idioma\(s\) automático\(s\) registrado\(s\)\.$/, '$1 automatically granted language(s) recorded.');
+    translated = translated.replace(/^(\d+) rasgos de clase registrados hasta el nivel (\d+)\.$/, '$1 class features recorded through level $2.');
+    translated = translated.replace(/^(\d+) rasgos de subclase registrados hasta el nivel (\d+)\.$/, '$1 subclass features recorded through level $2.');
+    translated = translated.replace(/^El servicio respondió HTTP (\d+)\.$/, 'The service returned HTTP $1.');
+    translated = translated.replace(/^Concede automáticamente: (.+)\.$/, 'Automatically grants: $1.');
+    translated = translated.replace(/^Tamaño registrado: (.+)$/, 'Recorded size: $1');
+    translated = translated.replace(/^Fuente: (.+)\.$/, 'Source: $1.');
+    translated = translated.replace(/^Quitar conjuro (.+)$/, 'Remove spell $1');
+    translated = translated.replace(/^Marcá (\d+) habilidad(es)?$/, 'Select $1 skill(s)');
+    translated = translated.replace(/^Elegí exactamente (\d+) habilidades? permitidas?\.$/, 'Choose exactly $1 permitted skill(s).');
     return translated;
   }
 
