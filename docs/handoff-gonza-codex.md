@@ -145,6 +145,12 @@ Flujo implementado:
    - **Todavía no lo sé:** elegir un interés de exploración (culturas, tierras salvajes, conflictos, ruinas, viajes o lugares extraordinarios) y después registrar una idea inicial sin exigir nombre, linaje ni clase.
 5. Cada camino guarda su borrador de forma independiente en el navegador y permite exportarlo a JSON.
 
+Actualización del 30/10/2026:
+- En **Ya sé lo que quiero jugar**, el autosave se guarda en una clave independiente por jugador (`banda.creator-personarum.draft.v1.player.<playerId>`).
+- Al cambiar de jugador, el formulario se limpia y recupera el último autosave de esa persona; no mezcla selecciones entre Maite, Gonza, Nico, Rulo y Santi.
+- Los cambios del formulario se guardan automáticamente en el navegador. **Guardar borrador** permanece disponible y sobrescribe el mismo autosave del jugador activo.
+- El borrador antiguo con clave compartida solo se migra si su jugador puede identificarse y coincide con el jugador seleccionado.
+
 Pendiente funcional importante:
 - En la rama de auditoría, el creador carga regiones oficiales y sus resúmenes desde el Atlas revisado y permite guardar una procedencia opcional. Queda generar una historia de origen personalizada conectada con esa región, el concepto y el trasfondo.
 - El creador aún no crea actores de Foundry ni deriva automáticamente atributos, competencias, equipo o hechizos.
