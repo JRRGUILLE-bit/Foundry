@@ -1951,6 +1951,7 @@
       cosmicMarkChoices: values.cosmicMarkChoices,
       cosmicMarksSummary: values.cosmicMarksSummary,
       level: values.level,
+      progressionLevel: values.progressionLevel,
       concept: values.concept,
       creationStep: currentMode === CREATION_MODES.known ? currentKnownWizardStep : null
     };
