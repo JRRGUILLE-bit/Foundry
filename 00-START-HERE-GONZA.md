@@ -11,9 +11,11 @@ Este repositorio fue trabajado anteriormente desde otra cuenta de ChatGPT. El hi
 3. Leé `README.md` completo.
 4. Leé `docs/handoff-gonza-codex.md`.
 5. Leé **`docs/CREATOR_PERSONARUM_WORK_ORDER_2026-10-30.md` completo**. Este documento contiene la orden vigente para continuar Creator Personarum.
-6. Verificá el estado actual de `main`, PRs abiertos/cerrados e issues abiertas/cerradas. No asumas que una fecha escrita en la documentación sigue siendo el estado más reciente.
-7. Si el usuario dice «revisá lo que hay para hacer en la repo» o equivalente, interpretá esa indicación junto con la orden de Creator Personarum: revisá el estado real y **continuá el trabajo de implementación mecánica** descrito allí. No te limites a entregar una auditoría o una lista de sugerencias.
-8. No hagas cambios ajenos a esa orden. Para Creator Personarum, verificá cada cambio y documentá qué quedó hecho y qué sigue pendiente.
+6. Verificá el estado actual de `main`, PRs abiertos/cerrados e issues abiertas/cerradas en `Foundry` y `Firmamentum-Velatum`. No asumas que una fecha escrita en la documentación sigue siendo el estado más reciente.
+7. **La auditoría de Creator Personarum es cruzada y obligatoria:** el código está en `Foundry`, pero las reglas, el mundo, el canon, las aprobaciones y las exclusiones están en `JRRGUILLE-bit/Firmamentum-Velatum`. Leé su `docs/AI_HANDOFF.md`, `docs/CANON_AND_RULES.md`, `docs/DECISIONS_AND_OPEN_QUESTIONS.md`, `docs/PROJECT_STATUS.md`, `docs/MASTER_CHECKLIST.md` y los documentos `lore/` relevantes. Revisá también los datasets y decisiones JSON vigentes. No audites el creador usando solo el contenido de `Foundry`.
+8. Si no tenés acceso de lectura a `Firmamentum-Velatum`, informalo y pedí acceso; no simules una auditoría ni supongas el canon.
+9. Si el usuario dice «revisá lo que hay para hacer en la repo» o equivalente, interpretá esa indicación como: verificar ambas repos, auditar todo Creator Personarum contra el canon y las decisiones de Firmamentum, identificar y corregir discrepancias ya resueltas por Dirección, y continuar la implementación mecánica descrita en la orden. No te limites a una lista de sugerencias.
+10. No hagas cambios ajenos a esa orden. Verificá cada cambio y documentá qué quedó hecho y qué sigue pendiente.
 
 ## Contexto mínimo que tenés que saber
 
