@@ -153,16 +153,18 @@ La prioridad es completar y verificar la funcionalidad mecánica de creación y 
 
 Una vez resuelto ese trabajo, si queda tiempo, mejorar la estética y la presentación general del creador. Las mejoras visuales no deben sustituir ni postergar el trabajo mecánico pendiente.
 
-## 9. Cómo retomar esta tarea
+## 9. Instrucciones de ejecución y alcance
 
-Cuando el usuario diga algo equivalente a **«revisá lo que hay para hacer en la repo»**, esta orden es la instrucción de trabajo para Creator Personarum.
+Cuando el usuario diga **«Revisá lo que hay para hacer en la repo. Hay un documento que dice lo que tenés que hacer»**, leer esta orden y empezar el trabajo. La cuenta ya tiene acceso a ambas repos; no pedir acceso, no esperar otra autorización para las tareas definidas y no limitarse a hablar de un plan o enumerar pendientes.
 
-La sesión debe:
-1. Leer este documento y las instrucciones generales del repositorio.
-2. Verificar el estado actual de `main`, el código, los datos, la documentación y las pruebas; no asumir que el estado descrito por auditorías anteriores sigue vigente.
-3. Revisar los pendientes reales del creador, incluidos backgrounds, feats y progresión.
-4. Tener presente que el mapa y los tokens del Modo creativo siguen siendo trabajo de Claude/Cloud.
-5. Continuar con la implementación mecánica; no detenerse en una auditoría o un listado de recomendaciones.
-6. Verificar los cambios y actualizar la documentación/checklist correspondiente con lo efectivamente realizado y lo que siga pendiente.
+El jugador crea primero un personaje de **nivel 1**. El Director determina por fuera del flujo del jugador el nivel al que debe quedar preparado el personaje para la aventura. El creador debe permitir continuar desde nivel 1 hasta ese nivel asignado. Ya existe documentación para la asignación de nivel; el Director indicó que posteriormente puede ajustarse el Apps Script `Code.gs` para facilitar ese mecanismo. No inventar otro sistema de asignación ni pedirle al jugador que determine su propio nivel.
 
-No inventar requisitos ni prohibiciones adicionales. Ante una ambigüedad real que cambie una decisión de contenido o implementación, consultar al usuario antes de decidirla.
+Al subir de nivel, aplicar las elecciones y reglas que correspondan. Para multiclase, comprobar los prerrequisitos de características de D&D 5e 2014 y mostrar solamente las clases a las que ese personaje pueda acceder. Permitir seleccionar una de esas clases y aplicar la progresión correspondiente.
+
+**Límite del trabajo:** el sitio debe implementar el creador mecánico y la progresión del personaje. Generar o exportar el Actor de Foundry VTT no forma parte del trabajo del sitio; no convertirlo en requisito ni desviar la implementación hacia ese objetivo. El objetivo de interfaz es escritorio/navegador; no iniciar trabajo móvil sin una instrucción explícita del Director.
+
+El mapa interactivo y los tokens del Modo creativo siguen siendo trabajo separado de Claude/Cloud. No duplicar ni reemplazar ese trabajo.
+
+Verificar el estado real del código, los datos y la documentación en Foundry y contrastarlos con el canon, las reglas, las aprobaciones y las exclusiones vigentes de Firmamentum. No confiar ciegamente en informes previos ni en etiquetas de aprobado. Verificar cada cambio y documentar únicamente lo efectivamente realizado y lo que siga pendiente.
+
+No inventar requisitos ni prohibiciones adicionales. Si una decisión concreta que no esté resuelta en las instrucciones del Director o en Firmamentum cambia qué opción se permite, consultar antes de decidirla.
