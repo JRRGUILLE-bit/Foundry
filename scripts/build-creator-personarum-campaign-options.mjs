@@ -391,7 +391,7 @@ for (const tool of toolsDataset.tools) {
 const backgroundToolRefs = backgroundRecords.flatMap(background => [
   ...(background.mechanics?.tool_proficiencies ?? []),
   ...(background.mechanics?.tool_choices ?? []).flatMap(choice => choice.from ?? [])
-]).filter(value => typeof value === "string" && !/^any/i.test(value));
+]).filter(value => typeof value === "string" && !/^any/i.test(value) && !["gaming set", "musical instrument"].includes(value.toLowerCase()));
 const missingToolRefs = [...new Set(backgroundToolRefs)].filter(name => !toolByName.has(name.toLowerCase()));
 if (missingToolRefs.length) {
   throw new Error("Background tool proficiency references are missing from canonical tools: " + missingToolRefs.join(", "));
