@@ -212,6 +212,10 @@ assert.match(runtime, /deityName: values\.deityName/, 'Saved/exported drafts mus
 assert.match(styles, /\.creator-divine-section/, 'Pantheon selector must have dedicated styling');
 
 assert.match(runtime, /banda\.creator-personarum\.draft\.v1/, 'Drafts must use a versioned local storage key');
+assert.ok(runtime.includes("return DRAFT_STORAGE_KEY + '.player.' + playerId"), 'Each known-character draft must use a separate local storage key per Appendix player');
+assert.ok(runtime.includes('function autosaveCurrentDraft('), 'Character changes must be autosaved automatically');
+assert.ok(runtime.includes('autosaveCurrentDraft(values)'), 'Every published draft change must update the current autosave');
+assert.ok(runtime.includes('restoreDraft();\n      setKnownCharacterWizardStep(currentKnownWizardStep, false);'), 'Switching Appendix players must restore that player\'s own character draft');
 assert.doesNotMatch(catalogRuntime, /Keep the existing campaign-specific options as a working fallback/, 'Catalog failure must fail closed rather than restore generic D&D options');
 assert.match(catalogRuntime, /No se muestran opciones genéricas/, 'Catalog load failure must not show unapproved options');
 assert.match(runtime, /localStorage\.setItem/, 'The form must save a local draft');
