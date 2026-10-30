@@ -2,6 +2,11 @@
   'use strict';
 
   const CATALOG_URL = 'creator-personarum-data/campaign-options.json';
+  let activeCreatorMode = String(window.creatorPersonarumActiveMode || '');
+  window.addEventListener('creator-personarum:mode-changed', (event) => {
+    activeCreatorMode = String(event.detail?.mode || '');
+    window.creatorPersonarumApplyBackgroundModeVisibility?.();
+  });
   const byId = (id) => document.getElementById(id);
   const SKILL_LABELS_EN = {
     acrobatics: 'Acrobatics',
@@ -782,11 +787,14 @@
     const getSelectedBackgroundRecord = () => {
       if (!backgroundSelect?.value) return null;
       const option = backgroundSelect.options[backgroundSelect.selectedIndex];
-      const nameKey = Object.entries(BACKGROUND_LABELS)
-        .find(([, label]) => normalize(label) === normalize(backgroundSelect.value))?.[0] || backgroundSelect.value;
+      const recordId = option?.dataset.creatorCatalogId || '';
+      if (recordId) {
+        return records.find(item => item.category === 'background' && item.id === recordId) || null;
+      }
       return records.find(item =>
         item.category === 'background' &&
-        normalize(item.name) === normalize(nameKey) &&
+        (normalize(item.name_es) === normalize(backgroundSelect.value) ||
+          normalize(item.name) === normalize(backgroundSelect.value)) &&
         (!option?.dataset.creatorCatalogSource || item.source === option.dataset.creatorCatalogSource)
       ) || null;
     };
@@ -1622,23 +1630,53 @@
     if (!select || !details || !status || !hiddenInput) return;
 
     const seen = new Set();
-    const rows = records.filter(item => item.category === 'background')
-      .sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
+    const rows = records.filter(item => item.category === 'background' &&
+      ['approved', 'approved_with_restriction'].includes(item.campaign_status))
+      .sort((a, b) => String(a.name_es || a.name).localeCompare(String(b.name_es || b.name)) ||
         String(a.source).localeCompare(String(b.source)));
     const backgroundField = byId('creator-background-field');
     const backgroundSkillsSection = byId('creator-background-skills-section');
     const backgroundStageStatus = byId('creator-background-stage-status');
-    if (backgroundField) backgroundField.hidden = rows.length === 0;
-    if (backgroundSkillsSection) backgroundSkillsSection.hidden = rows.length === 0;
-    if (backgroundStageStatus) backgroundStageStatus.hidden = rows.length > 0;
     const selectedRows = [];
     for (const item of rows) {
-      const key = normalize(item.name);
+      const stableValue = String(item.name_es || translate(item.name, BACKGROUND_LABELS));
+      const key = normalize(item.id || item.name);
       if (!key || seen.has(key)) continue;
       seen.add(key);
       selectedRows.push(item);
-      addOption(select, translate(item.name, BACKGROUND_LABELS), item.source, item.category, [item.name]);
+      addOption(select, stableValue, item.source, item.category, [item.name, item.name_en]);
+      const option = Array.from(select.options).find(candidate =>
+        candidate.dataset.creatorCatalogId === item.id || normalize(candidate.value) === normalize(stableValue));
+      if (option) {
+        option.value = stableValue;
+        option.textContent = byId('creator-skill-language')?.value === 'en'
+          ? String(item.name_en || item.name)
+          : stableValue;
+        option.dataset.creatorCatalogId = item.id;
+        option.dataset.creatorCatalogCategory = 'background';
+        option.dataset.creatorCatalogSource = item.source || '';
+      }
     }
+    if (select.options[0]) {
+      select.options[0].textContent = byId('creator-skill-language')?.value === 'en'
+        ? 'Choose a campaign-approved background…'
+        : 'Elegí un trasfondo aprobado por la campaña…';
+    }
+    byId('creator-skill-language')?.addEventListener('change', () => {
+      Array.from(select.options).forEach(option => {
+        if (!option.value) {
+          option.textContent = byId('creator-skill-language')?.value === 'en'
+            ? 'Choose a campaign-approved background…'
+            : 'Elegí un trasfondo aprobado por la campaña…';
+          return;
+        }
+        const row = selectedRows.find(item => item.id === option.dataset.creatorCatalogId);
+        if (row) option.textContent = byId('creator-skill-language')?.value === 'en'
+          ? String(row.name_en || row.name)
+          : String(row.name_es || row.name);
+      });
+      render();
+    });
     Array.from(select.options).forEach(option => {
       if (normalize(option.value) === 'personalizado') option.remove();
     });
@@ -1678,10 +1716,11 @@
     const render = (restoreSkills) => {
       details.replaceChildren();
       const selectedValue = normalize(select.value);
-      const mappedName = Object.entries(BACKGROUND_LABELS)
-        .find(([, label]) => normalize(label) === selectedValue)?.[0];
+      const selectedOption = select.options[select.selectedIndex];
       const background = selectedRows.find(item =>
-        normalize(item.name) === normalize(mappedName || select.value)
+        (selectedOption?.dataset.creatorCatalogId && item.id === selectedOption.dataset.creatorCatalogId) ||
+        normalize(item.name_es || '') === selectedValue ||
+        normalize(item.name) === selectedValue
       );
 
       if (!selectedValue || !background) {
@@ -1835,7 +1874,16 @@
         window.creatorPersonarumApplyRestoredBackgroundSkills();
       }
     });
-    byId('creator-skill-language')?.addEventListener('change', () => render());
+    const applyModeVisibility = () => {
+      const directMode = activeCreatorMode === 'known-character';
+      const visible = directMode && rows.length > 0;
+      if (backgroundField) backgroundField.hidden = !visible;
+      if (backgroundSkillsSection) backgroundSkillsSection.hidden = !visible;
+      if (backgroundStageStatus) backgroundStageStatus.hidden = !directMode || rows.length > 0;
+      select.disabled = !visible;
+    };
+    window.creatorPersonarumApplyBackgroundModeVisibility = applyModeVisibility;
+    applyModeVisibility();
     render();
   }
   function appendClassSkillChoices(records) {
