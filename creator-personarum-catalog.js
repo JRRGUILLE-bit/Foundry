@@ -2135,6 +2135,8 @@
             title.textContent = english ? (entry.displayName || type[1]) : (type[0].charAt(0).toUpperCase() + type[0].slice(1));
             const control = document.createElement('select');
             control.name = 'backgroundEquipmentChoice';
+            control.required = activeCreatorMode === 'known-character';
+            control.disabled = activeCreatorMode !== 'known-character';
             control.dataset.equipmentChoice = key;
             control.appendChild(new Option(english ? 'Choose…' : 'Elegí…', ''));
             options.forEach(option => control.appendChild(new Option(english ? option.name_en : option.name_es, option.id)));
@@ -2153,6 +2155,8 @@
               const wrap = document.createElement('label'); wrap.className = 'creator-field creator-field-wide';
               const title = document.createElement('span'); title.textContent = (english ? 'Specify your unusual weapon' : 'Especificá el arma inusual') + (quantity ? ' (' + quantity.trim() + ')' : '');
               const input = document.createElement('input'); input.type = 'text'; input.maxLength = 100;
+              input.required = activeCreatorMode === 'known-character';
+              input.disabled = activeCreatorMode !== 'known-character';
               input.value = selectedBackgroundEquipment[key] || '';
               input.placeholder = english ? 'Weapon choice' : 'Arma elegida';
               input.addEventListener('input', () => { selectedBackgroundEquipment[key] = input.value; syncBackgroundEquipmentValue(); });
@@ -2218,6 +2222,8 @@
             label.className = 'creator-lineage-language-choice';
             const radio = document.createElement('input');
             radio.type = 'radio'; radio.name = choiceKey; radio.value = branch;
+            radio.required = activeCreatorMode === 'known-character';
+            radio.disabled = activeCreatorMode !== 'known-character';
             radio.checked = selectedBackgroundEquipment[choiceKey] === branch;
             const optionSummary = summarizeBundle(group[branch]);
             label.append(radio, document.createTextNode(' ' + (english ? 'Option ' + branch.toUpperCase() : 'Opción ' + branch.toUpperCase()) + (optionSummary ? ': ' + optionSummary : '')));
