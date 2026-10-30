@@ -777,359 +777,6 @@
       return true;
     };
 
-    const backgroundToolDetails = byId('creator-background-tools-list');
-    const backgroundToolStatus = byId('creator-background-tools-status');
-    const backgroundToolsSection = byId('creator-background-tools-section');
-    const backgroundToolInput = byId('creator-selected-background-tools');
-    const toolRecords = records.filter(item => item.category === 'tool' && item.campaign_status === 'approved');
-    const toolByName = new Map(toolRecords.map(item => [normalize(item.name_en || item.name), item]));
-    const selectedBackgroundTools = (() => {
-      try {
-        const parsed = JSON.parse(backgroundToolInput?.value || '{}');
-        return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
-      } catch {
-        return {};
-      }
-    })();
-    let activeBackgroundToolValue = select.value || '';
-    const syncBackgroundToolValue = () => {
-      if (backgroundToolInput) backgroundToolInput.value = JSON.stringify(selectedBackgroundTools);
-    };
-    const renderBackgroundTools = (background) => {
-      if (!backgroundToolDetails || !backgroundToolStatus || !backgroundToolInput) return;
-      backgroundToolDetails.replaceChildren();
-      if (activeBackgroundToolValue !== (select.value || '')) {
-        Object.keys(selectedBackgroundTools).forEach(key => delete selectedBackgroundTools[key]);
-        activeBackgroundToolValue = select.value || '';
-      }
-      const mechanics = background?.backgroundMechanics || {};
-      const isCustomBackground = background?.id === 'background.custom_background';
-      const fixedNames = isCustomBackground ? [] : (Array.isArray(mechanics.tool_proficiencies) ? mechanics.tool_proficiencies : []);
-      const fixed = [...new Set(fixedNames.map(name => toolByName.get(normalize(name))).filter(Boolean))];
-      const definitions = [];
-      const expandCategory = (category) => toolRecords.filter(tool => tool.tool_category === ({
-        anyArtisansTool: 'artisan',
-        anyGamingSet: 'gaming_set',
-        anyMusicalInstrument: 'musical_instrument',
-        'gaming set': 'gaming_set',
-        'musical instrument': 'musical_instrument'
-      })[category]);
-      const resolveChoice = (choice, groupIndex, choiceIndex) => {
-        const names = Array.isArray(choice.from) ? choice.from : [];
-        const categories = Array.isArray(choice.from_categories) ? choice.from_categories : [];
-        const options = new Map();
-        for (const name of names) {
-          const compact = String(name).replace(/\\s+/g, '');
-          if (['anyArtisansTool','anyGamingSet','anyMusicalInstrument'].includes(compact)) {
-            for (const tool of expandCategory(compact)) options.set(tool.id, tool);
-          } else if (['gaming set','musical instrument'].includes(normalize(name))) {
-            for (const tool of expandCategory(normalize(name))) options.set(tool.id, tool);
-          } else {
-            const tool = toolByName.get(normalize(name));
-            if (tool) options.set(tool.id, tool);
-          }
-        }
-        for (const category of categories) {
-          for (const tool of expandCategory(category)) options.set(tool.id, tool);
-        }
-        return {
-          key: 'tool-group-' + groupIndex + '-' + choiceIndex,
-          count: Number.isInteger(Number(choice.count)) && Number(choice.count) > 0 ? Number(choice.count) : 1,
-          options: [...options.values()].filter(tool => !fixed.some(item => item.id === tool.id))
-        };
-      };
-      if (!isCustomBackground) {
-        (Array.isArray(mechanics.tool_choices) ? mechanics.tool_choices : []).forEach((choice, index) => {
-          definitions.push(resolveChoice(choice, index, 0));
-        });
-      }
-      if (fixed.length) {
-        const item = document.createElement('li');
-        item.textContent = (byId('creator-skill-language')?.value === 'en' ? 'Granted automatically: ' : 'Concede automáticamente: ') +
-          fixed.map(tool => byId('creator-skill-language')?.value === 'en' ? tool.name_en : tool.name_es).join(', ') + '.';
-        backgroundToolDetails.appendChild(item);
-      }
-      const used = new Set(fixed.map(tool => tool.id));
-      definitions.forEach(definition => {
-        const values = Array.isArray(selectedBackgroundTools[definition.key])
-          ? selectedBackgroundTools[definition.key].filter(id => definition.options.some(tool => tool.id === id) && !used.has(id)).slice(0, definition.count)
-          : [];
-        selectedBackgroundTools[definition.key] = values;
-        const heading = document.createElement('li');
-        heading.textContent = (byId('creator-skill-language')?.value === 'en' ? 'Choose ' : 'Elegí ') +
-          definition.count + (definition.count === 1
-            ? (byId('creator-skill-language')?.value === 'en' ? ' tool proficiency:' : ' competencia con herramientas:')
-            : (byId('creator-skill-language')?.value === 'en' ? ' tool proficiencies:' : ' competencias con herramientas:'));
-        backgroundToolDetails.appendChild(heading);
-        definition.options.forEach(tool => {
-          const label = document.createElement('label');
-          label.className = 'creator-lineage-language-choice';
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.name = 'backgroundTools';
-          checkbox.value = tool.id;
-          checkbox.checked = values.includes(tool.id);
-          checkbox.disabled = used.has(tool.id) || (values.length >= definition.count && !checkbox.checked);
-          label.append(checkbox, document.createTextNode(' ' +
-            (byId('creator-skill-language')?.value === 'en' ? tool.name_en : tool.name_es)));
-          const item = document.createElement('li');
-          item.appendChild(label);
-          backgroundToolDetails.appendChild(item);
-          checkbox.addEventListener('change', () => {
-            const next = [...(selectedBackgroundTools[definition.key] || [])];
-            if (checkbox.checked) {
-              if (next.length >= definition.count) { checkbox.checked = false; return; }
-              next.push(tool.id);
-            } else {
-              const index = next.indexOf(tool.id);
-              if (index >= 0) next.splice(index, 1);
-            }
-            selectedBackgroundTools[definition.key] = next;
-            syncBackgroundToolValue();
-            renderBackgroundTools(background);
-          });
-        });
-        values.forEach(id => used.add(id));
-      });
-      if (!background) {
-        const item = document.createElement('li');
-        item.textContent = byId('creator-skill-language')?.value === 'en'
-          ? 'Choose a background to view its tool proficiencies.'
-          : 'Elegí un trasfondo para consultar sus competencias con herramientas.';
-        backgroundToolDetails.appendChild(item);
-      } else if (isCustomBackground) {
-        const item = document.createElement('li');
-        item.textContent = byId('creator-skill-language')?.value === 'en'
-          ? 'Custom Background has no special tool choices in this campaign.'
-          : 'Trasfondo personalizado no tiene elecciones especiales de herramientas en esta campaña.';
-        backgroundToolDetails.appendChild(item);
-      } else if (!fixed.length && !definitions.length) {
-        const item = document.createElement('li');
-        item.textContent = byId('creator-skill-language')?.value === 'en'
-          ? 'No tool proficiencies are recorded for this background.'
-          : 'Este trasfondo no tiene competencias con herramientas registradas.';
-        backgroundToolDetails.appendChild(item);
-      }
-      const selectedCount = Object.values(selectedBackgroundTools).reduce((sum, values) => sum + values.length, 0);
-      const requiredCount = definitions.reduce((sum, definition) => sum + definition.count, 0);
-      backgroundToolStatus.textContent = requiredCount
-        ? (byId('creator-skill-language')?.value === 'en'
-            ? 'Selected ' + selectedCount + ' of ' + requiredCount + ' optional tool proficiencies.'
-            : 'Elegiste ' + selectedCount + ' de ' + requiredCount + ' competencias opcionales.')
-        : fixed.length
-          ? (byId('creator-skill-language')?.value === 'en' ? 'Automatic tool proficiencies recorded.' : 'Competencias automáticas registradas.')
-          : '';
-      syncBackgroundToolValue();
-    };
-
-
-    const backgroundEquipmentDetails = byId('creator-background-equipment-list');
-    const backgroundEquipmentStatus = byId('creator-background-equipment-status');
-    const backgroundEquipmentSection = byId('creator-background-equipment-section');
-    const backgroundEquipmentInput = byId('creator-selected-background-equipment');
-    const selectedBackgroundEquipment = (() => {
-      try {
-        const parsed = JSON.parse(backgroundEquipmentInput?.value || '{}');
-        return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
-      } catch { return {}; }
-    })();
-    let activeBackgroundEquipmentValue = select.value || '';
-    const equipmentItemLabels = {
-      'horror trinket|vrgr':'amuleto de horror','abacus|phb':'ábaco','backpack|phb':'mochila','blanket|phb':'manta','book|phb':'libro',
-      'bullseye lantern|phb':'linterna de ojo de buey',"carpenter's tools|phb":'herramientas de carpintero',
-      'cart|phb':'carro','club|phb':'garrote','common clothes|phb':'ropa común',
-      'costume clothes|phb':'ropa de disfraz','crowbar|phb':'palanca','dagger|phb':'daga',
-      'dice set|phb':'juego de dados','disguise kit|phb':'kit de disfraz','feywild trinket|wbtw':'amuleto feérico',
-      'fine clothes|phb':'ropa elegante','fishing tackle|phb':'aparejos de pesca','herbalism kit|phb':'kit de herboristería',
-      'holy symbol|phb':'símbolo sagrado','horn|phb':'cuerno','hourglass|phb':'reloj de arena',
-      'hunting trap|phb':'trampa de caza','ink (1-ounce bottle)|phb':'tinta (frasco de 30 ml)',
-      'ink pen|phb':'pluma de tinta','iron pot|phb':'olla de hierro','magnifying glass|phb':'lupa',
-      'manacles|phb':'grilletes','map or scroll case|phb':'estuche para mapas o pergaminos',
-      "miner's pick|phb":'pico de minero',"monster hunter's pack|vrgr":'equipo de cazador de monstruos',
-      'mule|phb':'mula','net|phb':'red','playing card set|phb':'juego de cartas',
-      'pouch|phb':'bolsa','robes|phb':'túnicas','shovel|phb':'pala','signet ring|phb':'anillo de sello',
-      'silk rope (50 feet)|phb':'cuerda de seda (15 metros)','staff|phb':'bastón',
-      "traveler's clothes|phb":'ropa de viajero','trinket|phb':'objeto pequeño','two-person tent|phb':'tienda para dos personas',
-      'whetstone|phb':'piedra de afilar'
-    };
-    const equipmentSpecialLabels = {
-      'Badge or emblem of your faction':'Insignia o emblema de tu facción',
-      'Your inheritance':'Tu herencia',
-      'an inexpensive but unusual weapon of your choice (for example, a trident or net)':'Un arma inusual y económica a tu elección (por ejemplo, un tridente o una red)',
-      'book about plant identification':'Libro sobre identificación de plantas',
-      'book of arcane theory':'Libro de teoría arcana','book of poetry':'Libro de poesía',
-      'bottle of black ink':'Frasco de tinta negra','bronze discus':'Disco de bronce','brooch':'Broche',
-      'copy of a seminal faction text (or code-book for a covert faction)':'Copia de un texto fundamental de la facción (o libro de códigos para una facción encubierta)',
-      'deck of marked cards':'Mazo de cartas marcadas','fancy leather vest':'Chaleco de cuero elegante',
-      'favorite fishing lure':'Señuelo de pesca favorito','folded flag emblazoned with the symbol of your ship or company':'Bandera doblada con el símbolo de tu barco o compañía',
-      'folded parchment':'Pergamino doblado','half-empty bottle':'Botella medio vacía','ink':'Tinta',
-      'insignia of rank':'Insignia de rango','insignia of your rank':'Insignia de tu rango',
-      'leather ball':'Pelota de cuero','leather-bound diary':'Diario encuadernado en cuero',
-      'letter from a dead colleague posing a question you have not yet been able to answer':'Carta de un colega fallecido que plantea una pregunta que aún no has podido responder',
-      'letter of introduction from your guild':'Carta de presentación de tu gremio','lucky charm':'Amuleto de la suerte',
-      'maker\'s mark chisel used to mark your handiwork with the symbol of the clan of crafters you learned your skill from':'Cincel de marca personal para grabar tus trabajos con el símbolo del clan de artesanos que te enseñó',
-      'manifesto of your guiding philosophy':'Manifiesto de tu filosofía guía','map of the city you grew up in':'Mapa de la ciudad donde creciste',
-      'oiled leather wading boots':'Botas de vadeo de cuero aceitado','pair of leather boots':'Par de botas de cuero',
-      'past trophy':'Trofeo del pasado','pet mouse':'Ratón doméstico',
-      'poorly wrought maps from your homeland that depict where you are in Faerûn':'Mapas rudimentarios de tu tierra natal que muestran dónde te encuentras en Faerûn',
-      'portal key (such as a bag of golden tea leaves or the tooth of a planar beast)':'Llave de portal (como una bolsa de hojas de té doradas o el diente de una bestia planar)',
-      'prayer wheel':'Rueda de oración','purse':'Bolsa','quill':'Pluma',
-      'ring of keys to unknown locks':'Llavero con llaves de cerraduras desconocidas','school uniform':'Uniforme escolar',
-      'scroll of pedigree':'Pergamino genealógico','set of tattoos marking your loyalty to Uthgar and your tribal totem':'Tatuajes que representan tu lealtad a Uthgar y al tótem de tu tribu',
-      'set of weighted dice':'Juego de dados cargados','sheets of paper':'Hojas de papel',
-      'signet ring of an imaginary duke':'Anillo de sello de un duque imaginario',
-      'signet, banner, or seal representing your place or rank in the order':'Sello, estandarte o insignia que representa tu posición o rango en la orden',
-      'skin of fine zzar or wine':'Odre de zzar fino o vino','small knife':'Cuchillo pequeño','small penknife':'Navaja pequeña',
-      'small piece of jewelry in the style of your homeland\'s craftsmanship':'Pequeña joya del estilo artesanal de tu tierra natal',
-      'small stone that reminds you of home':'Piedra pequeña que te recuerda a tu hogar','sprig that reminds you of home':'Ramita que te recuerda a tu hogar',
-      'sticks of incense':'Varillas de incienso','stoppered bottles filled with colored liquid':'Frascos tapados llenos de líquido de colores',
-      'the favor of an admirer (love letter, lock of hair, or trinket)':'Recuerdo de un admirador (carta de amor, mechón de pelo u objeto pequeño)',
-      'token to remember your parents by':'Recuerdo de tus padres','totemic token':'Amuleto totémico',
-      'trophy from an animal you killed':'Trofeo de un animal que cazaste',
-      'trophy taken from a fallen enemy (a dagger, broken blade, or piece of a banner)':'Trofeo de un enemigo caído (una daga, hoja rota o parte de un estandarte)',
-      'uniform in the style of your unit and indicative of your rank':'Uniforme de tu unidad que indica tu rango',
-      'vestments':'Vestiduras'
-    };
-    const equipmentTypeLabels = {
-      instrumentMusical: ['instrumento musical','musical instrument','musical_instrument'],
-      toolArtisan: ['herramienta de artesano','artisan tool','artisan'],
-      setGaming: ['juego','gaming set','gaming_set']
-    };
-    const syncBackgroundEquipmentValue = () => {
-      if (backgroundEquipmentInput) backgroundEquipmentInput.value = JSON.stringify(selectedBackgroundEquipment);
-    };
-    window.addEventListener('creator-personarum:restore-background-equipment', (event) => {
-      const restored = event.detail?.selected && typeof event.detail.selected === 'object' && !Array.isArray(event.detail.selected)
-        ? event.detail.selected : {};
-      Object.keys(selectedBackgroundEquipment).forEach(key => delete selectedBackgroundEquipment[key]);
-      Object.assign(selectedBackgroundEquipment, restored);
-      activeBackgroundEquipmentValue = select.value || '';
-      const selectedOption = select.options[select.selectedIndex];
-      const background = selectedRows.find(item => item.id === selectedOption?.dataset.creatorCatalogId);
-      renderBackgroundEquipment(background || null);
-    });
-    const renderBackgroundEquipment = (background) => {
-      if (!backgroundEquipmentDetails || !backgroundEquipmentStatus || !backgroundEquipmentInput) return;
-      backgroundEquipmentDetails.replaceChildren();
-      if (activeBackgroundEquipmentValue !== (select.value || '')) {
-        Object.keys(selectedBackgroundEquipment).forEach(key => delete selectedBackgroundEquipment[key]);
-        activeBackgroundEquipmentValue = select.value || '';
-      }
-      const english = byId('creator-skill-language')?.value === 'en';
-      const isCustomBackground = background?.id === 'background.custom_background';
-      const groups = isCustomBackground ? [] : (Array.isArray(background?.startingEquipment) ? background.startingEquipment : []);
-      const renderBundle = (bundle, groupIndex, branch) => {
-        (Array.isArray(bundle) ? bundle : []).forEach((entry, itemIndex) => {
-          const key = 'equipment-' + groupIndex + '-' + branch + '-' + itemIndex;
-          if (typeof entry === 'string') {
-            const itemId = entry.split('|')[0].toLowerCase();
-            const label = english ? (itemId.charAt(0).toUpperCase() + itemId.slice(1)) : (equipmentItemLabels[entry.toLowerCase()] || entry.split('|')[0]);
-            appendEquipmentText(label, groupIndex, branch, itemIndex);
-            return;
-          }
-          if (!entry || typeof entry !== 'object') return;
-          if (entry.equipmentType) {
-            const type = equipmentTypeLabels[entry.equipmentType];
-            if (!type) return;
-            const category = type[2];
-            const options = toolRecords.filter(tool => tool.tool_category === category);
-            const selectLabel = document.createElement('label');
-            selectLabel.className = 'creator-field creator-field-wide';
-            const title = document.createElement('span');
-            title.textContent = english ? (entry.displayName || type[1]) : (type[0].charAt(0).toUpperCase() + type[0].slice(1));
-            const control = document.createElement('select');
-            control.name = 'backgroundEquipmentChoice';
-            control.dataset.equipmentChoice = key;
-            control.appendChild(new Option(english ? 'Choose…' : 'Elegí…', ''));
-            options.forEach(option => control.appendChild(new Option(english ? option.name_en : option.name_es, option.id)));
-            control.value = selectedBackgroundEquipment[key] || '';
-            control.addEventListener('change', () => { selectedBackgroundEquipment[key] = control.value; syncBackgroundEquipmentValue(); });
-            selectLabel.append(title, control);
-            const li = document.createElement('li'); li.appendChild(selectLabel); backgroundEquipmentDetails.appendChild(li);
-            return;
-          }
-          if (entry.special) {
-            const translated = equipmentSpecialLabels[entry.special] || entry.special;
-            let base = english ? entry.special : translated;
-            if (entry.containsValue) base += english ? ' (contains ' + (entry.containsValue / 100) + ' gp)' : ' (contiene ' + (entry.containsValue / 100) + ' po)';
-            const quantity = Number.isInteger(entry.quantity) && entry.quantity > 1 ? entry.quantity + ' × ' : '';
-            if (/weapon of your choice/.test(entry.special)) {
-              const wrap = document.createElement('label'); wrap.className = 'creator-field creator-field-wide';
-              const title = document.createElement('span'); title.textContent = (english ? 'Specify your unusual weapon' : 'Especificá el arma inusual') + (quantity ? ' (' + quantity.trim() + ')' : '');
-              const input = document.createElement('input'); input.type = 'text'; input.maxLength = 100;
-              input.value = selectedBackgroundEquipment[key] || '';
-              input.placeholder = english ? 'Weapon choice' : 'Arma elegida';
-              input.addEventListener('input', () => { selectedBackgroundEquipment[key] = input.value; syncBackgroundEquipmentValue(); });
-              wrap.append(title,input); const li=document.createElement('li');li.appendChild(wrap);backgroundEquipmentDetails.appendChild(li);
-            } else {
-              appendEquipmentText(quantity + base, groupIndex, branch, itemIndex);
-            }
-            return;
-          }
-          if (entry.item) {
-            const itemId = String(entry.item).toLowerCase();
-            const display = entry.displayName || itemId.split('|')[0];
-            const label = english ? display : (equipmentItemLabels[itemId] || display);
-            let text = label;
-            if (entry.containsValue) text += english ? ' (contains ' + (entry.containsValue / 100) + ' gp)' : ' (contiene ' + (entry.containsValue / 100) + ' po)';
-            appendEquipmentText(text, groupIndex, branch, itemIndex);
-            return;
-          }
-          if (entry.value !== undefined) appendEquipmentText((english ? 'Listed value: ' : 'Valor indicado: ') + entry.value, groupIndex, branch, itemIndex);
-        });
-      };
-      function appendEquipmentText(labelText, groupIndex, branch, itemIndex) {
-        const li = document.createElement('li');
-        li.textContent = labelText;
-        backgroundEquipmentDetails.appendChild(li);
-      }
-      groups.forEach((group, index) => {
-        if (!group || typeof group !== 'object') return;
-        if (Array.isArray(group._)) renderBundle(group._, index, '_');
-        const branches = Object.keys(group).filter(key => key !== '_' && Array.isArray(group[key]));
-        if (branches.length) {
-          const choiceKey = 'equipment-group-' + index;
-          const heading = document.createElement('li');
-          heading.textContent = english ? 'Choose one equipment option:' : 'Elegí una de estas opciones de equipo:';
-          backgroundEquipmentDetails.appendChild(heading);
-          branches.forEach(branch => {
-            const label = document.createElement('label');
-            label.className = 'creator-lineage-language-choice';
-            const radio = document.createElement('input');
-            radio.type = 'radio'; radio.name = choiceKey; radio.value = branch;
-            radio.checked = selectedBackgroundEquipment[choiceKey] === branch;
-            label.append(radio, document.createTextNode(' ' + (english ? 'Option ' + branch.toUpperCase() : 'Opción ' + branch.toUpperCase())));
-            const li = document.createElement('li'); li.appendChild(label); backgroundEquipmentDetails.appendChild(li);
-            radio.addEventListener('change', () => {
-              selectedBackgroundEquipment[choiceKey] = branch;
-              Object.keys(selectedBackgroundEquipment).filter(key => key.startsWith('equipment-' + index + '-' )).forEach(key => delete selectedBackgroundEquipment[key]);
-              syncBackgroundEquipmentValue(); renderBackgroundEquipment(background);
-            });
-          });
-          if (selectedBackgroundEquipment[choiceKey]) renderBundle(group[selectedBackgroundEquipment[choiceKey]], index, selectedBackgroundEquipment[choiceKey]);
-        }
-      });
-      if (!background) {
-        const li = document.createElement('li');
-        li.textContent = english ? 'Choose a background to view its starting equipment.' : 'Elegí un trasfondo para consultar su equipo inicial.';
-        backgroundEquipmentDetails.appendChild(li);
-      } else if (isCustomBackground) {
-        const li = document.createElement('li');
-        li.textContent = english ? 'Custom Background has no special equipment choices in this campaign.' : 'Trasfondo personalizado no tiene elecciones especiales de equipo en esta campaña.';
-        backgroundEquipmentDetails.appendChild(li);
-      } else if (!groups.length) {
-        const li = document.createElement('li');
-        li.textContent = english ? 'No starting equipment is recorded for this background.' : 'Este trasfondo no tiene equipo inicial registrado.';
-        backgroundEquipmentDetails.appendChild(li);
-      }
-      const choiceGroups = groups.filter(group => Object.keys(group || {}).some(key => key !== '_' && Array.isArray(group[key]))).length;
-      const chosenGroups = groups.filter((group,index) => !Object.keys(group || {}).some(key => key !== '_' && Array.isArray(group[key])) || Boolean(selectedBackgroundEquipment['equipment-group-' + index])).length;
-      backgroundEquipmentStatus.textContent = choiceGroups
-        ? (english ? 'Selected ' + chosenGroups + ' of ' + choiceGroups + ' equipment choices.' : 'Elegiste ' + chosenGroups + ' de ' + choiceGroups + ' elecciones de equipo.')
-        : (groups.length ? (english ? 'Starting equipment recorded.' : 'Equipo inicial registrado.') : '');
-      syncBackgroundEquipmentValue();
-    };
-
     const syncHiddenValue = () => {
       hiddenInput.value = JSON.stringify(selectedSkills);
     };
@@ -2210,6 +1857,360 @@
       window.dispatchEvent(new CustomEvent('creator-personarum:refresh-lineage-skills'));
     };
 
+    const backgroundToolDetails = byId('creator-background-tools-list');
+    const backgroundToolStatus = byId('creator-background-tools-status');
+    const backgroundToolsSection = byId('creator-background-tools-section');
+    const backgroundToolInput = byId('creator-selected-background-tools');
+    const toolRecords = records.filter(item => item.category === 'tool' && item.campaign_status === 'approved');
+    const toolByName = new Map(toolRecords.map(item => [normalize(item.name_en || item.name), item]));
+    const selectedBackgroundTools = (() => {
+      try {
+        const parsed = JSON.parse(backgroundToolInput?.value || '{}');
+        return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+      } catch {
+        return {};
+      }
+    })();
+    let activeBackgroundToolValue = select.value || '';
+    const syncBackgroundToolValue = () => {
+      if (backgroundToolInput) backgroundToolInput.value = JSON.stringify(selectedBackgroundTools);
+    };
+    const renderBackgroundTools = (background) => {
+      if (!backgroundToolDetails || !backgroundToolStatus || !backgroundToolInput) return;
+      backgroundToolDetails.replaceChildren();
+      if (activeBackgroundToolValue !== (select.value || '')) {
+        Object.keys(selectedBackgroundTools).forEach(key => delete selectedBackgroundTools[key]);
+        activeBackgroundToolValue = select.value || '';
+      }
+      const mechanics = background?.backgroundMechanics || {};
+      const isCustomBackground = background?.id === 'background.custom_background';
+      const fixedNames = isCustomBackground ? [] : (Array.isArray(mechanics.tool_proficiencies) ? mechanics.tool_proficiencies : []);
+      const fixed = [...new Set(fixedNames.map(name => toolByName.get(normalize(name))).filter(Boolean))];
+      const definitions = [];
+      const expandCategory = (category) => toolRecords.filter(tool => tool.tool_category === ({
+        anyArtisansTool: 'artisan',
+        anyGamingSet: 'gaming_set',
+        anyMusicalInstrument: 'musical_instrument',
+        'gaming set': 'gaming_set',
+        'musical instrument': 'musical_instrument'
+      })[category]);
+      const resolveChoice = (choice, groupIndex, choiceIndex) => {
+        const names = Array.isArray(choice.from) ? choice.from : [];
+        const categories = Array.isArray(choice.from_categories) ? choice.from_categories : [];
+        const options = new Map();
+        for (const name of names) {
+          const compact = String(name).replace(/\\s+/g, '');
+          if (['anyArtisansTool','anyGamingSet','anyMusicalInstrument'].includes(compact)) {
+            for (const tool of expandCategory(compact)) options.set(tool.id, tool);
+          } else if (['gaming set','musical instrument'].includes(normalize(name))) {
+            for (const tool of expandCategory(normalize(name))) options.set(tool.id, tool);
+          } else {
+            const tool = toolByName.get(normalize(name));
+            if (tool) options.set(tool.id, tool);
+          }
+        }
+        for (const category of categories) {
+          for (const tool of expandCategory(category)) options.set(tool.id, tool);
+        }
+        return {
+          key: 'tool-group-' + groupIndex + '-' + choiceIndex,
+          count: Number.isInteger(Number(choice.count)) && Number(choice.count) > 0 ? Number(choice.count) : 1,
+          options: [...options.values()].filter(tool => !fixed.some(item => item.id === tool.id))
+        };
+      };
+      if (!isCustomBackground) {
+        (Array.isArray(mechanics.tool_choices) ? mechanics.tool_choices : []).forEach((choice, index) => {
+          definitions.push(resolveChoice(choice, index, 0));
+        });
+      }
+      if (fixed.length) {
+        const item = document.createElement('li');
+        item.textContent = (byId('creator-skill-language')?.value === 'en' ? 'Granted automatically: ' : 'Concede automáticamente: ') +
+          fixed.map(tool => byId('creator-skill-language')?.value === 'en' ? tool.name_en : tool.name_es).join(', ') + '.';
+        backgroundToolDetails.appendChild(item);
+      }
+      const used = new Set(fixed.map(tool => tool.id));
+      definitions.forEach(definition => {
+        const values = Array.isArray(selectedBackgroundTools[definition.key])
+          ? selectedBackgroundTools[definition.key].filter(id => definition.options.some(tool => tool.id === id) && !used.has(id)).slice(0, definition.count)
+          : [];
+        selectedBackgroundTools[definition.key] = values;
+        const heading = document.createElement('li');
+        heading.textContent = (byId('creator-skill-language')?.value === 'en' ? 'Choose ' : 'Elegí ') +
+          definition.count + (definition.count === 1
+            ? (byId('creator-skill-language')?.value === 'en' ? ' tool proficiency:' : ' competencia con herramientas:')
+            : (byId('creator-skill-language')?.value === 'en' ? ' tool proficiencies:' : ' competencias con herramientas:'));
+        backgroundToolDetails.appendChild(heading);
+        definition.options.forEach(tool => {
+          const label = document.createElement('label');
+          label.className = 'creator-lineage-language-choice';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = 'backgroundTools';
+          checkbox.value = tool.id;
+          checkbox.checked = values.includes(tool.id);
+          checkbox.disabled = used.has(tool.id) || (values.length >= definition.count && !checkbox.checked);
+          label.append(checkbox, document.createTextNode(' ' +
+            (byId('creator-skill-language')?.value === 'en' ? tool.name_en : tool.name_es)));
+          const item = document.createElement('li');
+          item.appendChild(label);
+          backgroundToolDetails.appendChild(item);
+          checkbox.addEventListener('change', () => {
+            const next = [...(selectedBackgroundTools[definition.key] || [])];
+            if (checkbox.checked) {
+              if (next.length >= definition.count) { checkbox.checked = false; return; }
+              next.push(tool.id);
+            } else {
+              const index = next.indexOf(tool.id);
+              if (index >= 0) next.splice(index, 1);
+            }
+            selectedBackgroundTools[definition.key] = next;
+            syncBackgroundToolValue();
+            renderBackgroundTools(background);
+          });
+        });
+        values.forEach(id => used.add(id));
+      });
+      if (!background) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'Choose a background to view its tool proficiencies.'
+          : 'Elegí un trasfondo para consultar sus competencias con herramientas.';
+        backgroundToolDetails.appendChild(item);
+      } else if (isCustomBackground) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'Custom Background has no special tool choices in this campaign.'
+          : 'Trasfondo personalizado no tiene elecciones especiales de herramientas en esta campaña.';
+        backgroundToolDetails.appendChild(item);
+      } else if (!fixed.length && !definitions.length) {
+        const item = document.createElement('li');
+        item.textContent = byId('creator-skill-language')?.value === 'en'
+          ? 'No tool proficiencies are recorded for this background.'
+          : 'Este trasfondo no tiene competencias con herramientas registradas.';
+        backgroundToolDetails.appendChild(item);
+      }
+      const selectedCount = Object.values(selectedBackgroundTools).reduce((sum, values) => sum + values.length, 0);
+      const requiredCount = definitions.reduce((sum, definition) => sum + definition.count, 0);
+      backgroundToolStatus.textContent = requiredCount
+        ? (byId('creator-skill-language')?.value === 'en'
+            ? 'Selected ' + selectedCount + ' of ' + requiredCount + ' optional tool proficiencies.'
+            : 'Elegiste ' + selectedCount + ' de ' + requiredCount + ' competencias opcionales.')
+        : fixed.length
+          ? (byId('creator-skill-language')?.value === 'en' ? 'Automatic tool proficiencies recorded.' : 'Competencias automáticas registradas.')
+          : '';
+      syncBackgroundToolValue();
+    };
+
+
+    const backgroundEquipmentDetails = byId('creator-background-equipment-list');
+    const backgroundEquipmentStatus = byId('creator-background-equipment-status');
+    const backgroundEquipmentSection = byId('creator-background-equipment-section');
+    const backgroundEquipmentInput = byId('creator-selected-background-equipment');
+    const selectedBackgroundEquipment = (() => {
+      try {
+        const parsed = JSON.parse(backgroundEquipmentInput?.value || '{}');
+        return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+      } catch { return {}; }
+    })();
+    let activeBackgroundEquipmentValue = select.value || '';
+    const equipmentItemLabels = {
+      'horror trinket|vrgr':'amuleto de horror','abacus|phb':'ábaco','backpack|phb':'mochila','blanket|phb':'manta','book|phb':'libro',
+      'bullseye lantern|phb':'linterna de ojo de buey',"carpenter's tools|phb":'herramientas de carpintero',
+      'cart|phb':'carro','club|phb':'garrote','common clothes|phb':'ropa común',
+      'costume clothes|phb':'ropa de disfraz','crowbar|phb':'palanca','dagger|phb':'daga',
+      'dice set|phb':'juego de dados','disguise kit|phb':'kit de disfraz','feywild trinket|wbtw':'amuleto feérico',
+      'fine clothes|phb':'ropa elegante','fishing tackle|phb':'aparejos de pesca','herbalism kit|phb':'kit de herboristería',
+      'holy symbol|phb':'símbolo sagrado','horn|phb':'cuerno','hourglass|phb':'reloj de arena',
+      'hunting trap|phb':'trampa de caza','ink (1-ounce bottle)|phb':'tinta (frasco de 30 ml)',
+      'ink pen|phb':'pluma de tinta','iron pot|phb':'olla de hierro','magnifying glass|phb':'lupa',
+      'manacles|phb':'grilletes','map or scroll case|phb':'estuche para mapas o pergaminos',
+      "miner's pick|phb":'pico de minero',"monster hunter's pack|vrgr":'equipo de cazador de monstruos',
+      'mule|phb':'mula','net|phb':'red','playing card set|phb':'juego de cartas',
+      'pouch|phb':'bolsa','robes|phb':'túnicas','shovel|phb':'pala','signet ring|phb':'anillo de sello',
+      'silk rope (50 feet)|phb':'cuerda de seda (15 metros)','staff|phb':'bastón',
+      "traveler's clothes|phb":'ropa de viajero','trinket|phb':'objeto pequeño','two-person tent|phb':'tienda para dos personas',
+      'whetstone|phb':'piedra de afilar'
+    };
+    const equipmentSpecialLabels = {
+      'Badge or emblem of your faction':'Insignia o emblema de tu facción',
+      'Your inheritance':'Tu herencia',
+      'an inexpensive but unusual weapon of your choice (for example, a trident or net)':'Un arma inusual y económica a tu elección (por ejemplo, un tridente o una red)',
+      'book about plant identification':'Libro sobre identificación de plantas',
+      'book of arcane theory':'Libro de teoría arcana','book of poetry':'Libro de poesía',
+      'bottle of black ink':'Frasco de tinta negra','bronze discus':'Disco de bronce','brooch':'Broche',
+      'copy of a seminal faction text (or code-book for a covert faction)':'Copia de un texto fundamental de la facción (o libro de códigos para una facción encubierta)',
+      'deck of marked cards':'Mazo de cartas marcadas','fancy leather vest':'Chaleco de cuero elegante',
+      'favorite fishing lure':'Señuelo de pesca favorito','folded flag emblazoned with the symbol of your ship or company':'Bandera doblada con el símbolo de tu barco o compañía',
+      'folded parchment':'Pergamino doblado','half-empty bottle':'Botella medio vacía','ink':'Tinta',
+      'insignia of rank':'Insignia de rango','insignia of your rank':'Insignia de tu rango',
+      'leather ball':'Pelota de cuero','leather-bound diary':'Diario encuadernado en cuero',
+      'letter from a dead colleague posing a question you have not yet been able to answer':'Carta de un colega fallecido que plantea una pregunta que aún no has podido responder',
+      'letter of introduction from your guild':'Carta de presentación de tu gremio','lucky charm':'Amuleto de la suerte',
+      'maker\'s mark chisel used to mark your handiwork with the symbol of the clan of crafters you learned your skill from':'Cincel de marca personal para grabar tus trabajos con el símbolo del clan de artesanos que te enseñó',
+      'manifesto of your guiding philosophy':'Manifiesto de tu filosofía guía','map of the city you grew up in':'Mapa de la ciudad donde creciste',
+      'oiled leather wading boots':'Botas de vadeo de cuero aceitado','pair of leather boots':'Par de botas de cuero',
+      'past trophy':'Trofeo del pasado','pet mouse':'Ratón doméstico',
+      'poorly wrought maps from your homeland that depict where you are in Faerûn':'Mapas rudimentarios de tu tierra natal que muestran dónde te encuentras en Faerûn',
+      'portal key (such as a bag of golden tea leaves or the tooth of a planar beast)':'Llave de portal (como una bolsa de hojas de té doradas o el diente de una bestia planar)',
+      'prayer wheel':'Rueda de oración','purse':'Bolsa','quill':'Pluma',
+      'ring of keys to unknown locks':'Llavero con llaves de cerraduras desconocidas','school uniform':'Uniforme escolar',
+      'scroll of pedigree':'Pergamino genealógico','set of tattoos marking your loyalty to Uthgar and your tribal totem':'Tatuajes que representan tu lealtad a Uthgar y al tótem de tu tribu',
+      'set of weighted dice':'Juego de dados cargados','sheets of paper':'Hojas de papel',
+      'signet ring of an imaginary duke':'Anillo de sello de un duque imaginario',
+      'signet, banner, or seal representing your place or rank in the order':'Sello, estandarte o insignia que representa tu posición o rango en la orden',
+      'skin of fine zzar or wine':'Odre de zzar fino o vino','small knife':'Cuchillo pequeño','small penknife':'Navaja pequeña',
+      'small piece of jewelry in the style of your homeland\'s craftsmanship':'Pequeña joya del estilo artesanal de tu tierra natal',
+      'small stone that reminds you of home':'Piedra pequeña que te recuerda a tu hogar','sprig that reminds you of home':'Ramita que te recuerda a tu hogar',
+      'sticks of incense':'Varillas de incienso','stoppered bottles filled with colored liquid':'Frascos tapados llenos de líquido de colores',
+      'the favor of an admirer (love letter, lock of hair, or trinket)':'Recuerdo de un admirador (carta de amor, mechón de pelo u objeto pequeño)',
+      'token to remember your parents by':'Recuerdo de tus padres','totemic token':'Amuleto totémico',
+      'trophy from an animal you killed':'Trofeo de un animal que cazaste',
+      'trophy taken from a fallen enemy (a dagger, broken blade, or piece of a banner)':'Trofeo de un enemigo caído (una daga, hoja rota o parte de un estandarte)',
+      'uniform in the style of your unit and indicative of your rank':'Uniforme de tu unidad que indica tu rango',
+      'vestments':'Vestiduras'
+    };
+    const equipmentTypeLabels = {
+      instrumentMusical: ['instrumento musical','musical instrument','musical_instrument'],
+      toolArtisan: ['herramienta de artesano','artisan tool','artisan'],
+      setGaming: ['juego','gaming set','gaming_set']
+    };
+    const syncBackgroundEquipmentValue = () => {
+      if (backgroundEquipmentInput) backgroundEquipmentInput.value = JSON.stringify(selectedBackgroundEquipment);
+    };
+    window.addEventListener('creator-personarum:restore-background-equipment', (event) => {
+      const restored = event.detail?.selected && typeof event.detail.selected === 'object' && !Array.isArray(event.detail.selected)
+        ? event.detail.selected : {};
+      Object.keys(selectedBackgroundEquipment).forEach(key => delete selectedBackgroundEquipment[key]);
+      Object.assign(selectedBackgroundEquipment, restored);
+      activeBackgroundEquipmentValue = select.value || '';
+      const selectedOption = select.options[select.selectedIndex];
+      const background = selectedRows.find(item => item.id === selectedOption?.dataset.creatorCatalogId);
+      renderBackgroundEquipment(background || null);
+    });
+    const renderBackgroundEquipment = (background) => {
+      if (!backgroundEquipmentDetails || !backgroundEquipmentStatus || !backgroundEquipmentInput) return;
+      backgroundEquipmentDetails.replaceChildren();
+      if (activeBackgroundEquipmentValue !== (select.value || '')) {
+        Object.keys(selectedBackgroundEquipment).forEach(key => delete selectedBackgroundEquipment[key]);
+        activeBackgroundEquipmentValue = select.value || '';
+      }
+      const english = byId('creator-skill-language')?.value === 'en';
+      const isCustomBackground = background?.id === 'background.custom_background';
+      const groups = isCustomBackground ? [] : (Array.isArray(background?.startingEquipment) ? background.startingEquipment : []);
+      const renderBundle = (bundle, groupIndex, branch) => {
+        (Array.isArray(bundle) ? bundle : []).forEach((entry, itemIndex) => {
+          const key = 'equipment-' + groupIndex + '-' + branch + '-' + itemIndex;
+          if (typeof entry === 'string') {
+            const itemId = entry.split('|')[0].toLowerCase();
+            const label = english ? (itemId.charAt(0).toUpperCase() + itemId.slice(1)) : (equipmentItemLabels[entry.toLowerCase()] || entry.split('|')[0]);
+            appendEquipmentText(label, groupIndex, branch, itemIndex);
+            return;
+          }
+          if (!entry || typeof entry !== 'object') return;
+          if (entry.equipmentType) {
+            const type = equipmentTypeLabels[entry.equipmentType];
+            if (!type) return;
+            const category = type[2];
+            const options = toolRecords.filter(tool => tool.tool_category === category);
+            const selectLabel = document.createElement('label');
+            selectLabel.className = 'creator-field creator-field-wide';
+            const title = document.createElement('span');
+            title.textContent = english ? (entry.displayName || type[1]) : (type[0].charAt(0).toUpperCase() + type[0].slice(1));
+            const control = document.createElement('select');
+            control.name = 'backgroundEquipmentChoice';
+            control.dataset.equipmentChoice = key;
+            control.appendChild(new Option(english ? 'Choose…' : 'Elegí…', ''));
+            options.forEach(option => control.appendChild(new Option(english ? option.name_en : option.name_es, option.id)));
+            control.value = selectedBackgroundEquipment[key] || '';
+            control.addEventListener('change', () => { selectedBackgroundEquipment[key] = control.value; syncBackgroundEquipmentValue(); });
+            selectLabel.append(title, control);
+            const li = document.createElement('li'); li.appendChild(selectLabel); backgroundEquipmentDetails.appendChild(li);
+            return;
+          }
+          if (entry.special) {
+            const translated = equipmentSpecialLabels[entry.special] || entry.special;
+            let base = english ? entry.special : translated;
+            if (entry.containsValue) base += english ? ' (contains ' + (entry.containsValue / 100) + ' gp)' : ' (contiene ' + (entry.containsValue / 100) + ' po)';
+            const quantity = Number.isInteger(entry.quantity) && entry.quantity > 1 ? entry.quantity + ' × ' : '';
+            if (/weapon of your choice/.test(entry.special)) {
+              const wrap = document.createElement('label'); wrap.className = 'creator-field creator-field-wide';
+              const title = document.createElement('span'); title.textContent = (english ? 'Specify your unusual weapon' : 'Especificá el arma inusual') + (quantity ? ' (' + quantity.trim() + ')' : '');
+              const input = document.createElement('input'); input.type = 'text'; input.maxLength = 100;
+              input.value = selectedBackgroundEquipment[key] || '';
+              input.placeholder = english ? 'Weapon choice' : 'Arma elegida';
+              input.addEventListener('input', () => { selectedBackgroundEquipment[key] = input.value; syncBackgroundEquipmentValue(); });
+              wrap.append(title,input); const li=document.createElement('li');li.appendChild(wrap);backgroundEquipmentDetails.appendChild(li);
+            } else {
+              appendEquipmentText(quantity + base, groupIndex, branch, itemIndex);
+            }
+            return;
+          }
+          if (entry.item) {
+            const itemId = String(entry.item).toLowerCase();
+            const display = entry.displayName || itemId.split('|')[0];
+            const label = english ? display : (equipmentItemLabels[itemId] || display);
+            let text = label;
+            if (entry.containsValue) text += english ? ' (contains ' + (entry.containsValue / 100) + ' gp)' : ' (contiene ' + (entry.containsValue / 100) + ' po)';
+            appendEquipmentText(text, groupIndex, branch, itemIndex);
+            return;
+          }
+          if (entry.value !== undefined) appendEquipmentText((english ? 'Listed value: ' : 'Valor indicado: ') + entry.value, groupIndex, branch, itemIndex);
+        });
+      };
+      function appendEquipmentText(labelText, groupIndex, branch, itemIndex) {
+        const li = document.createElement('li');
+        li.textContent = labelText;
+        backgroundEquipmentDetails.appendChild(li);
+      }
+      groups.forEach((group, index) => {
+        if (!group || typeof group !== 'object') return;
+        if (Array.isArray(group._)) renderBundle(group._, index, '_');
+        const branches = Object.keys(group).filter(key => key !== '_' && Array.isArray(group[key]));
+        if (branches.length) {
+          const choiceKey = 'equipment-group-' + index;
+          const heading = document.createElement('li');
+          heading.textContent = english ? 'Choose one equipment option:' : 'Elegí una de estas opciones de equipo:';
+          backgroundEquipmentDetails.appendChild(heading);
+          branches.forEach(branch => {
+            const label = document.createElement('label');
+            label.className = 'creator-lineage-language-choice';
+            const radio = document.createElement('input');
+            radio.type = 'radio'; radio.name = choiceKey; radio.value = branch;
+            radio.checked = selectedBackgroundEquipment[choiceKey] === branch;
+            label.append(radio, document.createTextNode(' ' + (english ? 'Option ' + branch.toUpperCase() : 'Opción ' + branch.toUpperCase())));
+            const li = document.createElement('li'); li.appendChild(label); backgroundEquipmentDetails.appendChild(li);
+            radio.addEventListener('change', () => {
+              selectedBackgroundEquipment[choiceKey] = branch;
+              Object.keys(selectedBackgroundEquipment).filter(key => key.startsWith('equipment-' + index + '-' )).forEach(key => delete selectedBackgroundEquipment[key]);
+              syncBackgroundEquipmentValue(); renderBackgroundEquipment(background);
+            });
+          });
+          if (selectedBackgroundEquipment[choiceKey]) renderBundle(group[selectedBackgroundEquipment[choiceKey]], index, selectedBackgroundEquipment[choiceKey]);
+        }
+      });
+      if (!background) {
+        const li = document.createElement('li');
+        li.textContent = english ? 'Choose a background to view its starting equipment.' : 'Elegí un trasfondo para consultar su equipo inicial.';
+        backgroundEquipmentDetails.appendChild(li);
+      } else if (isCustomBackground) {
+        const li = document.createElement('li');
+        li.textContent = english ? 'Custom Background has no special equipment choices in this campaign.' : 'Trasfondo personalizado no tiene elecciones especiales de equipo en esta campaña.';
+        backgroundEquipmentDetails.appendChild(li);
+      } else if (!groups.length) {
+        const li = document.createElement('li');
+        li.textContent = english ? 'No starting equipment is recorded for this background.' : 'Este trasfondo no tiene equipo inicial registrado.';
+        backgroundEquipmentDetails.appendChild(li);
+      }
+      const choiceGroups = groups.filter(group => Object.keys(group || {}).some(key => key !== '_' && Array.isArray(group[key]))).length;
+      const chosenGroups = groups.filter((group,index) => !Object.keys(group || {}).some(key => key !== '_' && Array.isArray(group[key])) || Boolean(selectedBackgroundEquipment['equipment-group-' + index])).length;
+      backgroundEquipmentStatus.textContent = choiceGroups
+        ? (english ? 'Selected ' + chosenGroups + ' of ' + choiceGroups + ' equipment choices.' : 'Elegiste ' + chosenGroups + ' de ' + choiceGroups + ' elecciones de equipo.')
+        : (groups.length ? (english ? 'Starting equipment recorded.' : 'Equipo inicial registrado.') : '');
+      syncBackgroundEquipmentValue();
+    };
+
+
     const render = (restoreSkills) => {
       details.replaceChildren();
       const selectedValue = normalize(select.value);
@@ -2221,7 +2222,6 @@
       );
       renderBackgroundLanguages(background || null);
       renderBackgroundTools(background || null);
-      renderBackgroundEquipment(background || null);
 
       if (!selectedValue || !background) {
         selectedSkills = [];
