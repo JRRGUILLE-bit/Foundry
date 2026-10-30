@@ -197,7 +197,7 @@
             <div class="creator-divine-heading">
               <span class="creator-divine-kicker">ASIGNACIÓN DEL DIRECTOR // APPENDIX</span>
               <h2 id="creator-assignment-title">CARGÁ TU ASIGNACIÓN</h2>
-              <p>Elegí tu nombre y escribí el código privado que te dio la dirección. El nivel y los seis resultados se cargan desde la hoja de campaña.</p>
+              <p>Elegí tu nombre. El nivel y los seis resultados se cargarán cuando la dirección complete tu asignación. El navegador recordará tu elección; no necesitás ingresar ningún código.</p>
             </div>
             <label class="creator-field creator-field-wide" for="creator-assignment-player">
               <span>JUGADOR</span>
@@ -205,12 +205,8 @@
                 <option value="">Cargando jugadores asignados…</option>
               </select>
             </label>
-            <label class="creator-field creator-field-wide" for="creator-assignment-access-code">
-              <span>CÓDIGO PRIVADO DE ASIGNACIÓN</span>
-              <input id="creator-assignment-access-code" type="password" minlength="12" maxlength="80" autocomplete="off" autocapitalize="off" spellcheck="false" required>
-            </label>
             <button type="button" id="creator-assignment-load" class="creator-secondary-button" disabled>CARGAR NIVEL Y RESULTADOS</button>
-            <p id="creator-assignment-status" class="creator-deity-guidance" role="status" aria-live="polite">Las asignaciones se consultan en la hoja privada de la campaña.</p>
+            <p id="creator-assignment-status" class="creator-deity-guidance" role="status" aria-live="polite">Elegí tu nombre. El navegador recordará tu elección; no necesitás ingresar ningún código.</p>
             <div id="creator-assignment-summary" class="creator-assignment-summary" hidden>
               <p><strong>Nivel asignado por el Director:</strong> <span id="creator-assignment-level">—</span></p>
               <p><strong>Seis resultados asignados por el Director:</strong></p>
@@ -495,18 +491,18 @@
 
           <section id="creator-origin-section" data-creator-wizard-step="5" class="creator-divine-section creator-field-wide creator-origin-section" aria-labelledby="creator-origin-title">
             <div class="creator-divine-heading">
-              <span class="creator-divine-kicker">ATLAS CANÓNICO // PROCEDENCIA</span>
-              <h2 id="creator-origin-title">¿De qué región viene tu personaje?</h2>
-              <p>La elección es opcional en este borrador. La región y su contexto proceden del Atlas revisado; elegirla no limita los linajes disponibles ni determina por sí sola toda la historia del personaje.</p>
+              <span class="creator-divine-kicker">APPENDIX // ORIGEN IMPERIAL</span>
+              <h2 id="creator-origin-title">¿De qué ciudad del Imperio Gris viene tu personaje?</h2>
+              <p>Para esta mini campaña, la procedencia se limita a las diez ciudades del Imperio Gris. Los nombres y las descripciones se toman del Atlas revisado.</p>
             </div>
             <label class="creator-field" for="creator-origin-region">
-              <span>REGIÓN DE ORIGEN</span>
+              <span>CIUDAD DE ORIGEN</span>
               <select id="creator-origin-region" name="originRegion">
-                <option value="">Cargando regiones oficiales del Atlas…</option>
+                <option value="">Cargando las diez ciudades del Imperio Gris…</option>
               </select>
             </label>
             <p id="creator-origin-details" class="creator-deity-details" role="status" aria-live="polite">Cargando regiones oficiales del Atlas…</p>
-            <p class="creator-deity-guidance">Los pueblos mencionados en una región son información del mundo, no una lista cerrada de personajes permitidos. El Imperio Gris no restringe la creación por raza.</p>
+            <p class="creator-deity-guidance">Para Appendix solo se ofrecen ciudades del Imperio Gris. La ciudad de origen se elige por separado de la raza, la clase y las demás opciones del personaje.</p>
             <label class="creator-field creator-field-wide" for="creator-origin-story">
               <span>HISTORIA DE ORIGEN (OPCIONAL)</span>
               <textarea id="creator-origin-story" name="originStory" rows="4" maxlength="2000" placeholder="¿Qué vivió tu personaje antes de comenzar esta aventura?"></textarea>
@@ -571,7 +567,7 @@
     </section>
   </main>
 
-  <script src="creator-personarum.js?v=20261029-10"></script>
+  <script src="creator-personarum.js?v=20261029-11"></script>
   <script src="creator-personarum-catalog.js?v=20261029-3"></script>
   <script src="creator-personarum-sheets-config.js?v=20261029-2"></script>
   <script src="creator-personarum-sheets.js?v=20261029-1"></script>

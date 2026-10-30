@@ -5,23 +5,17 @@
   const PLAYER_NAME_STORAGE_KEY = 'banda.creator-personarum.player-name.v1';
   const ATLAS_SOURCE_FILE = 'fvtt-JournalEntry-atlas-revisado.json';
   const ZODIACAL_MARKS_SOURCE_FILE = 'creator-personarum-data/zodiacal-marks.json';
-  const ATLAS_REGION_SOURCES = [
-    { page: 'Continente de Abigur', tag: 'h2', group: 'Abigur' },
-    { page: 'Continente de Rala', tag: 'h2', group: 'Rala' },
-    { page: 'Continente de Tomun', tag: 'h2', group: 'Tomun' },
-    {
-      page: 'Geografía, Ríos y Zonas Salvajes',
-      tag: 'h3',
-      group: 'Zonas salvajes',
-      allow: [
-        'El Gran Bosque (interior de Rala)',
-        'La Franja Salvaje (costa este de Tomun)',
-        'La Meseta Olvidada (interior de Tomun)',
-        'Los Acantilados Negros (costa exterior de Tomun)'
-      ]
-    },
-    { page: 'Archipiélagos Oceánicos Principales', tag: 'h2', group: 'Archipiélagos' }
-  ];
+  const ATLAS_EMPIRE_PAGE = 'Continente de Abigur';
+  const ATLAS_EMPIRE_CITY_HEADING = 'Las diez ciudades del Imperio';
+  const PLAYER_ASSIGNMENT_STORAGE_KEY = 'banda.creator-personarum.assignment-player-id.v1';
+  const APPENDIX_PLAYERS = Object.freeze([
+    { playerId: 'gonza', playerName: 'Gonza' },
+    { playerId: 'maite', playerName: 'Maite' },
+    { playerId: 'nico', playerName: 'Nico' },
+    { playerId: 'rulo', playerName: 'Rulo' },
+    { playerId: 'santi', playerName: 'Santi' }
+  ]);
+
   const CREATION_MODES = {
     known: 'known-character',
     explore: 'world-explorer'
@@ -109,7 +103,6 @@
   const subraceSelect = document.getElementById('creator-subrace');
   const assignmentSection = document.getElementById('creator-assignment-section');
   const assignmentPlayerSelect = document.getElementById('creator-assignment-player');
-  const assignmentAccessCodeInput = document.getElementById('creator-assignment-access-code');
   const assignmentLoadButton = document.getElementById('creator-assignment-load');
   const assignmentStatus = document.getElementById('creator-assignment-status');
   const assignmentSummary = document.getElementById('creator-assignment-summary');
@@ -789,7 +782,9 @@
       throw new Error('El servicio no devolvió JSON legible.');
     }
     if (!result || result.ok !== true) {
-      throw new Error(String(result && result.error || 'No se pudo completar la consulta.'));
+      const serviceError = new Error(String(result && result.error || 'No se pudo completar la consulta.'));
+      serviceError.code = result && typeof result.code === 'string' ? result.code : 'SERVICE_ERROR';
+      throw serviceError;
     }
     return result;
   }
@@ -960,8 +955,6 @@
     assignmentRollList.replaceChildren();
     assignmentLevel.textContent = '—';
     renderAbilityRollAssignments(null);
-    assignmentAccessCodeInput.required = currentMode === CREATION_MODES.known;
-    assignmentAccessCodeInput.value = '';
     setAssignmentStatus(message, state);
   }
 
@@ -970,65 +963,55 @@
     assignmentRosterReady = false;
     assignmentPlayerSelect.disabled = true;
     assignmentLoadButton.disabled = true;
-    assignmentPlayerSelect.replaceChildren(new Option('Cargando jugadores asignados…', ''));
-    setAssignmentStatus('Consultando la lista de jugadores asignados…', 'pending');
-    try {
-      const result = await requestCreatorAssignmentService('listPlayers');
-      if (!Array.isArray(result.players)) throw new Error('La respuesta no contiene una lista de jugadores.');
-      assignmentPlayerSelect.replaceChildren(new Option('Elegí tu nombre…', ''));
-      result.players.forEach(player => {
-        if (!player || typeof player.playerId !== 'string' || typeof player.playerName !== 'string') return;
-        assignmentPlayerSelect.add(new Option(player.playerName, player.playerId));
-      });
-      if (assignmentPlayerSelect.options.length <= 1) {
-        assignmentRosterReady = true;
-        assignmentPlayerSelect.disabled = true;
-        setAssignmentStatus('Todavía no hay asignaciones activas completas en ASIGNACIONES. Consultá a la dirección.', 'error');
-        return;
+    assignmentPlayerSelect.replaceChildren(new Option('Elegí tu nombre…', ''));
+    APPENDIX_PLAYERS.forEach(player => assignmentPlayerSelect.add(new Option(player.playerName, player.playerId)));
+
+    let rememberedPlayerId = '';
+    try { rememberedPlayerId = window.localStorage.getItem(PLAYER_ASSIGNMENT_STORAGE_KEY) || ''; } catch (_) {}
+    const savedIsValid = APPENDIX_PLAYERS.some(player => player.playerId === rememberedPlayerId);
+    const draftPlayerId = draftAssignmentSnapshot && typeof draftAssignmentSnapshot.playerId === 'string'
+      ? draftAssignmentSnapshot.playerId : '';
+    const draftIsValid = APPENDIX_PLAYERS.some(player => player.playerId === draftPlayerId);
+    const preferredPlayerId = savedIsValid ? rememberedPlayerId : (draftIsValid ? draftPlayerId : '');
+
+    if (preferredPlayerId) {
+      assignmentPlayerSelect.value = preferredPlayerId;
+      const player = APPENDIX_PLAYERS.find(item => item.playerId === preferredPlayerId);
+      if (player) {
+        playerNameInput.value = player.playerName;
+        try {
+          window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, player.playerName);
+          window.localStorage.setItem(PLAYER_ASSIGNMENT_STORAGE_KEY, preferredPlayerId);
+        } catch (_) {}
+        setAssignmentStatus('Se recordó tu elección: ' + player.playerName + '. No necesitás ingresar ningún código.', 'idle');
       }
-      const preferredPlayerId = draftAssignmentSnapshot && typeof draftAssignmentSnapshot.playerId === 'string'
-        ? draftAssignmentSnapshot.playerId
-        : '';
-      if (preferredPlayerId && Array.from(assignmentPlayerSelect.options).some(option => option.value === preferredPlayerId)) {
-        assignmentPlayerSelect.value = preferredPlayerId;
-        setAssignmentStatus('Se recuperó el jugador del borrador. Volvé a ingresar tu código privado para verificar la asignación.', 'pending');
-      } else {
-        setAssignmentStatus('Elegí tu nombre y escribí el código privado que te dio la dirección.', 'idle');
-      }
-      assignmentRosterReady = true;
-      assignmentPlayerSelect.disabled = false;
-      assignmentLoadButton.disabled = false;
-    } catch (error) {
-      assignmentPlayerSelect.replaceChildren(new Option('No se pudo cargar la lista', ''));
-      assignmentPlayerSelect.disabled = true;
-      assignmentLoadButton.disabled = true;
-      setAssignmentStatus(
-        'No se pudo conectar con el servicio de asignaciones. La dirección debe actualizar y desplegar el Apps Script de Creator Personarum. ' +
-        (error && error.message ? error.message : ''),
-        'error'
-      );
+    } else {
+      setAssignmentStatus('Elegí tu nombre. El navegador recordará tu elección; no necesitás ingresar ningún código.', 'idle');
     }
+
+    assignmentRosterReady = true;
+    assignmentPlayerSelect.disabled = false;
+    assignmentLoadButton.disabled = !assignmentPlayerSelect.value;
   }
 
   async function loadSelectedPlayerAssignment() {
     if (currentMode !== CREATION_MODES.known) return;
     const playerId = assignmentPlayerSelect.value;
-    const accessCode = assignmentAccessCodeInput.value.trim();
-    if (!playerId) {
+    const selectedPlayer = APPENDIX_PLAYERS.find(player => player.playerId === playerId);
+    if (!playerId || !selectedPlayer) {
       setAssignmentStatus('Elegí tu nombre antes de cargar la asignación.', 'error');
       assignmentPlayerSelect.focus();
       return;
     }
-    if (!/^[A-Za-z0-9_-]{12,80}$/.test(accessCode)) {
-      setAssignmentStatus('Ingresá el código privado de 12 a 80 caracteres que te dio la dirección.', 'error');
-      assignmentAccessCodeInput.focus();
-      return;
-    }
+    try {
+      window.localStorage.setItem(PLAYER_ASSIGNMENT_STORAGE_KEY, playerId);
+      window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, selectedPlayer.playerName);
+    } catch (_) {}
 
     assignmentLoadButton.disabled = true;
-    setAssignmentStatus('Verificando la asignación…', 'pending');
+    setAssignmentStatus('Buscando la asignación de ' + selectedPlayer.playerName + '…', 'pending');
     try {
-      const result = await requestCreatorAssignmentService('lookupAssignment', { playerId, accessCode });
+      const result = await requestCreatorAssignmentService('lookupAssignment', { playerId });
       const assignment = result.assignment;
       if (!assignment || assignment.playerId !== playerId
           || typeof assignment.assignmentId !== 'string'
@@ -1036,42 +1019,53 @@
           || !Array.isArray(assignment.abilityRolls) || assignment.abilityRolls.length !== 6
           || assignment.abilityRolls.some(roll => !roll || typeof roll.rollId !== 'string' || !Number.isInteger(roll.value))
           || new Set(assignment.abilityRolls.map(roll => roll.rollId)).size !== 6) {
-        throw new Error('La asignación recibida no cumple el contrato esperado.');
+        throw new Error('La asignación todavía no contiene un nivel y seis resultados válidos.');
       }
-
       loadedPlayerAssignment = {
         schemaVersion: 1,
         assignmentId: assignment.assignmentId,
         playerId: assignment.playerId,
-        playerName: String(assignment.playerName || ''),
+        playerName: String(assignment.playerName || selectedPlayer.playerName),
         level: assignment.level,
         abilityRolls: assignment.abilityRolls.map(roll => ({ rollId: roll.rollId, value: roll.value }))
       };
       draftAssignmentSnapshot = JSON.parse(JSON.stringify(loadedPlayerAssignment));
-      assignmentAccessCodeInput.value = '';
-      assignmentAccessCodeInput.required = false;
       assignmentPlayerSelect.disabled = false;
       document.getElementById('creator-level').value = String(loadedPlayerAssignment.level);
       document.getElementById('creator-level').readOnly = true;
       playerNameInput.value = loadedPlayerAssignment.playerName;
       try {
         window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, loadedPlayerAssignment.playerName);
-      } catch (_) {
-        // The player identity remains available in this page session.
-      }
+        window.localStorage.setItem(PLAYER_ASSIGNMENT_STORAGE_KEY, playerId);
+      } catch (_) {}
       renderAssignmentRolls(loadedPlayerAssignment);
       renderAbilityRollAssignments(loadedPlayerAssignment, getSavedAbilityRollAssignments(loadedPlayerAssignment));
-      setAssignmentStatus('Asignación verificada. Nivel ' + loadedPlayerAssignment.level + ' y seis resultados cargados. Distribuí cada tirada entre una característica distinta.', 'saved');
+      setAssignmentStatus('Asignación de ' + loadedPlayerAssignment.playerName + ' cargada: nivel ' +
+        loadedPlayerAssignment.level + ' y seis resultados. Distribuí cada tirada entre una característica distinta.', 'saved');
       renderPreview(readFormValues());
       publishCreatorPersonarumDraftChange(readFormValues());
     } catch (error) {
-      clearLoadedPlayerAssignment(
-        'No se pudo validar la asignación. Revisá el jugador, el código y que la fila esté ACTIVA en ASIGNACIONES. ' +
-        (error && error.message ? error.message : ''),
-        'error'
-      );
+      const message = error && error.message ? error.message : 'No se pudo consultar la asignación.';
+      const code = error && error.code ? error.code : '';
+      if (['ASSIGNMENT_NOT_FOUND', 'INVALID_ASSIGNMENT_ROW'].includes(code)) {
+        clearLoadedPlayerAssignment(
+          'Tu elección quedó guardada. La dirección todavía debe completar la fila de ' +
+          selectedPlayer.playerName + ' en ASIGNACIONES con el nivel y los seis resultados.',
+          'pending'
+        );
+      } else if (['ASSIGNMENT_AUTH_FAILED', 'UNSUPPORTED_ACTION'].includes(code) || /código privado/i.test(message)) {
+        clearLoadedPlayerAssignment(
+          'Tu elección quedó guardada, pero el Apps Script publicado todavía usa la versión anterior. La dirección debe publicar la versión sin códigos.',
+          'error'
+        );
+      } else {
+        clearLoadedPlayerAssignment(
+          'Tu elección quedó guardada, pero no se pudo consultar la asignación de ' + selectedPlayer.playerName + '. ' + message,
+          'error'
+        );
+      }
     } finally {
-      assignmentLoadButton.disabled = !assignmentRosterReady;
+      assignmentLoadButton.disabled = !assignmentRosterReady || !assignmentPlayerSelect.value;
     }
   }
 
@@ -1098,7 +1092,7 @@
       draftEyebrow.textContent = 'CAMINO 02 // EXPLORAR EL MUNDO';
       draftTitle.textContent = 'DEJÁ QUE EL MUNDO TE INSPIRE';
       draftDescription.textContent = 'Primero registrá la pista que te despertó curiosidad. No hace falta que ya tengas nombre, linaje o clase definidos.';
-      originPromise.textContent = 'EN ESTE PASO: elegí una región oficial del Atlas para conectar tu primera pista con un lugar del mundo. Podés preparar una propuesta de historia de origen y editarla antes de guardar.';
+      originPromise.textContent = 'AL FINAL: elegí una de las diez ciudades del Imperio Gris para registrar la procedencia de tu personaje.';
       formStepLabel.textContent = '02 / PRIMERA IDEA';
       formModeLabel.textContent = 'EXPLORACIÓN';
       nameInput.placeholder = 'Podés dejarlo para más adelante';
@@ -1106,7 +1100,7 @@
       draftEyebrow.textContent = 'CAMINO 01 // DAR FORMA A TU IDEA';
       draftTitle.textContent = 'TU PERSONAJE, COMO LO IMAGINASTE';
       draftDescription.textContent = 'Contanos lo esencial de ese aventurero que ya tenés en la cabeza. Podés dejar detalles para después.';
-      originPromise.textContent = 'EN ESTE PASO: elegí una región oficial del Atlas para registrar la procedencia. Si querés, prepará una propuesta de historia de origen y editála antes de guardar.';
+      originPromise.textContent = 'AL FINAL: elegí una de las diez ciudades del Imperio Gris para registrar la procedencia de tu personaje.';
       formStepLabel.textContent = '02 / IDENTIDAD';
       formModeLabel.textContent = 'IDEA PROPIA';
       nameInput.placeholder = '¿Cómo lo llamarán las crónicas?';
@@ -1144,11 +1138,9 @@
     assignmentRosterReady = false;
     draftAssignmentSnapshot = null;
     assignmentSection.hidden = currentMode !== CREATION_MODES.known;
-    assignmentPlayerSelect.replaceChildren(new Option('Cargando jugadores asignados…', ''));
+    assignmentPlayerSelect.replaceChildren(new Option('Elegí tu nombre…', ''));
     assignmentPlayerSelect.disabled = true;
     assignmentLoadButton.disabled = true;
-    assignmentAccessCodeInput.required = currentMode === CREATION_MODES.known;
-    assignmentAccessCodeInput.value = '';
     assignmentSummary.hidden = true;
     assignmentRollList.replaceChildren();
     assignmentLevel.textContent = '—';
@@ -1253,44 +1245,40 @@
   }
 
   function parseAtlasRegions(atlas) {
-    if (!atlas || !Array.isArray(atlas.pages)) {
-      throw new Error('El archivo no contiene páginas válidas del Atlas.');
-    }
+    if (!atlas || !Array.isArray(atlas.pages)) throw new Error('El archivo no contiene páginas válidas del Atlas.');
+    const page = atlas.pages.find(item => item.name === ATLAS_EMPIRE_PAGE);
+    const content = page && page.text && typeof page.text.content === 'string' ? page.text.content : '';
+    if (!content) throw new Error('El Atlas no contiene la página de Abigur requerida para Appendix.');
+    const heading = Array.from(content.matchAll(/<h[1-6]\b[^>]*>[\s\S]*?<\/h[1-6]>/gi))
+      .find(match => stripAtlasMarkup(match[0]) === ATLAS_EMPIRE_CITY_HEADING);
+    if (!heading) throw new Error('El Atlas no contiene la lista canónica de las diez ciudades del Imperio Gris.');
+    const listMatch = content.slice(heading.index + heading[0].length).match(/<ul\b[^>]*>([\s\S]*?)<\/ul>/i);
+    if (!listMatch) throw new Error('El Atlas no contiene el listado de ciudades del Imperio Gris.');
 
-    const regions = [];
-    for (const source of ATLAS_REGION_SOURCES) {
-      const page = atlas.pages.find(item => item.name === source.page);
-      if (!page || !page.text || typeof page.text.content !== 'string') continue;
-      const content = page.text.content;
-      const headings = Array.from(content.matchAll(/<(h[1-6])\b[^>]*>([\s\S]*?)<\/\1>/gi));
-      headings.forEach((heading, index) => {
-        const tag = heading[1].toLowerCase();
-        if (tag !== source.tag) return;
-        const name = stripAtlasMarkup(heading[2]);
-        if (!name || (source.allow && !source.allow.includes(name))) return;
-        const nextHeading = headings[index + 1];
-        const sectionStart = heading.index + heading[0].length;
-        const sectionEnd = nextHeading ? nextHeading.index : content.length;
-        const summary = stripAtlasMarkup(content.slice(sectionStart, sectionEnd)).slice(0, 680);
-        regions.push({
-          id: slugifyRegion(source.group + '-' + name),
-          name,
-          group: source.group,
-          summary,
-          sourcePage: source.page
-        });
-      });
-    }
+    const cities = Array.from(listMatch[1].matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/gi))
+      .map(match => {
+        const itemHtml = match[1];
+        const nameMatch = itemHtml.match(/<strong\b[^>]*>([\s\S]*?)<\/strong>/i);
+        if (!nameMatch) return null;
+        const name = stripAtlasMarkup(nameMatch[1]);
+        const summary = stripAtlasMarkup(itemHtml.slice(nameMatch.index + nameMatch[0].length).replace(/^\s*:\s*/, ''));
+        if (!name || !summary) return null;
+        return { id: slugifyRegion('Imperio Gris-' + name), name, group: 'Imperio Gris', summary, sourcePage: ATLAS_EMPIRE_PAGE };
+      }).filter(Boolean);
 
-    if (!regions.length) {
-      throw new Error('No se encontraron regiones reconocidas en el Atlas.');
+    const expectedCities = [
+      'Aetheluria', 'Portus Varia', 'Valeriam', 'Arkenum', 'Sancturia',
+      'Praetorix', 'Lucisburgum', 'Archivaea', 'Ferrum-Corvinium', 'Aequitania'
+    ];
+    if (cities.length !== expectedCities.length || cities.some((city, index) => city.name !== expectedCities[index])) {
+      throw new Error('La lista de ciudades del Imperio Gris no coincide con las diez ciudades del canon del Atlas.');
     }
-    return regions;
+    return cities;
   }
 
   function populateOriginRegions(regions) {
     const previousValue = originRegionSelect.value;
-    originRegionSelect.replaceChildren(new Option('Aún sin elegir (opcional)', ''));
+    originRegionSelect.replaceChildren(new Option('Elegí una ciudad del Imperio Gris…', ''));
     let currentGroup = '';
     let groupElement = null;
 
@@ -1318,12 +1306,8 @@
   }
 
   function alignInfernalExplorationOrigin(force) {
-    if (currentMode !== CREATION_MODES.explore || deitySelect.value !== 'inferno' || !atlasLoaded) return;
-    const greyEmpire = atlasRegions.find(region => region.name === 'Imperium Ravum (el Imperio Gris)');
-    if (!greyEmpire || (!force && originRegionSelect.value)) return;
-    originRegionSelect.value = greyEmpire.id;
-    updateOriginDetails();
-    renderPreview(readFormValues());
+    // Choosing the Inferno does not choose a city; Appendix players select their Grey Empire city explicitly.
+    if (currentMode !== CREATION_MODES.explore || deitySelect.value !== 'inferno') return;
   }
 
   function updateOriginDetails() {
@@ -1333,19 +1317,19 @@
       return;
     }
     if (atlasLoading) {
-      originDetails.textContent = 'Cargando regiones oficiales del Atlas…';
+      originDetails.textContent = 'Cargando las diez ciudades del Imperio Gris desde el Atlas…';
       return;
     }
     if (!atlasLoaded) {
-      originDetails.textContent = 'El Atlas oficial no está disponible ahora. Podés continuar el borrador sin inventar una procedencia.';
+      originDetails.textContent = 'No se pudo validar la lista de ciudades del Imperio Gris desde el Atlas.';
       return;
     }
-    originDetails.textContent = 'La procedencia es opcional. Elegí una región para consultar su contexto del Atlas.';
+    originDetails.textContent = 'Elegí una de las diez ciudades del Imperio Gris. El Appendix no ofrece ciudades de otros territorios.';
   }
 
   async function loadAtlasRegions() {
     atlasLoading = true;
-    originDetails.textContent = 'Cargando regiones oficiales del Atlas…';
+    originDetails.textContent = 'Cargando las diez ciudades del Imperio Gris desde el Atlas…';
     try {
       const response = await window.fetch(ATLAS_SOURCE_FILE, { cache: 'no-store' });
       if (!response.ok) throw new Error('No se pudo leer el Atlas oficial.');
@@ -1365,7 +1349,7 @@
       originRegionSelect.replaceChildren(new Option(
         preservedId && savedDraft.originRegionName
           ? savedDraft.originRegionName + ' (borrador guardado; Atlas no disponible)'
-          : 'Atlas no disponible — procedencia pendiente',
+          : 'Atlas no disponible — ciudad pendiente',
         preservedId
       ));
       originRegionSelect.value = preservedId;
@@ -1767,8 +1751,7 @@
       document.getElementById('creator-level').readOnly = currentMode === CREATION_MODES.known;
       assignmentSummary.hidden = true;
       if (draftAssignmentSnapshot && currentMode === CREATION_MODES.known) {
-        assignmentAccessCodeInput.required = true;
-        setAssignmentStatus('El borrador conserva la asignación anterior, pero para validarla de nuevo necesitás el código privado.', 'pending');
+        setAssignmentStatus('El borrador conserva la asignación anterior. Elegí tu nombre para volver a cargar el nivel y las tiradas; no necesitás ingresar ningún código.', 'pending');
       }
       chainFamiliarSelect.value = draft.characterClass === 'Brujo'
         && Number(draft.level || 1) >= 3
@@ -1930,6 +1913,12 @@
         'error'
       );
       focusCreatorWizardControl(levelInput);
+      return false;
+    }
+
+    if (options.allowIncomplete !== true && !originRegionSelect.value) {
+      setDraftStatus('Elegí una de las diez ciudades del Imperio Gris antes de finalizar o exportar el personaje.', 'error');
+      focusCreatorWizardControl(originRegionSelect);
       return false;
     }
 
@@ -2565,9 +2554,25 @@
     abilityAssignmentSelects[key]?.addEventListener('change', updateAbilityRollAssignmentOptions);
   });
   assignmentPlayerSelect?.addEventListener('change', () => {
+    const playerId = assignmentPlayerSelect.value;
+    const selectedPlayer = APPENDIX_PLAYERS.find(player => player.playerId === playerId);
     draftAssignmentSnapshot = null;
-    clearLoadedPlayerAssignment('Ingresá el código privado del jugador seleccionado y volvé a cargar la asignación.', 'pending');
-    assignmentLoadButton.disabled = !assignmentRosterReady;
+    try {
+      if (selectedPlayer) {
+        window.localStorage.setItem(PLAYER_ASSIGNMENT_STORAGE_KEY, playerId);
+        window.localStorage.setItem(PLAYER_NAME_STORAGE_KEY, selectedPlayer.playerName);
+        playerNameInput.value = selectedPlayer.playerName;
+      } else {
+        window.localStorage.removeItem(PLAYER_ASSIGNMENT_STORAGE_KEY);
+      }
+    } catch (_) {}
+    clearLoadedPlayerAssignment(
+      selectedPlayer
+        ? 'Elección guardada en este navegador: ' + selectedPlayer.playerName + '. No necesitás ingresar ningún código.'
+        : 'Elegí tu nombre. El navegador recordará tu elección; no necesitás ingresar ningún código.',
+      'idle'
+    );
+    assignmentLoadButton.disabled = !assignmentRosterReady || !playerId;
   });
 
   knownPathButton.addEventListener('click', () => showDraftStep(CREATION_MODES.known, ''));

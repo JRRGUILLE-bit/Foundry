@@ -49,7 +49,11 @@ assert.equal(dragonbornSpecies.ancestry_choices.length, 10, 'Dragonborn must exp
 assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'class').length, 13, 'Only approved campaign classes may be offered');
 assert.equal(campaignOptionsCatalog.records.filter(record => record.category === 'subclass').length, 39, 'Only approved and verified subclasses may be offered');
 assert.match(page, /id="creator-assignment-player"/, 'The known-character path must expose the Director-assigned player selector');
-assert.match(page, /id="creator-assignment-access-code"/, 'The player must authenticate their assignment with a private code');
+assert.doesNotMatch(page, /creator-assignment-access-code|CÓDIGO PRIVADO DE ASIGNACIÓN/i, 'Players must not enter an assignment code');
+assert.match(runtime, /PLAYER_ASSIGNMENT_STORAGE_KEY/, 'The browser must remember the selected player ID');
+assert.match(runtime, /playerName: 'Gonza'[\s\S]*playerName: 'Maite'[\s\S]*playerName: 'Nico'[\s\S]*playerName: 'Rulo'[\s\S]*playerName: 'Santi'/, 'Appendix roster must be alphabetical');
+assert.match(runtime, /ATLAS_EMPIRE_CITY_HEADING = 'Las diez ciudades del Imperio'/, 'Appendix origin choices must come from the Atlas city list');
+assert.match(page, /¿De qué ciudad del Imperio Gris viene tu personaje\?/, 'The origin UI must offer Grey Empire cities only');
 assert.match(page, /id="creator-assignment-load"/, 'The player must explicitly load their assigned level and roll pool');
 assert.match(page, /id="creator-assignment-rolls"/, 'The six director-assigned roll results must be displayed');
 for (const key of ['str', 'dex', 'con', 'int', 'wis', 'cha']) {
@@ -67,7 +71,7 @@ assert.match(runtime, /function loadAssignmentPlayers\(\)/, 'The creator must lo
 assert.match(runtime, /function loadSelectedPlayerAssignment\(\)/, 'The creator must retrieve an assignment using the per-player code');
 assert.match(runtime, /if \(!loadedPlayerAssignment\)/, 'Known-character progression and finalization must require a freshly verified assignment');
 assert.match(runtime, /playerAssignment: values\.playerAssignment \|\| null/, 'Drafts must preserve the assigned level and six roll results without storing the access code');
-assert.match(page, /creator-personarum.js\?v=20261029-10/, 'The ability-allocation changes must invalidate the runtime script cache');
+assert.match(page, /creator-personarum.js\?v=20261029-11/, 'The player roster and city-only Appendix changes must invalidate the runtime script cache');
 assert.match(page, /creator-personarum.css\?v=20261029-3/, 'The ability-allocation panel must invalidate the stylesheet cache');
 assert.match(page, /id="creator-race"/, 'The creator must ask for the race family first');
 assert.match(page, /id="creator-subrace"/, 'Variants must appear in a second selector after choosing a race family');
@@ -129,15 +133,15 @@ assert.match(page, /id="creator-explore-step"/, 'Exploration mode must have a se
 assert.match(page, /name="creator-exploration-focus"/, 'Exploration mode must collect an initial interest');
 assert.match(page, /id="creator-explore-continue"/, 'Exploration mode must have a continue control');
 assert.match(page, /creator-origin-promise/, 'The flow must set expectations for the eventual origin reveal');
-assert.match(page, /La procedencia se elige desde las regiones del Atlas oficial/, 'Exploration should point to canonical regions already loaded from the Atlas');
+assert.match(page, /La procedencia se limita a las diez ciudades del Imperio Gris/, 'Appendix origins must be limited to Grey Empire cities');
 assert.match(page, /id="creator-origin-region"/, 'The origin selector must expose a region choice sourced from the canonical Atlas');
 assert.match(page, /id="creator-preview-origin-row"/, 'Selected origin must be reflected in the preview');
 assert.match(runtime, /fvtt-JournalEntry-atlas-revisado\.json/, 'Origin choices must be loaded from the canonical Atlas export');
 assert.match(runtime, /function parseAtlasRegions\(atlas\)/, 'Atlas parsing must be a distinct testable transformation');
 assert.match(runtime, /function getSelectedOriginRegion\(\)/, 'The selected region should resolve to canonical details');
-assert.match(runtime, /function alignInfernalExplorationOrigin\(force\)/, 'Infernal faith in exploration must follow its canonical Grey Empire association');
-assert.match(runtime, /region\.name === 'Imperium Ravum \(el Imperio Gris\)'/, 'Infernal exploration association must resolve to the Atlas Grey Empire entry');
-assert.match(runtime, /alignInfernalExplorationOrigin\(true\)/, 'Choosing the Inferno option in exploration should select its Grey Empire origin');
+assert.match(runtime, /function alignInfernalExplorationOrigin\(force\)/, 'Infernal faith must not select a city automatically');
+assert.match(runtime, /Choosing the Inferno does not choose a city/, 'Infernal faith must leave city choice to the player');
+assert.match(runtime, /function parseAtlasRegions\(atlas\)/, 'Only Atlas Grey Empire cities may be offered');
 assert.match(runtime, /atlasLoading/, 'The Atlas loading state must not be confused with an Atlas fetch failure');
 assert.match(runtime, /restoreDraft\(\);\s*setKnownCharacterWizardStep\(currentKnownWizardStep, false\);\s*(?:if \(!isExplorer\) void loadAssignmentPlayers\(\);\s*)?alignInfernalExplorationOrigin\(false\);\s*updateOriginDetails\(\);/, 'Restoring a draft must restore the wizard stage and refresh the origin summary and canonical infernal association');
 assert.match(runtime, /originRegionName: values\.originRegionName/, 'Saved/exported drafts must preserve origin metadata');
@@ -200,7 +204,9 @@ assert.match(workflow, /creator-personarum-qa\.js/, 'Browser QA workflow must ru
 const assignmentBackend = read('apps-script/creator-personarum/Code.gs');
 assert.match(assignmentBackend, /function setupCreatorAssignments\(\)/, 'The Director must be able to create the ASIGNACIONES tab from the linked spreadsheet');
 assert.match(assignmentBackend, /function readActiveAssignments_\(\)/, 'The Apps Script must read active assignments from the dedicated tab');
-assert.match(assignmentBackend, /ASSIGNMENT_AUTH_FAILED/, 'An invalid per-player code must fail without disclosing any rolls');
+assert.match(assignmentBackend, /ASSIGNMENT_NOT_FOUND/, 'A player without a complete active assignment must get a not-ready response');
+assert.doesNotMatch(assignmentBackend, /validAssignmentAccessCode_|ASSIGNMENT_AUTH_FAILED/, 'Retrieving an assignment must not require a player code');
+assert.match(assignmentBackend, /function findCreatorSpreadsheet_\(\)/, 'Apps Script must resolve the sheet in its standalone project');
 
 const assignmentVm = require('node:vm');
 const assignmentCache = new Map();
@@ -246,6 +252,7 @@ class AssignmentMockSheet {
 class AssignmentMockSpreadsheet {
   constructor() { this.sheets = new Map(); this.id = 'creator-test-spreadsheet'; }
   getId() { return this.id; }
+  getName() { return 'Firmamentum Velatum - Creaciones'; }
   getSheetByName(name) { return this.sheets.get(name) || null; }
   insertSheet(name) {
     if (this.sheets.has(name)) throw new Error('Sheet already exists: ' + name);
@@ -265,6 +272,20 @@ const assignmentSandbox = {
   SpreadsheetApp: {
     getActiveSpreadsheet: () => assignmentSpreadsheet,
     openById: id => id === assignmentSpreadsheet.id ? assignmentSpreadsheet : null
+  },
+  MimeType: { GOOGLE_SHEETS: 'application/vnd.google-apps.spreadsheet' },
+  DriveApp: {
+    getFilesByName: name => {
+      const files = name === 'Firmamentum Velatum - Creaciones'
+        ? [{
+            getName: () => 'Firmamentum Velatum - Creaciones',
+            getId: () => assignmentSpreadsheet.id,
+            getMimeType: () => 'application/vnd.google-apps.spreadsheet'
+          }]
+        : [];
+      let index = 0;
+      return { hasNext: () => index < files.length, next: () => files[index++] };
+    }
   },
   PropertiesService: {
     getScriptProperties: () => ({
@@ -289,29 +310,28 @@ assignmentVm.runInContext(assignmentBackend, assignmentSandbox, { filename: 'app
 assert.equal(assignmentSandbox.setupCreatorAssignments().ok, true, 'Setup must create the Director assignment table');
 const assignmentsSheet = assignmentSpreadsheet.getSheetByName('ASIGNACIONES');
 assert.equal(assignmentsSheet.getLastRow(), 1, 'Setup must not invent any player assignment');
-assignmentsSheet.appendRow(['ACTIVA', 'appendix-p1', 'player-1', 'Jugador uno', 'APPENDIX-PRIVATE-CODE-1', 3, 16, 15, 14, 12, 10, 8]);
-assignmentsSheet.appendRow(['INACTIVA', 'appendix-p2', 'player-2', 'Jugador dos', 'APPENDIX-PRIVATE-CODE-2', 1, 10, 10, 10, 10, 10, 10]);
+assignmentsSheet.appendRow(['ACTIVA', 'appendix-p1', 'maite', 'Maite', '', 3, 16, 15, 14, 12, 10, 8]);
+assignmentsSheet.appendRow(['INACTIVA', 'appendix-p2', 'gonza', 'Gonza', '', 1, 10, 10, 10, 10, 10, 10]);
 const assignmentPost = payload => JSON.parse(assignmentSandbox.doPost({
   postData: { contents: JSON.stringify({ protocolVersion: 1, ...payload }) }
 }).getContent());
 const publicRoster = assignmentPost({ action: 'listPlayers' });
 assert.equal(publicRoster.ok, true);
-assert.deepEqual(JSON.parse(JSON.stringify(publicRoster.players)), [{ playerId: 'player-1', playerName: 'Jugador uno' }]);
+assert.deepEqual(JSON.parse(JSON.stringify(publicRoster.players)), [{ playerId: 'maite', playerName: 'Maite' }]);
 assert.equal('level' in publicRoster.players[0], false);
 assert.equal('abilityRolls' in publicRoster.players[0], false);
-assert.equal('accessCode' in publicRoster.players[0], false);
-const validAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'player-1', accessCode: 'APPENDIX-PRIVATE-CODE-1' });
+const validAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'maite' });
 assert.equal(validAssignment.ok, true);
+assert.equal(validAssignment.assignment.playerName, 'Maite');
 assert.equal(validAssignment.assignment.level, 3);
 assert.deepEqual(JSON.parse(JSON.stringify(validAssignment.assignment.abilityRolls.map(roll => roll.value))), [16, 15, 14, 12, 10, 8]);
 assert.equal(new Set(validAssignment.assignment.abilityRolls.map(roll => roll.rollId)).size, 6);
 assert.equal('accessCode' in validAssignment.assignment, false);
-const invalidAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'player-1', accessCode: 'APPENDIX-WRONG-CODE' });
-assert.equal(invalidAssignment.ok, false);
-assert.equal(invalidAssignment.code, 'ASSIGNMENT_AUTH_FAILED');
-assert.equal('assignment' in invalidAssignment, false);
-const inactiveAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'player-2', accessCode: 'APPENDIX-PRIVATE-CODE-2' });
-assert.equal(inactiveAssignment.code, 'ASSIGNMENT_AUTH_FAILED');
+const missingAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'rulo' });
+assert.equal(missingAssignment.ok, false);
+assert.equal(missingAssignment.code, 'ASSIGNMENT_NOT_FOUND');
+const inactiveAssignment = assignmentPost({ action: 'lookupAssignment', playerId: 'gonza' });
+assert.equal(inactiveAssignment.code, 'ASSIGNMENT_NOT_FOUND');
 
 assert.equal(zodiacalMarksCatalog.source_of_truth.repository, 'JRRGUILLE-bit/Firmamentum-Velatum', 'Zodiac marks must cite the campaign repository as source of truth');
 assert.equal(zodiacalMarksCatalog.source_of_truth.status, 'campaign_canon', 'Zodiac marks must be marked as campaign canon');

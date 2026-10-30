@@ -2,6 +2,7 @@
 
 const CREATOR_PERSONARUM_SHEETS = Object.freeze({
   version: 1,
+  spreadsheetName: "Firmamentum Velatum - Creaciones",
   spreadsheetIdProperty: "CREATOR_SPREADSHEET_ID",
   legacySpreadsheetIdProperty: "CREATOR_PERSONARUM_SPREADSHEET_ID",
   registrySheetName: "REGISTRO",
@@ -51,10 +52,7 @@ function onOpen() {
 
 /** Run once from the existing Creator Personarum spreadsheet. Never clears submitted rows. */
 function setupCreatorSubmissions() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  if (!spreadsheet) {
-    throw new Error("Abrí este proyecto de Apps Script desde la hoja Firmamentum Velatum - Creaciones.");
-  }
+  const spreadsheet = findCreatorSpreadsheet_();
   const register = ensureRegisterSheet_(spreadsheet);
   PropertiesService.getScriptProperties().setProperty(
     CREATOR_PERSONARUM_SHEETS.spreadsheetIdProperty,
@@ -73,10 +71,7 @@ function setupCreatorSubmissions() {
 
 /** Create the Director's assignment tab without clearing any existing data. */
 function setupCreatorAssignments() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  if (!spreadsheet) {
-    throw new Error("Abrí este proyecto desde la hoja Firmamentum Velatum - Creaciones.");
-  }
+  const spreadsheet = findCreatorSpreadsheet_();
   const sheet = ensureAssignmentsSheet_(spreadsheet);
   PropertiesService.getScriptProperties().setProperty(
     CREATOR_PERSONARUM_SHEETS.spreadsheetIdProperty,
@@ -87,7 +82,7 @@ function setupCreatorAssignments() {
     service: "Creator Personarum",
     assignmentsSheet: sheet.getName(),
     headers: CREATOR_PERSONARUM_SHEETS.assignmentHeaders.slice(),
-    note: "Completá las filas en la hoja privada; los códigos no se devuelven al navegador."
+    note: "Completá las filas activas con jugador, nivel y seis resultados. La antigua columna de código queda sin uso."
   };
   console.log(JSON.stringify(result));
   return result;
@@ -100,7 +95,7 @@ function doGet() {
     service: "Creator Personarum",
     protocolVersion: CREATOR_PERSONARUM_SHEETS.version,
     acceptsMethod: "POST",
-    readAccess: "Solo POST; la consulta de tiradas exige el código privado de cada jugador"
+    readAccess: "Solo POST; las asignaciones activas se consultan mediante el ID de jugador seleccionado"
   });
 }
 
@@ -147,12 +142,11 @@ function doPost(event) {
     if (action === "lookupassignment") {
       const playerId = text_(input.playerId, "playerId", 1, 80, true);
       enforceAssignmentReadRateLimit_("lookup", playerId);
-      const accessCode = String(input.accessCode || "").trim();
       const assignment = readActiveAssignments_().find(function (item) {
         return item.playerId === playerId;
       });
-      if (!assignment || !validAssignmentAccessCode_(assignment.accessCode, accessCode)) {
-        throw fail_("ASSIGNMENT_AUTH_FAILED", "No se pudo validar la asignación. Revisá el jugador y el código privado.");
+      if (!assignment) {
+        throw fail_("ASSIGNMENT_NOT_FOUND", "Todavía no hay una asignación activa y completa para ese jugador.");
       }
       return output_({
         ok: true,
@@ -284,15 +278,29 @@ function validateSubmission_(input) {
   };
 }
 
-function getCreatorSpreadsheet_() {
+function findCreatorSpreadsheet_() {
   const properties = PropertiesService.getScriptProperties();
-  const spreadsheetId =
+  const savedId =
     properties.getProperty(CREATOR_PERSONARUM_SHEETS.spreadsheetIdProperty) ||
     properties.getProperty(CREATOR_PERSONARUM_SHEETS.legacySpreadsheetIdProperty);
-  if (!spreadsheetId) {
-    throw fail_("NOT_INITIALIZED", "Ejecutá setupCreatorSubmissions desde la hoja de cálculo antes de recibir envíos.");
+  if (savedId) return SpreadsheetApp.openById(savedId);
+
+  const files = DriveApp.getFilesByName(CREATOR_PERSONARUM_SHEETS.spreadsheetName);
+  const matches = [];
+  while (files.hasNext()) {
+    const file = files.next();
+    if (file.getName() === CREATOR_PERSONARUM_SHEETS.spreadsheetName
+        && file.getMimeType() === MimeType.GOOGLE_SHEETS) matches.push(file);
   }
-  return SpreadsheetApp.openById(spreadsheetId);
+  if (matches.length === 0) throw new Error("No encontré una hoja de cálculo llamada exactamente Firmamentum Velatum - Creaciones.");
+  if (matches.length > 1) throw new Error("Encontré más de una hoja de cálculo llamada Firmamentum Velatum - Creaciones. No elegí ninguna para evitar modificar la hoja equivocada.");
+  const spreadsheet = SpreadsheetApp.openById(matches[0].getId());
+  properties.setProperty(CREATOR_PERSONARUM_SHEETS.spreadsheetIdProperty, spreadsheet.getId());
+  return spreadsheet;
+}
+
+function getCreatorSpreadsheet_() {
+  return findCreatorSpreadsheet_();
 }
 
 function ensureAssignmentsSheet_(spreadsheet) {
@@ -344,16 +352,12 @@ function readActiveAssignments_() {
 
   const assignmentIds = new Set();
   const playerIds = new Set();
-  const accessCodes = new Set();
   assignments.forEach(function (assignment) {
-    if (assignmentIds.has(assignment.assignmentId)
-        || playerIds.has(assignment.playerId)
-        || accessCodes.has(assignment.accessCode)) {
-      throw fail_("DUPLICATE_ACTIVE_ASSIGNMENT", "Hay IDs o códigos duplicados entre las filas activas de ASIGNACIONES.");
+    if (assignmentIds.has(assignment.assignmentId) || playerIds.has(assignment.playerId)) {
+      throw fail_("DUPLICATE_ACTIVE_ASSIGNMENT", "Hay IDs de asignación o jugador duplicados entre las filas activas de ASIGNACIONES.");
     }
     assignmentIds.add(assignment.assignmentId);
     playerIds.add(assignment.playerId);
-    accessCodes.add(assignment.accessCode);
   });
   return assignments;
 }
@@ -362,10 +366,6 @@ function validateAssignmentRow_(row, rowNumber) {
   const assignmentId = text_(row[1], "assignmentId", 1, 80, true);
   const playerId = text_(row[2], "playerId", 1, 80, true);
   const playerName = text_(row[3], "playerName", 2, 80, true);
-  const accessCode = String(row[4] == null ? "" : row[4]).trim();
-  if (!/^[A-Za-z0-9_-]{12,80}$/.test(accessCode)) {
-    throw fail_("INVALID_ASSIGNMENT_ROW", "La fila " + rowNumber + " de ASIGNACIONES necesita un código de 12 a 80 caracteres (letras, números, guion o guion bajo).");
-  }
   if (!/^[A-Za-z0-9_-]{1,80}$/.test(assignmentId) || !/^[A-Za-z0-9_-]{1,80}$/.test(playerId)) {
     throw fail_("INVALID_ASSIGNMENT_ROW", "Los IDs de la fila " + rowNumber + " solo pueden usar letras, números, guion o guion bajo.");
   }
@@ -392,23 +392,9 @@ function validateAssignmentRow_(row, rowNumber) {
     assignmentId: assignmentId,
     playerId: playerId,
     playerName: playerName,
-    accessCode: accessCode,
     level: level,
     abilityRolls: abilityRolls
   };
-}
-
-function validAssignmentAccessCode_(expected, received) {
-  const left = String(expected || "");
-  const right = String(received || "");
-  let mismatch = left.length ^ right.length;
-  const length = Math.max(left.length, right.length);
-  for (let index = 0; index < length; index += 1) {
-    const a = index < left.length ? left.charCodeAt(index) : 0;
-    const b = index < right.length ? right.charCodeAt(index) : 0;
-    mismatch |= a ^ b;
-  }
-  return mismatch === 0 && /^[A-Za-z0-9_-]{12,80}$/.test(right);
 }
 
 function enforceAssignmentReadRateLimit_(kind, playerId) {

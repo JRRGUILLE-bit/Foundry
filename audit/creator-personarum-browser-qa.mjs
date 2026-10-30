@@ -68,15 +68,15 @@ try {
     if (requestBody.action === 'listPlayers') {
       result = { ok: true, protocolVersion: 1, players: [{ playerId: 'appendix-player-1', playerName: 'Ariadna QA' }] };
     } else if (requestBody.action === 'lookupAssignment') {
-      if (requestBody.playerId === 'appendix-player-1' && requestBody.accessCode === 'APPENDIX-QA-CODE-26') {
+      if (requestBody.playerId === 'maite') {
         result = {
           ok: true,
           protocolVersion: 1,
           assignment: {
             schemaVersion: 1,
             assignmentId: 'appendix-assignment-1',
-            playerId: 'appendix-player-1',
-            playerName: 'Ariadna QA',
+            playerId: 'maite',
+            playerName: 'Maite',
             level: 3,
             abilityRolls: [
               { rollId: 'appendix-assignment-1-roll-1', value: 16 },
@@ -107,8 +107,8 @@ try {
   });
 
   const baseUrl = 'http://127.0.0.1:' + server.address().port;
-  const greyEmpireId = 'abigur-imperium-ravum-el-imperio-gris';
-  const tomunAetheloriaId = 'tomun-aetheloria';
+  const greyEmpireId = 'imperio-gris-aetheluria';
+  const portusVariaId = 'imperio-gris-portus-varia';
   let fighterSubclassValue = '';
   let selectedFeatValue = '';
 
@@ -117,7 +117,9 @@ try {
       const select = document.getElementById('creator-origin-region');
       if (!select) return false;
       const values = Array.from(select.options).map(option => option.value);
-      return values.length > 20 && values.includes('abigur-imperium-ravum-el-imperio-gris');
+      return values.length === 11
+        && values.includes('imperio-gris-aetheluria')
+        && values.includes('imperio-gris-portus-varia');
     }, null, { timeout: 15000 });
     await page.waitForFunction(() => document.documentElement.dataset.creatorCatalogState === 'loaded', null, { timeout: 15000 });
   };
@@ -141,10 +143,18 @@ try {
     await page.locator('#creator-known-path-button').click();
     await page.waitForFunction(() => {
       const select = document.getElementById('creator-assignment-player');
-      return select && Array.from(select.options).some(option => option.value === 'appendix-player-1');
+      return select && Array.from(select.options).some(option => option.value === 'maite');
     }, null, { timeout: 10000 });
-    await page.locator('#creator-assignment-player').selectOption('appendix-player-1');
-    await page.locator('#creator-assignment-access-code').fill('APPENDIX-QA-CODE-26');
+    assert.deepEqual(
+      await page.locator('#creator-assignment-player option').evaluateAll(options => options.slice(1).map(option => option.textContent.trim())),
+      ['Gonza', 'Maite', 'Nico', 'Rulo', 'Santi'],
+      'The player selector must list the Appendix roster alphabetically'
+    );
+    assert.equal(await page.locator('#creator-assignment-access-code').count(), 0,
+      'Players must not be prompted for a code');
+    await page.locator('#creator-assignment-player').selectOption('maite');
+    assert.equal(await page.evaluate(() => localStorage.getItem('banda.creator-personarum.assignment-player-id.v1')), 'maite',
+      'Selected player ID must be saved in browser storage');
     await page.locator('#creator-assignment-load').click();
     await page.waitForFunction(() => document.getElementById('creator-assignment-level')?.textContent === '3');
     assert.equal(await page.locator('#creator-level').inputValue(), '3',
@@ -155,8 +165,21 @@ try {
       'All six unassigned results must be loaded from the verified assignment');
     assert.equal(await page.locator('#creator-assignment-rolls').innerText(), 'Resultado 1: 16\nResultado 2: 15\nResultado 3: 14\nResultado 4: 12\nResultado 5: 10\nResultado 6: 8',
       'The exact six pre-assigned results must be displayed');
-    assert.equal(await page.locator('#creator-assignment-access-code').inputValue(), '',
-      'The private assignment code must not remain in the form after successful verification');
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await waitForAtlas();
+    await exposeWorkspace();
+    await page.locator('#creator-known-path-button').click();
+    assert.equal(await page.locator('#creator-assignment-player').inputValue(), 'maite',
+      'The browser must remember the chosen player after reload');
+    await page.locator('#creator-assignment-load').click();
+    await page.waitForFunction(() => document.getElementById('creator-assignment-level')?.textContent === '3');
+
+    assert.deepEqual(
+      await page.locator('#creator-origin-region option').evaluateAll(options => options.slice(1).map(option => option.textContent.trim())),
+      ['Aetheluria', 'Portus Varia', 'Valeriam', 'Arkenum', 'Sancturia', 'Praetorix', 'Lucisburgum', 'Archivaea', 'Ferrum-Corvinium', 'Aequitania'],
+      'The Appendix origin selector must offer only the ten Grey Empire cities'
+    );
+    await page.locator('#creator-origin-region').selectOption({ value: 'imperio-gris-aetheluria' });
 
     const raceLabels = await page.locator('#creator-lineage option').evaluateAll(options =>
       options.slice(1).map(option => option.textContent.trim())
@@ -268,7 +291,7 @@ try {
   // Legacy full-form suite; opt in only after canonical backgrounds, feats, spells and class features are available.
   // Open the character form before interacting with its controls.
   await page.locator('#creator-known-path-button').click();
-  assert.match(await page.locator('#creator-origin-promise').innerText(), /elegí una región oficial del Atlas/i);
+  assert.match(await page.locator('#creator-origin-promise').innerText(), /elegí una de las diez ciudades del Imperio Gris/i);
   assert.doesNotMatch(await page.locator('#creator-origin-promise').innerText(), /ETAPA FINAL A INTEGRAR/i);
 
   // Optional lineage languages persist through saving and restoring a real draft.
@@ -762,7 +785,7 @@ try {
     false,
     'A selected region should appear in the preview'
   );
-  assert.match(await page.locator('#creator-preview-origin').innerText(), /Imperium Ravum/);
+  assert.match(await page.locator('#creator-preview-origin').innerText(), /Aetheluria/);
   const storyProposalButton = page.locator('#creator-origin-story-draft');
   await page.locator('#creator-origin-region').selectOption('');
   await storyProposalButton.click();
@@ -775,7 +798,7 @@ try {
   await page.locator('#creator-concept').fill('Una promesa de proteger a quienes viajan.');
   await storyProposalButton.click();
   const storyProposal = await page.locator('#creator-origin-story').inputValue();
-  assert.match(storyProposal, /Imperium Ravum/);
+  assert.match(storyProposal, /Aetheluria/);
   assert.match(storyProposal, /El Atlas describe esta región así:/);
   assert.match(storyProposal, /Tortuga viajera/);
   assert.match(storyProposal, /Guerrero/);
@@ -794,9 +817,9 @@ try {
   await page.waitForFunction(({ expectedSubclass, expectedFeat }) => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1') || 'null');
     return draft && draft.originRegion === 'abigur-imperium-ravum-el-imperio-gris'
-      && draft.originRegionName === 'Imperium Ravum (el Imperio Gris)'
+      && draft.originRegionName === 'Aetheluria'
       && draft.originRegionContext.id === 'abigur-imperium-ravum-el-imperio-gris'
-      && draft.originRegionContext.continent === 'Abigur'
+      && draft.originRegionContext.continent === 'Imperio Gris'
       && draft.originRegionContext.sourcePage === 'Continente de Abigur'
       && typeof draft.originRegionContext.summary === 'string'
       && draft.originRegionContext.summary.length > 0
@@ -818,7 +841,7 @@ try {
   ]);
   assert.equal(knownDownload.suggestedFilename(), 'creator-personarum-personaje.json');
   const knownExport = JSON.parse(fs.readFileSync(await knownDownload.path(), 'utf8'));
-  assert.equal(knownExport.originContinent, 'Abigur');
+  assert.equal(knownExport.originContinent, 'Imperio Gris');
   assert.equal(knownExport.originRegionContext.sourcePage, 'Continente de Abigur', 'Export should preserve the canonical Atlas source page');
   assert.ok(knownExport.originRegionContext.summary.length > 0, 'Export should preserve the canonical region summary');
   assert.equal(knownExport.originStory, originStory, 'Exported draft should include the written origin story');
@@ -903,7 +926,7 @@ try {
   await page.locator('#creator-explore-path-button').click();
   await page.locator('input[name="creator-exploration-focus"][value="ciudades-y-culturas"]').check();
   await page.locator('#creator-explore-continue').click();
-  assert.match(await page.locator('#creator-origin-promise').innerText(), /elegí una región oficial del Atlas/i);
+  assert.match(await page.locator('#creator-origin-promise').innerText(), /elegí una de las diez ciudades del Imperio Gris/i);
   assert.doesNotMatch(await page.locator('#creator-origin-promise').innerText(), /ETAPA SIGUIENTE: conectar/i);
   await page.locator('#creator-character-class').selectOption({ label: 'Clérigo' });
   const spellLevelSelect = page.locator('#creator-spell-level');
@@ -957,10 +980,10 @@ try {
     greyEmpireId,
     'Inferno in exploration mode should preselect the Grey Empire'
   );
-  await page.locator('#creator-origin-region').selectOption({ value: tomunAetheloriaId });
+  await page.locator('#creator-origin-region').selectOption({ value: portusVariaId });
   assert.equal(
     await page.locator('#creator-preview-origin').innerText(),
-    'Aetheloria · Tomun',
+    'Portus Varia · Imperio Gris',
     'The player should be able to override the suggested origin'
   );
   await page.locator('#creator-character-name').fill('Ariadna QA');
@@ -1007,7 +1030,7 @@ try {
   await page.locator('#creator-draft-form button[type="submit"]').click();
   await page.waitForFunction((expectedSpell) => {
     const draft = JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.world-explorer') || 'null');
-    return draft && draft.originRegion === 'tomun-aetheloria' && draft.originRegionName === 'Aetheloria'
+    return draft && draft.originRegion === 'imperio-gris-portus-varia' && draft.originRegionName === 'Portus Varia'
       && draft.level === 3
       && Array.isArray(draft.selectedSpells) && draft.selectedSpells.length === 1
       && draft.selectedSpells[0].name === expectedSpell;
@@ -1034,7 +1057,7 @@ try {
     'C'.repeat(1200),
     'Export should preserve the complete player concept separately from the generated origin story'
   );
-  assert.equal(explorerExport.originContinent, 'Tomun');
+  assert.equal(explorerExport.originContinent, 'Imperio Gris');
   assert.equal(explorerExport.level, 3, 'Export should preserve the selected character level');
   assert.match(explorerExport.originStory, /Ciudades y culturas/i, 'Explorer story should be preserved in the exported draft');
   assert.equal(explorerExport.selectedSpells[0].name, selectedSpellForDraft, 'Export should include the selected spell');
@@ -1110,10 +1133,10 @@ try {
     'Restored exploration preview should show the selected feat'
   );
   assert.equal(await page.locator('#creator-origin-region').inputValue(), tomunAetheloriaId);
-  assert.match(await page.locator('#creator-origin-details').innerText(), /Aetheloria|Tomun/);
+  assert.match(await page.locator('#creator-origin-details').innerText(), /Portus Varia|Imperio Gris/);
   assert.equal(
     await page.locator('#creator-preview-origin').innerText(),
-    'Aetheloria · Tomun',
+    'Portus Varia · Imperio Gris',
     'Restored preview should show the exact saved origin region'
   );
   assert.equal(await page.locator('#creator-selected-spells-list [data-selected-spell]').count(), 1, 'Saved spell selection should be restored');
