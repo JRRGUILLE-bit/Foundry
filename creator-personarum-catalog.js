@@ -2032,6 +2032,22 @@
       "traveler's clothes|phb":'ropa de viajero','trinket|phb':'objeto pequeño','two-person tent|phb':'tienda para dos personas',
       'whetstone|phb':'piedra de afilar'
     };
+    const equipmentDisplayNameLabels = {
+      'holy symbol (a gift to you when you entered the priesthood)':'símbolo sagrado (regalo recibido al ingresar al sacerdocio)',
+      'prayer book':'libro de oraciones','blank book':'libro en blanco',
+      'borrowed book on the subject of your current study':'libro prestado sobre el tema de tu investigación actual',
+      'common clothes in your faction\'s style':'ropa común del estilo de tu facción',
+      'dark common clothes including a hood':'ropa común oscura con capucha',
+      'dagger that belonged to a fallen comrade':'daga que perteneció a un camarada caído',
+      'bone dice set':'juego de dados de hueso','gaming set matching your chosen proficiency':'juego que coincide con tu competencia elegida',
+      'trinket of special significance':'objeto pequeño de especial significado',
+      'trinket recovered from a dig site':'objeto pequeño recuperado de una excavación',
+      'evidence from a past case (choose one or roll for a trinket from the Horror Trinkets)':'prueba de un caso anterior (elegí una o tirá en la tabla de amuletos de horror)',
+      'wooden case containing a map to a ruin or dungeon':'estuche de madera con un mapa hacia una ruina o mazmorra',
+      'scroll case stuffed full of notes from your studies or prayers':'estuche para pergaminos repleto de notas de tus estudios u oraciones',
+      'uniform of your company':'uniforme de tu compañía',
+      'The scholar\'s robes of your cloister':'túnicas académicas de tu claustro'
+    };
     const equipmentSpecialLabels = {
       'Badge or emblem of your faction':'Insignia o emblema de tu facción',
       'Your inheritance':'Tu herencia',
@@ -2149,7 +2165,7 @@
           if (entry.item) {
             const itemId = String(entry.item).toLowerCase();
             const display = entry.displayName || itemId.split('|')[0];
-            const label = english ? display : (equipmentItemLabels[itemId] || display);
+            const label = english ? display : (equipmentDisplayNameLabels[display] || equipmentItemLabels[itemId] || display);
             let text = label;
             if (entry.containsValue) text += english ? ' (contains ' + (entry.containsValue / 100) + ' gp)' : ' (contiene ' + (entry.containsValue / 100) + ' po)';
             appendEquipmentText(text, groupIndex, branch, itemIndex);
@@ -2168,6 +2184,31 @@
         if (Array.isArray(group._)) renderBundle(group._, index, '_');
         const branches = Object.keys(group).filter(key => key !== '_' && Array.isArray(group[key]));
         if (branches.length) {
+          const summarizeBundle = (bundle) => (Array.isArray(bundle) ? bundle : []).map(entry => {
+            if (typeof entry === 'string') {
+              const itemId = entry.toLowerCase();
+              return english ? itemId.split('|')[0] : (equipmentItemLabels[itemId] || itemId.split('|')[0]);
+            }
+            if (!entry || typeof entry !== 'object') return '';
+            if (entry.equipmentType) {
+              const type = equipmentTypeLabels[entry.equipmentType];
+              return type ? (english ? type[1] : type[0]) : '';
+            }
+            if (entry.item) {
+              const itemId = String(entry.item).toLowerCase();
+              const display = entry.displayName || itemId.split('|')[0];
+              let label = english ? display : (equipmentDisplayNameLabels[display] || equipmentItemLabels[itemId] || display);
+              if (entry.containsValue) label += english ? ' (' + (entry.containsValue / 100) + ' gp)' : ' (' + (entry.containsValue / 100) + ' po)';
+              return label;
+            }
+            if (entry.special) {
+              let label = english ? entry.special : (equipmentSpecialLabels[entry.special] || entry.special);
+              if (entry.quantity) label = entry.quantity + ' × ' + label;
+              return label;
+            }
+            if (entry.value !== undefined) return (english ? 'Listed value ' : 'Valor indicado ') + entry.value;
+            return '';
+          }).filter(Boolean).join(', ');
           const choiceKey = 'equipment-group-' + index;
           const heading = document.createElement('li');
           heading.textContent = english ? 'Choose one equipment option:' : 'Elegí una de estas opciones de equipo:';
@@ -2178,7 +2219,8 @@
             const radio = document.createElement('input');
             radio.type = 'radio'; radio.name = choiceKey; radio.value = branch;
             radio.checked = selectedBackgroundEquipment[choiceKey] === branch;
-            label.append(radio, document.createTextNode(' ' + (english ? 'Option ' + branch.toUpperCase() : 'Opción ' + branch.toUpperCase())));
+            const optionSummary = summarizeBundle(group[branch]);
+            label.append(radio, document.createTextNode(' ' + (english ? 'Option ' + branch.toUpperCase() : 'Opción ' + branch.toUpperCase()) + (optionSummary ? ': ' + optionSummary : '')));
             const li = document.createElement('li'); li.appendChild(label); backgroundEquipmentDetails.appendChild(li);
             radio.addEventListener('change', () => {
               selectedBackgroundEquipment[choiceKey] = branch;
