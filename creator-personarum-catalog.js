@@ -827,7 +827,7 @@
         if (!key || catalogLanguageMap.has(key)) return;
         catalogLanguageMap.set(key, {
           key,
-          name: LANGUAGE_LABELS[key] || item.name.trim(),
+          name: language()==='en' ? item.name.trim() : (LANGUAGE_LABELS[key] || item.name.trim()),
           source: item.source || ''
         });
       });
