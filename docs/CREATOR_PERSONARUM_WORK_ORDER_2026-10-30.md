@@ -36,7 +36,7 @@ El trabajo de feats se considera previamente realizado, pero **no debe darse por
 Hacé la misma comprobación de backgrounds y de las demás categorías mecánicas que el creador ya ofrezca. No confíes ciegamente en etiquetas de aprobado, informes anteriores, memoria de chats ni en el nombre de una opción: comprobá su procedencia y su correspondencia con las reglas del Director.
 
 
-# Objetivo
+## 3. Objetivo
 
 Revisar integralmente el Creator Personarum existente y **continuar su desarrollo hasta completar el creador mecánico**. No limitarse a auditar, enumerar pendientes o redactar recomendaciones: hay que implementar y verificar el trabajo que corresponda.
 
