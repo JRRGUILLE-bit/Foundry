@@ -34,6 +34,7 @@ const subclassesPath = "character-data/rules/subclasses/subclasses.json";
 const exclusionsPath = "character-data/campaign/excluded-subclass-records.json";
 const backgroundsPath = "character-data/rules/backgrounds/backgrounds.json";
 const backgroundDecisionsPath = "character-data/campaign/background-decisions.json";
+const languagesPath = "character-data/rules/languages/languages.json";
 
 const origins = readJson(campaignRoot, originsPath);
 const races = readJson(campaignRoot, racesPath);
@@ -42,6 +43,7 @@ const subclasses = readJson(campaignRoot, subclassesPath);
 const exclusions = readJson(campaignRoot, exclusionsPath);
 const backgroundsDataset = readJson(campaignRoot, backgroundsPath);
 const backgroundDecisions = readJson(campaignRoot, backgroundDecisionsPath);
+const languagesDataset = readJson(campaignRoot, languagesPath);
 
 if (origins.canonical_status !== "campaign_canon" || origins.source_of_truth !== true) {
   throw new Error("Canonical racial/origin source is not marked as campaign source of truth.");
@@ -312,6 +314,50 @@ if (JSON.stringify(mageBackground?.availability?.kingdoms) !== JSON.stringify(["
   throw new Error("Mage of High Sorcery must be restricted to Sorcerer Kingdom and Imperio Gris.");
 }
 
+// Player language options come only from the canonical, campaign-approved language file.
+if (languagesDataset.source_of_truth !== true || languagesDataset.ruleset_id !== "dnd5e_2014" ||
+    !Array.isArray(languagesDataset.languages) || !languagesDataset.languages.length) {
+  throw new Error("Canonical player language dataset is missing, unapproved, or uses another ruleset.");
+}
+const seenLanguageIds = new Set();
+const seenLanguageNames = new Set();
+for (const language of languagesDataset.languages) {
+  const englishName = String(language.name?.en ?? "");
+  const spanishName = String(language.name?.es ?? "");
+  if (!language.id || !englishName || !spanishName || language.campaign_status !== "approved" ||
+      !["verified", "campaign_defined"].includes(language.data_quality)) {
+    throw new Error("Language dataset contains an incomplete or unapproved player language: " + englishName);
+  }
+  if (seenLanguageIds.has(language.id) || seenLanguageNames.has(englishName.toLowerCase())) {
+    throw new Error("Language dataset contains duplicate IDs or names: " + englishName);
+  }
+  seenLanguageIds.add(language.id);
+  seenLanguageNames.add(englishName.toLowerCase());
+  records.push({
+    category: "language",
+    id: language.id,
+    name: englishName,
+    name_en: englishName,
+    name_es: spanishName,
+    source: language.source_refs?.[0]?.source_id ?? "Firmamentum Velatum",
+    source_refs: language.source_refs ?? [],
+    campaign_status: language.campaign_status,
+    data_quality: language.data_quality,
+    language_category: language.category,
+    planar_affinity: language.planar_affinity ?? [],
+    dialect_of: language.dialect_of ?? null,
+    dialect_family_id: language.dialect_family_id ?? null,
+    campaign_rules: language.campaign_rules ?? null
+  });
+}
+const abyssalLanguage = languagesDataset.languages.find(language => language.id === "language.abyssal");
+const shadowLanguage = languagesDataset.languages.find(language => language.id === "language.shadow");
+if (abyssalLanguage?.campaign_rules?.available_to_players !== true ||
+    abyssalLanguage?.campaign_rules?.abyss_ban_applies_to_language !== false ||
+    !shadowLanguage || shadowLanguage.campaign_status !== "approved") {
+  throw new Error("Canonical language dataset must keep Abyssal and Shadow available to players.");
+}
+
 const includedByCategory = records.reduce((counts, record) => {
   counts[record.category] = (counts[record.category] ?? 0) + 1;
   return counts;
@@ -331,7 +377,7 @@ const result = {
     status: "campaign_canon"
   },
   ruleset_id: "dnd5e_2014",
-  generated_from: [originsPath, racesPath, classesPath, subclassesPath, exclusionsPath, backgroundsPath, backgroundDecisionsPath],
+  generated_from: [originsPath, racesPath, classesPath, subclassesPath, exclusionsPath, backgroundsPath, backgroundDecisionsPath, languagesPath],
   policy: {
     only_approved_campaign_options: true,
     race_requires_ready_or_verified_rule_data: true,
@@ -340,6 +386,8 @@ const result = {
     excluded_subclasses_removed: [...blockedSubclassIds],
     generic_source_catalog_is_not_a_player_option_source: true,
     categories_without_canonical_approval_data: ["feat", "spell", "class_feature", "zodiac_mark"],
+    language_options_require_canonical_approval: true,
+    abyssal_available_to_players: true,
     background_options_require_explicit_campaign_decisions: true,
     background_mechanics_quality_is_preserved_without_auto_verification: true,
     categories_without_canonical_approval_data_are_omitted: true
