@@ -41,7 +41,7 @@ const atlasText = JSON.stringify(atlas);
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
 assert.match(page, /creator-personarum-i18n\.js\?v=20261030-3/, 'Creator Personarum must load its global language layer before the creator runtime');
 assert.match(page, /creator-personarum\.js\?v=20261030-6/, 'Creator Personarum runtime cache must be refreshed for global language support');
-assert.match(page, /creator-personarum-catalog\.js\?v=20261030-1/, 'Catalog cache must be refreshed for English character options');
+assert.match(page, /creator-personarum-catalog\.js\?v=20261030-2/, 'Catalog cache must be refreshed for English character options');
 assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
 assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
 assert.match(i18nRuntime, /creator-personarum:language-changed/, 'The global language switch must notify dynamic character selectors');
