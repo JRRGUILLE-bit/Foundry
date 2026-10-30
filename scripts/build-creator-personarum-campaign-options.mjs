@@ -32,12 +32,16 @@ const racesPath = "character-data/rules/races/races.json";
 const classesPath = "character-data/rules/classes/classes.json";
 const subclassesPath = "character-data/rules/subclasses/subclasses.json";
 const exclusionsPath = "character-data/campaign/excluded-subclass-records.json";
+const backgroundsPath = "character-data/rules/backgrounds/backgrounds.json";
+const backgroundDecisionsPath = "character-data/campaign/background-decisions.json";
 
 const origins = readJson(campaignRoot, originsPath);
 const races = readJson(campaignRoot, racesPath);
 const classes = readJson(campaignRoot, classesPath);
 const subclasses = readJson(campaignRoot, subclassesPath);
 const exclusions = readJson(campaignRoot, exclusionsPath);
+const backgroundsDataset = readJson(campaignRoot, backgroundsPath);
+const backgroundDecisions = readJson(campaignRoot, backgroundDecisionsPath);
 
 if (origins.canonical_status !== "campaign_canon" || origins.source_of_truth !== true) {
   throw new Error("Canonical racial/origin source is not marked as campaign source of truth.");
@@ -226,13 +230,95 @@ const includedByCategory = records.reduce((counts, record) => {
   counts[record.category] = (counts[record.category] ?? 0) + 1;
   return counts;
 }, {});
-for (const requiredCategory of ["species", "class", "subclass"]) {
+for (const requiredCategory of ["species", "class", "subclass", "background"]) {
   if (!includedByCategory[requiredCategory]) {
     throw new Error("Canonical campaign options are missing required category: " + requiredCategory);
   }
 }
 if (records.some(record => blockedSubclassIds.has(record.id))) {
   throw new Error("An explicitly excluded subclass leaked into campaign options.");
+}
+
+// Background availability comes only from the explicit campaign decision file and
+// the dedicated mechanical dataset. The generic source catalog is not consulted.
+const approvedBackgrounds = Array.isArray(backgroundDecisions.approved_backgrounds)
+  ? backgroundDecisions.approved_backgrounds
+  : [];
+const conditionalBackgrounds = Array.isArray(backgroundDecisions.conditional_backgrounds)
+  ? backgroundDecisions.conditional_backgrounds
+  : [];
+const excludedBackgrounds = Array.isArray(backgroundDecisions.excluded_backgrounds)
+  ? backgroundDecisions.excluded_backgrounds
+  : [];
+const backgroundRecords = Array.isArray(backgroundsDataset.backgrounds)
+  ? backgroundsDataset.backgrounds
+  : [];
+const expectedBackgrounds = new Map([
+  ...approvedBackgrounds.map(record => [String(record.name || ""), "approved"]),
+  ...conditionalBackgrounds.map(record => [String(record.name || ""), "approved_with_restriction"])
+]);
+const excludedBackgroundNames = new Set(excludedBackgrounds.map(record => String(record.name || "")));
+if (expectedBackgrounds.size !== approvedBackgrounds.length + conditionalBackgrounds.length) {
+  throw new Error("Campaign background decisions contain duplicate approved names.");
+}
+if (approvedBackgrounds.length !== 52 || conditionalBackgrounds.length !== 1 ||
+    conditionalBackgrounds[0]?.name !== "Mage of High Sorcery") {
+  throw new Error("Unexpected campaign background approval totals or conditional option.");
+}
+if (backgroundRecords.length !== expectedBackgrounds.size) {
+  throw new Error("Background dataset count does not match explicit campaign approvals.");
+}
+const seenBackgroundIds = new Set();
+const seenBackgroundNames = new Set();
+for (const background of backgroundRecords) {
+  const name = String(background.name?.en || "");
+  const status = expectedBackgrounds.get(name);
+  if (!name || !background.id || !status || background.campaign_status !== status) {
+    throw new Error("Background dataset contains an unapproved or incorrectly classified record: " + name);
+  }
+  if (excludedBackgroundNames.has(name)) {
+    throw new Error("An explicitly excluded background leaked into the dataset: " + name);
+  }
+  if (seenBackgroundIds.has(background.id) || seenBackgroundNames.has(name)) {
+    throw new Error("Background dataset contains duplicate IDs or names: " + name);
+  }
+  seenBackgroundIds.add(background.id);
+  seenBackgroundNames.add(name);
+  const sourceMechanics = background.mechanics?.source_mechanics ?? {};
+  records.push({
+    category: "background",
+    id: background.id,
+    name,
+    name_en: name,
+    name_es: background.name.es,
+    source: background.source_code || background.source_refs?.[0]?.source_id || "",
+    source_page: background.source_page ?? null,
+    source_refs: background.source_refs ?? [],
+    campaign_status: background.campaign_status,
+    data_quality: background.data_quality,
+    restriction: background.restriction ?? null,
+    availability: background.availability ?? null,
+    inherits_from: background.inherits_from ?? null,
+    skillProficiencies: sourceMechanics.skill_proficiencies ?? [],
+    toolProficiencies: sourceMechanics.tool_proficiencies ?? [],
+    languageProficiencies: sourceMechanics.language_proficiencies ?? [],
+    startingEquipment: background.mechanics?.starting_equipment ?? [],
+    startingEquipmentText: background.mechanics?.starting_equipment_text ?? "",
+    startingEquipmentLanguage: background.mechanics?.starting_equipment_language ?? "en",
+    startingEquipmentOverriddenFromBase: background.mechanics?.starting_equipment_overridden_from_base ?? false,
+    backgroundFeature: background.mechanics?.feature ?? null,
+    featGrants: background.mechanics?.feat_grants ?? [],
+    additionalSpells: background.mechanics?.additional_spells ?? null,
+    backgroundMechanics: background.mechanics
+  });
+}
+if (seenBackgroundNames.size !== expectedBackgrounds.size ||
+    [...expectedBackgrounds.keys()].some(name => !seenBackgroundNames.has(name))) {
+  throw new Error("Background dataset is missing one or more explicitly approved names.");
+}
+const mageBackground = backgroundRecords.find(record => record.name?.en === "Mage of High Sorcery");
+if (JSON.stringify(mageBackground?.availability?.kingdoms) !== JSON.stringify(["Sorcerer Kingdom", "Imperio Gris"])) {
+  throw new Error("Mage of High Sorcery must be restricted to Sorcerer Kingdom and Imperio Gris.");
 }
 
 const result = {
@@ -244,7 +330,7 @@ const result = {
     status: "campaign_canon"
   },
   ruleset_id: "dnd5e_2014",
-  generated_from: [originsPath, racesPath, classesPath, subclassesPath, exclusionsPath],
+  generated_from: [originsPath, racesPath, classesPath, subclassesPath, exclusionsPath, backgroundsPath, backgroundDecisionsPath],
   policy: {
     only_approved_campaign_options: true,
     race_requires_ready_or_verified_rule_data: true,
@@ -252,7 +338,9 @@ const result = {
     subclass_requires_campaign_status_approved_and_data_quality_verified: true,
     excluded_subclasses_removed: [...blockedSubclassIds],
     generic_source_catalog_is_not_a_player_option_source: true,
-    categories_without_canonical_approval_data: ["background", "feat", "spell", "class_feature", "zodiac_mark"],
+    categories_without_canonical_approval_data: ["feat", "spell", "class_feature", "zodiac_mark"],
+    background_options_require_explicit_campaign_decisions: true,
+    background_mechanics_quality_is_preserved_without_auto_verification: true,
     categories_without_canonical_approval_data_are_omitted: true
   },
   totals: { included_records: records.length, included_by_category: includedByCategory },
