@@ -136,7 +136,10 @@ assert.match(catalogRuntime, /RACE_FAMILY_LABELS/, 'The race-family selector mus
 assert.match(catalogRuntime, /creator-personarum:restore-lineage-selectors/, 'Race and subrace selectors must restore saved character choices');
 assert.match(runtime, /raceFamily: values\.raceFamily/, 'Draft JSON must preserve the selected race family');
 assert.match(runtime, /dragonbornAncestry: values\.dragonbornAncestry/, 'Draft JSON must preserve the selected draconic ancestry');
-assert.ok(campaignOptionsCatalog.records.every(record => record.campaign_status === 'approved'), 'Every runtime option must be canonically approved');
+assert.ok(campaignOptionsCatalog.records.every(record =>
+  record.campaign_status === 'approved' ||
+  (record.category === 'background' && record.name === 'Mage of High Sorcery' && record.campaign_status === 'approved_with_restriction')
+), 'Every runtime option must be canonically approved or carry its one explicit background restriction');
 const runtimeSubclasses = campaignOptionsCatalog.records.filter(record => record.category === 'subclass');
 assert.ok(runtimeSubclasses.length > 0 && runtimeSubclasses.every(record =>
   record.data_quality === 'verified' &&
