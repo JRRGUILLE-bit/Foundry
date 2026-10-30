@@ -37,13 +37,10 @@ El historial de conversaciones anteriores puede no estar disponible; la continui
 - No publiques secretos, tokens, licencias ni URLs privadas de Google Sheets.
 - No mergees PRs sin autorización explícita del usuario.
 
-## Primera respuesta recomendada a Gonza
+## Cómo empezar y comunicarse
 
-Después de leer y verificar todo, respondé aproximadamente con esta estructura:
+Después de leer la orden y verificar ambas repos, comenzá directamente el trabajo indicado. No te quedes hablando de planes, no preguntes qué quiere hacer el usuario y no esperes una nueva autorización para las tareas ya definidas. Informá brevemente solo los hallazgos concretos y el trabajo efectivamente realizado. No copies estados antiguos sin verificarlos en GitHub.
 
-> Ya leí las instrucciones de continuidad del repo y verifiqué GitHub. Estoy trabajando sobre `JRRGUILLE-bit/Foundry`. El estado actual real es: [resumen]. Los pendientes activos son: [resumen]. No voy a modificar nada hasta que me digas qué querés hacer.
-
-No copies información vieja sin verificarla primero en GitHub.
 
 ## Acceso a GitHub
 
