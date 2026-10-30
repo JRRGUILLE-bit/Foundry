@@ -451,6 +451,17 @@ try {
     );
     assert.ok(selectedBarbarianSubclassValue, 'Level 3 Barbarian must expose its approved Berserker choice');
     await page.locator('#creator-subclass').selectOption(selectedBarbarianSubclassValue);
+    const subclassFeatureList = page.locator('#creator-subclass-features-list');
+    assert.match(await subclassFeatureList.innerText(), /Frenesí/,
+      'The level 3 Berserker choice must show only features unlocked by current progression');
+    await page.locator('#creator-language-toggle').click();
+    await page.waitForFunction(() => document.documentElement.lang === 'en');
+    assert.equal(await page.locator('#creator-subclass').inputValue(), selectedBarbarianSubclassValue,
+      'Changing the global language must not erase the selected subclass');
+    await page.locator('#creator-language-toggle').click();
+    await page.waitForFunction(() => document.documentElement.lang === 'es');
+    assert.equal(await page.locator('#creator-subclass').inputValue(), selectedBarbarianSubclassValue,
+      'Changing back to Spanish must preserve the selected subclass');
     const progressionDraft = await page.evaluate(() =>
       JSON.parse(localStorage.getItem('banda.creator-personarum.draft.v1.player.maite') || 'null')
     );
