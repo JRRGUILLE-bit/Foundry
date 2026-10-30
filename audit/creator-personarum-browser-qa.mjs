@@ -934,6 +934,7 @@ try {
     'Level 1 Barbarian must hide its level 3 subclass selector');
   assert.equal(await subclassSelect.locator('option').count(), 1,
     'Level 1 Barbarian must not list future subclasses');
+  await levelInput.fill('3');
   await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(3));
   const barbarianSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
   assert.ok(barbarianSubclasses.some(name => /berserker/i.test(name)), 'Level 3 Barbarian must expose its allowed Berserker subclass');
@@ -964,15 +965,15 @@ try {
     'Level 1 Wizard must not expose its level 2 school choice');
   assert.equal(await subclassSelect.locator('option').count(), 1,
     'Level 1 Wizard must not list future schools');
-  await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(2));
   await levelInput.fill('2');
+  await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(2));
   const wizardSubclasses = await subclassSelect.locator('option').evaluateAll(options => options.slice(1).map(option => option.textContent));
   assert.equal(wizardSubclasses.length, 8, 'Level 2 Wizard must expose its eight approved schools');
   assert.ok(!wizardSubclasses.some(name => /berserker/i.test(name)), 'Subclasses from another class must not leak into the Wizard choices');
 
   await page.locator('#creator-character-class').selectOption({ label: 'Guerrero' });
-  await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(3));
   await levelInput.fill('3');
+  await page.evaluate(() => window.creatorPersonarumSetProgressionLevel(3));
   const fighterClassSkillChoices = page.locator('#creator-class-skills-list input[type="checkbox"]');
   await fighterClassSkillChoices.nth(0).check();
   await fighterClassSkillChoices.nth(1).check();
