@@ -1131,6 +1131,7 @@
         control.value = control.defaultValue;
       }
     });
+    nameInput.value = '';
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-spells'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-class-skills'));
     window.dispatchEvent(new CustomEvent('creator-personarum:reset-background-skills'));
