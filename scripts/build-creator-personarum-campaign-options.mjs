@@ -36,6 +36,11 @@ const backgroundsPath = "character-data/rules/backgrounds/backgrounds.json";
 const backgroundDecisionsPath = "character-data/campaign/background-decisions.json";
 const languagesPath = "character-data/rules/languages/languages.json";
 const toolsPath = "character-data/rules/tools/tools.json";
+const phbFeatsPath = "character-data/rules/feats/phb2014-feats.json";
+const tcoeFeatsPath = "character-data/rules/feats/tcoe-feats.json";
+const gotgFeatsPath = "character-data/rules/feats/gotg-feats.json";
+const xgteCartomancerFeatsPath = "character-data/rules/feats/xgte-cartomancer-feats.json";
+const featDecisionsPath = "character-data/campaign/feat-decisions.json";
 
 const origins = readJson(campaignRoot, originsPath);
 const races = readJson(campaignRoot, racesPath);
@@ -46,6 +51,11 @@ const backgroundsDataset = readJson(campaignRoot, backgroundsPath);
 const backgroundDecisions = readJson(campaignRoot, backgroundDecisionsPath);
 const languagesDataset = readJson(campaignRoot, languagesPath);
 const toolsDataset = readJson(campaignRoot, toolsPath);
+const phbFeatsDataset = readJson(campaignRoot, phbFeatsPath);
+const tcoeFeatsDataset = readJson(campaignRoot, tcoeFeatsPath);
+const gotgFeatsDataset = readJson(campaignRoot, gotgFeatsPath);
+const xgteCartomancerFeatsDataset = readJson(campaignRoot, xgteCartomancerFeatsPath);
+const featDecisions = readJson(campaignRoot, featDecisionsPath);
 
 if (origins.canonical_status !== "campaign_canon" || origins.source_of_truth !== true) {
   throw new Error("Canonical racial/origin source is not marked as campaign source of truth.");
@@ -234,6 +244,101 @@ if (records.some(record => blockedSubclassIds.has(record.id))) {
   throw new Error("An explicitly excluded subclass leaked into campaign options.");
 }
 
+// Feat options come only from the PHB 2014 baseline and explicit general-supplement
+// approvals. Setting-specific approvals are not included in this general selector list.
+const featDatasets = [
+  [phbFeatsPath, phbFeatsDataset],
+  [tcoeFeatsPath, tcoeFeatsDataset],
+  [gotgFeatsPath, gotgFeatsDataset],
+  [xgteCartomancerFeatsPath, xgteCartomancerFeatsDataset]
+];
+for (const [file, dataset] of featDatasets) {
+  if (dataset.ruleset_id !== "dnd5e_2014" || !Array.isArray(dataset.feats)) {
+    throw new Error("Canonical 2014 feat dataset is missing or invalid: " + file);
+  }
+}
+if (featDecisions.canonical_status !== "campaign_canon" || featDecisions.ruleset_id !== "dnd5e_2014" ||
+    !String(featDecisions.baseline_rule || "").includes("PHB 2014 player feats are included in the base player options.")) {
+  throw new Error("Canonical feat decisions do not confirm the PHB 2014 baseline and 2014 ruleset.");
+}
+const phbFeatRows = phbFeatsDataset.feats;
+const supplementFeatRows = [
+  ...tcoeFeatsDataset.feats,
+  ...gotgFeatsDataset.feats,
+  ...xgteCartomancerFeatsDataset.feats
+];
+const approvedSupplementDecisions = Array.isArray(featDecisions.approved_general_supplement_feats)
+  ? featDecisions.approved_general_supplement_feats
+  : [];
+const excludedSupplementDecisions = Array.isArray(featDecisions.excluded_general_supplement_feats)
+  ? featDecisions.excluded_general_supplement_feats
+  : [];
+if (phbFeatRows.length !== 42 || phbFeatRows.some(feat => feat.campaign_status !== "approved")) {
+  throw new Error("PHB 2014 baseline must contain exactly 42 approved feat records.");
+}
+if (supplementFeatRows.length !== 38 || approvedSupplementDecisions.length !== 38) {
+  throw new Error("General supplement feat datasets and campaign decisions must each contain exactly 38 records.");
+}
+const matchFeatText = value => String(value ?? "").normalize("NFKC").trim().toLocaleLowerCase("en-US").replace(/\\s+/g, " ");
+const matchedSupplementIds = new Set();
+const approvedSupplementRows = [];
+for (const decision of approvedSupplementDecisions) {
+  if (decision.campaign_status !== "approved" || !decision.name || !decision.source_code) {
+    throw new Error("General supplement feat approval is incomplete or not approved.");
+  }
+  const matches = supplementFeatRows.filter(feat =>
+    matchFeatText(feat.name?.en ?? feat.source_record?.name) === matchFeatText(decision.name) &&
+    feat.source_code === decision.source_code
+  );
+  if (matches.length !== 1) {
+    throw new Error("General feat approval must match exactly one mechanical record by exact name and source code: " + decision.name);
+  }
+  const feat = matches[0];
+  if (feat.campaign_status !== "approved" || feat.ruleset_id !== "dnd5e_2014" || matchedSupplementIds.has(feat.id)) {
+    throw new Error("General supplement feat record is unapproved, duplicated, or uses another ruleset: " + decision.name);
+  }
+  matchedSupplementIds.add(feat.id);
+  approvedSupplementRows.push(feat);
+}
+if (matchedSupplementIds.size !== supplementFeatRows.length ||
+    supplementFeatRows.some(feat => !matchedSupplementIds.has(feat.id))) {
+  throw new Error("A supplement feat lacks a matching explicit campaign approval.");
+}
+for (const excluded of excludedSupplementDecisions) {
+  const matches = supplementFeatRows.filter(feat =>
+    matchFeatText(feat.name?.en ?? feat.source_record?.name) === matchFeatText(excluded.name) &&
+    feat.source_code === excluded.source_code
+  );
+  if (matches.length) {
+    throw new Error("An explicitly excluded general supplement feat leaked into the mechanical datasets: " + excluded.name);
+  }
+}
+const approvedFeatRows = [...phbFeatRows, ...approvedSupplementRows];
+const seenFeatIds = new Set();
+for (const feat of approvedFeatRows) {
+  if (!feat.id || seenFeatIds.has(feat.id) || feat.ruleset_id !== "dnd5e_2014" ||
+      feat.campaign_status !== "approved" || !feat.name?.en || !feat.mechanics ||
+      !Array.isArray(feat.mechanics.prerequisites)) {
+    throw new Error("Approved feat record is incomplete, duplicated, or incompatible with Legacy/2014: " + (feat.id || "(missing id)"));
+  }
+  seenFeatIds.add(feat.id);
+  const name = String(feat.name.es ?? feat.name.en);
+  const source = feat.source_canonical_code || feat.source_code || feat.source_refs?.[0]?.source_id || "";
+  records.push({
+    ...feat,
+    category: "feat",
+    name,
+    name_en: feat.name.en,
+    name_es: feat.name.es ?? null,
+    name_localized: feat.name,
+    source,
+    prerequisites: feat.mechanics.prerequisites
+  });
+}
+if (approvedFeatRows.length !== 80 || seenFeatIds.size !== 80) {
+  throw new Error("The Creator Personarum feat catalog must contain exactly 80 approved general feats.");
+}
+
 // Background availability comes only from the explicit campaign decision file and
 // the dedicated mechanical dataset. The generic source catalog is not consulted.
 const approvedBackgrounds = Array.isArray(backgroundDecisions.approved_backgrounds)
@@ -401,7 +506,7 @@ const includedByCategory = records.reduce((counts, record) => {
   counts[record.category] = (counts[record.category] ?? 0) + 1;
   return counts;
 }, {});
-for (const requiredCategory of ["species", "class", "subclass", "background"]) {
+for (const requiredCategory of ["species", "class", "subclass", "background", "feat"]) {
   if (!includedByCategory[requiredCategory]) {
     throw new Error("Canonical campaign options are missing required category: " + requiredCategory);
   }
@@ -416,7 +521,7 @@ const result = {
     status: "campaign_canon"
   },
   ruleset_id: "dnd5e_2014",
-  generated_from: [originsPath, racesPath, classesPath, subclassesPath, exclusionsPath, backgroundsPath, backgroundDecisionsPath, languagesPath, toolsPath],
+  generated_from: [originsPath, racesPath, classesPath, subclassesPath, exclusionsPath, backgroundsPath, backgroundDecisionsPath, languagesPath, toolsPath, phbFeatsPath, tcoeFeatsPath, gotgFeatsPath, xgteCartomancerFeatsPath, featDecisionsPath],
   policy: {
     only_approved_campaign_options: true,
     race_requires_ready_or_verified_rule_data: true,
@@ -424,7 +529,9 @@ const result = {
     subclass_requires_campaign_status_approved_and_data_quality_verified: true,
     excluded_subclasses_removed: [...blockedSubclassIds],
     generic_source_catalog_is_not_a_player_option_source: true,
-    categories_without_canonical_approval_data: ["feat", "spell", "class_feature", "zodiac_mark"],
+    categories_without_canonical_approval_data: ["spell", "class_feature", "zodiac_mark"],
+    feat_options_require_explicit_campaign_decisions: true,
+    feat_campaign_eligibility_is_preserved: true,
     language_options_require_canonical_approval: true,
     abyssal_available_to_players: true,
     background_options_require_explicit_campaign_decisions: true,
