@@ -2702,12 +2702,14 @@
   finishCharacterButton.addEventListener('click', toggleCharacterFinalization);
   exportDraftButton.addEventListener('click', exportDraft);
   exportFoundryActorButton.addEventListener('click', exportFoundryActorBase);
-  draftForm.addEventListener('input', () => {
+  draftForm.addEventListener('input', event => {
+    if (event.target === assignmentPlayerSelect) return;
     const values = readFormValues();
     renderPreview(values);
     publishCreatorPersonarumDraftChange(values);
   });
-  draftForm.addEventListener('change', () => {
+  draftForm.addEventListener('change', event => {
+    if (event.target === assignmentPlayerSelect) return;
     const values = readFormValues();
     renderPreview(values);
     publishCreatorPersonarumDraftChange(values);
