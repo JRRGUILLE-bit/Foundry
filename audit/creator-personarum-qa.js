@@ -41,7 +41,7 @@ const atlasText = JSON.stringify(atlas);
 assert.match(homepage, /creator-personarum\.html/, 'Homepage must link to Creator Personarum');
 assert.match(page, /creator-personarum-i18n\.js\?v=20261030-3/, 'Creator Personarum must load its global language layer before the creator runtime');
 assert.match(page, /creator-personarum\.js\?v=20261030-10/, 'Creator Personarum runtime cache must be refreshed for global language support');
-assert.match(page, /creator-personarum-catalog\.js\?v=20261030-7/, 'Catalog cache must be refreshed for English character options');
+assert.match(page, /creator-personarum-catalog\.js\?v=20261030-8/, 'Catalog cache must be refreshed for English character options');
 assert.match(page, /id="creator-language-toggle"/, 'A global language toggle must appear in the workspace header');
 assert.match(i18nRuntime, /banda\.creator-personarum\.language\.v1/, 'The global language preference must persist independently of character drafts');
 assert.match(i18nRuntime, /STORAGE_KEY \+ '\.player\.' \+ playerId/, 'Language preferences must be stored independently for each player');
@@ -225,6 +225,9 @@ assert.match(runtime, /customLineage: values\.customLineage/, 'Drafts and export
 assert.doesNotMatch(page, /creator-warlock-canon-note|creator-campaign-canon-note/, 'Campaign restrictions must filter unavailable options without adding a visible warning');
 assert.match(catalogRuntime, /subclassName === 'the great old one'/, 'The prohibited Great Old One patron must be filtered from the canonical subclass selector');
 assert.match(catalogRuntime, /subclassName === 'aberrant mind'/, 'The prohibited Aberrant Mind origin must be filtered from the canonical subclass selector');
+assert.ok(catalogRuntime.includes("'order of '"), 'Subclass feature aliases must support the Order of Scribes short name');
+assert.ok(catalogRuntime.includes("const suffixes = [' domain', ' sorcery', ' magic'];"), 'Subclass feature aliases must resolve Domain, Sorcery and Magic suffixes');
+assert.ok(catalogRuntime.includes('lower.endsWith(suffix)'), 'Subclass feature aliases must resolve abbreviated suffix names');
 assert.doesNotMatch(page, /<option[^>]*>[^<]*Abismo[^<]*<\/option>/i, 'The Abyss must not be selectable as a creator option');
 assert.doesNotMatch(runtime, /value:\s*['"]abismo['"]|name:\s*['"][^'"]*patrón abisal/i, 'The Abyss must not be introduced as a selectable patron');
 assert.match(runtime, /knownPathButton\.addEventListener\('click'/, 'Known-character choice must enter its own path');
