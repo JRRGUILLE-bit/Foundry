@@ -235,7 +235,7 @@ try {
       const option = document.querySelector('#creator-ability-assignment-dex option[value="appendix-assignment-1-roll-1"]');
       return option && option.disabled;
     }, null, { timeout: 3000 });
-    assert.equal(await page.locator('#creator-ability-assignment-dex option[value="' + rollIds[0] + '"]').isDisabled(), true,
+    assert.equal(await page.locator('#creator-ability-assignment-dex option[value="' + rollIds[0] + '"]').evaluate(option => option.disabled), true,
       'A roll selected for Strength must not be available for Dexterity');
     for (let index = 1; index < abilityKeys.length; index += 1) {
       await page.locator('#creator-ability-assignment-' + abilityKeys[index]).selectOption(rollIds[index]);
