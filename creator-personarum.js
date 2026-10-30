@@ -1173,6 +1173,10 @@
 
     resetFormFields();
     restoreDraft();
+    window.creatorPersonarumActiveMode = currentMode;
+    window.dispatchEvent(new CustomEvent('creator-personarum:mode-changed', {
+      detail: { mode: currentMode }
+    }));
     setKnownCharacterWizardStep(currentKnownWizardStep, false);
     if (!isExplorer) void loadAssignmentPlayers();
     restoreOriginCityForCurrentPlayer();
