@@ -140,6 +140,36 @@ try {
 
   await gotoCreator();
 
+  const languageToggle = page.locator('#creator-language-toggle');
+  assert.equal(await languageToggle.textContent(), 'ENGLISH', 'The global language button must offer English while the creator is in Spanish');
+  await languageToggle.click();
+  await page.waitForFunction(() => document.documentElement.lang === 'en'
+    && document.getElementById('creator-language-toggle')?.textContent.trim() === 'ESPAÑOL');
+  assert.equal(await page.locator('#creator-path-title').textContent(), 'DO YOU ALREADY KNOW WHAT CHARACTER YOU WANT TO PLAY?',
+    'The global language switch must translate the full path chooser, not only skill labels');
+  assert.equal(await page.locator('#creator-skill-language').inputValue(), 'en',
+    'The global language switch must synchronize the existing skill translation source');
+  assert.ok(await page.locator('#creator-character-class option').evaluateAll(options => options.some(option => option.textContent.trim() === 'Artificer')),
+    'Class options must use their English catalog names');
+  assert.ok(await page.locator('#creator-lineage option').evaluateAll(options => options.some(option => option.textContent.trim() === 'Mountain Dwarf')),
+    'Species and lineage options must use their English catalog names');
+  assert.ok(await page.locator('#creator-deity option').evaluateAll(options => options.some(option => option.textContent.trim() === 'The Deer')),
+    'Pantheon options must use English names');
+  await page.waitForFunction(() => Array.from(document.getElementById('creator-zodiac-mark')?.options || [])
+    .some(option => option.textContent.trim() === 'The Deer — Life'), null, { timeout: 10000 });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await waitForAppendixCities();
+  await exposeWorkspace();
+  assert.equal(await page.evaluate(() => document.documentElement.lang), 'en',
+    'The selected language must persist after reloading the creator');
+  assert.equal(await page.locator('#creator-language-toggle').textContent(), 'ESPAÑOL',
+    'The language button must reflect the persisted language after reload');
+  await page.locator('#creator-language-toggle').click();
+  await page.waitForFunction(() => document.documentElement.lang === 'es'
+    && document.getElementById('creator-language-toggle')?.textContent.trim() === 'ENGLISH');
+  assert.equal(await page.locator('#creator-path-title').textContent(), '¿YA SABÉS QUÉ PERSONAJE QUERÉS JUGAR?',
+    'Switching back to Spanish must restore the complete interface');
+  
   if (!runLegacyFullSuite) {
     await page.locator('#creator-known-path-button').click();
     await page.waitForFunction(() => {
