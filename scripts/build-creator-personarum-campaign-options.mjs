@@ -226,15 +226,6 @@ for (const subclass of subclasses) {
   }
 }
 
-const includedByCategory = records.reduce((counts, record) => {
-  counts[record.category] = (counts[record.category] ?? 0) + 1;
-  return counts;
-}, {});
-for (const requiredCategory of ["species", "class", "subclass", "background"]) {
-  if (!includedByCategory[requiredCategory]) {
-    throw new Error("Canonical campaign options are missing required category: " + requiredCategory);
-  }
-}
 if (records.some(record => blockedSubclassIds.has(record.id))) {
   throw new Error("An explicitly excluded subclass leaked into campaign options.");
 }
@@ -319,6 +310,16 @@ if (seenBackgroundNames.size !== expectedBackgrounds.size ||
 const mageBackground = backgroundRecords.find(record => record.name?.en === "Mage of High Sorcery");
 if (JSON.stringify(mageBackground?.availability?.kingdoms) !== JSON.stringify(["Sorcerer Kingdom", "Imperio Gris"])) {
   throw new Error("Mage of High Sorcery must be restricted to Sorcerer Kingdom and Imperio Gris.");
+}
+
+const includedByCategory = records.reduce((counts, record) => {
+  counts[record.category] = (counts[record.category] ?? 0) + 1;
+  return counts;
+}, {});
+for (const requiredCategory of ["species", "class", "subclass", "background"]) {
+  if (!includedByCategory[requiredCategory]) {
+    throw new Error("Canonical campaign options are missing required category: " + requiredCategory);
+  }
 }
 
 const result = {
