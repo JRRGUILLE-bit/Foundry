@@ -198,7 +198,7 @@
     // Recover the last exploration interest without carrying character details
     // from the other creation path. Prefer this page session over a saved draft.
     if (!getSelectedExplorationFocus()) try {
-      const memoryDraft = inMemoryDrafts[CREATION_MODES.explore];
+      const memoryDraft = inMemoryDrafts[storageKeyForMode(CREATION_MODES.explore)];
       if (memoryDraft && typeof memoryDraft.explorationFocus === 'string' && memoryDraft.explorationFocus) {
         const savedChoice = exploreStep.querySelector('input[name="creator-exploration-focus"][value="' + memoryDraft.explorationFocus + '"]');
         if (savedChoice) savedChoice.checked = true;
@@ -558,7 +558,7 @@
       });
       zodiacMarkSelect.disabled = false;
       zodiacMarkSelect.required = Boolean(currentMode && currentMode !== CREATION_MODES.explore);
-      const restoredDraft = savedDraft || (currentMode ? inMemoryDrafts[currentMode] : null);
+      const restoredDraft = savedDraft || (currentMode ? inMemoryDrafts[storageKeyForMode(currentMode)] : null);
       if (restoredDraft && typeof restoredDraft.zodiacalMark === 'string') {
         zodiacMarkSelect.value = restoredDraft.zodiacalMark;
       }
@@ -1278,8 +1278,9 @@
   }
   function getDraftForOriginMigration(){
     if(!currentMode)return null;if(savedDraft&&savedDraft.mode===currentMode)return savedDraft;
-    if(inMemoryDrafts[currentMode])return inMemoryDrafts[currentMode];
-    try{const raw=window.localStorage.getItem(storageKeyForMode(currentMode));return raw?JSON.parse(raw):null;}catch(_){return null;}
+    const key=storageKeyForMode(currentMode);if(!key)return null;
+    if(inMemoryDrafts[key])return inMemoryDrafts[key];
+    try{const raw=window.localStorage.getItem(key);return raw?JSON.parse(raw):null;}catch(_){return null;}
   }
   function restoreOriginCityForCurrentPlayer(){
     originRegionSelect.value='';
@@ -1347,10 +1348,10 @@
     }
   }
 
-  function storageKeyForMode(mode) {
-    return mode === CREATION_MODES.explore
-      ? DRAFT_STORAGE_KEY + '.world-explorer'
-      : DRAFT_STORAGE_KEY;
+  function storageKeyForMode(mode, playerId = getCurrentAppendixPlayerId()) {
+    if (mode === CREATION_MODES.explore) return DRAFT_STORAGE_KEY + '.world-explorer';
+    if (mode !== CREATION_MODES.known || !APPENDIX_PLAYERS.some(player => player.playerId === playerId)) return '';
+    return DRAFT_STORAGE_KEY + '.player.' + playerId;
   }
 
   function getSelectedExplorationFocus() {
@@ -1622,13 +1623,27 @@
 
   function restoreDraft() {
     let memoryDraft = null;
+    const storageKey = storageKeyForMode(currentMode);
+    if (!storageKey) {
+      setDraftStatus('Elegí tu nombre para recuperar o guardar tu personaje.', 'idle');
+      return;
+    }
     try {
-      memoryDraft = inMemoryDrafts[currentMode] || null;
+      memoryDraft = inMemoryDrafts[storageKey] || null;
       let draft = memoryDraft;
       if (!draft) {
-        const raw = window.localStorage.getItem(storageKeyForMode(currentMode));
-        if (!raw) return;
-        draft = JSON.parse(raw);
+        const raw = window.localStorage.getItem(storageKey);
+        if (raw) draft = JSON.parse(raw);
+        if (!draft && currentMode === CREATION_MODES.known) {
+          const legacyRaw = window.localStorage.getItem(DRAFT_STORAGE_KEY);
+          const legacyDraft = legacyRaw ? JSON.parse(legacyRaw) : null;
+          const legacyPlayerId = legacyDraft?.playerAssignment?.playerId || appendixPlayerIdFromName(legacyDraft?.playerName);
+          if (legacyDraft && legacyPlayerId === getCurrentAppendixPlayerId()) {
+            draft = legacyDraft;
+            window.localStorage.setItem(storageKey, JSON.stringify(legacyDraft));
+          }
+        }
+        if (!draft) return;
       }
       if (!draft || draft.schemaVersion !== 1 || typeof draft.name !== 'string') {
         setDraftStatus('Se encontró un borrador con formato no reconocido; guardá uno nuevo para reemplazarlo.', 'error');
@@ -1838,6 +1853,7 @@
 
   function publishCreatorPersonarumDraftChange(values = readFormValues()) {
     if (!currentMode || draftStep.hidden) return;
+    autosaveCurrentDraft(values);
     const draft = buildDraftRecord(values);
     window.dispatchEvent(new CustomEvent('creator-personarum:draft-changed', {
       detail: { draft }
@@ -1846,7 +1862,24 @@
 
   function rememberCurrentDraft() {
     if (!currentMode || draftStep.hidden) return;
-    inMemoryDrafts[currentMode] = buildDraftRecord(readFormValues());
+    const storageKey = storageKeyForMode(currentMode);
+    if (!storageKey) return;
+    inMemoryDrafts[storageKey] = buildDraftRecord(readFormValues());
+  }
+
+  function autosaveCurrentDraft(values = readFormValues()) {
+    if (!currentMode || draftStep.hidden) return false;
+    const storageKey = storageKeyForMode(currentMode);
+    if (!storageKey) return false;
+    const draft = buildDraftRecord(values);
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(draft));
+      savedDraft = draft;
+      inMemoryDrafts[storageKey] = draft;
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   function validateCurrentDraft(values, options = {}) {
@@ -2100,9 +2133,11 @@
     draft.finalizedAt = new Date().toISOString();
 
     try {
-      window.localStorage.setItem(storageKeyForMode(currentMode), JSON.stringify(draft));
+      const storageKey = storageKeyForMode(currentMode);
+      if (!storageKey) throw new Error('Elegí un jugador antes de guardar.');
+      window.localStorage.setItem(storageKey, JSON.stringify(draft));
       savedDraft = draft;
-      inMemoryDrafts[currentMode] = draft;
+      inMemoryDrafts[storageKey] = draft;
       setCharacterFinalized(true);
       renderPreview(draft);
       setDraftStatus(
@@ -2122,10 +2157,15 @@
     draft.status = 'draft';
     draft.finalizedAt = null;
     savedDraft = draft;
-    inMemoryDrafts[currentMode] = draft;
+    const storageKey = storageKeyForMode(currentMode);
+    if (!storageKey) {
+      setDraftStatus('Elegí tu nombre antes de guardar el personaje.', 'error');
+      return;
+    }
+    inMemoryDrafts[storageKey] = draft;
 
     try {
-      window.localStorage.setItem(storageKeyForMode(currentMode), JSON.stringify(draft));
+      window.localStorage.setItem(storageKey, JSON.stringify(draft));
       setDraftStatus('VOLVISTE A EDITAR EL PERSONAJE. LOS CAMBIOS SE GUARDAN AL PULSAR «GUARDAR BORRADOR».', 'idle');
     } catch (error) {
       setDraftStatus('Podés editar el personaje, pero no se pudo actualizar el estado local. Guardá el borrador para conservarlo.', 'error');
@@ -2150,9 +2190,14 @@
     draft.finalizedAt = null;
 
     try {
-      window.localStorage.setItem(storageKeyForMode(currentMode), JSON.stringify(draft));
+      const storageKey = storageKeyForMode(currentMode);
+      if (!storageKey) {
+        setDraftStatus('Elegí tu nombre antes de guardar el personaje.', 'error');
+        return;
+      }
+      window.localStorage.setItem(storageKey, JSON.stringify(draft));
       savedDraft = draft;
-      inMemoryDrafts[currentMode] = draft;
+      inMemoryDrafts[storageKey] = draft;
       exportDraftButton.disabled = false;
       exportFoundryActorButton.disabled = false;
       renderPreview(draft);
@@ -2168,7 +2213,8 @@
     const values = readFormValues();
     if (!validateCurrentDraft(values)) return null;
     const draft = buildDraftRecord(values);
-    inMemoryDrafts[currentMode] = draft;
+    const storageKey = storageKeyForMode(currentMode);
+    if (storageKey) inMemoryDrafts[storageKey] = draft;
     renderPreview(draft);
     return draft;
   }
@@ -2560,7 +2606,19 @@
         : 'Elegí tu nombre. El navegador recordará tu elección; no necesitás ingresar ningún código.',
       'idle'
     );
+    if (selectedPlayer) {
+      resetFormFields();
+      APPENDIX_PLAYERS.forEach(player => assignmentPlayerSelect.add(new Option(player.playerName, player.playerId)));
+      assignmentPlayerSelect.value = playerId;
+      assignmentPlayerSelect.disabled = false;
+      assignmentRosterReady = true;
+      playerNameInput.value = selectedPlayer.playerName;
+      restoreDraft();
+      setKnownCharacterWizardStep(currentKnownWizardStep, false);
+    }
     restoreOriginCityForCurrentPlayer();
+    updateOriginDetails();
+    renderPreview(readFormValues());
     assignmentLoadButton.disabled = !assignmentRosterReady || !playerId;
   });
 
