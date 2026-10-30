@@ -30,6 +30,7 @@
   );
 
   let pendingRestoredSubclass = '';
+  let pendingRestoredSubclassClass = '';
   let pendingRestoredFeat = '';
   let pendingRestoredSpells = null;
   let pendingRestoredClassSkills = null;
@@ -43,10 +44,12 @@
 
   window.addEventListener('creator-personarum:restore-subclass', (event) => {
     pendingRestoredSubclass = String(event.detail?.value || '');
+    pendingRestoredSubclassClass = normalize(byId('creator-character-class')?.value || '');
     const select = byId('creator-subclass');
     if (pendingRestoredSubclass && select && Array.from(select.options).some(option => option.value === pendingRestoredSubclass)) {
       select.value = pendingRestoredSubclass;
       pendingRestoredSubclass = '';
+      pendingRestoredSubclassClass = '';
     }
   });
 
@@ -2002,15 +2005,24 @@
   function appendSubclasses(records) {
     const select = byId('creator-subclass');
     const classSelect = byId('creator-character-class');
-    if (!select || !classSelect) return;
+    const levelInput = byId('creator-level');
+    if (!select || !classSelect || !levelInput) return;
 
+    const field = select.closest('label');
     const rows = records.filter(item => item.category === 'subclass');
     const refresh = () => {
       const selectedClass = normalize(classSelect.value);
       const isWarlock = selectedClass === 'brujo' || selectedClass === 'warlock';
+      const requestedLevel = Number(levelInput.value || 1);
+      const validLevel = Number.isInteger(requestedLevel) && requestedLevel >= 1 && requestedLevel <= 20;
+      const selectedLevel = validLevel ? requestedLevel : 1;
       const label = byId('creator-subclass-label');
       if (label) label.textContent = isWarlock ? 'PATRÓN' : 'SUBCLASE';
+
       const matching = rows.filter(item => {
+        if (item.campaign_status !== 'approved' || item.data_quality !== 'verified') return false;
+        const subclassLevel = Number(item.level);
+        if (!validLevel || !Number.isInteger(subclassLevel) || subclassLevel < 1 || subclassLevel > selectedLevel) return false;
         const className = translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS);
         if (!selectedClass || normalize(className) !== selectedClass) return false;
         const subclassName = normalize(item.name);
@@ -2024,30 +2036,72 @@
       }).sort((a, b) => String(a.name).localeCompare(String(b.name)) ||
         String(a.source).localeCompare(String(b.source)));
 
-      select.replaceChildren(new Option(
-        !selectedClass ? 'Elegí una clase primero…' : matching.length ? (isWarlock ? 'Elegí tu patrón…' : 'Elegí una subclase…') : 'No hay subclases permitidas para esta clase',
-        ''
-      ));
+      const futureSubclasses = rows.filter(item => {
+        const className = translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS);
+        return normalize(className) === selectedClass &&
+          item.campaign_status === 'approved' &&
+          item.data_quality === 'verified' &&
+          Number.isInteger(Number(item.level)) &&
+          Number(item.level) > selectedLevel;
+      });
+      const placeholder = !selectedClass
+        ? 'Elegí una clase primero…'
+        : !validLevel
+          ? 'Cargá un nivel válido entre 1 y 20…'
+          : matching.length
+            ? (isWarlock ? 'Elegí tu patrón…' : 'Elegí una subclase…')
+            : futureSubclasses.length
+              ? 'Esta clase todavía no elige subclase a este nivel.'
+              : 'No hay subclases aprobadas para esta clase.';
+      select.replaceChildren(new Option(placeholder, ''));
       const seen = new Set();
       for (const item of matching) {
         const key = normalize(item.name);
         if (!key || seen.has(key)) continue;
         seen.add(key);
         addOption(select, item.name, item.source, item.category);
-        const added=Array.from(select.options).find(option=>option.value===item.name);
-        if(added)added.textContent=byId('creator-skill-language')?.value==='en'?String(item.name_en||item.name):item.name;
+        const added = Array.from(select.options).find(option => option.value === item.name);
+        if (added) added.textContent = byId('creator-skill-language')?.value === 'en'
+          ? String(item.name_en || item.name)
+          : item.name;
       }
-      select.disabled = !selectedClass || matching.length === 0;
+
+      if (field) field.hidden = !matching.length;
+      select.disabled = !selectedClass || !validLevel || matching.length === 0;
 
       if (pendingRestoredSubclass) {
-        if (Array.from(select.options).some(option => option.value === pendingRestoredSubclass)) {
-          select.value = pendingRestoredSubclass;
+        if (pendingRestoredSubclassClass && selectedClass && pendingRestoredSubclassClass !== selectedClass) {
+          pendingRestoredSubclass = '';
+          pendingRestoredSubclassClass = '';
+        } else if (selectedClass) {
+          const restoredOption = Array.from(select.options).find(option => option.value === pendingRestoredSubclass);
+          if (restoredOption) {
+            select.value = pendingRestoredSubclass;
+            pendingRestoredSubclass = '';
+            pendingRestoredSubclassClass = '';
+          } else {
+            const pendingRecord = rows.find(item =>
+              normalize(translate(item.class_name || item.className || item.class_key || '', CLASS_LABELS)) === selectedClass &&
+              normalize(item.name) === normalize(pendingRestoredSubclass)
+            );
+            const canWaitForUnlock = validLevel &&
+              pendingRecord &&
+              pendingRecord.campaign_status === 'approved' &&
+              pendingRecord.data_quality === 'verified' &&
+              Number.isInteger(Number(pendingRecord.level)) &&
+              Number(pendingRecord.level) > selectedLevel;
+            if (!canWaitForUnlock) {
+              pendingRestoredSubclass = '';
+              pendingRestoredSubclassClass = '';
+            }
+          }
         }
-        pendingRestoredSubclass = '';
       }
     };
 
     classSelect.addEventListener('change', refresh);
+    levelInput.addEventListener('input', refresh);
+    levelInput.addEventListener('change', refresh);
     byId('creator-skill-language')?.addEventListener('change', refresh);
     refresh();
   }
