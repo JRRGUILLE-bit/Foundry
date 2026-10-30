@@ -39,7 +39,8 @@
       "cantrip": "Spare the Dying",
       "skill_proficiencies": [
         "Medicine"
-      ]
+      ],
+      "summary_en": "You gain the Spare the Dying cantrip and proficiency in Medicine."
     },
     {
       "id": "zodiac.raven",
@@ -51,7 +52,8 @@
       "skill_proficiencies": [
         "Arcana",
         "History"
-      ]
+      ],
+      "summary_en": "You gain proficiency in Arcana and History."
     },
     {
       "id": "zodiac.whale",
@@ -61,7 +63,8 @@
       "domain_en": "Tempest",
       "summary_es": "Obtenés el truco Gust y una velocidad de nado igual a tu velocidad de movimiento base.",
       "cantrip": "Gust",
-      "swim_speed": "equal_to_base_movement_speed"
+      "swim_speed": "equal_to_base_movement_speed",
+      "summary_en": "You gain the Gust cantrip and a swimming speed equal to your base walking speed."
     },
     {
       "id": "zodiac.fox",
@@ -73,7 +76,8 @@
       "skill_proficiencies": [
         "Stealth",
         "Acrobatics"
-      ]
+      ],
+      "summary_en": "You gain proficiency in Stealth and Acrobatics."
     },
     {
       "id": "zodiac.turtle",
@@ -82,7 +86,8 @@
       "domain_es": "Forja",
       "domain_en": "Forge",
       "summary_es": "Obtenés competencia con dos herramientas a tu elección.",
-      "tool_proficiency_count": 2
+      "tool_proficiency_count": 2,
+      "summary_en": "You gain proficiency with two tools of your choice."
     },
     {
       "id": "zodiac.horse",
@@ -94,7 +99,8 @@
       "skill_proficiencies": [
         "Athletics"
       ],
-      "base_speed_bonus_ft": 5
+      "base_speed_bonus_ft": 5,
+      "summary_en": "Your base walking speed increases by 5 feet, and you gain proficiency in Athletics."
     },
     {
       "id": "zodiac.dragon",
@@ -114,7 +120,8 @@
         "Produce Flame",
         "Shocking Grasp",
         "Thunderclap"
-      ]
+      ],
+      "summary_en": "You gain proficiency in Arcana and choose one damaging cantrip from the listed options."
     },
     {
       "id": "zodiac.rat",
@@ -133,7 +140,8 @@
         "familiar_form": "rat_only",
         "availability_condition": "rat_month_only",
         "resummon_condition": "next_rat_month"
-      }
+      },
+      "summary_en": "You gain the ability to cast Find Familiar for free, without material components or a gold cost. It is cast as a ritual (1 hour and 10 minutes), solely to summon a rat, and only during the month when the Rat constellation dominates. If the familiar dies, you cannot summon another until the next Rat month."
     },
     {
       "id": "zodiac.serpent",
@@ -148,7 +156,8 @@
       "cantrip_choices": [
         "Vicious Mockery",
         "Acid Splash"
-      ]
+      ],
+      "summary_en": "You gain proficiency in Intimidation and choose either Vicious Mockery or Acid Splash."
     }
   ],
   "tool_options": [
