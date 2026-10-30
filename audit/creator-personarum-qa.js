@@ -64,9 +64,9 @@ assert.ok(runtime.includes('APPENDIX_CITY_STORAGE_KEY_PREFIX'), 'Each player cit
 assert.ok(runtime.includes('function restoreOriginCityForCurrentPlayer()'), 'The selected city must restore for the active Appendix player');
 assert.ok(runtime.includes('function persistOriginCityForCurrentPlayer()'), 'The selected city must persist independently for the active Appendix player');
 assert.ok(runtime.includes('canonicalInformation: selectedOriginRegion.canonicalInformation'), 'The full city record must be retained in the saved origin context');
-assert.ok(page.includes('INFORMACIÓN CANÓNICA'), 'The Appendix UI must show canonical city information');
-assert.ok(page.includes('AVISO CARTOGRÁFICO'), 'The Appendix UI must show the cartographic notice');
-assert.ok(page.includes('CRÓNICA DE LA CIUDAD'), 'The Appendix UI must show the city chronicle');
+assert.ok(runtime.includes("appendOriginDetailBlock('INFORMACIÓN CANÓNICA'"), 'The Appendix UI must show canonical city information');
+assert.ok(runtime.includes("appendOriginDetailBlock('AVISO CARTOGRÁFICO'"), 'The Appendix UI must show the cartographic notice');
+assert.ok(runtime.includes("appendOriginDetailBlock('CRÓNICA DE LA CIUDAD'"), 'The Appendix UI must show the city chronicle');
 assert.match(page, /¿De qué ciudad del Imperio Gris viene tu personaje\?/, 'The origin UI must offer Grey Empire cities only');
 assert.match(page, /id="creator-assignment-load"/, 'The player must explicitly load their assigned level and roll pool');
 assert.match(page, /id="creator-assignment-rolls"/, 'The six director-assigned roll results must be displayed');
