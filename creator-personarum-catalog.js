@@ -5,6 +5,10 @@
   let activeCreatorMode = String(window.creatorPersonarumActiveMode || '');
   window.addEventListener('creator-personarum:mode-changed', (event) => {
     activeCreatorMode = String(event.detail?.mode || '');
+    if (document.documentElement.dataset.creatorCatalogState === 'error') {
+      const status = document.getElementById('creator-background-stage-status');
+      if (status) status.hidden = activeCreatorMode !== 'known-character';
+    }
     window.creatorPersonarumApplyBackgroundModeVisibility?.();
   });
   const byId = (id) => document.getElementById(id);
