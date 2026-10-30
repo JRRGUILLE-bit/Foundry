@@ -698,6 +698,10 @@
     }
   }
 
+  window.creatorPersonarumRefreshWizardStage = () => {
+    setKnownCharacterWizardStep(currentKnownWizardStep, false);
+  };
+
   function focusCreatorWizardControl(control) {
     if (!control) return;
     const stagedField = control.closest('[data-creator-wizard-step]');
