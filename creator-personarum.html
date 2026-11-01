@@ -168,6 +168,67 @@
         <button type="button" id="creator-explore-continue" class="creator-primary-button">CONTINUAR CON ESTA PISTA <span aria-hidden="true">↗</span></button>
       </section>
 
+      <section id="creator-origin-step" class="creator-origin-step" hidden aria-labelledby="creator-origin-title">
+        <div class="creator-origin-intro">
+          <p class="creator-eyebrow">CAMINO 02 // EXPLORAR EL MAPA</p>
+          <h1 id="creator-origin-title" tabindex="-1">¿DE DÓNDE VIENE TU PERSONAJE?</h1>
+          <p class="creator-origin-lead">Tocá un punto o un área del mapa para leer su ficha del Atlas. Podés visitar todos los lugares que quieras, compararlos y elegir uno como origen. Elegir un origen no fija tu linaje, tu clase ni tu fe.</p>
+          <button type="button" id="creator-back-to-explore-from-origin" class="creator-back-link">← VOLVER A LAS PISTAS</button>
+        </div>
+
+        <div class="creator-origin-layout">
+          <div class="creator-map-column">
+            <div class="creator-map-toolbar" role="group" aria-label="Controles del mapa">
+              <button type="button" id="creator-map-zoom-out" class="creator-map-tool" aria-label="Alejar el mapa">−</button>
+              <button type="button" id="creator-map-zoom-in" class="creator-map-tool" aria-label="Acercar el mapa">+</button>
+              <button type="button" id="creator-map-zoom-reset" class="creator-map-tool creator-map-tool-wide">VER TODO</button>
+              <span class="creator-map-hint">Con el mapa ampliado, desplazalo con la rueda o con el dedo.</span>
+            </div>
+            <div id="creator-map-viewport" class="creator-map-viewport">
+              <div id="creator-map-canvas" class="creator-map-canvas">
+                <img id="creator-map-image" class="creator-map-image" src="creator-personarum-mapa-sin-texto.jpg" width="1024" height="765" decoding="async" alt="Mapa de pergamino del mundo: dos continentes separados por un estrecho, un continente menor al sur y archipiélagos dispersos en el océano.">
+                <svg id="creator-map-svg" class="creator-map-svg" viewBox="0 0 1024 765" role="group" aria-label="Lugares del mapa. Cada punto o área abre su ficha del Atlas."></svg>
+                <div id="creator-map-tooltip" class="creator-map-tooltip" role="presentation" hidden></div>
+              </div>
+            </div>
+            <p class="creator-map-legend" aria-hidden="true">
+              <span><i class="creator-legend-dot"></i> Lugar</span>
+              <span><i class="creator-legend-area"></i> Área del mapa</span>
+              <span><i class="creator-legend-origin"></i> Origen elegido</span>
+            </p>
+            <details id="creator-map-list" class="creator-map-list" open>
+              <summary>LISTA DE LUGARES</summary>
+              <div id="creator-map-list-body" class="creator-map-list-body"></div>
+            </details>
+          </div>
+
+          <aside id="creator-atlas-panel" class="creator-atlas-panel" aria-label="Ficha del Atlas">
+            <div id="creator-atlas-empty" class="creator-atlas-empty">
+              <p class="creator-eyebrow">ATLAS DEL MUNDO</p>
+              <h2>ELEGÍ UN LUGAR</h2>
+              <p>Tocá un punto o un área del mapa, o elegí un lugar de la lista, para leer su descripción, su capital, su gobierno, sus pueblos y sus creencias.</p>
+              <p>Los lugares que marcan solo un punto no tienen sus fronteras dibujadas en el mapa.</p>
+            </div>
+            <article id="creator-atlas-content" class="creator-atlas-content" hidden></article>
+          </aside>
+        </div>
+
+        <section id="creator-compare" class="creator-compare" aria-labelledby="creator-compare-title" hidden>
+          <h2 id="creator-compare-title">COMPARAR LUGARES</h2>
+          <p class="creator-compare-help">Podés comparar hasta tres lugares. Añadilos desde su ficha con «Añadir a la comparación».</p>
+          <div id="creator-compare-scroll" class="creator-compare-scroll"></div>
+        </section>
+
+        <p id="creator-map-status" class="creator-map-sr" role="status" aria-live="polite"></p>
+        <div class="creator-origin-bar">
+          <p id="creator-origin-bar-text" class="creator-draft-status" role="status" aria-live="polite">Todavía no elegiste un origen. Podés hacerlo ahora o más adelante.</p>
+          <div class="creator-origin-bar-actions">
+            <button type="button" id="creator-origin-clear" class="creator-secondary-button" hidden>QUITAR ORIGEN</button>
+            <button type="button" id="creator-origin-continue" class="creator-primary-button">CONTINUAR SIN ORIGEN POR AHORA <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+      </section>
+
       <section id="creator-draft-step" hidden>
         <div class="creator-workspace-intro">
         <p class="creator-eyebrow" id="creator-draft-eyebrow">CAMINO 01 // DAR FORMA A TU IDEA</p>
@@ -183,6 +244,15 @@
             <span id="creator-form-step-label">01 / IDENTIDAD</span>
             <span id="creator-form-mode-label">BORRADOR LOCAL</span>
           </header>
+          <div id="creator-origin-summary" class="creator-origin-summary" hidden>
+            <div class="creator-origin-summary-text">
+              <span class="creator-origin-summary-label">ORIGEN</span>
+              <strong id="creator-origin-summary-name">Todavía sin elegir</strong>
+              <span id="creator-origin-summary-meta"></span>
+            </div>
+            <button type="button" id="creator-origin-open-map" class="creator-secondary-button">ELEGIR EN EL MAPA</button>
+          </div>
+
           <nav id="creator-known-wizard-navigation" class="creator-wizard-navigation" aria-label="Pasos de creación" hidden>
             <button type="button" id="creator-wizard-back" class="creator-secondary-button">ANTERIOR</button>
             <div class="creator-wizard-progress" aria-live="polite">
@@ -595,7 +665,9 @@
   </main>
 
   <script src="creator-personarum-i18n.js?v=20261030-3"></script>
-  <script src="creator-personarum.js?v=20261030-17"></script>
+  <script src="creator-personarum-atlas.js?v=20261101-1"></script>
+  <script src="creator-personarum-mapa.js?v=20261101-1"></script>
+  <script src="creator-personarum.js?v=20261101-1"></script>
   <script src="creator-personarum-catalog.js?v=20261030-19"></script>
   <script src="creator-personarum-sheets-config.js?v=20261029-2"></script>
   <script src="creator-personarum-sheets.js?v=20261029-1"></script>

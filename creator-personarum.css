@@ -1686,3 +1686,91 @@
 .creator-personarum-page .creator-origin-detail-block{display:grid;gap:.35rem;padding:.85rem 1rem;border-left:2px solid var(--cp-gold);background:rgba(255,252,240,.5);}
 .creator-personarum-page .creator-origin-detail-block h3{margin:0;color:var(--cp-green);font-size:1.05rem;letter-spacing:.055em;}
 .creator-personarum-page .creator-origin-detail-block p{margin:0;color:#54472f;line-height:1.38;}
+
+
+/* ===== Mapa del mundo: paso "¿De dónde viene tu personaje?" ===== */
+.creator-origin-step { width: min(1240px, 100%); margin: clamp(1.4rem, 4vh, 3rem) auto; padding: 0 1rem; box-sizing: border-box; color: var(--cp-ink); }
+.creator-origin-step[hidden], .creator-map-tooltip[hidden], .creator-atlas-empty[hidden], .creator-atlas-content[hidden], .creator-compare[hidden], .creator-origin-summary[hidden] { display: none; }
+.creator-origin-intro { max-width: 760px; margin-bottom: 1.2rem; }
+.creator-origin-intro h1 { margin: .3rem 0 .6rem; font: 600 clamp(1.5rem, 4vw, 2.3rem)/1.1 "Oswald", sans-serif; letter-spacing: .04em; }
+.creator-origin-lead { font: 400 1.15rem/1.45 "Cormorant Garamond", serif; margin: 0 0 .8rem; }
+.creator-origin-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr); gap: 1.2rem; align-items: start; }
+.creator-map-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-bottom: .6rem; }
+.creator-map-tool { min-width: 2.6rem; min-height: 2.6rem; border: 1px solid var(--cp-rule); background: var(--cp-paper-light); color: var(--cp-ink); font: 600 1.1rem "Oswald", sans-serif; cursor: pointer; }
+.creator-map-tool-wide { padding: 0 .9rem; font-size: .85rem; letter-spacing: .08em; }
+.creator-map-tool:disabled { opacity: .4; cursor: default; }
+.creator-map-hint { font: italic 400 .95rem "Cormorant Garamond", serif; color: var(--cp-ink-soft); }
+.creator-map-viewport { overflow: auto; max-height: 82vh; border: 2px solid var(--cp-rule); background: var(--cp-paper); box-shadow: 0 8px 22px rgba(60, 40, 15, .28); -webkit-overflow-scrolling: touch; }
+.creator-map-canvas { position: relative; width: 100%; }
+.creator-map-image { display: block; width: 100%; height: auto; user-select: none; }
+.creator-map-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.creator-map-tooltip { position: absolute; transform: translate(-50%, -165%); padding: .25rem .6rem; background: rgba(36, 28, 16, .92); color: #f5edd9; font: 600 .78rem "Oswald", sans-serif; letter-spacing: .05em; white-space: nowrap; pointer-events: none; z-index: 3; }
+.creator-map-place { cursor: pointer; outline: none; }
+.creator-map-area { fill: rgba(255, 236, 170, .07); stroke: transparent; stroke-width: 2; vector-effect: non-scaling-stroke; pointer-events: all; transition: fill .16s, stroke .16s; }
+.creator-map-place:hover .creator-map-area, .creator-map-place:focus-visible .creator-map-area { fill: rgba(224, 190, 110, .28); stroke: rgba(139, 45, 26, .85); }
+.creator-map-place--area.is-active .creator-map-area { fill: rgba(224, 190, 110, .34); stroke: #8b2d1a; }
+.creator-map-place--area.is-origin .creator-map-area { fill: rgba(57, 75, 54, .28); stroke: var(--cp-green); }
+.creator-map-hit { fill: transparent; pointer-events: all; }
+.creator-map-dot { fill: #8b2d1a; stroke: #f5edd9; stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.creator-map-ring { fill: rgba(245, 237, 217, .2); stroke: rgba(139, 45, 26, .6); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.creator-map-place--approx .creator-map-ring { stroke-dasharray: 3 3; }
+.creator-map-origin-ring { fill: none; stroke: transparent; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.creator-map-place--marker:hover .creator-map-ring, .creator-map-place--marker:focus-visible .creator-map-ring, .creator-map-place--marker.is-active .creator-map-ring { stroke: #8b2d1a; stroke-width: 2.5; fill: rgba(224, 190, 110, .45); }
+.creator-map-place--marker.is-origin .creator-map-dot { fill: var(--cp-green); }
+.creator-map-place--marker.is-origin .creator-map-origin-ring { stroke: var(--cp-green); }
+.creator-map-place:focus-visible .creator-map-ring { stroke-width: 3; }
+.creator-map-legend { display: flex; flex-wrap: wrap; gap: 1rem; margin: .6rem 0; font: 500 .8rem "Oswald", sans-serif; letter-spacing: .06em; color: var(--cp-ink-soft); }
+.creator-map-legend i { display: inline-block; width: .8rem; height: .8rem; margin-right: .3rem; vertical-align: -.1rem; }
+.creator-legend-dot { border-radius: 50%; background: #8b2d1a; }
+.creator-legend-area { background: rgba(224, 190, 110, .55); border: 1px solid #8b2d1a; }
+.creator-legend-origin { border-radius: 50%; background: var(--cp-green); }
+.creator-map-list { border: 1px solid var(--cp-rule); background: var(--cp-paper-light); }
+.creator-map-list summary { padding: .7rem .9rem; font: 600 .9rem "Oswald", sans-serif; letter-spacing: .1em; cursor: pointer; }
+.creator-map-list-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .4rem 1.2rem; padding: 0 .9rem .9rem; }
+.creator-map-list-group h3 { margin: .5rem 0 .3rem; font: 600 .8rem "Oswald", sans-serif; letter-spacing: .1em; color: var(--cp-gold); }
+.creator-map-list-group ul { list-style: none; margin: 0; padding: 0; }
+.creator-map-list-item { display: flex; width: 100%; min-height: 2.6rem; align-items: baseline; gap: .5rem; padding: .35rem .5rem; border: 0; border-bottom: 1px dotted var(--cp-rule); background: transparent; color: var(--cp-ink); font: 400 1.05rem "Cormorant Garamond", serif; text-align: left; cursor: pointer; }
+.creator-map-list-item:hover, .creator-map-list-item.is-active { background: rgba(224, 190, 110, .3); }
+.creator-map-list-kind { margin-left: auto; font: 500 .7rem "Oswald", sans-serif; letter-spacing: .08em; color: var(--cp-ink-soft); }
+.creator-map-list-flag { font: 600 .7rem "Oswald", sans-serif; color: var(--cp-green); }
+.creator-atlas-panel { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow: auto; padding: 1.1rem 1.2rem; border: 2px solid var(--cp-rule); background: linear-gradient(180deg, var(--cp-paper-light), var(--cp-paper)); box-shadow: 0 8px 22px rgba(60, 40, 15, .25); }
+.creator-atlas-empty h2, .creator-atlas-header h2 { margin: .2rem 0 .5rem; font: 600 1.35rem/1.15 "Oswald", sans-serif; letter-spacing: .04em; }
+.creator-atlas-empty p, .creator-atlas-content p, .creator-atlas-content li, .creator-atlas-content dd { font: 400 1.1rem/1.4 "Cormorant Garamond", serif; }
+.creator-atlas-header { display: flex; justify-content: space-between; gap: .6rem; align-items: flex-start; }
+.creator-atlas-close { flex: none; width: 2.6rem; height: 2.6rem; border: 1px solid var(--cp-rule); background: transparent; color: var(--cp-ink); font-size: 1.6rem; line-height: 1; cursor: pointer; }
+.creator-atlas-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: .5rem 0; }
+.creator-atlas-origin-button, .creator-atlas-compare-button, .creator-compare-link, .creator-compare-origin, .creator-compare-remove, .creator-atlas-place-link { min-height: 2.6rem; padding: .4rem .8rem; border: 1px solid var(--cp-green); background: var(--cp-green); color: #f5edd9; font: 600 .78rem "Oswald", sans-serif; letter-spacing: .08em; cursor: pointer; }
+.creator-atlas-compare-button, .creator-compare-link, .creator-compare-remove, .creator-atlas-place-link { background: transparent; color: var(--cp-ink); border-color: var(--cp-rule); }
+.creator-atlas-origin-button.is-chosen, .creator-compare-origin.is-chosen { background: var(--cp-green-dark); }
+.creator-atlas-compare-button.is-chosen { background: rgba(224, 190, 110, .4); }
+.creator-atlas-neutral, .creator-atlas-note, .creator-atlas-source { font-style: italic; color: var(--cp-ink-soft); }
+.creator-atlas-section h3 { margin: 1rem 0 .3rem; font: 600 .85rem "Oswald", sans-serif; letter-spacing: .1em; color: var(--cp-gold); border-bottom: 1px solid var(--cp-rule); }
+.creator-atlas-intro { font-style: italic; }
+.creator-atlas-fields div { display: grid; grid-template-columns: 7.5rem 1fr; gap: .6rem; padding: .3rem 0; border-bottom: 1px dotted var(--cp-rule); }
+.creator-atlas-fields dt { font: 600 .78rem "Oswald", sans-serif; letter-spacing: .08em; color: var(--cp-ink-soft); }
+.creator-atlas-fields dd { margin: 0; }
+.creator-atlas-list { margin: 0; padding-left: 1.2rem; }
+.creator-atlas-places { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; margin: 0; padding: 0; }
+.creator-compare { margin-top: 1.4rem; }
+.creator-compare h2 { font: 600 1.1rem "Oswald", sans-serif; letter-spacing: .1em; }
+.creator-compare-scroll { overflow-x: auto; }
+.creator-compare-table { min-width: 560px; width: 100%; border-collapse: collapse; background: var(--cp-paper-light); }
+.creator-compare-table th, .creator-compare-table td { padding: .5rem .7rem; border: 1px solid var(--cp-rule); vertical-align: top; text-align: left; font: 400 1rem/1.35 "Cormorant Garamond", serif; }
+.creator-compare-table thead th { font-family: "Oswald", sans-serif; }
+.creator-compare-name { display: block; margin-bottom: .4rem; font-size: 1rem; letter-spacing: .05em; }
+.creator-compare-table th button { display: block; width: 100%; margin-top: .3rem; }
+.creator-origin-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem; margin-top: 1.4rem; padding: .9rem 1rem; border: 1px solid var(--cp-rule); background: var(--cp-paper-light); }
+.creator-origin-bar p { margin: 0; flex: 1 1 260px; }
+.creator-origin-bar-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.creator-origin-summary { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem; margin: 0 0 1rem; padding: .7rem .9rem; border: 1px solid var(--cp-rule); background: rgba(224, 190, 110, .18); }
+.creator-origin-summary-text { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem; }
+.creator-origin-summary-label { font: 600 .75rem "Oswald", sans-serif; letter-spacing: .1em; color: var(--cp-gold); }
+.creator-map-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.creator-map-calibration { margin-top: .6rem; padding: .6rem .8rem; border: 2px dashed #8b2d1a; background: rgba(255, 255, 255, .5); font: 500 .9rem "Oswald", sans-serif; }
+@media (max-width: 900px) {
+  .creator-origin-layout { grid-template-columns: 1fr; }
+  .creator-atlas-panel { position: static; max-height: none; }
+  .creator-map-viewport { max-height: 70vh; }
+  .creator-atlas-fields div { grid-template-columns: 1fr; gap: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .creator-map-area { transition: none; } }

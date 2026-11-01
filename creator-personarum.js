@@ -84,6 +84,15 @@
   const backFromDraftButton = document.getElementById('creator-back-to-path-from-draft');
   const exploreContinueButton = document.getElementById('creator-explore-continue');
   const exploreStatus = document.getElementById('creator-explore-status');
+  const originStep = document.getElementById('creator-origin-step');
+  const backFromOriginButton = document.getElementById('creator-back-to-explore-from-origin');
+  const originContinueButton = document.getElementById('creator-origin-continue');
+  const originClearButton = document.getElementById('creator-origin-clear');
+  const originBarText = document.getElementById('creator-origin-bar-text');
+  const originSummary = document.getElementById('creator-origin-summary');
+  const originSummaryName = document.getElementById('creator-origin-summary-name');
+  const originSummaryMeta = document.getElementById('creator-origin-summary-meta');
+  const originOpenMapButton = document.getElementById('creator-origin-open-map');
   const draftEyebrow = document.getElementById('creator-draft-eyebrow');
   const draftTitle = document.getElementById('creator-workspace-title');
   const draftDescription = document.getElementById('creator-draft-description');
@@ -158,7 +167,11 @@
   let currentMode = null;
   let currentKnownWizardStep = 1;
   let explorationFocus = '';
+  let selectedWorldOriginId = '';
+  let worldOriginTouched = false;
+  let mapController = null;
   let savedDraft = null;
+  const WORLD_ORIGIN_KIND_LABELS = { continente: 'Continente', reino: 'Reino', salvaje: 'Zona salvaje', archipielago: 'Archipiélago' };
   let isCharacterFinalized = false;
   const inMemoryDrafts = Object.create(null);
   let appendixCities = [];
@@ -208,6 +221,7 @@
   function showPathChoice() {
     pathChoice.hidden = false;
     exploreStep.hidden = true;
+    originStep.hidden = true;
     draftStep.hidden = true;
     const heading = document.getElementById('creator-path-title');
     if (heading) heading.focus();
@@ -216,6 +230,7 @@
   function showExploreStep() {
     pathChoice.hidden = true;
     exploreStep.hidden = false;
+    originStep.hidden = true;
     draftStep.hidden = true;
 
     // Recover the last exploration interest without carrying character details
@@ -1140,6 +1155,7 @@
     if (typeof focus === 'string') explorationFocus = focus;
     pathChoice.hidden = true;
     exploreStep.hidden = true;
+    originStep.hidden = true;
     draftStep.hidden = false;
 
     const isExplorer = currentMode === CREATION_MODES.explore;
@@ -1586,6 +1602,7 @@
       concept: document.getElementById('creator-concept').value.trim(),
       deity: deitySelect.value,
       deityName: getSelectedDeity() ? (getCreatorLanguage()==='en'?DIVINE_OPTIONS_EN[getSelectedDeity().value].name:getSelectedDeity().name) : '',
+      ...worldOriginValues(),
       originRegion: originRegionSelect.value,
       originRegionName: selectedOriginRegion ? selectedOriginRegion.name : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originRegionName || '' : ''),
       originContinent: selectedOriginRegion ? selectedOriginRegion.group : (savedDraft && savedDraft.originRegion === originRegionSelect.value ? savedDraft.originContinent || '' : ''),
@@ -1776,6 +1793,9 @@
         }
       }
       if (!explorationFocus) explorationFocus = draft.explorationFocus || '';
+      if (currentMode === CREATION_MODES.explore && typeof draft.worldOriginId === 'string' && getWorldOriginTerritory(draft.worldOriginId)) {
+        selectedWorldOriginId = draft.worldOriginId;
+      }
       const skillLanguageSelect = document.getElementById('creator-skill-language');
       if (skillLanguageSelect) skillLanguageSelect.value = getCreatorLanguage();
       nameInput.value = draft.name || '';
@@ -1964,6 +1984,11 @@
       originRegionName: values.originRegionName,
       originContinent: values.originContinent,
       originRegionContext: values.originRegionContext,
+      worldOriginId: values.worldOriginId,
+      worldOriginName: values.worldOriginName,
+      worldOriginType: values.worldOriginType,
+      worldOriginContinent: values.worldOriginContinent,
+      worldOriginSource: values.worldOriginSource,
       originStory: values.originStory,
       deity: values.deity,
       deityName: values.deityName,
@@ -2704,7 +2729,114 @@
       return;
     }
     explorationFocus = selected;
-    showDraftStep(CREATION_MODES.explore, explorationFocus);
+    showWorldOriginStep();
+  }
+
+  function getWorldOriginTerritory(id) {
+    const atlas = window.CREATOR_ATLAS;
+    const wanted = id === undefined ? selectedWorldOriginId : id;
+    if (!wanted || !atlas || !Array.isArray(atlas.territorios)) return null;
+    return atlas.territorios.find(territory => territory.id === wanted) || null;
+  }
+
+  function describeWorldOrigin(territory) {
+    if (!territory) return '';
+    const kind = WORLD_ORIGIN_KIND_LABELS[territory.tipo] || '';
+    return territory.tipo === 'reino' || territory.tipo === 'salvaje' ? kind + ' · ' + territory.continente : kind;
+  }
+
+  function worldOriginValues() {
+    const territory = currentMode === CREATION_MODES.explore ? getWorldOriginTerritory() : null;
+    return {
+      worldOriginId: territory ? territory.id : '',
+      worldOriginName: territory ? territory.corto : '',
+      worldOriginType: territory ? describeWorldOrigin(territory) : '',
+      worldOriginContinent: territory ? territory.continente : '',
+      worldOriginSource: territory ? 'Atlas del mundo (' + (window.CREATOR_ATLAS.fuente || 'atlas') + ')' : ''
+    };
+  }
+
+  function setWorldOrigin(id) {
+    selectedWorldOriginId = id && getWorldOriginTerritory(id) ? id : '';
+    worldOriginTouched = true;
+    updateWorldOriginBar();
+    updateWorldOriginSummary();
+    renderPreview(readFormValues());
+  }
+
+  function recoverSavedWorldOrigin() {
+    if (selectedWorldOriginId || worldOriginTouched) return;
+    try {
+      const raw = window.localStorage.getItem(storageKeyForMode(CREATION_MODES.explore));
+      if (!raw) return;
+      const draft = JSON.parse(raw);
+      if (draft && typeof draft.worldOriginId === 'string' && getWorldOriginTerritory(draft.worldOriginId)) {
+        selectedWorldOriginId = draft.worldOriginId;
+      }
+    } catch (error) {
+      selectedWorldOriginId = '';
+    }
+  }
+
+  function updateWorldOriginBar() {
+    const territory = getWorldOriginTerritory();
+    if (territory) {
+      originBarText.textContent = 'Origen elegido: ' + territory.corto + ' (' + describeWorldOrigin(territory) + '). Podés cambiarlo cuando quieras.';
+      originContinueButton.textContent = 'CONTINUAR CON ESTE ORIGEN ↗';
+      originClearButton.hidden = false;
+    } else {
+      originBarText.textContent = 'Todavía no elegiste un origen. Podés hacerlo ahora o más adelante.';
+      originContinueButton.textContent = 'CONTINUAR SIN ORIGEN POR AHORA ↗';
+      originClearButton.hidden = true;
+    }
+  }
+
+  function updateWorldOriginSummary() {
+    const isExplorer = currentMode === CREATION_MODES.explore;
+    originSummary.hidden = !isExplorer;
+    if (!isExplorer) return;
+    const territory = getWorldOriginTerritory();
+    originSummaryName.textContent = territory ? territory.corto : 'Todavía sin elegir';
+    originSummaryMeta.textContent = territory ? describeWorldOrigin(territory) : '';
+    originOpenMapButton.textContent = territory ? 'CAMBIAR EN EL MAPA' : 'ELEGIR EN EL MAPA';
+    originPromise.textContent = territory
+      ? 'ORIGEN ELEGIDO: ' + territory.corto + '. Podés cambiarlo desde el mapa cuando quieras; no condiciona tu linaje, tu clase ni tu religión.'
+      : 'Todavía no elegiste un origen. Podés elegirlo desde el mapa cuando quieras; no condiciona tu linaje, tu clase ni tu religión.';
+  }
+
+  function ensureWorldMap() {
+    if (mapController) return mapController;
+    if (!window.CreatorPersonarumMapa || !window.CREATOR_ATLAS) return null;
+    mapController = window.CreatorPersonarumMapa.init({
+      atlas: window.CREATOR_ATLAS,
+      root: originStep,
+      getOriginId: () => selectedWorldOriginId,
+      onOriginChange: setWorldOrigin
+    });
+    return mapController;
+  }
+
+  function showWorldOriginStep() {
+    const controller = ensureWorldMap();
+    if (!controller) {
+      exploreStatus.textContent = 'No se pudo cargar el mapa o el Atlas. Revisá los archivos del mapa antes de continuar.';
+      exploreStatus.dataset.state = 'error';
+      pathChoice.hidden = true;
+      originStep.hidden = true;
+      exploreStep.hidden = false;
+      draftStep.hidden = true;
+      return;
+    }
+    currentMode = CREATION_MODES.explore;
+    pathChoice.hidden = true;
+    exploreStep.hidden = true;
+    draftStep.hidden = true;
+    originStep.hidden = false;
+    recoverSavedWorldOrigin();
+    controller.refresh();
+    updateWorldOriginBar();
+    const heading = document.getElementById('creator-origin-title');
+    if (heading) heading.focus();
   }
 
   introVideo.addEventListener('ended', showWelcome);
@@ -2797,6 +2929,19 @@
     showPathChoice();
   });
   exploreContinueButton.addEventListener('click', continueExploration);
+  backFromOriginButton.addEventListener('click', showExploreStep);
+  originContinueButton.addEventListener('click', () => {
+    showDraftStep(CREATION_MODES.explore, explorationFocus);
+    updateWorldOriginSummary();
+  });
+  originClearButton.addEventListener('click', () => {
+    setWorldOrigin('');
+    if (mapController) mapController.refresh();
+  });
+  originOpenMapButton.addEventListener('click', () => {
+    rememberCurrentDraft();
+    showWorldOriginStep();
+  });
   document.getElementById('creator-origin-story-draft')?.addEventListener('click', prepareOriginStoryDraft);
 
   exploreStep.addEventListener('change', event => {
