@@ -1793,7 +1793,8 @@
         }
       }
       if (!explorationFocus) explorationFocus = draft.explorationFocus || '';
-      if (currentMode === CREATION_MODES.explore && typeof draft.worldOriginId === 'string' && getWorldOriginTerritory(draft.worldOriginId)) {
+      if (currentMode === CREATION_MODES.explore && !selectedWorldOriginId && !worldOriginTouched &&
+          typeof draft.worldOriginId === 'string' && getWorldOriginTerritory(draft.worldOriginId)) {
         selectedWorldOriginId = draft.worldOriginId;
       }
       const skillLanguageSelect = document.getElementById('creator-skill-language');
