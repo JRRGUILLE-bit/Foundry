@@ -220,7 +220,7 @@
 
   function showPathChoice() {
     pathChoice.hidden = false;
-    exploreStep.hidden = true;
+    if (exploreStep) exploreStep.hidden = true;
     originStep.hidden = true;
     draftStep.hidden = true;
     const heading = document.getElementById('creator-path-title');
@@ -2820,17 +2820,14 @@
   function showWorldOriginStep() {
     const controller = ensureWorldMap();
     if (!controller) {
-      exploreStatus.textContent = 'No se pudo cargar el mapa o el Atlas. Revisá los archivos del mapa antes de continuar.';
-      exploreStatus.dataset.state = 'error';
-      pathChoice.hidden = true;
+      pathChoice.hidden = false;
       originStep.hidden = true;
-      exploreStep.hidden = false;
       draftStep.hidden = true;
       return;
     }
     currentMode = CREATION_MODES.explore;
     pathChoice.hidden = true;
-    exploreStep.hidden = true;
+    if (exploreStep) exploreStep.hidden = true;
     draftStep.hidden = true;
     originStep.hidden = false;
     recoverSavedWorldOrigin();
@@ -2923,14 +2920,12 @@
   });
 
   knownPathButton.addEventListener('click', () => showDraftStep(CREATION_MODES.known, ''));
-  explorePathButton.addEventListener('click', showExploreStep);
-  backFromExploreButton.addEventListener('click', showPathChoice);
+  explorePathButton.addEventListener('click', showWorldOriginStep);
   backFromDraftButton.addEventListener('click', () => {
     rememberCurrentDraft();
     showPathChoice();
   });
-  exploreContinueButton.addEventListener('click', continueExploration);
-  backFromOriginButton.addEventListener('click', showExploreStep);
+  backFromOriginButton.addEventListener('click', showPathChoice);
   originContinueButton.addEventListener('click', () => {
     showDraftStep(CREATION_MODES.explore, explorationFocus);
     updateWorldOriginSummary();
@@ -2945,12 +2940,6 @@
   });
   document.getElementById('creator-origin-story-draft')?.addEventListener('click', prepareOriginStoryDraft);
 
-  exploreStep.addEventListener('change', event => {
-    if (event.target && event.target.name === 'creator-exploration-focus') {
-      exploreStatus.textContent = 'Pista elegida: ' + getExplorationLabel(event.target.value) + '. Podés cambiarla después.';
-      exploreStatus.dataset.state = 'idle';
-    }
-  });
 
   classSelect.addEventListener('change', () => {
     updateDivineSection();
