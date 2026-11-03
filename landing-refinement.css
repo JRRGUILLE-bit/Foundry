@@ -581,3 +581,38 @@ body > .behind-screen-dock .behind-screen-trigger {
     transition: none;
   }
 }
+
+
+/* Mobile QA correction: prevent the transformed feed video and heading row from widening the page. */
+@media (max-width: 560px) {
+  .terminal-shell > .terminal-grid,
+  .terminal-shell > .terminal-grid > .feed-panel,
+  .terminal-shell > .terminal-grid > .feed-panel .panel-heading,
+  .terminal-shell > .terminal-grid > .feed-panel .video-frame {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .terminal-shell > .terminal-grid > .feed-panel .panel-heading {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .terminal-shell > .terminal-grid > .feed-panel .panel-heading h2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .terminal-shell > .terminal-grid > .feed-panel .panel-heading > span {
+    max-width: 100%;
+    white-space: normal;
+    margin-left: auto;
+  }
+
+  .terminal-shell > .terminal-grid > .feed-panel .video-frame #site-background {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    transform: translateY(-3.5%) scaleY(1.08);
+  }
+}
